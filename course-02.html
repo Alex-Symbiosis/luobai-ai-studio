@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="落白lite">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<meta name="color-scheme" content="light">
+<title>课程 02 · 人工智能应用工程师 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="人工智能应用工程师课程筹备中：面向 AI 应用工程师方向，分初级、中级、高级三段推进，目前尚未发布。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
+<style>
+  :root{
+    --bg:#f2f7fd;
+    --ink:#121c2b;--ink2:#243044;--muted:#4d5b70;--faint:#5f6f85;
+    --line:rgba(23,42,74,.10);--line2:rgba(23,42,74,.16);
+    --blue:#4051d6;--blue-soft:rgba(64,81,214,.075);
+    --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+    --glass:rgba(255,255,255,.58);
+    --stroke:rgba(255,255,255,.78);
+    --shadow:0 1px 2px rgba(18,28,43,.03),0 30px 70px -52px rgba(18,35,70,.45);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px;background:#eef4fb}
+  body{
+    min-height:100vh;font-family:var(--sans);color:var(--ink);font-size:16.5px;line-height:1.85;
+    background:
+      radial-gradient(1000px 620px at 6% -8%,rgba(64,81,214,.10),transparent 62%),
+      radial-gradient(820px 520px at 98% 2%,rgba(34,190,255,.09),transparent 60%),
+      radial-gradient(760px 620px at 50% 108%,rgba(15,122,108,.055),transparent 62%),
+      linear-gradient(180deg,#f9fcff 0%,#f0f6fd 55%,#f8fbff 100%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
+    background-image:
+      linear-gradient(rgba(23,42,74,.042) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(23,42,74,.042) 1px,transparent 1px);
+    background-size:72px 72px;
+    -webkit-mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
+    mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
+  }
+  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+  a:hover{text-decoration-thickness:2px}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+  .skip{position:fixed;left:18px;top:-64px;z-index:120;padding:10px 16px;border-radius:10px;background:#fff;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--line2);transition:top .18s ease}
+  .skip:focus{top:12px}
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 32px}
+  .hero{padding:88px 0 30px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
+  .kicker::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+  h1{margin-top:18px;font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,56px);line-height:1.16;letter-spacing:-.02em}
+  .state{display:inline-flex;align-items:center;margin-top:18px;padding:3px 11px;border-radius:999px;background:var(--amber-soft);border:1px solid rgba(178,98,6,.22);color:var(--amber);font-size:11.5px;font-weight:700;letter-spacing:.06em}
+  .levels{display:flex;align-items:center;gap:8px;margin-top:20px}
+  .levels span{font-size:12px;font-weight:700;color:var(--ink2);background:rgba(255,255,255,.72);border:1px solid var(--stroke);border-radius:999px;padding:3px 12px;box-shadow:0 1px 2px rgba(18,28,43,.04)}
+  .levels i{font-style:normal;font-size:12px;color:var(--faint)}
+  .sheet{
+    margin:20px 0 40px;padding:34px 38px 30px;border-radius:20px;
+    background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.50));
+    -webkit-backdrop-filter:blur(18px) saturate(1.2);
+    backdrop-filter:blur(18px) saturate(1.2);
+    border:1px solid var(--stroke);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),var(--shadow);
+  }
+  .sheet p{color:var(--ink2);margin-bottom:16px}
+  .sheet p:last-of-type{margin-bottom:0}
+  .sheet .mail{font-weight:600}
+  .end{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);line-height:1.7}
+  footer{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:6px 32px 46px}
+  .foot{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;font-size:12.5px;color:var(--faint);line-height:1.7}
+  .foot a{color:var(--muted);text-decoration:none}
+  .foot a:hover{color:var(--blue);text-decoration:underline}
+  @media(max-width:760px){
+    body{font-size:16px;line-height:1.8}
+    .wrap,footer{padding-left:20px;padding-right:20px}
+    .hero{padding:56px 0 24px}
+    h1{font-size:36px}
+    .sheet{padding:26px 22px 22px;border-radius:16px}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.skip{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="courses.html" aria-current="page">课程</a>
+      <a href="resources.html">资料库</a>
+      <a href="community.html">社区</a>
+    </nav>
+    <a class="sb-go" href="course-01.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="courses.html" aria-current="page">课程</a>
+        <a href="resources.html">资料库</a>
+        <a href="community.html">社区</a>
+      </nav>
+    </details>
+  </div>
+</div>
+
+<main id="main" class="wrap">
+  <header class="hero">
+    <span class="kicker">课程 02</span>
+    <h1>人工智能应用工程师</h1>
+    <div class="state">筹备中</div>
+    <div class="levels" aria-label="等级轨道">
+      <span>初级</span><i aria-hidden="true">→</i><span>中级</span><i aria-hidden="true">→</i><span>高级</span>
+    </div>
+  </header>
+
+  <section class="sheet">
+    <p>这门课面向 AI 应用工程师方向。</p>
+    <p>将来按初级、中级、高级三段推进，一级接一级，不跳段。三段分别对应什么能力，等第一章出来后在这里写明。</p>
+    <p>现在还没有内容，第一章也还没放出来。</p>
+    <p>想先了解，或者有想让它讲的东西，发邮件：<a class="mail" href="mailto:3380977874@qq.com">3380977874@qq.com</a>。收到的会看。</p>
+    <p class="end">有第一章了，这一页会先更新。</p>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>落白lite &amp; AI研学社 · © 2026 落白lite</div>
+    <div><a href="community.html">社区</a> · <a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
+</script>
+</body>
+</html>

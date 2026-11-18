@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="落白lite">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<meta name="color-scheme" content="light">
+<title>AI 入门与 ComfyUI 出图课 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="落白lite &amp; AI研学社的第一门主课：面向大学生与普通人的 AI 入门课，从 AI 基本概念讲到 ComfyUI 节点、参数与真实建筑表现工作流，52 课一条主线，学完能独立看懂、搭建和修改出图流程。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#f6f5f1;--card:#ffffff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+    --line:#e2ded4;--line2:#cbc6ba;--accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);--amber:#b26206;
+    --radius:16px;--shadow:0 1px 2px rgba(24,33,47,.05),0 18px 50px -32px rgba(24,33,47,.45);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:
+      linear-gradient(90deg,rgba(24,33,47,.028) 1px,transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(24,33,47,.028) 1px,transparent 1px) 0 0/72px 72px,
+      var(--paper);
+    color:var(--ink);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(246,245,241,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:16px;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:.01em;white-space:nowrap;color:var(--ink)}
+  .brand .mark{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative;flex:0 0 auto}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+  .brand small{font-weight:600;color:var(--faint);font-size:11px;letter-spacing:.1em}
+  .topnav{margin-left:auto;display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:7px 11px;border-radius:8px;white-space:nowrap}
+  .topnav a:hover{background:var(--accent-soft);color:var(--accent)}
+  .topnav a.go{background:var(--ink);color:#fff;margin-left:4px}
+  .topnav a.go:hover{background:var(--accent);color:#fff}
+
+  .hero{padding:82px 0 34px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-140px;top:-120px;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle,rgba(64,81,214,.10),transparent 66%);pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:54px;align-items:center;position:relative}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.13em;
+    color:var(--accent);background:var(--accent-soft);border:1px solid rgba(64,81,214,.2);padding:5px 12px;border-radius:999px;margin-bottom:22px}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  h1{font-size:clamp(36px,5.4vw,62px);line-height:1.06;letter-spacing:-.045em;font-weight:850}
+  h1 em{font-style:normal;color:var(--accent);box-shadow:inset 0 -0.18em 0 rgba(64,81,214,.16)}
+  .lede{margin-top:24px;max-width:640px;color:var(--muted);font-size:17px;line-height:1.85}
+  .lede b{color:var(--ink);font-weight:700}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:11px;font-size:14px;font-weight:700;transition:.18s}
+  .btn.primary{background:var(--accent);color:#fff;box-shadow:0 12px 28px -14px rgba(64,81,214,.8)}
+  .btn.primary:hover{transform:translateY(-1px);background:#3343bb}
+  .btn.ghost{border:1px solid var(--line2);color:var(--ink);background:rgba(255,255,255,.55)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .facts{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:26px;color:var(--faint);font-size:12.5px}
+  .facts span{display:inline-flex;align-items:center;gap:6px}
+  .facts span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--line2)}
+
+  .path-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 24px 20px;box-shadow:var(--shadow);position:relative}
+  .path-card::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(var(--accent),var(--teal))}
+  .pc-top{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--faint);margin-bottom:14px}
+  .pc-steps{list-style:none;display:grid;gap:0}
+  .pc-steps li{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:9px 0;position:relative}
+  .pc-steps li+li{border-top:1px dashed var(--line)}
+  .pc-code{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 0;text-align:center;height:22px}
+  .pc-t{font-size:13.5px;font-weight:700;line-height:1.45}
+  .pc-d{font-size:12px;color:var(--faint);line-height:1.45}
+  .pc-note{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+
+  section{padding:64px 0 6px;scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .sec-head h2{font-size:clamp(23px,3vw,31px);letter-spacing:-.03em;line-height:1.25;font-weight:800}
+  .sec-head p{color:var(--faint);font-size:13px;max-width:420px;text-align:right}
+  .sec-kicker{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
+
+  .skills{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .skill{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px 20px;box-shadow:var(--shadow);position:relative}
+  .skill .n{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint);margin-bottom:10px}
+  .skill h3{font-size:17px;line-height:1.4;letter-spacing:-.01em;margin-bottom:8px}
+  .skill p{font-size:13.5px;color:var(--muted);line-height:1.72}
+  .skill .check{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink)}
+  .skill .check b{color:var(--teal);font-weight:800}
+
+  .who{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+  .who-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .who-box h3{font-size:14px;letter-spacing:.02em;margin-bottom:12px}
+  .who-box ul{list-style:none;display:grid;gap:9px}
+  .who-box li{font-size:13.5px;color:var(--muted);padding-left:18px;position:relative;line-height:1.7}
+  .who-box li::before{content:"—";position:absolute;left:0;color:var(--line2)}
+  .who-box.no{background:transparent;border-style:dashed}
+  .who-box.no li::before{content:"×";color:var(--amber)}
+
+  .course-label{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.01em;margin:-8px 0 18px}
+  .course-label b{color:var(--ink)}
+
+  .course-block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px 16px;box-shadow:var(--shadow);margin-bottom:10px}
+  .cb-top{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--faint);margin-bottom:12px}
+  .course-row{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .course-num{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:800}
+  .course-main h3{font-size:17px;letter-spacing:-.01em;line-height:1.4}
+  .course-main h3 a{color:var(--ink)}
+  .course-main h3 a:hover{color:var(--accent)}
+  .course-main p{font-size:12.5px;color:var(--faint);margin-top:3px}
+  .course-state{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .course-more{font-size:12px;color:var(--faint);line-height:1.65;margin-top:11px}
+
+  .stage{padding:34px 0 8px;position:relative}
+  .stage+.stage{border-top:1px solid var(--line);margin-top:26px}
+  .stage-head{display:grid;grid-template-columns:74px 1fr 290px;gap:22px;align-items:start;margin-bottom:18px}
+  .stage-code{width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:15px;font-weight:800;color:#fff;background:var(--ink);letter-spacing:-.02em}
+  .stage:nth-of-type(2) .stage-code{background:var(--accent)}
+  .stage h3{font-size:21px;letter-spacing:-.02em;line-height:1.35}
+  .stage h3 small{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--faint);margin-left:8px;font-weight:600}
+  .stage .sd{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.7}
+  .stage-check{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:11px 14px}
+  .stage-check span{display:block;font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--teal);margin-bottom:4px}
+  .stage-check p{font-size:12.5px;color:var(--muted);line-height:1.65}
+
+  .lessons{list-style:none;border-top:1px solid var(--line)}
+  .lessons li{border-bottom:1px solid var(--line)}
+  .lesson{display:grid;grid-template-columns:46px 84px minmax(180px,.9fr) minmax(240px,1.1fr);gap:12px;align-items:baseline;
+    padding:13px 8px;color:var(--ink);transition:.15s;border-radius:6px}
+  .lesson:hover{background:var(--card);padding-left:14px;padding-right:14px}
+  .lesson .no{font-family:var(--mono);font-size:11px;color:var(--line2);font-weight:700}
+  .lesson .code{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--accent)}
+  .lesson .t{font-size:14.5px;font-weight:700;line-height:1.5}
+  .lesson .d{font-size:12.5px;color:var(--faint);line-height:1.6}
+
+  .after{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .after-card{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:.18s}
+  .after-card:hover{transform:translateY(-2px);border-color:rgba(64,81,214,.35)}
+  .after-card .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint);margin-bottom:8px}
+  .after-card h3{font-size:16px;line-height:1.4;margin-bottom:6px}
+  .after-card p{font-size:13px;color:var(--muted);line-height:1.65}
+  .after-note{margin-top:14px;font-size:13px;color:var(--faint)}
+
+  .terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+  .term{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;transition:.15s}
+  .term:hover{border-color:rgba(64,81,214,.4);background:#fff}
+  .term b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--accent);margin-bottom:2px}
+  .term span{font-size:12px;color:var(--faint)}
+
+  footer{margin-top:72px;border-top:1px solid var(--line);background:rgba(255,255,255,.42)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;padding-top:24px;padding-bottom:34px;color:var(--faint);font-size:12.5px}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--accent)}
+
+  @media (max-width:900px){
+    .hero-grid,.who,.skills{grid-template-columns:1fr}
+    .path-card{order:-1}
+    .stage-head{grid-template-columns:64px 1fr}
+    .stage-check{grid-column:1/-1}
+    .lesson{grid-template-columns:38px 74px 1fr}
+    .lesson .d{grid-column:3;margin-top:2px}
+    .after{grid-template-columns:1fr}
+    .sec-head{display:block}
+    .sec-head p{text-align:left;margin-top:8px}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 18px}
+    .hero{padding-top:52px}
+    .topnav a:not(.go){display:none}
+    .lesson{grid-template-columns:34px 1fr;gap:6px 10px}
+    .lesson .code{grid-column:2}
+    .lesson .t{grid-column:2}
+    .lesson .d{grid-column:2}
+    .stage-head{grid-template-columns:1fr}
+    .stage-code{width:46px;height:46px;border-radius:12px;font-size:13px}
+    footer .wrap{display:block}
+    footer .wrap div+div{margin-top:6px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="courses.html" aria-current="page">课程</a>
+      <a href="resources.html">资料库</a>
+      <a href="community.html">社区</a>
+    </nav>
+    <a class="sb-go" href="a/a01-ai-landscape.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="courses.html" aria-current="page">课程</a>
+        <a href="resources.html">资料库</a>
+        <a href="community.html">社区</a>
+      </nav>
+    </details>
+  </div>
+</div>
+
+<main>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><span class="dot"></span>落白lite &amp; AI研学社 · Luobai AI Studio</span>
+      <div class="course-label">主课 01 ·《AI 入门与 ComfyUI 出图课》</div>
+      <h1>读懂 AI，<br>再自己搭一套<br><em>能改的出图工作流</em></h1>
+      <p class="lede">这不是提示词合集。它从 AI 的基本概念讲到 ComfyUI 的节点、参数和真实建筑表现工作流。<b>52 个小节走完，你能独立看懂一张节点图、搭出并调参一条出图链、改图放大，并判断一张成品是怎么被生成出来的。</b></p>
+      <div class="cta">
+        <a class="btn primary" href="a/a01-ai-landscape.html">从第 1 课开始 <span>→</span></a>
+        <a class="btn ghost" href="#mainline">看完整主线</a>
+      </div>
+      <div class="facts"><span>主课 01</span><span>5 个单元 · 52 个小节</span><span>零基础可读</span><span>不需要写代码</span><span>课程页单文件可离线打开</span></div>
+    </div>
+    <aside class="path-card">
+      <div class="pc-top">主课 01 · 5 个单元 · 52 个小节 · 按顺序走</div>
+      <ol class="pc-steps"><li><span class="pc-code">A</span><div><div class="pc-t">共同语言</div><div class="pc-d">AI 通识</div></div></li><li><span class="pc-code">L0</span><div><div class="pc-t">跑出第一张图</div><div class="pc-d">开篇</div></div></li><li><span class="pc-code">L1</span><div><div class="pc-t">看懂参数</div><div class="pc-d">原理</div></div></li><li><span class="pc-code">L2</span><div><div class="pc-t">认识节点</div><div class="pc-d">节点字典</div></div></li><li><span class="pc-code">L3</span><div><div class="pc-t">做出成品</div><div class="pc-d">单品课</div></div></li></ol>
+      <div class="pc-note">每课开头都会标明“第几 / 52 课、先修什么”，走丢时点顶部的“课程地图”即可回到这里。</div>
+    </aside>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="sec-kicker">WHAT YOU CAN DO</div><h2>学完你能做到什么</h2></div>
+      <p>下面四条不是口号，每条都配了可验证的验收方式。课程里没教到的，不会写在这里。</p>
+    </div>
+    <div class="skills"><div class="skill"><div class="n">CAPABILITY · 01</div><h3>看懂一张节点图</h3><p>模型装载、提示词编码、采样、解码、保存分别在画布哪一段；哪些线是主链，哪些支路没有接到输出。</p><div class="check"><b>验收</b> · 给你一张没见过的 ComfyUI 工作流，你能圈出主链，并指出没接输出的节点。</div></div><div class="skill"><div class="n">CAPABILITY · 02</div><h3>自己搭一条出图链并调参</h3><p>从空画布连出“装载→编码→采样→解码→保存”，再改步数、CFG、种子、denoise，观察画面怎么变。</p><div class="check"><b>验收</b> · 任意改一个参数，你能先说出画面会往哪边变，再用运行结果验证。</div></div><div class="skill"><div class="n">CAPABILITY · 03</div><h3>把线稿或毛坯做成效果图</h3><p>用 ControlNet 锁结构、参考图管气质、潜空间重画补细节，做出建筑与室内场景。</p><div class="check"><b>验收</b> · 拿一张线稿或毛坯照片，你能跑出结构不跑偏、风格可解释的效果图。</div></div><div class="skill"><div class="n">CAPABILITY · 04</div><h3>改图、放大、判断来源</h3><p>用遮罩只改一处，用文字定位要改的区域，把 2 MP 的图放大到可交付尺寸，并能反推一张成品的生成路径。</p><div class="check"><b>验收</b> · 给一张成品图和一句新要求，你能判断该重画、局部改还是只放大，并说出依据。</div></div></div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="sec-kicker">WHO IT IS FOR</div><h2>适合谁，不适合谁</h2></div>
+      <p>这套课默认你从零开始，但要求你愿意动手连节点，而不只是看结论。</p>
+    </div>
+    <div class="who">
+      <div class="who-box">
+        <h3>适合你，如果你</h3>
+        <ul>
+          <li>完全没接触过 AI，但想真正学会出图，而不只是收藏提示词。</li>
+          <li>用过网页版生图，遇到“改一个地方，整张图都崩了”。</li>
+          <li>学建筑、室内、环艺，想把线稿或毛坯照片变成效果图。</li>
+          <li>看过很多教程，术语一多就卡住，需要有人按顺序讲。</li>
+        </ul>
+      </div>
+      <div class="who-box no">
+        <h3>不适合</h3>
+        <ul>
+          <li>只想找几个万能提示词，不愿意自己连节点、跑流程。</li>
+          <li>期待“一键出图”，不想理解参数为什么这样设。</li>
+          <li>还没法在电脑上安装并运行 ComfyUI。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mainline">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="sec-kicker">STUDIO · COURSE 01 · UNITS</div><h2>课程 01 的五个单元</h2></div>
+      <p>研学社 → 课程 → 单元 → 小节。不要跳着看：每个单元都为下一个单元准备词和手感。</p>
+    </div>
+    <div class="course-block">
+      <div class="cb-top">研学社 · 课程目录</div>
+      <div class="course-row">
+        <div class="course-num">01</div>
+        <div class="course-main">
+          <h3><a href="a/a01-ai-landscape.html">AI 入门与 ComfyUI 出图课</a></h3>
+          <p>第一门主课 · 5 个单元 · 52 个小节 · 从 AI 通识到建筑表现工作流</p>
+        </div>
+        <span class="course-state">主课 · 在学</span>
+      </div>
+      <p class="course-more">研学社后续会继续增加课程。新课程按同一套「课程 → 单元 → 小节」结构挂在这里，不另起一套入口。本页先只展开已发布的第一门主课。</p>
+    </div>
+    <div class="stage" id="a"><div class="stage-head"><div class="stage-code">A</div><div><h3>AI 通识<small>单元 A · AI 通识</small></h3><p class="sd">不急着装软件。先把 AI、提示词、Agent、工作流这些词放到同一张地图上，后面看节点才不会迷路。</p></div><div class="stage-check"><span>这一段走完</span><p>你能用自己的话说清：大模型在做什么、提示词为什么有两种写法、Agent 和工作流差在哪。</p></div></div><ol class="lessons"><li><a class="lesson" id="a-01" href="a/a01-ai-landscape.html"><span class="no">1</span><span class="code">A01</span><span class="t">一张图看清 AI 家族</span><span class="d">判别式与生成式、大模型与扩散模型，一张图定位你见过的 AI 产品。</span></a></li>
+<li><a class="lesson" id="a-02" href="a/a02-what-llms-do.html"><span class="no">2</span><span class="code">A02</span><span class="t">大模型在做什么</span><span class="d">接龙、token、温度、上下文与幻觉，看懂它为什么会答错。</span></a></li>
+<li><a class="lesson" id="a-03" href="a/a03-prompt-grammars.html"><span class="no">3</span><span class="code">A03</span><span class="t">提示词的两套语法</span><span class="d">对话式四槽位与图像式条件清单，别把聊天写法直接搬进出图。</span></a></li>
+<li><a class="lesson" id="a-04" href="a/a04-word-family.html"><span class="no">4</span><span class="code">A04</span><span class="t">词族辨析：Agent / Tool / MCP / Skill / Workflow</span><span class="d">六个常被混用的词，按层级排好，知道谁包含谁。</span></a></li>
+<li><a class="lesson" id="a-05" href="a/a05-ai-limits.html"><span class="no">5</span><span class="code">A05</span><span class="t">AI 的能力边界</span><span class="d">四个问题、验收方法与风险分级，知道什么该交给 AI、什么不能。</span></a></li>
+<li><a class="lesson" id="a-06" href="a/a06-chat-to-orchestration.html"><span class="no">6</span><span class="code">A06</span><span class="t">从跟 AI 说话到编排 AI</span><span class="d">聊天的三个不可控，怎么变成一条可复现的工作流。</span></a></li>
+<li><a class="lesson" id="a-07" href="a/a07-glossary.html"><span class="no">7</span><span class="code">A07</span><span class="t">术语对照表</span><span class="d">88 条术语按主题分组、按首次出现溯源，随时回来查。</span></a></li>
+<li><a class="lesson" id="a-08" href="a/a08-whos-ai.html"><span class="no">8</span><span class="code">A08</span><span class="t">谁家的 AI</span><span class="d">32 个品牌、6 组场景，先认最常用的六个，再查完整地图。</span></a></li></ol></div><div class="stage" id="l0"><div class="stage-head"><div class="stage-code">L0</div><div><h3>开篇<small>单元 L0 · 开篇</small></h3><p class="sd">第一次把图跑出来。装环境、认界面、载入工作流、改词、运行、存图，先把整条路走通。</p></div><div class="stage-check"><span>这一段走完</span><p>你能把 01 号工作流拖进 ComfyUI，换一张图、改一句词、跑出结果，并在 output 里找到文件。</p></div></div><ol class="lessons"><li><a class="lesson" id="l0-01" href="l0/l0-01-what-is-comfyui.html"><span class="no">9</span><span class="code">L0-01</span><span class="t">ComfyUI 是什么</span><span class="d">网页版与工作流的分工，为什么专业出图要走节点图。</span></a></li>
+<li><a class="lesson" id="l0-02" href="l0/l0-02-install-and-ui.html"><span class="no">10</span><span class="code">L0-02</span><span class="t">装什么，界面怎么用</span><span class="d">模型目录、界面分区、载入与运行、报错的检查顺序。</span></a></li>
+<li><a class="lesson" id="l0-02b" href="l0/l0-02b-using-the-interface.html"><span class="no">11</span><span class="code">L0-02b</span><span class="t">界面怎么用</span><span class="d">六个区域各管什么、三种载入方式、载入后三处红分别代表什么。</span></a></li>
+<li><a class="lesson" id="l0-03" href="l0/l0-03-first-generation.html"><span class="no">12</span><span class="code">L0-03</span><span class="t">完整出一次图</span><span class="d">用 01 号工作流换图、改词、运行、存图，把整条路走通。</span></a></li>
+<li><a class="lesson" id="l0-03b" href="l0/l0-03b-read-main-chain.html"><span class="no">13</span><span class="code">L0-03b</span><span class="t">读懂 01 号主链</span><span class="d">21 个顶层节点、3 个子图，分清主链与没接输出的旁支。</span></a></li><li><a class="lesson" id="l0-04" href="l0/l0-04-cloud-gpu.html"><span class="no">14</span><span class="code">L0-04</span><span class="t">显卡不够，就租云机器</span><span class="d">选平台与镜像、模型目录、云存储、开端口，跑通 01 号工作流。</span></a></li></ol></div><div class="stage" id="l1"><div class="stage-head"><div class="stage-code">L1</div><div><h3>原理<small>单元 L1 · 原理</small></h3><p class="sd">图能跑之后，开始问为什么：潜空间、步数、CFG、种子、ControlNet、IPAdapter 各自在管什么。</p></div><div class="stage-check"><span>这一段走完</span><p>给定 20 步、CFG 5、denoise 1.0，你能说出改动其中任何一个，画面会往哪边变。</p></div></div><ol class="lessons"><li><a class="lesson" id="l1-01" href="l1/l1-01-latent-space-vae.html"><span class="no">15</span><span class="code">L1-01</span><span class="t">潜空间</span><span class="d">为什么模型是在一张 1/8 大的草稿上动笔，而不是直接画像素。</span></a></li>
+<li><a class="lesson" id="l1-01b" href="l1/l1-01b-vae-codec.html"><span class="no">16</span><span class="code">L1-01b</span><span class="t">VAE 编解码</span><span class="d">草稿怎么来、又怎么翻回一张能看的图，有损翻译损失在哪。</span></a></li>
+<li><a class="lesson" id="l1-02" href="l1/l1-02-sampling-steps.html"><span class="no">17</span><span class="code">L1-02</span><span class="t">采样：一步在擦什么</span><span class="d">噪声怎样一步步被擦掉，采样器之间差在哪。</span></a></li>
+<li><a class="lesson" id="l1-02b" href="l1/l1-02b-steps-denoise.html"><span class="no">18</span><span class="code">L1-02b</span><span class="t">步数与 denoise</span><span class="d">20 步在擦什么，denoise 0.55 改的是哪一段。</span></a></li>
+<li><a class="lesson" id="l1-03" href="l1/l1-03-cfg-seed.html"><span class="no">19</span><span class="code">L1-03</span><span class="t">CFG</span><span class="d">模型有多听提示词的话；数值高低各自会带来什么。</span></a></li>
+<li><a class="lesson" id="l1-03b" href="l1/l1-03b-seed.html"><span class="no">20</span><span class="code">L1-03b</span><span class="t">种子</span><span class="d">每一次从哪出发；同一颗种子怎么复现，randomize 与 fixed 的区别。</span></a></li>
+<li><a class="lesson" id="l1-04" href="l1/l1-04-controlnet.html"><span class="no">21</span><span class="code">L1-04</span><span class="t">ControlNet</span><span class="d">让模型照着这张图的结构画，而不是只靠文字猜。</span></a></li>
+<li><a class="lesson" id="l1-04b" href="l1/l1-04b-json-settings.html"><span class="no">22</span><span class="code">L1-04b</span><span class="t">这套 JSON 怎么填</span><span class="d">预处理器怎么配对、union 型怎么切模式、强度落在哪。</span></a></li>
+<li><a class="lesson" id="l1-05" href="l1/l1-05-ipadapter.html"><span class="no">23</span><span class="code">L1-05</span><span class="t">IPAdapter</span><span class="d">参考图给的是气质，不是复印件；它和 ControlNet 各管什么。</span></a></li>
+<li><a class="lesson" id="l1-05b" href="l1/l1-05b-params-noise.html"><span class="no">24</span><span class="code">L1-05b</span><span class="t">参数与噪声</span><span class="d">weight、weight_type 与 IPAdapterNoise 怎么分工。</span></a></li>
+<li><a class="lesson" id="l1-06" href="l1/l1-06-unet-dit.html"><span class="no">25</span><span class="code">L1-06</span><span class="t">UNet 与 DiT</span><span class="d">每一步究竟是谁在猜噪声，它和采样器是什么关系。</span></a></li></ol></div><div class="stage" id="l2"><div class="stage-head"><div class="stage-code">L2</div><div><h3>节点字典<small>单元 L2 · 节点字典</small></h3><p class="sd">把常用节点逐个拆开：输入、条件、采样、输出、检测分割、精修链各有哪些节点，怎么接。</p></div><div class="stage-check"><span>这一段走完</span><p>拿到一张没见过的节点图，你能按 MODEL / IMAGE / LATENT / CONDITIONING 分出主链，并指出哪些支路没接输出。</p></div></div><ol class="lessons"><li><a class="lesson" id="l2-01" href="l2/l2-01-input-loading.html"><span class="no">26</span><span class="code">L2-01</span><span class="t">输入与加载 · 基础六项</span><span class="d">Checkpoint、LoRA、CLIP、VAE、图片，先把材料正确搬进画布。</span></a></li>
+<li><a class="lesson" id="l2-01b" href="l2/l2-01b-extra-loaders.html"><span class="no">27</span><span class="code">L2-01b</span><span class="t">附加五项</span><span class="d">按任务追加的加载器：UNET、CLIP、VAE 分开装时怎么接。</span></a></li>
+<li><a class="lesson" id="l2-02" href="l2/l2-02-text-conditioning.html"><span class="no">28</span><span class="code">L2-02</span><span class="t">文本条件</span><span class="d">一句话怎么变成 CONDITIONING，正向与负向各做什么。</span></a></li>
+<li><a class="lesson" id="l2-02b" href="l2/l2-02b-structure-style.html"><span class="no">29</span><span class="code">L2-02b</span><span class="t">结构与风格条件</span><span class="d">ControlNet 条件、IPAdapter 条件、参考图怎么进采样。</span></a></li>
+<li><a class="lesson" id="l2-02c" href="l2/l2-02c-text-tools.html"><span class="no">30</span><span class="code">L2-02c</span><span class="t">文字工具</span><span class="d">翻译、Florence2 反推、描述怎么变成可用的提示词。</span></a></li>
+<li><a class="lesson" id="l2-03" href="l2/l2-03-sampling-core.html"><span class="no">31</span><span class="code">L2-03</span><span class="t">采样核心</span><span class="d">七格参数、一条高级链，KSampler 的每个输入从哪来。</span></a></li>
+<li><a class="lesson" id="l2-03b" href="l2/l2-03b-latent-inpaint.html"><span class="no">32</span><span class="code">L2-03b</span><span class="t">潜变量与局部重绘</span><span class="d">草稿从哪来，怎么只改一块；ReferenceLatent 正负两槽。</span></a></li>
+<li><a class="lesson" id="l2-03c" href="l2/l2-03c-upscale-size.html"><span class="no">33</span><span class="code">L2-03c</span><span class="t">放大与尺寸</span><span class="d">解码之后才谈出图多大；放大、分块与总像素。</span></a></li>
+<li><a class="lesson" id="l2-04" href="l2/l2-04-output.html"><span class="no">34</span><span class="code">L2-04</span><span class="t">输出：让图落地</span><span class="d">SaveImage、Image Comparer 与预处理器，结果怎么存、怎么对照。</span></a></li>
+<li><a class="lesson" id="l2-04b" href="l2/l2-04b-groups-wiring.html"><span class="no">35</span><span class="code">L2-04b</span><span class="t">组织与接线</span><span class="d">组、子图与 Set/Get，四层嵌套怎么不打架。</span></a></li>
+<li><a class="lesson" id="l2-05" href="l2/l2-05-detect-segment.html"><span class="no">36</span><span class="code">L2-05</span><span class="t">检测与分割</span><span class="d">GroundingDINO 出框、SAM 出遮罩，开放词表怎么用。</span></a></li>
+<li><a class="lesson" id="l2-05b" href="l2/l2-05b-semantic-seg.html"><span class="no">37</span><span class="code">L2-05b</span><span class="t">语义分割</span><span class="d">每个像素领一个类别，ADE20K 与 OneFormer 怎么接。</span></a></li>
+<li><a class="lesson" id="l2-06" href="l2/l2-06-flux2-refine.html"><span class="no">38</span><span class="code">L2-06</span><span class="t">Flux2 精修链</span><span class="d">三个问题、一条判断链，精修子图的关键参数在哪。</span></a></li></ol></div><div class="stage" id="l3"><div class="stage-head"><div class="stage-code">L3</div><div><h3>单品课<small>单元 L3 · 单品课</small></h3><p class="sd">进入真实工作流：文生图、线稿出图、毛坯效果图、局部修改、放大、深度与风格控制，最后自己搭一遍。</p></div><div class="stage-check"><span>这一段走完</span><p>给一张成品图和一句新要求，你能判断该重画、局部改，还是只做放大。</p></div></div><ol class="lessons"><li><a class="lesson" id="l3-a1" href="l3/l3-01-text-to-image.html"><span class="no">39</span><span class="code">L3-A1</span><span class="t">文生图：四步最小链路</span><span class="d">8 个节点、11 根线，跑通编码→采样→解码→保存。</span></a></li>
+<li><a class="lesson" id="l3-a4" href="l3/l3-02-lineart-reference.html"><span class="no">40</span><span class="code">L3-A2</span><span class="t">线稿 + 参考图</span><span class="d">线稿管形、参考图管气质，两条控制线怎么分工。</span></a></li>
+<li><a class="lesson" id="l3-a5" href="l3/l3-03-interior-render.html"><span class="no">41</span><span class="code">L3-A3</span><span class="t">室内毛坯 → 效果图</span><span class="d">把毛坯照片变成可看的效果图，和建筑场景差在哪。</span></a></li>
+<li><a class="lesson" id="l3-a6" href="l3/l3-04-architecture-render.html"><span class="no">42</span><span class="code">L3-A4</span><span class="t">建筑毛坯 + 参考图</span><span class="d">结构控制、风格注入、潜空间重画三套机制叠在一起。</span></a></li>
+<li><a class="lesson" id="l3-b1" href="l3/l3-05-manual-inpaint.html"><span class="no">43</span><span class="code">L3-B1</span><span class="t">手动涂抹局部修改</span><span class="d">遮罩到底管住了什么，只改一处而不动全局。</span></a></li>
+<li><a class="lesson" id="l3-b1b" href="l3/l3-05b-mask.html"><span class="no">44</span><span class="code">L3-05b</span><span class="t">遮罩是什么</span><span class="d">一张许可表：黑白约定、feather 与 grow、像素到潜空间的 8 倍差。</span></a></li>
+<li><a class="lesson" id="l3-b2" href="l3/l3-06-text-guided-inpaint.html"><span class="no">45</span><span class="code">L3-B2</span><span class="t">文字识别局部修改</span><span class="d">用一句话指定改哪儿，检测和分割怎么配合。</span></a></li>
+<li><a class="lesson" id="l3-c1" href="l3/l3-07-hd-upscale.html"><span class="no">46</span><span class="code">L3-C1</span><span class="t">高清放大</span><span class="d">从 2 MP 到 8 MP，四步放大各自用了哪些节点。</span></a></li>
+<li><a class="lesson" id="l3-c1b" href="l3/l3-07b-upscale-methods.html"><span class="no">47</span><span class="code">L3-C1b</span><span class="t">两种放大怎么分</span><span class="d">插值放大与模型放大，各自补的是什么。</span></a></li>
+<li><a class="lesson" id="l3-c2" href="l3/l3-08-depth-control.html"><span class="no">48</span><span class="code">L3-C2</span><span class="t">文生图 + 深度控制</span><span class="d">用深度图锁住空间，提示词只管风格。</span></a></li>
+<li><a class="lesson" id="l3-c3" href="l3/l3-09-depth-segmentation.html"><span class="no">49</span><span class="code">L3-C3</span><span class="t">深度 + 语义分割</span><span class="d">两道控制网同时上，强度怎么分配。</span></a></li>
+<li><a class="lesson" id="l3-c4" href="l3/l3-10-ipadapter-style.html"><span class="no">50</span><span class="code">L3-C4</span><span class="t">IPAdapter 风格迁移</span><span class="d">参考图的风格怎么灌进新图，又不会把内容一起搬走。</span></a></li>
+<li><a class="lesson" id="l3-d1" href="l3/l3-11-link-ai-practice.html"><span class="no">51</span><span class="code">L3-D1</span><span class="t">综合工作流搭建练习</span><span class="d">把前面学过的东西拼成一条能交付、能复用的工作流。</span></a></li>
+<li><a class="lesson" id="l3-d2" href="l3/l3-12-review.html"><span class="no">52</span><span class="code">L3-R</span><span class="t">综合复盘：三组真实案例</span><span class="d">同样一条链，为什么一张跑偏、两张成功。</span></a></li></ol></div>
+  </div>
+</section>
+
+<section id="after">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="sec-kicker">AFTER THE LAST LESSON</div><h2>学完之后，用三件事收尾</h2></div>
+      <p>最后一课不是终点。把学过的拼一遍、复盘一次、留下可查的术语表。</p>
+    </div>
+    <div class="after">
+      <a class="after-card" href="l3/l3-11-link-ai-practice.html"><div class="k">BUILD · 32 节点 / 8 分组</div><h3>自己搭一遍综合工作流</h3><p>把前面学过的加载、条件、采样、输出、分组拼成一条能复用、能交付的工作流。</p></a>
+      <a class="after-card" href="l3/l3-12-review.html"><div class="k">REVIEW · 三组真实案例</div><h3>学会判断一张图为什么跑偏</h3><p>同样一条链，一张失败、两张成功。对照参数和底图，找出可复现的原因。</p></a>
+      <a class="after-card" href="a/a07-glossary.html"><div class="k">REFERENCE · 88 条术语</div><h3>把术语表留下来</h3><p>以后遇到新工作流，先回来查词；每条都指向首次出现和详细讲解的课程。</p></a>
+    </div>
+    <p class="after-note">继续练：换三张不同底图重跑同一条链，每次只改一个参数，记录“改了什么、画面怎么变、为什么”。</p>
+  </div>
+</section>
+
+<section id="glossary">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="sec-kicker">QUICK REFERENCE</div><h2>术语速查</h2></div>
+      <p>21 个最常卡住的词，先给一句话定位；点进去是节点课里的完整解释与反例。</p>
+    </div>
+    <div class="terms"><a class="term" id="term-checkpoint" href="l2/l2-01-input-loading.html#term-checkpoint"><b>Checkpoint</b><span>大模型主文件 · L2-01</span></a><a class="term" id="term-lora" href="l2/l2-01-input-loading.html#term-lora"><b>LoRA</b><span>风格补丁 · L2-01</span></a><a class="term" id="term-clip" href="l2/l2-01-input-loading.html#term-clip"><b>CLIP</b><span>文本编码器 · L2-01</span></a><a class="term" id="term-vae" href="l2/l2-01-input-loading.html#term-vae"><b>VAE</b><span>编解码 · L2-01</span></a><a class="term" id="term-latent" href="l2/l2-03b-latent-inpaint.html#term-latent"><b>Latent</b><span>潜空间 · L2-03b</span></a><a class="term" id="term-cond" href="l2/l2-02-text-conditioning.html#term-cond"><b>CONDITIONING</b><span>条件 · L2-02</span></a><a class="term" id="term-sampler" href="l2/l2-03-sampling-core.html#term-sampler"><b>KSampler</b><span>采样器 · L2-03</span></a><a class="term" id="term-steps" href="l2/l2-03-sampling-core.html#term-steps"><b>steps</b><span>步数 · L2-03</span></a><a class="term" id="term-cfg" href="l2/l2-03-sampling-core.html#term-cfg"><b>CFG</b><span>听话程度 · L2-03</span></a><a class="term" id="term-seed" href="l2/l2-03-sampling-core.html#term-seed"><b>seed</b><span>种子 · L2-03</span></a><a class="term" id="term-denoise" href="l2/l2-03-sampling-core.html#term-denoise"><b>denoise</b><span>去噪强度 · L2-03</span></a><a class="term" id="term-subgraph" href="l2/l2-04b-groups-wiring.html#term-subgraph"><b>Subgraph</b><span>子图 · L2-04b</span></a><a class="term" id="term-controlnet" href="l2/l2-02b-structure-style.html#term-controlnet"><b>ControlNet</b><span>结构控制 · L2-02b</span></a><a class="term" id="term-preprocess" href="l2/l2-02b-structure-style.html#term-preprocess"><b>AIO 预处理器</b><span>预处理 · L2-02b</span></a><a class="term" id="term-ipadapter" href="l2/l2-02b-structure-style.html#term-ipadapter"><b>IPAdapter</b><span>风格注入 · L2-02b</span></a><a class="term" id="term-florence" href="l2/l2-02c-text-tools.html#term-florence"><b>Florence2</b><span>反推描述 · L2-02c</span></a><a class="term" id="term-batch" href="l2/l2-03b-latent-inpaint.html#term-batch"><b>Batch</b><span>批量 · L2-03b</span></a><a class="term" id="term-save" href="l2/l2-04-output.html#term-save"><b>SaveImage</b><span>保存 · L2-04</span></a><a class="term" id="term-comparer" href="l2/l2-04-output.html#term-comparer"><b>Image Comparer</b><span>对比 · L2-04</span></a><a class="term" id="term-upscale" href="l2/l2-03c-upscale-size.html#term-upscale"><b>放大与精修</b><span>尺寸 · L2-03c</span></a><a class="term" id="term-flux2" href="l2/l2-03-sampling-core.html#term-flux2"><b>Flux2</b><span>精修子图 · L2-03</span></a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>落白lite & AI研学社 · © 2026 落白lite</div>
+    <div><a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+    <div><a href="#mainline">回到主线</a></div>
+  </div>
+</footer>
+
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
+</script>
+</body>
+</html>

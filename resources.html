@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="落白lite">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<meta name="color-scheme" content="light">
+<title>资料库 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="资料库还在整理：打算放模型与工作流文件、术语表与速查、外部学习资料、常见报错对照。现在还没有内容。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#121c2b;--ink2:#243044;--muted:#4d5b70;--faint:#5f6f85;
+    --line:rgba(23,42,74,.10);--line2:rgba(23,42,74,.16);
+    --blue:#4051d6;--blue-soft:rgba(64,81,214,.075);
+    --stroke:rgba(255,255,255,.78);
+    --shadow:0 1px 2px rgba(18,28,43,.03),0 30px 70px -52px rgba(18,35,70,.45);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+    --shell:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px;background:#eef4fb}
+  body{
+    min-height:100vh;font-family:var(--sans);color:var(--ink);font-size:16.5px;line-height:1.85;
+    background:
+      radial-gradient(1000px 620px at 6% -8%,rgba(64,81,214,.10),transparent 62%),
+      radial-gradient(820px 520px at 98% 2%,rgba(34,190,255,.09),transparent 60%),
+      radial-gradient(760px 620px at 50% 108%,rgba(15,122,108,.055),transparent 62%),
+      linear-gradient(180deg,#f9fcff 0%,#f0f6fd 55%,#f8fbff 100%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
+    background-image:
+      linear-gradient(rgba(23,42,74,.042) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(23,42,74,.042) 1px,transparent 1px);
+    background-size:72px 72px;
+    -webkit-mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
+    mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
+  }
+  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+  .head{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:56px 32px 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
+  .kicker::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4vw,44px);line-height:1.2;letter-spacing:-.02em;margin:16px 0 12px}
+  .lede{max-width:660px;color:var(--muted);font-size:16.5px;line-height:1.9}
+  .wrap{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:26px 32px 48px}
+
+  .sheet{
+    padding:32px 36px 30px;border-radius:22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.46));
+    -webkit-backdrop-filter:blur(18px) saturate(1.22);backdrop-filter:blur(18px) saturate(1.22);
+    border:1px solid var(--stroke);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),var(--shadow);
+  }
+  .state{
+    display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:2px 12px;border-radius:999px;
+    font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#b26206;
+    background:rgba(178,98,6,.10);border:1px solid rgba(178,98,6,.18);margin-bottom:16px;
+  }
+  .sheet h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,2.4vw,27px);line-height:1.35;letter-spacing:-.01em;margin-bottom:12px}
+  .sheet p{color:var(--ink2);margin-bottom:14px}
+  .sheet p.soft{color:var(--muted);font-size:14.5px;line-height:1.8}
+  .list{list-style:none;margin:20px 0 0}
+  .list li{position:relative;padding:12px 0 12px 20px;border-bottom:1px solid var(--line);color:var(--ink2);font-size:15.5px}
+  .list li:first-child{border-top:1px solid var(--line)}
+  .list li::before{content:"";position:absolute;left:2px;top:1.4em;width:7px;height:1px;background:var(--blue);opacity:.65}
+  .list b{font-weight:700;color:var(--ink)}
+  .mail-box{margin-top:26px;padding:22px 24px;border-radius:16px;background:rgba(255,255,255,.5);border:1px solid var(--line)}
+  .mail-box h2{font-family:var(--sans);font-size:15px;font-weight:700;margin-bottom:8px}
+  .mail-box p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+  .mail{
+    display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:10px;
+    background:var(--blue);color:#fff;font-family:var(--mono);font-size:13.5px;font-weight:600;text-decoration:none;
+    box-shadow:0 10px 24px -14px rgba(64,81,214,.85);transition:background .18s ease,transform .18s ease;
+  }
+  .mail:hover{background:#3343bb;text-decoration:none;transform:translateY(-1px)}
+  .fine{margin:12px 0 0;font-size:12.5px;color:var(--faint);line-height:1.7}
+
+  footer{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(255,255,255,.44)}
+  .foot{max-width:var(--shell);margin:0 auto;padding:20px 32px 26px;display:flex;justify-content:space-between;align-items:center;gap:10px 22px;flex-wrap:wrap;font-size:12.5px;line-height:1.7;color:var(--muted)}
+  .foot-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
+  .foot a:hover{color:var(--blue)}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms !important}}
+  @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.sheet,footer{background:rgba(255,255,255,.92)}}
+  @media (max-width:760px){
+    body{font-size:16px;line-height:1.8}
+    .head{padding:40px 20px 6px}
+    h1{font-size:30px}
+    .wrap{padding:18px 20px 34px}
+    .sheet{padding:24px 20px 22px;border-radius:18px}
+    .foot{display:block;padding:18px 20px 24px}
+    .foot-links{margin-top:6px}
+  }
+</style>
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="courses.html">课程</a>
+      <a href="resources.html" aria-current="page">资料库</a>
+      <a href="community.html">社区</a>
+    </nav>
+    <a class="sb-go" href="course-01.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="courses.html">课程</a>
+        <a href="resources.html" aria-current="page">资料库</a>
+        <a href="community.html">社区</a>
+      </nav>
+    </details>
+  </div>
+</div>
+
+<header class="head">
+  <span class="kicker">RESOURCES</span>
+  <h1>资料库</h1>
+  <p class="lede">这里会放课程之外、能直接拿去用的东西。现在还在整理，先别指望这里有东西。</p>
+</header>
+
+<div class="wrap">
+  <section class="sheet">
+    <span class="state">还在整理</span>
+    <h2>打算放什么</h2>
+    <ul class="list">
+      <li><b>模型与工作流文件</b>：课程里用到的基础模型、LoRA、ControlNet 权重，以及可以直接拖进 ComfyUI 的 JSON 工作流。</li>
+      <li><b>术语表与速查</b>：课里出现过、但不值得单独开一节的名词，按字母和主题排；参数区间也放在这里。</li>
+      <li><b>外部学习资料</b>：官方文档、值得读的公开文章与视频，注明来源和适用版本，不搬运正文。</li>
+      <li><b>常见报错对照</b>：装不上、跑不动、显存爆了、节点标红时，按报错原文查对应的处理办法。</li>
+    </ul>
+    <p class="soft">四类都还没有开始录入。现在点进来只有这份清单——不摆空条目假装已经整理好，整理到哪一步就写到哪一步。</p>
+
+    <div class="mail-box">
+      <h2>有现成的，可以直接发来</h2>
+      <p>你手上如果有验证过的工作流、能复现的报错解法，或者一本值得列进来的公开资料，发邮件说明来源和适用版本即可。被采用的会署名。</p>
+      <a class="mail" href="mailto:3380977874@qq.com">3380977874@qq.com</a>
+      <p class="fine">投稿、纠错、共建都发这个邮箱。涉及版权的文件，请先说明授权方式，我们不收录来源不明的模型。</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="foot">
+    <div>落白lite &amp; AI研学社 · © 2026 落白lite</div>
+    <div class="foot-links">
+      <a href="index.html">关于研学社</a>
+      <a href="courses.html">课程库</a>
+      <a href="community.html">社区</a>
+      <a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a>
+    </div>
+  </div>
+</footer>
+
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
+</script>
+</body>
+</html>

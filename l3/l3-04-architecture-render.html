@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="落白lite（李智博）">
+<meta name="author" content="落白lite">
 <meta name="application-name" content="落白lite & AI研学社">
 <meta property="og:site_name" content="落白lite & AI研学社">
 <title>L3-A4 · 建筑毛坯 + 参考图出图 | 落白lite & AI研学社</title>
@@ -12,7 +12,7 @@
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '落白lite（李智博）',
+  author: '落白lite',
   year: '2026'
 };
 </script>
@@ -204,26 +204,66 @@ const COURSE = {
     .ncard,.pre,.ex{box-shadow:none}
   }
 </style>
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
 </head>
 <body>
-<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 42 / 52 小节 · L3 · 单品课</span><span style="color:#8b93a3;">先修：L3-A3</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-03-interior-render.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-05-manual-inpaint.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
-
-
-<div class="topbar">
-  <div class="wrap">
-    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
-    <span class="crumb">L3 / A 线 / A4</span>
-    <nav class="secnav">
-      <a href="../index.html">← 课程地图</a>
-      <a href="#s2">前置</a>
-      <a href="#s3">全景</a>
-      <a href="#s4">节点</a>
-      <a href="#s5">参数</a>
-      <a href="#s6">踩坑</a>
-      <a href="#s7">练习</a>
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="../index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="../courses.html" aria-current="page">课程</a>
+      <a href="../resources.html">资料库</a>
+      <a href="../community.html">社区</a>
     </nav>
+    <a class="sb-go" href="../course-01.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="../courses.html" aria-current="page">课程</a>
+        <a href="../resources.html">资料库</a>
+        <a href="../community.html">社区</a>
+      </nav>
+    </details>
   </div>
 </div>
+
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">L3 · 单品课</span><span style="color:#8b93a3;">第 42 / 52 节</span><span style="color:#8b93a3;">先修：L3-A3</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-03-interior-render.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-05-manual-inpaint.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <header class="hero">
   <div class="wrap">
@@ -267,17 +307,17 @@ const COURSE = {
       <div class="pre">
         <span class="tag">L1-02</span>
         <h3>采样与步数</h3>
-        <p>采样就是从一团噪声里一步步擦出图，步数就是擦几遍。懂了这两件事，才看得懂为什么 15 步够用、为什么 denoise 是 1.0 等于「从零重画」。见 <a href="../index.html#term-sampler">KSampler</a> 与 <a href="../index.html#term-steps">steps</a>。</p>
+        <p>采样就是从一团噪声里一步步擦出图，步数就是擦几遍。懂了这两件事，才看得懂为什么 15 步够用、为什么 denoise 是 1.0 等于「从零重画」。见 <a href="../course-01.html#term-sampler">KSampler</a> 与 <a href="../course-01.html#term-steps">steps</a>。</p>
       </div>
       <div class="pre">
         <span class="tag">L1-05</span>
         <h3>ControlNet 与 IPAdapter</h3>
-        <p>ControlNet 管「形」：它拿一张结构图，逼画面按结构走。IPAdapter 管「气」：它把参考图的色调和氛围变成向量，塞进模型。本课两条 ControlNet 是串联，IPAdapter 走 style transfer。见 <a href="../index.html#term-controlnet">ControlNet</a>、<a href="../index.html#term-ipadapter">IPAdapter</a>。</p>
+        <p>ControlNet 管「形」：它拿一张结构图，逼画面按结构走。IPAdapter 管「气」：它把参考图的色调和氛围变成向量，塞进模型。本课两条 ControlNet 是串联，IPAdapter 走 style transfer。见 <a href="../course-01.html#term-controlnet">ControlNet</a>、<a href="../course-01.html#term-ipadapter">IPAdapter</a>。</p>
       </div>
       <div class="pre">
         <span class="tag">L2-02</span>
         <h3>条件与提示词</h3>
-        <p>条件（conditioning）就是编码后的提示词，模型真正读的那份。本课的正向条件不是手写，而是 Florence2 盯着参考图反推出来的一段英文。见 <a href="../index.html#term-cond">CONDITIONING</a>、<a href="../index.html#term-florence">Florence2</a>。</p>
+        <p>条件（conditioning）就是编码后的提示词，模型真正读的那份。本课的正向条件不是手写，而是 Florence2 盯着参考图反推出来的一段英文。见 <a href="../course-01.html#term-cond">CONDITIONING</a>、<a href="../course-01.html#term-florence">Florence2</a>。</p>
       </div>
     </div>
 
@@ -1017,8 +1057,8 @@ const COURSE = {
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
-    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite</div>
+    <div class="footer-license"><a href="../community.html">社区</a> · <a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
 
@@ -1044,6 +1084,11 @@ const COURSE = {
     });
     document.title = 'L3-A4 · 建筑毛坯 + 参考图出图 | 落白lite & AI研学社';
   })();
+</script>
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
 </script>
 </body>
 </html>

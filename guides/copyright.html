@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="落白lite（李智博）">
+<meta name="author" content="落白lite">
 <meta name="application-name" content="落白lite & AI研学社">
 <meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
@@ -14,7 +14,7 @@
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '落白lite（李智博）',
+  author: '落白lite',
   year: '2026'
 };
 </script>
@@ -98,17 +98,62 @@ const COURSE = {
     footer .wrap{padding:0 18px}
   }
 </style>
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="wrap">
-    <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
-    <nav class="topnav">
-      <a href="../index.html">← 课程地图</a>
-      <a href="../index.html#mainline">完整主线</a>
-      <a href="../index.html#glossary">术语速查</a>
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="../index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="../courses.html">课程</a>
+      <a href="../resources.html">资料库</a>
+      <a href="../community.html">社区</a>
     </nav>
+    <a class="sb-go" href="../course-01.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="../courses.html">课程</a>
+        <a href="../resources.html">资料库</a>
+        <a href="../community.html">社区</a>
+      </nav>
+    </details>
   </div>
 </div>
 
@@ -121,7 +166,7 @@ const COURSE = {
     <p class="lede">这一页说明落白lite &amp; AI研学社站内文字内容归谁所有、可以怎么用、哪些用法需要先获得授权，以及文中提到的产品名称与图标归谁。</p>
     <div class="meta">
       <div><span>站点归属</span><b>落白lite &amp; AI研学社</b></div>
-      <div><span>著作权人</span><b>落白lite（李智博）</b></div>
+      <div><span>著作权人</span><b>落白lite</b></div>
       <div><span>授权协议</span><b>CC BY-NC-SA 4.0</b></div>
       <div><span>年份</span><b>2026</b></div>
     </div>
@@ -129,7 +174,7 @@ const COURSE = {
 
   <section id="owner">
     <h2><span class="num">01</span>著作权人</h2>
-    <p>落白lite &amp; AI研学社的第一门主课《AI 入门与 ComfyUI 出图课》，其全部文字内容著作权归 <b>落白lite（李智博）</b> 所有。页脚统一署名为「© 2026 落白lite（李智博）」。</p>
+    <p>落白lite &amp; AI研学社的第一门主课《AI 入门与 ComfyUI 出图课》，其全部文字内容著作权归 <b>落白lite</b> 所有。页脚统一署名为「© 2026 落白lite」。</p>
     <p>课程中的示例工作流、参数值与节点编号来自实际工程文件；文字讲解、插图、页面结构与排版由著作权人整理与撰写。</p>
   </section>
 
@@ -137,7 +182,7 @@ const COURSE = {
     <h2><span class="num">02</span>你可以做什么</h2>
     <ul>
       <li><b>个人学习：</b>可以自由阅读、做笔记、跟着课里的步骤在自己的电脑上练习。</li>
-      <li><b>转载：</b>可以转载文字内容，但必须保留署名「落白lite（李智博）」，并附上原文链接；不得删除或遮挡页脚署名。</li>
+      <li><b>转载：</b>可以转载文字内容，但必须保留署名「落白lite」，并附上原文链接；不得删除或遮挡页脚署名。</li>
       <li><b>教学引用：</b>在课堂、社团或公开分享中引用片段时，请注明来源与本页链接；整章转载按上一条处理。</li>
     </ul>
     <div class="ok"><b>一句话：</b>个人怎么学都行；拿出去给别人看，署名和原文链接要带上。</div>
@@ -157,7 +202,7 @@ const COURSE = {
     <h2><span class="num">04</span>改编与相同方式共享</h2>
     <p>本站文字内容采用 <b>CC BY-NC-SA 4.0</b>（署名—非商业性使用—相同方式共享 4.0 国际）授权。</p>
     <ul>
-      <li><b>署名（BY）：</b>改编、节选、重排后发布，必须标注原作者「落白lite（李智博）」与原作链接。</li>
+      <li><b>署名（BY）：</b>改编、节选、重排后发布，必须标注原作者「落白lite」与原作链接。</li>
       <li><b>非商业（NC）：</b>不得用于商业目的。</li>
       <li><b>相同方式共享（SA）：</b>基于本站内容改编出的新作品，必须以同样的 CC BY-NC-SA 4.0 协议发布，不得改换成更宽松或更严格的条款。</li>
     </ul>
@@ -177,12 +222,17 @@ const COURSE = {
 
   <footer>
     <div class="wrap">
-      <div>落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
-      <div><a href="./copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+      <div>落白lite & AI研学社 · © 2026 落白lite</div>
+      <div><a href="../community.html">社区</a> · <a href="./copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
     </div>
   </footer>
 
 </main>
 
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
+</script>
 </body>
 </html>

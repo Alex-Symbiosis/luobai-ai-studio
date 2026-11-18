@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="落白lite">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<meta name="color-scheme" content="light">
+<title>课程库 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="落白lite & AI研学社的课程库：课程 01《AI 入门与 ComfyUI 出图课》已上线 52 个小节；课程 02《人工智能应用工程师》分初级、中级、高级三段推进，筹备中。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#121c2b;--ink2:#243044;--muted:#4d5b70;--faint:#5f6f85;
+    --line:rgba(23,42,74,.10);--line2:rgba(23,42,74,.16);
+    --blue:#4051d6;--blue-soft:rgba(64,81,214,.075);
+    --stroke:rgba(255,255,255,.78);
+    --shadow:0 1px 2px rgba(18,28,43,.03),0 30px 70px -52px rgba(18,35,70,.45);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+    --shell:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px;background:#eef4fb}
+  body{
+    min-height:100vh;font-family:var(--sans);color:var(--ink);font-size:16.5px;line-height:1.85;
+    background:
+      radial-gradient(1000px 620px at 6% -8%,rgba(64,81,214,.10),transparent 62%),
+      radial-gradient(820px 520px at 98% 2%,rgba(34,190,255,.09),transparent 60%),
+      radial-gradient(760px 620px at 50% 108%,rgba(15,122,108,.055),transparent 62%),
+      linear-gradient(180deg,#f9fcff 0%,#f0f6fd 55%,#f8fbff 100%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
+    background-image:
+      linear-gradient(rgba(23,42,74,.042) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(23,42,74,.042) 1px,transparent 1px);
+    background-size:72px 72px;
+    -webkit-mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
+    mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
+  }
+  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+  .glass{
+    background:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.46));
+    -webkit-backdrop-filter:blur(18px) saturate(1.22);backdrop-filter:blur(18px) saturate(1.22);
+    border:1px solid var(--stroke);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),var(--shadow);
+  }
+  .head{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:56px 32px 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
+  .kicker::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4vw,44px);line-height:1.2;letter-spacing:-.02em;margin:16px 0 12px}
+  .lede{max-width:660px;color:var(--muted);font-size:16.5px;line-height:1.9}
+  .wrap{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:26px 32px 48px}
+
+  .unit{
+    position:relative;display:block;margin-bottom:18px;padding:32px 36px 28px;border-radius:22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.48));
+    -webkit-backdrop-filter:blur(18px) saturate(1.22);backdrop-filter:blur(18px) saturate(1.22);
+    border:1px solid var(--stroke);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),var(--shadow);
+    scroll-margin-top:84px;
+  }
+  .unit::before{content:"";position:absolute;left:0;top:30px;bottom:30px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,var(--blue),rgba(15,122,108,.7))}
+  .unit.u2::before{background:linear-gradient(180deg,#b26206,rgba(23,42,74,.18))}
+  .u-id{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--blue);margin-bottom:8px}
+  .unit.u2 .u-id{color:#b26206}
+  .unit h2{font-family:var(--serif);font-weight:600;font-size:clamp(23px,2.6vw,30px);line-height:1.32;letter-spacing:-.015em;margin-bottom:8px}
+  .unit h2 a{color:var(--ink);text-decoration:none}
+  .unit h2 a:hover{color:var(--blue);text-decoration:underline}
+  .u-pos{font-size:14.5px;color:var(--muted);line-height:1.8;max-width:680px}
+  .u-body{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+  .u-body.rev{grid-template-columns:.85fr 1.15fr}
+  .u-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:10px}
+  .u-can{list-style:none;display:grid;gap:9px}
+  .u-can li{position:relative;padding-left:17px;font-size:14.5px;line-height:1.75;color:var(--ink2)}
+  .u-can li::before{content:"";position:absolute;left:2px;top:.74em;width:7px;height:1px;background:var(--blue);opacity:.7}
+  .u-fig{margin:0;display:flex;justify-content:center}
+  .u-fig svg{display:block;width:100%;max-width:430px;height:auto}
+  .u-fig.fig-02 svg{max-width:290px}
+  .u-tbd{font-size:14.5px;color:var(--muted);line-height:1.8}
+  .u-levels{display:flex;align-items:center;gap:8px;margin-top:6px}
+  .u-levels span{font-size:11.5px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+  .u-levels i{font-style:normal;font-size:11px;color:var(--faint)}
+  .u-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+  .u-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;font-size:12.5px;color:var(--muted)}
+  .u-meta .on{color:#0f7a6c;font-weight:700}
+  .u-meta .prep{color:#b26206;font-weight:700}
+  .u-enter{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:10px;
+    background:var(--blue);color:#fff;font-size:13.5px;font-weight:600;text-decoration:none;
+    box-shadow:0 10px 24px -14px rgba(64,81,214,.85);transition:background .18s ease,transform .18s ease;
+  }
+  .u-enter:hover{background:#3343bb;text-decoration:none;transform:translateY(-1px)}
+  .u-enter.ghost{background:rgba(255,255,255,.6);border:1px solid var(--line2);color:var(--ink);box-shadow:none}
+  .u-enter.ghost:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+
+  footer{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(255,255,255,.44)}
+  .foot{max-width:var(--shell);margin:0 auto;padding:20px 32px 26px;display:flex;justify-content:space-between;align-items:center;gap:10px 22px;flex-wrap:wrap;font-size:12.5px;line-height:1.7;color:var(--muted)}
+  .foot-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
+  .foot a:hover{color:var(--blue)}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms !important}}
+  @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.unit,footer{background:rgba(255,255,255,.92)}}
+  @media (max-width:900px){
+    .u-body,.u-body.rev{grid-template-columns:1fr;gap:20px}
+    .u-body.rev .u-fig{order:-1}
+  }
+  @media (max-width:760px){
+    body{font-size:16px;line-height:1.8}
+    .head{padding:40px 20px 6px}
+    h1{font-size:30px}
+    .wrap{padding:18px 20px 34px}
+    .unit{padding:24px 20px 22px;border-radius:18px;margin-bottom:14px}
+    .unit::before{top:22px;bottom:22px}
+    .u-enter{width:100%}
+    .foot{display:block;padding:18px 20px 24px}
+    .foot-links{margin-top:6px}
+  }
+</style>
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="courses.html" aria-current="page">课程</a>
+      <a href="resources.html">资料库</a>
+      <a href="community.html">社区</a>
+    </nav>
+    <a class="sb-go" href="course-01.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="courses.html" aria-current="page">课程</a>
+        <a href="resources.html">资料库</a>
+        <a href="community.html">社区</a>
+      </nav>
+    </details>
+  </div>
+</div>
+
+<header class="head">
+  <span class="kicker">COURSES</span>
+  <h1>课程库</h1>
+  <p class="lede">一门课一块整宽大窗。已上线的能直接进，筹备中的只有说明；以后加课，往下再添一块，不改结构。</p>
+</header>
+
+<div class="wrap">
+
+  <article class="unit" id="c01">
+    <div class="u-id">课程 01 · 已上线</div>
+    <h2><a href="course-01.html">AI 入门与 ComfyUI 出图课</a></h2>
+    <p class="u-pos">从 AI 通识到 ComfyUI 节点、参数与建筑表现工作流，一条主线按顺序走。</p>
+    <div class="u-body">
+      <div>
+        <div class="u-label">学完能做什么</div>
+        <ul class="u-can">
+          <li>看懂一张节点图，圈出主链，指出没接输出的支路。</li>
+          <li>搭出一条出图链并调参，改一个参数能先说出画面会往哪边变。</li>
+          <li>把线稿或毛坯做成效果图，并判断该重画、局部改还是只放大。</li>
+        </ul>
+      </div>
+      <figure class="u-fig">
+        <svg viewBox="0 0 440 130" role="img" aria-label="节点链示意：模型与文本条件进入采样，潜空间经 VAE 解码后输出图片">
+          <defs><marker id="cp-ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#8b93a3"/></marker></defs>
+          <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif">
+            <rect x="8" y="26" width="86" height="42" rx="9" fill="#f6f5f1" stroke="#cbc6ba"/>
+            <text x="51" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#18212f">MODEL</text>
+            <rect x="8" y="80" width="86" height="42" rx="9" fill="#f6f5f1" stroke="#cbc6ba"/>
+            <text x="51" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#18212f">CLIP</text>
+            <line x1="94" y1="47" x2="128" y2="47" stroke="#8b93a3" stroke-width="1.4" marker-end="url(#cp-ar)"/>
+            <line x1="94" y1="101" x2="128" y2="101" stroke="#8b93a3" stroke-width="1.4" marker-end="url(#cp-ar)"/>
+            <rect x="132" y="26" width="100" height="96" rx="11" fill="rgba(64,81,214,.09)" stroke="#4051d6"/>
+            <text x="182" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#4051d6">KSampler</text>
+            <text x="182" y="86" text-anchor="middle" font-size="10.5" fill="#5d6779">采样</text>
+            <line x1="232" y1="74" x2="266" y2="74" stroke="#8b93a3" stroke-width="1.4" marker-end="url(#cp-ar)"/>
+            <rect x="270" y="52" width="72" height="44" rx="9" fill="#fff" stroke="#cbc6ba"/>
+            <text x="306" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#18212f">VAE</text>
+            <line x1="342" y1="74" x2="374" y2="74" stroke="#8b93a3" stroke-width="1.4" marker-end="url(#cp-ar)"/>
+            <rect x="378" y="52" width="54" height="44" rx="9" fill="#f6f5f1" stroke="#cbc6ba"/>
+            <text x="405" y="78" text-anchor="middle" font-size="11.5" font-weight="700" fill="#18212f">IMAGE</text>
+          </g>
+        </svg>
+      </figure>
+    </div>
+    <div class="u-foot">
+      <div class="u-meta"><span>52 个小节</span><span>5 个单元</span><span class="on">已上线</span></div>
+      <a class="u-enter" href="course-01.html">进入课程 <span aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <article class="unit u2" id="c02">
+    <div class="u-id">课程 02 · 筹备中</div>
+    <h2><a href="course-02.html">人工智能应用工程师</a></h2>
+    <p class="u-pos">面向 AI 应用工程师方向，分初级、中级、高级三段推进。</p>
+    <div class="u-body rev">
+      <figure class="u-fig fig-02">
+        <svg viewBox="0 0 300 150" role="img" aria-label="等级轨道示意：初级、中级、高级逐级向上">
+          <defs><marker id="cp-ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#8b93a3"/></marker></defs>
+          <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif">
+            <rect x="10" y="100" width="70" height="40" rx="8" fill="#fff" stroke="#cbc6ba"/>
+            <text x="45" y="125" text-anchor="middle" font-size="12" font-weight="700" fill="#18212f">初级</text>
+            <line x1="80" y1="120" x2="94" y2="120" stroke="#8b93a3" stroke-width="1.4"/>
+            <line x1="86" y1="116" x2="86" y2="66" stroke="#8b93a3" stroke-width="1.4" marker-end="url(#cp-ar2)"/>
+            <rect x="102" y="62" width="70" height="78" rx="8" fill="#fff" stroke="#cbc6ba"/>
+            <text x="137" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#18212f">中级</text>
+            <line x1="172" y1="101" x2="188" y2="101" stroke="#8b93a3" stroke-width="1.4" marker-end="url(#cp-ar2)"/>
+            <rect x="194" y="24" width="70" height="116" rx="8" fill="rgba(178,98,6,.10)" stroke="#b26206"/>
+            <text x="229" y="86" text-anchor="middle" font-size="12" font-weight="700" fill="#b26206">高级</text>
+          </g>
+        </svg>
+      </figure>
+      <div>
+        <div class="u-label">学完能做什么</div>
+        <p class="u-tbd">等第一章放出来再补。</p>
+        <div class="u-label" style="margin-top:18px">三段轨道</div>
+        <div class="u-levels" aria-label="等级轨道"><span>初级</span><i aria-hidden="true">→</i><span>中级</span><i aria-hidden="true">→</i><span>高级</span></div>
+      </div>
+    </div>
+    <div class="u-foot">
+      <div class="u-meta"><span>小节数未定</span><span>3 个等级</span><span class="prep">筹备中</span></div>
+      <a class="u-enter ghost" href="course-02.html">看看这门课在做什么 <span aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+</div>
+
+<footer>
+  <div class="foot">
+    <div>落白lite &amp; AI研学社 · © 2026 落白lite</div>
+    <div class="foot-links">
+      <a href="index.html">关于研学社</a>
+      <a href="resources.html">资料库</a>
+      <a href="community.html">社区</a>
+      <a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a>
+    </div>
+  </div>
+</footer>
+
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
+</script>
+</body>
+</html>

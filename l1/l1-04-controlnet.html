@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="落白lite（李智博）">
+<meta name="author" content="落白lite">
 <meta name="application-name" content="落白lite & AI研学社">
 <meta property="og:site_name" content="落白lite & AI研学社">
 <title>L1-04 ControlNet · 落白lite & AI研学社</title>
@@ -125,20 +125,69 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<style id="sitebar-css">
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
+.sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.sb-mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
+.sb-brand small{font-size:11px;font-weight:500;color:#6b7484;letter-spacing:.05em}
+.sb-nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.sb-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:#4d5b70;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-nav a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-nav a[aria-current="page"]{color:#4051d6;box-shadow:inset 0 -2px 0 #4051d6}
+.sb-go{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:8px;padding:0 16px;border-radius:9px;background:#18212f;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.sb-go:hover{background:#4051d6;color:#fff}
+.sb-menu{display:none;position:relative;margin-left:8px}
+.sb-menu summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border-radius:8px;color:#4d5b70;font-size:12.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sb-menu summary::-webkit-details-marker{display:none}
+.sb-menu summary::marker{content:""}
+.sb-burger{width:16px;height:10px;position:relative;display:inline-block}
+.sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
+.sb-burger::before{top:0}.sb-burger::after{bottom:0}
+.sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
+.sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
+.sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
+.sitebar a:focus-visible,.sitebar summary:focus-visible{outline:2px solid #4051d6;outline-offset:2px}
+@media(max-width:760px){
+ .sb-in{height:60px;padding:0 16px;gap:0}
+ .sb-brand{font-size:12.5px;gap:8px}
+ .sb-brand small,.sb-sub{display:none}
+ .sb-nav{display:none}
+ .sb-go{margin-left:auto;padding:0 12px;font-size:12px}
+ .sb-menu{display:block;margin-left:2px}
+}
+@media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
+</style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
-<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 21 / 52 小节 · L1 · 原理</span><span style="color:#8b93a3;">先修：L1-01、L1-02</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l1-03b-seed.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l1-04b-json-settings.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+<div class="sitebar" role="banner">
+  <div class="sb-in">
+    <a class="sb-brand" href="../index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
+    <nav class="sb-nav" aria-label="站点导航">
+      <a href="../courses.html" aria-current="page">课程</a>
+      <a href="../resources.html">资料库</a>
+      <a href="../community.html">社区</a>
+    </nav>
+    <a class="sb-go" href="../course-01.html">从第 1 课开始</a>
+    <details class="sb-menu">
+      <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
+      <nav class="sb-panel" aria-label="站点菜单">
+        <a href="../courses.html" aria-current="page">课程</a>
+        <a href="../resources.html">资料库</a>
+        <a href="../community.html">社区</a>
+      </nav>
+    </details>
+  </div>
+</div>
 
-<nav class="topbar"><div class="in">
-  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
-  <span class="sp"></span>
-  <span class="hide-s" style="color:var(--faint)">L1 原理 · 04</span>
-  <a class="nav" href="../index.html">课目表</a>
-</div></nav>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">L1 · 原理</span><span style="color:#8b93a3;">第 21 / 52 节</span><span style="color:#8b93a3;">先修：L1-01、L1-02</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l1-03b-seed.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l1-04b-json-settings.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
 
 <main>
-  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-04 ControlNet</p>
+  <p class="crumbs"><a href="../index.html">落白lite &amp; AI研学社</a><span class="sep">/</span><a href="../course-01.html">课程 01</a><span class="sep">/</span>L1 原理<span class="sep">/</span>第 21 / 52 节 · L1-04 ControlNet</p>
 
   <header class="hero">
     <span class="kicker">L1 原理 · 第四课</span>
@@ -272,8 +321,8 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <footer>
   <div class="wrap">
-    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
-    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite</div>
+    <div class="footer-license"><a href="../community.html">社区</a> · <a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
 </main>
@@ -316,6 +365,11 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
     });
   });
 })();
+</script>
+<script id="sitebar-js">
+(function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
+document.addEventListener('click',function(e){var d=document.querySelector('.sb-menu[open]');if(d&&!d.contains(e.target))close()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var d=document.querySelector('.sb-menu[open]');if(d){close();var s=d.querySelector('summary');if(s)s.focus()}}})})();
 </script>
 </body>
 </html>
