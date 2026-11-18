@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L2-05b 语义分割 · AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="语义分割为什么不是检测：ADE20K 的固定类别清单、OneFormer 只认类别不认造型，以及白模为什么会被整片归成一类。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:26px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:700px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.meta b{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout.defer{border-color:var(--amber);background:var(--amber-soft);font-size:14.5px;color:var(--muted)}
+.callout.defer b{color:var(--amber)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow);overflow-x:auto}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:14px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:11.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.grid2 .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.grid2 .box h4{font-family:var(--sans);font-size:14px;margin:0 0 6px}
+.grid2 .box p{font-size:13.5px;margin:0;color:var(--muted)}
+.grid2 .box p+p{margin-top:6px}
+.pits{display:grid;gap:12px;margin:20px 0}
+.pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:14px 16px}
+.pit h3{font-size:16px;margin:0 0 4px}
+.pit p{font-size:14px;margin:0;color:var(--muted)}
+.pit p+p{margin-top:6px}
+.pit .fix{color:var(--teal);font-weight:600}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .grid2{grid-template-columns:1fr}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 节点字典 · 05b</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-05b 语义分割</p>
+
+  <header class="hero">
+    <span class="kicker">L2 节点字典 · 第五册 · 附</span>
+    <h1>语义分割：<br>每个像素领一个类别</h1>
+    <p class="lede">你拿一张建筑白模（不带材质、只剩灰白造型的模型渲染图）丢进语义分割，想让墙、窗、地面各一色。跑完，整片模型被刷成同一种颜色。模型没坏，它只是按类别认，不按造型认；白模恰好把类别线索全抹掉了。</p>
+    <div class="meta">
+      <span>先修 <b>L2-05</b></span>
+      <span>类别清单 <b>ADE20K · 约 150 类</b></span>
+      <span>实例来源 <b>L3-09</b></span>
+      <span>预处理分辨率 <b>512</b></span>
+    </div>
+  </header>
+
+  <h2 id="flow"><span class="no">01 / FLOW</span>一张图看懂：它给每个像素发一个类别</h2>
+  <p>先看它到底产出什么。语义分割（semantic segmentation）把图里每个像素归到一个<b>类别</b>（class）里：这块是墙，那块是地板，那块是窗。类别是清单里的名字，不是一句描述。</p>
+  <p>结果通常画成一张<b>色块图</b>：同一种颜色代表同一类。颜色只是为了让你看见，换一套配色，类别还是那些类别。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 232" role="img" aria-label="白模经 OneFormer 后整片被归为同一类别的示意">
+      <defs>
+        <marker id="ar05b" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+
+      <rect x="4" y="14" width="132" height="108" rx="8" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <polygon points="20,96 20,56 54,40 88,56 88,96" fill="#e8e5de" stroke="#c9c4b8"/>
+      <polygon points="54,40 68,32 102,48 88,56" fill="#f0ede6" stroke="#c9c4b8"/>
+      <rect x="34" y="68" width="14" height="18" fill="#d8d3c8" stroke="#c9c4b8"/>
+      <rect x="62" y="68" width="14" height="18" fill="#d8d3c8" stroke="#c9c4b8"/>
+      <text x="70" y="136" text-anchor="middle" class="svg-title">白模</text>
+      <text x="70" y="152" text-anchor="middle" class="svg-sub">没有颜色与纹理</text>
+
+      <line x1="138" y1="68" x2="158" y2="68" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar05b)"/>
+
+      <rect x="164" y="30" width="132" height="76" rx="8" fill="#eef0ff" stroke="#4051d6"/>
+      <text x="230" y="58" text-anchor="middle" class="svg-title">OneFormer</text>
+      <text x="230" y="76" text-anchor="middle" class="svg-sub">按类别判，不按造型判</text>
+      <text x="230" y="136" text-anchor="middle" class="svg-title">类别模型</text>
+      <text x="230" y="152" text-anchor="middle" class="svg-sub">只认 ADE20K 清单</text>
+
+      <line x1="298" y1="68" x2="318" y2="68" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar05b)"/>
+
+      <rect x="324" y="14" width="132" height="108" rx="8" fill="#18212f"/>
+      <polygon points="340,96 340,56 374,40 408,56 408,96" fill="#d98a3f"/>
+      <polygon points="374,40 388,32 422,48 408,56" fill="#d98a3f"/>
+      <text x="390" y="136" text-anchor="middle" class="svg-title">色块图</text>
+      <text x="390" y="152" text-anchor="middle" class="svg-sub">整片同一个类别</text>
+
+      <text x="230" y="184" text-anchor="middle" class="svg-lbl">白模没有材质、没有颜色，模型拿不到“这是窗、那是墙”的线索。</text>
+      <text x="230" y="208" text-anchor="middle" class="svg-lbl">它不会按造型分，只会按类别猜；猜不出时，整片落到同一类。</text>
+    </svg>
+    <figcaption>右边整片同色，不是渲染出错，而是模型把整片都判成了同一个类别。它只回答“这类像素是什么”，不回答“这个造型像什么”。</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p><b>和上一课的分界：</b><a href="l2-05-detect-segment.html">L2-05</a> 里的分割是“把一个物体抠出来”，产出黑白<b>遮罩</b>；这一课的语义分割是“给全图每个像素分类”，产出彩色<b>类别图</b>。</p>
+    <p>反例：语义分割不是抠图。它不追求边界精细，也不输出透明背景；它只回答“这块属于什么”。</p>
+  </div>
+
+  <div class="callout defer">
+    <p><b>后面专门讲：</b>黑白遮罩怎么接局部重绘，见 <a href="../l3/l3-05-manual-inpaint.html">L3-05 手动涂抹局部修改</a>；检测框怎么变成遮罩，见 <a href="../l3/l3-06-text-guided-inpaint.html">L3-06 文字识别局部修改</a>。这一课只管类别图。</p>
+  </div>
+
+  <p class="small quiet">本课不新增比喻。节点与连线沿用登记表里的“一道工序”“交接单”；类别、清单、色块都按字面理解。</p>
+
+  <h2 id="notdetect"><span class="no">02 / NOT DETECT</span>为什么它不是检测：同一个问题问了两遍</h2>
+  <p>检测问的是“这个东西在哪”。答案是一个框，加一个名字。图里有两把椅子，就给你两个框，各自带 <code>chair</code>。</p>
+  <p>语义分割问的是“这个像素是什么”。答案落在每个像素上，不给框，也不给编号。两把椅子都归 <code>chair</code>，但模型不告诉你有两把。</p>
+
+  <table>
+    <thead><tr><th style="width:22%">问题</th><th style="width:26%">检测</th><th style="width:26%">语义分割</th><th style="width:26%">实例分割</th></tr></thead>
+    <tbody>
+      <tr><td>回答什么</td><td>物体在哪、叫什么。</td><td>每个像素属于哪一类。</td><td>每个物体分别是谁。</td></tr>
+      <tr><td>输出</td><td>框 + 类别。</td><td>整张类别图。</td><td>每个物体一张遮罩。</td></tr>
+      <tr><td>两把椅子</td><td>两个框。</td><td>同一种颜色，不区分。</td><td>两块遮罩，分开编号。</td></tr>
+      <tr><td>能数个数吗</td><td>能。</td><td>不能。</td><td>能。</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>实例分割</b>（instance segmentation）是第三条路：同类物体也要分开。它和语义分割都会给像素，但一个编号，一个不编号。这一课不展开实例分割，知道它存在就够。</p>
+
+  <div class="callout warn">
+    <p><b>别互相替代：</b>检测加 SAM 能得到“某一个物体的遮罩”；语义分割得到“全图每块是什么”。前者适合改一块地板，后者适合给整张图加类别约束。</p>
+  </div>
+
+  <h2 id="ade20k"><span class="no">03 / LABELS</span>ADE20K：一张约 150 类的固定清单</h2>
+  <p>语义分割不会凭空发明类别。它只从训练时见过的那张清单里选。这一课用的模型是 <b>OneFormer</b>：一个在 ADE20K 上训练的分割模型，输入整张图，输出每个像素的类别。这张清单叫 <b>ADE20K</b>，是一个给室内外场景标注类别的数据集，约 150 个标签：<code>wall</code>、<code>floor</code>、<code>ceiling</code>、<code>window</code>、<code>door</code>、<code>sofa</code>、<code>plant</code> 都在里面。</p>
+  <p><b>数据集</b>就是一批带标注的图片，用来训练和评测模型。清单由数据集定死，不是你在节点里现写的。</p>
+
+  <h3>清单外的东西去哪了</h3>
+  <p>你想要“玻璃幕墙”，清单里没有这个词。模型不会新增一类，它只能把这块归到最接近的类，比如 <code>window</code> 或 <code>wall</code>。</p>
+  <p>反例：ADE20K 不是提示词列表。你在预处理节点里写一段描述，不会让它多认一类；那个节点只负责选模型和分辨率。</p>
+
+  <h3>颜色不是材质</h3>
+  <p>色块图里，红色块可能代表 <code>wall</code>，蓝色块可能代表 <code>window</code>。这套颜色只是为了可视化，和最终出图的材料颜色无关。</p>
+  <p>反例：看到红色块，不代表模型建议你把墙刷成红色。它只是在说“这些像素属于墙”。</p>
+
+  <h2 id="why"><span class="no">04 / WHY</span>白模为什么整片归成一类</h2>
+  <p>回到开头那张白模。它只有灰白造型，没有石材、玻璃、木纹，也没有明暗材质差异。对语义分割来说，这些正是判断类别的线索。</p>
+  <p>模型主要看外观和上下文：这块像素的颜色、纹理，周围接着什么。它不看“这个轮廓像窗框”，也不按建筑制图规则推理。线索一弱，整片就被推到同一个大类里。</p>
+
+  <div class="grid2">
+    <div class="box">
+      <h4>原因一：清单里没有“白模”</h4>
+      <p>ADE20K 约 150 类里没有“未赋材质的模型”这一类，模型只能往最近的大类靠。</p>
+    </div>
+    <div class="box">
+      <h4>原因二：外观线索被抹掉</h4>
+      <p>没有颜色和纹理，窗、墙、地面看起来都差不多，类别判断失去依据。</p>
+    </div>
+  </div>
+
+  <p>反例：这不是“模型精度不够”。换一张有材质的室内照片，同一个模型能分出墙、地板、沙发。失效的是输入，不是类别表。</p>
+
+  <div class="callout tip">
+    <p><b>正确的输入顺序：</b>先出一张带材质的成品图，再拿它做分割源。L3-09 就是这么接的：#26 读的是上一轮成品 <code>ComfyUI_00015_.png</code>，不是白模。</p>
+    <p>如果你要的是结构，不是类别，那就换工具：深度图管远近，线稿管轮廓，见 <a href="../l3/l3-08-depth-control.html">L3-08 文生图加深度控制</a>。语义分割只管“这块是什么”。</p>
+  </div>
+
+  <h2 id="use"><span class="no">05 / USE</span>它能干什么：给 ControlNet 一张类别图</h2>
+  <p>语义分割最常见的用法，是给 ControlNet 当第二道约束。ControlNet 是挂在模型上的控制网，读一张控制图，把构图或类别信息带进采样（sampler，一步步去噪出图，见 <a href="../l1/l1-02-sampling-steps.html">L1-02 采样与步数</a>）；控制网本身的原理见 <a href="../l1/l1-04-controlnet.html">L1-04 ControlNet</a>。</p>
+  <p>L3-09 的链路是这样的：<code>OneFormer-ADE20K-SemSegPreprocessor</code> 先算出色块图，分辨率 <b>512</b>；这张图再交给 <code>ControlNetApplyAdvanced</code>，作为第二道控制接进已经跑着深度的模型链。</p>
+
+  <table>
+    <thead><tr><th style="width:26%">输出</th><th style="width:24%">它是什么</th><th style="width:25%">接哪</th><th style="width:25%">别接哪</th></tr></thead>
+    <tbody>
+      <tr><td><b>语义色块图</b></td><td>彩色图（RGB，红绿蓝三通道），每种颜色一类。</td><td>ControlNet 的 image 口。</td><td>不能当二值遮罩（只有黑白两值）接 inpaint。</td></tr>
+      <tr><td><b>深度图</b></td><td>灰度图，越亮越近或越远。</td><td>深度 ControlNet。</td><td>不回答类别，只回答远近。</td></tr>
+      <tr><td><b>二值遮罩</b></td><td>黑白图，白改黑不改。</td><td>局部重绘的 mask 口。</td><td>不是类别图，不带“这是什么”。</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>512 是什么：</b>预处理时把图缩到 512 这个量级再分类。缩得太小，窗框、栏杆这类细物会丢；缩得太大，速度变慢，收益有限。L3-09 用 512，是速度与细节的折中。</p>
+  <p>深度与语义分工：深度只管远近，语义只管类别。两道网一起上，画面既有空间结构，又不会把墙和地板糊成一片。完整接法见 <a href="../l3/l3-09-depth-segmentation.html">L3-09 深度控制加语义分割</a>。</p>
+
+  <h2 id="pitfalls"><span class="no">06 / PITFALLS</span>五个高频坑</h2>
+  <div class="pits">
+    <div class="pit">
+      <h3>拿白模当分割源</h3>
+      <p>症状：整片模型一个颜色，墙、窗、地面分不开。</p>
+      <p class="fix">改法：先用带材质的成品图或照片做分割源；白模只用来定结构，不给语义分割用。</p>
+    </div>
+    <div class="pit">
+      <h3>把色块图当遮罩接重绘</h3>
+      <p>症状：想只改一块区域，结果整张图都变了。色块图是彩色类别图，不是“白改黑不改”的黑白遮罩。</p>
+      <p class="fix">改法：要局部重绘，回到 L2-05 的遮罩路线；语义色块图只接 ControlNet。</p>
+    </div>
+    <div class="pit">
+      <h3>想在节点里新增一个类别</h3>
+      <p>症状：写“玻璃幕墙”“旋转楼梯”，输出里根本没有这些类。</p>
+      <p class="fix">改法：先查 ADE20K 清单；清单外只能落到最近的类。真需要新类别，得换模型或自己训练，不是改一个参数。</p>
+    </div>
+    <div class="pit">
+      <h3>把颜色当成材质建议</h3>
+      <p>症状：看到墙被涂成绿色，就以为要让墙变绿。</p>
+      <p class="fix">改法：记住颜色只是类别编号的可视化；材质写在提示词里，不靠色块图。</p>
+    </div>
+    <div class="pit">
+      <h3>用它数物体个数</h3>
+      <p>症状：图里三把椅子，语义图里只有一片 <code>chair</code> 颜色，数不出来。</p>
+      <p class="fix">改法：数个数用检测或实例分割；语义分割只回答像素类别。</p>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h4>交作业前自检</h4>
+    <label class="check"><input type="checkbox" data-key="0"><span>我能说清语义分割与检测各自回答什么问题。</span></label>
+    <label class="check"><input type="checkbox" data-key="1"><span>我知道 ADE20K 是约 150 类的固定清单，不能临时加类。</span></label>
+    <label class="check"><input type="checkbox" data-key="2"><span>我能解释白模为什么整片归成一类，以及该换什么输入。</span></label>
+    <label class="check"><input type="checkbox" data-key="3"><span>我知道语义色块图接 ControlNet，不接 inpaint 的 mask 口。</span></label>
+    <label class="check"><input type="checkbox" data-key="4"><span>我知道 512 限制了哪类细节，也知道颜色不代表材质。</span></label>
+    <label class="check"><input type="checkbox" data-key="5"><span>我不会用它数物体个数，知道该换检测或实例分割。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-05-detect-segment.html"><span class="dir">← 上一课</span>L2-05 检测与分割</a>
+    <a href="l2-06-flux2-refine.html"><span class="dir">下一课 →</span>L2-06 Flux2 精修链</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var map={name:COURSE.name,author:COURSE.author,year:COURSE.year};
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v=map[el.getAttribute('data-bind')];if(v)el.textContent=v;
+  });
+
+  document.querySelectorAll('.check input[type="checkbox"]').forEach(function(b){
+    var key='cui-l205b-check-'+b.getAttribute('data-key');
+    try{if(localStorage.getItem(key)==='1')b.checked=true;}catch(e){}
+    b.addEventListener('change',function(){
+      try{localStorage.setItem(key,b.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

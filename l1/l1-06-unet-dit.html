@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L1-06 UNet 与 DiT · AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="每一步去噪时，究竟是谁在猜噪声：UNet 的卷积与跳跃连接、DiT 的 Transformer 主干，以及 Checkpoint 三件套的关系。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:26px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:700px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.meta b{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout.defer{border-color:var(--amber);background:var(--amber-soft);font-size:14.5px;color:var(--muted)}
+.callout.defer b{color:var(--amber)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow);overflow-x:auto}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:13.5px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:11px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:11px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.grid2 .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.grid2 .box h4{font-family:var(--sans);font-size:14px;margin:0 0 6px}
+.grid2 .box p{font-size:13.5px;margin:0;color:var(--muted)}
+.grid2 .box p+p{margin-top:6px}
+.pits{display:grid;gap:12px;margin:20px 0}
+.pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:14px 16px}
+.pit h3{font-size:16px;margin:0 0 4px}
+.pit p{font-size:14px;margin:0;color:var(--muted)}
+.pit p+p{margin-top:6px}
+.pit .fix{color:var(--teal);font-weight:600}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .grid2{grid-template-columns:1fr}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 06</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-06 UNet 与 DiT</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第六课</span>
+    <h1>UNet 与 DiT：<br>每一步，究竟是谁在猜噪声</h1>
+    <p class="lede">你按下生成，采样器走了 15 步。每一步都有一团带噪的潜变量被送进某个网络，出来一张“噪声预测图”。这个网络是谁？SDXL 里叫 UNet，Flux 里叫 DiT。这一课只解决一件事：认清这个负责猜的网络，以及它和 Checkpoint 的关系。</p>
+    <div class="meta">
+      <span>先修 <b>L1-02</b></span>
+      <span>主干 <b>UNet / DiT</b></span>
+      <span>打包 <b>Checkpoint</b></span>
+      <span>节点 <b>KSampler · UNETLoader</b></span>
+    </div>
+  </header>
+
+  <h2 id="who"><span class="no">01 / WHO</span>采样器不猜，它只安排节奏</h2>
+  <p>先看一个容易混的分工。采样器（sampler）决定“每一步怎么迈、迈多大”，它不负责猜“这团噪声本来该是什么画面”。真正做猜测的，是 <code>KSampler</code> 里面反复调用的那个网络。</p>
+  <p>网络每次只做一次判断：给它当前的带噪潜变量、提示词条件、以及“现在脏到第几步”，它交回一张和输入同尺寸的噪声估计。采样器拿到这张估计，减掉一点，进入下一步。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 238" role="img" aria-label="采样器循环调用 UNet 或 DiT，网络每次输出噪声或速度估计">
+      <defs>
+        <marker id="ar106" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+
+      <rect x="8" y="20" width="112" height="38" rx="7" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <text x="64" y="37" text-anchor="middle" class="svg-title">带噪潜变量</text>
+      <text x="64" y="51" text-anchor="middle" class="svg-sub">这一步的草稿</text>
+
+      <rect x="8" y="74" width="112" height="38" rx="7" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <text x="64" y="91" text-anchor="middle" class="svg-title">条件</text>
+      <text x="64" y="105" text-anchor="middle" class="svg-sub">提示词编码后的向量</text>
+
+      <rect x="8" y="128" width="112" height="38" rx="7" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <text x="64" y="145" text-anchor="middle" class="svg-title">时间步 t</text>
+      <text x="64" y="159" text-anchor="middle" class="svg-sub">现在有多脏</text>
+
+      <line x1="122" y1="39" x2="168" y2="72" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar106)"/>
+      <line x1="122" y1="93" x2="168" y2="93" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar106)"/>
+      <line x1="122" y1="147" x2="168" y2="114" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar106)"/>
+
+      <rect x="172" y="58" width="120" height="70" rx="9" fill="#eef0ff" stroke="#4051d6" stroke-width="1.5"/>
+      <text x="232" y="84" text-anchor="middle" class="svg-title">UNet / DiT</text>
+      <text x="232" y="101" text-anchor="middle" class="svg-sub">只做一次猜测</text>
+      <text x="232" y="116" text-anchor="middle" class="svg-sub">不负责减掉</text>
+
+      <line x1="294" y1="93" x2="330" y2="93" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar106)"/>
+
+      <rect x="334" y="64" width="118" height="58" rx="8" fill="#fff" stroke="#0f7a6c" stroke-width="1.5"/>
+      <text x="393" y="86" text-anchor="middle" class="svg-title">噪声 / 速度</text>
+      <text x="393" y="102" text-anchor="middle" class="svg-sub">一张同尺寸估计</text>
+      <text x="393" y="116" text-anchor="middle" class="svg-sub">不是成品图</text>
+
+      <path d="M393 126 L393 186 L64 186 L64 166" fill="none" stroke="#b26206" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#ar106)"/>
+      <rect x="160" y="172" width="140" height="30" rx="6" fill="#fdf3e7" stroke="#b26206" stroke-dasharray="4 3"/>
+      <text x="230" y="192" text-anchor="middle" class="svg-sub">采样器减一点，进入下一步</text>
+
+      <text x="230" y="224" text-anchor="middle" class="svg-lbl">KSampler 负责循环；网络只交每一步的猜测结果。</text>
+    </svg>
+    <figcaption>网络交回的是“噪声长什么样”，不是成品图。采样器拿它做减法，再把这团稍干净的草稿送回网络。循环几次，由步数决定。</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p><b>本课边界先说清：</b>步数给多少、采样器怎么选，<a href="l1-02-sampling-steps.html">L1-02 采样与步数</a> 已经讲过，这一课不重复。这里只回答“那个被反复调用的网络是谁”。</p>
+  </div>
+
+  <p class="small quiet">擦噪声沿用登记表里的固定说法：<a href="../a/a07-glossary.html#s-analogy">扩散模型 = 从一团噪声里一步步擦出图</a>。本课不另造第二个比喻。</p>
+
+  <h2 id="unet"><span class="no">02 / UNET</span>UNet：带跳跃连接的卷积分支</h2>
+  <p>先看 SDXL 这条线。你把提示词写“细黑窗框”，出图时窗框却糊了。原因之一，是网络在缩小画布看全局时，把细线弄丢了。UNet 的结构，就是为这个问题设计的。</p>
+
+  <h3>它的形状是一个 U</h3>
+  <p>UNet 的主干由<b>卷积</b>（convolution）堆起来。卷积做的事很具体：拿一个小窗口在画面上滑动，一块一块提取局部纹理。前半段不断<b>下采样</b>（downsample），把长宽缩小、通道加宽（同一位置叠更多种特征），让网络看到更大的范围；后半段不断<b>上采样</b>（upsample），把长宽放大回原来的尺寸。</p>
+  <p>中间最窄的一层，负责“整体是什么”；越往两边，越管“边缘在哪”。这就是 U 形：先缩下去，再放上来。</p>
+
+  <h3>跳跃连接把细节捞回来</h3>
+  <p><b>跳跃连接</b>（skip connection）是 UNet 的关键。它把下采样路上某一层的特征，直接接到上采样路上同尺寸的那一层。这样，细线和位置信息不必全都挤过最窄的瓶颈，可以走一条近路回到输出。</p>
+  <p>反例：跳跃连接不是“把原图复制一份贴回去”。它接的是网络内部的中间特征，不是像素；它帮网络记住细节，不会替你保留原图。</p>
+
+  <h3>它每步交什么</h3>
+  <p>输入三样：当前带噪的潜变量、条件、时间步。输出一样：一张和输入同宽高的噪声估计（有些模型预测的是速度，下一节说）。它不输出成品图，也不决定减多少。</p>
+
+  <div class="callout tip">
+    <p><b>落到工作流：</b><code>CheckpointLoaderSimple</code> 的 MODEL 输出接到 <code>KSampler</code> 的 model 输入；这个 MODEL 里装的，就是本课说的这个网络。条件怎么编码，见 <a href="../l2/l2-02-text-conditioning.html">L2-02 条件与编码</a>；条件牵引多强，见 <a href="l1-03-cfg-seed.html">L1-03 CFG 与种子</a>。</p>
+  </div>
+
+  <h2 id="dit"><span class="no">03 / DIT</span>DiT：把卷积主干换成 Transformer</h2>
+  <p>现在打开 Flux 的工作流。节点还叫 <code>UNETLoader</code>，但模型内部已经不是 U 形。它没有一层层下采样再上采样，也没有那些横向的跳跃连接。它换了一条主干。</p>
+
+  <h3>先把草稿切成小块</h3>
+  <p><b>DiT</b>（Diffusion Transformer）把带噪潜变量切成一个个<b>小块</b>（patch），每个小块当成一个单元送进 <b>Transformer</b>。Transformer 的核心是<b>注意力</b>（attention）：让每个小块去看其他小块，判断哪些关系要紧。</p>
+  <p>卷积一次只看窗口附近；注意力从第一层起就能跨整张图建立联系。窗框和墙面的关系、沙发和地毯的边界，不必等到最窄的一层才汇总。</p>
+
+  <h3>变的是主干，不变的是契约</h3>
+  <p>DiT 的输入输出和 UNet 一样：带噪潜变量、条件、时间步进去，同尺寸的噪声或速度估计出来。采样器不需要知道里面是卷积还是注意力，它只要拿到那张估计，继续减。</p>
+
+  <table>
+    <thead><tr><th style="width:20%">对比项</th><th style="width:40%">UNet（SD1.5 / SDXL）</th><th style="width:40%">DiT（Flux / SD3 这一系）</th></tr></thead>
+    <tbody>
+      <tr><td>主干</td><td>卷积，小窗口逐块提取。</td><td>Transformer，小块之间做注意力。</td></tr>
+      <tr><td>形状</td><td>U 形：下采样到最窄，再上采样回去。</td><td>平铺的块序列，不再有 U 形往返。</td></tr>
+      <tr><td>细节通路</td><td>靠跳跃连接走近路。</td><td>靠注意力直接参考其他位置。</td></tr>
+      <tr><td>输入输出</td><td>带噪潜变量 + 条件 + 时间步 → 噪声估计。</td><td>同样三样进，同尺寸估计出。</td></tr>
+      <tr><td>谁减噪声</td><td>采样器，不是网络。</td><td>同样由采样器减。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Flux 预测的不是噪声，是速度</h3>
+  <p>还有一处容易混。UNet 时代的模型常直接预测噪声；Flux 这类模型常预测<b>速度</b>（velocity）：往哪个方向擦、擦多快。对应的训练方式叫<b>流匹配</b>（flow matching）。</p>
+  <p>对使用者来说，差别不在“要不要自己算”。网络交回的东西换了名字，采样器照样拿它推进下一步。你只需要记住：这个网络的职责始终是“给当前草稿一个往哪走的估计”。流匹配的数学不在这门课里展开。</p>
+
+  <div class="callout warn">
+    <p><b>别被节点名骗：</b>ComfyUI 里加载 Flux 主干的节点仍叫 <code>UNETLoader</code>，但装进去的可以是 DiT。节点名是历史遗留，不代表架构。判断架构看模型文件与说明，不看节点标题。</p>
+  </div>
+
+  <h2 id="ckpt"><span class="no">04 / CHECKPOINT</span>Checkpoint：一个文件里装了三件</h2>
+  <p>把网络放回它所在的那个文件。你下载的 <code>.safetensors</code>（一种只装权重的模型文件格式）常常不是“一个网络”，而是一个<b>Checkpoint</b>（检查点文件）：把出图要用的三件东西打在一个包里。</p>
+
+  <table>
+    <thead><tr><th style="width:24%">包里的东西</th><th style="width:34%">它负责什么</th><th style="width:42%">少了它会怎样</th></tr></thead>
+    <tbody>
+      <tr><td><b>UNet / DiT</b></td><td>每一步猜噪声或速度的主干。</td><td>没有东西可采样，直接跑不起来。</td></tr>
+      <tr><td><b>CLIP</b></td><td>把提示词转成条件向量。网络只读向量，不读原文。</td><td>提示词进不去，画面不受文字控制。</td></tr>
+      <tr><td><b>VAE</b></td><td>像素与潜空间之间的有损翻译机。</td><td>草稿回不到像素，出不了可保存的图。</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>整合装法：</b><code>CheckpointLoaderSimple</code> 一次吐出三路 MODEL、CLIP、VAE。SDXL 这类整合模型走这条路，三个加载节点可以省掉。</p>
+  <p><b>拆分装法：</b>Flux 常把三件分开：<code>UNETLoader</code> 只出 MODEL，<code>CLIPLoader</code> 或 <code>DualCLIPLoader</code> 出条件，<code>VAELoader</code> 出翻译机，三件凑齐才出图。两套装法在 <a href="../l2/l2-01-input-loading.html">L2-01 输入与加载</a> 里有逐节点参数，这一课不重写。</p>
+
+  <div class="callout">
+    <p><b>所以换 Checkpoint 不是只换画风：</b>你可能同时换掉主干、文本编码器和 VAE。三者一起变，结果自然差很多。反例：Checkpoint 不是某个网络架构的名字；UNet 模型可以打成 Checkpoint，DiT 模型也可以。</p>
+  </div>
+
+  <h2 id="why"><span class="no">05 / WHY DIT</span>为什么 Flux 时代改口叫 DiT</h2>
+  <p>时间线很清楚：SD1.5 与 SDXL 的主干是 UNet；Flux、SD3 这一系换成 Transformer 主干，也就是 DiT 家族。叫法变了，是因为里面真的换了结构，不是因为营销换词。</p>
+
+  <div class="grid2">
+    <div class="box">
+      <h4>为什么换</h4>
+      <p>注意力从第一层就能跨整张图建立关系；模型规模变大时，Transformer 这条路线更好扩展。</p>
+    </div>
+    <div class="box">
+      <h4>为什么还叫 UNETLoader</h4>
+      <p>ComfyUI 的节点名沿用了旧称呼。文件里装的是 DiT，节点标题还写着 UNet。</p>
+    </div>
+  </div>
+
+  <p>反例：DiT 不是“任何情况下都比 UNet 强”。小图、少步、旧显卡上，UNet 模型仍然常见；选型看你的模型文件、显存和用途，不看哪个名字更新。</p>
+
+  <div class="callout defer">
+    <p><b>前面已讲：</b>采样器与调度器怎么配合、步数与去噪强度怎么给，见 <a href="l1-02-sampling-steps.html">L1-02 采样与步数</a>；CFG 与种子怎么影响结果，见 <a href="l1-03-cfg-seed.html">L1-03 CFG 与种子</a>；VAE 为什么有损，见 <a href="l1-01-latent-space-vae.html">L1-01 潜空间与 VAE</a>。本课只把“谁在猜”这件事说清。</p>
+  </div>
+
+  <h2 id="check"><span class="no">06 / CHECK</span>自检与知识边界</h2>
+  <table>
+    <thead><tr><th style="width:50%">本课讲了</th><th style="width:50%">本课没讲，去哪看</th></tr></thead>
+    <tbody>
+      <tr><td>采样器与预测网络的分工。</td><td>步数、采样器、调度器：<a href="l1-02-sampling-steps.html">L1-02</a></td></tr>
+      <tr><td>UNet 的卷积主干与跳跃连接。</td><td>潜空间与 VAE：<a href="l1-01-latent-space-vae.html">L1-01</a></td></tr>
+      <tr><td>DiT 的小块、注意力与全局关系。</td><td>条件怎么编码：<a href="../l2/l2-02-text-conditioning.html">L2-02</a></td></tr>
+      <tr><td>Checkpoint 三件套与整合 / 拆分装法。</td><td>各加载节点的参数：<a href="../l2/l2-01-input-loading.html">L2-01</a></td></tr>
+      <tr><td>Flux 预测速度、节点名滞后于架构。</td><td>CFG 与种子：<a href="l1-03-cfg-seed.html">L1-03</a></td></tr>
+    </tbody>
+  </table>
+
+  <div class="checklist">
+    <h4>勾选你真正理解的条目</h4>
+    <label class="check"><input type="checkbox" data-key="0"><span>我能说清：采样器负责循环和减法，网络只负责每一步的猜测。</span></label>
+    <label class="check"><input type="checkbox" data-key="1"><span>我知道 UNet 的 U 形是怎么来的，跳跃连接接的是中间特征，不是原图。</span></label>
+    <label class="check"><input type="checkbox" data-key="2"><span>我知道 DiT 把草稿切成小块，用注意力建立全局关系。</span></label>
+    <label class="check"><input type="checkbox" data-key="3"><span>我知道 UNet 与 DiT 的输入输出契约相同，换的是主干。</span></label>
+    <label class="check"><input type="checkbox" data-key="4"><span>我能说出 Checkpoint 里的三件东西，以及少了任一件会怎样。</span></label>
+    <label class="check"><input type="checkbox" data-key="5"><span>我知道 Flux 用 DiT，但 ComfyUI 的节点仍可能叫 UNETLoader。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-05b-params-noise.html"><span class="dir">← 上一课</span>L1-05b 参数与噪声</a>
+    <a href="../l2/l2-01-input-loading.html"><span class="dir">下一课 →</span>L2-01 输入与加载</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var map={name:COURSE.name,author:COURSE.author,year:COURSE.year};
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v=map[el.getAttribute('data-bind')];if(v)el.textContent=v;
+  });
+
+  document.querySelectorAll('.check input[type="checkbox"]').forEach(function(b){
+    var key='cui-l106-check-'+b.getAttribute('data-key');
+    try{if(localStorage.getItem(key)==='1')b.checked=true;}catch(e){}
+    b.addEventListener('change',function(){
+      try{localStorage.setItem(key,b.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

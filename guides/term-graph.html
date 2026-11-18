@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>术语依赖图 · AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="29 个核心术语的最小单位拆解：一句话人话、前置术语、在哪节课讲、哪些课会用到，以及现有 31 课的断层与拆课顺序。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --course-name:"AI 入门与 ComfyUI 出图课";
+    --course-tagline:"面向大学生与普通人的 AI 入门课";
+    --course-author:"李智博";
+    --course-year:"2026";
+    --paper:#f6f5f1;
+    --card:#ffffff;
+    --ink:#18212f;
+    --muted:#5d6779;
+    --faint:#8b93a3;
+    --line:#e2ded4;
+    --line2:#cbc6ba;
+    --accent:#4051d6;
+    --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c;
+    --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206;
+    --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63;
+    --rose-soft:rgba(194,46,99,.09);
+    --violet:#7c4ddb;
+    --violet-soft:rgba(124,77,219,.10);
+    --radius:14px;
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -18px rgba(24,33,47,.30);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:
+      linear-gradient(90deg,rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      linear-gradient(rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      var(--paper);
+    color:var(--ink);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em}
+  p{margin:0 0 14px}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(246,245,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .topnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;white-space:nowrap}
+  .topnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  /* cover */
+  header.hero{padding:76px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.22);padding:5px 12px;border-radius:999px;margin-bottom:20px}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  h1.cover{font-size:clamp(32px,5.6vw,54px);line-height:1.14;letter-spacing:-.035em;font-weight:800}
+  .cover-rule{width:44px;height:3px;background:var(--teal);border-radius:2px;margin:22px 0 18px}
+  .lede{max-width:780px;color:var(--muted);font-size:16.5px;line-height:1.8}
+  .byline{margin-top:22px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--faint);letter-spacing:.06em;flex-wrap:wrap}
+  .byline .rule{width:32px;height:1px;background:var(--line2)}
+  .byline b{color:var(--ink);font-weight:700}
+  .statrow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:26px;max-width:1040px}
+  .stat{background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:var(--radius);padding:13px 16px;box-shadow:var(--shadow)}
+  .stat b{display:block;font-size:25px;line-height:1.2;letter-spacing:-.02em}
+  .stat span{font-size:12.5px;color:var(--muted)}
+
+  /* section */
+  section{padding:54px 0 4px;scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em}
+  h2.title{font-size:clamp(22px,3vw,29px);letter-spacing:-.02em;line-height:1.3;font-weight:800}
+  .sec-lead{color:var(--muted);max-width:820px;margin:8px 0 22px;font-size:15px}
+  h3.sub{font-size:16px;font-weight:700;margin:28px 0 10px}
+
+  /* graph */
+  .graph{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;overflow-x:auto}
+  .graph svg{display:block;width:100%;min-width:1100px;height:auto}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:0}
+
+  /* cards */
+  .tier{margin:26px 0 0}
+  .tier-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .tier-code{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;background:var(--ink);border-radius:7px;padding:2px 9px}
+  .tier.t1 .tier-code{background:var(--teal)}
+  .tier.t2 .tier-code{background:var(--accent)}
+  .tier.t3 .tier-code{background:var(--amber)}
+  .tier.t4 .tier-code{background:var(--rose)}
+  .tier-name{font-weight:800;font-size:16px}
+  .tier-note{font-size:12.5px;color:var(--faint)}
+  .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 15px 13px;box-shadow:0 1px 2px rgba(24,33,47,.04);border-top:3px solid var(--line2)}
+  .tier.t1 .term{border-top-color:var(--teal)}
+  .tier.t2 .term{border-top-color:var(--accent)}
+  .tier.t3 .term{border-top-color:var(--amber)}
+  .tier.t4 .term{border-top-color:var(--rose)}
+  .term .th{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .term .tn{font-size:15px;font-weight:800;letter-spacing:-.01em}
+  .term .te{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em}
+  .term .plain{font-size:13px;line-height:1.7;margin:6px 0 10px;color:var(--ink)}
+  .term dl{display:grid;grid-template-columns:38px 1fr;gap:4px 8px;font-size:12px;line-height:1.65;margin:0}
+  .term dt{color:var(--faint);font-weight:600}
+  .term dd{color:var(--muted);margin:0}
+  .term dd b{color:var(--ink);font-weight:700}
+  .term .bad{margin-top:9px;font-size:11.5px;color:var(--rose);background:var(--rose-soft);border-radius:6px;padding:4px 8px;line-height:1.6}
+
+  /* problem blocks */
+  .probs{display:grid;gap:12px;margin-top:6px}
+  .prob{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:15px 18px;box-shadow:0 1px 2px rgba(24,33,47,.04)}
+  .prob.p1{border-left-color:var(--rose)}
+  .prob.p2{border-left-color:var(--violet)}
+  .prob .pr{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);font-weight:700}
+  .prob h3{font-size:15.5px;margin:3px 0 6px}
+  .prob p{font-size:13.5px;color:var(--muted);margin:0 0 6px;line-height:1.75}
+  .prob p:last-child{margin:0}
+  .prob .fix{color:var(--ink)}
+  .prob .fix b{color:var(--teal)}
+
+  /* rules */
+  .hard{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .rule-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+  .rule-card .rc{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--teal);font-weight:700}
+  .rule-card h3{font-size:16.5px;margin:5px 0 8px}
+  .rule-card p{font-size:13.5px;color:var(--muted);line-height:1.75}
+  .rule-card .eg{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--muted);line-height:1.7}
+  .rule-card .eg b{color:var(--ink)}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;margin:16px 0 8px}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:720px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+  thead th{font-size:11.5px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tbody tr:nth-child(even){background:#fcfbf9}
+  tbody tr:last-child td{border-bottom:none}
+  td code{font-size:11.8px}
+  .wait{color:var(--faint);font-weight:600}
+
+  .note{border-left:3px solid var(--amber);background:var(--amber-soft);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:13.5px;line-height:1.75}
+  .note b{color:var(--amber)}
+  .note.ok{border-left-color:var(--teal);background:var(--teal-soft)}
+  .note.ok b{color:var(--teal)}
+
+  footer{margin-top:56px;padding:22px 0 48px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+  footer .wrap{display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:900px){
+    .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .hard{grid-template-columns:1fr}
+    .statrow{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 16px}
+    .topbar .wrap{padding:0 16px}
+    .topnav a{padding:6px 7px;font-size:12px}
+    .cards{grid-template-columns:1fr}
+    header.hero{padding:52px 0 4px}
+    section{padding:42px 0 4px}
+    .graph{padding:10px}
+  }
+  @media print{.topbar{display:none}body{background:#fff}section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <nav class="topnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#graph">分层</a>
+      <a href="#terms">术语卡</a>
+      <a href="#gaps">断层</a>
+      <a href="#l3gap">L3 前置</a>
+      <a href="#order">拆课</a>
+      <a href="#rules">讲法</a>
+      <a href="language-spec.html">语言规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker"><span class="dot"></span>TERM MAP · 依赖图</span>
+    <h1 class="cover">术语依赖图</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">这套课讲不清楚，往往不是句子难，而是顺序错：前一句用了一个还没拆过的词。这一页把 29 个核心术语拆到最小单位，标清「先讲谁、在哪讲、谁会用」，再把现有 31 课按这个顺序重排成 50 课。</p>
+    <div class="byline"><span class="rule"></span><b data-bind="author">李智博</b><span>编</span><span>·</span><span><span data-bind="year">2026</span> 版</span></div>
+    <div class="statrow">
+      <div class="stat"><b>29 <span style="font-size:13px">个</span></b><span>核心术语，拆到最小</span></div>
+      <div class="stat"><b>5 <span style="font-size:13px">层</span></b><span>从地基到应用，单向依赖</span></div>
+      <div class="stat"><b>27 <span style="font-size:13px">张</span></b><span>术语卡（三种结构图合一）</span></div>
+      <div class="stat"><b>5 <span style="font-size:13px">处</span></b><span>断层、倒挂与循环</span></div>
+      <div class="stat"><b>12 <span style="font-size:13px">组</span></b><span>L3 前置缺口（实证）</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 01 分层图 -->
+  <section id="graph">
+    <div class="sec-head"><span class="sec-num">01 · LAYERS</span><h2 class="title">五层依赖：只能从下往上讲</h2></div>
+    <p class="sec-lead">规则只有一条：下一层的术语没讲明白，上一层的课不许开。同层之间也有先后，按从左到右排；跨层不允许往回借词。</p>
+
+    <div class="graph">
+      <svg viewBox="0 0 1220 640" role="img" aria-label="术语依赖五层图：地基、表示、模型与条件、写图与控制、应用与后处理">
+        <defs>
+          <marker id="dn" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,0 L5,9 z" fill="#8b93a3"/>
+          </marker>
+          <style>
+            .band{fill:#fcfbf9;stroke:#e2ded4;stroke-width:1}
+            .tl{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;fill:#8b93a3;letter-spacing:.08em}
+            .tn{font-size:12.5px;fill:#18212f;font-weight:700}
+            .chip{fill:#fff;stroke:#dcd8ce;stroke-width:1}
+            .chip-hi{fill:#fff;stroke:#0f7a6c;stroke-width:1.4}
+            .cn{font-size:11.5px;fill:#18212f;font-weight:700}
+            .cs{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:9px;fill:#8b93a3}
+            .arw{stroke:#8b93a3;stroke-width:1.2;fill:none}
+            .arw-t{font-size:9.5px;fill:#8b93a3}
+          </style>
+        </defs>
+
+        <!-- T0 -->
+        <rect class="band" x="14" y="34" width="1192" height="86" rx="12"/>
+        <text class="tl" x="28" y="60">T0</text>
+        <text class="tn" x="28" y="80">地基</text>
+        <text class="cs" x="28" y="100">无前置</text>
+
+        <rect class="chip" x="96" y="50" width="150" height="54" rx="8"/>
+        <text class="cn" x="108" y="72">节点 Node</text><text class="cs" x="108" y="89">L0-01</text>
+        <rect class="chip" x="254" y="50" width="150" height="54" rx="8"/>
+        <text class="cn" x="266" y="72">连线</text><text class="cs" x="266" y="89">L0-01</text>
+        <rect class="chip" x="412" y="50" width="150" height="54" rx="8"/>
+        <text class="cn" x="424" y="72">端口</text><text class="cs" x="424" y="89">L0-01</text>
+        <rect class="chip" x="570" y="50" width="150" height="54" rx="8"/>
+        <text class="cn" x="582" y="72">噪声 noise</text><text class="cs" x="582" y="89">L1-02</text>
+        <rect class="chip" x="728" y="50" width="150" height="54" rx="8"/>
+        <text class="cn" x="740" y="72">token</text><text class="cs" x="740" y="89">A-02 · L2-02</text>
+
+        <path class="arw" d="M40,124 V148" marker-end="url(#dn)"/>
+        <text class="arw-t" x="50" y="142">前置齐了才往下</text>
+
+        <!-- T1 -->
+        <rect class="band" x="14" y="152" width="1192" height="86" rx="12"/>
+        <text class="tl" x="28" y="178">T1</text>
+        <text class="tn" x="28" y="198">表示</text>
+        <text class="cs" x="28" y="218">图和字变成数</text>
+
+        <rect class="chip" x="96" y="168" width="150" height="54" rx="8"/>
+        <text class="cn" x="108" y="190">VAE</text><text class="cs" x="108" y="207">L1-01</text>
+        <rect class="chip chip-hi" x="254" y="168" width="150" height="54" rx="8"/>
+        <text class="cn" x="266" y="190">潜空间 Latent</text><text class="cs" x="266" y="207">L1-01</text>
+        <rect class="chip" x="412" y="168" width="150" height="54" rx="8"/>
+        <text class="cn" x="424" y="190">CLIP / 文本编码</text><text class="cs" x="424" y="207">L2-01 · L2-02</text>
+        <rect class="chip" x="570" y="168" width="150" height="54" rx="8"/>
+        <text class="cn" x="582" y="190">种子 seed</text><text class="cs" x="582" y="207">L1-03</text>
+        <rect class="chip" x="728" y="168" width="150" height="54" rx="8"/>
+        <text class="cn" x="740" y="190">遮罩 mask</text><text class="cs" x="740" y="207">L3-05</text>
+
+        <path class="arw" d="M40,242 V266" marker-end="url(#dn)"/>
+
+        <!-- T2 -->
+        <rect class="band" x="14" y="270" width="1192" height="86" rx="12"/>
+        <text class="tl" x="28" y="296">T2</text>
+        <text class="tn" x="28" y="316">模型与条件</text>
+        <text class="cs" x="28" y="336">谁在画、听谁的</text>
+
+        <rect class="chip" x="96" y="286" width="150" height="54" rx="8"/>
+        <text class="cn" x="108" y="308">UNet / DiT</text><text class="cs" x="108" y="325">L1-02 · L2-01</text>
+        <rect class="chip" x="254" y="286" width="150" height="54" rx="8"/>
+        <text class="cn" x="266" y="308">Checkpoint</text><text class="cs" x="266" y="325">L2-01</text>
+        <rect class="chip chip-hi" x="412" y="286" width="150" height="54" rx="8"/>
+        <text class="cn" x="424" y="308">条件 conditioning</text><text class="cs" x="424" y="325">L2-02</text>
+        <rect class="chip" x="570" y="286" width="150" height="54" rx="8"/>
+        <text class="cn" x="582" y="308">子图 subgraph</text><text class="cs" x="582" y="325">L2-04</text>
+
+        <path class="arw" d="M40,360 V384" marker-end="url(#dn)"/>
+
+        <!-- T3 -->
+        <rect class="band" x="14" y="388" width="1192" height="86" rx="12"/>
+        <text class="tl" x="28" y="414">T3</text>
+        <text class="tn" x="28" y="434">写图与控制</text>
+        <text class="cs" x="28" y="454">一遍遍擦出来</text>
+
+        <rect class="chip" x="96" y="404" width="150" height="54" rx="8"/>
+        <text class="cn" x="108" y="426">采样器 sampler</text><text class="cs" x="108" y="443">L1-02</text>
+        <rect class="chip" x="254" y="404" width="150" height="54" rx="8"/>
+        <text class="cn" x="266" y="426">步数 steps</text><text class="cs" x="266" y="443">L1-02</text>
+        <rect class="chip" x="412" y="404" width="150" height="54" rx="8"/>
+        <text class="cn" x="424" y="426">CFG</text><text class="cs" x="424" y="443">L1-03</text>
+        <rect class="chip" x="570" y="404" width="150" height="54" rx="8"/>
+        <text class="cn" x="582" y="426">去噪强度 denoise</text><text class="cs" x="582" y="443">L1-02 · L2-03</text>
+        <rect class="chip" x="728" y="404" width="150" height="54" rx="8"/>
+        <text class="cn" x="740" y="426">LoRA</text><text class="cs" x="740" y="443">L2-01</text>
+        <rect class="chip" x="886" y="404" width="150" height="54" rx="8"/>
+        <text class="cn" x="898" y="426">ControlNet</text><text class="cs" x="898" y="443">L1-04</text>
+
+        <path class="arw" d="M40,478 V502" marker-end="url(#dn)"/>
+
+        <!-- T4 -->
+        <rect class="band" x="14" y="506" width="1192" height="86" rx="12"/>
+        <text class="tl" x="28" y="532">T4</text>
+        <text class="tn" x="28" y="552">应用与后处理</text>
+        <text class="cs" x="28" y="572">拿它做具体活</text>
+
+        <rect class="chip" x="96" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="108" y="542">Depth / Lineart /</text><text class="cn" x="108" y="557">Canny</text><text class="cs" x="108" y="571">L1-04</text>
+        <rect class="chip" x="254" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="266" y="544">IPAdapter</text><text class="cs" x="266" y="561">L1-05</text>
+        <rect class="chip" x="412" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="424" y="544">Florence2</text><text class="cs" x="424" y="561">L2-02</text>
+        <rect class="chip" x="570" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="582" y="544">GroundingDINO</text><text class="cs" x="582" y="561">L3-06</text>
+        <rect class="chip" x="728" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="740" y="544">SAM</text><text class="cs" x="740" y="561">L3-06</text>
+        <rect class="chip" x="886" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="898" y="544">inpaint</text><text class="cs" x="898" y="561">L3-05</text>
+        <rect class="chip" x="1044" y="522" width="150" height="54" rx="8"/>
+        <text class="cn" x="1056" y="544">放大与超分</text><text class="cs" x="1056" y="561">L3-07</text>
+
+        <text class="cs" x="96" y="620">青框 = 后续课程频繁回指的两个枢纽术语：潜空间与条件。它们没讲清，L3 全线会卡。</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#0f7a6c"></i>T1 表示</span>
+        <span><i style="background:#4051d6"></i>T2 模型与条件</span>
+        <span><i style="background:#b26206"></i>T3 写图与控制</span>
+        <span><i style="background:#c22e63"></i>T4 应用与后处理</span>
+        <span>同层从左到右也有先后；跨层只能向上借，不能向下预支。</span>
+      </div>
+    </div>
+
+    <div class="note"><b>L3 前置带（实证）：</b>负责 L3-01/02/03/05/06 的那一路把「用了但没讲清」的术语全翻了一遍，汇成 12 组前置需求（A–L）。这 12 组不在上面的五层里，而是夹在 T4 与 L3 之间——L3 开课前必须先补。详见 <a href="#l3gap">03B 节</a>；12 组不再单独占课，全部并进 50 课里的对应节。</div>
+
+    <div class="note ok"><b>读图口径：</b>这一层只画「层与层的先后」。同一层内部的具体前置（例如 VAE → 潜空间、噪声 → 种子）写在下面每张术语卡的「前置」一栏，避免箭头画成一团。</div>
+  </section>
+
+  <!-- 02 术语卡 -->
+  <section id="terms">
+    <div class="sec-head"><span class="sec-num">02 · CARDS</span><h2 class="title">29 个术语，27 张卡</h2></div>
+    <p class="sec-lead">每张卡只回答四个问题：一句人话、必须先讲什么、在哪节课讲、哪些课会用到。三种结构图（Depth / Lineart / Canny）合成一张卡，所以卡比术语少两张。</p>
+
+    <!-- T0 -->
+    <div class="tier t0">
+      <div class="tier-head"><span class="tier-code">T0</span><span class="tier-name">地基</span><span class="tier-note">不需要任何前置，第一节课就要用的人话词</span></div>
+      <div class="cards">
+        <div class="term">
+          <div class="th"><span class="tn">节点</span><span class="te">Node</span></div>
+          <p class="plain">画布上一个方块，干一件具体的事：读图、编码、采样、存图。</p>
+          <dl>
+            <dt>前置</dt><dd>无。这是全课第一个词。</dd>
+            <dt>讲在</dt><dd><a href="../l0/l0-01-what-is-comfyui.html">L0-01</a></dd>
+            <dt>用在</dt><dd>全部 31 课</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">连线</span><span class="te">link</span></div>
+          <p class="plain">上游把产出交给下游的那一下。交接的东西必须是同一种类型。</p>
+          <dl>
+            <dt>前置</dt><dd>节点</dd>
+            <dt>讲在</dt><dd><a href="../l0/l0-01-what-is-comfyui.html">L0-01</a></dd>
+            <dt>用在</dt><dd>全部 31 课</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">端口</span><span class="te">port / slot</span></div>
+          <p class="plain">节点两侧的小圆点：左边收，右边发。颜色决定能接什么。</p>
+          <dl>
+            <dt>前置</dt><dd>节点</dd>
+            <dt>讲在</dt><dd><a href="../l0/l0-01-what-is-comfyui.html">L0-01</a></dd>
+            <dt>用在</dt><dd>L2-01～L2-04、全部 L3</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">噪声</span><span class="te">noise</span></div>
+          <p class="plain">一张随机雪花点。采样的起点不是白纸，是它。</p>
+          <dl>
+            <dt>前置</dt><dd>无</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-02-sampling-steps.html">L1-02</a></dd>
+            <dt>用在</dt><dd>L1-02、L1-03、L2-03、L3-04、L3-07</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">token</span><span class="te">词片</span></div>
+          <p class="plain">文本被切成的小片。模型不读句子，只读片。</p>
+          <dl>
+            <dt>前置</dt><dd>无</dd>
+            <dt>讲在</dt><dd><a href="../a/a02-what-llms-do.html">A-02</a>（文字侧）、<a href="../l2/l2-02-text-conditioning.html">L2-02</a>（图像侧）</dd>
+            <dt>用在</dt><dd>A-02、L2-02、L3-02～L3-04</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- T1 -->
+    <div class="tier t1">
+      <div class="tier-head"><span class="tier-code">T1</span><span class="tier-name">表示</span><span class="tier-note">把图和字变成数；这一步没懂，后面全是黑箱</span></div>
+      <div class="cards">
+        <div class="term">
+          <div class="th"><span class="tn">VAE</span><span class="te">编解码器</span></div>
+          <p class="plain">像素和潜空间之间的有损翻译机，来回都翻，翻完有损耗。</p>
+          <dl>
+            <dt>前置</dt><dd>无。先知道「有损翻译」就够。</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-01-latent-space-vae.html">L1-01</a></dd>
+            <dt>用在</dt><dd>L1-01、L2-01、L2-03、L3-04～L3-07</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">潜空间</span><span class="te">Latent</span></div>
+          <p class="plain">把像素按 1/8 缩小后的草稿画布。采样器只在这张草稿上动笔。</p>
+          <dl>
+            <dt>前置</dt><dd>VAE</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-01-latent-space-vae.html">L1-01</a></dd>
+            <dt>用在</dt><dd>L1-01、L1-02、L2-03、全部 L3</dd>
+          </dl>
+          <div class="bad">枢纽词：L3 每节课都会回头用它。</div>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">CLIP / 文本编码</span><span class="te">text encode</span></div>
+          <p class="plain">把一句人话翻成模型能吃的向量。</p>
+          <dl>
+            <dt>前置</dt><dd>token</dd>
+            <dt>讲在</dt><dd><a href="../l2/l2-01-input-loading.html">L2-01</a>（装）、<a href="../l2/l2-02-text-conditioning.html">L2-02</a>（用）</dd>
+            <dt>用在</dt><dd>L2-02、L3-01～L3-10</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">种子</span><span class="te">seed</span></div>
+          <p class="plain">噪声的起点编号。号码一样，雪花一样；号码一变，全图重来。</p>
+          <dl>
+            <dt>前置</dt><dd>噪声</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-03-cfg-seed.html">L1-03</a></dd>
+            <dt>用在</dt><dd>L1-03、L2-03、L3-01、L3-04、L3-07</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">遮罩</span><span class="te">mask</span></div>
+          <p class="plain">一张黑白图。白的地方改，黑的地方一个像素都不动。</p>
+          <dl>
+            <dt>前置</dt><dd>无</dd>
+            <dt>讲在</dt><dd><a href="../l3/l3-05-manual-inpaint.html">L3-05</a></dd>
+            <dt>用在</dt><dd>L3-05、L3-06、L3-07</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- T2 -->
+    <div class="tier t2">
+      <div class="tier-head"><span class="tier-code">T2</span><span class="tier-name">模型与条件</span><span class="tier-note">谁在画、听谁的；模型文件与提示词的交接点</span></div>
+      <div class="cards">
+        <div class="term">
+          <div class="th"><span class="tn">UNet / DiT</span><span class="te">去噪网络</span></div>
+          <p class="plain">真正会画画的网络。每一步只干一件事：猜这张草稿上该擦掉多少噪声。</p>
+          <dl>
+            <dt>前置</dt><dd>潜空间、噪声</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-02-sampling-steps.html">L1-02</a>、<a href="../l2/l2-01-input-loading.html">L2-01</a></dd>
+            <dt>用在</dt><dd>L1-02、L2-01、全部 L3</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">Checkpoint</span><span class="te">主模型包</span></div>
+          <p class="plain">把 UNet、CLIP、VAE 打成一个包的大文件。所谓「换主模型」，换的就是它。</p>
+          <dl>
+            <dt>前置</dt><dd>UNet / DiT、CLIP、VAE</dd>
+            <dt>讲在</dt><dd><a href="../l2/l2-01-input-loading.html">L2-01</a></dd>
+            <dt>用在</dt><dd>L2-01、L3-01、L3-04、L3-05、L3-06</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">条件</span><span class="te">conditioning</span></div>
+          <p class="plain">打包好的「我要什么」：一句话经 CLIP 编码后的结果。</p>
+          <dl>
+            <dt>前置</dt><dd>CLIP / 文本编码</dd>
+            <dt>讲在</dt><dd><a href="../l2/l2-02-text-conditioning.html">L2-02</a></dd>
+            <dt>用在</dt><dd>L2-02、L1-04、L3-01～L3-10</dd>
+          </dl>
+          <div class="bad">枢纽词：L1-04 会提前用到它，需要在那一课当场解释。</div>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">子图</span><span class="te">subgraph</span></div>
+          <p class="plain">把一组节点收进一个盒子，双击才展开。盒子里还能再套盒子。</p>
+          <dl>
+            <dt>前置</dt><dd>节点、连线</dd>
+            <dt>讲在</dt><dd><a href="../l2/l2-04-output.html">L2-04</a></dd>
+            <dt>用在</dt><dd>L2-04、L3-03、L3-04、L3-06、L3-07</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- T3 -->
+    <div class="tier t3">
+      <div class="tier-head"><span class="tier-code">T3</span><span class="tier-name">写图与控制</span><span class="tier-note">采样五件套，加两个「往模型里塞东西」的办法</span></div>
+      <div class="cards">
+        <div class="term">
+          <div class="th"><span class="tn">采样器</span><span class="te">sampler</span></div>
+          <p class="plain">按草稿擦噪声的那套算法。换它，等于换一支笔。</p>
+          <dl>
+            <dt>前置</dt><dd>UNet / DiT、条件、噪声</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-02-sampling-steps.html">L1-02</a></dd>
+            <dt>用在</dt><dd>L1-02、L1-03、L2-03、全部 L3</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">步数</span><span class="te">steps</span></div>
+          <p class="plain">擦几遍。遍数越多越细，也越慢。</p>
+          <dl>
+            <dt>前置</dt><dd>采样器</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-02-sampling-steps.html">L1-02</a></dd>
+            <dt>用在</dt><dd>L1-02、L2-03、L3-01、L3-04</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">CFG</span><span class="te">听话程度</span></div>
+          <p class="plain">模型有多听提示词的话。调高更听话，也更容易发硬、过饱和。</p>
+          <dl>
+            <dt>前置</dt><dd>条件、采样器</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-03-cfg-seed.html">L1-03</a></dd>
+            <dt>用在</dt><dd>L1-03、L2-03、L3-01、L3-04</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">去噪强度</span><span class="te">denoise</span></div>
+          <p class="plain">这一步把原图擦掉多少。1.0 等于全擦，只借尺寸。</p>
+          <dl>
+            <dt>前置</dt><dd>采样器、噪声</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-02-sampling-steps.html">L1-02</a>、<a href="../l2/l2-03-sampling-core.html">L2-03</a></dd>
+            <dt>用在</dt><dd>L1-02、L2-03、L3-04、L3-05、L3-07</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">LoRA</span><span class="te">风格补丁</span></div>
+          <p class="plain">不动主模型，只叠一层风格偏移。两个强度：一个管画面，一个管提示词。</p>
+          <dl>
+            <dt>前置</dt><dd>Checkpoint</dd>
+            <dt>讲在</dt><dd><a href="../l2/l2-01-input-loading.html">L2-01</a></dd>
+            <dt>用在</dt><dd>L2-01、L3-01、L3-02、L3-04、L3-10</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">ControlNet</span><span class="te">结构控制</span></div>
+          <p class="plain">另开一条小模型，把结构图塞进采样，让画面照着结构走。</p>
+          <dl>
+            <dt>前置</dt><dd>条件、采样器</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-04-controlnet.html">L1-04</a></dd>
+            <dt>用在</dt><dd>L1-04、L2-02、L3-02～L3-04、L3-08、L3-09</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- T4 -->
+    <div class="tier t4">
+      <div class="tier-head"><span class="tier-code">T4</span><span class="tier-name">应用与后处理</span><span class="tier-note">拿前面的砖去干具体活；这一层全是「组合」</span></div>
+      <div class="cards">
+        <div class="term">
+          <div class="th"><span class="tn">Depth / Lineart / Canny</span><span class="te">三种结构图</span></div>
+          <p class="plain">三种把照片压成结构图的方式：深度管前后，线稿管轮廓，Canny 管边缘。</p>
+          <dl>
+            <dt>前置</dt><dd>ControlNet</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-04-controlnet.html">L1-04</a></dd>
+            <dt>用在</dt><dd>L1-04、L3-02、L3-03、L3-04、L3-08</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">IPAdapter</span><span class="te">风格注入</span></div>
+          <p class="plain">把参考图的「气质」灌进模型，不给复印件。</p>
+          <dl>
+            <dt>前置</dt><dd>条件、CLIP</dd>
+            <dt>讲在</dt><dd><a href="../l1/l1-05-ipadapter.html">L1-05</a></dd>
+            <dt>用在</dt><dd>L1-05、L2-02、L3-04、L3-10</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">Florence2</span><span class="te">看图说话</span></div>
+          <p class="plain">看图说人话的多模态模型。把参考图读成一段英文描述。</p>
+          <dl>
+            <dt>前置</dt><dd>无（它直接看图出文字，输出再进文本编码）</dd>
+            <dt>讲在</dt><dd><a href="../l2/l2-02-text-conditioning.html">L2-02</a></dd>
+            <dt>用在</dt><dd>L2-02、L3-02、L3-03、L3-04、L3-10</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">GroundingDINO</span><span class="te">开放词表检测</span></div>
+          <p class="plain">给它一个名词，它在图里画出框。不用事先训练这一类。</p>
+          <dl>
+            <dt>前置</dt><dd>token（它直接吃文字，不吃编码后的条件）</dd>
+            <dt>讲在</dt><dd><a href="../l3/l3-06-text-guided-inpaint.html">L3-06</a></dd>
+            <dt>用在</dt><dd>L3-06</dd>
+          </dl>
+          <div class="bad">断线：前面没有任何一课解释「检测」，只能在这一课当场拆。</div>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">SAM</span><span class="te">分割</span></div>
+          <p class="plain">给它一个框，它贴着真实边缘抠出像素级遮罩。</p>
+          <dl>
+            <dt>前置</dt><dd>遮罩</dd>
+            <dt>讲在</dt><dd><a href="../l3/l3-06-text-guided-inpaint.html">L3-06</a></dd>
+            <dt>用在</dt><dd>L3-06</dd>
+          </dl>
+          <div class="bad">断线：同上，需要一篇前置课补「检测 → 分割」的分工。</div>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">inpaint</span><span class="te">局部重绘</span></div>
+          <p class="plain">只在遮罩里重画，遮罩外一个像素都不动。</p>
+          <dl>
+            <dt>前置</dt><dd>遮罩、采样器、去噪强度</dd>
+            <dt>讲在</dt><dd><a href="../l3/l3-05-manual-inpaint.html">L3-05</a></dd>
+            <dt>用在</dt><dd>L3-05、L3-06</dd>
+          </dl>
+        </div>
+        <div class="term">
+          <div class="th"><span class="tn">放大与超分</span><span class="te">upscale</span></div>
+          <p class="plain">先把成品放大，再用很低的去噪补一遍细节。</p>
+          <dl>
+            <dt>前置</dt><dd>潜空间、采样器、去噪强度</dd>
+            <dt>讲在</dt><dd><a href="../l3/l3-07-hd-upscale.html">L3-07</a>（像素级放大见 <a href="../l2/l2-04-output.html">L2-04</a>）</dd>
+            <dt>用在</dt><dd>L2-04、L3-04（精修子图）、L3-07</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 断层 -->
+  <section id="gaps">
+    <div class="sec-head"><span class="sec-num">03 · GAPS</span><h2 class="title">现有 31 课的五处顺序问题</h2></div>
+    <p class="sec-lead">按上面的依赖图层对照现有课程，问题集中在五处：两处倒挂、一处提前使用、一处断线、一处循环。每一处都给出具体修法，不改事实、不改文件名。</p>
+
+    <div class="probs">
+      <div class="prob p1">
+        <div class="pr">GAP 01 · 倒挂</div>
+        <h3>L1-04 讲 ControlNet，却要先用「条件」</h3>
+        <p>ControlNet 的作用对象是条件（CONDITIONING），可「条件」要到 L2-02 才系统讲。现在 L1-04 直接用了这个词。</p>
+        <p class="fix"><b>修法：</b>L1-04 开头加三句话卡——「条件就是编码后的提示词，L2-02 专门讲，这里知道它干嘛就行」。不新增课程。</p>
+      </div>
+      <div class="prob p1">
+        <div class="pr">GAP 02 · 倒挂</div>
+        <h3>L1-05 讲 IPAdapter，却要先用 CLIP 编码</h3>
+        <p>IPAdapter 靠 CLIP 视觉塔把参考图读成向量，而 CLIP 在 L2-01 才讲。L1-05 现在提到了视觉编码，但没有铺垫。</p>
+        <p class="fix"><b>修法：</b>同样在 L1-05 开头补一张三句话卡，标注「CLIP 在 L2-01 专门讲」。</p>
+      </div>
+      <div class="prob">
+        <div class="pr">GAP 03 · 提前使用</div>
+        <h3>L0-03 用到采样器、步数、CFG、种子、去噪，而它们都在 L1</h3>
+        <p>L0-03 是「完整出一次图」，必然要碰 quant 参数。问题不在用，而在用了不解释。</p>
+        <p class="fix"><b>修法：</b>按两条硬规矩处理——每处要么当场一句人话，要么明确写「L1-02 / L1-03 专门讲，这里知道它干嘛就行」。已在 L0-03 重写中落地。</p>
+      </div>
+      <div class="prob p2">
+        <div class="pr">GAP 04 · 断线</div>
+        <h3>GroundingDINO 与 SAM 没有前置课</h3>
+        <p>「检测」和「分割」这两个概念只出现在 L3-06，前面 30 课一次都没拆过。学员在这一课要同时接住开放词表检测、像素级分割、局部重绘三件事。</p>
+        <p class="fix"><b>修法：</b>新增 <b>L2-05《检测与分割》</b>——GroundingDINO 开放词表给框、SAM 提示式分割给遮罩，排在 L3-06 之前；语义分割另立 <b>L2-05b《语义分割》</b>——ADE20K 固定约 150 类、OneFormer 的 512 预处理、白模为何整片归一类。两者不是一件事，不能塞进一节。文件 <code>l2-05-detect-segment.html</code>、<code>l2-05b-semantic-seg.html</code>，均已交付。</p>
+      </div>
+      <div class="prob p2">
+        <div class="pr">GAP 05 · 循环</div>
+        <h3>潜空间和采样器互相引用</h3>
+        <p>L1-01 讲潜空间时要提「采样在草稿上擦」，L1-02 讲采样时又要回头提「草稿」。两课互相当前置，读者两头都悬着。</p>
+        <p class="fix"><b>修法：</b>把边界切开——L1-01 只讲「1/8 草稿画布 + VAE 怎么来回翻」；「擦噪声」整段推给 L1-02。L1-01 里出现采样器时，统一写「L1-02 专门讲」。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03B L3 前置带 -->
+  <section id="l3gap">
+    <div class="sec-head"><span class="sec-num">03B · L3 PREREQS</span><h2 class="title">L3 前置带：12 组实证缺口</h2></div>
+    <p class="sec-lead">来源不是推测，是 L3-01/02/03/05/06 改写时逐节翻出来的「用了但没讲清」。这 12 组全部必须在 L3 开课前补掉。编号规则统一后，12 组已全部落位：9 组并进对应的拆分节，另 3 组（D / F / I）也分别并进了 L2-01b、L2-02b、L2-06，不再需要独立编号。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>组</th><th>缺口（原话要点）</th><th>卡住哪些 L3</th><th>拟处理</th></tr></thead>
+        <tbody>
+          <tr><td><b>A</b></td><td>扩散 / UNet：每步预测什么、噪声怎么擦掉</td><td>L3 全线</td><td>并进 <b>L1-06 UNet 与 DiT</b>（已交付）</td></tr>
+          <tr><td><b>B</b></td><td>CLIP / token：tokenizer、上下文窗口、中英文 token 差异</td><td>L3-01、02、03、05、06</td><td>并进 <b>L2-02 文本条件</b>，含 CLIP / token</td></tr>
+          <tr><td><b>C</b></td><td>采样器与调度器：两者区别、常见组合</td><td>L3-01～07</td><td>并进 <b>L1-02 采样循环</b>，选型归 <b>L1-02b</b>（均已交付）</td></tr>
+          <tr><td><b>D</b></td><td>LoRA ↔ Checkpoint：加载顺序、为何 LoRA 同时改 MODEL 和 CLIP</td><td>L3-01、02、04</td><td>并进 <b>L2-01b 附加五项</b>（已交付）</td></tr>
+          <tr><td><b>E</b></td><td>ControlNet 两段式：预处理器出控制图、怎么和控制模型配对</td><td>L3-02、03、04、08、09</td><td>扩 <b>L1-04b 这套 JSON 怎么填</b>，含 union 型</td></tr>
+          <tr><td><b>F</b></td><td>IPAdapter 权重：图像提示怎么注入、weight_type 差异</td><td>L3-04、10</td><td>并进 <b>L2-02b 结构与风格条件</b>（已交付）</td></tr>
+          <tr><td><b>G</b></td><td>Florence2 读图：视觉模型输出如何变成文本</td><td>L3-02、03、04、10</td><td>并进 <b>L2-02c 文字工具</b>（已交付）</td></tr>
+          <tr><td><b>H</b></td><td>子图与死端：子图收口、没有出口的分支怎么读</td><td>L3-03、04、06、07</td><td>扩 <b>L2-04b 组织与接线</b>（已交付）</td></tr>
+          <tr><td><b>I</b></td><td>Flux1 / Flux2 文本编码与 ReferenceLatent</td><td>L3-03、04、07</td><td>并进 <b>L2-06 Flux2 精修链</b>（已交付）</td></tr>
+          <tr><td><b>J</b></td><td>遮罩 / alpha / clipspace：三种「哪里改」的坐标系</td><td>L3-05、06、07</td><td>扩 <b>L3-05b 遮罩是什么</b>（已交付）</td></tr>
+          <tr><td><b>K</b></td><td>GroundingDINO 开放词表与 SAM 提示分割</td><td>L3-06</td><td>并进 <b>L2-05 检测与分割</b>；语义分割归 <b>L2-05b</b>（均已交付）</td></tr>
+          <tr><td><b>L</b></td><td>放大与校色：upscaler、分块、直方图匹配</td><td>L3-07</td><td>扩 <b>L3-07b 两种放大</b>（已交付）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note"><b>编号已统一，不再是待定项：</b>拆分出来的节用「原编号 + b / c」，原文件名保留；独立新知识才起新编号。D / F / I 三组不再单独成课——LoRA 与 Checkpoint 的加载顺序归 L2-01b，IPAdapter 权重归 L2-02b，Flux 文本编码与 ReferenceLatent 归 L2-06。完整清单见 <a href="#order">04 拆课顺序</a>。</div>
+  </section>
+
+  <!-- 04 拆课顺序 -->
+  <section id="order">
+    <div class="sec-head"><span class="sec-num">04 · ORDER</span><h2 class="title">拆课：31 课 → 50 课</h2></div>
+    <p class="sec-lead">编号规则已统一：拆分出来的节一律用「原编号 + b / c」，紧跟原课；原文件名保留，作为拆分后的第一节；只有独立的新知识才另起新编号。按此规则，L1 五节拆成十节，L2 四节拆成十节，另加四节独立新课，共新增 19 节。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>新编号</th><th>新文件</th><th>从哪拆 / 补什么</th><th>先修</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td><b>L0-02b</b></td><td><code>l0-02b-using-the-interface.html</code></td><td>从 L0-02 拆出：界面六区、三种载入、载入后三处红</td><td>L0-02</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L0-03b</b></td><td><code>l0-03b-read-main-chain.html</code></td><td>从 L0-03 拆出：21 节点、3 子图、主链与旁支怎么读</td><td>L0-03</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L1-01b</b></td><td><code>l1-01b-vae-codec.html</code></td><td>从 L1-01 拆出：像素 ↔ 潜空间、#16 / #9 / #346 / #338 各自管什么</td><td>L1-01</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L1-02b</b></td><td><code>l1-02b-steps-denoise.html</code></td><td>从 L1-02 拆出：20 步在擦什么、denoise 0.55 改哪一段</td><td>L1-02</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L1-03b</b></td><td><code>l1-03b-seed.html</code></td><td>从 L1-03 拆出：同一颗种子复现、randomize 与 fixed</td><td>L1-03</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L1-04b</b></td><td><code>l1-04b-json-settings.html</code></td><td>从 L1-04 拆出：预处理器配对、union 型一个权重切模式、强度通常更高</td><td>L1-04</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L1-05b</b></td><td><code>l1-05b-params-noise.html</code></td><td>从 L1-05 拆出：weight / weight_type、噪声与去噪怎么分工</td><td>L1-05</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L1-06</b></td><td><code>l1-06-unet-dit.html</code></td><td>独立新知识：真正画画的那个网络，与采样器的分工</td><td>L1-01、L1-02</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-01b</b></td><td><code>l2-01b-extra-loaders.html</code></td><td>从 L2-01 拆出：Checkpoint 之外，UNET / CLIP / VAE 分开装</td><td>L2-01</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-02b</b></td><td><code>l2-02b-structure-style.html</code></td><td>从 L2-02 拆出：ControlNet 条件、IPAdapter 条件、参考图怎么进采样</td><td>L2-02</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-02c</b></td><td><code>l2-02c-text-tools.html</code></td><td>从 L2-02 拆出：翻译、Florence2 反推、描述怎么变成提示词</td><td>L2-02</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-03b</b></td><td><code>l2-03b-latent-inpaint.html</code></td><td>从 L2-03 拆出：ReferenceLatent 正负两槽、局部重绘改哪块潜变量</td><td>L2-03</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-03c</b></td><td><code>l2-03c-upscale-size.html</code></td><td>从 L2-03 拆出：upscaler、分块、总像素与尺寸</td><td>L2-03</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-04b</b></td><td><code>l2-04b-groups-wiring.html</code></td><td>从 L2-04 拆出：四层嵌套、内部编号 #363 起、与顶层不冲突</td><td>L2-04</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-05</b></td><td><code>l2-05-detect-segment.html</code></td><td>独立新知识：GroundingDINO 开放词表 + SAM 提示式分割，出框和遮罩</td><td>L2-02</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-05b</b></td><td><code>l2-05b-semantic-seg.html</code></td><td>独立新知识：ADE20K 约 150 类、OneFormer 512 预处理、白模整片归一类</td><td>L2-05</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L2-06</b></td><td><code>l2-06-flux2-refine.html</code></td><td>独立新知识：CFGGuider strength 1.0、步数在 Flux2Scheduler、ReferenceLatent 正负两槽</td><td>L2-03</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L3-05b</b></td><td><code>l3-05b-mask.html</code></td><td>从 L3-05 拆出：黑白图、涂哪里改哪里、扩边</td><td>L3-05</td><td class="ok">已交付</td></tr>
+          <tr><td><b>L3-07b</b></td><td><code>l3-07b-upscale-methods.html</code></td><td>从 L3-07 拆出：插值放大与模型放大怎么分</td><td>L3-07</td><td class="ok">已交付</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note"><b>编号只加不改：</b>现有 31 个文件名全部保留，指向它们的链接一条都不用改。新增的 19 节里，16 节带 <code>b / c</code> 后缀、3 节是独立新编号，都排在被拆课之后，读起来仍是顺序。这 19 节已全部写完，接下来可以把 L0-02 等原课瘦身——那一步才会动正文，不动文件名。</div>
+    <div class="note"><b>为什么总数是 50 而不是 46：</b>46 只数了拆分节（L1 +5、L2 +6、L0 +2、L3 +2）；50 还含四节独立新知识——<b>L1-06 UNet 与 DiT、L2-05 检测与分割、L2-05b 语义分割、L2-06 Flux2 精修链</b>。它们不是从某节课里拆出来的，所以不占 <code>b</code> 位。此前提到的 D（LoRA ↔ Checkpoint）、F（IPAdapter 权重）、I（Flux 文本编码与 ReferenceLatent）三组，已分别并进 L2-01b、L2-02b、L2-06，不再另设编号。</div>
+  </section>
+
+  <!-- 05 讲法 -->
+  <section id="rules">
+    <div class="sec-head"><span class="sec-num">05 · RULES</span><h2 class="title">两条硬规矩，写进每一节</h2></div>
+    <p class="sec-lead">术语处理方式只有两种，没有第三种。这一页的每张卡、拆出来的每节课、重写的每一段，都按这两条执行。</p>
+
+    <div class="hard">
+      <div class="rule-card">
+        <div class="rc">RULE A</div>
+        <h3>术语只有两种命运</h3>
+        <p>要么当场解释清楚（英文原名 + 一句人话 + 一个反例），要么明确标注「后面第 X 课专门讲，这里知道它干嘛就行」。不许含糊带过。</p>
+        <span class="eg"><b>合格写法：</b>「VAE 负责在像素和草稿之间来回翻译——这是第 L1-01 课的事，这里你只要知道它会把图压小又放大。」</span>
+      </div>
+      <div class="rule-card">
+        <div class="rc">RULE B</div>
+        <h3>不许裸用未解释的术语</h3>
+        <p>节点名、参数名、缩写、模型名都算术语。第一次出现时，要么解释，要么标注出处课程。做不到这两点的句子，删掉或改写。</p>
+        <span class="eg"><b>不合格写法：</b>「把 denoise 调到 0.55，重跑一次。」<br><b>改：</b>「把去噪强度（denoise，就是这一步擦掉原图多少）调到 0.55，重跑一次。」</span>
+      </div>
+    </div>
+
+    <div class="note ok"><b>和语言规范的关系：</b>这两条是《语言规范》的术语层补充，管的是「顺序与前置」，不管文风。写法怎么活、句子怎么短，仍看 <a href="language-spec.html">语言规范</a>；视觉怎么排，看 <a href="visual-spec.html">视觉规范</a>。</div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v = map[el.getAttribute('data-bind')];
+    if (v) el.textContent = v;
+  });
+  document.title = '术语依赖图 · ' + COURSE.name;
+})();
+</script>
+</body>
+</html>

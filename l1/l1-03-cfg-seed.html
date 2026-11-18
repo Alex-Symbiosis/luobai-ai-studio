@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-03 CFG · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:860px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:660px}
+.hero{margin-bottom:22px}
+.dials{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 0}
+.dial{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow);font-family:var(--sans)}
+.dial .k{font-size:10.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.dial .v{font-family:var(--mono);font-size:19px;font-weight:700;margin-top:2px}
+.dial .d{font-size:12px;color:var(--muted);line-height:1.6}
+.dial.cfg{border-top:3px solid var(--accent)}.dial.cfg .v{color:var(--accent)}
+.dial.seed{border-top:3px solid var(--violet)}.dial.seed .v{color:var(--violet);font-size:14px;word-break:break-all}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:16px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:12.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:14px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.svg-mono{font-family:var(--mono);font-size:12px;fill:var(--faint)}
+.formula{font-family:var(--mono);font-size:15px;background:#1f2533;color:#e8eaf3;border-radius:10px;padding:14px 16px;overflow-x:auto;line-height:1.7;margin:18px 0}
+.formula b{color:#9fb0ff}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 7px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:12px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.sim{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.sim-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.sim-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.sim-head .val{font-family:var(--mono);color:var(--accent);font-weight:700}
+input[type=range]{width:100%;accent-color:var(--accent);margin:14px 0 4px;height:22px}
+.meters{display:grid;gap:9px;margin:14px 0 4px}
+.meter{display:grid;grid-template-columns:90px 1fr 46px;gap:10px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--muted)}
+.meter .bar{height:8px;background:#eeece6;border-radius:99px;overflow:hidden}
+.meter .bar i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .18s ease}
+.meter .bar i.free{background:var(--teal)}
+.verdict{font-family:var(--sans);font-size:13px;background:var(--paper);border:1px dashed var(--line2);border-radius:9px;padding:9px 12px;margin-top:12px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.split li{margin:5px 0}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .dials,.split{grid-template-columns:1fr}
+  .meter{grid-template-columns:78px 1fr 40px}
+  table{font-size:12px}th,td{padding:7px 5px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 03</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-03 CFG</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第三课</span>
+    <h1>CFG：<br>模型有多听提示词的话</h1>
+    <p class="lede">同一句提示词，别人出图很听话，你的怎么调都不像。这一节解决这个问题：CFG 决定模型每一步有多贴近你写的条件。种子只负责“从哪出发”，这一节只给一句定义，完整机制在 L1-03b。</p>
+    <div class="dials">
+      <div class="dial cfg"><div class="k">CFG · 引导强度</div><div class="v">3.0</div><div class="d">本套 04 的 KSampler #4 实际值</div></div>
+      <div class="dial seed"><div class="k">SEED · 随机种子</div><div class="v">901186358219662</div><div class="d">同节点 #4 的起点编号，机制见 L1-03b</div></div>
+    </div>
+  </header>
+
+  <h2 id="cfg"><span class="no">01 / CFG</span>“听话程度”到底在放大什么</h2>
+  <p>你写了一段正向提示词（positive prompt，你想要的画面），也可能写了一段负向提示词（negative prompt，你想避开的）。模型每一步都做两次判断：往正向走更像什么，往负向走更像什么。CFG（Classifier-Free Guidance，无分类器引导，登记表里的叫法是“听话程度”）把两者的差值放大，再朝正向多推一点。</p>
+  <p class="small quiet">反例：CFG 不是“创意度”，也不是“画质”。调高不会让图更有想象力，只会更用力贴近你写的条件。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 230" role="img" aria-label="正向与负向条件汇入采样器，CFG 放大两者差值">
+      <defs>
+        <marker id="arc" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+      <rect x="20" y="20" width="150" height="54" rx="10" fill="#eef0ff" stroke="#4051d6"/>
+      <text x="95" y="40" text-anchor="middle" dominant-baseline="middle" class="svg-title">正向提示词</text>
+      <text x="95" y="60" text-anchor="middle" dominant-baseline="middle" class="svg-sub">你想要的</text>
+
+      <rect x="20" y="150" width="150" height="54" rx="10" fill="#f7f7f5" stroke="#cbc6ba"/>
+      <text x="95" y="170" text-anchor="middle" dominant-baseline="middle" class="svg-title">负向提示词</text>
+      <text x="95" y="190" text-anchor="middle" dominant-baseline="middle" class="svg-sub">你想避开的</text>
+
+      <rect x="286" y="76" width="140" height="102" rx="10" fill="#fff" stroke="#4051d6"/>
+      <text x="356" y="112" text-anchor="middle" dominant-baseline="middle" class="svg-title">采样器</text>
+      <text x="356" y="136" text-anchor="middle" dominant-baseline="middle" class="svg-sub">按 CFG 放大差值</text>
+
+      <!-- 正向折线：水平段在上，标签高于线 9px -->
+      <path d="M174,47 H236 V127 H282" fill="none" stroke="#5d6779" stroke-width="1.5" marker-end="url(#arc)"/>
+      <text x="205" y="36" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">正向条件</text>
+
+      <!-- 负向折线：水平段在下，标签低于线 13px -->
+      <path d="M174,177 H236 V127 H282" fill="none" stroke="#5d6779" stroke-width="1.5" marker-end="url(#arc)"/>
+      <text x="205" y="192" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">负向条件</text>
+
+      <text x="356" y="210" text-anchor="middle" dominant-baseline="middle" class="svg-sub">CFG = 1 时几乎不放大差值</text>
+    </svg>
+    <figcaption>两条条件在采样器前汇合，CFG 决定正向与负向的差值被放大多少。</figcaption>
+  </figure>
+
+  <div class="formula">结果方向 = 负向 + <b>CFG</b> ×（正向 − 负向）</div>
+  <p>所以 CFG 不管画质，它管条件的分量。值越大，模型越努力远离负向、贴近正向。代价是画面容易过饱和、边缘发硬，甚至结构崩坏。</p>
+
+  <h3>本套 JSON 里的真实 CFG</h3>
+  <table>
+    <thead><tr><th style="width:38%">位置</th><th style="width:18%">CFG</th><th style="width:44%">说明</th></tr></thead>
+    <tbody>
+      <tr><td>01 · KSampler <b>#177</b>（旁支，不落盘）</td><td><b>2.95</b></td><td>SDXL 线稿出图</td></tr>
+      <tr><td>02 · KSampler <b>#119</b></td><td><b>3</b></td><td>SDXL 线稿+参考图</td></tr>
+      <tr><td>03 · KSampler <b>#4</b></td><td><b>2.67</b></td><td>室内毛坯，偏低一点，画面更自然</td></tr>
+      <tr><td>04 · KSampler <b>#4</b></td><td><b>3</b></td><td>建筑毛坯，本课头图同源</td></tr>
+      <tr><td>06 · KSampler <b>#22</b></td><td><b>3</b></td><td>文字识别局部修改</td></tr>
+      <tr><td>05 · DetailerForEach <b>#257</b></td><td><b>1</b></td><td>局部重绘，几乎不做正负对比</td></tr>
+      <tr><td>02–07 子图 · CFGGuider</td><td><b>1</b></td><td>Flux2 蒸馏模型，引导已内置</td></tr>
+      <tr><td>01 子图 · CFGGuider <b>#136</b></td><td><b>5</b></td><td>同样是 Flux2 子图，但采用了更高引导</td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">可见“CFG 必须 7”并不成立。SDXL 这套工作流集中在 2.67–3.0；Flux2 子图多为 1。数值必须跟模型、采样器一起看。</p>
+
+  <div class="callout warn">
+    <p><b>注意：</b>CFG = 1 不等于“没有提示词”。在 Flux2 这类蒸馏模型（被训练成引导内置的压缩版）里，1 是正常工作点；在普通 SDXL 里把 CFG 调到 1，图会明显不听话。判断标准是模型类型，不是数字大小。</p>
+  </div>
+
+  <div class="sim">
+    <div class="sim-head"><h4>拖一拖：CFG 的两面</h4><span class="val" id="cfgVal">3.0</span></div>
+    <input type="range" id="cfgRange" min="1" max="12" step="0.1" value="3" aria-label="CFG 引导强度">
+    <div class="meters">
+      <div class="meter"><span>提示词服从度</span><div class="bar"><i id="mFollow"></i></div><span id="tFollow">—</span></div>
+      <div class="meter"><span>画面自然度</span><div class="bar"><i class="free" id="mFree"></i></div><span id="tFree">—</span></div>
+    </div>
+    <div class="verdict" id="cfgVerdict">3.0：SDXL 常用区间，既听提示词，也保留自然的光影。</div>
+    <p class="small quiet" style="margin:10px 0 0">两条比例尺为教学示意，不是模型输出的客观评分。</p>
+  </div>
+
+  <h2 id="seed"><span class="no">02 / 种子</span>种子只管“从哪出发”</h2>
+  <p>种子（seed，一个整数）是起点噪声的编号。它和 CFG 不是一类东西：CFG 在每一步里放大条件，种子只在开局决定那张纯噪声长什么样。</p>
+  <p>所以同一颗种子加同样的参数能复现同一张图，换一颗种子就是从另一张噪声重新起步。完整机制、真实种子表和一个可点的噪声演示，放在 <a href="l1-03b-seed.html">L1-03b 种子</a>。</p>
+
+  <h2 id="together"><span class="no">03 / 一起看</span>两个参数，各管一段</h2>
+  <p>改的环节不同：CFG 在每一步采样里起作用，种子在第一步之前就定完了。看两张对比卡，就能判断刚才的差别是谁带来的。</p>
+  <div class="split">
+    <div class="card">
+      <h4>CFG 变了，种子没变</h4>
+      <ul>
+        <li>起点噪声相同，构图大方向通常相近。</li>
+        <li>颜色、对比、贴近提示词的程度会变。</li>
+        <li>过高时结构可能崩，哪怕种子没动。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>种子变了，CFG 没变</h4>
+      <ul>
+        <li>起点噪声换了，构图和人物姿态可能完全变。</li>
+        <li>画质风格通常仍在同一档。</li>
+        <li>想“换一张但保持水准”，优先换种子。</li>
+      </ul>
+    </div>
+  </div>
+  <p>判断办法很直接：构图大改、风格还在，多半是种子动了；构图没怎么动，颜色和服从度却变了，去看 CFG。</p>
+
+  <h2 id="practice"><span class="no">04 / 动手</span>把 CFG 的边界摸出来</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，把 <b>#4</b> 的种子锁定（randomize 改成 fixed），CFG 依次取 1、3、6，各跑一次。</p><p class="why">目标：观察服从度上升、自然度下降的拉扯，而不是只记数字。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>种子和 CFG 都不动，只把 04 号 <b>#59</b> 提示词里的 <code>modern</code> 改成 <code>Chinese-style</code>，比较构图变化。</p><p class="why">目标：起点被锁住，构图基本不动；这一条同时验证了种子锁定，也让你看清 CFG 比较的是新提示词。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>把 CFG 拉到 10 以上再跑一次，看画面过饱和、边缘发硬，甚至结构崩坏，然后调回 3。</p><p class="why">目标：亲手摸到高引导的代价，知道“听话”不是越高越好。</p></div></div>
+  </div>
+
+  <div class="callout myth">
+    <p><b>常见误解：</b>“CFG 越高越准确。”只对了一半。值太高时模型会过度执行提示词，颜色发艳、细节发硬，结构也可能散掉。准确的做法是按模型给区间：SDXL 这套在 2.67–3.0，Flux2 子图多为 1。</p>
+  </div>
+
+  <h2 id="check"><span class="no">05 / 自检</span>别把“听话”调成“用力过猛”</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出 CFG 放大的是哪两个条件之间的差值。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 CFG 过高会发生什么，也知道为什么 Flux2 可以用 1。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清“换种子”和“改 CFG”分别会带来什么变化。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 CFG 调的是每一步的条件分量，不是画质，也不是创意度。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-02b-steps-denoise.html"><span class="dir">← 上一课</span>L1-02b 步数与 denoise</a>
+    <a href="l1-03b-seed.html"><span class="dir">下一课 →</span>L1-03b 种子</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // CFG 滑杆
+  var cfg=document.getElementById('cfgRange'),cfgVal=document.getElementById('cfgVal');
+  var mFollow=document.getElementById('mFollow'),mFree=document.getElementById('mFree');
+  var tFollow=document.getElementById('tFollow'),tFree=document.getElementById('tFree');
+  var cfgVerdict=document.getElementById('cfgVerdict');
+  function updCfg(){
+    var v=parseFloat(cfg.value);
+    cfgVal.textContent=v.toFixed(1);
+    var follow=Math.min(99,Math.round(18+30*Math.log(v)));
+    var free=Math.max(8,Math.round(100-(v-1)*7.5));
+    mFollow.style.width=follow+'%';mFree.style.width=free+'%';
+    tFollow.textContent=follow+'%';tFree.textContent=free+'%';
+    var s;
+    if(v<2){s=v.toFixed(1)+'：引导很弱，画面自由但容易不听提示词。';}
+    else if(v<4){s=v.toFixed(1)+'：SDXL 常用区间，既听提示词，也保留自然的光影。';}
+    else if(v<7){s=v.toFixed(1)+'：明显更服从，代价是色彩更容易发硬、发艳。';}
+    else{s=v.toFixed(1)+'：高引导区，结构崩坏和过曝的风险明显上升。';}
+    cfgVerdict.textContent=s;
+  }
+  cfg.addEventListener('input',updCfg);updCfg();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l1-03-cfg-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

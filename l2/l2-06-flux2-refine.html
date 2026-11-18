@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L2-06 Flux2 精修链 · AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="07 号 #387 子图的三问：步数为什么在 Flux2Scheduler、CFGGuider 为什么是 1.0、ReferenceLatent 为什么进正向负向两个槽。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:26px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:720px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.meta b{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout.defer{border-color:var(--amber);background:var(--amber-soft);font-size:14.5px;color:var(--muted)}
+.callout.defer b{color:var(--amber)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow);overflow-x:auto}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:13px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.svg-mono{font-family:var(--mono);font-size:11.5px;fill:var(--muted)}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.steps{display:grid;gap:10px;margin:20px 0}
+.step{display:grid;grid-template-columns:46px 1fr;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.step .n{background:var(--accent-soft);color:var(--accent);font-family:var(--mono);font-size:17px;font-weight:700;display:flex;justify-content:center;padding-top:12px}
+.step .c{padding:12px 15px 14px}
+.step h4{font-family:var(--sans);font-size:15px;margin:0 0 4px}
+.step p{font-size:13.8px;color:var(--muted);margin:0;line-height:1.75}
+.pits{display:grid;gap:12px;margin:20px 0}
+.pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:14px 16px}
+.pit h3{font-size:16px;margin:0 0 4px}
+.pit p{font-size:14px;margin:0;color:var(--muted)}
+.pit p+p{margin-top:6px}
+.pit .fix{color:var(--teal);font-weight:600}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.tasks{list-style:none;padding:0;margin:18px 0;counter-reset:t}
+.tasks li{counter-increment:t;position:relative;padding:12px 15px 12px 44px;margin:0 0 8px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:var(--sans)}
+.tasks li::before{content:counter(t);position:absolute;left:13px;top:12px;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-size:11.5px;line-height:21px;text-align:center;font-weight:700}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 节点字典 · 06</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-06 Flux2 精修链</p>
+
+  <header class="hero">
+    <span class="kicker">L2 节点字典 · 第六册</span>
+    <h1>Flux2 精修链：<br>三个问题，一条判断链</h1>
+    <p class="lede">你在 07 号里连点四次，进到一个叫 <code>New Subgraph</code> 的节点，里面躺着 22 个零件。三个地方看着都不对劲：采样器上没有步数，引导器写着一个 1.0，同一个参考潜变量被接了两根线。这一课只解决这三问，给你一条下次能自己走的判断链。</p>
+    <div class="meta">
+      <span>先修 <b>L2-03</b></span>
+      <span>实例 <b>L3-07 · 07 号</b></span>
+      <span>子图 <b>#390 → #387</b></span>
+      <span>关键值 <b>steps 1 · cfg 1.0</b></span>
+    </div>
+  </header>
+
+  <h2 id="locate"><span class="no">01 / LOCATE</span>先找到真身：四层套娃，编号 #363 起</h2>
+  <p>07 号画布上只有一个折叠节点，标题写着 <code>New Subgraph</code>。双击它，里面还有一个；再双击，还有一个。四层点完，才看到真正干活的 22 个节点。</p>
+  <p>这个“把一整段链路折成一个节点”的东西叫<b>子图</b>（subgraph）。它不是分组框——分组框只是画布上的一圈虚线，不改变连线，也不产生新节点；子图是真的把内部节点收进了一层壳里，外面只露出输入口和输出口。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 360 228" role="img" aria-label="四层子图 390 到 387，最里层是 22 个节点">
+      <rect x="8" y="24" width="344" height="192" rx="10" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <text x="16" y="17" class="svg-title">#390 顶层节点 · New Subgraph</text>
+      <rect x="30" y="48" width="300" height="150" rx="9" fill="#f3f1ea" stroke="#cbc6ba"/>
+      <text x="38" y="43" class="svg-sub">#389 · 里面只有 1 个节点</text>
+      <rect x="52" y="72" width="256" height="108" rx="8" fill="#ece9df" stroke="#cbc6ba"/>
+      <text x="60" y="67" class="svg-sub">#388 · 里面只有 1 个节点</text>
+      <rect x="74" y="96" width="212" height="66" rx="7" fill="#fff" stroke="#4051d6" stroke-width="1.6"/>
+      <text x="82" y="91" class="svg-title">#387 · 真身所在层</text>
+      <text x="180" y="122" text-anchor="middle" class="svg-title">#363 – #386</text>
+      <text x="180" y="142" text-anchor="middle" class="svg-sub">22 个节点 · 编号只在子图内部有效</text>
+      <text x="180" y="188" text-anchor="middle" class="svg-lbl">前三层各只装一个节点，点错一层就会以为“子图是空的”。</text>
+    </svg>
+    <figcaption>四层定义全叫 <code>New Subgraph</code>。路径记成一行：390 → 389 → 388 → 387；参数都在最后一层。</figcaption>
+  </figure>
+
+  <p>这里还有一个容易误判的点：<b>内部编号</b>。子图里的 <code>#363</code> 到 <code>#386</code> 只在 <code>#387</code> 这张子图里唯一，和顶层的 <code>#390</code>、<code>#1</code> 不冲突。看到 <code>#363</code>，先问一句“我在第几层”，再去找节点。</p>
+
+  <div class="callout">
+    <p><b>和 01 号对比：</b>01 号的主链只有一层子图 <code>#196</code>，双击一次就到底；07 号叠了四层。层级本身不影响出图，只影响你找参数的时间。</p>
+  </div>
+
+  <div class="callout defer">
+    <p><b>后面专门讲：</b>子图的输入输出怎么接线、嵌套深了怎么整理，归 <a href="l2-04b-groups-wiring.html">L2-04b 组织与接线</a>；这一课只借它定位。</p>
+  </div>
+
+  <h2 id="steps"><span class="no">02 / STEPS</span>第一问：步数为什么不在采样器上</h2>
+  <p>你想把“精修一步”改成两步，于是去找 <code>steps</code>。先看 <code>#365 SamplerCustomAdvanced</code>——没有；再看 <code>#363 KSamplerSelect</code>——只有一个 <code>euler</code>。步数藏在右边的 <code>#382 Flux2Scheduler</code> 里，值是 <code>1</code>。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 360 190" role="img" aria-label="KSamplerSelect 选算法、SamplerCustomAdvanced 执行、Flux2Scheduler 给步数与 sigma">
+      <defs><marker id="ar26" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#5d6779"/></marker></defs>
+      <rect x="6" y="34" width="104" height="74" rx="8" fill="#fff" stroke="#cbc6ba"/>
+      <text x="58" y="54" text-anchor="middle" class="svg-title">#363</text>
+      <text x="58" y="72" text-anchor="middle" class="svg-sub">KSamplerSelect</text>
+      <text x="58" y="90" text-anchor="middle" class="svg-sub">euler · 无步数</text>
+
+      <rect x="128" y="34" width="104" height="74" rx="8" fill="#fff" stroke="#4051d6" stroke-width="1.6"/>
+      <text x="180" y="54" text-anchor="middle" class="svg-title">#365</text>
+      <text x="180" y="72" text-anchor="middle" class="svg-sub">SamplerCustom</text>
+      <text x="180" y="90" text-anchor="middle" class="svg-sub">Advanced · 无步数</text>
+
+      <rect x="250" y="34" width="104" height="74" rx="8" fill="#f2f0f9" stroke="#4051d6"/>
+      <text x="302" y="54" text-anchor="middle" class="svg-title">#382</text>
+      <text x="302" y="72" text-anchor="middle" class="svg-sub">Flux2Scheduler</text>
+      <text x="302" y="90" text-anchor="middle" class="svg-title">steps 1</text>
+
+      <line x1="110" y1="71" x2="126" y2="71" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar26)"/>
+      <line x1="250" y1="71" x2="234" y2="71" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar26)"/>
+      <text x="58" y="126" text-anchor="middle" class="svg-lbl">选算法</text>
+      <text x="180" y="126" text-anchor="middle" class="svg-lbl">执行</text>
+      <text x="302" y="126" text-anchor="middle" class="svg-lbl">排程 + 步数</text>
+      <text x="180" y="158" text-anchor="middle" class="svg-lbl">三件套各管一件事；步数只在最右边那个框里。</text>
+      <text x="180" y="178" text-anchor="middle" class="svg-lbl">种子也不在这里，它在 #366 RandomNoise。</text>
+    </svg>
+    <figcaption>同一套采样器可以跑 1 步，也可以跑 20 步。因为“跑几步”不是采样器的属性，而是它收到的 sigma 序列有多长。</figcaption>
+  </figure>
+
+  <p>拆开看三个词：</p>
+  <ul>
+    <li><b>调度器</b>（scheduler）：把“从满噪声到干净图”这条路切成若干档，每一档对应一个噪声水平，叫 <b>sigma</b>。切几档，就是 <b>steps</b>。反例：调度器不生成噪声，也不决定用哪种算法。</li>
+    <li><b>采样器</b>（sampler）：按给定的 sigma 序列一步步往下走。反例：这里的 <code>SamplerCustomAdvanced</code> 不是“高级版 KSampler”，它没有 steps、cfg、denoise 三个旋钮。</li>
+    <li><b>算法</b>：<code>euler</code> 是一种走法，每一步按当前斜率往前迈。反例：它只决定“怎么迈”，不决定“迈几步”。</li>
+  </ul>
+
+  <p>所以这条链的顺序是：<code>#368 GetImageSize</code> 读出宽高 → <code>#382</code> 按宽高和步数排出 sigma → <code>#365</code> 拿着 sigma 执行。<code>#382</code> 面板上还显示 <code>1024 × 1024</code>，那只是默认值；真正生效的宽高由 <code>#368</code> 连进来的两根线决定。</p>
+
+  <div class="callout tip">
+    <p><b>判断口诀：</b>在 Flux2 链路里找步数，先找 <code>Flux2Scheduler</code>。它在，步数就在它身上；采样器上找不到，不是节点坏了。</p>
+  </div>
+
+  <p class="small quiet">步数、sigma 与去噪幅度的关系，<a href="../l1/l1-02-sampling-steps.html">L1-02 采样与步数</a> 从原理上拆过；这一课只负责指认“值在哪个节点”。</p>
+
+  <h2 id="cfg"><span class="no">03 / CFG</span>第二问：CFGGuider 的 1.0 是什么意思</h2>
+  <p>01 号里你见过 <code>CFGGuider</code> 是 <code>5</code>，这里却是 <code>1.0</code>，看起来像“没填”。先把词说清：<b>CFG</b>（classifier-free guidance，无分类器引导）是提示词的“听话程度”，越高越贴着提示词走。节点面板上这个数叫 <code>cfg</code>，口语里也叫引导强度。</p>
+
+  <table>
+    <thead><tr><th style="width:18%">cfg</th><th>模型在做什么</th><th>什么时候用</th></tr></thead>
+    <tbody>
+      <tr><td><b>0</b></td><td>只走“无条件”那一路，基本不听提示词。</td><td>几乎不用；等于把文字扔掉。</td></tr>
+      <tr><td><b>1.0</b></td><td>按正向条件直接走，不额外放大正负差异。</td><td>图生图、精修、放大前补细节。</td></tr>
+      <tr><td><b>5</b></td><td>把“正向减负向”的差额外推，提示词更强势。</td><td>文生图，需要文字明确主导画面。</td></tr>
+    </tbody>
+  </table>
+
+  <p>07 号这一步的任务不是“重新画一个场景”，而是“在参考图的基础上补细节”。提示词只有一句 <code>8K,4K,增加细节</code>，它不该压过参考图。把 cfg 设成 <code>1.0</code>，等于告诉引导器：<em>别额外加力，按正向条件走就行</em>。</p>
+
+  <p>反例有两层。第一，<code>1.0</code> 不是“关闭引导”，引导器仍在工作，仍要两条条件；<code>0</code> 才是基本不听提示。第二，<code>1.0</code> 不是万能值：把它抄到 01 号文生图，文字对画面的约束会变松，画面更依赖模型自己的先验，未必是你想要的。换场景就要重新判断，不能照抄。</p>
+
+  <div class="callout warn">
+    <p><b>别把两个 1.0 搞混：</b><code>#364 CFGGuider</code> 的 <code>1.0</code> 是引导强度；<code>#379 ColorMatch</code> 里也有一个 <code>strength 1</code>，那是颜色匹配的力度。名字像，管的不是一件事。</p>
+  </div>
+
+  <p class="small quiet">CFG 为什么能把正负条件的差额外推、为什么过高会过饱和，<a href="../l1/l1-03-cfg-seed.html">L1-03 CFG 与种子</a> 有完整推导；这一课只判断“这一步该不该加力”。</p>
+
+  <h2 id="reference"><span class="no">04 / REFERENCE</span>第三问：参考潜变量为什么进两个槽</h2>
+  <p>从 <code>#371 VAEEncode</code> 出来一根线，很快就分成两路：一路进 <code>#372 ReferenceLatent</code>（正向），一路进 <code>#370 ReferenceLatent</code>（负向），最后分别落到 <code>#364 CFGGuider</code> 的两个槽里。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 360 252" role="img" aria-label="同一个参考潜变量分别进入正向和负向两个 ReferenceLatent，再进 CFGGuider">
+      <defs><marker id="ar27" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#5d6779"/></marker></defs>
+      <rect x="6" y="24" width="112" height="48" rx="7" fill="#fff" stroke="#cbc6ba"/>
+      <text x="62" y="43" text-anchor="middle" class="svg-title">#381 正向</text>
+      <text x="62" y="61" text-anchor="middle" class="svg-sub">8K,4K,增加细节</text>
+
+      <rect x="6" y="88" width="112" height="48" rx="7" fill="#f2f0f9" stroke="#4051d6"/>
+      <text x="62" y="107" text-anchor="middle" class="svg-title">#371 VAEEncode</text>
+      <text x="62" y="125" text-anchor="middle" class="svg-sub">参考潜变量</text>
+
+      <rect x="6" y="152" width="112" height="48" rx="7" fill="#fff" stroke="#cbc6ba"/>
+      <text x="62" y="171" text-anchor="middle" class="svg-title">#369 负向</text>
+      <text x="62" y="189" text-anchor="middle" class="svg-sub">空的提示词</text>
+
+      <rect x="150" y="18" width="104" height="48" rx="7" fill="#fff" stroke="#cbc6ba"/>
+      <text x="202" y="37" text-anchor="middle" class="svg-title">#372</text>
+      <text x="202" y="55" text-anchor="middle" class="svg-sub">ReferenceLatent</text>
+
+      <rect x="150" y="144" width="104" height="48" rx="7" fill="#fff" stroke="#cbc6ba"/>
+      <text x="202" y="163" text-anchor="middle" class="svg-title">#370</text>
+      <text x="202" y="181" text-anchor="middle" class="svg-sub">ReferenceLatent</text>
+
+      <rect x="276" y="62" width="78" height="96" rx="8" fill="#f2f0f9" stroke="#4051d6" stroke-width="1.6"/>
+      <text x="315" y="84" text-anchor="middle" class="svg-title">#364</text>
+      <text x="315" y="102" text-anchor="middle" class="svg-sub">CFGGuider</text>
+      <text x="315" y="122" text-anchor="middle" class="svg-title">1.0</text>
+      <text x="315" y="136" text-anchor="middle" class="svg-sub">positive</text>
+      <text x="315" y="151" text-anchor="middle" class="svg-sub">negative</text>
+
+      <line x1="118" y1="48" x2="148" y2="42" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar27)"/>
+      <line x1="118" y1="174" x2="148" y2="168" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar27)"/>
+      <line x1="118" y1="106" x2="148" y2="58" stroke="#4051d6" stroke-width="1.4" marker-end="url(#ar27)"/>
+      <line x1="118" y1="118" x2="148" y2="154" stroke="#4051d6" stroke-width="1.4" marker-end="url(#ar27)"/>
+      <line x1="254" y1="42" x2="274" y2="84" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar27)"/>
+      <line x1="254" y1="168" x2="274" y2="136" stroke="#5d6779" stroke-width="1.3" marker-end="url(#ar27)"/>
+
+      <text x="180" y="216" text-anchor="middle" class="svg-lbl">#371 只有一份潜变量，两根蓝线是同一份。</text>
+      <text x="180" y="236" text-anchor="middle" class="svg-lbl">两边同源，CFG 比较的才是“文字差异”，不是“有没有参考”。</text>
+    </svg>
+    <figcaption>正向槽接 #372，负向槽接 #370；两个 ReferenceLatent 的 <code>latent</code> 输入都来自 #371。</figcaption>
+  </figure>
+
+  <p><b>ReferenceLatent</b> 做的事，是把参考图的潜变量挂到条件上：采样时模型一边看文字条件，一边看这份“对照草稿”。反例：它不是 ControlNet，不给你边缘或深度那种结构约束；也不是 IPAdapter，不搬参考图的风格。它只是让条件里多一份同一空间的参考。</p>
+
+  <p>为什么两个槽都要挂？因为 <code>CFGGuider</code> 算的是“正向分支减负向分支”的差。如果只有正向带参考、负向不带，这个差里就混进了“有参考 vs 没参考”——引导器会去放大“参考图本身”，而不是放大你的文字。两边挂同一份 <code>#371</code>，这份参考在相减时抵消，剩下的差异才只关于提示词。</p>
+
+  <p>注意：当前 <code>cfg 1.0</code>，负向数值上并不发力。但槽不能空，接线也不能省——一是节点要求两条条件都进来，二是你以后把 cfg 调高时，结构必须仍然成立。01 号也是同一套接法：<code>#148</code> 与 <code>#150</code> 两个 ReferenceLatent，分别进正负两槽。</p>
+
+  <div class="callout defer">
+    <p><b>后面专门讲：</b>参考潜变量和局部重绘的潜变量怎么区分、改哪一块，归 <a href="l2-03b-latent-inpaint.html">L2-03b 潜变量与局部重绘</a>；VAE 怎么把像素压成潜变量，见 <a href="../l1/l1-01b-vae-codec.html">L1-01b VAE 编解码</a>。</p>
+  </div>
+
+  <h2 id="chain"><span class="no">05 / CHAIN</span>把三问串起来：一条能照做的判断链</h2>
+  <p>下次再遇到一条看不懂的 Flux2 精修链，按这五步走，不要从参数表第一行开始背。</p>
+
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div class="c"><h4>先数层，确认看到真身</h4><p>双击子图直到出现一排普通节点。07 号是 <code>#390 → #389 → #388 → #387</code>，真身在 <code>#363–#386</code>。还在壳里时，看到的参数都是别人的。</p></div></div>
+    <div class="step"><div class="n">2</div><div class="c"><h4>找步数，认 Flux2Scheduler</h4><p>看 <code>#382</code> 的 <code>steps</code>。采样器 <code>#365</code> 和算法 <code>#363</code> 都不管步数；宽高由 <code>#368</code> 送进 <code>#382</code>。</p></div></div>
+    <div class="step"><div class="n">3</div><div class="c"><h4>看 cfg，判断这一步想不想让文字主导</h4><p><code>#364</code> 是 <code>1.0</code>，说明这是“补细节”不是“重画内容”。文生图才会用到 5 这种量级。</p></div></div>
+    <div class="step"><div class="n">4</div><div class="c"><h4>查参考，确认两条 ReferenceLatent 同源</h4><p>顺着 <code>#370</code>、<code>#372</code> 的 <code>latent</code> 输入往上追，都应该落到 <code>#371</code>。只接一边，就是接线错了。</p></div></div>
+    <div class="step"><div class="n">5</div><div class="c"><h4>顺出口，看精修之后接了什么</h4><p><code>#376</code> 解码 → <code>#379</code> 校色 → <code>#383</code> 4× 放大 → <code>#386</code> 封顶 8 MP。这一段只影响交付尺寸，不影响前三问的判断。</p></div></div>
+  </div>
+
+  <h3>和 01 号主链并排看</h3>
+  <div style="overflow-x:auto">
+    <table style="min-width:520px">
+      <thead><tr><th style="width:26%">对比项</th><th>01 号主链 <code>#196</code></th><th>07 号精修 <code>#387</code></th></tr></thead>
+      <tbody>
+        <tr><td>子图层级</td><td>1 层，双击一次到底</td><td>4 层，双击四次到底</td></tr>
+        <tr><td>步数</td><td><code>#135 Flux2Scheduler</code> · <b>20</b></td><td><code>#382 Flux2Scheduler</code> · <b>1</b></td></tr>
+        <tr><td>引导强度</td><td><code>#136 CFGGuider</code> · <b>5</b></td><td><code>#364 CFGGuider</code> · <b>1.0</b></td></tr>
+        <tr><td>参考潜变量</td><td><code>#148 / #150</code> 双槽</td><td><code>#370 / #372</code> 双槽</td></tr>
+        <tr><td>这一步的目的</td><td>从文字生成画面</td><td>在参考图上补细节，再交给放大</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>参数速查（全部读自 07 号 JSON）</h3>
+  <div style="overflow-x:auto">
+    <table style="min-width:560px">
+      <thead><tr><th style="width:30%">节点</th><th>值</th><th style="width:30%">它管的</th></tr></thead>
+      <tbody>
+        <tr><td><code>#363 KSamplerSelect</code></td><td><code>euler</code></td><td>采样算法</td></tr>
+        <tr><td><code>#364 CFGGuider</code></td><td><code>1.0</code></td><td>引导强度</td></tr>
+        <tr><td><code>#365 SamplerCustomAdvanced</code></td><td>无参数</td><td>按 sigma 执行</td></tr>
+        <tr><td><code>#366 RandomNoise</code></td><td><code>521457515310692 · randomize</code></td><td>噪声起点</td></tr>
+        <tr><td><code>#367 EmptyFlux2LatentImage</code></td><td><code>1024 × 1024 · batch 1</code></td><td>空白起点画布</td></tr>
+        <tr><td><code>#368 GetImageSize</code></td><td>读 <code>#378</code> 的宽高</td><td>尺寸广播</td></tr>
+        <tr><td><code>#371 VAEEncode</code></td><td>像素 <code>← #378</code></td><td>编出参考潜变量</td></tr>
+        <tr><td><code>#377 CR Text</code></td><td><code>8K,4K,增加细节</code></td><td>正向提示词</td></tr>
+        <tr><td><code>#382 Flux2Scheduler</code></td><td><code>steps 1</code></td><td>sigma 排程 + 步数</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <p><b>一句话串完：</b>这是一条“把图缩到 2 MP → 编出参考潜变量 → 挂到正负两条条件上 → 用 1 步、cfg 1.0 补细节 → 校色 → 4× 放大 → 封顶 8 MP”的链。三个疑问分别对应调度器、引导器、两条 ReferenceLatent。</p>
+  </div>
+
+  <h2 id="pitfalls"><span class="no">06 / PITFALLS</span>三个高频误读</h2>
+  <div class="pits">
+    <div class="pit">
+      <h3>在采样器上找步数</h3>
+      <p>症状：<code>#365</code> 和 <code>#363</code> 都没有 steps，于是判断“节点被改坏了”。</p>
+      <p class="fix">改法：Flux2 的步数在 <code>Flux2Scheduler</code>，07 号是 <code>#382</code>，01 号是 <code>#135</code>。</p>
+    </div>
+    <div class="pit">
+      <h3>把 cfg 1.0 当成“关闭引导”</h3>
+      <p>症状：以为负向不用接，或者以为 1.0 等于没设参数。</p>
+      <p class="fix">改法：1.0 是“不额外加力”，<code>0</code> 才是基本不听提示；负向槽仍然必须接。</p>
+    </div>
+    <div class="pit">
+      <h3>只给正向接 ReferenceLatent</h3>
+      <p>症状：精修越修越像参考图本身，文字几乎不起作用；或者两条条件一高一低，画面发飘。</p>
+      <p class="fix">改法：<code>#370</code> 和 <code>#372</code> 的 <code>latent</code> 都接 <code>#371</code>，保持同源。</p>
+    </div>
+  </div>
+
+  <h2 id="practice"><span class="no">07 / PRACTICE</span>动手确认一遍</h2>
+  <ol class="tasks">
+    <li>打开 07 号，从 <code>#390</code> 连点四次，把路径写下来；数一数最后一层是不是 22 个节点。</li>
+    <li>在最后一层找到 <code>#382</code>，读出 <code>steps</code>；再去 <code>#365</code> 和 <code>#363</code> 确认没有步数框。</li>
+    <li>找到 <code>#364</code>，读出 <code>1.0</code>；再打开 01 号看 <code>#136</code> 的 5，把两者并排记成一行。</li>
+    <li>追 <code>#370</code>、<code>#372</code> 的 <code>latent</code> 输入，确认都来自 <code>#371</code>；再指出它们分别进 <code>#364</code> 的哪个槽。</li>
+  </ol>
+
+  <div class="checklist">
+    <h4>交作业前自检</h4>
+    <label class="check"><input type="checkbox" data-key="0"><span>我能写出 07 号的四层路径：390 → 389 → 388 → 387。</span></label>
+    <label class="check"><input type="checkbox" data-key="1"><span>我知道 Flux2 的步数在 Flux2Scheduler，不在采样器上。</span></label>
+    <label class="check"><input type="checkbox" data-key="2"><span>我能解释 cfg 1.0 是“不额外加力”，不是“关闭引导”。</span></label>
+    <label class="check"><input type="checkbox" data-key="3"><span>我知道两条 ReferenceLatent 必须共用同一个参考潜变量。</span></label>
+    <label class="check"><input type="checkbox" data-key="4"><span>我能说出为什么精修用 1.0、文生图用 5，两者不能照抄。</span></label>
+    <label class="check"><input type="checkbox" data-key="5"><span>我能指出 #363、#365、#382 各管什么。</span></label>
+  </div>
+
+  <div class="callout defer">
+    <p><b>这一课不展开：</b>放大模型怎么选、2 MP / 8 MP 怎么定、为什么 4× 之后还要缩回来——都在 <a href="../l3/l3-07-hd-upscale.html">L3-07 高清放大</a> 里逐节点讲。这里只负责把精修段读懂。</p>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-05b-semantic-seg.html"><span class="dir">← 上一课</span>L2-05b 语义分割</a>
+    <a href="../l3/l3-01-text-to-image.html"><span class="dir">下一课 →</span>L3-01 文生图</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var map={name:COURSE.name,author:COURSE.author,year:COURSE.year};
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v=map[el.getAttribute('data-bind')];if(v)el.textContent=v;
+  });
+
+  document.querySelectorAll('.check input[type="checkbox"]').forEach(function(b){
+    var key='cui-l206-check-'+b.getAttribute('data-key');
+    try{if(localStorage.getItem(key)==='1')b.checked=true;}catch(e){}
+    b.addEventListener('change',function(){
+      try{localStorage.setItem(key,b.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

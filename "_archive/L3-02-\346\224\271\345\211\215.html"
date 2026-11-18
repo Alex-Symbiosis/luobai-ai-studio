@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L3-A2 · 线稿 + 参考图：两条控制线怎么分工 | AI 入门与 ComfyUI 出图课</title>
+<script>
+const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学生与普通人的 AI 入门课', author: '李智博', year: '2026' };
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --violet:#7c4ddb; --violet-soft:rgba(124,77,219,.10);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --t-image:#2f7d5b; --t-model:#3d6fc4; --t-cond:#7a4fc0; --t-latent:#b0447f;
+    --t-control:#b26206; --t-string:#6b7f3a; --t-io:#6b7280;
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
+               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
+    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
+
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .secnav::-webkit-scrollbar{display:none}
+  .secnav a{font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;white-space:nowrap;font-weight:600}
+  .secnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  .hero{padding:44px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);border:1px solid rgba(64,81,214,.22);padding:5px 12px;border-radius:999px}
+  h1{font-size:clamp(27px,4.2vw,40px);line-height:1.24;letter-spacing:-.02em;font-weight:800;margin-top:16px}
+  .sub{color:var(--muted);margin-top:10px;max-width:790px}
+  .goal{margin-top:24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)}
+  .goal .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--accent);font-weight:700}
+  .goal p{font-size:15.5px;line-height:1.7;margin-top:8px;color:var(--muted)}
+  .goal p.q{font-size:17px;color:var(--ink)}
+  .goal strong{background:linear-gradient(180deg,transparent 62%,rgba(64,81,214,.16) 62%)}
+  .metas{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .chip{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
+
+  .posmap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px;box-shadow:var(--shadow)}
+  .posmap .ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .posmap .ph b{font-size:13px}
+  .posmap .ph span{font-size:11.5px;color:var(--faint)}
+  .track{display:flex;overflow-x:auto;padding-bottom:6px}
+  .pstop{flex:1 1 0;min-width:132px;position:relative;padding-top:20px;border-top:3px solid rgba(64,81,214,.22)}
+  .pstop::before{content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #a9b0f0}
+  .pstop .pc{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+  .pstop .pn{font-size:12.5px;font-weight:600;margin-top:2px;line-height:1.4;color:var(--muted)}
+  .pstop.here{border-top-color:var(--accent)}
+  .pstop.here::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px rgba(64,81,214,.14)}
+  .pstop.here .pn{color:var(--ink);font-weight:800}
+  .pstop.here .pc{color:var(--accent)}
+  .here-tag{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--accent);border-radius:4px;padding:0 5px;margin-left:5px;vertical-align:1px}
+
+  section{padding:46px 0 2px;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .snum{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.12em}
+  h2{font-size:clamp(21px,2.8vw,27px);letter-spacing:-.02em;line-height:1.32}
+  .slead{color:var(--muted);max-width:790px;margin:6px 0 20px;font-size:14px}
+
+  .pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pre{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+  .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
+  .pre h3{font-size:14px;margin:8px 0 4px}
+  .pre p{font-size:12.5px;color:var(--muted);margin:0}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note b{color:var(--ink)}
+
+  .pano{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:8px;overflow-x:auto}
+  .pano svg{display:block;width:100%;min-width:900px;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 10px 6px;border-top:1px dashed var(--line);margin-top:4px}
+  .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .mini-flow{display:none;margin-top:10px;background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:2}
+  .mini-flow b{color:var(--ink)}
+
+  .stage{margin-top:30px;position:relative;padding-left:22px}
+  .stage::before{content:"";position:absolute;left:5px;top:8px;bottom:6px;width:2px;background:linear-gradient(var(--accent),rgba(64,81,214,.12))}
+  .stage-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;position:relative}
+  .stage-h::before{content:"";position:absolute;left:-22px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+  .stage-h .no{font-family:var(--mono);font-size:11px;color:#fff;background:var(--accent);border-radius:6px;padding:2px 7px;font-weight:700}
+  .stage-h h3{font-size:16px}
+  .stage-h .gp{font-size:11.5px;color:var(--faint)}
+  .cards{display:grid;gap:10px}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
+  .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
+  .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .nrole{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .ncard .bd{padding:12px 15px 14px}
+  .ncard .bd p{font-size:13.5px;color:#2c3546;margin:0 0 8px}
+  .ncard .bd p:last-child{margin-bottom:0}
+  .ncard .bd b{color:var(--ink)}
+  .params{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 14px;margin:8px 0 6px;padding:9px 12px;background:#faf9f5;border:1px solid var(--line);border-radius:8px}
+  .params div{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted #e8e4da;padding-bottom:3px;min-width:0}
+  .params div:last-child{border-bottom:none}
+  .params b{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-align:right;overflow-wrap:anywhere}
+  .io{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .io span{font-family:var(--mono);font-size:10.5px;border-radius:4px;padding:1px 6px;background:#f1f2f6;color:var(--muted)}
+  .io .in{background:rgba(61,111,196,.10);color:#2f5aa8}
+  .io .out{background:rgba(47,125,91,.10);color:#256b4c}
+  .warn-inline{font-size:12.5px;color:var(--danger);background:var(--danger-soft);border-radius:7px;padding:7px 10px;margin-top:8px}
+  .warn-inline b{color:var(--danger)}
+
+  .scale{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:14px;box-shadow:var(--shadow)}
+  .scale h3{font-size:13.5px;margin-bottom:4px}
+  .scale .note{font-size:11.5px;color:var(--faint);margin-bottom:12px}
+  .bars{display:grid;gap:9px}
+  .bar{display:grid;grid-template-columns:96px 1fr 58px;gap:10px;align-items:center}
+  .bar .nm{font-size:11.5px;color:var(--muted)}
+  .bar .tr{height:12px;background:#f0eee8;border-radius:99px;overflow:hidden}
+  .bar .fi{height:100%;border-radius:99px}
+  .bar .vl{font-family:var(--mono);font-size:11px;color:var(--ink);text-align:right}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin-top:14px}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:700px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent)}
+  tr.grp td{background:var(--accent-soft);font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.06em;padding:5px 12px}
+
+  .pits{display:grid;gap:10px}
+  .pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--danger);border-radius:0 12px 12px 0;padding:14px 16px}
+  .pit h3{font-size:14px;margin-bottom:4px}
+  .pit .where{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em;margin-bottom:6px}
+  .pit p{font-size:13px;color:var(--muted);margin:0}
+  .pit p+p{margin-top:6px}
+  .pit .fix{color:var(--teal);font-weight:600}
+  .pit.lv2{border-left-color:var(--amber)}
+  .pit.lv3{border-left-color:var(--faint)}
+  .pit .sev{font-size:9.5px;font-weight:700;color:#fff;background:var(--danger);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .pit.lv2 .sev{background:var(--amber)}
+  .pit.lv3 .sev{background:var(--faint)}
+
+  .case{display:grid;grid-template-columns:170px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);margin-top:14px}
+  .case .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);font-weight:700}
+  .case .tag{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-top:6px}
+  .case .bad{background:var(--danger-soft);color:var(--danger)}
+  .case h3{font-size:14px;margin-bottom:5px}
+  .case p{font-size:12.8px;color:var(--muted);margin:0 0 6px}
+  .case p:last-child{margin:0}
+  .case b{color:var(--ink)}
+
+  .ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .ex .no{font-family:var(--mono);font-size:10.5px;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .ex h3{font-size:13.5px;margin:5px 0 5px}
+  .ex p{font-size:12.5px;color:var(--muted);margin:0}
+  .ex .see{font-size:12px;color:var(--ink);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)}
+  .ex .see b{color:var(--teal)}
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;box-shadow:var(--shadow)}
+  .check h3{font-size:14px;margin-bottom:8px}
+  .check ul{list-style:none}
+  .check li{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--muted);border-bottom:1px dotted var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check input{margin-top:5px;accent-color:var(--teal);width:14px;height:14px;flex:0 0 auto}
+  .next{margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,rgba(64,81,214,.07),rgba(15,122,108,.07));border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .next .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:700}
+  .next .nt{font-size:17px;font-weight:800;margin-top:2px}
+  .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src code{color:var(--muted)}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:860px){
+    .pre-grid,.ex-grid{grid-template-columns:1fr}
+    .params{grid-template-columns:1fr}
+    .case{grid-template-columns:1fr}
+    .secnav{display:none}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 16px}
+    .mini-flow{display:block}
+    .bar{grid-template-columns:82px 1fr 52px}
+  }
+  @media print{
+    .topbar,.secnav,.mini-flow{display:none}
+    body{background:#fff}
+    section{padding:20px 0 0;page-break-inside:avoid}
+    .ncard,.pre,.ex,.case,.scale{box-shadow:none}
+    .pano{overflow:visible}
+    .pano svg{min-width:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <span class="crumb">L3 / A 线 / A2</span>
+    <nav class="secnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#s2">前置</a>
+      <a href="#s3">全景</a>
+      <a href="#s4">节点</a>
+      <a href="#s5">参数</a>
+      <a href="#s6">踩坑</a>
+      <a href="#s7">练习</a>
+      <a href="../视觉规范.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">L3 · 单品课 · A 线第 2 站</span>
+    <h1>线稿 + 参考图：两条控制线怎么分工</h1>
+    <p class="sub">一张线稿管“形”，一张参考图管“气”。两条线同时进采样器，谁强谁弱，直接决定出图是“按你的构图”还是“按参考图的构图”。</p>
+
+    <div class="goal">
+      <div class="lab">01 / 现实问题与一句话目标</div>
+      <p>现实问题：你画了线稿，也找到了心仪的风格参考，但一出图就“跑”——要么视角被参考图带偏，要么水彩变成写实。多数人以为是模型不行，其实是<b>两条控制线的权重与接线方式</b>没配对。</p>
+      <p class="q">这一课的目标：读懂 02 号工作流的<strong>结构支路</strong>与<strong>风格支路</strong>，知道 0.6 / 0.6 / 0.7 这三个数字各自在管什么，并能解释一次真实的跑偏。</p>
+    </div>
+
+    <div class="metas">
+      <span class="chip">源文件 <b>02📚基础版 线稿+参考图出图.json</b></span>
+      <span class="chip">顶层节点 <b>36</b></span>
+      <span class="chip">连线 <b>52</b></span>
+      <span class="chip">子图 <b>1 个 · 20 节点</b></span>
+      <span class="chip">采样 <b>12 步 / CFG 3</b></span>
+      <span class="chip">数据核对日 <b>2026-11-08</b></span>
+    </div>
+
+    <div class="posmap">
+      <div class="ph"><b>当前位置</b><span>A 线 · 出图线 · 第 2 站</span></div>
+      <div class="track">
+        <div class="pstop"><div class="pc">A1</div><div class="pn">文生图</div></div>
+        <div class="pstop here"><div class="pc">A2</div><div class="pn">线稿 + 参考图<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop"><div class="pc">A3</div><div class="pn">室内毛坯 + 参考</div></div>
+        <div class="pstop"><div class="pc">A4</div><div class="pn">建筑毛坯 + 参考</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="s2">
+    <div class="shead"><span class="snum">02 / PREREQUISITES</span><h2>前置知识卡</h2></div>
+    <p class="slead">这一课把 L3-01 的“纯提示词生成”升级成“双线并行”。如果下面三张卡里有一张是空的，第四节会看得很吃力。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">L2-02</span>
+        <h3>ControlNet：管形</h3>
+        <p>它把线稿/深度图压成结构条件，插进采样过程。<a href="../index.html#term-controlnet">ControlNet</a> 的 strength 越高，构图越难被提示词改动。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L2-02</span>
+        <h3>IPAdapter：管气</h3>
+        <p>它不看文字，直接把参考图的视觉特征（色调、材质、笔触）注入模型。见 <a href="../index.html#term-ipadapter">IPAdapter</a>。它不理解“这是水彩”，只是把特征搬过来。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L2-02</span>
+        <h3>Florence2：读图</h3>
+        <p>本课的正向提示词不是手写的，而是 Florence2 从参考图反推的英文描述。见 <a href="../index.html#term-florence">Florence2</a>。它描述的是参考图，不是你的线稿。</p>
+      </div>
+    </div>
+
+    <div class="pre-note">
+      <b>还需要装好这些：</b>SDXL 建筑大模型、LoRA <code>SDXL 建筑/建筑外观XL终极版.safetensors</code>、<code>diffusers_xl_depth_full</code> 与 <code>mistoLine_rank256</code>、IPAdapter plus + CLIP-ViT-H、Florence2-large、Deep Translator、Impact Pack、rgthree、pysssss、AIO Aux Preprocessor。缺一个，第四节对应节点就会报红。
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="shead"><span class="snum">03 / BLUEPRINT</span><h2>工作流全景图</h2></div>
+    <p class="slead">这张图有两条输入、两条控制线，但只有<b>一个采样器</b>。先沿着颜色走：橙色是“形”，紫色是“气”。两路最后都汇进 #119，再由 #162 做一次 4 步精修。注意最容易被忽略的一根线：<b>#96 的中文指令只进 #162，不进 #119</b>。</p>
+
+    <div class="pano">
+      <svg viewBox="0 0 1200 560" role="img" aria-label="线稿加参考图工作流：结构支路、风格支路、采样与 Flux2 精修">
+        <defs>
+          <marker id="a2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8f97a8"/></marker>
+          <marker id="a2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b26206"/></marker>
+          <marker id="a2v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c4ddb"/></marker>
+          <marker id="a2b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4051d6"/></marker>
+          <style>
+            .bx{fill:#fff;stroke:#d9d4c8;stroke-width:1.2}
+            .t1{font:700 11px/1 ui-monospace,Consolas,monospace;fill:#18212f}
+            .t2{font:400 10px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779}
+            .t3{font:400 9.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3}
+            .ln{fill:none;stroke:#8f97a8;stroke-width:1.4}
+            .ln-a{fill:none;stroke:#b26206;stroke-width:1.5}
+            .ln-v{fill:none;stroke:#7c4ddb;stroke-width:1.5}
+            .ln-b{fill:none;stroke:#4051d6;stroke-width:1.5}
+            .lbl{font:700 10.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+          </style>
+        </defs>
+
+        <text class="lbl" x="30" y="22" text-anchor="start">结构支路 · 线稿管形</text>
+        <text class="lbl" x="30" y="306" text-anchor="start">风格支路 · 参考图管气</text>
+
+        <rect class="bx" x="30" y="40" width="200" height="64" rx="8"/>
+        <rect x="30" y="40" width="4" height="64" rx="2" fill="#b26206"/>
+        <text class="t1" x="46" y="63">#123 线稿</text>
+        <text class="t2" x="46" y="81">wecom-temp…png</text>
+        <text class="t3" x="46" y="96">长边 1800</text>
+
+        <rect class="bx" x="280" y="30" width="180" height="48" rx="7"/>
+        <text class="t1" x="294" y="51">#125 Depth</text>
+        <text class="t3" x="294" y="67">DepthAnythingV2 · 512</text>
+
+        <rect class="bx" x="280" y="90" width="180" height="48" rx="7"/>
+        <text class="t1" x="294" y="111">#126 Lineart</text>
+        <text class="t3" x="294" y="127">LineartStandard · 512</text>
+
+        <rect class="bx" x="510" y="30" width="170" height="48" rx="7"/>
+        <text class="t1" x="524" y="51">#129 深度 CN</text>
+        <text class="t3" x="524" y="67">0.6 · start 0 · end 1</text>
+
+        <rect class="bx" x="510" y="90" width="170" height="48" rx="7"/>
+        <text class="t1" x="524" y="111">#130 线稿 CN</text>
+        <text class="t3" x="524" y="127">0.6 · start 0 · end 1</text>
+
+        <rect class="bx" x="760" y="150" width="210" height="130" rx="8"/>
+        <rect x="760" y="150" width="4" height="130" rx="2" fill="#4051d6"/>
+        <text class="t1" x="776" y="174">#119 KSampler</text>
+        <text class="t2" x="776" y="194">12 步 · CFG 3</text>
+        <text class="t2" x="776" y="212">euler_ancestral</text>
+        <text class="t3" x="776" y="230">denoise 1.0</text>
+        <text class="t3" x="776" y="252">形 + 气在这里合并</text>
+
+        <rect class="bx" x="1000" y="120" width="180" height="120" rx="8"/>
+        <rect x="1000" y="120" width="4" height="120" rx="2" fill="#4051d6"/>
+        <text class="t1" x="1016" y="144">#162 Flux2 精修</text>
+        <text class="t2" x="1016" y="164">4 步 · CFG 1</text>
+        <text class="t3" x="1016" y="182">1 MP · 两张参考图</text>
+        <text class="t3" x="1016" y="202">只接收 #96 中文指令</text>
+
+        <rect class="bx" x="1000" y="330" width="180" height="54" rx="7"/>
+        <rect x="1000" y="330" width="4" height="54" rx="2" fill="#6b7280"/>
+        <text class="t1" x="1016" y="352">#80 SaveImage</text>
+        <text class="t3" x="1016" y="369">Flux2-Klein</text>
+
+        <rect class="bx" x="30" y="330" width="200" height="64" rx="8"/>
+        <rect x="30" y="330" width="4" height="64" rx="2" fill="#7c4ddb"/>
+        <text class="t1" x="46" y="353">#122 参考图</text>
+        <text class="t2" x="46" y="371">ComfyUI_00154_.png</text>
+        <text class="t3" x="46" y="386">白色豪宅 · 写实</text>
+
+        <rect class="bx" x="280" y="290" width="180" height="48" rx="7"/>
+        <text class="t1" x="294" y="311">#106 Florence2</text>
+        <text class="t3" x="294" y="327">more_detailed_caption</text>
+
+        <rect class="bx" x="280" y="348" width="180" height="48" rx="7"/>
+        <text class="t1" x="294" y="369">#107 提示词文本</text>
+        <text class="t3" x="294" y="385">运行时自动生成</text>
+
+        <rect class="bx" x="510" y="348" width="170" height="48" rx="7"/>
+        <text class="t1" x="524" y="369">#117 正向编码</text>
+        <text class="t3" x="524" y="385">英文 caption</text>
+
+        <rect class="bx" x="280" y="412" width="180" height="48" rx="7"/>
+        <text class="t1" x="294" y="433">#109 + #110</text>
+        <text class="t3" x="294" y="449">IPAdapter + ViT-H</text>
+
+        <rect class="bx" x="510" y="412" width="170" height="60" rx="7"/>
+        <text class="t1" x="524" y="433">#134 IPAdapter</text>
+        <text class="t3" x="524" y="449">0.7 · strong style</text>
+        <text class="t3" x="524" y="464">end 1.0 · V only</text>
+
+        <rect class="bx" x="30" y="440" width="200" height="60" rx="7"/>
+        <text class="t1" x="46" y="462">#136 + #135</text>
+        <text class="t2" x="46" y="479">SDXL 建筑大模型</text>
+        <text class="t3" x="46" y="493">LoRA 0.3</text>
+
+        <path class="ln-a" d="M230,62 H257 V54 H277" marker-end="url(#a2a)"/>
+        <path class="ln-a" d="M230,82 H257 V114 H277" marker-end="url(#a2a)"/>
+        <path class="ln-a" d="M460,54 H507" marker-end="url(#a2a)"/>
+        <path class="ln-a" d="M460,114 H487 V114 H507" marker-end="url(#a2a)"/>
+        <path class="ln-a" d="M595,78 V87" marker-end="url(#a2a)"/>
+        <path class="ln-a" d="M680,114 H720 V190 H757" marker-end="url(#a2a)"/>
+        <path class="ln-v" d="M450,372 H480 V54 H507" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M230,362 H255 V314 H277" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M370,338 V345" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M460,372 H507" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M130,394 V482 H477 V424 H507" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M460,436 H507" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M230,470 H490 V458 H507" marker-end="url(#a2v)"/>
+        <path class="ln-v" d="M680,442 H720 V250 H757" marker-end="url(#a2v)"/>
+        <path class="ln-b" d="M970,215 H997" marker-end="url(#a2b)"/>
+        <path class="ln" d="M1090,240 V327" marker-end="url(#a2g)"/>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#b26206"></i>结构：线稿 / 深度 / ControlNet</span>
+        <span><i style="background:#7c4ddb"></i>风格：参考图 / IPAdapter / 提示词</span>
+        <span><i style="background:#4051d6"></i>采样与精修</span>
+        <span><i style="background:#6b7280"></i>保存</span>
+      </div>
+    </div>
+
+    <div class="mini-flow">
+      <b>窄屏速读：</b>线稿 → Depth + Lineart 两条 ControlNet（各 0.6）→ #119；参考图 → IPAdapter 0.7 → #119；参考图还被 Florence2 读成英文提示词。两路合并采样 12 步后，再交给 Flux2 用中文指令精修 4 步。
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="shead"><span class="snum">04 / NODE BY NODE</span><h2>逐节点拆解</h2></div>
+    <p class="slead">按“两进—两控—一合—一修”来读：先把两张输入图接对，再看两条控制线怎么串，最后看合并采样与精修。</p>
+
+    <div class="stage">
+      <div class="stage-h"><span class="no">A</span><h3>两进：一张管形，一张管气</h3><span class="gp">#123 / #122</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#123</span><span class="ntype">LoadImage</span><span class="nrole">线稿入口</span></div>
+          <div class="bd">
+            <p><b>它是什么：</b>结构输入。文件名是 <code>wecom-temp-3848595-1cbeac17745a8940bd2ee0aeb0533c42.png</code>——这是企业微信的临时文件名，缓存一清就找不到。它是全图最容易“换机即断”的一根线。</p>
+            <div class="params">
+              <div><span>image</span><b>wecom-temp-3848595….png</b></div>
+              <div><span>下游</span><b>#125 / #126 / #111</b></div>
+            </div>
+            <div class="warn-inline"><b>先改名再学：</b>把它另存为 <code>lineart_house_01.png</code>，重新加载。否则你换一台电脑，这里第一个报红。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#122</span><span class="ntype">LoadImage</span><span class="nrole">风格入口</span></div>
+          <div class="bd">
+            <p><b>它是什么：</b>参考图 <code>ComfyUI_00154_.png</code>，画面是一栋现代两层白色豪宅、门前两辆车、蓝天绿植。它同时去三个地方：Florence2 读图、IPAdapter 注入特征、Flux2 精修做参考。</p>
+            <div class="params">
+              <div><span>image</span><b>ComfyUI_00154_.png</b></div>
+              <div><span>下游</span><b>#106 / #134 / #162</b></div>
+            </div>
+            <p><b>关键认知：</b>参考图不只是“给个氛围”。在 IPAdapter 0.7 + strong style transfer 下，它的<b>构图与物体</b>也会漏进来。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#111</span><span class="ntype">ImageResize+</span><span class="nrole">隐藏的尺寸陷阱</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把线稿缩放后送进 VAEEncode。节点面板上写着 <code>512 × 512</code>，但那两个值已经被输入线覆盖了——#112 的 <code>1800</code> 同时接到 width 和 height。真正跑的是 <b>1800 长边</b>。</p>
+            <div class="params">
+              <div><span>面板显示</span><b>512 × 512</b></div>
+              <div><span>实际输入</span><b>#112 = 1800</b></div>
+              <div><span>method / 条件</span><b>lanczos / keep proportion</b></div>
+              <div><span>multiple</span><b>32</b></div>
+            </div>
+            <p><b>怎么验证：</b>看 #111 的 width/height 输出有没有连线；有连线，就以连线那头为准，面板数字只是“上次留下的值”。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#114 → #137</span><span class="ntype">VAEEncode → CR Latent Batch Size</span><span class="nrole">画布</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把 1800 的线稿压成潜空间，再由 #137 限制 batch 为 1。这里不是 EmptyLatentImage，所以采样是“从这张线的潜空间开始重画”，denoise 1.0 把起始信息全部覆盖掉，只借用了尺寸。</p>
+            <div class="params">
+              <div><span>batch_size</span><b>1</b></div>
+              <div><span>vae</span><b>← #136</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-h" style="margin-top:26px"><span class="no">B</span><h3>两控：0.6 + 0.6 串成一条链</h3><span class="gp">#129 → #130</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#125 → #129</span><span class="ntype">Depth + ControlNet</span><span class="nrole">管体块</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>DepthAnythingV2 先估出深度图（512 分辨率），再让 <code>diffusers_xl_depth_full</code> 以 strength 0.6 注入。它管的是“哪里近、哪里远、体块多大”，不管线条细不细。</p>
+            <div class="params">
+              <div><span>预处理器</span><b>DepthAnythingV2Preprocessor</b></div>
+              <div><span>resolution</span><b>512</b></div>
+              <div><span>strength</span><b>0.6</b></div>
+              <div><span>start / end</span><b>0 / 1</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#126 → #130</span><span class="ntype">Lineart + ControlNet</span><span class="nrole">管轮廓</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>LineartStandard 抽出干净的轮廓线（512 分辨率），再由 <code>mistoLine_rank256</code> 以 0.6 注入。它管窗框、檐口、栏杆这些“线必须对得上”的地方。</p>
+            <div class="params">
+              <div><span>预处理器</span><b>LineartStandardPreprocessor</b></div>
+              <div><span>resolution</span><b>512</b></div>
+              <div><span>control_net</span><b>mistoLine_rank256</b></div>
+              <div><span>strength</span><b>0.6</b></div>
+            </div>
+            <p><b>为什么是串联：</b>#129 输出的 positive/negative 直接接进 #130，等于“先叠深度，再叠线稿”。顺序不能反，但影响没有想象中大；真正敏感的是两个 strength。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#134</span><span class="ntype">IPAdapterAdvanced</span><span class="nrole">管气</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把参考图的视觉特征注入 MODEL。它不看文字，所以“水彩”“夜景”“胶片”这些词对它没用；它只认图像特征。</p>
+            <div class="params">
+              <div><span>weight</span><b>0.7</b></div>
+              <div><span>weight_type</span><b>strong style transfer</b></div>
+              <div><span>combine_embeds</span><b>concat</b></div>
+              <div><span>start / end</span><b>0 / 1</b></div>
+              <div><span>embeds_scaling</span><b>V only</b></div>
+              <div><span>image_negative</span><b>← #132 噪声图</b></div>
+            </div>
+            <p><b>两个细节：</b>① <code>strong style transfer</code> 比普通 <code>style transfer</code> 更容易把参考图的构图带进来；② end = 1.0 意味着风格作用到最后一刻，没有“先管形、后放气”的缓冲。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#132</span><span class="ntype">IPAdapterNoise</span><span class="nrole">负向噪声</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把参考图做“淡出 + 模糊”生成一张负向图，告诉 IPAdapter“别往这个方向靠”。参数是 fade 0.4、blur 5。它不是必需项，但在参考图颜色很重时能减轻串色。</p>
+            <div class="params">
+              <div><span>type</span><b>fade</b></div>
+              <div><span>strength</span><b>0.4</b></div>
+              <div><span>blur</span><b>5</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-h" style="margin-top:26px"><span class="no">C</span><h3>提示词：你写的英文，其实没被用</h3><span class="gp">#106 → #107 → #117</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#106</span><span class="ntype">Florence2Run</span><span class="nrole">读图</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>对参考图做 <code>more_detailed_caption</code>，生成一段英文描述。JSON 里存着上次运行的结果：一栋现代两层白色豪宅、拱形门洞、二楼阳台、门前两辆车、蓝天绿树。</p>
+            <div class="params">
+              <div><span>task</span><b>more_detailed_caption</b></div>
+              <div><span>max_new_tokens</span><b>1024</b></div>
+              <div><span>num_beams</span><b>3</b></div>
+              <div><span>seed</span><b>390319449934236</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#107 → #117</span><span class="ntype">ShowText → CLIPTextEncode</span><span class="nrole">正向来源</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>#107 把 caption 显示出来，同时把这段文字送进 #117 的 text 输入。#117 面板里看起来是空的，但输入线一接上，就以 caption 为准。</p>
+            <div class="params">
+              <div><span>#117 text</span><b>← #107（运行时）</b></div>
+              <div><span>#116 负向</span><b>""</b></div>
+            </div>
+            <div class="warn-inline"><b>这是本课最反直觉的一处：</b>SDXL 采样器看到的是“白色豪宅”的英文描述；你写在 #96 里的那句中文，只进了 #162。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#115 → #108</span><span class="ntype">DeepTranslator → ShowText</span><span class="nrole">死端</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把英文 caption 从 auto 翻成 English，再显示一次。翻完还是同一段英文，#108 和 #107 内容一模一样，<b>没有任何下游</b>。这是典型的“调试残留”：曾经想接别的分支，后来忘了删。</p>
+            <div class="params">
+              <div><span>from / to</span><b>auto → english</b></div>
+              <div><span>下游</span><b>无</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#96</span><span class="ntype">CR Text</span><span class="nrole">精修指令</span></div>
+          <div class="bd">
+            <p><b>它写的是：</b>“根据图一线稿轮廓，参考图二的设计风格（包含日夜环境、景别，材质，色彩风格，设计细节），将图一转化为写实高质量的摄影级别的效果图。”</p>
+            <p><b>它去哪：</b>只进 #162 的 text。也就是说，它管的是最后那 4 步精修，不管前面 12 步 SDXL 采样。</p>
+            <div class="params">
+              <div><span>下游</span><b>#162</b></div>
+              <div><span>字面要求</span><b>保持构图 + 写实摄影</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-h" style="margin-top:26px"><span class="no">D</span><h3>一合一修：12 步采样 + 4 步精修</h3><span class="gp">#119 → #162</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#119</span><span class="ntype">KSampler</span><span class="nrole">合并点</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>model 来自 #134（已被 IPAdapter 改过），positive/negative 来自 #130（已叠两条 ControlNet），latent 来自 #137。四路在这里第一次见面。</p>
+            <div class="params">
+              <div><span>seed</span><b>496726432833939</b></div>
+              <div><span>steps</span><b>12</b></div>
+              <div><span>cfg</span><b>3</b></div>
+              <div><span>sampler_name</span><b>euler_ancestral</b></div>
+              <div><span>scheduler</span><b>normal</b></div>
+              <div><span>denoise</span><b>1.0</b></div>
+            </div>
+            <p>12 步不算多，因为后面还有 #162 接棒。这也是这份工作流“前面快、后面修”的结构。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#162</span><span class="ntype">Flux2 子图</span><span class="nrole">精修</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>4 步、CFG 1，把 #119 的结果和两张输入图一起重新看一遍，再输出最终图。子图内部有 20 个节点，核心是 <code>flux-2-klein-base-9b-fp8</code> + <code>qwen_3_8b_fp8mixed</code>。</p>
+            <div class="params">
+              <div><span>子图节点</span><b>20</b></div>
+              <div><span>steps</span><b>4</b></div>
+              <div><span>cfg</span><b>1</b></div>
+              <div><span>参考图</span><b>#123 + #122</b></div>
+              <div><span>文本</span><b>#96</b></div>
+            </div>
+            <p><b>注意：</b>它不是“放大”，而是“带着两张参考图重新生成”。所以它有能力改掉前面辛苦锁住的构图——第六节的反例就是这么来的。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#80</span><span class="ntype">SaveImage</span><span class="nrole">落盘</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>保存 #162 的结果，前缀 <code>Flux2-Klein</code>。它不记录 LoRA 强度、ControlNet strength 和 IPAdapter 权重，三天后你只看到一张图，无法复现。</p>
+            <div class="params">
+              <div><span>filename_prefix</span><b>Flux2-Klein</b></div>
+              <div><span>batch</span><b>1</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="shead"><span class="snum">05 / CHEAT SHEET</span><h2>参数速查表</h2></div>
+    <p class="slead">这张表按“结构 / 风格 / 提示词 / 采样 / 精修”分组。先记住一句：<b>结构强度决定“像不像”，风格强度决定“好不好看”，而精修决定“最后听谁的”。</b></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>参数</th><th>真实值</th><th>管什么</th><th>动它会怎样</th></tr></thead>
+        <tbody>
+          <tr class="grp"><td colspan="4">结构支路</td></tr>
+          <tr><td>#125 预处理</td><td><code>DepthAnythingV2Preprocessor / 512</code></td><td>估深度</td><td>分辨率低会丢远景层次</td></tr>
+          <tr><td>#129 strength</td><td><code>0.6 / start 0 / end 1</code></td><td>体块与进深</td><td>降到 0.4，屋顶坡度、楼层数开始飘</td></tr>
+          <tr><td>#126 预处理</td><td><code>LineartStandardPreprocessor / 512</code></td><td>抽轮廓</td><td>线条太细会被当噪点</td></tr>
+          <tr><td>#130 strength</td><td><code>0.6 / start 0 / end 1</code></td><td>窗框、檐口、栏杆</td><td>升到 0.8，线条更硬，材质更死</td></tr>
+          <tr class="grp"><td colspan="4">风格支路</td></tr>
+          <tr><td>#134 weight</td><td><code>0.7</code></td><td>参考图特征强度</td><td>0.9 容易把参考图的物体一起搬来</td></tr>
+          <tr><td>weight_type</td><td><code>strong style transfer</code></td><td>注入方式</td><td>换 <code>style transfer</code> 更保守，构图更稳</td></tr>
+          <tr><td>start / end</td><td><code>0 / 1</code></td><td>风格作用时段</td><td>end 0.8 = 后 20% 放手，材质更自然</td></tr>
+          <tr><td>#132 负向噪声</td><td><code>fade 0.4 / blur 5</code></td><td>抑制串色</td><td>blur 太小会留下参考图结构</td></tr>
+          <tr><td>#135 LoRA</td><td><code>建筑外观XL终极版 / 0.3</code></td><td>建筑审美</td><td>0.6 以上，风格会更“样板房”</td></tr>
+          <tr class="grp"><td colspan="4">提示词与画布</td></tr>
+          <tr><td>#117 positive</td><td>← #107 Florence caption</td><td>SDXL 的正向</td><td>改 #117 面板无效，要改 #106 或断开连线</td></tr>
+          <tr><td>#116 negative</td><td><code>""</code></td><td>负向</td><td>加词会改变质地，但救不了构图</td></tr>
+          <tr><td>#111 / #112</td><td><code>面板 512 / 实际 1800</code></td><td>采样尺寸</td><td>降 1024，显存与时间显著下降</td></tr>
+          <tr><td>#137 batch</td><td><code>1</code></td><td>批量</td><td>3 张一起跑，显存三倍</td></tr>
+          <tr class="grp"><td colspan="4">采样与精修</td></tr>
+          <tr><td>#119 steps / cfg</td><td><code>12 / 3</code></td><td>SDXL 去噪</td><td>8 步会粗；CFG 5 会更硬更艳</td></tr>
+          <tr><td>#119 sampler</td><td><code>euler_ancestral / normal</code></td><td>去噪路线</td><td>换 dpmpp_2m 更稳，纹理更平</td></tr>
+          <tr><td>#162 steps / cfg</td><td><code>4 / 1</code></td><td>Flux2 精修</td><td>加步数更细，但也更容易改构图</td></tr>
+          <tr><td>#80 前缀</td><td><code>Flux2-Klein</code></td><td>文件命名</td><td>不记录强度，无法复现</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scale">
+      <h3>控制力刻度（不是相加关系）</h3>
+      <div class="note">下面四条是各自的强度，不是“形 1.2 + 气 0.7”的加法。它们作用在不同层，冲突时谁后期的作用更大，谁就更占上风。</div>
+      <div class="bars">
+        <div class="bar"><span class="nm">Depth 体块</span><div class="tr"><div class="fi" style="width:60%;background:#b26206"></div></div><span class="vl">0.60</span></div>
+        <div class="bar"><span class="nm">Lineart 轮廓</span><div class="tr"><div class="fi" style="width:60%;background:#d18a2e"></div></div><span class="vl">0.60</span></div>
+        <div class="bar"><span class="nm">IPAdapter 风格</span><div class="tr"><div class="fi" style="width:70%;background:#7c4ddb"></div></div><span class="vl">0.70</span></div>
+        <div class="bar"><span class="nm">LoRA 建筑</span><div class="tr"><div class="fi" style="width:30%;background:#0f7a6c"></div></div><span class="vl">0.30</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="shead"><span class="snum">06 / TRAPS</span><h2>踩坑</h2></div>
+    <p class="slead">这份工作流最大的问题不是参数，而是“你以为它听你的，其实它听别人的”。下面五条，前三条会直接改变画面。</p>
+
+    <div class="pits">
+      <div class="pit">
+        <span class="sev">高</span>
+        <div class="where">#111 · ImageResize+</div>
+        <h3>面板写着 512，实际跑的是 1800</h3>
+        <p>#111 的 widgets 里确实是 512×512，但 width 和 height 都接着 #112 的 <code>1800</code>。ComfyUI 的规则是<b>连线优先于面板值</b>，所以真正送进 VAE 的是 1800 长边。你在面板上改 512，改了个寂寞。</p>
+        <p class="fix">修法：要么断开 #112 的两根线，要么直接把 #112 改成你要的尺寸。判断方法：看输入槽上有没有小圆点，有就是被连线接管了。</p>
+      </div>
+
+      <div class="pit">
+        <span class="sev">高</span>
+        <div class="where">#107 → #117</div>
+        <h3>正向提示词是 Florence 写的，不是你写的</h3>
+        <p>#117 的面板是空的，text 输入接着 #107。运行时，Florence2 会把参考图读成一段“现代两层白色豪宅、门前两辆车”的英文，直接送进 SDXL。你写在 #96 里的中文指令，只喂给 #162。</p>
+        <p><b>后果：</b>你以为在按线稿盖房，SDXL 其实在按参考图盖房；等你发现风格不对，改 #117 面板完全没用。</p>
+        <p class="fix">修法：想自己控 SDXL 提示词，就断开 #107→#117，直接在 #117 写；想保留自动读图，就改 #106 的 task 或换一张更干净的参考图。</p>
+      </div>
+
+      <div class="pit">
+        <span class="sev">高</span>
+        <div class="where">#134 IPAdapter + #162 Flux2</div>
+        <h3>0.7 的 strong style transfer，会把参考图的构图也搬来</h3>
+        <p>这三张真实图能说明问题：乡村水系那组，输入是跨水拱廊/圆塔的线稿与水彩桥景，终图却变成近俯视的河湾、钢桁架桥、两座石堡、三艘船。水彩笔触没继承，写实哑光倒很明显。</p>
+        <p>从接线看，三处可疑：① 0.7 的 <code>strong style transfer</code> 本来就容易漏构图；② end = 1.0，风格作用到最后一刻，没有“先锁形、后放气”；③ #162 只做 1 MP 的 4 步重绘，桥的坡道与落地关系最容易在这一步丢。</p>
+        <p class="fix">修法（按代价从低到高）：先把 IPAdapter 降到 0.5、end 降到 0.8，再换普通 <code>style transfer</code>；仍跑偏，就先把 #162 旁路掉，只看 SDXL 的输出，确认问题出在哪一段。</p>
+      </div>
+
+      <div class="pit lv2">
+        <span class="sev">中</span>
+        <div class="where">#123 · LoadImage</div>
+        <h3>企业微信临时文件名，换机即断</h3>
+        <p><code>wecom-temp-3848595-…png</code> 是临时缓存名。清理微信缓存、换电脑、把工作流发给同学，都会让这个节点报红。它不像 <code>image (26).png</code> 那样明显，但坏得更快。</p>
+        <p class="fix">修法：另存为 <code>lineart_house_01.png</code>，重新加载，并把素材与 JSON 放进同一个文件夹一起打包。</p>
+      </div>
+
+      <div class="pit lv3">
+        <span class="sev">低</span>
+        <div class="where">#115 → #108 / #162</div>
+        <h3>死端、重复文本、无名子图</h3>
+        <p>#115 把英文 caption 从 auto 翻成 English，再给 #108 显示一遍，内容和 #107 一模一样，没有任何下游；这是调试残留。另外 #162 点进去，子图名字大概率还是 <code>New Subgraph</code>，三层都同名，找起来很痛苦。</p>
+        <p class="fix">修法：删掉 #115/#108；把子图重命名成“Flux2 精修 9b”；保存前缀改成 <code>lineart+ref_ipad07_cn06_s{seed}</code>。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="shead"><span class="snum">07 / PRACTICE</span><h2>动手练习 + 自检清单</h2></div>
+    <p class="slead">这一课最重要的是建立“谁在说话”的直觉。每个练习都只改一条支路，别一次动三个参数。</p>
+
+    <div class="ex-grid">
+      <div class="ex">
+        <div class="no">EX 01 · 8 分钟</div>
+        <h3>先看两张预处理图</h3>
+        <p>跑之前先看 #128（深度预览）和 #131（线稿预览）。确认它们真的来自 #123。</p>
+        <div class="see">看什么：<b>深度图有没有楼层</b>、线稿有没有把窗框抽断。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 02 · 10 分钟</div>
+        <h3>关掉一条 ControlNet</h3>
+        <p>先只把 #130 的 strength 改 0，再恢复；然后把 #129 改 0。固定 seed 对比。</p>
+        <div class="see">看什么：<b>关深度先坏哪里</b>、关线稿先坏哪里。记下顺序。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 03 · 10 分钟</div>
+        <h3>把 IPAdapter 降下来</h3>
+        <p>weight 0.7 → 0.4，weight_type 改 <code>style transfer</code>，end 改 0.8。</p>
+        <div class="see">看什么：<b>参考图的物体还在不在</b>，构图是否更贴线稿。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 04 · 8 分钟</div>
+        <h3>验证 512 的谎言</h3>
+        <p>把 #112 改成 1024，记录耗时与显存；再断开 #112 的两根线，看面板 512 是否生效。</p>
+        <div class="see">看什么：<b>连线优先</b>。这一步能帮你以后快速排错。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 05 · 12 分钟</div>
+        <h3>让 SDXL 听你的</h3>
+        <p>断开 #107→#117，在 #117 写 30 词以内的英文：主体、材质、光线、视角各一句。</p>
+        <div class="see">看什么：<b>画面是否更可控</b>，Florence 的描述里哪些词其实没用。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 06 · 15 分钟</div>
+        <h3>旁路精修，定位跑偏</h3>
+        <p>把 #162 设为 Bypass，直接保存 #119 的结果；再恢复对比。</p>
+        <div class="see">看什么：<b>跑偏发生在 SDXL 还是精修</b>。这是排障的分水岭。</div>
+      </div>
+    </div>
+
+    <div class="check">
+      <h3>自检清单（勾选状态会存在本机）</h3>
+      <ul>
+        <li><input type="checkbox"><span>我能指出哪条线是结构、哪条线是风格，并说出各自的 strength。</span></li>
+        <li><input type="checkbox"><span>我知道 #111 面板显示 512、实际跑 1800 的原因。</span></li>
+        <li><input type="checkbox"><span>我能解释 #117 的正向提示词为什么不是 #96 里的中文。</span></li>
+        <li><input type="checkbox"><span>我知道 <code>strong style transfer</code> 和 <code>style transfer</code> 的区别，以及 end 的作用。</span></li>
+        <li><input type="checkbox"><span>我能说出 #162 为什么有权力改掉前面的构图。</span></li>
+        <li><input type="checkbox"><span>我至少做过一次“关掉一条支路”的对照实验。</span></li>
+        <li><input type="checkbox"><span>我把临时文件名改成了可读名字，并给前缀加了强度与 seed。</span></li>
+      </ul>
+    </div>
+
+    <div class="next">
+      <div>
+        <div class="lab">NEXT · A 线第 3 站</div>
+        <div class="nt">L3-03 · 室内毛坯到效果图</div>
+        <div class="nd">同一副双线骨架，换到室内：为什么 ControlNet 要降到 0.25 / 0.2，IPAdapter 反而升到 0.75？</div>
+      </div>
+      <a class="go" href="L3-03-室内毛坯到效果图.html">进入下一课 →</a>
+    </div>
+
+    <div class="src">
+      <b>本课数据来源与核对方式：</b><code>ComfyUI_工作流架构/02📚基础版 线稿+参考图出图.json</code>。顶层 36 个节点、52 条连线、1 个子图（20 个节点）；参数读取自 <code>widgets_values</code>，连线读取自 <code>links</code>，#107 的 caption 为 JSON 内保存的上次运行结果。反例来自 <code>Workflow/生图/乡村水系/ComfyUI_00064_.png</code> 及其同目录输入图，仅作观察记录，因果判断标注为“可疑”。数据核对日：2026-11-08。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b data-bind="name">AI 入门与 ComfyUI 出图课</b> · <span data-bind="author">李智博</span> · <span data-bind="year">2026</span></div>
+    <div>L3-A2 · 线稿 + 参考图 · <a href="../index.html">返回课程地图</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-01 潜空间 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --course-name:"AI 入门与 ComfyUI 出图课";
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;
+  --shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+code,.mono{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:860px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:40px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;letter-spacing:-.01em;margin:16px 0 12px;font-weight:800}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:640px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:52px 0 14px;font-weight:800;letter-spacing:-.01em;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}
+.quiet{color:var(--muted)}
+.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}
+.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}
+.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}
+.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:17px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:13.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:14px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.svg-num{font-family:var(--mono);font-size:13px;fill:var(--accent);font-weight:700}
+.pipeline{display:grid;gap:10px;margin:24px 0}
+.pipe-row{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;align-items:start}
+.pipe-row .n{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;background:var(--accent-soft);border-radius:8px;text-align:center;padding:5px 0}
+.pipe-row h4{font-family:var(--sans);font-size:15.5px;margin:0 0 3px}
+.pipe-row p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.split li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-weight:700;color:var(--ink);font-size:12.5px;letter-spacing:.02em}
+td code{word-break:break-all}
+tr:last-child td{border-bottom:none}
+.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.calc-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.calc-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.calc-head .val{font-family:var(--mono);font-size:15px;color:var(--accent);font-weight:700}
+input[type=range]{width:100%;accent-color:var(--accent);margin:12px 0 6px;height:22px}
+.calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.calc-out div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.calc-out .k{font-family:var(--sans);font-size:11.5px;color:var(--faint);letter-spacing:.04em}
+.calc-out .v{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--ink);line-height:1.4;word-break:break-all}
+.calc-note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}
+.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;background:var(--accent-soft);color:var(--accent);border-radius:5px;padding:1px 6px;margin:0 2px}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}
+  .topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}
+  .lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}
+  h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .split{grid-template-columns:1fr}
+  .calc-out{grid-template-columns:1fr}
+  .calc-out div{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .calc-out .v{font-size:14px}
+  table{font-size:12.5px}
+  th,td{padding:7px 5px}
+  .pager{flex-direction:column}
+  .pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 01 / 05</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-01 潜空间</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第一课</span>
+    <h1>潜空间：<br>AI 画图，其实先在一张 1/8 大的草稿上动笔</h1>
+    <p class="lede">你按下生成，屏幕上出现 1024×1024。模型真正动手的地方，只有 128×128。这一课只解决一个问题：图为什么必须先缩小。</p>
+    <div class="meta">
+      <span>预计 12 分钟</span><span>零基础可读</span><span>对应节点：EmptyFlux2LatentImage / EmptyLatentImage</span>
+    </div>
+  </header>
+
+  <h2 id="why"><span class="no">01 / 场景</span>你的显卡能打开 4K 图，却生不出一张 2400 的图</h2>
+  <p>这一课解决的就是这个别扭的问题。看图软件秒开 2400×2400，为什么模型一跑就爆显存？</p>
+  <p>先把账算清楚。一张 2400×2400 的彩色图，每个像素（pixel，图上的一个小点）有红、绿、蓝三个数。乘起来是 <b>1728 万个数字</b>。如果直接在这堆数字上迭代 15 次，显存（VRAM，显卡自己的内存）先扛不住，速度也慢到没法等。</p>
+  <p>行业里的做法很务实：<b>不在原图上算，先缩到一张更小的草稿上算，算完再还原。</b>这张草稿叫潜空间（Latent Space，按 1/8 缩小的画布）。把图送进去、再接出来的活，交给 VAE（Variational Autoencoder，变分自编码器，一台有损翻译机）。它怎么翻，下一节细讲；这一课你只要知道它在两头搬运。</p>
+
+  <div class="callout">
+    <p><b>一句话结论：</b>采样器（sampler，负责擦噪声的那个角色，L1-02 专讲）全程只在潜空间里干活，从没直接碰过像素。图要进出这张草稿，得靠 VAE 在两头翻译。</p>
+  </div>
+
+  <h2 id="pipeline"><span class="no">02 / 机制</span>一张图进来，先被缩小，再被画，最后被放大回去</h2>
+  <p>下面这条链路，是几乎所有“图生图 / 参考图”工作流的骨架。盯住中间那个蓝盒子：真正耗时的采样发生在那儿，不在最后的出图上。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 440 320" role="img" aria-label="像素图经 VAE 编码进入潜空间，采样后经 VAE 解码还原为像素图">
+      <defs>
+        <marker id="ar1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+
+      <!-- 上：像素图 -->
+      <rect x="60" y="14" width="320" height="66" rx="12" fill="#fff" stroke="#cbc6ba"/>
+      <text x="220" y="40" text-anchor="middle" dominant-baseline="middle" class="svg-title">像素图 · 2400 × 2400 × 3</text>
+      <text x="220" y="62" text-anchor="middle" dominant-baseline="middle" class="svg-sub">约 1728 万个数字</text>
+
+      <!-- 箭头 1 -->
+      <line x1="220" y1="84" x2="220" y2="112" stroke="#5d6779" stroke-width="1.6" marker-end="url(#ar1)"/>
+      <text x="232" y="98" text-anchor="start" dominant-baseline="middle" class="svg-lbl">VAE 编码</text>
+
+      <!-- 中：潜空间 -->
+      <rect x="60" y="116" width="320" height="66" rx="12" fill="#eef0ff" stroke="#4051d6"/>
+      <text x="220" y="142" text-anchor="middle" dominant-baseline="middle" class="svg-title">潜空间 · 300 × 300 × 4</text>
+      <text x="220" y="164" text-anchor="middle" dominant-baseline="middle" class="svg-sub">约 36 万个数字 · 采样在这里进行</text>
+
+      <!-- 箭头 2 -->
+      <line x1="220" y1="186" x2="220" y2="214" stroke="#5d6779" stroke-width="1.6" marker-end="url(#ar1)"/>
+      <text x="232" y="200" text-anchor="start" dominant-baseline="middle" class="svg-lbl">VAE 解码</text>
+
+      <!-- 下：出图 -->
+      <rect x="60" y="218" width="320" height="66" rx="12" fill="#fff" stroke="#cbc6ba"/>
+      <text x="220" y="244" text-anchor="middle" dominant-baseline="middle" class="svg-title">出图 · 2400 × 2400 × 3</text>
+      <text x="220" y="266" text-anchor="middle" dominant-baseline="middle" class="svg-sub">数字量回到原来的规模</text>
+
+      <text x="220" y="304" text-anchor="middle" dominant-baseline="middle" class="svg-num">同样的画面信息，中间只用了约 1/48 的数字</text>
+    </svg>
+    <figcaption>编码把长宽各压 8 倍，通道（channel，同一点上叠了几层数字）从 3 变 4；解码做反向还原。两头各翻一次，中间那层才是采样器真正动笔的地方。</figcaption>
+  </figure>
+
+  <div class="pipeline">
+    <div class="pipe-row"><div class="n">01</div><div><h4>加载像素</h4><p>你上传一张图。LoadImage 把它读成一张 0–1 之间的数字表，尺寸写成“长 × 宽 × 3 通道”。</p></div></div>
+    <div class="pipe-row"><div class="n">02</div><div><h4>VAE 编码：压小</h4><p>编码（encode）把长宽各除以 8，通道从 3 变 4。数字少了，画面信息还在。</p></div></div>
+    <div class="pipe-row"><div class="n">03</div><div><h4>在潜空间里采样</h4><p>采样器在这张小画布上加噪、去噪，再按提示词（prompt，你写的那句“要什么画面”，L2-02 专讲）改写。步数、CFG、种子都只在这一层起作用，后面各有专课。</p></div></div>
+    <div class="pipe-row"><div class="n">04</div><div><h4>VAE 解码：还原</h4><p>解码（decode）把 4 通道的潜变量翻回 3 通道像素。这一步有损，细看能发现差别。</p></div></div>
+    <div class="pipe-row"><div class="n">05</div><div><h4>保存</h4><p>SaveImage 把最终像素写成 PNG 或 JPG。它只管存，不参与生成。</p></div></div>
+  </div>
+
+  <p>五步里，编码和解码各只占一步。算力几乎全花在第 03 步，所以“图太大了跑不动”这句话，说的其实是草稿太大。</p>
+
+  <h3>为什么是 8 倍，而不是随便压</h3>
+  <p>8 倍不是拍脑袋定的。长宽各除 8，面积只剩 1/64；通道从 3 加到 4，又乘回 4 倍。两边一抵，数字量剩 <b>3 ÷ (4/64) = 48</b>，也就是大约 1/48。</p>
+  <p>这个比例在训练时就写死了。你运行时改不了，只能选对 VAE。</p>
+  <p class="small quiet">Flux 系的 VAE 空间压缩比例同为 8 倍，但潜通道常见为 16 个，数字量只降到约 1/12。具体以你加载的 VAE 为准，别把这组数字当成所有模型的通用常数。</p>
+
+  <table>
+    <thead><tr><th style="width:25%">原图长边</th><th style="width:28%">像素数字量</th><th style="width:22%">潜空间长边</th><th style="width:25%">潜空间数字量</th></tr></thead>
+    <tbody>
+      <tr><td>512</td><td>786,432</td><td>64</td><td>16,384</td></tr>
+      <tr><td>1024</td><td>3,145,728</td><td>128</td><td>65,536</td></tr>
+      <tr><td>2400</td><td>17,280,000</td><td>300</td><td>360,000</td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">按 3 通道像素、4 通道潜变量、8 倍压缩计算。长宽不必是 8 的整数倍时，实际会做取整，结果会有个位数差异。</p>
+
+  <div class="calc">
+    <div class="calc-head">
+      <h4>自己算一遍：长边 → 潜空间</h4>
+      <span class="val" id="sideVal">2400 px</span>
+    </div>
+    <input type="range" id="sideRange" min="512" max="3072" step="64" value="2400" aria-label="原图长边">
+    <div class="calc-out">
+      <div><div class="k">像素数字量</div><div class="v" id="pxOut">17,280,000</div></div>
+      <div><div class="k">潜空间尺寸</div><div class="v" id="latOut">300 × 300 × 4</div></div>
+      <div><div class="k">压缩比</div><div class="v" id="ratioOut">48 ×</div></div>
+    </div>
+    <p class="calc-note">拖动滑杆只改这张示例，不动你的工作流。真实显存还受模型、批次（batch，一次同时出几张）和模型内部实现影响，别只按这个比例硬推。</p>
+  </div>
+
+  <h2 id="vae"><span class="no">03 / VAE 的位置</span>VAE 在这条链路里只做两件事</h2>
+  <p><b>入口一件：像素翻成潜变量。</b>潜变量（latent，草稿上的那几层数字）长宽各是原图的 1/8，通道从 3 变 4。一张 2400×2400 的照片进去，出来是 300×300×4，这一步叫编码（encode）。</p>
+  <p><b>出口一件：潜变量翻回像素。</b>长宽各乘 8，通道回到 3，变成你能保存、能看的图，这一步叫解码（decode）。两次翻译都有损耗——翻过去再翻回来，画面不会一个像素不差地回到原样，细看能发现差别。这就是有损（lossy）的意思。</p>
+
+  <h2 id="nodes"><span class="no">04 / 落到工作流</span>在本套 JSON 里，和潜空间有关的就这几个</h2>
+  <p>表里的编号全部来自真实的 workflow JSON。打开对应的 <code>.json</code>，在画布上按编号找，位置对得上。</p>
+  <table>
+    <thead><tr><th style="width:30%">节点</th><th style="width:32%">真实位置</th><th style="width:38%">本套里的实际值 / 作用</th></tr></thead>
+    <tbody>
+      <tr><td><code>VAEEncode</code> / <code>VAEDecode</code></td><td>04 建筑毛坯 · 根图 <b>#16</b> / <b>#9</b></td><td>编码与解码两头。节点细节、<code>VAELoader</code> 与子图里的第二套编解码，放到 <a href="l1-01b-vae-codec.html">L1-01b</a> 专讲。</td></tr>
+      <tr><td><code>EmptyFlux2LatentImage</code></td><td>04 · 子图 <b>#338</b></td><td>没有源图时，直接造一张 <code>1024 × 1024</code> 的空潜变量。</td></tr>
+      <tr><td><code>EmptyLatentImage</code></td><td>文生图工作流 · 根图 <b>#8</b></td><td>同一件事的普通版：<code>1600 × 904</code>、<code>batch 3</code> 的空潜变量。</td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">术语不熟可以先跳到 <a href="../l2/l2-01-input-loading.html#term-vae">L2-01 · VAE</a> 和 <a href="../l2/l2-03b-latent-inpaint.html#term-latent">L2-03b · Latent</a> 查表，再回来继续。</p>
+
+  <div class="callout tip">
+    <p><b>文生图绕开入口：</b>没有源图可编码，它用 <code>EmptyLatentImage</code> / <code>EmptyFlux2LatentImage</code> 按你填的尺寸直接造一张空潜变量，采样就从这张空画布开始。只有图生图、参考图、局部重绘，才需要先把现有图片编码进去。</p>
+  </div>
+
+  <h2 id="practice"><span class="no">05 / 动手</span>两个小实验，把概念变成手感</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>把子图里的 <b>#338 EmptyFlux2LatentImage</b> 从 1024 改成 768，只跑一次，观察出图尺寸和显存占用。</p><p class="why">目标：体会潜空间尺寸直接决定计算量，而像素尺寸是最后解码出来的。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>用上面的滑杆算 1536 长边：像素数字量、潜空间尺寸、压缩比各是多少？再手算一遍核对。</p><p class="why">参考：1536 ≈ 8 的 192 倍，潜空间为 192×192×4 = 147,456；像素为 1536²×3 = 7,077,888；比值 48。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">06 / 自检</span>能用自己的话答上来，再进下一课</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能用自己的话说清：为什么采样器不直接在像素上干活。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 8 倍压缩是“长和宽各除以 8”，不是面积除以 8。</span></label>
+    <label class="check"><input type="checkbox"><span>我能算出 1024×1024 的图在潜空间里是 128×128×4，约 6.5 万个数字。</span></label>
+    <label class="check"><input type="checkbox"><span>我能在 04 的 JSON 里指出 #338，并说清它和 L1-01b 的 #16 各管哪一段。</span></label>
+  </div>
+
+  <div class="callout myth">
+    <p><b>如果只记一句话：</b>像素是给人看的，潜空间是给模型算的，采样器只在草稿上动笔。VAE 怎么选、节点怎么接，下一节拆。</p>
+  </div>
+
+  <nav class="pager">
+    <a href="../index.html"><span class="dir">← 返回</span>课目表</a>
+    <a href="l1-01b-vae-codec.html"><span class="dir">下一课 →</span>L1-01b VAE 编解码</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  // 顶部阅读进度
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // 尺寸计算器
+  var range=document.getElementById('sideRange');
+  var sideVal=document.getElementById('sideVal');
+  var pxOut=document.getElementById('pxOut');
+  var latOut=document.getElementById('latOut');
+  var ratioOut=document.getElementById('ratioOut');
+  function fmt(n){return n.toLocaleString('zh-CN');}
+  function calc(){
+    var side=parseInt(range.value,10);
+    var px=side*side*3;
+    var lat=Math.round(side/8);
+    var latNums=lat*lat*4;
+    sideVal.textContent=side+' px';
+    pxOut.textContent=fmt(px);
+    latOut.textContent=lat+' × '+lat+' × 4';
+    ratioOut.textContent=(px/latNums).toFixed(1).replace('.0','')+' ×';
+  }
+  range.addEventListener('input',calc);calc();
+
+  // 自检清单持久化
+  var boxes=document.querySelectorAll('.check input');
+  boxes.forEach(function(box,i){
+    var key='l1-01-check-'+i;
+    try{ if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');} }catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

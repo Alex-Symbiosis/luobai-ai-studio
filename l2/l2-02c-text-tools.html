@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L2-02c 文字工具 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:690px}
+.hero{margin-bottom:24px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:50px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:17.5px;margin:30px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:580px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:14px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:11.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:12px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--cat);color:var(--cat);background:var(--cat-soft)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;margin:0 0 14px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;word-break:break-all}
+.entry .one{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.entry .chev{margin-left:auto;font-family:var(--mono);color:var(--accent);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:12px 16px 15px;border-top:1px dashed var(--line);display:grid;grid-template-columns:1.06fr .94fr;gap:18px}
+.entry .body p{font-size:14px;margin:0 0 9px}
+.io{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 9px;font-family:var(--mono);font-size:10.5px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-family:var(--sans);font-size:12px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 10px;line-height:1.75;margin:0}
+.ex b{color:var(--cat)}
+.pit{font-family:var(--sans);font-size:12px;color:var(--amber);margin:9px 0 0;line-height:1.7}
+.entry table{font-size:11.5px;margin:6px 0}
+.entry th,.entry td{padding:5px 5px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .entry .body{grid-template-columns:1fr;gap:10px}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 字典 · 02c</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-02c 文字工具</p>
+
+  <header class="hero">
+    <span class="kicker">L2 字典 · 第二课 C</span>
+    <h1>文字工具：<br>把图读成话，把话接上提示词</h1>
+    <p class="lede">手上只有图，没有词；或者只有一句中文，模型却更认英文。文字工具干的就是两头搬运：先把图读成一段描述，再把描述翻成另一种语言，最后拼回提示词。它不生成条件，只把原料递到编码器门口。</p>
+  </header>
+
+  <div class="callout">
+    <p><b>前情提要：</b>前两节把条件的三条来路走完了：文字经 CLIP 编码成条件，结构靠 ControlNet，风格靠 IPAdapter。这一节补外围：一段描述从哪来、怎么换语言、怎么拼回提示词。</p>
+    <p>反推（caption）：让视觉模型看一眼图，写出一段描述。反例：它不是提示词生成器，写出来的句子还得你自己筛。字符串（STRING）：一串纯文本，节点之间可以互相传。反例：它不是条件，没经过 CLIP 编码，采样器读不懂。</p>
+  </div>
+
+  <div class="chips">
+    <a href="#term-florence">Florence2</a><a href="#term-translate">DeepTranslator</a>
+    <a href="#term-showtext">ShowText</a><a href="#term-crtext">CR Text</a>
+    <a href="l2-02b-structure-style.html">← L2-02b 结构与风格条件</a>
+    <a href="l2-03-sampling-core.html">→ L2-03 采样与后处理</a>
+  </div>
+
+  <h2 id="textools"><span class="no">01 / 文字工具</span>识别、翻译、拼接</h2>
+  <p>四个节点围着同一个目标转：把一句能用的提示词凑出来。顺序也很固定——Florence2Run 先出英文描述，DeepTranslatorTextNode 换语言，ShowText 负责核对，CR Text Concatenate 把几段拼成一句。</p>
+  <p>这条链上没有一个节点能直接改画面。它们的输出全是文本或字符串，最后必须接到 <code>CLIPTextEncode</code> 才变成条件。下面按这个顺序逐条看。</p>
+
+  <details class="entry" id="term-florence" open>
+    <summary><span class="type">Florence2Run + 加载器</span><span class="one">看图说话，生成英文描述</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>手里只有一张参考图，懒得自己写描述。让它先看图说话。</p>
+        <p>先加载 Florence-2 模型，再用 Florence2Run 对图片做描述、检测等任务。本套统一使用 <code>more_detailed_caption</code>。反例：它不生成条件，只吐一段文字；文字还得送进 <code>CLIPTextEncode</code> 才算条件。</p>
+        <div class="io"><span>IMAGE</span><span class="out">文本</span></div>
+        <table><tbody>
+          <tr><th style="width:36%">任务</th><td><code>more_detailed_caption</code></td></tr>
+          <tr><th>模型</th><td><code>microsoft/Florence-2-large</code> · fp16 · sdpa（02/03/04）</td></tr>
+          <tr><th>LINK 版本</th><td><code>Florence-2-large</code>（#39，Florence2ModelLoader）</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 <b>#60</b> 识别建筑，输出英文到 <b>#62</b>，再由 <b>#85</b> 翻成中文；03 <b>#60</b> 识别卧室；02 <b>#106</b>；LINK <b>#23</b>。</div>
+        <p class="pit">易错：Florence 输出的是英文描述，不是“控制指令”；它常被用来补全提示词，不能替代 ControlNet。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-translate">
+    <summary><span class="type">DeepTranslatorTextNode</span><span class="one">中英互译，喂给 CLIP</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>SDXL 的文本编码器对英文更敏感，你手上却是一句中文。</p>
+        <p>这个节点把一段文字翻成目标语言，输出字符串。反例：它不编码，翻完还是文字；要变成条件，还得再走一遍 <code>CLIPTextEncode</code>。</p>
+        <div class="io"><span>文本</span><span class="out">STRING</span></div>
+        <table><tbody>
+          <tr><th style="width:36%">from / to</th><td>源语言与目标语言。</td></tr>
+          <tr><th>translator</th><td>本套使用 <code>GoogleTranslator</code>（部分节点为 free 版本）。</td></tr>
+          <tr><th>text</th><td>待翻译文字；也可从上游节点输入。</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 <b>#85</b> auto → english，把 Florence 的英文描述翻成中文给 #86 显示；03 <b>#67</b> english → 简体中文；01 <b>#182</b> 把中文提示词翻成英文；06 <b>#16</b> 翻“黑色大理石地砖”，<b>#39</b> 翻“地面”。</div>
+        <p class="pit">易错：翻译依赖在线服务，断网时可能失败；关键提示词最好手动核对译文，别完全交给自动翻译。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-showtext">
+    <summary><span class="type">ShowText | pysssss</span><span class="one">只显示，不参与生成</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>提示词是从上游传过来的，你想看一眼它到底是什么。</p>
+        <p>把上游的字符串显示在节点上，方便核对。反例：它不在采样链上，拔掉它，出图照样能跑。</p>
+        <div class="io"><span>STRING</span></div>
+      </div>
+      <div>
+        <div class="ex">04 <b>#62</b> 显示 Florence 英文描述，<b>#86</b> 显示中文译文；06 <b>#40</b> 显示“地面”，<b>#24</b> 显示“黑色大理石地砖”；03 <b>#63/#66</b>。</div>
+        <p class="pit">易错：只接 ShowText 而没有接回 CLIPTextEncode，提示词不会生效。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-crtext">
+    <summary><span class="type">CR Text / CR Text Concatenate</span><span class="one">字符串常量与拼接</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>提示词里有一句固定句式，只有中间那个词每天换。你不想每回手打一遍。</p>
+        <p><code>CR Text</code> 提供一个可编辑的字符串；<code>CR Text Concatenate</code> 把多段字符串按顺序拼起来。固定句式、识别结果、目标词各占一段，最后拼成一句。反例：它不翻译、不改写，拼完是什么就是什么。</p>
+        <div class="io"><span>STRING × n</span><span class="out">STRING</span></div>
+      </div>
+      <div>
+        <div class="ex">06 用 <b>#62</b>“将图中的” + 识别结果 + <b>#63</b>“转化为” + 目标词，经 <b>#60/#64/#65</b> 拼接；04 子图 <b>#348</b> 固定追加“8K,4K,增加细节”；02 <b>#96</b> 是一整段中文构图说明。</div>
+        <p class="pit">易错：拼接顺序就是文字顺序；多一个空格、少一个逗号，都会改变 CLIP 的理解。</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="callout tip">
+    <p><b>四个节点各管一段：</b>识别给原料，翻译换语言，ShowText 只核对，CR Text 负责拼装。真正让它们生效的，是最后那句接进 <code>CLIPTextEncode</code> 的完整文字。</p>
+    <p>顺序能从节点编号看出来：04 的 <b>#60</b> 识别、<b>#62</b> 显示、<b>#85</b> 翻译、<b>#86</b> 再显示。一路读下来，就是这段文字被加工的全过程。</p>
+  </div>
+
+  <h2 id="practice"><span class="no">02 / 动手</span>反推、翻译、拼接，各走一遍</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，把 <b>#60 Florence2Run</b> 的参考图换一张。任务保持 <code>more_detailed_caption</code>，模型保持 <code>microsoft/Florence-2-large</code>，看 <b>#62 ShowText</b> 输出的英文描述变成什么样。</p><p class="why">目标：确认它给的是描述文字，不是控制指令。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 01，找到 <b>#182 DeepTranslatorTextNode</b>（把中文提示词翻成英文）。把 from / to 改成中文互译的另一方向，输出仍接回原来的 <code>CLIPTextEncode</code>，跑一次。</p><p class="why">目标：看清翻译只换语言，条件仍由编码节点生成。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 06，找到“将图中的地面转化为黑色大理石地砖”。按 <b>#62</b>“将图中的” + 识别结果 + <b>#63</b>“转化为” + 目标词拆开，把 <b>#63</b> 的“转化为”换成“改造成”，再跑一次。</p><p class="why">目标：确认拼接顺序就是最终文字顺序。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">03 / 自检</span>文字在链上走，条件在最后生成</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出 Florence2Run 输出的是英文描述，不是条件，中间还差一步 CLIPTextEncode。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 DeepTranslatorTextNode 只翻译，翻完仍是字符串。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 ShowText 不在采样链上，拔掉它出图照样能跑。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 CR Text Concatenate 的拼接顺序就是最终文字顺序。</span></label>
+    <label class="check"><input type="checkbox"><span>我能把“看图 → 翻译 → 核对 → 拼接 → 编码”这条链按顺序说出来。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-02b-structure-style.html"><span class="dir">← 上一册</span>L2-02b 结构与风格条件</a>
+    <a href="l2-03-sampling-core.html"><span class="dir">下一册 →</span>L2-03 采样与后处理</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-02c-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

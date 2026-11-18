@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L3-B2 · 文字识别局部修改：用一句话指定改哪儿 | AI 入门与 ComfyUI 出图课</title>
+<script>
+const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学生与普通人的 AI 入门课', author: '李智博', year: '2026' };
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --violet:#7c4ddb; --violet-soft:rgba(124,77,219,.10);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
+               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
+    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
+
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .secnav::-webkit-scrollbar{display:none}
+  .secnav a{font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;white-space:nowrap;font-weight:600}
+  .secnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  .hero{padding:44px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.24);padding:5px 12px;border-radius:999px}
+  h1{font-size:clamp(27px,4.2vw,40px);line-height:1.24;letter-spacing:-.02em;font-weight:800;margin-top:16px}
+  .sub{color:var(--muted);margin-top:10px;max-width:800px}
+  .goal{margin-top:24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)}
+  .goal .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--teal);font-weight:700}
+  .goal p{font-size:15px;line-height:1.7;margin-top:8px;color:var(--muted)}
+  .goal p.q{font-size:17px;color:var(--ink)}
+  .goal strong{background:linear-gradient(180deg,transparent 62%,rgba(15,122,108,.16) 62%)}
+  .metas{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .chip{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
+
+  .posmap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px;box-shadow:var(--shadow)}
+  .posmap .ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .posmap .ph b{font-size:13px}
+  .posmap .ph span{font-size:11.5px;color:var(--faint)}
+  .track{display:flex;overflow-x:auto;padding-bottom:6px}
+  .pstop{flex:1 1 0;min-width:132px;position:relative;padding-top:20px;border-top:3px solid rgba(64,81,214,.22)}
+  .pstop::before{content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #a9b0f0}
+  .pstop .pc{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+  .pstop .pn{font-size:12.5px;font-weight:600;margin-top:2px;line-height:1.4;color:var(--muted)}
+  .pstop.here{border-top-color:var(--teal)}
+  .pstop.here::before{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 5px rgba(15,122,108,.14)}
+  .pstop.here .pn{color:var(--ink);font-weight:800}
+  .pstop.here .pc{color:var(--teal)}
+  .here-tag{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--teal);border-radius:4px;padding:0 5px;margin-left:5px;vertical-align:1px}
+
+  section{padding:46px 0 2px;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .snum{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.12em}
+  h2{font-size:clamp(21px,2.8vw,27px);letter-spacing:-.02em;line-height:1.32}
+  .slead{color:var(--muted);max-width:800px;margin:6px 0 20px;font-size:14px}
+
+  .pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pre{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+  .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
+  .pre h3{font-size:14px;margin:8px 0 4px}
+  .pre p{font-size:12.5px;color:var(--muted);margin:0}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note b{color:var(--ink)}
+
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px;overflow-x:auto;margin-top:14px}
+  .fig svg{display:block;width:100%;min-width:720px;height:auto}
+  .fig .cap{font-size:11.5px;color:var(--faint);padding:8px 8px 4px;border-top:1px dashed var(--line);margin-top:6px;line-height:1.7}
+  .fig .cap b{color:var(--ink)}
+  .pano{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:8px;overflow-x:auto}
+  .pano svg{display:block;width:100%;min-width:900px;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 10px 6px;border-top:1px dashed var(--line);margin-top:4px}
+  .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .mini-flow{display:none;margin-top:10px;background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:2}
+  .mini-flow b{color:var(--ink)}
+
+  .stage{margin-top:30px;position:relative;padding-left:22px}
+  .stage::before{content:"";position:absolute;left:5px;top:8px;bottom:6px;width:2px;background:linear-gradient(var(--accent),rgba(64,81,214,.12))}
+  .stage-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;position:relative}
+  .stage-h::before{content:"";position:absolute;left:-22px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+  .stage-h .no{font-family:var(--mono);font-size:11px;color:#fff;background:var(--accent);border-radius:6px;padding:2px 7px;font-weight:700}
+  .stage-h h3{font-size:16px}
+  .stage-h .gp{font-size:11.5px;color:var(--faint)}
+  .cards{display:grid;gap:10px}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
+  .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
+  .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .nrole{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .ncard .bd{padding:12px 15px 14px}
+  .ncard .bd p{font-size:13.5px;color:#2c3546;margin:0 0 8px}
+  .ncard .bd p:last-child{margin-bottom:0}
+  .ncard .bd b{color:var(--ink)}
+  .params{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 14px;margin:8px 0 6px;padding:9px 12px;background:#faf9f5;border:1px solid var(--line);border-radius:8px}
+  .params div{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted #e8e4da;padding-bottom:3px;min-width:0}
+  .params div:last-child{border-bottom:none}
+  .params b{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-align:right;overflow-wrap:anywhere}
+  .io{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .io span{font-family:var(--mono);font-size:10.5px;border-radius:4px;padding:1px 6px;background:#f1f2f6;color:var(--muted)}
+  .io .in{background:rgba(61,111,196,.10);color:#2f5aa8}
+  .io .out{background:rgba(47,125,91,.10);color:#256b4c}
+  .warn-inline{font-size:12.5px;color:var(--danger);background:var(--danger-soft);border-radius:7px;padding:7px 10px;margin-top:8px}
+  .warn-inline b{color:var(--danger)}
+
+  .dead{background:var(--danger-soft);border:1px dashed rgba(179,38,30,.42);border-radius:12px;padding:14px 16px;margin-top:14px}
+  .dead h3{font-size:14px;color:var(--danger);margin-bottom:4px}
+  .dead p{font-size:12.8px;color:var(--muted);margin:0}
+  .dead p+p{margin-top:6px}
+  .dead code{color:var(--danger)}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin-top:14px}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:740px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent)}
+
+  .pits{display:grid;gap:10px}
+  .pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--danger);border-radius:0 12px 12px 0;padding:14px 16px}
+  .pit h3{font-size:14px;margin-bottom:4px}
+  .pit .where{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em;margin-bottom:6px}
+  .pit p{font-size:13px;color:var(--muted);margin:0}
+  .pit p+p{margin-top:6px}
+  .pit .fix{color:var(--teal);font-weight:600}
+  .pit.lv2{border-left-color:var(--amber)}
+  .pit.lv3{border-left-color:var(--faint)}
+  .pit .sev{font-size:9.5px;font-weight:700;color:#fff;background:var(--danger);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .pit.lv2 .sev{background:var(--amber)}
+  .pit.lv3 .sev{background:var(--faint)}
+
+  .ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .ex .no{font-family:var(--mono);font-size:10.5px;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .ex h3{font-size:13.5px;margin:5px 0 5px}
+  .ex p{font-size:12.5px;color:var(--muted);margin:0}
+  .ex .see{font-size:12px;color:var(--ink);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)}
+  .ex .see b{color:var(--teal)}
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;box-shadow:var(--shadow)}
+  .check h3{font-size:14px;margin-bottom:8px}
+  .check ul{list-style:none}
+  .check li{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--muted);border-bottom:1px dotted var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check input{margin-top:5px;accent-color:var(--teal);width:14px;height:14px;flex:0 0 auto}
+  .next{margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,rgba(15,122,108,.07),rgba(64,81,214,.07));border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .next .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:700}
+  .next .nt{font-size:17px;font-weight:800;margin-top:2px}
+  .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src code{color:var(--muted)}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:860px){
+    .pre-grid,.ex-grid{grid-template-columns:1fr}
+    .params{grid-template-columns:1fr}
+    .secnav{display:none}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 16px}
+    .mini-flow{display:block}
+    .fig svg{min-width:0}
+  }
+  @media print{
+    .topbar,.secnav,.mini-flow{display:none}
+    body{background:#fff}
+    section{padding:20px 0 0;page-break-inside:avoid}
+    .ncard,.pre,.ex{box-shadow:none}
+    .pano,.fig{overflow:visible}
+    .pano svg,.fig svg{min-width:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <span class="crumb">L3 / B 线 / B2</span>
+    <nav class="secnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#s2">原理</a>
+      <a href="#s3">全景</a>
+      <a href="#s4">节点</a>
+      <a href="#s5">参数</a>
+      <a href="#s6">踩坑</a>
+      <a href="#s7">练习</a>
+      <a href="../视觉规范.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">L3 · 单品课 · B 线第 2 站</span>
+    <h1>文字识别局部修改：用一句话指定改哪儿</h1>
+    <p class="sub">上一课用手涂遮罩，这一课把“涂”换成“说”：GroundingDINO 先听懂你要找什么，SAM 再把框抠成像素级遮罩。原理很漂亮，但 06 号的落盘支路同样藏着一个坑。</p>
+
+    <div class="goal">
+      <div class="lab">01 / 现实问题与一句话目标</div>
+      <p>现实问题：地板要换成黑色大理石，但你不想手动沿着墙角涂一圈——透视一复杂，涂抹边界必然歪，贴回去就有缝。</p>
+      <p class="q">这一课的目标：看懂<b>“文字 → 检测框 → 像素遮罩”</b>这条接力链，知道提示词该写名词、阈值该往哪边调，并能判断遮罩到底有没有参与最终出图。</p>
+    </div>
+
+    <div class="metas">
+      <span class="chip">06 源文件 <b>06📚基础版 文字识别局部修改.json</b></span>
+      <span class="chip">节点 / 连线 <b>22 / 33</b></span>
+      <span class="chip">子图 <b>2 层</b></span>
+      <span class="chip">检测 <b>GroundingDINO SwinB · 0.3</b></span>
+      <span class="chip">分割 <b>SAM vit_b</b></span>
+      <span class="chip">数据核对日 <b>2026-11-08</b></span>
+    </div>
+
+    <div class="posmap">
+      <div class="ph"><b>当前位置</b><span>B 线 · 改图线 · 第 2 站</span></div>
+      <div class="track">
+        <div class="pstop"><div class="pc">B1</div><div class="pn">手动涂抹局部修改</div></div>
+        <div class="pstop here"><div class="pc">B2</div><div class="pn">文字识别局部修改<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop"><div class="pc">C1</div><div class="pn">高清放大</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="s2">
+    <div class="shead"><span class="snum">02 / PRINCIPLES</span><h2>两个模型接力：一个负责“哪儿”，一个负责“边界”</h2></div>
+    <p class="slead">你可能以为有一个模型能“听懂一句话就精确抠图”。没有。这条链是分工的：检测器只给矩形框，分割器才给像素级遮罩。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">DETECT</span>
+        <h3>GroundingDINO 做什么</h3>
+        <p>开放词表检测器：你给一个名词短语，它在图里找出对应物体的<b>矩形框</b>。它不懂“大理石”，也不懂“换成”，只回答“floor 在哪”。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">SEGMENT</span>
+        <h3>SAM 做什么</h3>
+        <p>分割模型：你给框，它在框内沿着真实边缘抠出<b>像素级遮罩</b>。墙角、桌腿、地毯毛边都能贴住，这是手涂最难做好的部分。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">THRESHOLD</span>
+        <h3>0.3 是什么</h3>
+        <p>检测置信度阈值。调低 = 宁可多框（可能误检）；调高 = 只留很有把握的（可能漏检）。06 号用 0.3，偏宽松。</p>
+      </div>
+    </div>
+
+    <div class="pre-note">
+      <b>三个术语先分清：</b><b>检测（detection）</b>输出框；<b>分割（segmentation）</b>输出遮罩；<b>局部重绘（inpaint）</b>拿遮罩去改图。06 号把前两步合成一个节点 <code>GroundingDinoSAMSegment</code>，所以你在图上只看到一个盒子，里面其实是两次推理。
+    </div>
+
+    <div class="fig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="文字、检测框、遮罩三步示意">
+        <defs>
+          <marker id="ar6f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b93a3"/></marker>
+          <style>
+            .r6{fill:#efece4;stroke:#d9d4c8;stroke-width:1}
+            .f6{fill:#e3ded2}
+            .s6{fill:#c9b79c;stroke:#b6a488;stroke-width:1}
+            .w6{fill:#ffffff;stroke:#b3261e;stroke-width:1.4;stroke-dasharray:5 4}
+            .d6{fill:none;stroke:#0f7a6c;stroke-width:1.6;stroke-dasharray:6 4}
+            .m6{font:700 11.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#18212f;text-anchor:middle}
+            .s6t{font:400 10px -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3;text-anchor:middle}
+            .tag6{font:700 10px ui-monospace,Consolas,monospace;fill:#0f7a6c}
+            .dim6{opacity:.26}
+          </style>
+        </defs>
+
+        <g transform="translate(20,20)">
+          <rect class="r6" x="0" y="0" width="220" height="160" rx="8"/>
+          <rect class="f6" x="8" y="108" width="204" height="44" rx="4"/>
+          <rect class="s6" x="46" y="86" width="128" height="40" rx="7"/>
+          <rect x="70" y="34" width="80" height="34" rx="3" fill="#fbfaf7" stroke="#d9d4c8"/>
+          <rect x="136" y="14" width="66" height="20" rx="5" fill="#e8f2ef" stroke="#9fc9c0"/>
+          <text class="tag6" x="169" y="24" text-anchor="middle" dominant-baseline="middle">floor</text>
+          <text class="m6" x="110" y="185">原图 + 一句话</text>
+          <text class="s6t" x="110" y="202">prompt: floor</text>
+        </g>
+
+        <g transform="translate(270,20)">
+          <rect class="r6" x="0" y="0" width="220" height="160" rx="8"/>
+          <rect class="f6" x="8" y="108" width="204" height="44" rx="4"/>
+          <rect class="s6" x="46" y="86" width="128" height="40" rx="7"/>
+          <rect x="70" y="34" width="80" height="34" rx="3" fill="#fbfaf7" stroke="#d9d4c8"/>
+          <rect class="d6" x="6" y="106" width="208" height="48" rx="4"/>
+          <text class="m6" x="110" y="185">检测框</text>
+          <text class="s6t" x="110" y="202">只有一个矩形</text>
+        </g>
+
+        <g transform="translate(520,20)">
+          <rect class="r6" x="0" y="0" width="220" height="160" rx="8"/>
+          <rect class="f6" x="8" y="108" width="204" height="44" rx="4"/>
+          <rect class="w6" x="8" y="108" width="204" height="44" rx="4"/>
+          <rect class="s6" x="46" y="86" width="128" height="40" rx="7"/>
+          <rect x="70" y="34" width="80" height="34" rx="3" fill="#fbfaf7" stroke="#d9d4c8"/>
+          <text class="m6" x="110" y="185">像素遮罩</text>
+          <text class="s6t" x="110" y="202">贴着墙角走</text>
+        </g>
+
+        <path d="M247,100 H267" stroke="#8b93a3" stroke-width="1.4" fill="none" marker-end="url(#ar6f)"/>
+        <path d="M497,100 H517" stroke="#8b93a3" stroke-width="1.4" fill="none" marker-end="url(#ar6f)"/>
+      </svg>
+      <div class="cap"><b>注意第二格和第三格的区别：</b>框是矩形的，会把沙发腿、地毯一起圈进去；遮罩才贴着地板真实边缘。局部重绘要的是第三格，不是第二格——这就是为什么检测之后必须再过一次 SAM。</div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="shead"><span class="snum">03 / BLUEPRINT</span><h2>全景：一条竖着走的识别链，和一条绕开遮罩的保存链</h2></div>
+    <p class="slead">06 号的布局和 05 号不同：识别链是<b>竖着往下</b>走的，保存链却在最底下<b>横着绕过去</b>。先顺着编号看一遍，再回答：最终那张图，经过遮罩了吗？</p>
+
+    <div class="pano">
+      <svg viewBox="0 0 1200 650" role="img" aria-label="零六号工作流：文字检测分割竖向链路与 Flux2 保存支路">
+        <defs>
+          <marker id="ar6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4051d6"/></marker>
+          <marker id="ar6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b3261e"/></marker>
+          <style>
+            .bx6{fill:#fff;stroke:#d9d4c8;stroke-width:1.2}
+            .bxd6{fill:#fff;stroke:#b3261e;stroke-width:1.4;stroke-dasharray:6 4}
+            .t16{font:700 11px ui-monospace,Consolas,monospace;fill:#18212f}
+            .t26{font:400 10px -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779}
+            .t36{font:400 9.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3}
+            .lbl6{font:700 10px -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+            .ln6{fill:none;stroke:#4051d6;stroke-width:1.5}
+            .ln6r{fill:none;stroke:#b3261e;stroke-width:1.4;stroke-dasharray:6 4}
+            .ln6g{fill:none;stroke:#0f7a6c;stroke-width:1.4}
+            .lane6{font:800 12.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#18212f;paint-order:stroke;stroke:#fff;stroke-width:4px}
+            .nt6{font:400 11.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779}
+            .nt6b{font:700 11.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#0f7a6c}
+          </style>
+        </defs>
+
+        <text class="lane6" x="60" y="30" dominant-baseline="middle" text-anchor="start">① 文字 → 检测 → 分割</text>
+
+        <rect class="bx6" x="60" y="50" width="220" height="64" rx="8"/><rect x="60" y="50" width="4" height="64" rx="2" fill="#6b7f3a"/>
+        <text class="t16" x="74" y="74" text-anchor="start">DeepTranslator</text>
+        <text class="t26" x="74" y="92" text-anchor="start">地面 → floor</text>
+        <text class="t36" x="74" y="106" text-anchor="start">chinese → english</text>
+
+        <rect class="bx6" x="60" y="150" width="240" height="88" rx="8"/><rect x="60" y="150" width="4" height="88" rx="2" fill="#0f7a6c"/>
+        <text class="t16" x="74" y="174" text-anchor="start">GroundingDinoSAMSegment</text>
+        <text class="t26" x="74" y="192" text-anchor="start">prompt floor · 阈值 0.3</text>
+        <text class="t36" x="74" y="209" text-anchor="start">SwinB 938MB + sam_vit_b</text>
+
+        <rect class="bx6" x="60" y="278" width="200" height="60" rx="8"/><rect x="60" y="278" width="4" height="60" rx="2" fill="#b0447f"/>
+        <text class="t16" x="74" y="300" text-anchor="start">MaskToImage</text>
+        <text class="t26" x="74" y="317" text-anchor="start">遮罩 → 图</text>
+
+        <rect class="bx6" x="360" y="278" width="190" height="60" rx="8"/>
+        <text class="t16" x="374" y="300" text-anchor="start">PreviewImage</text>
+        <text class="t26" x="374" y="317" text-anchor="start">只看，不保存</text>
+
+        <path class="ln6g" d="M180,114 V147" marker-end="url(#ar6)"/>
+        <path class="ln6g" d="M180,238 V275" marker-end="url(#ar6)"/>
+        <path class="ln6g" d="M260,308 H357" marker-end="url(#ar6)"/>
+        <path class="ln6g" d="M180,338 V375" marker-end="url(#ar6)"/>
+        <text class="lbl6" x="194" y="130" text-anchor="start" dominant-baseline="middle">text</text>
+        <text class="lbl6" x="194" y="256" text-anchor="start" dominant-baseline="middle">mask</text>
+        <text class="lbl6" x="308" y="294" text-anchor="middle" dominant-baseline="middle">预览</text>
+        <text class="lbl6" x="194" y="356" text-anchor="start" dominant-baseline="middle">mask</text>
+
+        <text class="lane6" x="360" y="352" dominant-baseline="middle" text-anchor="start" fill="#b3261e">② 遮罩的去处：局部重绘（死端）</text>
+
+        <rect class="bx6" x="60" y="378" width="220" height="64" rx="8"/><rect x="60" y="378" width="4" height="64" rx="2" fill="#b0447f"/>
+        <text class="t16" x="74" y="402" text-anchor="start">VAEEncodeForInpaint</text>
+        <text class="t26" x="74" y="420" text-anchor="start">grow 6</text>
+        <text class="t36" x="74" y="433" text-anchor="start">pixels ← #1 · mask ← #10</text>
+
+        <rect class="bx6" x="360" y="370" width="190" height="80" rx="8"/><rect x="360" y="370" width="4" height="80" rx="2" fill="#3d6fc4"/>
+        <text class="t16" x="374" y="392" text-anchor="start">KSampler</text>
+        <text class="t26" x="374" y="410" text-anchor="start">20 步 · CFG 3</text>
+        <text class="t36" x="374" y="428" text-anchor="start">euler_ancestral · normal</text>
+
+        <rect class="bx6" x="630" y="378" width="180" height="64" rx="8"/>
+        <text class="t16" x="644" y="402" text-anchor="start">VAEDecode</text>
+        <text class="t26" x="644" y="420" text-anchor="start">解码成图</text>
+
+        <rect class="bxd6" x="890" y="378" width="220" height="64" rx="8"/>
+        <text class="t16" x="904" y="402" text-anchor="start" fill="#b3261e">没有下游</text>
+        <text class="t26" x="904" y="420" text-anchor="start">输出口是空的</text>
+
+        <path class="ln6" d="M280,410 H357" marker-end="url(#ar6)"/>
+        <path class="ln6" d="M550,410 H627" marker-end="url(#ar6)"/>
+        <path class="ln6r" d="M810,410 H887" marker-end="url(#ar6r)"/>
+        <text class="lbl6" x="318" y="396" text-anchor="middle" dominant-baseline="middle">LATENT</text>
+        <text class="lbl6" x="588" y="396" text-anchor="middle" dominant-baseline="middle">LATENT</text>
+        <text class="lbl6" x="848" y="396" text-anchor="middle" dominant-baseline="middle">IMAGE</text>
+
+        <text class="lane6" x="60" y="480" dominant-baseline="middle" text-anchor="start" fill="#4051d6">③ 真正落盘的支路：它没有收到 mask</text>
+
+        <rect class="bx6" x="60" y="500" width="200" height="56" rx="8"/><rect x="60" y="500" width="4" height="56" rx="2" fill="#2f7d5b"/>
+        <text class="t16" x="74" y="522" text-anchor="start">LoadImage #1</text>
+        <text class="t36" x="74" y="540" text-anchor="start">3f20815a…f0.png</text>
+
+        <rect class="bx6" x="60" y="580" width="200" height="56" rx="8"/><rect x="60" y="580" width="4" height="56" rx="2" fill="#6b7f3a"/>
+        <text class="t16" x="74" y="602" text-anchor="start">DeepTranslator #16</text>
+        <text class="t36" x="74" y="620" text-anchor="start">黑色大理石地砖 → 英</text>
+
+        <rect class="bx6" x="560" y="505" width="230" height="110" rx="8"/><rect x="560" y="505" width="4" height="110" rx="2" fill="#3d6fc4"/>
+        <text class="t16" x="574" y="530" text-anchor="start">Flux2 子图 #68</text>
+        <text class="t26" x="574" y="550" text-anchor="start">text2 / text2_1 / image</text>
+        <text class="t36" x="574" y="570" text-anchor="start">22 节点 · 4 步 · CFG 1</text>
+        <text class="t36" x="574" y="590" text-anchor="start">1 MP · ReferenceLatent</text>
+
+        <rect class="bx6" x="880" y="525" width="180" height="64" rx="8"/><rect x="880" y="525" width="4" height="64" rx="2" fill="#0f7a6c"/>
+        <text class="t16" x="894" y="548" text-anchor="start">SaveImage #26</text>
+        <text class="t26" x="894" y="566" text-anchor="start">ComfyUI</text>
+
+        <path class="ln6" d="M260,528 H400 V585 H557" marker-end="url(#ar6)"/>
+        <path class="ln6" d="M260,608 H480 V552 H557" marker-end="url(#ar6)"/>
+        <path class="ln6" d="M790,562 H877" marker-end="url(#ar6)"/>
+        <text class="lbl6" x="330" y="514" text-anchor="middle" dominant-baseline="middle">image</text>
+        <text class="lbl6" x="330" y="594" text-anchor="middle" dominant-baseline="middle">text</text>
+        <text class="lbl6" x="833" y="548" text-anchor="middle" dominant-baseline="middle">IMAGE</text>
+
+        <rect x="660" y="50" width="460" height="250" rx="10" fill="#fbfaf7" stroke="#cbc6ba" stroke-width="1" stroke-dasharray="5 4"/>
+        <text class="nt6b" x="680" y="78" dominant-baseline="middle" text-anchor="start">为什么 prompt 只写一个名词</text>
+        <text class="nt6" x="680" y="106" dominant-baseline="middle" text-anchor="start">GroundingDINO 是开放词表检测器，</text>
+        <text class="nt6" x="680" y="132" dominant-baseline="middle" text-anchor="start">吃名词短语，不吃整句描述。</text>
+        <text class="nt6" x="680" y="158" dominant-baseline="middle" text-anchor="start">「floor」命中地板；写「把地板换成</text>
+        <text class="nt6" x="680" y="184" dominant-baseline="middle" text-anchor="start">大理石」反而可能什么都找不到。</text>
+        <text class="nt6" x="680" y="210" dominant-baseline="middle" text-anchor="start">阈值 0.3 偏松：宁可多框。</text>
+        <text class="nt6" x="680" y="236" dominant-baseline="middle" text-anchor="start">漏检就往下调，误检就往上调。</text>
+        <text class="nt6" x="680" y="262" dominant-baseline="middle" text-anchor="start">框只是框；SAM 才把它变成</text>
+        <text class="nt6" x="680" y="288" dominant-baseline="middle" text-anchor="start">贴着物体边缘的像素遮罩。</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#b3261e"></i>遮罩支路（死端）</span>
+        <span><i style="background:#4051d6"></i>实际落盘</span>
+        <span><i style="background:#0f7a6c"></i>检测 / 分割</span>
+        <span><i style="background:#6b7f3a"></i>文字输入</span>
+        <span><i style="background:#b0447f"></i>遮罩转换</span>
+      </div>
+    </div>
+
+    <div class="mini-flow">
+      <b>窄屏速读：</b>地面 → 翻译成 floor → GroundingDINO 找框 → SAM 抠遮罩 → VAEEncodeForInpaint → KSampler → VAEDecode → 无下游。另一条：原图 + 两条文字 → Flux2 子图 → SaveImage。落盘的是后一条，它没有 mask 输入。
+    </div>
+
+    <div class="dead">
+      <h3>比 05 号更隐蔽的一点</h3>
+      <p>05 号的遮罩连重绘节点都没接上；06 号的遮罩<b>确实进了 VAEEncodeForInpaint</b>，链路看起来完全正确——但那条链在最后一步断了。#25 VAEDecode 没有下游，于是整条 SDXL 局部重绘都不会被执行。</p>
+      <p>最后落盘的 #68 Flux2 只收 <code>text2</code>、<code>text2_1</code>、<code>image</code> 三路，<b>没有 mask</b>。所以“文字识别”找准了区域，但最终图并没有只改那块区域。</p>
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="shead"><span class="snum">04 / NODE BY NODE</span><h2>逐节点：从一句话到一张遮罩，再到一次落空</h2></div>
+    <p class="slead">按“输入与文字 → 检测与分割 → 遮罩重绘 → 落盘”四段看。注意每张卡右侧的真实输入输出，它们决定了节点到底会不会被执行。</p>
+
+    <div class="stage">
+      <div class="stage-h"><span class="no">A</span><h3>输入与文字：三条文字各走各的路</h3><span class="gp">#1 / #39 / #16</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#1</span><span class="ntype">LoadImage</span><span class="nrole">底图</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>读入室内照片，后面五处都从它取图：检测、遮罩预览、inpaint 编码、对照、Flux2 子图。</p>
+            <div class="params">
+              <div><span>image</span><b>3f20815a3b6658396e42dc102cb16f0.png</b></div>
+              <div><span>输出</span><b>IMAGE → #10 / #27 / #33 / #42 / #68</b></div>
+            </div>
+            <p>换图只改 #1 就够：检测、inpaint、Flux2 参考图都从它接线。但 #68 内部会先把图缩到 1 MP，原图很大时，细节会在这里被压掉。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#39</span><span class="ntype">DeepTranslatorTextNode</span><span class="nrole">找什么</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把“地面”翻成 <code>floor</code>，送给检测器当提示词。中文检测不是不能试，但英文名词在这类模型上更稳。</p>
+            <div class="params">
+              <div><span>方向</span><b>chinese (simplified) → english</b></div>
+              <div><span>原文</span><b>地面</b></div>
+              <div><span>输出</span><b>floor → #40 / #10 / #68</b></div>
+            </div>
+            <div class="warn-inline"><b>面板会骗人：</b>#40 ShowText 的框里写着“地面”，但它的 text 输入接了 #39，所以实际显示的是英文 <code>floor</code>。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#16</span><span class="ntype">DeepTranslatorTextNode</span><span class="nrole">改成什么</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把“黑色大理石地砖”翻成英文，送给 SDXL 的正向编码 <b>和</b> Flux2 的 <code>text2_1</code>。它和 #39 是两条独立的文字，一条管“找”，一条管“改”。</p>
+            <div class="params">
+              <div><span>方向</span><b>auto → english</b></div>
+              <div><span>原文</span><b>黑色大理石地砖</b></div>
+              <div><span>输出</span><b>→ #17 / #24 / #68</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-h"><span class="no">B</span><h3>检测与分割：一个节点，两次推理</h3><span class="gp">#12 / #11 / #10 / #13 / #27</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#12 · #11</span><span class="ntype">GroundingDinoModelLoader · SAMLoader</span><span class="nrole">两个模型</span></div>
+          <div class="bd">
+            <p><b>它们做什么：</b>#12 提供“找框”的检测模型，#11 提供“抠边”的分割模型。两者都只加载一次，供 #10 调用。</p>
+            <div class="params">
+              <div><span>检测模型</span><b>GroundingDINO_SwinB (938MB)</b></div>
+              <div><span>分割模型</span><b>sam_vit_b_01ec64.pth</b></div>
+              <div><span>设备</span><b>Prefer GPU</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#10</span><span class="ntype">GroundingDinoSAMSegment</span><span class="nrole">文字 → 遮罩</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>先用 #12 按 <code>floor</code> 找框，再让 #11 在框内分割，最后输出一张遮罩。你在图上看不到框，只能看到最终的白区。</p>
+            <div class="params">
+              <div><span>prompt</span><b>← #39（floor）</b></div>
+              <div><span>阈值</span><b>0.3</b></div>
+              <div><span>输出</span><b>MASK → #13 / #27 / #33</b></div>
+            </div>
+            <p>一张遮罩同时喂给三处：转成图预览（#13）、带图画布预览（#27）、inpaint 编码（#33）。</p>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#13 · #14 · #27</span><span class="ntype">MaskToImage · PreviewImage · ImageAndMaskPreview</span><span class="nrole">三种看遮罩的方式</span></div>
+          <div class="bd">
+            <p><b>它们做什么：</b>#13 把遮罩转成黑白图，#14 直接预览；#27 把原图与遮罩叠在一起看，适合检查“有没有涂过界”。</p>
+            <div class="params">
+              <div><span>#27 参数</span><b>[1, "255, 255, 255", false]</b></div>
+              <div><span>#27 输入</span><b>image ← #1 · mask ← #10</b></div>
+            </div>
+            <p>三个节点都<b>不落盘</b>。它们只帮你判断遮罩质量，不改变结果。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-h"><span class="no">C</span><h3>遮罩重绘支路：这次真的用了遮罩，但还是白算</h3><span class="gp">#33 / #17 / #21 / #22 / #25</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#33</span><span class="ntype">VAEEncodeForInpaint</span><span class="nrole">按遮罩编码</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把原图编码成 latent，并把遮罩内对应的位置标记为“待重绘”。<code>grow 6</code> 表示遮罩向外扩 6 像素，给接缝留余量。</p>
+            <div class="params">
+              <div><span>pixels</span><b>← #1</b></div>
+              <div><span>vae</span><b>← #35（SDXL 室内大模型）</b></div>
+              <div><span>mask</span><b>← #10</b></div>
+              <div><span>grow_mask_by</span><b>6</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#17 · #21</span><span class="ntype">CLIPTextEncode × 2</span><span class="nrole">正向 / 负向</span></div>
+          <div class="bd">
+            <p><b>它们做什么：</b>#17 是正向，文本框本身是空的，内容来自 #16 的英文译文；#21 是负向，没有接文字输入，保持空字符串。</p>
+            <div class="params">
+              <div><span>#17 text</span><b>← #16（覆盖空框）</b></div>
+              <div><span>#21 text</span><b>""</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#22</span><span class="ntype">KSampler</span><span class="nrole">SDXL 局部重绘</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>在 #33 给的 latent 上采样，只改遮罩区域。模型来自 #78（经 LoRA 0.22 处理后），所以风格会和 <code>SDXL 室内大模型</code> 一致。</p>
+            <div class="params">
+              <div><span>seed</span><b>533503297881527 · randomize</b></div>
+              <div><span>步数 / CFG</span><b>20 / 3</b></div>
+              <div><span>采样器</span><b>euler_ancestral · normal</b></div>
+              <div><span>denoise</span><b>1</b></div>
+              <div><span>latent</span><b>← #33</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#25</span><span class="ntype">VAEDecode</span><span class="nrole">解码</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把 #22 的 latent 解码成图。到这一步，局部重绘其实已经成功了。</p>
+            <div class="io"><span class="in">samples ← #22</span><span class="in">vae ← #77</span><span class="out">IMAGE → 无</span></div>
+            <div class="warn-inline"><b>断点：</b>它的 IMAGE 没有接任何节点。没有下游，就没有执行理由——整条 C 段都不会跑。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-h"><span class="no">D</span><h3>落盘支路：文字拼出一句话，整图重画</h3><span class="gp">#68 / #26 / #42</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#68</span><span class="ntype">Flux2 子图</span><span class="nrole">整图重绘</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>子图内部把三段文字拼成一句话：<code>将图中的</code> + <code>floor</code> + <code>转化为</code> + <code>black marble floor tile</code>，然后拿原图当参考，重画整张。</p>
+            <div class="params">
+              <div><span>内层节点</span><b>22</b></div>
+              <div><span>模型</span><b>flux-2-klein-base-9b-fp8</b></div>
+              <div><span>文本编码</span><b>qwen_3_8b_fp8mixed</b></div>
+              <div><span>步数 / CFG</span><b>4 / 1</b></div>
+              <div><span>缩放</span><b>ImageScaleToTotalPixels 1 MP</b></div>
+              <div><span>输入</span><b>text2 · text2_1 · image（无 mask）</b></div>
+            </div>
+            <div class="warn-inline"><b>拼出来的句子是中英混排：</b>“将图中的floor转化为black marble floor tile”。连接词是中文、关键词是英文，模型能猜，但这不是干净的写法。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#26</span><span class="ntype">SaveImage</span><span class="nrole">唯一落盘</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>保存 #68 的结果。前缀 <code>ComfyUI</code>，从文件名看不出这版用的是 floor 还是别的词。</p>
+            <div class="params"><div><span>images</span><b>← #68</b></div><div><span>filename_prefix</span><b>ComfyUI</b></div></div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#42</span><span class="ntype">Image Comparer (rgthree)</span><span class="nrole">前后对照</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>A 放原图（#1），B 放结果（#68）。拖动中线，你能看到整张图都变了：不只是地板，墙、家具、光都重画了一遍。</p>
+            <div class="io"><span class="in">image_a ← #1</span><span class="in">image_b ← #68</span></div>
+            <p>这就是判断“到底改没改局部”的最快方式，比看参数可靠。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="shead"><span class="snum">05 / PARAMETERS</span><h2>参数速查与四条边界</h2></div>
+    <p class="slead">这张表按“文字 → 模型 → 遮罩 → 采样 → 保存”的顺序排。路径、阈值、步数、种子都取自 JSON，可以直接对照。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>节点</th><th>真实参数</th><th>它管什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>#1 LoadImage</td><td><code>3f20815a3b6658396e42dc102cb16f0.png</code></td><td>唯一的底图来源，五处下游都从它取图。</td></tr>
+          <tr><td>#39 DeepTranslator</td><td>chinese (simplified) → english · <code>地面</code></td><td>产出检测词 <code>floor</code>，决定“找什么”。</td></tr>
+          <tr><td>#16 DeepTranslator</td><td>auto → english · <code>黑色大理石地砖</code></td><td>产出改图词，决定“改成什么”。</td></tr>
+          <tr><td>#12 GroundingDinoModelLoader</td><td><code>GroundingDINO_SwinB (938MB)</code></td><td>开放词表检测模型，负责从文字到框。</td></tr>
+          <tr><td>#11 SAMLoader</td><td><code>sam_vit_b_01ec64.pth</code> · Prefer GPU</td><td>分割模型，负责从框到像素级遮罩。</td></tr>
+          <tr><td>#10 GroundingDinoSAMSegment</td><td>prompt <code>floor</code> · 阈值 <b>0.3</b></td><td>两次推理合成一步，输出 MASK → #13 / #27 / #33。</td></tr>
+          <tr><td>#33 VAEEncodeForInpaint</td><td>grow_mask_by <b>6</b></td><td>按遮罩编码 latent，并把重绘区外扩 6 像素。</td></tr>
+          <tr><td>#17 / #21 CLIPTextEncode</td><td>正向 ← #16 · 负向 <code>""</code></td><td>把“改成什么”编码成条件；负向为空。</td></tr>
+          <tr><td>#22 KSampler</td><td>seed 533503297881527 · 20 步 · CFG 3<br>euler_ancestral · normal · denoise 1</td><td>SDXL 局部重绘，但整条支路没有下游。</td></tr>
+          <tr><td>#68 Flux2 子图</td><td>22 节点 · 4 步 · CFG 1 · 1 MP<br><code>flux-2-klein-base-9b-fp8</code> + <code>qwen_3_8b_fp8mixed</code></td><td>把三段文字拼成一句，拿整图重画，不接收遮罩。</td></tr>
+          <tr><td>#26 SaveImage</td><td><code>ComfyUI</code></td><td>唯一的落盘口。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pre-note">
+      <b>一句话记住这条链：</b>检测器回答“在哪儿”，SAM 回答“边界在哪”，inpaint 回答“怎么改”。三者缺一，局部修改就退化成整图重画。
+    </div>
+
+    <div class="pre-grid" style="margin-top:12px">
+      <div class="pre">
+        <span class="tag">边界 1</span>
+        <h3>词表：只认常见名词</h3>
+        <p><code>floor</code>、<code>sofa</code>、<code>window</code> 这类具体名词最稳。“大理石地面”“右下角那块地”都不是它的语言。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">边界 2</span>
+        <h3>阈值：松紧都有代价</h3>
+        <p>0.3 偏松，容易把地毯、台阶一起当地板；调到 0.5 更干净，但可能整块地板都找不到。先用 #27 看遮罩，再决定往哪边调。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">边界 3</span>
+        <h3>遮罩：被挡住的看不见</h3>
+        <p>SAM 只能分割“看得见”的部分。沙发压住的地板、桌子下面的角落会缺失；<code>grow 6</code> 只补 6 像素，补不回一大片。</p>
+      </div>
+    </div>
+
+    <div class="pre-note">
+      <b>边界 4：分辨率决定边缘精度。</b>Flux2 支路先把图缩到 1 MP，SAM 若在缩过的图上工作，墙角边缘会变糙。要高精度遮罩，就让检测与分割跑在原图上，只在重绘阶段缩放。
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="shead"><span class="snum">06 / PITFALLS</span><h2>踩坑：找准了区域，不等于改对了地方</h2></div>
+    <p class="slead">这一课的坑集中在“看起来都对”：框对了、遮罩对了、参数也对了，但最后那张图没走过这条链。</p>
+
+    <div class="pits">
+      <div class="pit">
+        <h3>#25 解码完没人接，整条 inpaint 白跑<span class="sev">致命</span></h3>
+        <div class="where">#25 VAEDecode · IMAGE 输出为空</div>
+        <p>症状：遮罩预览里地板抠得很准，出图却整张都变了。因为 SDXL 局部重绘在 #25 结束，没有下游就不会被执行。</p>
+        <p class="fix">改法：给 #25 接一个 SaveImage，和 #26 并排跑一次。你会同时得到“真局部”和“整图重绘”两张，差别一眼可见。</p>
+      </div>
+
+      <div class="pit">
+        <h3>提示词拼成中英混排<span class="sev">高频</span></h3>
+        <div class="where">#62 “将图中的” + #60 “floor” + #63 “转化为” + #65 英文</div>
+        <p>症状：最终提示词是“将图中的floor转化为black marble floor tile”。中文连接词与英文关键词混在一起，模型能猜，但语义不稳。</p>
+        <p class="fix">改法：把 #62 / #63 也改成英文（例如 <code>replace the</code> / <code>in the image with</code>），或直接把整句写进一个节点，别让翻译结果和中文模板硬拼。</p>
+      </div>
+
+      <div class="pit lv2">
+        <h3>ShowText 框里写着中文，显示的是英文<span class="sev">中</span></h3>
+        <div class="where">#40 ← #39 · #24 ← #16</div>
+        <p>症状：你以为检测词是“地面”，实际送进模型的是 <code>floor</code>。ShowText 的面板文本只是没接线时的默认值。</p>
+        <p class="fix">改法：看 ShowText 的输入有没有连线；有连线时，以连线来源为准，框里的字不算数。</p>
+      </div>
+
+      <div class="pit lv2">
+        <h3>把一句话塞进检测框<span class="sev">中</span></h3>
+        <div class="where">#10 GroundingDinoSAMSegment · prompt</div>
+        <p>症状：写“把地板换成黑色大理石”后，检测不到任何东西，遮罩全黑。GroundingDINO 要的是名词短语，不是指令。</p>
+        <p class="fix">改法：检测词只写物体名（<code>floor</code> / <code>rug</code> / <code>sofa</code>）；“换成什么”交给 #16 与重绘提示词。</p>
+      </div>
+
+      <div class="pit lv2">
+        <h3>0.3 把地毯也算进地板<span class="sev">中</span></h3>
+        <div class="where">#10 · 阈值 0.3</div>
+        <p>症状：遮罩把地毯、门槛、甚至一小块墙面都包进来，重绘后这些地方一起变成大理石。</p>
+        <p class="fix">改法：先把阈值升到 0.4 看是否还漏；漏了再回到 0.35。用 #27 的叠加预览判断，不要只看最终图。</p>
+      </div>
+
+      <div class="pit lv3">
+        <h3>两个子图都叫 New Subgraph<span class="sev">低</span></h3>
+        <div class="where">#68 → #67</div>
+        <p>症状：进了一层，里面还是一个同名节点；改完不知道改的是外层还是内层。</p>
+        <p class="fix">改法：记住 #68 是外层、#67 里才是 22 个节点的正体；或者进去后立刻重命名。</p>
+      </div>
+
+      <div class="pit lv3">
+        <h3>保存前缀还是 ComfyUI<span class="sev">低</span></h3>
+        <div class="where">#26 SaveImage · filename_prefix</div>
+        <p>症状：试了 floor / rug / 不同阈值，全在同一串编号里，事后分不清。</p>
+        <p class="fix">改法：用 <code>seg_floor_t030_marble</code> 这种前缀，把检测词、阈值、目标材质写进文件名。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="shead"><span class="snum">07 / PRACTICE</span><h2>练习：让遮罩真正参与一次出图</h2></div>
+    <p class="slead">顺序和上一课一样：<b>先证明当前没走遮罩，再亲手接上</b>。做完这六题，你对“检测 / 分割 / 重绘”三段的分工就不会再混。</p>
+
+    <div class="ex-grid">
+      <div class="ex">
+        <div class="no">EXERCISE 01</div>
+        <h3>给 #25 接一个保存</h3>
+        <p>新增 SaveImage，接到 #25 的 IMAGE；保留 #26 不动，一次跑出两张。</p>
+        <div class="see">应该看到：<b>#25 那张只有地板变</b>，#26 那张整张都重画。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 02</div>
+        <h3>换检测词</h3>
+        <p>把 #39 的“地面”改成“地毯”，跑一次；再改成“沙发”，跑一次。</p>
+        <div class="see">应该看到：<b>#27 的叠加预览里，白区跟着换了对象</b>，但 #26 的图变化不大——因为它没收遮罩。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 03</div>
+        <h3>阈值三连</h3>
+        <p>把 #10 的阈值设为 0.1 / 0.3 / 0.5，每次用 #27 看遮罩范围。</p>
+        <div class="see">应该看到：<b>0.1 把地毯也吞进来，0.5 可能只剩一小块</b>；0.3 是这套图的折中。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 04</div>
+        <h3>找遮罩缺口</h3>
+        <p>用 #27 放大看沙发腿、桌脚附近，记录哪些地板没被白区覆盖。</p>
+        <div class="see">应该看到：<b>被家具挡住的地板是黑的</b>；这就是 grow 6 补不回来的部分。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 05</div>
+        <h3>只改目标材质</h3>
+        <p>把 #16 改成“浅色木地板”，其他不动，跑 #25 与 #26 各一张。</p>
+        <div class="see">应该看到：<b>#25 只换地板材质，#26 连墙和家具一起变</b>。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 06</div>
+        <h3>清掉中英混排</h3>
+        <p>把 #62 改成 <code>replace the</code>、#63 改成 <code>with</code>，让整句变成英文。</p>
+        <div class="see">应该看到：<b>#26 的材质更稳定</b>，地板纹理不再随机漂移。</div>
+      </div>
+    </div>
+
+    <div class="check">
+      <h3>交作业前自检</h3>
+      <ul>
+        <li><input type="checkbox"><span>我能说清 GroundingDINO 与 SAM 各自输出什么、为什么必须接力。</span></li>
+        <li><input type="checkbox"><span>我知道检测词要写名词短语，改图词才写“换成什么”。</span></li>
+        <li><input type="checkbox"><span>我能从 #26 倒推，指出落盘支路没有 mask 输入。</span></li>
+        <li><input type="checkbox"><span>我知道 #25 为什么不会执行，并亲手给它接过保存。</span></li>
+        <li><input type="checkbox"><span>我会用 #27 检查遮罩，而不是只看最终图。</span></li>
+        <li><input type="checkbox"><span>我能说出阈值调高、调低各自的风险。</span></li>
+        <li><input type="checkbox"><span>我的保存前缀能看出检测词、阈值和目标材质。</span></li>
+      </ul>
+    </div>
+
+    <div class="next">
+      <div>
+        <div class="lab">NEXT · C1</div>
+        <div class="nt">高清放大</div>
+        <div class="nd">出图线、改图线都走完了，下一站解决“尺寸不够、细节发糊”：放大模型、分块重绘与保真校色。</div>
+      </div>
+      <a class="go" href="L3-07-高清放大.html">去 C1 →</a>
+    </div>
+
+    <div class="src">
+      <b>本课数据来源与核对方式：</b><code>ComfyUI_工作流架构/06📚基础版 文字识别局部修改.json</code>。顶层 22 个节点、33 条连线；2 个子图定义（外层 1 个节点，内层 22 个节点，名称均为 <code>New Subgraph</code>）。检测模型、分割模型、提示词、阈值、grow、采样参数与种子逐项读取自 <code>widgets_values</code>；#25 无下游、#26 仅接 #68、#68 不含 mask 输入均由 <code>links</code> 核对确认。核对日 2026-11-08。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b data-bind="name">AI 入门与 ComfyUI 出图课</b> · <span data-bind="author">李智博</span> · <span data-bind="year">2026</span></div>
+    <div>L3-B2 · 文字识别局部修改 · <a href="../index.html">返回课程地图</a></div>
+  </div>
+</footer>
+
+<script>
+  // 自检清单勾选状态持久化（file:// 下同样可用）
+  (function(){
+    var boxes = document.querySelectorAll('.check input[type="checkbox"]');
+    boxes.forEach(function(b, i){
+      var key = 'cui-b2-check-' + i;
+      try { if (localStorage.getItem(key) === '1') b.checked = true; } catch(e){}
+      b.addEventListener('change', function(){
+        try { localStorage.setItem(key, b.checked ? '1' : '0'); } catch(e){}
+      });
+    });
+  })();
+
+  /* 品牌文本绑定：与 index.html 同源 */
+  (function(){
+    var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+    document.querySelectorAll('[data-bind]').forEach(function(el){
+      var v = map[el.getAttribute('data-bind')];
+      if (v) el.textContent = v;
+    });
+    document.title = 'L3-B2 · 文字识别局部修改 | ' + COURSE.name;
+  })();
+</script>
+</body>
+</html>

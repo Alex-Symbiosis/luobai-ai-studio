@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-04b 这套 JSON 怎么填 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:30px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:680px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:16px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:12.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:13.5px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.ctrl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.ctrl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+.ctrl .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ctrl h4{font-family:var(--sans);font-size:15px;margin:0}
+.ctrl .dot{width:9px;height:9px;border-radius:50%}
+.ctrl.depth{border-top:3px solid var(--teal)}.ctrl.depth .dot{background:var(--teal)}
+.ctrl.line{border-top:3px solid var(--accent)}.ctrl.line .dot{background:var(--accent)}
+.ctrl.canny{border-top:3px solid var(--amber)}.ctrl.canny .dot{background:var(--amber)}
+.ctrl p{font-size:13px;color:var(--muted);margin:6px 0 0;line-height:1.7}
+.ctrl .keep{font-family:var(--sans);font-size:11.5px;color:var(--ink);background:var(--paper);border-radius:6px;padding:3px 7px;display:inline-block;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.sim{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.sim-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.sim-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.sim-head .val{font-family:var(--mono);color:var(--accent);font-weight:700}
+input[type=range]{width:100%;accent-color:var(--accent);margin:14px 0 4px;height:22px}
+.meters{display:grid;gap:9px;margin:14px 0 4px}
+.meter{display:grid;grid-template-columns:78px 1fr 42px;gap:10px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--muted)}
+.meter .bar{height:8px;background:#eeece6;border-radius:99px;overflow:hidden}
+.meter .bar i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .18s ease}
+.meter .bar i.free{background:var(--teal)}
+.verdict{font-family:var(--sans);font-size:13px;background:var(--paper);border:1px dashed var(--line2);border-radius:9px;padding:9px 12px;margin-top:12px}
+.scale{position:relative;height:26px;margin:4px 0 0}
+.scale .tick{position:absolute;top:0;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--faint)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.split li{margin:5px 0}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .ctrl-grid{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .meter{grid-template-columns:68px 1fr 38px}
+  table{font-size:11.5px}th,td{padding:7px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 04b</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-04b 这套 JSON 怎么填</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第四课 B</span>
+    <h1>这套 JSON 怎么填：<br>预处理器配对与强度落地</h1>
+    <p class="lede">上一节讲了三种控制图和强度手感，那是原理。打开 JSON，问题变得很具体：预处理器填哪一格，模型配哪一个，strength 写多少。这一节只回答这件事，表里全是真实值，可以直接拿去核对。</p>
+    <div class="meta"><span>预计 14 分钟</span><span>建议先读 L1-04</span><span>对应节点：ControlNetLoader / ControlNetApplyAdvanced</span></div>
+  </header>
+
+  <div class="callout">
+    <p><b>前情提要：</b>上一节讲了三种控制图和强度手感：Depth 记远近，Lineart 只描边，Canny 找亮度突变。这一节只回答一个问题——落到本套 JSON 里怎么填。</p>
+  </div>
+
+  <h2 id="recap"><span class="no">01 / 先对齐</span>四个名字，先各给一句</h2>
+  <p>表里的每一行都是一条支路。支路的形状固定：先由预处理器把参考图变成控制图，再由 ControlNetLoader 读进对应权重，最后 ControlNetApplyAdvanced 把控制图挂到条件（条件 / CONDITIONING：编码后的引导信息，L2-02 专门讲）上，强度也在这里填。</p>
+
+  <div class="card">
+    <p><b>预处理器</b>（preprocessor）：把参考图压成一张控制图的那一格。反例：它不负责读文件，读图在 <code>LoadImage</code> 那一头。</p>
+    <p><b>ControlNet 模型</b>（ControlNet model）：只认某一类控制图的权重文件。反例：它不是大模型 checkpoint，光有它出不了图。</p>
+    <p><b>ControlNetLoader</b>：把 ControlNet 权重读进工作流的那一格。反例：它不是 <code>CheckpointLoaderSimple</code>，不管大模型和 VAE。</p>
+    <p><b>ControlNetApplyAdvanced</b>：把控制图挂到条件上的那一格，强度与起止区间填在这里。反例：它不是采样器，不直接动像素。</p>
+  </div>
+
+  <h2 id="real"><span class="no">02 / 真实参数</span>本套 JSON 里的控制组合</h2>
+  <p>想照着调？先看别人填了什么。下面这张表里的数字，全部来自本套真实的 JSON，可以直接拿去核对。</p>
+  <table>
+    <thead><tr><th style="width:17%">工作流</th><th style="width:13%">类型</th><th style="width:27%">预处理器</th><th style="width:25%">ControlNet 模型</th><th style="width:18%">强度 / 区间</th></tr></thead>
+    <tbody>
+      <tr><td>04 建筑</td><td>Depth</td><td><code>DepthAnythingV2Preprocessor</code> #17，512</td><td><code>diffusers_xl_depth_full</code> #13</td><td><b>0.35</b> · 0–1</td></tr>
+      <tr><td>04 建筑</td><td>Lineart</td><td><code>LineartStandardPreprocessor</code> #50，512</td><td><code>mistoLine_rank256</code> #49</td><td><b>0.3</b> · 0–1</td></tr>
+      <tr><td>03 室内</td><td>Depth</td><td><code>DepthAnythingV2Preprocessor</code> #17</td><td><code>diffusers_xl_depth_full</code> #13</td><td><b>0.25</b> · 0–1</td></tr>
+      <tr><td>03 室内</td><td>Lineart</td><td><code>LineartStandardPreprocessor</code> #50</td><td><code>mistoLine_rank256</code> #49</td><td><b>0.2</b> · 0–1</td></tr>
+      <tr><td>02 线稿+参考</td><td>Depth + Lineart</td><td>DepthAnythingV2 #125 / LineartStandard #126</td><td>depth_full #124 / mistoLine #127</td><td><b>0.6 / 0.6</b> · 0–1</td></tr>
+      <tr><td>文生图+深度+语义</td><td>Depth + Seg</td><td><code>DepthAnythingV2</code> #17 / <code>OneFormer-ADE20K-SemSeg</code> #25</td><td>depth_full #13 / <code>SDXL 语义分割</code> #24</td><td><b>1.0 / 0.14</b> · 0–1</td></tr>
+      <tr><td>IPA 风格迁移</td><td>Depth + Lineart</td><td>DepthAnythingV2 #17 / LineartStandard #50</td><td>depth_full #13 / mistoLine #49</td><td><b>0.42 / 0.5</b> · 0–1</td></tr>
+      <tr><td>LINK 练习</td><td>Lineart</td><td><code>LineArtPreprocessor</code> #4</td><td><code>xinsir_union_promax</code> #3</td><td><b>0.7</b> · <b>0–0.7</b></td></tr>
+      <tr><td>01 线稿</td><td>Lineart</td><td><code>LineartStandardPreprocessor</code> #185</td><td><code>mistoLine_rank256</code> #186</td><td><b>0.6</b> · 0–0.8</td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">模型文件名按 JSON 的写法省了 <code>.safetensors</code> 后缀。预处理器分辨率都是 512，控制图不是按原图全分辨率进 ControlNet 的，它先被缩到 512。</p>
+  <p>读表只看三列：第三列拿哪张图，第四列配哪份权重，第五列给多大劲。04 那两行是一起跑的，深度 0.35 配线稿 0.3，谁也没拉满。</p>
+
+  <h2 id="matching"><span class="no">03 / 匹配</span>为什么“换个预处理器”就崩了</h2>
+  <p>换个预处理器就崩，通常不是模型坏了，是组合不对。</p>
+  <div class="split">
+    <div class="card">
+      <h4>必须同类的组合</h4>
+      <ul>
+        <li>Depth 预处理器 → 深度 ControlNet 模型。</li>
+        <li>Lineart 预处理器 → 线稿 ControlNet 模型。</li>
+        <li>Seg 预处理器 → 语义分割 ControlNet 模型。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>常见的错配后果</h4>
+      <ul>
+        <li>深度图喂给线稿模型：线全被当成噪点。</li>
+        <li>线稿喂给深度模型：前后关系读不出来。</li>
+        <li>模型强度再高，也救不了错的输入类型。</li>
+      </ul>
+    </div>
+  </div>
+  <p>原因不玄。深度图是一整片灰度，亮的地方近、暗的地方远；线稿是白底上几根细线，别处全空。这两种图的像素分布根本不是一回事，模型在训练时只见过其中一种。塞错图，它照着自己的读法硬找，找出来的全是误会。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 500 200" role="img" aria-label="预处理器输出控制图，ControlNetLoader 加载同类权重，ControlNetApplyAdvanced 挂上强度">
+      <defs>
+        <marker id="arcb" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+
+      <rect x="6" y="52" width="154" height="78" rx="10" fill="#eef0ff" stroke="#4051d6"/>
+      <text x="83" y="76" text-anchor="middle" dominant-baseline="middle" class="svg-title" style="font-size:14px">预处理器</text>
+      <text x="83" y="98" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">DepthAnythingV2</text>
+      <text x="83" y="116" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">Preprocessor #17</text>
+
+      <line x1="160" y1="91" x2="169" y2="91" stroke="#5d6779" stroke-width="1.5" marker-end="url(#arcb)"/>
+      <text x="165" y="38" text-anchor="middle" dominant-baseline="middle" class="svg-lbl" style="font-size:12px">控制图</text>
+
+      <rect x="174" y="52" width="152" height="78" rx="10" fill="#fff" stroke="#cbc6ba"/>
+      <text x="250" y="76" text-anchor="middle" dominant-baseline="middle" class="svg-title" style="font-size:14px">ControlNetLoader</text>
+      <text x="250" y="98" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">depth_full #13</text>
+      <text x="250" y="116" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">512 进，同类型权重</text>
+
+      <line x1="326" y1="91" x2="335" y2="91" stroke="#5d6779" stroke-width="1.5" marker-end="url(#arcb)"/>
+      <text x="331" y="38" text-anchor="middle" dominant-baseline="middle" class="svg-lbl" style="font-size:12px">条件</text>
+
+      <rect x="340" y="52" width="154" height="78" rx="10" fill="#fff" stroke="#4051d6"/>
+      <text x="417" y="70" text-anchor="middle" dominant-baseline="middle" class="svg-title" style="font-size:12px">ControlNetApply</text>
+      <text x="417" y="86" text-anchor="middle" dominant-baseline="middle" class="svg-title" style="font-size:12px">Advanced</text>
+      <text x="417" y="104" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">strength 0.35</text>
+      <text x="417" y="120" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">start 0 · end 1</text>
+
+      <text x="250" y="158" text-anchor="middle" dominant-baseline="middle" class="svg-lbl" style="font-size:12.5px">中间的模型认错类型，右边的强度填多少都没用</text>
+      <text x="250" y="176" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12px">参考图 → 控制图 → 条件 → 采样器</text>
+    </svg>
+    <figcaption>参考图先过预处理器，再找同类型的 ControlNet 权重，最后由 apply 节点挂到条件上；中间认错类型，右边强度填多少都没用。</figcaption>
+  </figure>
+
+  <p>核对顺序就这么三步：看预处理器吐出什么类型，找同类型的权重，再看 apply 节点的强度。第一步错，后两步全白搭。想亲手验证“换个预处理器就崩”，直接做下一节的第 1 题。</p>
+
+  <h2 id="union"><span class="no">04 / union</span>一个权重切模式，强度往上挪一档</h2>
+  <p>本套里只有一个“通用型”尝试：LINK 用 <code>xinsir_union_promax</code>，配的是 <code>LineArtPreprocessor</code>。union 模型也不是万能的。用之前先去模型卡确认它支持哪几类控制，别默认“一个模型通吃”。</p>
+  <p><b>union 模型</b>（union ControlNet）：一个权重文件里装了几类控制的读法，喂进去哪种控制图，就走哪种模式。反例：它不是“什么控制图都认”，模型卡没写的那几类照样不认。</p>
+  <p>本套这一行填得比别处硬。LINK 练习是 <b>Lineart</b>：<code>LineArtPreprocessor</code> #4 接 <code>xinsir_union_promax</code> #3，强度 <b>0.7</b>，区间 <b>0–0.7</b>。同样是线稿，01 那行是 <b>0.6</b>，区间 0–0.8。union 这一格更高，区间上限也压得更紧。</p>
+  <p>本套的填法是：先按同类专用模型的值起步，union 往上挪一档。这不是通用公式，换个 union 权重就得重看模型卡。拿不准时，从 0.6 试起，比一上来拉到 1.0 稳。</p>
+
+  <h2 id="practice"><span class="no">05 / 动手</span>三道题，把表对到画布上</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，在画布上按编号找到 <b>#17</b>、<b>#50</b>、<b>#13</b>、<b>#49</b>、<b>#48</b>，把两条支路各写一行：预处理器是谁、模型是谁、强度多少。</p><p class="why">要看的：深度那一路是 #17 → #13，线稿那一路是 #50 → #49，#48 是线稿一路的 apply。写不出来，说明还没对上号。顺手把 #17 换成 <code>LineartStandardPreprocessor</code>、#13 不动，跑一次看错配，再换回来。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 LINK 练习，把 <b>#4</b> 的 <code>LineArtPreprocessor</code> 换成另一种预处理（比如深度），<b>#3</b> 的 <code>xinsir_union_promax</code> 不动，跑一次。</p><p class="why">要看的：union 一个权重切模式，靠的就是喂进去的控制图。换完记得换回 Lineart。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>回到 04，把线稿那一路的强度从 <b>0.3</b> 改成 <b>0.6</b>，深度保持 <b>0.35</b>，跑一次；再把线稿改回 0.3。</p><p class="why">要看的：单张拉到 01 的值，双控制还撑不撑得住。画面发僵，就是两张硬约束在打架。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">06 / 自检</span>表能对上，才算会填</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能按表说出 04 的深度与线稿各用哪个预处理器、哪个模型、什么编号。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道预处理器与 ControlNet 模型必须同类，错配时提高强度也救不回来。</span></label>
+    <label class="check"><input type="checkbox"><span>我能指出 LINK 用的是 union 模型 #3，强度 0.7，区间 0–0.7。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 union 是一个权重切模式，换预处理器就是换模式，不是随便什么都认。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 512 是控制图进 ControlNet 前被缩到的分辨率，不是原图尺寸。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-04-controlnet.html"><span class="dir">← 上一课</span>L1-04 ControlNet</a>
+    <a href="l1-05-ipadapter.html"><span class="dir">下一课 →</span>L1-05 IPAdapter</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l1-04b-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

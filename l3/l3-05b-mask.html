@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<meta name="description" content="遮罩与 alpha 的入门微课：黑白许可表、二值/灰度/alpha 的区别、羽化与外扩、像素遮罩与潜空间遮罩、clipspace 为什么换机就断。">
+<title>L3-05b · 遮罩是什么：一张许可表 | AI 入门与 ComfyUI 出图课</title>
+<script>
+const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学生与普通人的 AI 入门课', author: '李智博', year: '2026' };
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --violet:#7c4ddb; --violet-soft:rgba(124,77,219,.10);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
+               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
+    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
+
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .secnav::-webkit-scrollbar{display:none}
+  .secnav a{font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;white-space:nowrap;font-weight:600}
+  .secnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  .hero{padding:44px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.24);padding:5px 12px;border-radius:999px}
+  h1{font-size:clamp(27px,4.2vw,40px);line-height:1.24;letter-spacing:-.02em;font-weight:800;margin-top:16px}
+  .sub{color:var(--muted);margin-top:10px;max-width:800px}
+  .goal{margin-top:24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)}
+  .goal .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--teal);font-weight:700}
+  .goal p{font-size:15px;line-height:1.7;margin-top:8px;color:var(--muted)}
+  .goal p.q{font-size:17px;color:var(--ink)}
+  .goal strong{background:linear-gradient(180deg,transparent 62%,rgba(15,122,108,.16) 62%)}
+  .metas{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .chip{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
+
+  .posmap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px;box-shadow:var(--shadow)}
+  .posmap .ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .posmap .ph b{font-size:13px}
+  .posmap .ph span{font-size:11.5px;color:var(--faint)}
+  .track{display:flex;overflow-x:auto;padding-bottom:6px}
+  .pstop{flex:1 1 0;min-width:132px;position:relative;padding-top:20px;border-top:3px solid rgba(64,81,214,.22)}
+  .pstop::before{content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #a9b0f0}
+  .pstop .pc{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+  .pstop .pn{font-size:12.5px;font-weight:600;margin-top:2px;line-height:1.4;color:var(--muted)}
+  .pstop.here{border-top-color:var(--teal)}
+  .pstop.here::before{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 5px rgba(15,122,108,.14)}
+  .pstop.here .pn{color:var(--ink);font-weight:800}
+  .pstop.here .pc{color:var(--teal)}
+  .here-tag{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--teal);border-radius:4px;padding:0 5px;margin-left:5px;vertical-align:1px}
+
+  section{padding:46px 0 2px;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .snum{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.12em}
+  h2{font-size:clamp(21px,2.8vw,27px);letter-spacing:-.02em;line-height:1.32}
+  .slead{color:var(--muted);max-width:800px;margin:6px 0 20px;font-size:14px}
+
+  .pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pre{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+  .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
+  .pre h3{font-size:14px;margin:8px 0 4px}
+  .pre p{font-size:12.5px;color:var(--muted);margin:0}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px;line-height:1.8}
+  .pre-note b{color:var(--ink)}
+
+  .term{background:#fbfaf7;border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:12px 15px;margin-top:12px;font-size:12.8px;color:var(--muted);line-height:1.85}
+  .term p{margin:0 0 7px}
+  .term p:last-child{margin:0}
+  .term b{color:var(--ink)}
+
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px;overflow-x:auto;margin-top:14px}
+  .fig svg{display:block;width:100%;min-width:700px;height:auto}
+  .fig .cap{font-size:11.5px;color:var(--faint);padding:8px 8px 4px;border-top:1px dashed var(--line);margin-top:6px;line-height:1.7}
+  .fig .cap b{color:var(--ink)}
+  .mini-flow{display:none;margin-top:10px;background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:2}
+  .mini-flow b{color:var(--ink)}
+
+  .note{margin-top:14px;border-radius:10px;padding:12px 15px;font-size:12.8px;line-height:1.85;background:#fbfaf7;border:1px dashed var(--line2);color:var(--muted)}
+  .note b{color:var(--ink)}
+  .note.warn{background:var(--amber-soft);border-color:rgba(178,98,6,.32)}
+  .note.warn b{color:var(--amber)}
+  .note.ok{background:var(--teal-soft);border-color:rgba(15,122,108,.28)}
+  .note.ok b{color:var(--teal)}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin-top:14px}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:720px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent)}
+
+  .pits{display:grid;gap:10px;margin-top:14px}
+  .pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--danger);border-radius:0 12px 12px 0;padding:14px 16px}
+  .pit h3{font-size:14px;margin-bottom:4px}
+  .pit .where{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em;margin-bottom:6px}
+  .pit p{font-size:13px;color:var(--muted);margin:0}
+  .pit p+p{margin-top:6px}
+  .pit .fix{color:var(--teal);font-weight:600}
+  .pit.lv2{border-left-color:var(--amber)}
+  .pit.lv3{border-left-color:var(--faint)}
+  .pit .sev{font-size:9.5px;font-weight:700;color:#fff;background:var(--danger);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .pit.lv2 .sev{background:var(--amber)}
+  .pit.lv3 .sev{background:var(--faint)}
+
+  .ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .ex .no{font-family:var(--mono);font-size:10.5px;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .ex h3{font-size:13.5px;margin:5px 0 5px}
+  .ex p{font-size:12.5px;color:var(--muted);margin:0}
+  .ex .see{font-size:12px;color:var(--ink);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)}
+  .ex .see b{color:var(--teal)}
+
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;box-shadow:var(--shadow)}
+  .check h3{font-size:14px;margin-bottom:8px}
+  .check ul{list-style:none}
+  .check li{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--muted);border-bottom:1px dotted var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check input{margin-top:5px;accent-color:var(--teal);width:14px;height:14px;flex:0 0 auto}
+
+  .next{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,rgba(15,122,108,.07),rgba(64,81,214,.07));border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .next .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:700}
+  .next .nt{font-size:17px;font-weight:800;margin-top:2px}
+  .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .next .go{font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+  .next .go:first-of-type{margin-left:auto}
+
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src code{color:var(--muted)}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:860px){
+    .pre-grid,.ex-grid{grid-template-columns:1fr}
+    .secnav{display:none}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 16px}
+    .mini-flow{display:block}
+    .fig svg{min-width:0}
+    .next .go:first-of-type{margin-left:0}
+  }
+  @media print{
+    .topbar,.secnav,.mini-flow{display:none}
+    body{background:#fff}
+    section{padding:20px 0 0;page-break-inside:avoid}
+    .ncard,.pre,.ex{box-shadow:none}
+    .fig{overflow:visible}
+    .fig svg{min-width:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <span class="crumb">L3 / B 线 / 05b</span>
+    <nav class="secnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#s2">许可表</a>
+      <a href="#s3">三种外壳</a>
+      <a href="#s4">边缘</a>
+      <a href="#s5">坐标系</a>
+      <a href="#s6">踩坑</a>
+      <a href="#s7">练习</a>
+      <a href="../guides/visual-spec.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">L3 · 微课 · B 线原理补课</span>
+    <h1>遮罩是什么：你涂的那块白，到底在说什么</h1>
+    <p class="sub">你在 B1 里第一次拿笔涂沙发。涂完却开始犹豫：白的一定会改吗？灰的算不算？把图换个软件打开，怎么全黑了？这一课只讲遮罩和 alpha（透明度通道），不重跑工作流。</p>
+
+    <div class="goal">
+      <div class="lab">01 / 现实问题与一句话目标</div>
+      <p>你涂了一块白，点运行。结果有两种：要么整张图都变了，要么重绘区和原图之间多出一条缝。还有更隐蔽的：换一台电脑，路径变红，你才发现那张“涂过的图”根本不在项目里。</p>
+      <p class="q">这一课的目标：把<b>遮罩（mask）</b>看透——它是一张许可表，不是图层；白和黑只回答“能不能改”，不回答“改成什么”。</p>
+    </div>
+
+    <div class="metas">
+      <span class="chip">前置 <b>L3-05 / B1</b></span>
+      <span class="chip">后续 <b>L3-06 / B2</b></span>
+      <span class="chip">本课 <b>只讲概念，不改参数</b></span>
+      <span class="chip">对照值 <b>羽化 5（05）· 外扩 6（06）</b></span>
+      <span class="chip">核对日 <b>2026-11-09</b></span>
+    </div>
+
+    <div class="posmap">
+      <div class="ph"><b>当前位置</b><span>B 线 · 改图线 · B1 与 B2 之间</span></div>
+      <div class="track">
+        <div class="pstop"><div class="pc">A6</div><div class="pn">建筑毛坯 + 参考</div></div>
+        <div class="pstop"><div class="pc">B1</div><div class="pn">手动涂抹局部修改</div></div>
+        <div class="pstop here"><div class="pc">B1.5</div><div class="pn">遮罩是什么<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop"><div class="pc">B2</div><div class="pn">文字识别局部修改</div></div>
+      </div>
+    </div>
+
+    <p class="pre-note"><b>读之前最好知道：</b>节点是一道工序，连线是交接单（L0）；VAE（变分自编码器）是有损翻译机，潜空间是 1/8 草稿画布。这两个词 L1-01 专门讲；L3-01 也顺带说过，这里知道它们负责“压图”和“装草稿”就行。这节默认你读过 B1；没读过也能跟上，涉及 B1 的地方都会点一句。</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="s2">
+    <div class="shead"><span class="snum">02 / PRINCIPLES</span><h2>先把话说死：遮罩是一张许可表</h2></div>
+    <p class="slead">真正决定“哪里能改”的，不是你涂得准不准，而是那张白图里每个像素的值。白是允许，黑是保留，灰是部分允许。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">VALUE</span>
+        <h3>一个像素，一个值</h3>
+        <p>白 = 1，黑 = 0，灰是 0 到 1 之间的数。重绘节点读这个值，决定这一块允不允许重新长。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">NOT A LAYER</span>
+        <h3>它不参与画面</h3>
+        <p>遮罩没有颜色、没有材质，也不会出现在最终图里。它是一张和原图等大的“能不能动”的表。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">GEOMETRY</span>
+        <h3>它不懂物体</h3>
+        <p>白块画到沙发上，不代表模型认识沙发。你画过界，它就把墙也当可改区；你少画一条腿，那条腿就不动。</p>
+      </div>
+    </div>
+
+    <div class="term">
+      <p><b>遮罩（mask）：</b>一张和原图等大的许可表，白 = 可以改，黑 = 不许动，灰 = 按比例混合。反例：它不是橡皮擦，也不是图层；擦掉画面和“允许重画”是两件事。</p>
+      <p><b>这个类比已登记在手册的术语表里（A07：遮罩 = 许可表）。</b>理由：遮罩不携带画面内容，只回答“这块能不能改”，和已有的草稿画布、补丁、翻译机都不是一回事。后面全站统一用“许可表”。</p>
+    </div>
+
+    <div class="fig">
+      <svg viewBox="0 0 760 260" role="img" aria-label="原图、黑白遮罩、结果三格示意图">
+        <defs>
+          <marker id="f1arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b93a3"/></marker>
+          <style>
+            .f1-room{fill:#efece4;stroke:#d9d4c8;stroke-width:1}
+            .f1-floor{fill:#e3ded2}
+            .f1-sofa{fill:#c9b79c;stroke:#b6a488;stroke-width:1}
+            .f1-sofa2{fill:#2f2f33;stroke:#232326;stroke-width:1}
+            .f1-cush{fill:#d8c8b0;stroke:#bda98b;stroke-width:.8}
+            .f1-cush2{fill:#3d3d42;stroke:#2a2a2e;stroke-width:.8}
+            .f1-frame{fill:#fbfaf7;stroke:#d9d4c8}
+            .f1-t{font:700 12px -apple-system,"Microsoft YaHei",sans-serif;fill:#18212f;text-anchor:middle}
+            .f1-s{font:400 10.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3;text-anchor:middle}
+            .f1-bg{fill:#11151c}
+            .f1-mask{fill:#ffffff}
+          </style>
+        </defs>
+
+        <!-- 原图 -->
+        <g transform="translate(20,18)">
+          <rect class="f1-room" x="0" y="0" width="220" height="160" rx="8"/>
+          <rect class="f1-floor" x="8" y="108" width="204" height="44" rx="4"/>
+          <rect class="f1-sofa" x="46" y="88" width="128" height="40" rx="7"/>
+          <rect class="f1-cush" x="54" y="94" width="52" height="26" rx="5"/>
+          <rect class="f1-cush" x="112" y="94" width="52" height="26" rx="5"/>
+          <rect class="f1-frame" x="70" y="34" width="80" height="34" rx="3"/>
+          <text class="f1-t" x="110" y="200">原图</text>
+          <text class="f1-s" x="110" y="218">沙发、地板、挂画</text>
+        </g>
+
+        <!-- 遮罩 -->
+        <g transform="translate(270,18)">
+          <rect class="f1-bg" x="0" y="0" width="220" height="160" rx="8"/>
+          <rect class="f1-mask" x="42" y="84" width="136" height="48" rx="8"/>
+          <text class="f1-t" x="110" y="200">遮罩</text>
+          <text class="f1-s" x="110" y="218">白 = 可改，黑 = 保留</text>
+        </g>
+
+        <!-- 结果 -->
+        <g transform="translate(520,18)">
+          <rect class="f1-room" x="0" y="0" width="220" height="160" rx="8"/>
+          <rect class="f1-floor" x="8" y="108" width="204" height="44" rx="4"/>
+          <rect class="f1-sofa2" x="46" y="88" width="128" height="40" rx="7"/>
+          <rect class="f1-cush2" x="54" y="94" width="52" height="26" rx="5"/>
+          <rect class="f1-cush2" x="112" y="94" width="52" height="26" rx="5"/>
+          <rect class="f1-frame" x="70" y="34" width="80" height="34" rx="3"/>
+          <text class="f1-t" x="110" y="200">结果</text>
+          <text class="f1-s" x="110" y="218">只有白区重新长</text>
+        </g>
+
+        <path d="M247,98 H267" stroke="#8b93a3" stroke-width="1.4" fill="none" marker-end="url(#f1arrow)"/>
+        <path d="M497,98 H517" stroke="#8b93a3" stroke-width="1.4" fill="none" marker-end="url(#f1arrow)"/>
+      </svg>
+      <div class="mini-flow"><b>窄屏速读：</b>原图 → 黑白许可表（白=1 可改，黑=0 保留）→ 只重画白区。遮罩不告诉模型“改成什么”。</div>
+      <div class="cap"><b>白不是“更重要”，是“允许改”；黑不是“删掉”，是“别动”。</b>遮罩不携带画风，也不携带内容。它只回答“这块能不能动”；改成什么，由提示词和参数决定（B1 已讲）。</div>
+    </div>
+
+    <div class="note warn">
+      <b>先核对约定：</b>ComfyUI 这套工作流是“白 = 改，黑 = 留”。有些绘图软件正好相反，白色表示保护。接别人工作流时，先用 <code>MaskToImage</code>（把遮罩转成黑白图的节点，B1 用过）看一眼，不要凭颜色猜。
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="shead"><span class="snum">03 / THREE FORMS</span><h2>同一张许可表，三种外壳</h2></div>
+    <p class="slead">二值、灰度、alpha（透明度通道）经常被混着叫“遮罩”。它们确实能装同一件事，但装法不同，丢的东西也不同。先把“装什么”和“装在哪”分开。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>形态</th><th>每个像素存什么</th><th>边界</th><th>常见来源</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>二值遮罩</b><br><span class="mono">binary mask</span></td><td>只有 0 或 1（存成图时是黑与白）</td><td>硬边，像剪刀剪的</td><td>手涂、阈值（按分界值切黑白）、自动圈选输出（B2 讲）</td></tr>
+          <tr><td><b>灰度遮罩</b><br><span class="mono">grayscale mask</span></td><td>0 到 1 的连续值</td><td>软边，像喷枪喷的</td><td>羽化、抗锯齿（边缘过渡像素）、模型给的 0 到 1 分数图</td></tr>
+          <tr><td><b>alpha 通道</b><br><span class="mono">alpha channel</span></td><td>透明度，存图时 0 到 255；进节点后是 0 到 1</td><td>通常也是连续</td><td>PNG（支持透明的图片格式）的透明层、涂抹图</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="term">
+      <p><b>二值遮罩（binary mask）：</b>每个像素只有两个答案，改或不改。反例：它不是“越白越强”的调节阀；它没有中间档。</p>
+      <p><b>灰度遮罩（grayscale mask）：</b>0 和 1 之间还有中间值，0.4 表示这一块只允许四成改动。反例：它不是三种颜色；灰不是第三种颜色，是 0 和 1 之间的数。</p>
+      <p><b>alpha 通道（alpha channel）：</b>图片自带的一层透明度，0 是全透明，255 是不透明；读进节点后换算成 0 到 1。ComfyUI 读 alpha 时会翻转：涂过的地方透明，读进来变成白色。反例：它不是独立的遮罩文件，也不是“第四种颜色”。</p>
+    </div>
+
+    <div class="note ok">
+      <b>一句话分清：</b>二值和灰度说的是“里面装了什么”；alpha 说的是“这层透明信息存在哪”。一张图可以既有 alpha，又有二值内容，关键看节点读的是哪个通道。
+    </div>
+
+    <div class="note warn">
+      <b>为什么换个格式就没了：</b>JPEG（不支持透明的图片格式）不存 alpha；截图会把透明压成白底或黑底；看图软件显示棋盘格，只说明有透明，不说明节点会读它。要带遮罩，存 PNG（支持 alpha 的图片格式），并确认节点的遮罩通道选的是 alpha。
+    </div>
+
+    <div class="pre-note">
+      <b>这一课先不展开的三件事：</b>SEGS（把白区拆成矩形框的一组数据）和 Detailer（按框逐个重绘的节点），B1 专门讲；GroundingDINO 和 SAM（B2 的两个模型：一个按名词找框，一个在框里抠边），B2 专门讲；像素遮罩和潜空间遮罩的区别，下一节就讲。
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="shead"><span class="snum">04 / EDGE</span><h2>边缘：软边、羽化、外扩，各管一段</h2></div>
+    <p class="slead">硬边遮罩像用剪刀剪的。重绘区和原图之间会出现一条直缝。两种办法处理：让过渡变软（feather），或让范围变大（grow）。它们不是一回事。</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="硬边、羽化、外扩三种遮罩边缘示意">
+        <defs>
+          <filter id="f3blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+          <clipPath id="f3c1"><rect x="0" y="0" width="220" height="150" rx="8"/></clipPath>
+          <clipPath id="f3c2"><rect x="0" y="0" width="220" height="150" rx="8"/></clipPath>
+          <clipPath id="f3c3"><rect x="0" y="0" width="220" height="150" rx="8"/></clipPath>
+          <style>
+            .f3-bg{fill:#11151c}
+            .f3-hit{fill:#ffffff}
+            .f3-edge{fill:none;stroke:#e0a15a;stroke-width:1.6;stroke-dasharray:6 4}
+            .f3-t{font:700 12px -apple-system,"Microsoft YaHei",sans-serif;fill:#18212f;text-anchor:middle}
+            .f3-s{font:400 10.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3;text-anchor:middle}
+          </style>
+        </defs>
+
+        <g transform="translate(20,18)">
+          <rect class="f3-bg" x="0" y="0" width="220" height="150" rx="8"/>
+          <g clip-path="url(#f3c1)">
+            <rect class="f3-hit" x="50" y="55" width="120" height="60" rx="6"/>
+            <rect class="f3-edge" x="50" y="55" width="120" height="60" rx="6"/>
+          </g>
+          <text class="f3-t" x="110" y="196">硬边</text>
+          <text class="f3-s" x="110" y="214">像剪刀剪的，容易留缝</text>
+        </g>
+
+        <g transform="translate(270,18)">
+          <rect class="f3-bg" x="0" y="0" width="220" height="150" rx="8"/>
+          <g clip-path="url(#f3c2)">
+            <rect class="f3-hit" x="50" y="55" width="120" height="60" rx="6" filter="url(#f3blur)"/>
+            <rect class="f3-edge" x="50" y="55" width="120" height="60" rx="6"/>
+          </g>
+          <text class="f3-t" x="110" y="196">羽化（feather）</text>
+          <text class="f3-s" x="110" y="214">边界变成一段渐变</text>
+        </g>
+
+        <g transform="translate(520,18)">
+          <rect class="f3-bg" x="0" y="0" width="220" height="150" rx="8"/>
+          <g clip-path="url(#f3c3)">
+            <rect class="f3-hit" x="38" y="43" width="144" height="84" rx="6"/>
+            <rect class="f3-edge" x="50" y="55" width="120" height="60" rx="6"/>
+          </g>
+          <text class="f3-t" x="110" y="196">外扩（grow）</text>
+          <text class="f3-s" x="110" y="214">白区比目标大一圈</text>
+        </g>
+      </svg>
+      <div class="mini-flow"><b>窄屏速读：</b>硬边会留缝；feather 把边界变渐变；grow 把白区向外推一圈。虚线框是目标物体的真实边缘。</div>
+      <div class="cap"><b>feather 改过渡，grow 改范围。</b>示意图不按像素比例。05 号只有 <code>feather 5</code>（DetailerForEach 贴回时用）；<code>grow_mask_by 6</code> 属于 06 号的 <code>#33</code>。本课只解释它们做什么，不改这些值。</div>
+    </div>
+
+    <div class="term">
+      <p><b>羽化（feather）：</b>把边界从 0/1 的硬切改成一段渐变，让重绘区和原图慢慢接上。反例：不是给整张图加模糊，只动边界附近。</p>
+      <p><b>外扩（grow / dilate）：</b>把白区向外推 N 个像素，给采样器多一点周边信息。反例：不是把图片放大；图没变，许可范围变了。</p>
+      <p><b>腐蚀（erode）：</b>反向外扩，把白区收回 N 个像素。反例：不是擦除画面，只是缩小许可范围。</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>你看到的症状</th><th>先用哪个</th><th>它改什么</th><th>过头会怎样</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>重绘区和原图之间一条直缝</td><td><code>feather</code></td><td>边界过渡带</td><td>重绘区被糊回原图，像没改干净</td></tr>
+          <tr><td>目标边缘缺一圈周边信息，接不上</td><td><code>grow</code></td><td>白区范围</td><td>墙、地板也被当成可改区</td></tr>
+          <tr><td>涂过界，连不该动的一起白了</td><td><code>erode</code> / 负向 grow</td><td>白区范围</td><td>目标边缘反而改不到</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <b>两个真实值分别在哪：</b>05 号的 <code>DetailerForEach</code>（按框逐个重绘的节点，B1 讲过）贴回时用 <code>feather 5</code>；它没有 <code>grow_mask_by</code>。外扩 6 像素出现在 06 号的 <code>#33 VAEEncodeForInpaint</code>：在把图压进 1/8 草稿（L3-01 讲过）之前，先把遮罩外扩 6 像素；不过 06 号的 <code>#25</code> 没有下游，外扩 6 像素要在接上输出之后才看得出来。这些数字只用来对照，不在本课重讲。
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="shead"><span class="snum">05 / COORDINATES</span><h2>像素遮罩与潜空间遮罩：两套格子</h2></div>
+    <p class="slead">遮罩不是悬空的。它必须和它所限制的东西在同一套坐标里。像素遮罩一格对一个像素；潜空间遮罩一格对 1/8 草稿上的一个格子。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">PIXEL</span>
+        <h3>像素遮罩</h3>
+        <p>和原图等大，每个值对应原图的一个像素。你在画布上看到的白区，就是它。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">LATENT</span>
+        <h3>潜空间遮罩</h3>
+        <p>和 1/8 草稿等大，每个值对应草稿上的一个格子。一格盖住原图 8 × 8 个像素。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">SCALE</span>
+        <h3>换算一次就明白</h3>
+        <p>512 × 512 的遮罩，到潜空间只剩 64 × 64 个格子；L3-01 的 1600 × 904，进采样时是 200 × 113。</p>
+      </div>
+    </div>
+
+    <div class="fig">
+      <svg viewBox="0 0 760 300" role="img" aria-label="像素遮罩与潜空间遮罩的格子对比：边界从第 5 像素跳到第 8 像素">
+        <defs>
+          <style>
+            .f2-h{font:700 12px -apple-system,"Microsoft YaHei",sans-serif;fill:#18212f;text-anchor:start}
+            .f2-s{font:400 10.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3;text-anchor:start}
+            .f2-tag{font:700 10.5px -apple-system,"Microsoft YaHei",sans-serif;fill:#c22e63;text-anchor:middle}
+            .f2-w{fill:#ffffff;stroke:#cbc6ba;stroke-width:.7}
+            .f2-b{fill:#11151c;stroke:#cbc6ba;stroke-width:.7}
+          </style>
+        </defs>
+
+        <text class="f2-h" x="24" y="30">像素遮罩 · 512 × 512</text>
+        <text class="f2-s" x="24" y="48">一格 = 1 像素</text>
+        <g transform="translate(150,58)">
+          <rect class="f2-w" x="0" y="0" width="26" height="54"/>
+          <rect class="f2-w" x="26" y="0" width="26" height="54"/>
+          <rect class="f2-w" x="52" y="0" width="26" height="54"/>
+          <rect class="f2-w" x="78" y="0" width="26" height="54"/>
+          <rect class="f2-w" x="104" y="0" width="26" height="54"/>
+          <rect class="f2-b" x="130" y="0" width="286" height="54"/>
+          <line x1="130" y1="-6" x2="130" y2="60" stroke="#c22e63" stroke-width="1.6" stroke-dasharray="5 4"/>
+        </g>
+        <text class="f2-tag" x="280" y="132">边界切在第 5 像素</text>
+
+        <text class="f2-h" x="24" y="170">潜空间遮罩 · 64 × 64</text>
+        <text class="f2-s" x="24" y="188">一格 = 8 × 8 像素</text>
+        <g transform="translate(150,198)">
+          <rect class="f2-w" x="0" y="0" width="52" height="54"/>
+          <rect class="f2-b" x="52" y="0" width="364" height="54"/>
+          <line x1="52" y1="-6" x2="52" y2="60" stroke="#c22e63" stroke-width="1.6" stroke-dasharray="5 4"/>
+        </g>
+        <text class="f2-tag" x="202" y="272">边界只能落在第 8 像素</text>
+      </svg>
+      <div class="mini-flow"><b>窄屏速读：</b>像素层可以把边界切在第 5 个像素；压到 1/8 草稿后，边缘只能落在 8 的倍数上，第 5 像素被并进第 1 个格子，边界跳到第 8 像素。</div>
+      <div class="cap"><b>同一块白区，换坐标系就会“跳格”。</b>示意图不按真实比例。潜空间一格盖住 8 × 8 像素，所以像素级的细边到了草稿层，只能落在 8 的倍数上。</div>
+    </div>
+
+    <div class="term">
+      <p><b>像素遮罩（pixel mask）：</b>和原图等大、一格对一像素的许可表。反例：不是“分辨率越高越好”，它必须和 image 的尺寸对齐。</p>
+      <p><b>潜空间遮罩（latent mask）：</b>和潜空间（latent，按 1/8 缩小的草稿画布，L3-01 讲过）等大的许可表。反例：不是像素遮罩缩小一点就能直接用；缩小会改掉边界。</p>
+      <p><b>VAE（变分自编码器）：</b>在像素和草稿之间来回翻译的有损翻译机，L1-01 专门讲。它压图时不会替你保留像素级边缘。</p>
+    </div>
+
+    <div class="note warn">
+      <b>为什么不能混用：</b>一个 512 的像素遮罩直接塞进 64 的潜空间槽，节点要么把它拉伸，要么按格子重新采样。无论哪种，原来贴着手臂的边都会跳 8 像素。判断方法：看节点有没有 <code>image</code>（图像）输入。有 <code>image</code> 的，通常会先编码，顺手把遮罩压到同一尺寸。只收 <code>mask</code>（遮罩）和 latent（草稿）的，它要的就是潜空间尺寸。
+    </div>
+
+    <div class="note">
+      <b>8 倍不是宇宙常数：</b>这是这批工作流里 VAE 的压缩比。换模型先看它的 VAE，再决定遮罩该给哪一版。给错了，预览里就能看到错位或边缘发毛，不用等出图。
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="shead"><span class="snum">06 / PITFALLS</span><h2>clipspace 与五个常见误用</h2></div>
+    <p class="slead">先把最硬的一条说清：clipspace 不是项目文件夹，是工作台旁边的临时粘贴板。它能让浏览器里的涂抹立刻被服务端读到，也能让你换台电脑就断。</p>
+
+    <div class="note warn">
+      <b>clipspace 是什么：</b>ComfyUI 这个工作台在浏览器里涂完，会把带 alpha 的 PNG 写进 <code>input/clipspace/</code>。文件名带时间戳。工作流 JSON（保存工作流的那份文本文件）里存的只是一条路径字符串，不是图片本身。05 号那条 <code>clipspace/clipspace-painted-masked-1782214563526.png [input]</code> 就是一条取件指令。它让 ComfyUI 的服务端（跑模型的那一边）去“这个工作台的托盘”取图。换一台机器，托盘不在；清理 input，文件没了；临时目录被清，也会断。
+    </div>
+
+    <div class="term">
+      <p><b>clipspace（临时粘贴板）：</b>ComfyUI 的网页界面涂抹后，在服务端 input 目录里留下的临时 PNG，靠一条带时间戳的路径交接。反例：不是素材库，不是云同步，也不能当项目资产。</p>
+      <p><b>这个说法是本课新增的。</b>理由：它既不是节点，也不是模型，用“临时粘贴板”才能和“项目文件夹”区分开；全站只拿它指 clipspace，不拿它比喻别的临时文件。</p>
+    </div>
+
+    <div class="pits">
+      <div class="pit">
+        <h3>白黑看反<span class="sev">高频</span></h3>
+        <div class="where">换软件 / 换工作流时</div>
+        <p>症状：你涂了沙发，结果墙变了，沙发没动。原因：有些工具用白色表示保护，和 ComfyUI 正好相反。</p>
+        <p class="fix">改法：先接一个 <code>MaskToImage</code> 看黑白预览，确认哪边是白，再动手。</p>
+      </div>
+      <div class="pit lv2">
+        <h3>把灰度当二值<span class="sev">中频</span></h3>
+        <div class="where">同一张遮罩进两个节点</div>
+        <p>症状：遮罩明明没改，换一个节点边缘就变了。原因：一个按 0.5 这个分界值切硬边，一个按灰度值混合。</p>
+        <p class="fix">改法：要硬边，就先二值化；要软边，就保留灰度，并固定用同一个节点。</p>
+      </div>
+      <div class="pit">
+        <h3>遮罩和原图尺寸不一致<span class="sev">高频</span></h3>
+        <div class="where">512 的遮罩配 1024 的图</div>
+        <p>症状：遮罩看起来对齐，重绘区却偏了半张脸。原因：节点把 512 的遮罩拉到 1024，白区跟着变形。</p>
+        <p class="fix">改法：从同一个 <code>LoadAndResizeImage</code>（B1 里同时输出 image 和 mask 的节点）取图，不要分开缩放。</p>
+      </div>
+      <div class="pit">
+        <h3>alpha 存丢<span class="sev">高频</span></h3>
+        <div class="where">JPEG / 截图 / 微信传输</div>
+        <p>症状：涂抹图看着有透明，导入后遮罩全黑。原因：JPEG 不存 alpha，截图会把透明压成底色。</p>
+        <p class="fix">改法：存 PNG（支持 alpha 的图片格式），确认节点的遮罩通道选的是 alpha，再用 <code>MaskToImage</code> 复验。</p>
+      </div>
+      <div class="pit">
+        <h3>把 clipspace 当资产<span class="sev">高频</span></h3>
+        <div class="where">05 号 #431 的路径</div>
+        <p>症状：换电脑打开工作流，<code>LoadAndResizeImage</code> 直接变红。原因：路径指向旧工作台的临时目录。</p>
+        <p class="fix">改法：涂完先另存到项目文件夹，再把节点指向新文件；涂抹图要跟工作流一起归档。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>还有一种“没变化”不是遮罩的错：</b>遮罩画对了，但这条支路没有下游（输出没接任何节点），ComfyUI 根本不会执行它。回 B1，用 <code>SaveImage</code>（保存节点，B1 讲过）倒推一遍，先确认线接上了，再怀疑遮罩。
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="shead"><span class="snum">07 / PRACTICE</span><h2>练习与自检</h2></div>
+    <p class="slead">这一课不动 05 号的参数。练习都在副本上做，目标是让“白、灰、透明、格子”四件事变成手感。</p>
+
+    <div class="ex-grid">
+      <div class="ex">
+        <div class="no">EX 01</div>
+        <h3>做一张二值遮罩</h3>
+        <p>新建 512 × 512，左半纯白、右半纯黑，存 PNG。接 <code>LoadImage</code>（读图）→ <code>MaskToImage</code>（遮罩转黑白图）→ <code>PreviewImage</code>（预览）。</p>
+        <div class="see">应该看到：<b>黑白边界干净，没有灰边。</b></div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 02</div>
+        <h3>同一张图存两种格式</h3>
+        <p>把带 alpha 的涂抹图分别存成 PNG 和 JPG（不支持透明的压缩格式），都用 alpha 读法导入。</p>
+        <div class="see">应该看到：<b>PNG 能读出白区，JPG 的遮罩全黑。</b></div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 03</div>
+        <h3>对比 feather</h3>
+        <p>先把 #257 接到保存节点（否则它是死端），再在副本上把 <code>feather</code> 改 0 / 5 / 20，各出一张，只放大看接缝。</p>
+        <div class="see">应该看到：<b>0 有硬边，5 接得上，20 开始糊回原图。</b></div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 04</div>
+        <h3>对比 grow</h3>
+        <p>在 06 号的副本上：先把 <code>#25</code> 接到 SaveImage（否则 C 段不执行），再把 <code>#33</code> 的 <code>grow_mask_by</code> 改 0 / 6 / 20，各出一张，看墙地和目标边缘谁先被吃掉。</p>
+        <div class="see">应该看到：<b>0 边缘缺上下文，6 有余量，20 把周围也重画了。</b></div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 05</div>
+        <h3>量一次 8 倍</h3>
+        <p>把 512 × 512 的遮罩和它对应的 64 × 64 潜空间并排看，找一条斜边。</p>
+        <div class="see">应该看到：<b>像素层的细边，到草稿层变成 8 像素一级的台阶。</b></div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 06</div>
+        <h3>迁移 clipspace</h3>
+        <p>把涂抹图另存到项目文件夹，把 <code>#431</code>（B1 里读涂抹图的节点）的路径改过去，重启 ComfyUI 再跑。</p>
+        <div class="see">应该看到：<b>路径不再变红，换机器也能打开。</b></div>
+      </div>
+    </div>
+
+    <div class="check">
+      <h3>交卷前，逐条打勾</h3>
+      <ul>
+        <li><input type="checkbox"><span>我能用一句话说清遮罩、二值、灰度、alpha 的区别。</span></li>
+        <li><input type="checkbox"><span>我知道 ComfyUI 里白 = 改、黑 = 留，并且会先预览再相信颜色。</span></li>
+        <li><input type="checkbox"><span>我能说出 feather 和 grow 各改什么，不会把 grow 当放大。</span></li>
+        <li><input type="checkbox"><span>我知道 512 的像素遮罩到潜空间只剩 64 格，边缘会跳 8 像素。</span></li>
+        <li><input type="checkbox"><span>我知道 alpha 不是独立遮罩，存 JPEG 会丢。</span></li>
+        <li><input type="checkbox"><span>我知道 clipspace 为什么换机就断，并会把涂抹图另存成资产。</span></li>
+        <li><input type="checkbox"><span>我能判断一条遮罩支路有没有下游（回 B1 用 SaveImage 倒推）。</span></li>
+      </ul>
+    </div>
+
+    <div class="next">
+      <div>
+        <div class="lab">NEXT · 回到工作流</div>
+        <div class="nt">遮罩讲完了，接着看它怎么用</div>
+        <div class="nd">回 B1 看手动涂抹，或去 B2 看文字怎样变成遮罩。</div>
+      </div>
+      <a class="go" href="l3-05-manual-inpaint.html">回 B1</a>
+      <a class="go" href="l3-06-text-guided-inpaint.html">去 B2 →</a>
+    </div>
+
+    <div class="src">
+      <b>本课不新增工作流。</b>遮罩约定、alpha 读法与 clipspace 路径取自 <code>ComfyUI_工作流架构/05📚基础版 手动涂抹局部修改.json</code> 及 <a href="l3-05-manual-inpaint.html">L3-05</a> 的核对结果；<code>grow_mask_by 6</code>、<code>feather 5</code>、1 MP（约一百万像素，B1 讲过）、去噪强度（denoise）等值只引用，不改；像素遮罩与潜空间的 8 倍对照 <a href="l3-01-text-to-image.html">L3-01</a> 的 1600 × 904 → 200 × 113；SAM 遮罩与 <code>grow 6</code> 对照 <a href="l3-06-text-guided-inpaint.html">L3-06</a>。核对日 2026-11-09。
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+
+<script>
+  // 自检清单勾选状态持久化（file:// 下同样可用）
+  (function(){
+    var boxes = document.querySelectorAll('.check input[type="checkbox"]');
+    boxes.forEach(function(b, i){
+      var key = 'cui-b1b-check-' + i;
+      try { if (localStorage.getItem(key) === '1') b.checked = true; } catch(e){}
+      b.addEventListener('change', function(){
+        try { localStorage.setItem(key, b.checked ? '1' : '0'); } catch(e){}
+      });
+    });
+  })();
+
+  /* 品牌文本绑定：与 index.html 同源 */
+  (function(){
+    var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+    document.querySelectorAll('[data-bind]').forEach(function(el){
+      var v = map[el.getAttribute('data-bind')];
+      if (v) el.textContent = v;
+    });
+    document.title = 'L3-05b · 遮罩是什么 | ' + COURSE.name;
+  })();
+</script>
+</body>
+</html>

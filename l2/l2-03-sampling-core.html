@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L2-03 采样核心 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 var(--sans);
+  background-image:linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px);
+  background-size:32px 32px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:920px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-size:40px;line-height:1.24;margin:16px 0 12px;font-weight:800;letter-spacing:-.015em}
+.lede{font-size:17.5px;color:var(--muted);margin:0;max-width:640px}
+.hero{margin-bottom:26px}
+.hero2{display:grid;grid-template-columns:1.12fr .88fr;gap:22px;align-items:end}
+.panel{background:#18212f;color:#e9ecf5;border-radius:14px;padding:15px 16px 13px;font-family:var(--mono);font-size:11.5px;box-shadow:var(--shadow)}
+.panel h4{font-family:var(--sans);font-size:11px;color:#9aa6bd;margin:0 0 9px;letter-spacing:.1em;font-weight:700}
+.prow{display:flex;justify-content:space-between;gap:12px;padding:4.5px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.prow:last-of-type{border-bottom:none}
+.prow span{color:#8ea0bf}
+.prow b{color:#fff;font-weight:600;text-align:right;word-break:break-all}
+.sbar{display:flex;gap:2px;margin-top:9px}
+.sbar i{flex:1;height:4px;border-radius:2px;background:#4051d6}
+.panel .cap{font-family:var(--sans);font-size:10.5px;color:#7f8ca6;margin-top:7px}
+h2{font-size:24px;line-height:1.4;margin:48px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:13px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-size:17px;margin:26px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 12px 12px 0;margin:20px 0;font-size:15px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:16px 0;box-shadow:var(--shadow)}
+.scroll-note{display:none}
+@media(max-width:680px){.scroll-note{display:block;font-family:var(--sans);font-size:12px;color:var(--faint);margin:-6px 0 14px}}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:660px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#faf9f6;font-size:11.5px;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{color:var(--accent);word-break:break-all}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:16px 0;font-size:12.5px}
+.chain .n{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-family:var(--mono);font-size:11.5px;box-shadow:var(--shadow)}
+.chain .ar{color:var(--faint);font-family:var(--mono)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--cat);color:var(--cat);background:var(--cat-soft)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--cat);border-radius:12px;margin:0 0 12px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:13px 15px;display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 10px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;word-break:break-all}
+.entry .one{font-size:12.5px;color:var(--muted)}
+.entry .val{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:#fff;background:var(--cat);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.entry .chev{font-family:var(--mono);color:var(--cat);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:13px 16px 15px;border-top:1px dashed var(--line)}
+.entry .body p{font-size:14px;margin:0 0 9px}
+.entry .body table{min-width:0;font-size:12px}
+.entry .body th,.entry .body td{padding:6px 6px}
+.io{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 10px;font-family:var(--mono);font-size:10.5px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-size:12.5px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 11px;margin:9px 0 0;line-height:1.7}
+.ex b{color:var(--cat)}
+.pit{font-size:12.5px;color:var(--amber);margin:8px 0 0;line-height:1.7}
+.meter{margin:14px 0 4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 12px;box-shadow:var(--shadow)}
+.meter .bar{display:flex;gap:3px;margin:10px 0 6px}
+.meter .bar i{flex:1;height:14px;border-radius:3px;background:#e8e5dc}
+.meter .bar i.on-1{background:rgba(15,122,108,.55)}
+.meter .bar i.on-2{background:rgba(64,81,214,.55)}
+.meter .bar i.on-3{background:rgba(194,46,99,.55)}
+.meter .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.meter .tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;font-size:12px;color:var(--muted);line-height:1.6}
+.meter .tri b{display:block;color:var(--ink);font-size:12.5px}
+.meter .tri .c1 b{color:var(--teal)}.meter .tri .c2 b{color:var(--accent)}.meter .tri .c3 b{color:var(--rose)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.rc{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:11px;padding:12px 13px;box-shadow:var(--shadow);font-size:12.5px;color:var(--muted);line-height:1.65}
+.rc b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.rc code{font-size:11px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:760px){
+  .hero2{grid-template-columns:1fr}
+  .cards3{grid-template-columns:1fr}
+  .meter .tri{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  body{font-size:15px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:30px}.lede{font-size:15.5px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .entry summary{padding:12px 13px}
+  .entry .val{order:3;margin-left:0}
+  .entry .chev{order:4;margin-left:auto}
+  .entry .body{padding:11px 13px 13px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 字典 · 03</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-03 采样核心</p>
+
+  <header class="hero">
+    <div class="hero2">
+      <div>
+        <span class="kicker">L2 字典 · 第三课</span>
+        <h1>采样核心：<br>七格参数，<br>一条高级链</h1>
+        <p class="lede">只改一处步数，同一句提示词就出不了同一张图。这一节只解决一件事：面板上那七格数字，各自在控什么；子图那条高级链，又把它们拆去了哪。</p>
+      </div>
+      <aside class="panel" aria-label="04 工作流根图采样器真实参数面板">
+        <h4>04 · 根图 KSampler #4</h4>
+        <div class="prow"><span>steps</span><b>15</b></div>
+        <div class="prow"><span>cfg</span><b>3.0</b></div>
+        <div class="prow"><span>sampler</span><b>euler_ancestral</b></div>
+        <div class="prow"><span>scheduler</span><b>normal</b></div>
+        <div class="prow"><span>denoise</span><b>1.0</b></div>
+        <div class="prow"><span>seed</span><b>901186…662</b></div>
+        <div class="sbar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="cap">一根小格 = 一步；15 格全亮表示从头开始去噪</div>
+      </aside>
+    </div>
+  </header>
+
+  <div class="callout">
+    <p><b>先给场景：</b>图只差一点，你却不知道该动哪个参数。这一节里的七格，最后都在回答三个问题。从多吵的噪声开始，走几步，每一步听提示词多少。</p>
+    <p>潜空间（Latent）：把像素按 1/8 缩小的草稿画布，采样器就在这张草稿上动笔。L1-01 专门讲过它。</p>
+    <p>采样（Sampling）：按草稿擦噪声。从一团噪声起步，一小步一小步擦出潜空间里的图。反例：它不是“一键出图”，点一下拿不到成品，中间要跑很多步。L1-02 讲过采样与步数，这里补节点层怎么接。</p>
+  </div>
+
+  <div class="chips">
+    <a href="#term-sampler">KSampler</a><a href="#term-steps">steps</a><a href="#term-cfg">cfg</a>
+    <a href="#term-seed">seed</a><a href="#term-denoise">denoise</a>
+    <a href="#term-advanced">SamplerCustomAdvanced</a><a href="#term-flux2">Flux2Scheduler</a><a href="#term-noise">RandomNoise</a>
+    <a href="l2-03b-latent-inpaint.html">→ L2-03b 潜变量与局部重绘</a>
+    <a href="l2-03c-upscale-size.html">→ L2-03c 放大与尺寸</a>
+  </div>
+
+  <h2 id="map"><span class="no">01 / 先定位</span>同一条工作流，可能采两次</h2>
+  <p>打开 03、04、05 这类“毛坯 + 参考图”工作流，你会看到两套采样参数。别急着当成重复。根图那套按你的图与提示词生成；子图那套在参考图与局部区域上再跑一遍。根图一个 <code>KSampler</code>，子图一条 <code>SamplerCustomAdvanced</code> 链，各干一段。</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>工作流</th><th>根图采样节点</th><th>步数</th><th>CFG</th><th>采样器 / 调度器</th><th>子图里的采样</th></tr></thead>
+      <tbody>
+        <tr><td>01 线稿+文字</td><td><code>#177 KSampler</code><br><span style="font-size:12px;color:var(--faint)">旁支，不落盘</span></td><td>20</td><td>2.95<br><span style="font-size:12px;color:var(--faint)">旁支值</span></td><td>euler_ancestral / normal</td><td>Flux2Scheduler 20 步<br><span style="font-size:12px;color:var(--faint)">#136 CFGGuider 的 CFG = 5</span></td></tr>
+        <tr><td>02 线稿+参考图</td><td><code>#119 KSampler</code><br><span style="font-size:12px;color:var(--faint)">旁支·不执行</span></td><td>12</td><td>3.0</td><td>euler_ancestral / normal</td><td>BasicScheduler simple · 4 步</td></tr>
+        <tr><td>03 室内毛坯</td><td><code>#4 KSampler</code></td><td>15</td><td>2.67</td><td>euler_ancestral / normal</td><td>Flux2Scheduler 4 步</td></tr>
+        <tr><td>04 建筑毛坯</td><td><code>#4 KSampler</code></td><td>15</td><td>3.0</td><td>euler_ancestral / normal</td><td>Flux2Scheduler 1 步</td></tr>
+        <tr><td>文生图</td><td><code>#4 KSampler</code></td><td>20</td><td>2.95</td><td>euler_ancestral / normal</td><td>无子图</td></tr>
+        <tr><td>LINK 练习</td><td><code>#15 KSampler</code></td><td>20</td><td>3.0</td><td>euler / normal</td><td>无子图</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="scroll-note">表格可左右滑动查看完整列 →</p>
+  <p class="small quiet">表内数字全部取自 <code>ComfyUI_工作流架构</code> 的真实 JSON。不同版本节点可能多出字段，以实际 JSON 为准。</p>
+  <p class="small quiet">01 号要特别看：<code>#177 → #184</code> 这条不落盘，是旁支；真正出图的是 <code>#196</code> 子图，子图里 <code>#136 CFGGuider</code> 的 CFG 是 5。01 行的 2.95 只是旁支值，别当成 01 的最终参数。</p>
+  <p class="small quiet">05 手动涂抹、06 文字识别局部这两行，随局部重绘放进了 <a href="l2-03b-latent-inpaint.html#map">L2-03b</a>；07 高清放大那一行随尺寸链放进了 <a href="l2-03c-upscale-size.html#map">L2-03c</a>。表头与列名三节一致。</p>
+
+  <h2 id="ksampler"><span class="no">02 / 七格参数</span>KSampler 里每一项在控什么</h2>
+  <p>第一次打开 <code>KSampler</code>，你会看到七格数字，不知道先动哪个。面板从左到右固定七格。下面按“最该先动”的顺序排，不按面板顺序。</p>
+
+  <details class="entry" id="term-sampler" open>
+    <summary><span class="type">KSampler</span><span class="one">根图最常用，七格管全流程</span><span class="val">15 步 / 3.0</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>你只想从零出一张图，接它就够了。KSampler（经典采样节点）：把噪声、条件、模型合起来。它一步步擦出潜空间里的图。反例：它不是解码器，吐出来的仍是 LATENT，后面还得接 <code>VAEDecode</code> 才看得见。</p>
+      <div class="io"><span>MODEL</span><span>positive</span><span>negative</span><span>LATENT</span><span class="out">LATENT</span></div>
+      <table>
+        <thead><tr><th style="width:26%">字段</th><th style="width:20%">本套常见值</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code>seed</code></td><td>长整数</td><td>起始噪声的编号；换个数，等于换一团噪声。</td></tr>
+          <tr><td><code>control_after_generate</code></td><td><code>randomize</code></td><td>跑完之后种子怎么变：随机、固定，还是递增。</td></tr>
+          <tr><td><code>steps</code></td><td>12–25</td><td>擦几次噪声；多一步，就多算一次。</td></tr>
+          <tr><td><code>cfg</code></td><td>2.67–3.0（根图）</td><td>模型有多听提示词的话，也就是 CFG 的听话程度。</td></tr>
+          <tr><td><code>sampler_name</code></td><td><code>euler_ancestral</code></td><td>每一步往哪个方向走，由这一格决定。</td></tr>
+          <tr><td><code>scheduler</code></td><td><code>normal</code></td><td>每一步留多少噪声，按这张表排。</td></tr>
+          <tr><td><code>denoise</code></td><td><b>1.0</b>（根图）</td><td>从多吵开始擦；1.0 是纯噪声起手，等于完全重画。</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">04 <b>#4</b>：seed <code>901186358219662</code> / 15 步 / CFG 3.0 / euler_ancestral / normal / denoise 1.0。03 <b>#4</b> 只把 CFG 换成 <b>2.67</b>；02 <b>#119</b>（旁支）是 12 步 / CFG 3.0。</div>
+      <p class="pit">易错：只改步数、种子不动，画面照样会变。想做“只改一个变量”的对比，先把种子锁死。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-steps">
+    <summary><span class="type">steps</span><span class="one">擦几次噪声，不是画质档位</span><span class="val">12 / 15 / 20 / 25</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>图糊成一团，或者细节已经够了还在加时，先看这一格。steps 是擦噪声的次数：模型不一次画完，每一轮只擦掉一点。步数太少，形状收不住；步数太多，细节涨得慢，时间却一直涨。反例：它不是“画质档位”，往上堆不会自动更精细，只是多擦几遍。</p>
+      <table>
+        <thead><tr><th style="width:22%">档位</th><th>典型现象</th><th>本套出现位置</th></tr></thead>
+        <tbody>
+          <tr><td>12 步</td><td>速度快，结构够用，细节偏软</td><td>02 根图 <code>#119</code>（旁支·不执行）</td></tr>
+          <tr><td>15 步</td><td>建筑/室内毛坯的常用平衡点</td><td>03 <code>#4</code>、04 <code>#4</code>、IPA <code>#4</code></td></tr>
+          <tr><td>20 步</td><td>线稿与文字描述，细节更稳</td><td>01 <code>#177</code>（旁支）、01 子图 <code>#135</code>、06 <code>#22</code>（旁支·不执行）、LINK <code>#15</code></td></tr>
+          <tr><td>25 步</td><td>小区域反复修，步数给得更足</td><td>05 <code>#257 DetailerForEach</code>（旁支·不执行）</td></tr>
+        </tbody>
+      </table>
+      <p class="small quiet">带“旁支”的几处都不在保存链上：<code>#119</code>、<code>#177</code> 各接到一台 VAEDecode 就断了，<code>#22</code> 走到 <code>#25 VAEDecode</code> 也没了出口，<code>#257</code> 的 IMAGE 没有下游。改它们的步数不会影响成图，只适合拿来读参数。</p>
+      <p class="pit">易错：步数和采样器绑在一起。换成 <code>uni_pc</code> 或 Flux 的 1–4 步调度，20 步的经验就不作数了。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-cfg">
+    <summary><span class="type">cfg</span><span class="one">提示词的“听话程度”</span><span class="val">1.0 / 2.67 / 3.0 / 5.0</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>画面不按提示词走，先动这一格。CFG（听话程度）：模型有多听提示词的话。它比较正向条件与负向条件的差距，再把差距放大。数值越高越贴提示词，也越容易僵硬、过饱和。反例：它不是“创意度”，调高不会更有想象力，只会更硬。L1-03 专门讲过 CFG 与种子，这里只记住取值差别。</p>
+      <table>
+        <thead><tr><th style="width:24%">场景</th><th>本套数值</th><th>读法</th></tr></thead>
+        <tbody>
+          <tr><td>SDXL 根图</td><td>2.67–3.0</td><td>偏低但稳定，适合建筑/室内这种怕过曝的题材</td></tr>
+          <tr><td>线稿+文字</td><td>2.95</td><td>略高一点，保证线条被描述覆盖</td></tr>
+          <tr><td>Flux 子图</td><td><b>1</b></td><td>蒸馏模型不靠 CFG 拉开差距，1 即关闭放大</td></tr>
+          <tr><td>01 子图 CFGGuider</td><td><b>5</b></td><td>这个子图仍在用较高的引导</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">02–07 的子图 <code>CFGGuider</code> 全部为 <b>1</b>；只有 01 的子图 <b>#136</b> 是 <b>5</b>。根图 KSampler 这边，集中在 2.67–3.0。</div>
+      <p class="pit">易错：Flux 系把 CFG 调到 7，不会更听话。画面只会过曝或崩坏——先确认模型是不是蒸馏版。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-seed">
+    <summary><span class="type">seed</span><span class="one">同一团噪声，才能复现</span><span class="val">随机长整数</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>想复现上周那张图，先找回这一格。seed（种子）：起始噪声的编号。模型、提示词、步数、CFG、采样器全一致时，同一个种子出同一张图。前提是同一台机器、同一版本。反例：它不是“随机风格开关”，点一下不会换画风，只换起点。</p>
+      <div class="ex">04 根图 <b>#4</b> <code>901186358219662</code>；03 <b>#4</b> <code>442517239714949</code>；02 <b>#119</b>（旁支）<code>496726432833939</code>；01 子图 <b>#139</b> <code>460707242992239</code>（旁支 <b>#177</b> 是 <code>712591521404267</code>，不落盘）；05 <b>#257</b>（旁支）<code>374707593963303</code>。子图里另有独立噪声，例如 04 子图 <b>#337</b> <code>524953574022149</code>。</div>
+      <p class="pit">易错：只记种子不够。换了模型、分辨率或采样器，同一个种子也复现不出同一张图。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-denoise">
+    <summary><span class="type">denoise</span><span class="one">从多吵的图开始改</span><span class="val">1.0 / 0.8</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>只想修一块、不想整张重画，就动这一格。denoise：从多吵的图开始改。1.0 从纯噪声起手，等于完全重画。0.8 不从起点开始，而是从噪声表靠后的位置起步。原图还留一点底子，遮罩区域大部分重画。0.2 只做轻微润色。反例：它不是“重绘强度百分比”这种模糊说法。它决定从第几步起手，steps 才决定总共走几步。</p>
+      <div class="meter">
+        <div class="bar" aria-hidden="true">
+          <i class="on-1"></i><i class="on-1"></i><i class="on-1"></i><i class="on-1"></i><i class="on-1"></i>
+          <i class="on-2"></i><i class="on-2"></i><i class="on-2"></i><i class="on-2"></i><i class="on-2"></i>
+          <i class="on-3"></i><i class="on-3"></i><i class="on-3"></i><i class="on-3"></i><i class="on-3"></i><i class="on-3"></i>
+        </div>
+        <div class="ticks"><span>0.0</span><span>0.5</span><span>1.0</span></div>
+        <div class="tri">
+          <div class="c1"><b>0.2–0.4 微调</b>保留原图结构，只改材质、颜色、光线。</div>
+          <div class="c2"><b>0.5–0.7 改造</b>结构还在，风格与细节明显变化。</div>
+          <div class="c3"><b>0.8–1.0 重画</b>原图只剩构图参考，细节全部重生成。</div>
+        </div>
+      </div>
+      <div class="ex">根图 KSampler 全部为 <b>1.0</b>。05 真正出图的是子图 <b>#476</b>，它走 Flux2 的 4 步调度，没有单独一格 denoise；本套里唯一写着 <b>0.8</b> 的是死支 <b>#257 DetailerForEach</b>，只能当读数看。</div>
+      <p class="pit">易错：denoise 和 steps 不是一回事。一个决定从第几步起手，一个决定总共走几步。</p>
+    </div>
+  </details>
+
+  <h2 id="advanced"><span class="no">03 / 高级链</span>把一个 KSampler 拆成五件套</h2>
+  <p>子图里要换的常常只有噪声或步数。于是那几个字段被拆成独立节点。一个管噪声，一个管引导，一个管采样方法，一个管步数表。每个节点只干一件事，换哪个就动哪个，不用重接整条链。</p>
+  <div class="chain" aria-label="高级采样链的组成">
+    <span class="n">RandomNoise</span><span class="ar">＋</span>
+    <span class="n">CFGGuider</span><span class="ar">＋</span>
+    <span class="n">KSamplerSelect</span><span class="ar">＋</span>
+    <span class="n">Flux2Scheduler</span><span class="ar">→</span>
+    <span class="n">SamplerCustomAdvanced</span>
+  </div>
+
+  <details class="entry" id="term-advanced">
+    <summary><span class="type">SamplerCustomAdvanced</span><span class="one">把五路输入串成一次采样</span><span class="val">01–07 子图</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>子图里那个最大的节点就是它。SamplerCustomAdvanced（高级采样工序）：五路输入接进去。它把这几路串成一次采样。反例：它不是“参数面板”，自己几乎不设参数——参数都在上游那四个节点里。</p>
+      <p>顺序是：噪声（<code>RandomNoise</code>）、引导器（<code>CFGGuider</code>）、采样方法（<code>KSamplerSelect</code>）、步数表（调度器），再加起始潜变量。输出两路 LATENT，通常取 <code>output</code> 去解码。</p>
+      <div class="io"><span>noise</span><span>guider</span><span>sampler</span><span>sigmas</span><span>latent_image</span><span class="out">output</span><span class="out">denoised_output</span></div>
+      <div class="ex">01 <b>#137</b>、02 <b>#155</b>、03 <b>#337</b>、04 <b>#336</b>、05 <b>#460</b>、06 <b>#46</b>、07 <b>#365</b>，七份工作流的子图里各有一个。</div>
+      <p class="pit">易错：<code>output</code> 与 <code>denoised_output</code> 不是同一个东西。接错了，你会以为“怎么调都不变”。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-flux2">
+    <summary><span class="type">Flux2Scheduler / BasicScheduler</span><span class="one">步数表：每一步噪声多大</span><span class="val">1 / 4 / 20 步</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>同样是 4 步，换一个调度器，收敛节奏就不同。调度器（Scheduler）排的是噪声表：第 1 步到第 N 步，每一步的噪声降到多少。反例：它不是步数本身——步数说走几步，它说每一步剩多少噪声。</p>
+      <p><code>Flux2Scheduler</code> 是给 Flux 系模型排噪声表的版本，<code>BasicScheduler</code> 是通用版。L1-02 讲过调度器的大意，这里只看取值。</p>
+      <table>
+        <thead><tr><th style="width:30%">节点</th><th>本套参数</th><th>出现位置</th></tr></thead>
+        <tbody>
+          <tr><td><code>Flux2Scheduler</code></td><td>20 / 1024 / 1024</td><td>01 子图 <code>#135</code></td></tr>
+          <tr><td><code>Flux2Scheduler</code></td><td>4 / 1024 / 1024</td><td>03 <code>#334</code>、05 <code>#458</code>、06 <code>#44</code></td></tr>
+          <tr><td><code>Flux2Scheduler</code></td><td><b>1</b> / 1024 / 1024</td><td>04 <code>#351</code>、07 <code>#382</code></td></tr>
+          <tr><td><code>BasicScheduler</code></td><td><code>simple</code> / 4 / 1</td><td>02 子图 <code>#151</code></td></tr>
+        </tbody>
+      </table>
+      <p class="small quiet">前三项依次为步数、宽、高；宽高在后两位固定为 1024，具体含义以实际节点版本为准。</p>
+      <p class="pit">易错：这里的“1024”不是最终出图尺寸。它只是这张噪声表按 1024 的宽高排布，成图尺寸另算。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-noise">
+    <summary><span class="type">RandomNoise / CFGGuider / KSamplerSelect</span><span class="one">噪声、引导、采样方法，各管一段</span><span class="val">seed · 1 · euler</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>想把种子、CFG、采样方法分开调，就用这三件。它们各替掉 KSampler 里的一个字段：<code>RandomNoise</code> 管种子，<code>CFGGuider</code> 管 CFG，<code>KSamplerSelect</code> 管采样方法。反例：这三件都不接 LATENT。它们只把参数交给下游的 SamplerCustomAdvanced。</p>
+      <table>
+        <thead><tr><th style="width:32%">节点</th><th>本套真实值</th></tr></thead>
+        <tbody>
+          <tr><td><code>RandomNoise</code></td><td>01 <b>#139</b> 460707242992239；02 <b>#153</b> 55129233503117；03 <b>#338</b> 820702903115951；04 <b>#337</b> 524953574022149</td></tr>
+          <tr><td><code>CFGGuider</code></td><td>02–07 全部为 <b>1</b>；01 <b>#136</b> 为 <b>5</b></td></tr>
+          <tr><td><code>KSamplerSelect</code></td><td>七份子图全部为 <code>euler</code></td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：<code>CFGGuider</code> 吃的是 model、positive、negative，它吐出 GUIDER。把 LATENT 直接怼上去，接不上。</p>
+    </div>
+  </details>
+
+  <h2 id="practice"><span class="no">04 / 动手</span>只改一个旋钮，看差异</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，找到根图 <b>#4</b>。把 steps 从 15 改成 8，种子锁成 <code>901186358219662</code>，只跑这一次。</p><p class="why">目标：观察“步数不足”是结构先坏还是细节先糊。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 03，对比根图 <b>#4 KSampler</b>（15 步 / CFG 2.67）与子图 <b>#336 CFGGuider</b>（CFG 1）。想一想：子图为什么不需要高 CFG？</p><p class="why">目标：把“蒸馏模型不吃 CFG”与真实参数对上。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 03 的子图，找到 <b>#337 SamplerCustomAdvanced</b>，顺线回到上游，指出五路输入各由哪个节点提供。</p><p class="why">目标：把“一个 KSampler 拆成五件套”落到具体节点编号上。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">05 / 自检</span>采样参数不是玄学</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能指出 KSampler 七格里，哪一格决定“从多吵开始”。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说清 denoise 1.0 与 0.8 的差别，也说得清它和步数无关。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 Flux 子图的 CFGGuider 为什么常为 1。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清 steps 与 scheduler：一个决定走几步，一个决定每一步剩多少噪声。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说出 01–07 子图里 SamplerCustomAdvanced 的五路输入分别接什么。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-02c-text-tools.html"><span class="dir">← 上一册</span>L2-02c 文字工具</a>
+    <a href="l2-03b-latent-inpaint.html"><span class="dir">下一册 →</span>L2-03b 潜变量与局部重绘</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-03a-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

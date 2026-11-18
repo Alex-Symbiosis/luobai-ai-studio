@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L3-D1 · LINK AI 工作流练习 | AI 入门与 ComfyUI 出图课</title>
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
+               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
+    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em}
+
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .secnav::-webkit-scrollbar{display:none}
+  .secnav a{font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;white-space:nowrap;font-weight:600}
+  .secnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  .hero{padding:44px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--rose);background:var(--rose-soft);border:1px solid rgba(194,46,99,.22);padding:5px 12px;border-radius:999px}
+  h1{font-size:clamp(26px,4.2vw,40px);line-height:1.24;letter-spacing:-.02em;font-weight:800;margin-top:16px}
+  .sub{color:var(--muted);margin-top:10px;max-width:760px}
+
+  .goal{margin-top:24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)}
+  .goal .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--rose);font-weight:700}
+  .goal p{font-size:17px;line-height:1.65;margin-top:6px}
+  .goal strong{background:linear-gradient(180deg,transparent 62%,rgba(194,46,99,.16) 62%)}
+
+  .metas{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .chip{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
+
+  .posmap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px;box-shadow:var(--shadow)}
+  .posmap .ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .posmap .ph b{font-size:13px}
+  .posmap .ph span{font-size:11.5px;color:var(--faint)}
+  .track{display:flex;overflow-x:auto;padding-bottom:6px}
+  .pstop{flex:1 1 0;min-width:118px;position:relative;padding-top:20px;border-top:3px solid rgba(64,81,214,.22)}
+  .pstop::before{content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #a9b0f0}
+  .pstop .pc{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+  .pstop .pn{font-size:12.5px;font-weight:600;margin-top:2px;line-height:1.4;color:var(--muted)}
+  .pstop.here{border-top-color:var(--rose)}
+  .pstop.here::before{background:var(--rose);border-color:var(--rose);box-shadow:0 0 0 5px rgba(194,46,99,.14)}
+  .pstop.here .pn{color:var(--ink);font-weight:800}
+  .pstop.here .pc{color:var(--rose)}
+  .pstop.done{border-top-color:rgba(15,122,108,.45)}
+  .pstop.done::before{background:#fff;border-color:var(--teal)}
+  .here-tag{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--rose);border-radius:4px;padding:0 5px;margin-left:5px;vertical-align:1px}
+
+  section{padding:46px 0 2px;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .snum{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.12em}
+  h2{font-size:clamp(21px,2.8vw,27px);letter-spacing:-.02em;line-height:1.32}
+  .slead{color:var(--muted);max-width:780px;margin:6px 0 20px;font-size:14px}
+  .mini{font-size:12.5px;color:var(--faint)}
+  h3.sub3{font-size:16px;margin:26px 0 8px}
+
+  .pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pre{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+  .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
+  .pre h3{font-size:14px;margin:8px 0 4px}
+  .pre p{font-size:12.5px;color:var(--muted);margin:0}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note b{color:var(--ink)}
+
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px;overflow-x:auto}
+  .fig svg{display:block;width:100%;min-width:1000px;height:auto}
+  .fig text{font-family:inherit}
+  .fig .tb{font-size:13.5px;font-weight:700;fill:#18212f}
+  .fig .t{font-size:12.5px;fill:#2c3546}
+  .fig .ts{font-size:10.5px;fill:#5d6779}
+  .fig .tm{font-family:var(--mono);font-size:9.5px;fill:#8b93a3;letter-spacing:.02em}
+  .fig .box{fill:#fff;stroke:#cbc6ba;stroke-width:1.2}
+  .fig .boxA{fill:#f1f2fd;stroke:#4051d6;stroke-width:1.4}
+  .fig .boxG{fill:#f4f6fb;stroke:#7d8ab8;stroke-width:1.2;stroke-dasharray:5 4}
+  .fig .boxT{fill:#eef7f4;stroke:#0f7a6c;stroke-width:1.3}
+  .fig .ln{stroke:#8f97a8;stroke-width:1.4;fill:none}
+  .fig .lnA{stroke:#4051d6;stroke-width:1.4;fill:none;stroke-dasharray:5 4}
+  .fig .lnG{stroke:#7d8ab8;stroke-width:1.2;fill:none;stroke-dasharray:4 4}
+  .fig .rule{stroke:#e2ded4;stroke-width:1}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:10px 4px 2px;border-top:1px dashed var(--line);margin-top:10px}
+  .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  .groups{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+  .grp{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .grp .gi{font-family:var(--mono);font-size:9.5px;color:var(--faint)}
+  .grp .gn{font-size:12.5px;font-weight:700;margin-top:2px}
+  .grp .gd{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5}
+
+  .callout{margin:18px 0 0;background:var(--accent-soft);border:1px solid rgba(64,81,214,.22);border-radius:12px;padding:14px 17px}
+  .callout .lab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--accent);font-weight:700}
+  .callout p{font-size:13px;color:#2c3546;margin-top:5px}
+  .callout p+p{margin-top:6px}
+
+  .ngroup{margin-top:26px}
+  .ngroup-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .ngroup-head .idx{font-family:var(--mono);font-size:11px;color:#fff;background:var(--ink);border-radius:6px;padding:2px 7px;font-weight:700}
+  .ngroup-head h3{font-size:16px}
+  .ngroup-head .gp{font-size:11.5px;color:var(--faint)}
+  .cards{display:grid;gap:10px}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
+  .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
+  .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .nrole{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .ncard .bd{padding:12px 15px 14px}
+  .ncard .bd p{font-size:13.5px;color:#2c3546;margin:0 0 8px}
+  .ncard .bd p:last-child{margin-bottom:0}
+  .params{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 14px;margin:8px 0 6px;padding:9px 12px;background:#faf9f5;border:1px solid var(--line);border-radius:8px}
+  .params div{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted #e8e4da;padding-bottom:3px}
+  .params div:last-child{border-bottom:none}
+  .params b{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-align:right;word-break:break-all}
+  .io{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .io span{font-family:var(--mono);font-size:10.5px;border-radius:4px;padding:1px 6px;background:#f1f2f6;color:var(--muted)}
+  .io .in{background:rgba(61,111,196,.10);color:#2f5aa8}
+  .io .out{background:rgba(47,125,91,.10);color:#256b4c}
+  .warn-inline{font-size:12.5px;color:var(--danger);background:var(--danger-soft);border-radius:7px;padding:7px 10px;margin-top:8px}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin:12px 0 20px}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:720px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent)}
+  .up{color:var(--amber);font-weight:700}
+  .down{color:#3d6fc4;font-weight:700}
+
+  .pits{display:grid;gap:10px}
+  .pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--danger);border-radius:0 12px 12px 0;padding:14px 16px}
+  .pit h3{font-size:14px;margin-bottom:4px}
+  .pit .where{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em;margin-bottom:6px}
+  .pit p{font-size:13px;color:var(--muted);margin:0}
+  .pit p+p{margin-top:6px}
+  .pit .fix{color:var(--teal);font-weight:600}
+  .pit.lv2{border-left-color:var(--amber)}
+  .pit.ok{border-left-color:var(--teal)}
+
+  .ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .ex .no{font-family:var(--mono);font-size:10.5px;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .ex h3{font-size:13.5px;margin:5px 0}
+  .ex p{font-size:12.5px;color:var(--muted);margin:0}
+  .ex .see{font-size:12px;color:var(--ink);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)}
+  .ex .see b{color:var(--teal)}
+
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;box-shadow:var(--shadow)}
+  .check h3{font-size:14px;margin-bottom:8px}
+  .check ul{list-style:none}
+  .check li{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--muted);border-bottom:1px dotted var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check input{margin-top:5px;accent-color:var(--teal);width:14px;height:14px;flex:0 0 auto}
+
+  .next{margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,rgba(64,81,214,.07),rgba(15,122,108,.07));border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .next .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:700}
+  .next .nt{font-size:17px;font-weight:800;margin-top:2px}
+  .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src code{color:var(--muted)}
+
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:900px){
+    .groups{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:860px){
+    .pre-grid,.ex-grid{grid-template-columns:1fr}
+    .params{grid-template-columns:1fr}
+    .secnav{display:none}
+  }
+  @media print{
+    .topbar,.secnav{display:none}
+    body{background:#fff}
+    section{padding:20px 0 0;page-break-inside:avoid}
+    .ncard,.pre,.ex{box-shadow:none}
+  }
+  /* 术语表：窄屏改成卡片，四列不挤 */
+  .term-tbl table{min-width:0}
+  @media (max-width:600px){
+    .term-tbl table,.term-tbl thead,.term-tbl tbody,.term-tbl tr,.term-tbl td{display:block;width:auto;min-width:0}
+    .term-tbl thead{display:none}
+    .term-tbl tr{padding:11px 12px;border-bottom:1px solid var(--line)}
+    .term-tbl tr:last-child{border-bottom:none}
+    .term-tbl td{border:none;padding:2px 0}
+    .term-tbl td:first-child{font-size:13px;font-weight:700}
+    .term-tbl td:nth-child(2){font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+    .term-tbl td:nth-child(3){font-size:12.5px;line-height:1.7;padding-top:4px}
+    .term-tbl td:nth-child(4){font-size:12px;line-height:1.65;color:var(--muted);padding-top:5px}
+    .term-tbl td:nth-child(4)::before{content:"反例 · ";font-weight:700;color:var(--rose)}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <span class="crumb">L3 / D 线 / D1</span>
+    <nav class="secnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#s2">前置</a>
+      <a href="#s3">全景</a>
+      <a href="#s4">节点</a>
+      <a href="#s5">参数</a>
+      <a href="#s6">踩坑</a>
+      <a href="#s7">练习</a>
+      <a href="../guides/visual-spec.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">L3 · 单品课 · D 线 · 工程习惯</span>
+    <h1>LINK AI 工作流练习</h1>
+    <p class="sub">同一条线要接四个地方，你就得画六条横穿画布的长线。三天后回来改图，自己都找不到底图在哪。这一课不教新效果，只教怎么把画布收拾干净。</p>
+
+    <div class="goal">
+      <div class="lab">01 / 一句话目标</div>
+      <p>看懂 <strong>2 个 Set + 4 个 Get</strong> 的复用结构，能自己加一个变量；同时认出画布上那几处<b>看不见的虚线</b>和<b>走不通的死端</b>。</p>
+    </div>
+
+    <div class="metas">
+      <span class="chip">源文件 <b>⚙️LINK AI 工作流搭建练习V1.0</b></span>
+      <span class="chip">节点 <b>32</b></span>
+      <span class="chip">连线 <b>39</b></span>
+      <span class="chip">分组 <b>8 块</b></span>
+      <span class="chip">变量 <b>2 定义 / 4 取用</b></span>
+      <span class="chip">数据核对日 <b>2026-11-08</b></span>
+    </div>
+
+    <div class="posmap">
+      <div class="ph"><b>当前位置</b><span>C 线完成 · 转入 D 线</span></div>
+      <div class="track">
+        <div class="pstop done"><div class="pc">C1</div><div class="pn">高清放大</div></div>
+        <div class="pstop done"><div class="pc">C2</div><div class="pn">文生图 + 深度</div></div>
+        <div class="pstop done"><div class="pc">C3</div><div class="pn">深度 + 语义分割</div></div>
+        <div class="pstop done"><div class="pc">C4</div><div class="pn">IPA 风格迁移</div></div>
+        <div class="pstop here"><div class="pc">D1</div><div class="pn">LINK 搭建练习<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop"><div class="pc">R</div><div class="pn">综合复盘</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="s2">
+    <div class="shead"><span class="snum">02 / PREREQUISITES</span><h2>前置知识卡</h2></div>
+    <p class="slead">你已经在 C4 学完 IPA。这一课把它重搭一遍，重点不在“效果”，在“结构”。采样器、控制强度这些词沿用前面几课；新词在下方表里。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">C4</span>
+        <h3>IPA + 线稿 + 提示词</h3>
+        <p>本课的效果构成和 C4 基本一致：线稿锁形、IPA 给气、提示词为空。先回看 <a href="l3-10-ipadapter-style.html">C4 · IPAdapter 风格迁移</a>。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L2-04</span>
+        <h3>工作流管理</h3>
+        <p>分组、命名、注释都是给人看的，不参与执行。但决定了你三天后还能不能改得动。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L2-04 · Set/Get</span>
+        <h3>复用与依赖</h3>
+        <p>Set/Get 是“命名引用”：一处定义，多处取用。它不是复制，改一处，全部跟着变。</p>
+      </div>
+    </div>
+
+    <div class="pre-note">
+      <b>运行前需要：</b>沿用 C4 的 IPA 与 CLIP Vision 权重，ControlNet 换成 <code>SDXL/xinsir_union_promax.safetensors</code>（union 型，兼容线稿），外加两张图：底图 <code>fed62a5f…png</code> 与参考图 <code>3大厅休息.jpg</code>。
+    </div>
+
+    <h3 class="sub3">这一课会用到的词</h3>
+    <div class="table-wrap term-tbl">
+      <table>
+        <thead><tr><th>词</th><th>英文原名</th><th>一句人话</th><th>一个反例</th></tr></thead>
+        <tbody>
+          <tr><td><b>Set / Get</b></td><td>SetNode / GetNode</td><td>给一根线起名字（Set），在别处按名字取用（Get）。</td><td>不是复制粘贴：改一次 Set，所有 Get 跟着变。</td></tr>
+          <tr><td><b>变量名</b></td><td>variable name</td><td>Get 靠它找到 Set；名字对不上就找不到。</td><td>不是节点标题：标题随便改，变量名才是钥匙。</td></tr>
+          <tr><td><b>Anything Everywhere</b></td><td>Anything Everywhere</td><td>一个广播节点：同类输入自动补到空着的槽位上。</td><td>不是连线：画布上看不见，也不能靠删它来“断线”。</td></tr>
+          <tr><td><b>隐式连线</b></td><td>implicit link</td><td>由广播自动补上的连接，不出现在 <code>links</code> 里。</td><td>不是“没接”：能跑就说明它接上了，只是没画出来。</td></tr>
+          <tr><td><b>死端</b></td><td>dead end</td><td>输出后面没有下游，跑了也不影响成品。</td><td>不是报错：它安静地浪费时间。</td></tr>
+          <tr><td><b>union 型</b></td><td>union ControlNet</td><td>一个权重能干多种控制：线稿、深度、边缘，由预处理器决定。</td><td>不是“全能无损”：它比专用模型松，强度通常要给更高。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="shead"><span class="snum">03 / BLUEPRINT</span><h2>把“一根线接四处”折叠起来</h2></div>
+    <p class="slead">先看结构想解决的问题。底图被四个节点要用，参考图被两个节点要用。不用变量，就得画六条横穿画布的长线。</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 1000 380" role="img" aria-label="两个SetNode定义与四个GetNode取用的结构图">
+        <defs>
+          <marker id="a11" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8f97a8"/>
+          </marker>
+          <marker id="a11a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4051d6"/>
+          </marker>
+        </defs>
+
+        <rect class="box" x="20" y="62" width="140" height="50" rx="8"/>
+        <text class="tb" x="90" y="80" text-anchor="middle" dominant-baseline="central">#27 底图</text>
+        <text class="tm" x="90" y="99" text-anchor="middle" dominant-baseline="central">fed62a5f…png</text>
+
+        <path class="ln" d="M164,87 H206" marker-end="url(#a11)"/>
+
+        <rect class="boxT" x="210" y="62" width="180" height="50" rx="8"/>
+        <text class="tb" x="300" y="80" text-anchor="middle" dominant-baseline="central">SetNode #28</text>
+        <text class="tm" x="300" y="99" text-anchor="middle" dominant-baseline="central">变量名：基础底图</text>
+
+        <rect class="box" x="20" y="252" width="140" height="50" rx="8"/>
+        <text class="tb" x="90" y="270" text-anchor="middle" dominant-baseline="central">#30 参考图</text>
+        <text class="tm" x="90" y="289" text-anchor="middle" dominant-baseline="central">3大厅休息.jpg</text>
+
+        <path class="ln" d="M164,277 H206" marker-end="url(#a11)"/>
+
+        <rect class="boxT" x="210" y="252" width="180" height="50" rx="8"/>
+        <text class="tb" x="300" y="270" text-anchor="middle" dominant-baseline="central">SetNode #31</text>
+        <text class="tm" x="300" y="289" text-anchor="middle" dominant-baseline="central">变量名：参考图</text>
+
+        <rect class="boxG" x="450" y="10" width="210" height="54" rx="8"/>
+        <text class="t" x="555" y="28" text-anchor="middle" dominant-baseline="central">GetNode #36 · 基础底图</text>
+        <text class="tm" x="555" y="48" text-anchor="middle" dominant-baseline="central">→ #17 缩放 / #4 线稿</text>
+
+        <rect class="boxG" x="450" y="92" width="210" height="54" rx="8"/>
+        <text class="t" x="555" y="110" text-anchor="middle" dominant-baseline="central">GetNode #41 · 基础底图</text>
+        <text class="tm" x="555" y="130" text-anchor="middle" dominant-baseline="central">→ #40 对比器 A 面</text>
+
+        <rect class="boxG" x="450" y="192" width="210" height="54" rx="8"/>
+        <text class="t" x="555" y="210" text-anchor="middle" dominant-baseline="central">GetNode #32 · 参考图</text>
+        <text class="tm" x="555" y="230" text-anchor="middle" dominant-baseline="central">→ #23 Florence 反推</text>
+
+        <rect class="boxG" x="450" y="284" width="210" height="54" rx="8"/>
+        <text class="t" x="555" y="302" text-anchor="middle" dominant-baseline="central">GetNode #29 · 参考图</text>
+        <text class="tm" x="555" y="322" text-anchor="middle" dominant-baseline="central">→ #10 IPA image</text>
+
+        <path class="lnA" d="M394,87 H420 V37 H446" marker-end="url(#a11a)"/>
+        <path class="lnA" d="M394,87 H420 V119 H446" marker-end="url(#a11a)"/>
+        <path class="lnA" d="M394,277 H420 V219 H446" marker-end="url(#a11a)"/>
+        <path class="lnA" d="M394,277 H420 V311 H446" marker-end="url(#a11a)"/>
+
+        <rect class="box" x="700" y="140" width="270" height="100" rx="10"/>
+        <text class="tb" x="835" y="164" text-anchor="middle" dominant-baseline="central">改一处，四处生效</text>
+        <text class="ts" x="835" y="188" text-anchor="middle" dominant-baseline="central">换底图只动 #27</text>
+        <text class="ts" x="835" y="208" text-anchor="middle" dominant-baseline="central">不需要逐个节点重新选图</text>
+        <text class="tm" x="835" y="228" text-anchor="middle" dominant-baseline="central">2 定义 · 4 取用</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#eef7f4;border:1px solid #0f7a6c"></i>青绿：定义（Set）</span>
+        <span><i style="background:#f4f6fb;border:1px solid #7d8ab8"></i>虚线框：取用（Get）</span>
+        <span><i style="background:#4051d6"></i>蓝色虚线：变量引用</span>
+      </div>
+    </div>
+
+    <h3 class="sub3">八个分组，是给人看的目录</h3>
+    <div class="groups">
+      <div class="grp"><div class="gi">GROUP 1</div><div class="gn">提供底图</div><div class="gd">#27 载入 + #28 定义变量</div></div>
+      <div class="grp"><div class="gi">GROUP 2</div><div class="gn">提供参考图</div><div class="gd">#30 载入 + #31 定义变量</div></div>
+      <div class="grp"><div class="gi">GROUP 3</div><div class="gn">出图尺寸参数组</div><div class="gd">#16 1800 + #17 缩放</div></div>
+      <div class="grp"><div class="gi">GROUP 4</div><div class="gn">提示词反推组</div><div class="gd">#23 Florence + #24 显示</div></div>
+      <div class="grp"><div class="gi">GROUP 5</div><div class="gn">提示词组</div><div class="gd">#20 / #21 两个空文本</div></div>
+      <div class="grp"><div class="gi">GROUP 6</div><div class="gn">基础模型组</div><div class="gd">#13 LoRA + 广播节点</div></div>
+      <div class="grp"><div class="gi">GROUP 7</div><div class="gn">Controlnet控制网</div><div class="gd">#4 线稿 + #2 应用</div></div>
+      <div class="grp"><div class="gi">GROUP 8</div><div class="gn">IPA风格迁移组</div><div class="gd">#10 IPA + #8 噪声</div></div>
+    </div>
+    <p class="mini" style="margin-top:10px">分组顺序大致就是执行顺序：先给图，再定尺寸，再反推文字，再上模型与控制，最后出图。这是本课最值得抄走的东西。</p>
+
+    <div class="callout">
+      <div class="lab">还有一根看不见的线</div>
+      <p>#10 的 model 输入、#20 与 #21 的 clip 输入，在画布上<b>都没有实线</b>。它们由 #14 Anything Everywhere 广播填充。所以“模型没接却跑得动”不是 bug。</p>
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="shead"><span class="snum">04 / NODE BY NODE</span><h2>逐节点拆解</h2></div>
+    <p class="slead">四组节点：定义、取用、广播、死端。前两组是本课主角，后两组是本课的“反面教材”。</p>
+
+    <div class="ngroup">
+      <div class="ngroup-head"><span class="idx">N1</span><h3>两个变量</h3><span class="gp">#28 #31</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#28</span><span class="ntype" style="color:#0f7a6c">SetNode</span><span class="nrole">定义 · 基础底图</span></div>
+          <div class="bd">
+            <p>节点标题是 <code>Set_IMAGE</code>，变量名在 <code>widgets_values</code> 里，叫 <code>基础底图</code>。它本身不产出图，只给这根线起了名字。</p>
+            <div class="params"><div><span>变量名</span><b>基础底图</b></div></div>
+            <div class="io"><span class="in">IMAGE ← #27</span></div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#31</span><span class="ntype" style="color:#0f7a6c">SetNode</span><span class="nrole">定义 · 参考图</span></div>
+          <div class="bd">
+            <p>同样是 <code>Set_IMAGE</code> 标题，变量名 <code>参考图</code>。两个 Set 的标题一模一样，区分它们的只有小字变量名——这就是为什么命名要写在变量里，而不是只改标题。</p>
+            <div class="params"><div><span>变量名</span><b>参考图</b></div></div>
+            <div class="io"><span class="in">IMAGE ← #30</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ngroup">
+      <div class="ngroup-head"><span class="idx">N2</span><h3>四处取用</h3><span class="gp">#36 #41 #32 #29</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#36</span><span class="ntype" style="color:#5d6779">GetNode</span><span class="nrole">基础底图 · 两处下游</span></div>
+          <div class="bd">
+            <p>一个 Get 同时喂两个节点：<b>#17 缩放</b>与 <b>#4 线稿预处理</b>。所以“取用次数”不是按 Get 数算，是按下游连接算。</p>
+            <div class="io"><span class="out">→ #17</span><span class="out">→ #4</span></div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#41</span><span class="ntype" style="color:#5d6779">GetNode</span><span class="nrole">基础底图 · 对比器</span></div>
+          <div class="bd">
+            <p>单独拉一个 Get 只为给 #40 的 A 面。这样做的好处是：对比器可以放在画布另一头，不用把线拉过整个屏幕。</p>
+            <div class="io"><span class="out">→ #40 image_a</span></div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#32 / #29</span><span class="ntype" style="color:#5d6779">GetNode</span><span class="nrole">参考图 · 两处下游</span></div>
+          <div class="bd">
+            <p>#32 给 Florence 写描述（看图写话那个模型），#29 给 IPA 当风格图。<b>同一个变量，两种用途</b>：一个转成文字，一个转成向量。</p>
+            <div class="io"><span class="out">#32 → #23</span><span class="out">#29 → #10 image</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ngroup">
+      <div class="ngroup-head"><span class="idx">N3</span><h3>那根看不见的广播</h3><span class="gp">#14 Anything Everywhere</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#14</span><span class="ntype" style="color:#7a4fc0">Anything Everywhere</span><span class="nrole">隐式连线</span></div>
+          <div class="bd">
+            <p>它接收 MODEL、CLIP、VAE，然后把同类输入自动补齐。本文件里它接收三路，下游确实靠它填：<b>#10 的 model、#18 与 #25 的 vae、#20 与 #21 的 clip 都是空槽</b>，删掉它这些槽没人补，立刻报错。</p>
+            <div class="params">
+              <div><span>anything</span><b>VAE（#12）</b></div>
+              <div><span>anything2</span><b>MODEL（#13）</b></div>
+              <div><span>anything3</span><b>CLIP（#13）</b></div>
+            </div>
+            <div class="warn-inline">它的 outputs 为空：不产出线，只把收到的值广播给同类空槽。画布上看不见线，删掉却会断。</div>
+          </div>
+        </div>
+      </div>
+      <div class="fig" style="margin-top:10px">
+        <svg viewBox="0 0 1000 280" role="img" aria-label="LoRA的模型、CLIP与VAE经由Anything Everywhere广播到五个下游空槽">
+          <defs>
+            <marker id="a11b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#8f97a8"/>
+            </marker>
+            <marker id="a11c" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#7d8ab8"/>
+            </marker>
+          </defs>
+
+          <rect class="box" x="20" y="120" width="170" height="58" rx="8"/>
+          <text class="tb" x="105" y="140" text-anchor="middle" dominant-baseline="central">#13 LoRA</text>
+          <text class="tm" x="105" y="160" text-anchor="middle" dominant-baseline="central">0.5 / 1.0</text>
+
+          <path class="ln" d="M194,149 H246" marker-end="url(#a11b)"/>
+
+          <rect class="box" x="250" y="116" width="210" height="66" rx="8"/>
+          <text class="t" x="355" y="136" text-anchor="middle" dominant-baseline="central">#14 Anything Everywhere</text>
+          <text class="tm" x="355" y="158" text-anchor="middle" dominant-baseline="central">接收 3 路 · 输出为空</text>
+
+          <rect class="boxG" x="580" y="8" width="200" height="44" rx="8"/>
+          <text class="t" x="680" y="23" text-anchor="middle" dominant-baseline="central">#10 model</text>
+          <text class="tm" x="680" y="41" text-anchor="middle" dominant-baseline="central">无实线 · 靠广播</text>
+
+          <rect class="boxG" x="580" y="62" width="200" height="44" rx="8"/>
+          <text class="t" x="680" y="77" text-anchor="middle" dominant-baseline="central">#18 vae</text>
+          <text class="tm" x="680" y="95" text-anchor="middle" dominant-baseline="central">无实线 · 靠广播</text>
+
+          <rect class="boxG" x="580" y="116" width="200" height="44" rx="8"/>
+          <text class="t" x="680" y="131" text-anchor="middle" dominant-baseline="central">#20 / #21 clip</text>
+          <text class="tm" x="680" y="149" text-anchor="middle" dominant-baseline="central">无实线 · 靠广播</text>
+
+          <rect class="boxG" x="580" y="170" width="200" height="44" rx="8"/>
+          <text class="t" x="680" y="185" text-anchor="middle" dominant-baseline="central">#25 vae</text>
+          <text class="tm" x="680" y="203" text-anchor="middle" dominant-baseline="central">无实线 · 靠广播</text>
+
+          <path class="lnG" d="M464,149 H520 V30 H576" marker-end="url(#a11c)"/>
+          <path class="lnG" d="M464,149 H520 V84 H576" marker-end="url(#a11c)"/>
+          <path class="lnG" d="M464,149 H576" marker-end="url(#a11c)"/>
+          <path class="lnG" d="M464,149 H520 V192 H576" marker-end="url(#a11c)"/>
+
+          <text class="tm" x="810" y="116" text-anchor="start">← 五处都是隐式的</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ngroup">
+      <div class="ngroup-head"><span class="idx">N4</span><h3>死端：跑了但没用的部分</h3><span class="gp">#23 → #24</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#23 → #24</span><span class="ntype" style="color:#7a4fc0">Florence2Run</span><span class="nrole">字幕没有下游</span></div>
+          <div class="bd">
+            <p>Florence 老老实实写出了一段客厅描述，#24 也把它显示出来了。但 #24 的 STRING 输出 <code>links</code> 是空数组：<b>这段字幕没有接到任何 CLIPTextEncode</b>。</p>
+            <div class="params"><div><span>task</span><b>more_detailed_caption</b></div><div><span>max_new_tokens</span><b>1024</b></div></div>
+            <p class="mini" style="margin-top:6px">对比 C4：那里的字幕接到了 #59。这里没有，所以是纯展示。</p>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#20 / #21</span><span class="ntype" style="color:#3d6fc4">CLIPTextEncode</span><span class="nrole">两个空字符串</span></div>
+          <div class="bd">
+            <p>正向与负向都是 <code>""</code>。这条链的画面完全由线稿 + IPA 决定，文字一个字都没参与。</p>
+            <div class="params"><div><span>#20 text</span><b>""</b></div><div><span>#21 text</span><b>""</b></div></div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#8</span><span class="ntype" style="color:#b26206">IPAdapterNoise</span><span class="nrole">这次真的是纯噪声</span></div>
+          <div class="bd">
+            <p><code>image_optional</code> 没接任何图，所以输出就是一张噪声图，作为 IPA 的负向。它和 C4 里“褪色版参考图”的用法不同，别混。</p>
+            <div class="params"><div><span>type</span><b>fade</b></div><div><span>strength</span><b>0.4</b></div><div><span>blur</span><b>5</b></div><div><span>image_optional</span><b>未连接</b></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ngroup">
+      <div class="ngroup-head"><span class="idx">N5</span><h3>出图这一段</h3><span class="gp">#16 #17 #19 #15 #4 #2 #10 #25 #26 #40</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#16 → #17</span><span class="ntype" style="color:#b0447f">尺寸</span><span class="nrole">1800</span></div>
+          <div class="bd">
+            <p>1800 长边、保持比例、lanczos、对齐 32。比 C4 的 1600 略大，因为这条链只有一道 ControlNet，省下的算力放在分辨率上。</p>
+            <div class="params"><div><span>#16 value</span><b>1800</b></div><div><span>#17 method</span><b>keep proportion</b></div><div><span>multiple_of</span><b>32</b></div></div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#4 → #2</span><span class="ntype" style="color:#0f7a6c">线稿控制</span><span class="nrole">0.7 · 0 → 0.7</span></div>
+          <div class="bd">
+            <p>LineArtPreprocessor 512 → union 型 ControlNet。终点只到 0.7：后 30% 放手，让 IPA 的风格渗进材质。</p>
+            <div class="params">
+              <div><span>strength</span><b>0.7</b></div>
+              <div><span>start / end</span><b>0 / 0.7</b></div>
+              <div><span>control_net</span><b>xinsir_union_promax</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#10</span><span class="ntype" style="color:#b26206">IPAdapterAdvanced</span><span class="nrole">0.8 · 全程</span></div>
+          <div class="bd">
+            <p>比 C4 的 0.72 高、终点也拉满到 1.0。原因同上：这条链只有一道形控制，风格可以更强势。</p>
+            <div class="params">
+              <div><span>weight</span><b>0.8</b></div>
+              <div><span>weight_type</span><b>style transfer</b></div>
+              <div><span>end_at</span><b>1.0</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#15</span><span class="ntype" style="color:#4051d6">KSampler</span><span class="nrole">20 步</span></div>
+          <div class="bd">
+            <p>20 步、CFG 3、euler（不是 ancestral）、denoise 1.0。euler 更稳，适合“形不能乱跑”的场景。</p>
+            <div class="params">
+              <div><span>seed</span><b>950871183739754</b></div>
+              <div><span>steps</span><b>20</b></div>
+              <div><span>sampler</span><b>euler</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="ncard">
+          <div class="hd"><span class="nid">#40</span><span class="ntype" style="color:#5d6779">Image Comparer</span><span class="nrole">A 面来自变量</span></div>
+          <div class="bd">
+            <p>A 面接的是 #41 GetNode（变量“基础底图”），往上追是 #28 SetNode ← #27 LoadImage，也就是<b>原图本身</b>；B 面接 #25 解码结果。所以这是“原图 vs 成品”。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="shead"><span class="snum">05 / CHEAT SHEET</span><h2>参数速查表</h2></div>
+    <p class="slead">参数方面这条链比 C4 更“敢”：IPA 更重、终点更满、尺寸更大。因为形只由一道网守。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>参数</th><th>现值</th><th>位置</th><th>调大之后</th><th>调小之后</th><th>建议区间</th></tr></thead>
+        <tbody>
+          <tr><td>线稿强度</td><td><code>0.7</code></td><td>#2 strength</td><td class="up">形更死，材质贴不上</td><td class="down">0.5 以下轮廓开始漂</td><td>0.6 – 0.8</td></tr>
+          <tr><td>线稿终点</td><td><code>0.7</code></td><td>#2 end</td><td class="up">接近 1.0 时全程压形，风格进不来</td><td class="down">0.5 以下后半程完全自由</td><td>0.6 – 0.8</td></tr>
+          <tr><td>IPA 权重</td><td><code>0.8</code></td><td>#10 weight</td><td class="up">0.9 以上容易把底图材质也改掉</td><td class="down">0.55 以下风格变淡</td><td>0.7 – 0.9</td></tr>
+          <tr><td>IPA 终点</td><td><code>1.0</code></td><td>#10 end_at</td><td class="up">—</td><td class="down">0.85 收尾更自然</td><td>0.85 – 1.0</td></tr>
+          <tr><td>工作尺寸</td><td><code>1800</code></td><td>#16 value</td><td class="up">更清晰，显存上升</td><td class="down">1400 以下细节不锁</td><td>1600 – 2000</td></tr>
+          <tr><td>采样步数</td><td><code>20</code></td><td>#15 steps</td><td class="up">25 以上收益很小</td><td class="down">12 以下材质发脏</td><td>15 – 25</td></tr>
+          <tr><td>CFG</td><td><code>3</code></td><td>#15 cfg</td><td class="up">5 以上压风格</td><td class="down">2 以下失控</td><td>2.7 – 3.5</td></tr>
+          <tr><td>批量</td><td><code>1</code></td><td>#19 batch_size</td><td class="up">多张挑图，显存倍增</td><td class="down">—</td><td>1 – 3</td></tr>
+          <tr><td>对比器 A 面</td><td><code>#41 Get</code></td><td>#40 image_a</td><td class="up">改接到 #17 的缩放图才会失真（原图 vs 缩放图）</td><td class="down">—</td><td>接 Get</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="shead"><span class="snum">06 / TRAPS</span><h2>踩坑</h2></div>
+    <p class="slead">这一课的坑几乎都不是“效果不对”，而是“你以为它接了”。工程结构课的价值就在这里。</p>
+
+    <div class="pits">
+      <div class="pit">
+        <div class="where">LINK 工作流 · #23 #24</div>
+        <h3>反推跑得很认真，字幕却没人用</h3>
+        <p>#24 的 <code>STRING</code> 输出没有连线，<code>links</code> 是空数组。整段 Florence 推理只是把文字显示给你看，没有进提示词。你会以为“AI 在帮我写词”，实际上两个 CLIPTextEncode 都是空的。</p>
+        <p class="fix">修法：把 #24 的 STRING 接到 #20 的 text；否则直接删掉 #23 #24，省一份显存与时间。</p>
+      </div>
+
+      <div class="pit">
+        <div class="where">LINK 工作流 · #10 / #20 / #21</div>
+        <h3>“模型没接”是错觉</h3>
+        <p>这三处的输入在画布上都是空的，但能跑。因为 #14 在做隐式广播。新手常把 #14 删掉“清理画布”，结果立刻报错。</p>
+        <p class="fix">修法：先点开 #14 看它收了什么；要删就把模型/CLIP 显式接到 #10、#20、#21，再删。</p>
+      </div>
+
+      <div class="pit">
+        <div class="where">LINK 工作流 · #28 / #31</div>
+        <h3>两个 Set 标题一模一样</h3>
+        <p>都叫 <code>Set_IMAGE</code>，只有变量名不同（基础底图 / 参考图）。找节点时靠标题会找错。</p>
+        <p class="fix">修法：把节点标题改成 <code>SET_底图</code> / <code>SET_参考</code>；重命名变量时，四张 Get 要一起改，否则它们会变成“找不到变量”。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">LINK 工作流 · #8</div>
+        <h3>这里的 IPAdapterNoise 确实没接图</h3>
+        <p>C4 里它接参考图、做“褪色负向”；这里 <code>image_optional</code> 为空，输出是纯噪声。两课的节点名一样、行为不一样。</p>
+        <p class="fix">修法：读节点先读出入口，再读参数。别因为名字相同就假设接法相同。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">LINK 工作流 · #15</div>
+        <h3>euler 和 euler_ancestral 不能随手换</h3>
+        <p>这条链用 euler，C4 用 euler_ancestral。前者更稳、后者更活。在“形不能跑”的场景里，ancestral 会带来看不见的轻微抖动。</p>
+        <p class="fix">修法：锁形优先 euler；想要空气感再换 ancestral，并同步降一点 IPA 权重。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">LINK 工作流 · #40</div>
+        <h3>对比器的 A 面就是原图</h3>
+        <p>它接的是 #41 GetNode，往上追是 #28 SetNode ← #27 LoadImage，也就是原图本身，不是 #17 缩放后的图。若你想看“缩放后 vs 成品”，才需要把 A 面改接到 #17 的输出。</p>
+        <p class="fix">修法：对比前先确认 A 面接的是哪一个阶段的图，否则会误判“放大后变模糊”。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">LINK 工作流 · 全局</div>
+        <h3>分组不会被执行，但它决定你敢不敢改</h3>
+        <p>8 个分组框只是视觉容器。删掉它们照样能跑，但三天后你会在一堆同名节点里找不到“底图在哪”。</p>
+        <p class="fix">修法：新建工作流先分块再连线；每块用动词命名（提供底图 / 出图尺寸 / 提示词反推），别用“组1、组2”。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="shead"><span class="snum">07 / PRACTICE</span><h2>动手练习 + 自检清单</h2></div>
+    <p class="slead">这一组练习全部是“改结构”，不是“调效果”。每做完一个，都保存一个新版本号。</p>
+
+    <div class="ex-grid">
+      <div class="ex">
+        <div class="no">EX 01 · 5 分钟</div>
+        <h3>改一处，看四处</h3>
+        <p>只换 #27 的图，不动其他节点，跑一次。</p>
+        <div class="see">看什么：<b>#36、#41 两处取用是否同时变</b>。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 02 · 10 分钟</div>
+        <h3>给字幕接线</h3>
+        <p>把 #24 的 STRING 接到 #20 的 text，删掉原来的空字符串。</p>
+        <div class="see">看什么：<b>画面是否开始受文字影响</b>，以及是否和线稿打架。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 03 · 10 分钟</div>
+        <h3>加第三个变量</h3>
+        <p>把 #17 输出的尺寸图存成 <code>工作图</code> 变量，给 #4 与 #10 各拉一个 Get。</p>
+        <div class="see">看什么：<b>画布上的长线是否变短</b>。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 04 · 10 分钟</div>
+        <h3>走一次死路</h3>
+        <p>删掉 #14，直接排队，把报错截图。</p>
+        <div class="see">看什么：<b>哪几个输入变成了“必填未连接”</b>，这就是广播的真实作用范围。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 05 · 15 分钟</div>
+        <h3>拆成两套</h3>
+        <p>复制整份工作流，一套保留 Florence 显示、一套删掉；对比执行时间。</p>
+        <div class="see">看什么：<b>反推节点占了多少时间</b>。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 06 · 15 分钟</div>
+        <h3>写一页交接说明</h3>
+        <p>在画布空白处加一个 Note，写清：底图在哪换、风格图在哪换、哪几个节点是死端。</p>
+        <div class="see">看什么：<b>一个没看过这课的人能不能照着跑</b>。</div>
+      </div>
+    </div>
+
+    <div class="check">
+      <h3>自检清单（勾选状态会存在本机）</h3>
+      <ul>
+        <li><input type="checkbox"><span>我能说出 2 个 Set 与 4 个 Get 的变量名。</span></li>
+        <li><input type="checkbox"><span>我知道 #36 一个 Get 供两个下游，所以是 5 处取用而不是 4 处。</span></li>
+        <li><input type="checkbox"><span>我知道 #10、#20、#21 的输入由 #14 隐式广播。</span></li>
+        <li><input type="checkbox"><span>我知道 #24 的字幕没有下游，提示词其实是空的。</span></li>
+        <li><input type="checkbox"><span>我能分清这课与 C4 的 IPAdapterNoise 用法差异。</span></li>
+        <li><input type="checkbox"><span>我给分组起过“动词 + 对象”的名字。</span></li>
+        <li><input type="checkbox"><span>我保存了至少两个版本号，而不是覆盖同一个文件。</span></li>
+      </ul>
+    </div>
+
+    <div class="next">
+      <div>
+        <div class="lab">NEXT · L3 收官</div>
+        <div class="nt">R · 综合复盘：三组真实案例</div>
+        <div class="nd">乡村水系、庭院、圆形楼栋中心。同一套参数，为什么一张跑偏、两张成功。</div>
+      </div>
+      <a class="go" href="l3-12-review.html">进入下一课 →</a>
+    </div>
+
+    <div class="src">
+      <b>本课数据来源与核对方式：</b><code>ComfyUI_工作流架构/⚙️LINK AI 工作流搭建练习V1.0 .json</code>。32 个节点、39 条连线、8 个分组。Set：#28 <code>基础底图</code>、#31 <code>参考图</code>；Get：#36 #41（基础底图）、#32 #29（参考图）。空值：#20 #21 均 <code>""</code>，#24 输出 links 为空，#8 <code>image_optional</code> 未连接。关键值：#2 <code>0.7 / 0 / 0.7</code>、#10 <code>0.8 / style transfer / 0 / 1.0</code>、#16 1800、#15 <code>20 步 / CFG 3 / euler</code>。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var boxes = document.querySelectorAll('.check input[type="checkbox"]');
+    boxes.forEach(function(b, i){
+      var key = 'cui-d1-check-' + i;
+      try { if (localStorage.getItem(key) === '1') b.checked = true; } catch(e){}
+      b.addEventListener('change', function(){
+        try { localStorage.setItem(key, b.checked ? '1' : '0'); } catch(e){}
+      });
+    });
+  })();
+
+  (function(){
+    var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+    document.querySelectorAll('[data-bind]').forEach(function(el){
+      var v = map[el.getAttribute('data-bind')];
+      if (v) el.textContent = v;
+    });
+    document.title = 'L3-D1 · LINK AI 工作流练习 | ' + COURSE.name;
+  })();
+</script>
+</body>
+</html>

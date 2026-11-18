@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L2-03c 放大与尺寸 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 var(--sans);
+  background-image:linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px);
+  background-size:32px 32px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:920px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-size:40px;line-height:1.24;margin:16px 0 12px;font-weight:800;letter-spacing:-.015em}
+.lede{font-size:17.5px;color:var(--muted);margin:0;max-width:640px}
+.hero{margin-bottom:26px}
+.hero2{display:grid;grid-template-columns:1.12fr .88fr;gap:22px;align-items:end}
+.panel{background:#18212f;color:#e9ecf5;border-radius:14px;padding:15px 16px 13px;font-family:var(--mono);font-size:11.5px;box-shadow:var(--shadow)}
+.panel h4{font-family:var(--sans);font-size:11px;color:#9aa6bd;margin:0 0 9px;letter-spacing:.1em;font-weight:700}
+.prow{display:flex;justify-content:space-between;gap:12px;padding:4.5px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.prow:last-of-type{border-bottom:none}
+.prow span{color:#8ea0bf}
+.prow b{color:#fff;font-weight:600;text-align:right;word-break:break-all}
+.sbar{display:flex;gap:2px;margin-top:9px}
+.sbar i{flex:1;height:4px;border-radius:2px;background:#4051d6}
+.panel .cap{font-family:var(--sans);font-size:10.5px;color:#7f8ca6;margin-top:7px}
+h2{font-size:24px;line-height:1.4;margin:48px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:13px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-size:17px;margin:26px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 12px 12px 0;margin:20px 0;font-size:15px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:16px 0;box-shadow:var(--shadow)}
+.scroll-note{display:none}
+@media(max-width:680px){.scroll-note{display:block;font-family:var(--sans);font-size:12px;color:var(--faint);margin:-6px 0 14px}}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:660px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#faf9f6;font-size:11.5px;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{color:var(--accent);word-break:break-all}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:16px 0;font-size:12.5px}
+.chain .n{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-family:var(--mono);font-size:11.5px;box-shadow:var(--shadow)}
+.chain .ar{color:var(--faint);font-family:var(--mono)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--cat);color:var(--cat);background:var(--cat-soft)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--cat);border-radius:12px;margin:0 0 12px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:13px 15px;display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 10px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;word-break:break-all}
+.entry .one{font-size:12.5px;color:var(--muted)}
+.entry .val{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:#fff;background:var(--cat);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.entry .chev{font-family:var(--mono);color:var(--cat);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:13px 16px 15px;border-top:1px dashed var(--line)}
+.entry .body p{font-size:14px;margin:0 0 9px}
+.entry .body table{min-width:0;font-size:12px}
+.entry .body th,.entry .body td{padding:6px 6px}
+.io{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 10px;font-family:var(--mono);font-size:10.5px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-size:12.5px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 11px;margin:9px 0 0;line-height:1.7}
+.ex b{color:var(--cat)}
+.pit{font-size:12.5px;color:var(--amber);margin:8px 0 0;line-height:1.7}
+.meter{margin:14px 0 4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 12px;box-shadow:var(--shadow)}
+.meter .bar{display:flex;gap:3px;margin:10px 0 6px}
+.meter .bar i{flex:1;height:14px;border-radius:3px;background:#e8e5dc}
+.meter .bar i.on-1{background:rgba(15,122,108,.55)}
+.meter .bar i.on-2{background:rgba(64,81,214,.55)}
+.meter .bar i.on-3{background:rgba(194,46,99,.55)}
+.meter .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.meter .tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;font-size:12px;color:var(--muted);line-height:1.6}
+.meter .tri b{display:block;color:var(--ink);font-size:12.5px}
+.meter .tri .c1 b{color:var(--teal)}.meter .tri .c2 b{color:var(--accent)}.meter .tri .c3 b{color:var(--rose)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.rc{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:11px;padding:12px 13px;box-shadow:var(--shadow);font-size:12.5px;color:var(--muted);line-height:1.65}
+.rc b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.rc code{font-size:11px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:760px){
+  .hero2{grid-template-columns:1fr}
+  .cards3{grid-template-columns:1fr}
+  .meter .tri{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  body{font-size:15px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:30px}.lede{font-size:15.5px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .entry summary{padding:12px 13px}
+  .entry .val{order:3;margin-left:0}
+  .entry .chev{order:4;margin-left:auto}
+  .entry .body{padding:11px 13px 13px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 字典 · 03C</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-03c 放大与尺寸</p>
+
+  <header class="hero">
+    <div class="hero2">
+      <div>
+        <span class="kicker">L2 字典 · 第三课 C</span>
+        <h1>放大与尺寸：<br>解码之后，<br>才谈出图多大</h1>
+        <p class="lede">同一张草稿，能出多大、够不够清，由放大链和尺寸节点决定。这一节把三条放大路线和四个改尺寸的节点排开，顺着链走一遍。</p>
+      </div>
+      <aside class="panel" aria-label="07 工作流放大链真实参数面板">
+        <h4>07 · 放大链</h4>
+        <div class="prow"><span>顶层 #2 / #3 / #4</span><b style="color:var(--faint)">死支，不落盘</b></div>
+        <div class="prow"><span>子图 #378 · 归一化</span><b>2 MP</b></div>
+        <div class="prow"><span>子图 #379 · ColorMatch</span><b>mkl · 1</b></div>
+        <div class="prow"><span>子图 #383 · 模型放大</span><b>4x-UltraSharp.pth</b></div>
+        <div class="prow"><span>子图 #386 · 归一化</span><b>8 MP</b></div>
+        <div class="cap">2 MP 归一化 → 校色 → 4 倍放大 → 8 MP 收尾</div>
+      </aside>
+    </div>
+  </header>
+
+  <div class="callout">
+    <p><b>前情提要：</b>前两节停在采样。L2-03 讲了 KSampler 的七格参数与子图那条高级链；L2-03b 讲了草稿从哪来、只想改一块怎么办。采样结束时，画面还停在潜变量上。解码（<code>VAEDecode</code>，把 LATENT 翻回像素图）之后，才有“多大、多清”的问题。这一节就解决这一件事。</p>
+  </div>
+
+  <div class="chips">
+    <a href="#term-upscale">UpscaleModelLoader</a><a href="#term-scaleby">ImageScaleBy</a><a href="#term-resize">ImageResize+</a>
+    <a href="l2-03-sampling-core.html">← L2-03 采样核心</a>
+    <a href="l2-03b-latent-inpaint.html">← L2-03b 潜变量与局部重绘</a>
+  </div>
+
+  <h2 id="map"><span class="no">01 / 先定位</span>尺寸不是一步定下来的</h2>
+  <p>打开 07，你会发现它没有根图采样器：采样交给子图。顶层那三个放大节点（<code>#2</code> / <code>#3</code> / <code>#4</code>）是没接保存的旁支；真正落盘的是 <code>#390</code> 子图：<code>#378</code> 先归一到 2 MP，<code>#379 ColorMatch</code> 校色，<code>#383</code> 用 <code>4x-UltraSharp.pth</code> 放大，<code>#386</code> 再归一到 8 MP。想报出一个数字，就得顺着这条活链走完。</p>
+  <p>下面这一行是被搬过来的。07 的根图采样节点一栏写“无”，因为放大发生在上一次采样之后；其余行留在 <a href="l2-03-sampling-core.html#map">L2-03</a> 与 <a href="l2-03b-latent-inpaint.html#map">L2-03b</a>，表头与数字完全一致。</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>工作流</th><th>根图采样节点</th><th>步数</th><th>CFG</th><th>采样器 / 调度器</th><th>子图里的采样</th></tr></thead>
+      <tbody>
+        <tr><td>07 高清放大</td><td>无（采样在子图 <code>#390</code>）</td><td>—</td><td>—</td><td>—</td><td>Flux2Scheduler 1 步</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="scroll-note">表格可左右滑动查看完整列 →</p>
+  <p class="small quiet">表内数字全部取自 <code>ComfyUI_工作流架构</code> 的真实 JSON。不同版本节点可能多出字段，以实际 JSON 为准。</p>
+
+  <h2 id="upscale"><span class="no">02 / 放大</span>三条路线，别混着用</h2>
+  <div class="cards3">
+    <div class="rc"><b>① 模型放大</b><code>UpscaleModelLoader + ImageUpscaleWithModel</code><br>用 4x-UltraSharp 这类超分模型直接放大。速度快，细节是模型“猜”出来的，不是简单插值。</div>
+    <div class="rc"><b>② 按倍数缩放</b><code>ImageScaleBy</code><br>只改分辨率，不增加细节。常用来把 4 倍结果压回可接受尺寸。</div>
+    <div class="rc"><b>③ 目标像素缩放</b><code>ImageScaleToTotalPixels</code><br>把总像素数拉到目标值，2 MP 与 8 MP 是两档常用目标。</div>
+  </div>
+
+  <details class="entry" id="term-upscale" open>
+    <summary><span class="type">UpscaleModelLoader + ImageUpscaleWithModel</span><span class="one">超分模型放大</span><span class="val">4x-UltraSharp</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>成图嫌小、想直接提分辨率，走这条路。先用 <code>UpscaleModelLoader</code> 加载模型，再把图像送进 <code>ImageUpscaleWithModel</code>。模型决定补出来的细节长什么样。反例：它不是插值缩放，纹理是模型“猜”的。4x 只是模型名里的说法，不等于最终就是 4 倍。</p>
+      <table>
+        <thead><tr><th style="width:36%">节点 / 位置</th><th>真实值</th></tr></thead>
+        <tbody>
+          <tr><td><code>UpscaleModelLoader</code> 03 <b>#353</b>、07 <b>#3</b>、07 子图 <b>#380</b></td><td><code>4x-UltraSharp.pth</code></td></tr>
+          <tr><td><code>ImageUpscaleWithModel</code> 03 <b>#351</b>、07 <b>#2</b>、07 子图 <b>#383</b></td><td>无额外参数，模型即配置</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">07 的分组名是“直接放大模型算法”；03 在放大前先接 <code>ColorMatch</code>（<b>#352</b>，<code>mkl</code>，强度 1），把偏色对齐参考图，再交给 <code>#351</code> 放大。</div>
+      <p class="pit">易错：4x 不是“最终就是 4 倍”。07 的活链先 <code>#378</code> 归一到 <b>2 MP</b>，再用 4x 模型放大，最后 <code>#386</code> 归一到 <b>8 MP</b>；顶层 <code>#4 ImageScaleBy</code> 的 0.5 是死支，别拿它算最终尺寸。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-scaleby">
+    <summary><span class="type">ImageScaleBy / ImageScaleToTotalPixels</span><span class="one">按倍数或按总像素改尺寸</span><span class="val">0.5 / 2 MP / 8 MP</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>只想改尺寸、不想补细节，用这两个。<code>ImageScaleBy</code> 按倍率缩放，<code>ImageScaleToTotalPixels</code> 把总像素数拉到目标值。反例：它们都不是超分——<code>ImageScaleBy</code> 不是“放大模型”，<code>ImageScaleToTotalPixels</code> 也不是“超分”；像素数量变了，细节不会自己长出来。</p>
+      <table>
+        <thead><tr><th style="width:44%">节点 / 位置</th><th>真实参数</th></tr></thead>
+        <tbody>
+          <tr><td><code>ImageScaleBy</code> 07 <b>#4</b></td><td><code>nearest-exact</code> · 0.5</td></tr>
+          <tr><td><code>ImageScaleToTotalPixels</code> 03 <b>#350</b> / <b>#355</b></td><td>2 MP / 8 MP</td></tr>
+          <tr><td><code>ImageScaleToTotalPixels</code> 07 子图 <b>#378</b> / <b>#386</b></td><td>2 MP / 8 MP</td></tr>
+          <tr><td><code>ImageScaleToTotalPixels</code> 04 子图 <b>#349</b></td><td>2 MP</td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：放大后再缩小，重采样方法会影响锐度。<code>nearest-exact</code> 适合保持像素边界，不适合人像柔化。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-resize">
+    <summary><span class="type">ImageResize+</span><span class="one">输入端的统一尺寸</span><span class="val">512 × 512 · lanczos</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>参考图尺寸五花八门，直接进采样会出问题。ImageResize+ 在进采样前把图统一到 512×512。这么做有两个好处：显存不会忽高忽低，ControlNet 预处理器也吃得下。反例：它不是最终出图尺寸，只是输入端的统一规格。</p>
+      <table>
+        <thead><tr><th style="width:36%">参数</th><th>本套常见值</th></tr></thead>
+        <tbody>
+          <tr><td>宽 / 高</td><td>512 × 512</td></tr>
+          <tr><td>重采样</td><td><code>lanczos</code></td></tr>
+          <tr><td>保持比例</td><td><code>keep proportion</code></td></tr>
+          <tr><td>对齐步长</td><td>32（以实际节点版本为准）</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">04 <b>#79</b>、03 <b>#72</b>、02 <b>#111</b>、LINK <b>#17</b>、IPA <b>#79</b>，五处完全一致。</div>
+      <p class="pit">易错：这里缩到 512 只是为了控制输入。最终出图尺寸由后面的空白画布节点（<code>EmptyLatentImage</code>，见 <a href="l2-03b-latent-inpaint.html#term-emptylatent">L2-03b</a>）或放大链决定。别看到 512 就以为成图只有 512。</p>
+    </div>
+  </details>
+
+  <h2 id="practice"><span class="no">03 / 动手</span>顺着链，算一次最终尺寸</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 07 的子图 <b>#390</b>，按尺寸链记：<b>2 MP</b>（<b>#378 ImageScaleToTotalPixels</b>）→（中间隔着 Flux2 精修：<b>#371 VAEEncode</b> → <b>#365 SamplerCustomAdvanced</b> → <b>#376 VAEDecode</b> → <b>#379 ColorMatch</b>）→ <b>4x</b>（<b>#383 ImageUpscaleWithModel</b>）→ <b>8 MP</b>（<b>#386 ImageScaleToTotalPixels</b>），写下三处像素数。顶层 <b>#2 → #4</b> 是没接保存的死支，只用来观察参数，别顺着它算。</p><p class="why">目标：分清“目标像素归一化”“模型放大”“再归一化”各做什么，也分清活链与死支。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 03，把 <b>#355 ImageScaleToTotalPixels</b> 的 8 MP 换成 <b>#350</b> 那一档的 2 MP，比较耗时与清晰度。</p><p class="why">目标：把 2 MP 与 8 MP 两档和实际开销对上。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 03，把 <b>#352 ColorMatch</b> 的强度从 1 改成 0，再看放大结果。</p><p class="why">目标：看清放大后的偏色是哪一步拉回来的。</p></div></div>
+    <div class="task"><div class="idx">4</div><div><p>打开 02，找到 <b>#111 ImageResize+</b>（<b>512 × 512</b>，<code>lanczos</code>）。把它改成 768 × 768，跑一次看显存。</p><p class="why">目标：体会输入端统一尺寸与最终出图尺寸是两件事。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">04 / 自检</span>尺寸能算，路线能分</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我知道 4x-UltraSharp 名字里的 4x 不等于最终 4 倍尺寸。</span></label>
+    <label class="check"><input type="checkbox"><span>我能按顺序算出 2 MP 归一化 → 4x 超分 → 8 MP 归一化的最终尺寸。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说清 ImageScaleBy 与 ImageScaleToTotalPixels 都不是超分，只是改尺寸。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 ImageResize+ 的 512×512 只是输入端统一规格，不是成图尺寸。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说出 03 的 ColorMatch（<b>#352</b>，<code>mkl</code>，强度 1）是在补哪一步的偏色。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-03b-latent-inpaint.html"><span class="dir">← 上一册</span>L2-03b 潜变量与局部重绘</a>
+    <a href="l2-04-output.html"><span class="dir">下一册 →</span>L2-04 输出与组织</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-03c-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

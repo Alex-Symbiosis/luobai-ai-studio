@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-02 采样：一步在擦什么 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:860px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:38px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:650px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.strip-wrap{margin:26px 0 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 10px;box-shadow:var(--shadow)}
+.strip{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;height:44px}
+.strip i{display:block;border-radius:3px}
+.strip-cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:6px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:52px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}
+.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:17px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:13.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:14px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.svg-num{font-family:var(--mono);font-size:12.5px;fill:var(--faint)}
+.cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
+.cycle div{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:10px;padding:13px 12px}
+.cycle b{display:block;font-family:var(--sans);font-size:13px;margin-bottom:4px}
+.cycle span{font-size:13px;color:var(--muted);line-height:1.65}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 7px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:12px;font-weight:700}
+td code{word-break:break-all}
+tr:last-child td{border-bottom:none}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .cycle{grid-template-columns:1fr 1fr}
+  table{font-size:12px}th,td{padding:7px 5px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 02 / 05</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-02 采样：一步在擦什么</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第二课</span>
+    <h1>采样：一步在擦什么，<br>选哪个采样器</h1>
+    <p class="lede">模型不是一笔一笔画的。它先铺满噪声（noise，随机撒的雪花点，没有画面含义），再一步一步猜“哪些是噪点、哪些是画面”，擦掉一点。这一节只回答两件事：每步到底在擦什么，采样器和调度器又各管哪一头。</p>
+    <div class="meta"><span>预计 13 分钟</span><span>零基础可读</span><span>对应节点：KSampler / SamplerCustomAdvanced</span></div>
+    <div class="strip-wrap" aria-hidden="true">
+      <div class="strip">
+        <i style="background:#2f3444"></i><i style="background:#3b4152"></i><i style="background:#4b5060"></i><i style="background:#5f636e"></i><i style="background:#777a80"></i>
+        <i style="background:#8f9093"></i><i style="background:#a5a5a3"></i><i style="background:#b9b8b2"></i><i style="background:#cbc9c0"></i><i style="background:#d9d6cc"></i>
+        <i style="background:#e5e2d8"></i><i style="background:#edebe2"></i><i style="background:#f3f1e9"></i><i style="background:#f7f5ef"></i><i style="background:#fbfaf6"></i>
+      </div>
+      <div class="strip-cap"><span>第 0 步 · 纯噪声</span><span>第 15 步 · 出图</span></div>
+    </div>
+  </header>
+
+  <h2 id="why"><span class="no">01 / 场景</span>为什么同一个提示词，步数一改就像换了张图</h2>
+  <p>你输入“现代风格客厅”，点生成。8 步时沙发还糊着，15 步时结构清楚了，30 步看着没更好，只是更慢。这不是玄学。采样过程本来就是先立循环框架、再补细节。这一节先解决前一半：每一步在擦什么，擦的动作又由谁决定。</p>
+  <div class="callout">
+    <p><b>一句话结论：</b>采样（sampling，按草稿擦噪声）就是从纯噪声出发，反复预测并减掉噪声。每一次“猜再擦”就是一步；这一步迈多大、往哪迈，由采样器定。</p>
+  </div>
+
+  <h2 id="how"><span class="no">02 / 机制</span>每一步只做四件事</h2>
+  <div class="cycle">
+    <div><b>① 看当前图</b><span>此刻还是一张带噪的潜空间图（latent，1/8 草稿画布，L1-01 拆过），模型先读它。</span></div>
+    <div><b>② 猜噪声</b><span>模型结合提示词（prompt，你写的那句描述，L2-02 专讲）和参考条件，判断哪些地方像噪点。</span></div>
+    <div><b>③ 减掉一点</b><span>采样器按自己的规则减一部分，不会一次擦干净。</span></div>
+    <div><b>④ 进入下一步</b><span>用更新后的图重复，直到把噪声走完。</span></div>
+  </div>
+  <p>擦多少，由采样器（sampler）和调度器（scheduler）一起定。采样器管每一步怎么迈，调度器管这几步分别对应多脏的噪声水平。两者要搭配着看。</p>
+
+  <h3>把“擦噪声”画成一条曲线</h3>
+  <p>下面的曲线不是实测数据，是把常见体验画成趋势：前几步变化最大，越往后越接近完成。注意 15 步之后曲线明显变平。每多一步换来的提升越来越小，这叫边际收益递减。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 225" role="img" aria-label="画面清晰度随步数上升，15 步后趋于平缓">
+      <text x="34" y="20" text-anchor="start" dominant-baseline="middle" class="svg-lbl">清晰度 ↑</text>
+      <!-- 坐标轴 -->
+      <line x1="40" y1="176" x2="430" y2="176" stroke="#cbc6ba" stroke-width="1.2"/>
+      <line x1="40" y1="176" x2="40" y2="30" stroke="#cbc6ba" stroke-width="1.2"/>
+      <!-- 曲线 -->
+      <polyline points="40,166 110,126 180,86 250,58 320,45 390,40 424,38"
+        fill="none" stroke="#4051d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- 数据点 -->
+      <g fill="#4051d6">
+        <circle cx="40" cy="166" r="3"/><circle cx="110" cy="126" r="3"/><circle cx="180" cy="86" r="3"/>
+        <circle cx="250" cy="58" r="3"/><circle cx="320" cy="45" r="3"/><circle cx="390" cy="40" r="3"/><circle cx="424" cy="38" r="3"/>
+      </g>
+      <!-- 步数刻度：全部落在轴线下方，不压线 -->
+      <g class="svg-num">
+        <text x="40" y="190" text-anchor="middle" dominant-baseline="middle">1</text>
+        <text x="110" y="190" text-anchor="middle" dominant-baseline="middle">4</text>
+        <text x="180" y="190" text-anchor="middle" dominant-baseline="middle">8</text>
+        <text x="250" y="190" text-anchor="middle" dominant-baseline="middle">12</text>
+        <text x="320" y="190" text-anchor="middle" dominant-baseline="middle">15</text>
+        <text x="390" y="190" text-anchor="middle" dominant-baseline="middle">20</text>
+        <text x="424" y="190" text-anchor="middle" dominant-baseline="middle">25</text>
+      </g>
+      <text x="236" y="216" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">步数 →</text>
+      <!-- 旁注：位于曲线上方 18px，带背景光晕 -->
+      <text x="330" y="24" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">这里开始收益变小</text>
+    </svg>
+    <figcaption>前 8 步主要在“搭结构”，12–20 步补细节；再往上，多数模型只剩很小的变化。曲线为示意，不是某个固定模型的标准答案。</figcaption>
+  </figure>
+
+  <h2><span class="no">03 / 选择</span>采样器（sampler）与调度器（scheduler），各管什么</h2>
+  <p><b>采样器</b>（<code>sampler_name</code>）：决定每一步往哪儿迈、迈多大。反例：它不是模型，换采样器不换画风来源，只换走法。</p>
+  <p><b>调度器</b>（<code>scheduler</code>）：决定这几步分别落在多脏的噪声水平上。反例：它不是步数。步数说走几步，调度器说这几步踩在哪几级台阶上。</p>
+  <p>两者得配着看。同一个采样器换一个调度器，落点全变；同一条调度曲线换一个采样器，走法也变。</p>
+
+  <div class="card">
+    <p><b>本套里出现过的采样器，一共三种。</b></p>
+    <ul>
+      <li><code>euler_ancestral</code>：每一步都掺一点随机，SDXL 文生图/图生图常用，画面更有变化。</li>
+      <li><code>euler</code>：不掺随机，路径更确定；LINK 练习工作流用它。</li>
+      <li><code>uni_pc</code>：局部重绘 DetailerForEach 用它，配合 25 步和 denoise 0.8。</li>
+    </ul>
+    <p style="margin-top:12px"><b>调度器出现三种。</b><code>normal</code> 是 SDXL 的默认选择；<code>simple</code> 出现在 02 的 <code>BasicScheduler</code>（simple / 4 / 1）；<code>sgm_uniform</code> 出现在 05 的局部重绘里。</p>
+    <p class="small quiet" style="margin-bottom:0">记法：采样器决定每一步怎么落脚，调度器决定这些步子踩在哪些噪声高度上。换掉任何一个，结果都会变。</p>
+  </div>
+
+  <h3>谁在用哪一个：真实 JSON 里的对照</h3>
+  <table>
+    <thead><tr><th style="width:38%">出现位置</th><th style="width:32%">采样器</th><th style="width:30%">调度器</th></tr></thead>
+    <tbody>
+      <tr><td>01 线稿+文字 · KSampler <b>#177</b><br>02 线稿+参考图 · KSampler <b>#119</b></td><td><code>euler_ancestral</code></td><td><code>normal</code></td></tr>
+      <tr><td>03 室内毛坯 · KSampler <b>#4</b><br>04 建筑毛坯 · KSampler <b>#4</b></td><td><code>euler_ancestral</code></td><td><code>normal</code></td></tr>
+      <tr><td>05 局部修改 · DetailerForEach <b>#257</b></td><td><code>uni_pc</code></td><td><code>sgm_uniform</code></td></tr>
+      <tr><td>02 · <code>BasicScheduler</code>（4 步 / 1）</td><td>不设这一格</td><td><code>simple</code></td></tr>
+      <tr><td>子图 · <code>Flux2Scheduler</code>（如 <b>#135</b>、<b>#351</b>）</td><td>不设这一格</td><td><code>Flux2Scheduler</code></td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">表里的名字与编号都来自 <code>ComfyUI_工作流架构</code> 的真实 JSON。打开对应的 <code>.json</code>，在画布上按编号找，位置对得上。</p>
+  <p class="small quiet">01 号的 <b>#177</b> 是旁支，不落盘；最终输出在 <b>#196</b> 子图里（子图 <code>#136 CFGGuider</code> 的 CFG 是 5）。</p>
+
+  <h3>为什么只换采样器，图就跟着变</h3>
+  <p>四件事里的第③件“减掉一点”，规则在采样器手里。<code>euler</code> 沿着预测方向走一步，落点确定；<code>euler_ancestral</code> 走完还要再撒一点随机噪声，所以同样步数下画面更“活”，也更难和上一次完全一样。</p>
+  <p><code>uni_pc</code> 走的是另一套预测方式：同样步数，它更愿意用多阶估计去逼近终点。05 的局部重绘挑它，是为了在 25 步里把一块小区域修干净。</p>
+
+  <h2 id="steps"><span class="no">04 / 速览</span>步数给多少：先给结论</h2>
+  <p>步数（<code>steps</code>）是擦噪声的轮数，不是“画几笔”。20 步是常见起点；15 步偏低，细节与文字边缘偏软；30 步以上收益递减，多数模型只剩很小的变化。</p>
+  <p class="small quiet" style="margin-bottom:0">完整对照表、denoise 与那张滑杆，在 <a href="l1-02b-steps-denoise.html">L1-02b · 步数与 denoise</a>。</p>
+
+  <h2 id="practice"><span class="no">05 / 动手</span>只换采样器，才算实验</h2>
+  <p class="small quiet">三次都只动采样器这一格。种子（seed）先锁死，其余参数一律不碰；否则你分不清变化是谁带来的。</p>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 <code>04📚基础版 建筑毛坯+参考图出图 .json</code>，锁定 <b>#4 KSampler</b> 的种子（seed，决定底稿长什么样的编号；不是步数，换种子等于换一张底稿，L1-03 专讲），步数保持 15。先把 <code>euler_ancestral</code> 跑一次，再换成 <code>euler</code> 跑一次。</p><p class="why">目标：看清“每步掺不掺随机”带来的差别。构图大体不动，边缘和材质的随机感会变。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 05，找到 <b>#257 DetailerForEach</b>，其余不动，把采样器从 <code>uni_pc</code> 换成 <code>euler_ancestral</code>。</p><p class="why">目标：同一块遮罩区域，看清多阶预测和单步欧拉各自的收尾方式。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>找到用 <code>euler</code> 的 LINK 练习工作流，把采样器换成 <code>euler_ancestral</code>，种子与步数都不动。</p><p class="why">目标：反向验证第 1 题——不掺随机的路径，换成掺随机的路径，画面多出多少变化。</p></div></div>
+  </div>
+
+  <div class="callout myth">
+    <p><b>常见误解：</b>“换个采样器等于换个模型。”更准确：模型只负责猜噪声，采样器只负责怎么走。换采样器能让画面更稳或更活、细节收得更干净，却换不来另一种画风。</p>
+  </div>
+
+  <h2 id="check"><span class="no">06 / 自检</span>五句话，检验是否真的懂</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能用自己的话讲出每一步的四件事，而不只是说“生成图片”。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清采样器（sampler）和调度器（scheduler）各管什么。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 <code>euler_ancestral</code> 与 <code>euler</code> 差在每一步掺不掺随机。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 05 的 <code>uni_pc</code> 配 <code>sgm_uniform</code>，出现在 #257。</span></label>
+    <label class="check"><input type="checkbox"><span>我能在工作流里按名字找到 <code>normal</code>、<code>simple</code>、<code>sgm_uniform</code> 三种调度器。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-01b-vae-codec.html"><span class="dir">← 上一课</span>L1-01b VAE 编解码</a>
+    <a href="l1-02b-steps-denoise.html"><span class="dir">下一课 →</span>L1-02b 步数与 denoise</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l1-02-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

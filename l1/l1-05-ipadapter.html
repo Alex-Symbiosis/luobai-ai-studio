@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-05 IPAdapter · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:870px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:28px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:680px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 0}
+.layer{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 13px;font-family:var(--sans);box-shadow:var(--shadow)}
+.layer .n{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.08em}
+.layer b{display:block;font-size:13.5px;margin:3px 0}
+.layer span{font-size:11.5px;color:var(--muted);line-height:1.6}
+.layer:nth-child(1){border-top:3px solid var(--violet)}
+.layer:nth-child(2){border-top:3px solid var(--accent)}
+.layer:nth-child(3){border-top:3px solid var(--teal)}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--violet);background:var(--violet-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--violet)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:16px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:12.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:13.5px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.type{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 17px;box-shadow:var(--shadow)}
+.type h4{font-family:var(--sans);font-size:14.5px;margin:0 0 5px}
+.type .tag{font-family:var(--mono);font-size:10.5px;color:var(--violet);background:var(--violet-soft);padding:2px 6px;border-radius:5px}
+.type p{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.7}
+.sim{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.sim-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.sim-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.sim-head .val{font-family:var(--mono);color:var(--violet);font-weight:700}
+.ctl{margin-top:14px}
+.ctl .lab{display:flex;justify-content:space-between;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:2px}
+input[type=range]{width:100%;accent-color:var(--violet);margin:4px 0 0;height:22px}
+.meters{display:grid;gap:9px;margin:14px 0 4px}
+.meter{display:grid;grid-template-columns:78px 1fr 42px;gap:10px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--muted)}
+.meter .bar{height:8px;background:#eeece6;border-radius:99px;overflow:hidden}
+.meter .bar i{display:block;height:100%;border-radius:99px;background:var(--violet);transition:width .18s ease}
+.meter .bar i.content{background:var(--teal)}
+.verdict{font-family:var(--sans);font-size:13px;background:var(--paper);border:1px dashed var(--line2);border-radius:9px;padding:9px 12px;margin-top:12px;line-height:1.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.split li{margin:5px 0}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .layers,.types,.split{grid-template-columns:1fr}
+  .meter{grid-template-columns:68px 1fr 38px}
+  table{font-size:11.5px}th,td{padding:7px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 05</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-05 IPAdapter</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第五课</span>
+    <h1>IPAdapter：<br>参考图给的是“气质”，不是“复印件”</h1>
+    <p class="lede">你手上有一张图，说不上来好在哪，就是想要那种感觉。IPAdapter 做的就是这件事。它把参考图读成一个向量，再塞进采样过程。出图就带上同样的色彩、材质和氛围。构图它不管，那块归 ControlNet。这一课讲清三件事：参考图怎么变成风格、它和 ControlNet 与图生图怎么分工、五个真实工作流怎么填。</p>
+    <div class="meta"><span>预计 14 分钟</span><span>零基础可读</span><span>对应节点：IPAdapterAdvanced / IPAdapterNoise</span></div>
+    <div class="layers" aria-hidden="true">
+      <div class="layer"><div class="n">01 / REFERENCE</div><b>参考图</b><span>提供风格、色彩、材质</span></div>
+      <div class="layer"><div class="n">02 / EMBEDDING</div><b>图像向量</b><span>CLIP Vision 读成一组数</span></div>
+      <div class="layer"><div class="n">03 / INJECTION</div><b>注入采样</b><span>每一步影响注意力</span></div>
+    </div>
+  </header>
+
+  <h2 id="why"><span class="no">01 / 场景</span>“我想要这种感觉”，但说不清是什么感觉</h2>
+  <p>你翻到一张很喜欢的图。暖木色、低饱和、傍晚的柔光。你照着写提示词：“warm wood, low saturation, soft evening light”。生成出来的图，总差一点。颜色能写清楚，材质和光照的配比写不出来。</p>
+  <p><b>结论：IPAdapter 不是 ControlNet。</b>ControlNet 管构图对齐，IPAdapter 管像不像参考图的风格。IPAdapter（图像提示适配器）做的事很直接。它不靠文字描述风格。直接把参考图读成一个向量，再注入生成过程。</p>
+  <p>它也不挑参考图。图和你的底图构图可以完全不一样，内容也不必相同。</p>
+
+  <div class="callout">
+    <p><b>一句话结论：</b>IPAdapter 注入的是图像嵌入（image embedding），也就是一张图被压成的一组数。反例：它不是缩略图，不是把参考图缩小贴上去。</p>
+    <p>画什么、在哪、什么结构，仍归底图和提示词管。</p>
+  </div>
+
+  <h2 id="how"><span class="no">02 / 机制</span>一张参考图，怎么变成“风格”</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 460 310" role="img" aria-label="参考图经 CLIP Vision 变成向量，注入采样器；底图与提示词决定内容">
+      <defs>
+        <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+      <!-- 左列：参考图 → CLIP Vision → 向量 -->
+      <rect x="16" y="24" width="132" height="52" rx="10" fill="#f3efff" stroke="#7c4ddb"/>
+      <text x="82" y="43" text-anchor="middle" dominant-baseline="middle" class="svg-title">参考图</text>
+      <text x="82" y="61" text-anchor="middle" dominant-baseline="middle" class="svg-sub">只提供风格</text>
+
+      <line x1="82" y1="80" x2="82" y2="108" stroke="#5d6779" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="92" y="94" text-anchor="start" dominant-baseline="middle" class="svg-lbl">编码</text>
+
+      <rect x="16" y="112" width="132" height="52" rx="10" fill="#fff" stroke="#cbc6ba"/>
+      <text x="82" y="131" text-anchor="middle" dominant-baseline="middle" class="svg-title">CLIP Vision</text>
+      <text x="82" y="149" text-anchor="middle" dominant-baseline="middle" class="svg-sub">读图的编码器</text>
+
+      <line x1="82" y1="168" x2="82" y2="196" stroke="#5d6779" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="92" y="182" text-anchor="start" dominant-baseline="middle" class="svg-lbl">变成向量</text>
+
+      <rect x="16" y="200" width="132" height="52" rx="10" fill="#f3efff" stroke="#7c4ddb"/>
+      <text x="82" y="219" text-anchor="middle" dominant-baseline="middle" class="svg-title">图像向量</text>
+      <text x="82" y="237" text-anchor="middle" dominant-baseline="middle" class="svg-sub">风格被压成数</text>
+
+      <!-- 右列：底图 + 提示词 → 采样器 → 出图 -->
+      <rect x="300" y="24" width="144" height="52" rx="10" fill="#fff" stroke="#cbc6ba"/>
+      <text x="372" y="43" text-anchor="middle" dominant-baseline="middle" class="svg-title">底图 + 提示词</text>
+      <text x="372" y="61" text-anchor="middle" dominant-baseline="middle" class="svg-sub">决定画什么</text>
+
+      <line x1="372" y1="80" x2="372" y2="114" stroke="#5d6779" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="362" y="97" text-anchor="end" dominant-baseline="middle" class="svg-lbl">内容驱动</text>
+
+      <rect x="300" y="118" width="144" height="76" rx="10" fill="#fff" stroke="#4051d6"/>
+      <text x="372" y="146" text-anchor="middle" dominant-baseline="middle" class="svg-title">采样器</text>
+      <text x="372" y="166" text-anchor="middle" dominant-baseline="middle" class="svg-sub">每一步都参考向量</text>
+
+      <line x1="372" y1="198" x2="372" y2="228" stroke="#5d6779" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="382" y="213" text-anchor="start" dominant-baseline="middle" class="svg-lbl">解码</text>
+
+      <rect x="300" y="232" width="144" height="52" rx="10" fill="#fff" stroke="#cbc6ba"/>
+      <text x="372" y="251" text-anchor="middle" dominant-baseline="middle" class="svg-title">出图</text>
+      <text x="372" y="269" text-anchor="middle" dominant-baseline="middle" class="svg-sub">风格被带上</text>
+
+      <!-- 注入：折线走空白区，箭头距采样器 4px -->
+      <path d="M152,226 H220 V175 H296" fill="none" stroke="#7c4ddb" stroke-width="1.8" marker-end="url(#ar)"/>
+      <text x="258" y="161" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">注入风格向量</text>
+    </svg>
+    <figcaption>左列负责风格，右列负责内容，两条线在采样器汇合。</figcaption>
+  </figure>
+
+  <p>先说结论：<b>参考图不会被贴到画布上。</b>它走的是另一条路。</p>
+  <p>参考图先过 CLIP Vision（看图并转成向量的那道工序）。反例：它不是“认得出图里有什么”的看图工具。它不输出“这是一张餐厅照片”，只输出一组数。</p>
+  <p>这组数就是图像嵌入。采样器每一步都拿它一起算，这一步叫注入注意力。L1-02 讲过采样器，这里只要知道它在改图就行。</p>
+  <p>注意力（attention）：采样器每一步给几种条件打分，决定这一步多听谁一点。反例：它跟“注意力集不集中”没关系，说的是权重怎么分。</p>
+  <p>所以你拿一张餐厅照片的风格，去生成一栋建筑也行。锁住建筑结构、只换材质与色调，也行。</p>
+
+  <h2 id="versus"><span class="no">03 / 分工</span>和 ControlNet、图生图到底差在哪</h2>
+  <p>三件事常被混着说。先分清谁管什么，再谈叠加。</p>
+  <table>
+    <thead><tr><th style="width:18%">手段</th><th style="width:27%">管什么</th><th style="width:27%">参考图怎么用</th><th style="width:28%">典型结果</th></tr></thead>
+    <tbody>
+      <tr><td>图生图</td><td>整体重画</td><td>整张图编码进潜空间</td><td>构图接近原图，细节被重绘</td></tr>
+      <tr><td>ControlNet</td><td>结构 / 轮廓 / 深度</td><td>先变成控制图，再作为条件</td><td>窗位、体块、线条被锁住</td></tr>
+      <tr><td><b>IPAdapter</b></td><td><b>风格 / 色彩 / 材质</b></td><td>编码成图像向量，注入注意力</td><td>气质接近参考图，构图仍自由</td></tr>
+    </tbody>
+  </table>
+  <p>它们能叠着用。04 建筑工作流就是三层：ControlNet 锁结构，IPAdapter 带风格，提示词定内容。风格图和底图，来自两张不同的 LoadImage。</p>
+  <p>表里图生图那一路，压进的是潜空间。潜空间是把像素按 1/8 缩小后的草稿画布，L1-01 拆过，这里知道图被缩小去过一遍就行。反例：它不是图片文件，不能直接交给人看。</p>
+  <p class="small quiet">表里说的“条件”，全名 CONDITIONING：编码后的引导信息，L2-02 专门讲。</p>
+
+  <h2 id="real"><span class="no">04 / 真实参数</span>五个工作流，同一套 IPAdapter</h2>
+  <p>别从零猜。五个工作流已经调好了，先看它们填了什么。</p>
+  <table>
+    <thead><tr><th style="width:26%">工作流</th><th style="width:12%">权重</th><th style="width:24%">weight_type</th><th style="width:20%">区间</th><th style="width:18%">其余</th></tr></thead>
+    <tbody>
+      <tr><td>02 线稿+参考图 · #134</td><td><b>0.70</b></td><td><code>strong style transfer</code></td><td>0 → 1.0</td><td>concat · V only</td></tr>
+      <tr><td>03 室内毛坯 · #37</td><td><b>0.75</b></td><td><code>style transfer</code></td><td>0 → 0.9</td><td>concat · V only</td></tr>
+      <tr><td>04 建筑毛坯 · #37</td><td><b>0.70</b></td><td><code>style transfer</code></td><td>0 → 0.95</td><td>concat · V only</td></tr>
+      <tr><td>IPA 风格迁移 · #37</td><td><b>0.72</b></td><td><code>strong style transfer</code></td><td>0 → 0.877</td><td>concat · V only</td></tr>
+      <tr><td>LINK 练习 · #10</td><td><b>0.80</b></td><td><code>style transfer</code></td><td>0 → 1.0</td><td>concat · V only</td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">五个工作流用的是同一套文件。模型文件都是 <code>ip-adapter-plus_sdxl_vit-h.safetensors</code>，CLIP Vision 都是 <code>CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors</code>。权重集中在 0.70–0.80，没有出现 1.0。</p>
+  <p>表里的权重列，就是 <code>weight</code>：风格掺进去多少。反例：它不是音量，加满不会更好。</p>
+  <p><code>combine_embeds</code> 管多张参考图的向量怎么合并。表里的 <code>concat</code> 就是它的取值：几张图的向量直接拼在一起。反例：它不是把几张贴图叠起来。</p>
+
+  <div class="types">
+    <div class="type">
+      <h4>style transfer <span class="tag">03 / 04 / LINK</span></h4>
+      <p>偏色彩、材质、光影氛围，对构图动得少。结构已经被 ControlNet 管住了，只想补气质，选它。</p>
+    </div>
+    <div class="type">
+      <h4>strong style transfer <span class="tag">02 / IPA</span></h4>
+      <p>风格更浓。纹理、笔触都更贴参考图，代价是对构图的影响也变大。参考图本身就是你要的风格，选它。</p>
+    </div>
+  </div>
+  <p class="small quiet">下拉里还有 composition 等其他模式，本套 13 个 JSON 没有使用；不同 IPAdapter 版本的命名可能略有差异，以你实际看到的选项为准。</p>
+  <p>权重与 weight_type 怎么配合，区间又该截在哪，<a href="l1-05b-params-noise.html">L1-05b 参数与噪声</a> 逐项拆开。这里先把这张表读顺：谁用了哪一档，停在哪一步。</p>
+
+  <h2 id="practice"><span class="no">05 / 动手</span>风格 vs 结构：换一样，看另一样</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，锁定 <b>#4</b> 的种子。<b>#33</b> 的参考图换成另一种材质或色调，底图 <b>#15</b> 和提示词都不动，跑一次。</p><p class="why">要看的：变的是气质，不是建筑结构。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>同一张图、同一颗种子，把 <b>#37 IPAdapterAdvanced</b> 静音，再跑一次。</p><p class="why">要看的：风格退场，结构还在。构图从来不由 IPAdapter 管。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>反过来验证。把 ControlNet 那一路静音，只留 IPAdapter，其余不动。</p><p class="why">要看的：结构松了，气质还贴着参考图。两张图并排，谁管什么一目了然。</p></div></div>
+  </div>
+
+  <div class="callout tip">
+    <p><b>一条判断标准：</b>结构是你给的，气质是参考图给的。出图的结构跟着参考图跑，先别夸 IPAdapter，回头查图生图、ControlNet 和底图那三个入口。</p>
+  </div>
+
+  <h2 id="check"><span class="no">06 / 自检</span>把“风格”和“结构”分开</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能解释 IPAdapter 注入的是图像嵌入，不是把参考图贴上去。</span></label>
+    <label class="check"><input type="checkbox"><span>我能区分 IPAdapter、ControlNet、图生图三者各自管什么。</span></label>
+    <label class="check"><input type="checkbox"><span>我能指出 04 里参考图、底图、IPAdapter 三个节点编号。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道五个工作流的权重集中在 0.70–0.80，用的是同一套模型文件。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说清“出图构图和参考图一样”为什么不等于 IPAdapter 起作用。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-04b-json-settings.html"><span class="dir">← 上一课</span>L1-04b 这套 JSON 怎么填</a>
+    <a href="l1-05b-params-noise.html"><span class="dir">下一课 →</span>L1-05b 参数与噪声</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l1-05-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

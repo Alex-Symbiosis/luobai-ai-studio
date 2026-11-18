@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<title>AI 入门与 ComfyUI 出图课 · 课程地图</title>
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --course-name:"AI 入门与 ComfyUI 出图课";
+    --course-tagline:"面向大学生与普通人的 AI 入门课";
+    --course-author:"李智博";
+    --course-year:"2026";
+    --paper:#f6f5f1;
+    --card:#ffffff;
+    --ink:#18212f;
+    --muted:#5d6779;
+    --faint:#8b93a3;
+    --line:#e2ded4;
+    --line2:#cbc6ba;
+    --accent:#4051d6;
+    --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c;
+    --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206;
+    --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63;
+    --rose-soft:rgba(194,46,99,.09);
+    --violet:#7c4ddb;
+    --violet-soft:rgba(124,77,219,.10);
+    --ok:#0f7a6c;
+    --pending:#8b93a3;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -18px rgba(24,33,47,.30);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:
+      linear-gradient(90deg,rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      linear-gradient(rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      var(--paper);
+    color:var(--ink);
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:60;
+    background:rgba(246,245,241,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;letter-spacing:.01em;white-space:nowrap}
+  .brand .mark{
+    width:22px;height:22px;border-radius:6px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--accent),var(--teal));
+    position:relative;
+  }
+  .brand .mark::after{
+    content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9;
+  }
+  .topnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{
+    color:var(--muted);font-size:13px;font-weight:600;
+    padding:6px 10px;border-radius:8px;white-space:nowrap;
+  }
+  .topnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  /* ---------- hero / cover ---------- */
+  header.hero{padding:92px 0 18px}
+  .cover-rule{width:44px;height:3px;background:var(--accent);border-radius:2px;margin:22px 0 20px}
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:700;letter-spacing:.14em;
+    color:var(--accent);background:var(--accent-soft);
+    border:1px solid rgba(64,81,214,.22);
+    padding:5px 12px;border-radius:999px;margin-bottom:20px;
+  }
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  h1{
+    font-size:clamp(34px,6.2vw,64px);line-height:1.12;
+    letter-spacing:-.035em;font-weight:800;max-width:1000px;
+  }
+  .hero-tagline{
+    margin-top:6px;font-size:clamp(16px,2.1vw,19px);
+    line-height:1.6;font-weight:600;color:var(--muted);letter-spacing:.01em;
+  }
+  .byline{
+    margin-top:24px;display:flex;align-items:center;gap:10px;
+    font-size:13px;color:var(--faint);letter-spacing:.06em;
+  }
+  .byline .rule{width:32px;height:1px;background:var(--line2)}
+  .byline b{color:var(--ink);font-weight:700}
+  .lede{max-width:760px;margin-top:18px;color:var(--muted);font-size:16.5px;line-height:1.75}
+  .statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px;max-width:900px}
+  .stat{
+    background:rgba(255,255,255,.7);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);
+  }
+  .stat b{display:block;font-size:26px;line-height:1.2;letter-spacing:-.02em}
+  .stat span{font-size:12.5px;color:var(--muted)}
+  .stat b i{font-style:normal;color:var(--faint);font-size:15px;font-weight:600}
+
+  /* ---------- route overview ---------- */
+  .route-hero{
+    margin-top:34px;background:var(--card);border:1px solid var(--line);
+    border-radius:18px;box-shadow:var(--shadow);padding:24px 24px 20px;
+  }
+  .route-hero h2{font-size:14px;letter-spacing:.12em;color:var(--faint);font-weight:700;text-transform:uppercase}
+  .chain{display:flex;align-items:stretch;gap:0;margin-top:18px;flex-wrap:wrap}
+  .chain .seg{
+    flex:1 1 150px;min-width:132px;position:relative;padding:14px 16px 14px 22px;
+    border:1px solid var(--line);border-left:none;background:#fbfaf7;
+  }
+  .chain .seg:first-child{border-left:1px solid var(--line);border-radius:12px 0 0 12px;padding-left:16px}
+  .chain .seg:last-child{border-radius:0 12px 12px 0}
+  .chain .seg::after{
+    content:"";position:absolute;right:-7px;top:50%;width:12px;height:12px;
+    background:#fbfaf7;border-top:1px solid var(--line);border-right:1px solid var(--line);
+    transform:translateY(-50%) rotate(45deg);z-index:2;
+  }
+  .chain .seg:last-child::after{display:none}
+  .chain .seg.branch{background:#fff}
+  .seg .stage{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint)}
+  .seg .name{font-weight:700;font-size:14px;margin-top:3px}
+  .seg .cnt{font-size:12px;color:var(--muted);margin-top:2px}
+  .seg.tone-a{border-top:3px solid var(--violet)}
+  .seg.tone-0{border-top:3px solid var(--teal)}
+  .seg.tone-1{border-top:3px solid var(--accent)}
+  .seg.tone-2{border-top:3px solid var(--amber)}
+  .seg.tone-3{border-top:3px solid var(--rose)}
+
+  /* ---------- generic section ---------- */
+  section{padding:56px 0 4px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em}
+  h2.title{font-size:clamp(23px,3vw,30px);letter-spacing:-.02em;line-height:1.3}
+  .sec-lead{color:var(--muted);max-width:780px;margin:8px 0 24px}
+
+  /* ---------- layer ---------- */
+  .layer{
+    display:grid;grid-template-columns:132px 1fr;gap:0;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);overflow:hidden;margin:16px 0;
+  }
+  .layer .rail{
+    padding:20px 18px;border-right:1px solid var(--line);
+    display:flex;flex-direction:column;gap:4px;
+    background:linear-gradient(180deg,#fbfaf7,#f7f6f2);
+  }
+  .layer .rail .code{font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:-.02em}
+  .layer .rail .lname{font-size:13px;font-weight:700}
+  .layer .rail .lmeta{font-size:11.5px;color:var(--faint);margin-top:auto;padding-top:10px}
+  .layer .body{padding:18px 20px 20px;min-width:0}
+  .layer .lede{font-size:13.5px;color:var(--muted);margin:0 0 14px}
+  .layer.a .rail{border-left:4px solid var(--violet)}
+  .layer.l0 .rail{border-left:4px solid var(--teal)}
+  .layer.l1 .rail{border-left:4px solid var(--accent)}
+  .layer.l2 .rail{border-left:4px solid var(--amber)}
+  .layer.l3 .rail{border-left:4px solid var(--rose)}
+
+  .lessons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .lesson{
+    display:flex;gap:12px;align-items:flex-start;
+    border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:#fff;
+    transition:border-color .15s,background .15s;
+  }
+  a.lesson{color:inherit;text-decoration:none}
+  a.lesson:hover{text-decoration:none}
+  .lesson .no{
+    font-family:var(--mono);font-size:11px;font-weight:700;color:var(--faint);
+    flex:0 0 auto;padding-top:2px;min-width:34px;
+  }
+  .lesson .lt{font-size:13.5px;font-weight:600;line-height:1.45}
+  .lesson .lm{font-size:11.5px;color:var(--faint);margin-top:2px;line-height:1.5}
+  .lesson .lm code{color:var(--muted)}
+  .lesson.done{border-color:rgba(15,122,108,.35);background:linear-gradient(180deg,rgba(15,122,108,.055),#fff)}
+  .lesson.done:hover{border-color:var(--teal)}
+  .lesson.link:hover{background:#fff;border-color:var(--teal);box-shadow:0 4px 14px -8px rgba(24,33,47,.35)}
+  .lesson.pending{opacity:.82}
+  .lesson.reserved{border-style:dashed;background:#fdfcfa}
+  .badge{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+    padding:2px 8px;border-radius:999px;white-space:nowrap;vertical-align:1px;
+  }
+  .badge.done{color:#fff;background:var(--ok)}
+  .badge.pending{color:#6b7280;background:#eef0f4}
+  .badge.next{color:var(--amber);background:var(--amber-soft)}
+
+  /* ---------- lines ---------- */
+  .lines{display:grid;gap:14px;margin-top:8px}
+  .line-card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);padding:18px 20px 20px;min-width:0;
+  }
+  .line-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .line-tag{
+    font-family:var(--mono);font-weight:700;font-size:12px;color:#fff;
+    width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  }
+  .line-a .line-tag{background:var(--accent)}
+  .line-b .line-tag{background:var(--teal)}
+  .line-c .line-tag{background:var(--rose)}
+  .line-d .line-tag{background:var(--amber)}
+  .line-name{font-weight:800;font-size:16px}
+  .line-sub{font-size:12.5px;color:var(--muted)}
+  .line-track{display:flex;align-items:stretch;gap:0;margin-top:16px;overflow-x:auto;padding-bottom:4px}
+  .stop{
+    flex:1 1 0;min-width:112px;position:relative;
+    padding-top:22px;padding-right:8px;border-top:3px solid #d8d3c7;
+  }
+  .line-a .stop{border-top-color:rgba(64,81,214,.28)}
+  .line-b .stop{border-top-color:rgba(15,122,108,.28)}
+  .line-c .stop{border-top-color:rgba(194,46,99,.25)}
+  .stop::before{
+    content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;
+    background:#fff;border:3px solid #cfc9bc;
+  }
+  .line-a .stop::before{border-color:#a9b0f0}
+  .line-b .stop::before{border-color:#9fd0c8}
+  .line-c .stop::before{border-color:#efb3c8}
+  .stop.current::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px rgba(64,81,214,.14)}
+  .line-b .stop.current::before{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 5px rgba(15,122,108,.14)}
+  .line-c .stop.current::before{background:var(--rose);border-color:var(--rose);box-shadow:0 0 0 5px rgba(194,46,99,.14)}
+  .stop .sc{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.05em}
+  .stop .st{font-size:13px;font-weight:700;line-height:1.4;margin-top:2px}
+  .stop .ss{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .stop.done .st{color:var(--teal)}
+  .stop.reserved{border-top-style:dashed}
+  .stop.reserved .st,.stop.reserved .ss{color:var(--faint)}
+  .stop.reserved::before{background:#fbfaf7;border-style:dashed}
+
+  /* ---------- anchors ---------- */
+  .anchor-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  .anchor{
+    display:block;color:inherit;text-decoration:none;
+    border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;
+    scroll-margin-top:80px;transition:border-color .15s,box-shadow .15s;
+  }
+  a.anchor:hover{border-color:var(--amber);box-shadow:0 4px 14px -10px rgba(24,33,47,.4);text-decoration:none}
+  .anchor .an{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--amber)}
+  .anchor .ad{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .anchor:target{outline:2px solid var(--amber);outline-offset:2px;background:#fffaf2}
+
+  /* ---------- rules ---------- */
+  .rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .rulecard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .rulecard h3{font-size:14px;margin-bottom:6px}
+  .rulecard p{font-size:13px;color:var(--muted);margin:0}
+  .rulecard .rn{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em;margin-bottom:8px}
+  .steps{list-style:none;counter-reset:s;margin-top:6px}
+  .steps li{
+    counter-increment:s;position:relative;padding:8px 0 8px 34px;
+    font-size:13px;color:var(--muted);border-top:1px dashed var(--line);
+  }
+  .steps li:first-child{border-top:none}
+  .steps li::before{
+    content:counter(s);position:absolute;left:0;top:9px;
+    width:22px;height:22px;border-radius:6px;background:var(--accent-soft);color:var(--accent);
+    font-family:var(--mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  }
+  .note{
+    border-left:3px solid var(--amber);background:var(--amber-soft);
+    border-radius:0 12px 12px 0;padding:14px 18px;margin:18px 0;font-size:13.5px;
+  }
+  .note b{color:var(--amber)}
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:620px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent)}
+
+  footer{margin-top:64px;border-top:1px solid var(--line);padding:28px 0 48px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+  @media (max-width:900px){
+    .lessons{grid-template-columns:1fr}
+    .rules{grid-template-columns:1fr}
+    .anchor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .statrow{grid-template-columns:repeat(2,1fr)}
+    .layer{grid-template-columns:1fr}
+    .layer .rail{border-right:none;border-bottom:1px solid var(--line);flex-direction:row;align-items:center;gap:10px}
+    .layer .rail .lmeta{margin:0;padding:0;margin-left:auto}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 16px}
+    .chain .seg{flex:1 1 100%;border-left:1px solid var(--line);border-radius:10px!important;margin-bottom:8px}
+    .chain .seg::after{display:none}
+    .anchor-grid{grid-template-columns:1fr}
+    .line-track{flex-wrap:wrap;overflow-x:visible;gap:16px 12px}
+    .stop{flex:1 1 calc(50% - 12px);min-width:0}
+  }
+  @media print{
+    .topbar,.topnav{display:none}
+    body{background:#fff}
+    section{padding:24px 0 0;page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <nav class="topnav">
+      <a href="#route">路线</a>
+      <a href="#gates">分级解锁</a>
+      <a href="#layers">五层结构</a>
+      <a href="#split">拆课清单</a>
+      <a href="#anchors">术语锚点</a>
+      <a href="guides/term-graph.html">术语依赖图</a>
+      <a href="guides/language-spec.html">语言规范</a>
+      <a href="guides/visual-spec.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker"><span class="dot"></span>COURSE MAP · <span data-bind="year">2026</span></span>
+    <h1 data-bind="name">AI 入门与 ComfyUI 出图课</h1>
+    <div class="cover-rule"></div>
+    <p class="hero-tagline" data-bind="tagline">面向大学生与普通人的 AI 入门课</p>
+    <p class="lede">
+      一套五层 51 课的体系，按关卡一层层往下走：先用 A 层建立共同语言，再过一道桥进入节点图，然后按出图、改图、增强三条线做单品课。每一课只使用前面已经拆过的术语；没拆过的，当场解释或明说出处。
+    </p>
+    <div class="byline"><span class="rule"></span><b data-bind="author">李智博</b><span>编</span><span>·</span><span><span data-bind="year">2026</span> 版</span></div>
+    <div class="statrow">
+      <div class="stat"><b>5 <i>层</i></b><span>A 通识 → L3 单品</span></div>
+      <div class="stat"><b>51 <i>课</i></b><span>全部已交付</span></div>
+      <div class="stat"><b>29 <i>术语</i></b><span>依赖图拆到最小单位</span></div>
+      <div class="stat"><b>0 <i>待写</i></b><span>五关全部落地</span></div>
+    </div>
+
+    <div class="route-hero" id="route">
+      <h2>学习路线总览</h2>
+      <div class="chain">
+        <div class="seg tone-a">
+          <div class="stage">A · 8 课</div>
+          <div class="name">AI 通识</div>
+          <div class="cnt">大模型 / 提示词 / Agent / Skill / Workflow</div>
+        </div>
+        <div class="seg tone-0">
+          <div class="stage">L0 · 5 课</div>
+          <div class="name">ComfyUI 开篇</div>
+          <div class="cnt">是什么 / 装什么 / 界面 / 出一次图 / 读懂主链</div>
+        </div>
+        <div class="seg tone-1">
+          <div class="stage">L1 · 11 课</div>
+          <div class="name">原理</div>
+          <div class="cnt">潜空间 / 噪声 / 采样 / CFG / 种子 / 控制</div>
+        </div>
+        <div class="seg tone-2">
+          <div class="stage">L2 · 13 课</div>
+          <div class="name">节点字典</div>
+          <div class="cnt">输入 / 编码 / 条件 / 采样 / 组织 / 检测</div>
+        </div>
+        <div class="seg tone-3 branch">
+          <div class="stage">L3 · 14 课</div>
+          <div class="name">三条线</div>
+          <div class="cnt">A 出图 · B 改图 · C 增强 · D 综合</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 分级解锁 -->
+  <section id="gates"><span id="how"></span>
+    <div class="sec-head"><span class="sec-num">GATES</span><h2 class="title">分级解锁：一层跑通，才开下一层</h2></div>
+    <p class="sec-lead">这不是目录，是关卡。每关有一个明确的「过关动作」；做不到，就别往下走——后面的每一节都默认你带着上一关的东西来。</p>
+    <div class="rules">
+      <div class="rulecard">
+        <div class="rn">GATE 1 · A 层 8 课</div>
+        <h3>先有共同语言</h3>
+        <p>过关动作：能用自己的话说清「大模型 / 提示词 / Agent / 工作流」四个词的区别。说不清就回 A-04。</p>
+        <p><b>已解锁</b> · 8 课已交付</p>
+      </div>
+      <div class="rulecard">
+        <div class="rn">GATE 2 · L0 5 课</div>
+        <h3>自己跑出一张图</h3>
+        <p>过关动作：不看教程，把 01 号工作流拖进去、换一张自己的图、跑完、在 <code>output/</code> 找到文件。</p>
+        <p><b>全部解锁</b> · 5 课已交付（含 L0-02b 界面、L0-03b 主链）</p>
+      </div>
+      <div class="rulecard">
+        <div class="rn">GATE 3 · L1 11 课</div>
+        <h3>说清每个数字</h3>
+        <p>过关动作：给定一组参数（20 步 / CFG 5 / denoise 1.0），能预测改动后画面往哪走。</p>
+        <p><b>全部解锁</b> · 11 课已交付</p>
+      </div>
+      <div class="rulecard">
+        <div class="rn">GATE 4 · L2 13 课</div>
+        <h3>看得懂任何一张工作流</h3>
+        <p>过关动作：拿到一张没见过的工作流，能按类型（MODEL / IMAGE / LATENT / CONDITIONING）把主链和旁支分开。</p>
+        <p><b>全部解锁</b> · 13 课已交付</p>
+      </div>
+      <div class="rulecard">
+        <div class="rn">GATE 5 · L3 14 课</div>
+        <h3>独立改一张图</h3>
+        <p>过关动作：给你一张成品图和一句新要求，你能判断该整图重画、局部重绘还是只放大。</p>
+        <p><b>全部解锁</b> · 14 课已交付</p>
+      </div>
+    </div>
+    <div class="note">
+      <b>本页只链真实存在的文件。</b>51 课全部交付（A 8 · L0 5 · L1 11 · L2 13 · L3 14），没有待写卡片，也不做假跳转。术语顺序依据见 <a href="guides/term-graph.html">术语依赖图</a>。
+    </div>
+  </section>
+
+  <!-- 五层 -->
+  <section id="layers">
+    <div class="sec-head"><span class="sec-num">STRUCTURE</span><h2 class="title">五层结构</h2></div>
+    <p class="sec-lead">A 层解决「AI 是什么」，L0 解决「ComfyUI 怎么跑起来」，L1 解决「为什么这样设置」，L2 解决「这个节点是干什么的」，L3 解决「这一套工作流怎么用、怎么改」。所有卡片都已挂上真实文件。</p>
+
+    <!-- A -->
+    <div class="layer a" id="a">
+      <div class="rail">
+        <div class="code">A</div>
+        <div class="lname">AI 通识</div>
+        <div class="lmeta">第 1 关 · 8 课 · 8 已交付</div>
+      </div>
+      <div class="body">
+        <p class="lede">面向完全零基础：分不清大模型、提示词、Agent、Skill、Workflow 的读者，先在这里建立统一语言，再进 ComfyUI。</p>
+        <div class="lessons">
+          <a class="lesson done link" id="a-01" href="a/a01-ai-landscape.html">
+            <div class="no">A-01</div>
+            <div><div class="lt">一张图看清 AI 家族</div><div class="lm">判别式 / 生成式 · 大模型 / 扩散 · 多模态 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-02" href="a/a02-what-llms-do.html">
+            <div class="no">A-02</div>
+            <div><div class="lt">大模型在做什么</div><div class="lm">接龙、token、温度、上下文与幻觉 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-03" href="a/a03-prompt-grammars.html">
+            <div class="no">A-03</div>
+            <div><div class="lt">提示词的两套语法</div><div class="lm">对话式四槽位 vs 图像式条件清单 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-04" href="a/a04-word-family.html">
+            <div class="no">A-04</div>
+            <div><div class="lt">词族辨析：Agent / Tool / MCP / Skill / Workflow</div><div class="lm">六个词的层级、包含关系与同名陷阱 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-05" href="a/a05-ai-limits.html">
+            <div class="no">A-05</div>
+            <div><div class="lt">AI 的能力边界</div><div class="lm">四个问题、验收方法与风险分级 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-06" href="a/a06-chat-to-orchestration.html">
+            <div class="no">A-06</div>
+            <div><div class="lt">从跟 AI 说话到编排 AI</div><div class="lm">聊天的三个不可控 → 工作流 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-07" href="a/a07-glossary.html">
+            <div class="no">A-07</div>
+            <div><div class="lt">术语对照表</div><div class="lm">按主题分组、按首见课溯源；80 条术语 · 六组易混词对照 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="a-08" href="a/a08-whos-ai.html">
+            <div class="no">A-08</div>
+            <div><div class="lt">谁家的 AI</div><div class="lm">32 个品牌 · 6 组场景 · 先认六个 + 完整地图 · <span class="badge done">已交付</span></div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- L0 -->
+    <div class="layer l0" id="l0">
+      <div class="rail">
+        <div class="code">L0</div>
+        <div class="lname">开篇</div>
+        <div class="lmeta">第 2 关 · 5 课 · 5 已交付</div>
+      </div>
+      <div class="body">
+        <p class="lede">从 A 层的「说话」走到节点图，再装好、认清界面、完整跑一次、读懂主链。五节全部交付：L0-02b 把界面讲细，L0-03b 把主链讲透。</p>
+        <div class="lessons">
+          <a class="lesson done link" id="l0-01" href="l0/l0-01-what-is-comfyui.html">
+            <div class="no">L0-01</div>
+            <div><div class="lt">ComfyUI 是什么</div><div class="lm">网页版 vs 工作流 · 为什么专业出图要走节点图 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l0-02" href="l0/l0-02-install-and-ui.html">
+            <div class="no">L0-02</div>
+            <div><div class="lt">装什么与界面怎么用</div><div class="lm">模型目录 / 界面六区 / 载入与运行 / 报错顺序 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l0-02b" href="l0/l0-02b-using-the-interface.html">
+            <div class="no">L0-02b</div>
+            <div><div class="lt">界面怎么用</div><div class="lm">六区细讲 / 三种载入 / 载入后三处红 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l0-03" href="l0/l0-03-first-generation.html">
+            <div class="no">L0-03</div>
+            <div><div class="lt">完整出一次图</div><div class="lm">01 号工作流全程：换图、改词、运行、存图 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l0-03b" href="l0/l0-03b-read-main-chain.html">
+            <div class="no">L0-03b</div>
+            <div><div class="lt">读懂 01 号主链</div><div class="lm">21 节点 / 3 子图 / 主链与旁支怎么读 · <span class="badge done">已交付</span></div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- L1 -->
+    <div class="layer l1" id="l1">
+      <div class="rail">
+        <div class="code">L1</div>
+        <div class="lname">原理</div>
+        <div class="lmeta">第 3 关 · 11 课 · 11 已交付</div>
+      </div>
+      <div class="body">
+        <p class="lede">只讲「为什么会这样」，每课配一张手绘 SVG 图和一组可复现的小实验。五节原课各自拆出一个 b 节，另加一节独立新知识；噪声与采样器选择不再单独占位，分别并进 L1-05b 与 L1-02。</p>
+        <div class="lessons">
+          <a class="lesson done link" id="l1-01" href="l1/l1-01-latent-space-vae.html">
+            <div class="no">L1-01</div>
+            <div><div class="lt">潜空间与 VAE</div><div class="lm">为什么在 128×128 里画 1024×1024 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-01b" href="l1/l1-01b-vae-codec.html">
+            <div class="no">L1-01b</div>
+            <div><div class="lt">VAE 编解码（拆出）</div><div class="lm">像素 ↔ 潜空间的有损翻译 / #16、#9、#346、#338 各自管什么 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-02" href="l1/l1-02-sampling-steps.html">
+            <div class="no">L1-02</div>
+            <div><div class="lt">采样与步数</div><div class="lm">噪声是怎么一步步被擦掉的 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-02b" href="l1/l1-02b-steps-denoise.html">
+            <div class="no">L1-02b</div>
+            <div><div class="lt">步数与 denoise（拆出）</div><div class="lm">20 步在擦什么 / denoise 0.55 改的是哪一段 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-03" href="l1/l1-03-cfg-seed.html">
+            <div class="no">L1-03</div>
+            <div><div class="lt">CFG 与种子</div><div class="lm">一个管「多听话」，一个管「从哪出发」 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-03b" href="l1/l1-03b-seed.html">
+            <div class="no">L1-03b</div>
+            <div><div class="lt">种子（拆出）</div><div class="lm">同一颗种子复现 / randomize 与 fixed · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-04" href="l1/l1-04-controlnet.html">
+            <div class="no">L1-04</div>
+            <div><div class="lt">ControlNet</div><div class="lm">让模型「照着这张图的结构」画 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-04b" href="l1/l1-04b-json-settings.html">
+            <div class="no">L1-04b</div>
+            <div><div class="lt">这套 JSON 怎么填（拆出）</div><div class="lm">预处理器配对 / union 型一个权重切模式 / 强度 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-05" href="l1/l1-05-ipadapter.html">
+            <div class="no">L1-05</div>
+            <div><div class="lt">IPAdapter</div><div class="lm">参考图给的是「气质」，不是「复印件」 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-05b" href="l1/l1-05b-params-noise.html">
+            <div class="no">L1-05b</div>
+            <div><div class="lt">参数与噪声（拆出）</div><div class="lm">weight / weight_type / 噪声与去噪怎么分工 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l1-06" href="l1/l1-06-unet-dit.html">
+            <div class="no">L1-06</div>
+            <div><div class="lt">UNet 与 DiT（补写）</div><div class="lm">真正画画的那个网络，与采样器的分工 · <span class="badge done">已交付</span></div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- L2 -->
+    <div class="layer l2" id="l2">
+      <div class="rail">
+        <div class="code">L2</div>
+        <div class="lname">节点字典</div>
+        <div class="lmeta">第 4 关 · 13 课 · 13 已交付</div>
+      </div>
+      <div class="body">
+        <p class="lede">四节原课各自拆成两到三节，另加三节独立新知识。token、Florence2、子图分别并进 L2-02、L2-02c、L2-04b；检测与分割、语义分割、Flux2 精修链单独成节。</p>
+        <div class="lessons">
+          <a class="lesson done link" id="l2-01" href="l2/l2-01-input-loading.html">
+            <div class="no">L2-01</div>
+            <div><div class="lt">输入与模型装载</div><div class="lm">Checkpoint / LoRA / CLIP / VAE / LoadImage · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-01b" href="l2/l2-01b-extra-loaders.html">
+            <div class="no">L2-01b</div>
+            <div><div class="lt">附加五项（拆出）</div><div class="lm">Checkpoint 之外：UNET / CLIP / VAE 分开装 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-02" href="l2/l2-02-text-conditioning.html">
+            <div class="no">L2-02</div>
+            <div><div class="lt">条件与提示词</div><div class="lm">CLIPTextEncode / 正负向 / token / 文本编码 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-02b" href="l2/l2-02b-structure-style.html">
+            <div class="no">L2-02b</div>
+            <div><div class="lt">结构与风格条件（拆出）</div><div class="lm">ControlNet 条件 / IPAdapter 条件 / 参考图怎么进采样 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-02c" href="l2/l2-02c-text-tools.html">
+            <div class="no">L2-02c</div>
+            <div><div class="lt">文字工具（拆出）</div><div class="lm">翻译 / Florence2 反推 / 描述怎么变成提示词 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-03" href="l2/l2-03-sampling-core.html">
+            <div class="no">L2-03</div>
+            <div><div class="lt">采样与潜空间</div><div class="lm">KSampler / VAEEncode / scheduler · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-03b" href="l2/l2-03b-latent-inpaint.html">
+            <div class="no">L2-03b</div>
+            <div><div class="lt">潜变量与局部重绘（拆出）</div><div class="lm">ReferenceLatent 正负两槽 / 局部重绘改哪块潜变量 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-03c" href="l2/l2-03c-upscale-size.html">
+            <div class="no">L2-03c</div>
+            <div><div class="lt">放大与尺寸（拆出）</div><div class="lm">upscaler / 分块 / 总像素与尺寸 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-04" href="l2/l2-04-output.html">
+            <div class="no">L2-04</div>
+            <div><div class="lt">后处理与输出</div><div class="lm">预处理器 / 放大 / SaveImage / Comparer · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-04b" href="l2/l2-04b-groups-wiring.html">
+            <div class="no">L2-04b</div>
+            <div><div class="lt">组织与接线（拆出）</div><div class="lm">四层嵌套 / 内部编号 #363 起 / 与顶层不冲突 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-05" href="l2/l2-05-detect-segment.html">
+            <div class="no">L2-05</div>
+            <div><div class="lt">检测与分割（补写）</div><div class="lm">GroundingDINO 开放词表 / SAM 提示式分割 · 出框和遮罩 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-05b" href="l2/l2-05b-semantic-seg.html">
+            <div class="no">L2-05b</div>
+            <div><div class="lt">语义分割（补写）</div><div class="lm">ADE20K 约 150 类 / OneFormer 512 预处理 / 白模整片归一类 · <span class="badge done">已交付</span></div></div>
+          </a>
+          <a class="lesson done link" id="l2-06" href="l2/l2-06-flux2-refine.html">
+            <div class="no">L2-06</div>
+            <div><div class="lt">Flux2 精修链（补写）</div><div class="lm">CFGGuider strength 1.0 / 步数在 Flux2Scheduler / ReferenceLatent 正负两槽 · <span class="badge done">已交付</span></div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- L3 -->
+    <div class="layer l3" id="l3">
+      <div class="rail">
+        <div class="code">L3</div>
+        <div class="lname">单品课</div>
+        <div class="lmeta">第 5 关 · 14 课 · 14 已交付</div>
+      </div>
+      <div class="body">
+        <p class="lede">一个工作流一份课，共用同一套令牌与内容清单，但版式随内容变化。三条线可以交叉走，但第一次建议按 A → B → C 的顺序。每节课开头都先用一句话把人话版术语补齐，再进节点。</p>
+
+        <div class="lines">
+          <!-- A -->
+          <div class="line-card line-a" id="l3-a">
+            <div class="line-head">
+              <span class="line-tag">A</span>
+              <span class="line-name">出图线</span>
+              <span class="line-sub">从纯文字到“现状 + 参考”，把构图与风格拆开控制</span>
+            </div>
+            <div class="line-track">
+              <div class="stop done" id="l3-a1">
+                <div class="sc">01</div><div class="st">文生图</div>
+                <div class="ss"><a href="l3/l3-01-text-to-image.html">最小链路 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-a4">
+                <div class="sc">02</div><div class="st">线稿 + 参考图</div>
+                <div class="ss"><a href="l3/l3-02-lineart-reference.html">02 号 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-a5">
+                <div class="sc">03</div><div class="st">室内毛坯 → 效果图</div>
+                <div class="ss"><a href="l3/l3-03-interior-render.html">03 号 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-a6">
+                <div class="sc">04</div><div class="st">建筑毛坯 + 参考</div>
+                <div class="ss"><a href="l3/l3-04-architecture-render.html">04 号 · 已交付</a></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- B -->
+          <div class="line-card line-b" id="l3-b">
+            <div class="line-head">
+              <span class="line-tag">B</span>
+              <span class="line-name">改图线</span>
+              <span class="line-sub">不动全局，只改一处：手涂蒙版与文字定位</span>
+            </div>
+            <div class="line-track">
+              <div class="stop done" id="l3-b1">
+                <div class="sc">05</div><div class="st">手动涂抹局部修改</div>
+                <div class="ss"><a href="l3/l3-05-manual-inpaint.html">05 号 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-b1b">
+                <div class="sc">05b</div><div class="st">遮罩是什么</div>
+                <div class="ss"><a href="l3/l3-05b-mask.html">黑白图、涂哪改哪、扩边 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-b2">
+                <div class="sc">06</div><div class="st">文字识别局部修改</div>
+                <div class="ss"><a href="l3/l3-06-text-guided-inpaint.html">06 号 · 已交付</a></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- C -->
+          <div class="line-card line-c" id="l3-c">
+            <div class="line-head">
+              <span class="line-tag">C</span>
+              <span class="line-name">增强线</span>
+              <span class="line-sub">放大、锁结构、灌风格：让同一张图更耐看</span>
+            </div>
+            <div class="line-track">
+              <div class="stop done" id="l3-c1">
+                <div class="sc">07</div><div class="st">高清放大</div>
+                <div class="ss"><a href="l3/l3-07-hd-upscale.html">07 号 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-c1b">
+                <div class="sc">07b</div><div class="st">两种放大</div>
+                <div class="ss"><a href="l3/l3-07b-upscale-methods.html">插值放大与模型放大怎么分 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-c2">
+                <div class="sc">08</div><div class="st">文生图 + 深度控制</div>
+                <div class="ss"><a href="l3/l3-08-depth-control.html">深度锁空间 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-c3">
+                <div class="sc">09</div><div class="st">文生图 + 深度 + 语义分割</div>
+                <div class="ss"><a href="l3/l3-09-depth-segmentation.html">双控制网 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-c4">
+                <div class="sc">10</div><div class="st">IPA 风格迁移</div>
+                <div class="ss"><a href="l3/l3-10-ipadapter-style.html">参考图灌风格 · 已交付</a></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- D -->
+          <div class="line-card line-d" id="l3-d">
+            <div class="line-head">
+              <span class="line-tag">D</span>
+              <span class="line-name">综合练习</span>
+              <span class="line-sub">把前面学过的拼起来，独立搭一次</span>
+            </div>
+            <div class="line-track">
+              <div class="stop done" id="l3-d1">
+                <div class="sc">11</div><div class="st">LINK AI 工作流搭建练习</div>
+                <div class="ss"><a href="l3/l3-11-link-ai-practice.html">综合收尾 · 已交付</a></div>
+              </div>
+              <div class="stop done" id="l3-d2">
+                <div class="sc">12</div><div class="st">综合复盘：三组真实案例</div>
+                <div class="ss"><a href="l3/l3-12-review.html">收官 · 已交付</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 拆课清单 -->
+  <section id="split">
+    <div class="sec-head"><span class="sec-num">SPLIT</span><h2 class="title">拆课清单：31 课 → 51 课</h2></div>
+    <p class="sec-lead">依据《术语依赖图》里的五处顺序问题，把讲得太挤的课拆开。编号规则：拆分节一律用「原编号 + b / c」，紧跟原课；原文件名保留，作为拆分后的第一节；只有独立新知识才另起新编号。存量文件名一个不改，新知识一律新文件。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>新编号</th><th>新文件</th><th>从哪拆 / 补什么</th><th>先修</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td><b>A08</b></td><td><code>a08-whos-ai.html</code></td><td>独立新知识：32 个 AI 品牌的归属、用途与分组，先认六个再查完整地图，接在 A07 之后</td><td>A06、A07</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L0-02b</b></td><td><code>l0-02b-using-the-interface.html</code></td><td>从 L0-02 拆出：界面六区、三种载入、载入后三处红</td><td>L0-02</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L0-03b</b></td><td><code>l0-03b-read-main-chain.html</code></td><td>从 L0-03 拆出：21 节点、3 子图、主链与旁支怎么读</td><td>L0-03</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L1-01b</b></td><td><code>l1-01b-vae-codec.html</code></td><td>从 L1-01 拆出：像素 ↔ 潜空间、#16 / #9 / #346 / #338 各自管什么</td><td>L1-01</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L1-02b</b></td><td><code>l1-02b-steps-denoise.html</code></td><td>从 L1-02 拆出：20 步在擦什么、denoise 0.55 改哪一段</td><td>L1-02</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L1-03b</b></td><td><code>l1-03b-seed.html</code></td><td>从 L1-03 拆出：同一颗种子复现、randomize 与 fixed</td><td>L1-03</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L1-04b</b></td><td><code>l1-04b-json-settings.html</code></td><td>从 L1-04 拆出：预处理器配对、union 型一个权重切模式、强度通常更高</td><td>L1-04</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L1-05b</b></td><td><code>l1-05b-params-noise.html</code></td><td>从 L1-05 拆出：weight / weight_type、噪声与去噪怎么分工</td><td>L1-05</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L1-06</b></td><td><code>l1-06-unet-dit.html</code></td><td>独立新知识：真正画画的那个网络，与采样器的分工</td><td>L1-01、L1-02</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-01b</b></td><td><code>l2-01b-extra-loaders.html</code></td><td>从 L2-01 拆出：Checkpoint 之外，UNET / CLIP / VAE 分开装</td><td>L2-01</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-02b</b></td><td><code>l2-02b-structure-style.html</code></td><td>从 L2-02 拆出：ControlNet 条件、IPAdapter 条件、参考图怎么进采样</td><td>L2-02</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-02c</b></td><td><code>l2-02c-text-tools.html</code></td><td>从 L2-02 拆出：翻译、Florence2 反推、描述怎么变成提示词</td><td>L2-02</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-03b</b></td><td><code>l2-03b-latent-inpaint.html</code></td><td>从 L2-03 拆出：ReferenceLatent 正负两槽、局部重绘改哪块潜变量</td><td>L2-03</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-03c</b></td><td><code>l2-03c-upscale-size.html</code></td><td>从 L2-03 拆出：upscaler、分块、总像素与尺寸</td><td>L2-03</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-04b</b></td><td><code>l2-04b-groups-wiring.html</code></td><td>从 L2-04 拆出：四层嵌套、内部编号 #363 起、与顶层不冲突</td><td>L2-04</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-05</b></td><td><code>l2-05-detect-segment.html</code></td><td>独立新知识：GroundingDINO 开放词表 + SAM 提示式分割，出框和遮罩</td><td>L2-02</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-05b</b></td><td><code>l2-05b-semantic-seg.html</code></td><td>独立新知识：ADE20K 约 150 类、OneFormer 512 预处理、白模整片归一类</td><td>L2-05</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L2-06</b></td><td><code>l2-06-flux2-refine.html</code></td><td>独立新知识：CFGGuider strength 1.0、步数在 Flux2Scheduler、ReferenceLatent 正负两槽</td><td>L2-03</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L3-05b</b></td><td><code>l3-05b-mask.html</code></td><td>从 L3-05 拆出：黑白图、涂哪里改哪里、扩边</td><td>L3-05</td><td><span class="badge done">已交付</span></td></tr>
+          <tr><td><b>L3-07b</b></td><td><code>l3-07b-upscale-methods.html</code></td><td>从 L3-07 拆出：插值放大与模型放大怎么分</td><td>L3-07</td><td><span class="badge done">已交付</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <b>为什么不用「拆成两课、后面全部顺延」：</b>那会让 31 个文件名一起变，所有跨课链接、锚点、外部收藏全断。<code>b / c</code> 后缀只加不改，现有 31 条链接一条都不用动。20 节已全部写完，可以回头给 L0-02 这类原课瘦身——瘦身只删正文，不改文件名。
+      <br><br>
+      <b>另有 L3 前置缺口：</b>L3-01/02/03/05/06 改写时翻出 12 组「用了但没讲清」的术语（LoRA↔Checkpoint、IPAdapter 权重、Flux 编码等），已全部并入上表对应节与 L2-06，不再另设编号，也不额外占课。明细见 <a href="guides/term-graph.html#l3gap">术语依赖图 · L3 前置带</a>。
+    </div>
+  </section>
+
+  <!-- 锚点 -->
+  <section id="anchors">
+    <div class="sec-head"><span class="sec-num">ANCHORS</span><h2 class="title">术语与节点锚点</h2></div>
+    <p class="sec-lead">每个锚点都直接链到 L2 课内的对应词条。从 L3 或 L0 点术语会先落到本页锚点（高亮提示），再点一次即进入解释；也可以直接点下面的卡片。</p>
+    <div class="anchor-grid">
+      <a class="anchor" id="term-checkpoint" href="l2/l2-01-input-loading.html#term-checkpoint"><div class="an">#term-checkpoint</div><div class="ad">Checkpoint 大模型 · L2-01</div></a>
+      <a class="anchor" id="term-lora" href="l2/l2-01-input-loading.html#term-lora"><div class="an">#term-lora</div><div class="ad">LoRA 风格补丁 · L2-01</div></a>
+      <a class="anchor" id="term-clip" href="l2/l2-01-input-loading.html#term-clip"><div class="an">#term-clip</div><div class="ad">CLIP 文本编码器 · L2-01</div></a>
+      <a class="anchor" id="term-vae" href="l2/l2-01-input-loading.html#term-vae"><div class="an">#term-vae</div><div class="ad">VAE 编解码 · L2-01</div></a>
+      <a class="anchor" id="term-latent" href="l2/l2-03b-latent-inpaint.html#term-latent"><div class="an">#term-latent</div><div class="ad">Latent 潜空间 · L2-03b</div></a>
+      <a class="anchor" id="term-cond" href="l2/l2-02-text-conditioning.html#term-cond"><div class="an">#term-cond</div><div class="ad">CONDITIONING 条件 · L2-02</div></a>
+      <a class="anchor" id="term-sampler" href="l2/l2-03-sampling-core.html#term-sampler"><div class="an">#term-sampler</div><div class="ad">KSampler 采样器 · L2-03</div></a>
+      <a class="anchor" id="term-steps" href="l2/l2-03-sampling-core.html#term-steps"><div class="an">#term-steps</div><div class="ad">steps 步数 · L2-03</div></a>
+      <a class="anchor" id="term-cfg" href="l2/l2-03-sampling-core.html#term-cfg"><div class="an">#term-cfg</div><div class="ad">CFG 听话程度 · L2-03</div></a>
+      <a class="anchor" id="term-seed" href="l2/l2-03-sampling-core.html#term-seed"><div class="an">#term-seed</div><div class="ad">seed 种子 · L2-03</div></a>
+      <a class="anchor" id="term-denoise" href="l2/l2-03-sampling-core.html#term-denoise"><div class="an">#term-denoise</div><div class="ad">denoise 去噪强度 · L2-03</div></a>
+      <a class="anchor" id="term-subgraph" href="l2/l2-04b-groups-wiring.html#term-subgraph"><div class="an">#term-subgraph</div><div class="ad">Subgraph 子图 · L2-04b</div></a>
+      <a class="anchor" id="term-controlnet" href="l2/l2-02b-structure-style.html#term-controlnet"><div class="an">#term-controlnet</div><div class="ad">ControlNet 结构控制 · L2-02b</div></a>
+      <a class="anchor" id="term-preprocess" href="l2/l2-02b-structure-style.html#term-preprocess"><div class="an">#term-preprocess</div><div class="ad">AIO 预处理器 · L2-02b</div></a>
+      <a class="anchor" id="term-ipadapter" href="l2/l2-02b-structure-style.html#term-ipadapter"><div class="an">#term-ipadapter</div><div class="ad">IPAdapter 风格注入 · L2-02b</div></a>
+      <a class="anchor" id="term-florence" href="l2/l2-02c-text-tools.html"><div class="an">#term-florence</div><div class="ad">Florence2 反推描述 · L2-02c</div></a>
+      <a class="anchor" id="term-batch" href="l2/l2-03b-latent-inpaint.html#term-batch"><div class="an">#term-batch</div><div class="ad">Batch 批量 · L2-03b</div></a>
+      <a class="anchor" id="term-save" href="l2/l2-04-output.html#term-save"><div class="an">#term-save</div><div class="ad">SaveImage 保存 · L2-04</div></a>
+      <a class="anchor" id="term-comparer" href="l2/l2-04-output.html#term-comparer"><div class="an">#term-comparer</div><div class="ad">Image Comparer 对比 · L2-04</div></a>
+      <a class="anchor" id="term-upscale" href="l2/l2-03c-upscale-size.html#term-upscale"><div class="an">#term-upscale</div><div class="ad">放大与精修 · L2-03c</div></a>
+      <a class="anchor" id="term-flux2" href="l2/l2-03-sampling-core.html#term-flux2"><div class="an">#term-flux2</div><div class="ad">Flux2 精修子图 · L2-03</div></a>
+    </div>
+  </section>
+
+  <!-- 规范 -->
+  <section id="spec">
+    <div class="sec-head"><span class="sec-num">SPEC</span><h2 class="title">每课都遵守的制作规范</h2></div>
+    <p class="sec-lead">共用一套令牌与交付清单，但版式随内容变化：对照课、操作手册、全程走查各用各的结构。规范钉的是底线——自包含、真实值、可核对、统一命名。</p>
+
+    <div class="rules">
+      <div class="rulecard">
+        <div class="rn">CHECKLIST · 7 ITEMS</div>
+        <h3>内容清单（版式可变）</h3>
+        <ol class="steps">
+          <li>一句话目标</li>
+          <li>前置知识卡</li>
+          <li>全景图或结构图（内联 SVG）</li>
+          <li>逐节点或逐步拆解（参数取真实值）</li>
+          <li>参数速查表</li>
+          <li>踩坑（真实发现）</li>
+          <li>动手练习 + 自检清单</li>
+        </ol>
+      </div>
+      <div class="rulecard">
+        <div class="rn">LINKS · 3 HARD WIRES</div>
+        <h3>三处硬连接</h3>
+        <ol class="steps">
+          <li>开头「当前位置」小地图，标出第几站</li>
+          <li>术语只有两种处理：当场解释，或明写「后面第 X 课专门讲」，并链到 L2 具名锚点</li>
+          <li>结尾「下一课」卡片，指向真实文件</li>
+        </ol>
+      </div>
+      <div class="rulecard">
+        <div class="rn">TERM RULE</div>
+        <h3>不许裸用术语</h3>
+        <p>节点名、参数名、缩写、模型名都算术语。第一次出现时，要么解释，要么标注出处课程。做不到就删句或改写。细则见 <a href="guides/language-spec.html">语言规范</a>，顺序依据见 <a href="guides/term-graph.html">术语依赖图</a>。</p>
+      </div>
+      <div class="rulecard">
+        <div class="rn">SELF-CONTAINED</div>
+        <h3>自包含红线</h3>
+        <p>CSS / JS 全内联；不引 CDN、外部字体、<code>assets/</code>、<code>_shared/</code>、外部图片；图一律手写内联 SVG；字体退回系统栈。拷到任何目录、断网、双击都能正常显示。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>地图只负责导航。</b>它不假设课程页长一个样：后续每课的版式由内容决定，有的以流程图为主，有的以双栏对照或操作步骤为主。地图只保证链接真实、层级正确、状态可查。
+    </div>
+
+    <h3 style="margin:28px 0 10px;font-size:15px">文件与锚点命名</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>层级</th><th>所在目录</th><th>文件名规范</th><th>锚点规范</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>A 通识</td><td><code>a/</code></td><td><code>a01-&lt;slug&gt;.html</code> … <code>a08-…</code></td><td><code>#a-01</code> … <code>#a-08</code></td><td>8 / 8 已交付</td></tr>
+          <tr><td>L0 开篇</td><td><code>l0/</code></td><td><code>l0-01-&lt;slug&gt;.html</code> …</td><td><code>#l0-01</code> …</td><td>5 / 5 已交付</td></tr>
+          <tr><td>L1 原理</td><td><code>l1/</code></td><td><code>l1-01-&lt;slug&gt;.html</code> …</td><td><code>#l1-01</code> …</td><td>11 / 11 已交付</td></tr>
+          <tr><td>L2 字典</td><td><code>l2/</code></td><td><code>l2-01-&lt;slug&gt;.html</code> …</td><td>课内锚点 <code>#term-xxx</code></td><td>13 / 13 已交付</td></tr>
+          <tr><td>L3 单品</td><td><code>l3/</code></td><td><code>l3-01-&lt;slug&gt;.html</code> … <code>l3-12-…</code></td><td><code>#l3-01</code> …（地图内用 <code>#l3-a1</code> 等停靠点）</td><td>14 / 14 已交付</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sec-lead" style="margin-top:14px;font-size:13px">以 <code>教程/</code> 为根：<code>index.html</code> 在根目录，三份规范在 <code>guides/</code>（<code>visual-spec.html</code>、<code>language-spec.html</code>、<code>term-graph.html</code>），课程按层分目录（<code>a/</code>、<code>l0/</code>、<code>l1/</code>、<code>l2/</code>、<code>l3/</code>）。子目录里的课回地图统一用 <code>../index.html</code>，同目录课互链用 <code>./l1-02b-steps-denoise.html</code>，跨层用 <code>../l3/l3-04-architecture-render.html</code>，整个 <code>教程/</code> 可以整体拷走。</p>
+  </section>
+
+  <!-- 状态 -->
+  <section id="status">
+    <div class="sec-head"><span class="sec-num">STATUS</span><h2 class="title">进度总览</h2></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>层</th><th>课数</th><th>已交付</th><th>待写</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>A · AI 通识</td><td>8</td><td>8</td><td>0</td><td>A01～A08 已交付</td></tr>
+          <tr><td>L0 · 开篇</td><td>5</td><td>5</td><td>0</td><td>新增 L0-02b 界面、L0-03b 主链，全部交付</td></tr>
+          <tr><td>L1 · 原理</td><td>11</td><td>11</td><td>0</td><td>五节拆成十节 + 独立新课 UNet 与 DiT</td></tr>
+          <tr><td>L2 · 节点字典</td><td>13</td><td>13</td><td>0</td><td>四节拆成十节 + 检测分割、语义分割、Flux2 精修</td></tr>
+          <tr><td>L3 · 单品课</td><td>14</td><td>14</td><td>0</td><td>新增遮罩、两种放大</td></tr>
+          <tr><td><b>合计</b></td><td><b>51</b></td><td><b>51</b></td><td><b>0</b></td><td>地图 + 3 份规范 + 51 份课</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note" style="border-left-color:var(--teal);background:var(--teal-soft)">
+      <b style="color:var(--teal)">样板课入口</b>：<a href="l3/l3-04-architecture-render.html">L3-04 · 建筑毛坯 + 参考图出图</a>。它的七段结构只服务于 04 号工作流；后续课程共用令牌与内容清单，版式随内容变化。术语顺序见 <a href="guides/term-graph.html">术语依赖图</a>，写法见 <a href="guides/language-spec.html">语言规范</a>，视觉见 <a href="guides/visual-spec.html">视觉规范</a>。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  <div class="footer-icp">ICP 备案号：待填（占位）</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var map = {
+    name: COURSE.name,
+    tagline: COURSE.tagline,
+    author: COURSE.author,
+    year: COURSE.year
+  };
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v = map[el.getAttribute('data-bind')];
+    if (v) el.textContent = v;
+  });
+  document.title = COURSE.name + ' · 课程地图';
+})();
+</script>
+
+</body>
+</html>

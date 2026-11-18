@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L2-02b 结构与风格条件 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:690px}
+.hero{margin-bottom:24px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:50px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:17.5px;margin:30px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:580px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:14px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:11.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:12px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--cat);color:var(--cat);background:var(--cat-soft)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;margin:0 0 14px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;word-break:break-all}
+.entry .one{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.entry .chev{margin-left:auto;font-family:var(--mono);color:var(--accent);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:12px 16px 15px;border-top:1px dashed var(--line);display:grid;grid-template-columns:1.06fr .94fr;gap:18px}
+.entry .body p{font-size:14px;margin:0 0 9px}
+.io{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 9px;font-family:var(--mono);font-size:10.5px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-family:var(--sans);font-size:12px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 10px;line-height:1.75;margin:0}
+.ex b{color:var(--cat)}
+.pit{font-family:var(--sans);font-size:12px;color:var(--amber);margin:9px 0 0;line-height:1.7}
+.entry table{font-size:11.5px;margin:6px 0}
+.entry th,.entry td{padding:5px 5px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .entry .body{grid-template-columns:1fr;gap:10px}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 字典 · 02b</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-02b 结构与风格条件</p>
+
+  <header class="hero">
+    <span class="kicker">L2 字典 · 第二课 B</span>
+    <h1>结构与风格条件：<br>图怎么给模型立规矩</h1>
+    <p class="lede">一句话能说清大意，却锁不住构图和质感。手上有参考图时，模型要的不是“像它”这种模糊要求，而是明确约束：哪条线不能歪，哪种气质要带过来。这一节走参考图这条来路。</p>
+  </header>
+
+  <div class="callout">
+    <p><b>前情提要：</b>上一节 L2-02 走完文字那一路：一句话经 token 切分与 CLIP 编码，变成 CONDITIONING。这一节换参考图：结构条件锁住轮廓与位置，风格条件只借气质，不改构图。</p>
+    <p>结构条件（ControlNet）：把参考图的线稿、深度或分割结果，变成采样时躲不开的约束。反例：它不是风格滤镜，颜色与笔触都不归它管。风格条件（IPAdapter）：只借参考图的配色与笔触，位置和轮廓仍由提示词与采样决定。反例：它不是低强度的 ControlNet，两者作用的层不同。</p>
+  </div>
+
+  <div class="chips">
+    <a href="#term-controlnet">ControlNetApplyAdvanced</a><a href="#term-preprocess">AIO_Preprocessor</a>
+    <a href="#term-reflatent">ReferenceLatent</a><a href="#term-ipadapter">IPAdapterAdvanced</a>
+    <a href="#term-ipnoise">IPAdapterNoise</a>
+    <a href="l2-02-text-conditioning.html">← L2-02 文本条件</a>
+    <a href="l2-02c-text-tools.html">→ L2-02c 文字工具</a>
+  </div>
+
+  <h2 id="struct"><span class="no">01 / 结构条件</span>把参考图变成“硬约束”</h2>
+  <p>硬约束：位置、轮廓、前后关系照参考图走，模型没有商量余地。反例：它不是提示词里那句“请照着这个构图”，写多少遍都不如接一路控制来得直接。一张照片要变成硬约束，中间还得先加工成控制图。</p>
+  <p>完整的一条链有四步：参考图 → 预处理 → ControlNet 模型 → 压制进条件。前两步备料，第三步加载，最后一步才真正生效。ControlNet 的原理在 L1-04 讲过，这里只看节点怎么接、值是多少。</p>
+
+  <details class="entry" id="term-controlnet" open>
+    <summary><span class="type">ControlNetApplyAdvanced</span><span class="one">真正施加 ControlNet 的地方</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>线稿和深度图都备好了。什么时候真正起作用？在这一步。</p>
+        <p><code>ControlNetApplyAdvanced</code> 同时收正向、负向、ControlNet 模型和控制图，吐出改过的正向与负向。强度和起止区间都在这里设。反例：它不是“加载器”，模型加载在上一册；这里负责把控制压进条件里。</p>
+        <div class="io"><span>positive</span><span>negative</span><span>CONTROL_NET</span><span>IMAGE</span><span class="out">positive</span><span class="out">negative</span></div>
+        <table><tbody>
+          <tr><th style="width:34%">strength</th><td>控制强度，0–1。</td></tr>
+          <tr><th>start_percent</th><td>从采样进度百分之几开始生效。</td></tr>
+          <tr><th>end_percent</th><td>到百分之几停止生效。</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 深度 <b>#12</b> 0.35（0–1）、线稿 <b>#48</b> 0.3（0–1）；03 0.25 / 0.2；02 两张都是 0.6；LINK <b>#2</b> 0.7，区间 <b>0–0.7</b>；01 <b>#188</b> 0.6，区间 0–0.8。</div>
+        <p class="pit">易错：它有两个输出，正负向都要接回采样器；只接正向会让负向绕开控制，效果变得不稳定。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-preprocess">
+    <summary><span class="type">AIO_Preprocessor</span><span class="one">把照片处理成控制图</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>手上是一张照片，ControlNet 要的是一张线稿或深度图。中间这一步就是预处理。</p>
+        <p>一个节点集了多种预处理器，用下拉切换。输出一张 IMAGE，接到 <code>ControlNetApplyAdvanced</code> 的 <code>image</code> 口。反例：它不做美化，输出是给控制模型看的中间图，不是成品。</p>
+        <div class="io"><span>IMAGE</span><span class="out">IMAGE</span></div>
+        <table><tbody>
+          <tr><th style="width:38%">preprocessor</th><td>本套出现 DepthAnythingV2、LineartStandard、LineArt、OneFormer-ADE20K-SemSeg。</td></tr>
+          <tr><th>resolution</th><td>本套统一为 <b>512</b>。</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 深度 <b>#17</b> <code>DepthAnythingV2Preprocessor</code>、线稿 <b>#50</b> <code>LineartStandardPreprocessor</code>；文生图+深度+语义 <b>#25</b> <code>OneFormer-ADE20K-SemSegPreprocessor</code>；LINK <b>#4</b> <code>LineArtPreprocessor</code>。</div>
+        <p class="pit">易错：预处理器类型必须与 ControlNet 模型同类；分辨率 512 意味着细节会被压缩，不等于原图全分辨率。</p>
+      </div>
+    </div>
+  </details>
+
+  <p>上面两步走的是像素级约束：先算出一张控制图，再把控制图的特点压进条件。还有一条更轻的路：不画控制图，把参考图压成潜变量，直接挂到条件上，让模型自己看着办。这就是 ReferenceLatent 干的事，Flux2 的编辑工作流常备这一手。</p>
+
+  <details class="entry" id="term-reflatent">
+    <summary><span class="type">ReferenceLatent</span><span class="one">把参考潜变量塞进条件</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>拿一张图当参考，又不想把它的构图硬套过来。Flux2 的编辑工作流靠这一步。</p>
+        <p><code>ReferenceLatent</code> 把参考图编码后的 LATENT 挂到 CONDITIONING 上，采样时模型就能“看见”那张图。挂上去的是 1/8 草稿画布上的那层数据，不是原图像素。反例：它不是“把参考图拼进画布”；拼像素是另一回事，两个口也接不上。</p>
+        <div class="io"><span>CONDITIONING</span><span>LATENT</span><span class="out">CONDITIONING</span></div>
+      </div>
+      <div>
+        <div class="ex">04 子图 <b>#341</b> 与 <b>#343</b> 各出现一次，对应两路参考潜变量；02 子图出现四次（<b>#145/#146/#148/#150</b>），03 子图 <b>#342/#344</b>。</div>
+        <p class="pit">易错：要先把参考图 VAEEncode 成 LATENT，再接进来；直接把 IMAGE 插进 LATENT 口是接不上的。</p>
+      </div>
+    </div>
+  </details>
+
+  <p>两条路的分工可以这么记：ControlNet 管“线要落在这里”，ReferenceLatent 管“照这张图的样子改”。前者的输入是控制图，后者的输入是潜变量。</p>
+
+  <h2 id="style"><span class="no">02 / 风格条件</span>不改变构图，只改变气质</h2>
+  <p>软约束：只借参考图的配色、光线与笔触，位置和轮廓交回给提示词与采样。反例：它不是“调低强度的 ControlNet”，两者作用的层不同，一个改条件，一个改模型。</p>
+  <p>判断标准很短：输出接 CONDITIONING 的，归结构这一路；输出接 MODEL 的，归风格这一路。IPAdapter 属于后者，它插在模型加载与采样器之间，主模型不动，只被改装一层。原理在 L1-05 讲过，这里看接法与真实参数。</p>
+
+  <details class="entry" id="term-ipadapter">
+    <summary><span class="type">IPAdapterAdvanced</span><span class="one">把图像向量注入模型</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>风格参考图有了，你只想改气质、不改构图。这时候接的是它。</p>
+        <p>注意输出：MODEL，不是 CONDITIONING。它插在“模型加载”和“采样器”之间，直接改写模型的注意力。反例：它不是“换模型”，主模型还是原来那个，只是被改了一层。</p>
+        <div class="io"><span>MODEL</span><span>IPADAPTER</span><span>IMAGE</span><span>CLIP_VISION</span><span class="out">MODEL</span></div>
+        <table><tbody>
+          <tr><th style="width:36%">weight</th><td>风格权重，本套 0.70–0.80。</td></tr>
+          <tr><th>weight_type</th><td><code>style transfer</code> 或 <code>strong style transfer</code>。</td></tr>
+          <tr><th>start_at / end_at</th><td>注入的起止进度；本套 end 为 0.877–1.0。</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 <b>#37</b> 0.70 · style · 0–0.95；03 <b>#37</b> 0.75 · style · 0–0.9；02 <b>#134</b> 0.70 · strong · 0–1；IPA <b>#37</b> 0.72 · strong · 0–0.877；LINK <b>#10</b> 0.80 · style · 0–1。</div>
+        <p class="pit">易错：把它当条件节点接在采样器后面，会直接接不上；它是“改装模型”，位置在采样之前。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-ipnoise">
+    <summary><span class="type">IPAdapterNoise</span><span class="one">给风格配一个反例</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>风格贴得太死，画面快变成参考图的复制品。给这一路配个反例。</p>
+        <p><code>IPAdapterNoise</code> 生成一张渐变噪声图，接到 <code>IPAdapterAdvanced</code> 的 <code>image_negative</code>，用来压住过强的风格贴合。反例：它不是“负向提示词”，这里不给文字，只给一张噪声图。</p>
+        <div class="io"><span>IMAGE（可选）</span><span class="out">IMAGE</span></div>
+        <table><tbody>
+          <tr><th style="width:36%">type</th><td>本套统一 <code>fade</code>。</td></tr>
+          <tr><th>strength</th><td><b>0.4</b></td></tr>
+          <tr><th>blur</th><td><b>5</b></td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 <b>#41</b>、03 <b>#41</b>、02 <b>#132</b>、IPA <b>#41</b>、LINK <b>#8</b>，五处参数完全一致。04 中 #41 接收 #33 的参考图，输出回 #37 的 <code>image_negative</code>。</div>
+        <p class="pit">易错：它输出的是图像，不是条件；不要接到 CONDITIONING 口。</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="callout tip">
+    <p><b>两路可以同时开：</b>04 的深度控制 <b>#12</b> 设 0.35，风格注入 <b>#37</b> 设 0.70，一个管构图，一个管质感。两条线互不抢口，因为一条走条件，一条走模型。</p>
+    <p>顺序也别记反：先有模型，再让 IPAdapter 改装模型，最后才交给采样器。ReferenceLatent 相反，它挂在条件上，跟着条件一起进采样器。</p>
+  </div>
+
+  <h2 id="practice"><span class="no">03 / 动手</span>沿链找来源，再动手换参考图</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，从 <b>#4 KSampler</b> 的 positive 口往回追。把中间经过的条件节点一个个列出来，再看 <b>#13</b> 与 <b>#49</b> 这两个 ControlNet 模型从哪加载。</p><p class="why">目标：看清“文本 + 深度 + 线稿”如何合成同一路条件。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>仍在 04，把 <b>#17</b> 的输入照片换成你自己的一张。预处理器保持 <code>DepthAnythingV2Preprocessor</code>，<code>resolution</code> 仍是 <b>512</b>，<b>#12</b> 的 strength 仍是 <b>0.35</b>，跑一次。</p><p class="why">目标：控制强度不变时，看构图跟随程度随参考图怎么变。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 03，找到 <b>#37 IPAdapterAdvanced</b>（0.75 · style · 0–0.9）。把 weight 提到 0.9 跑一次；再把 03 里 ControlNetApplyAdvanced 的 strength 从 0.25 降到一半跑一次，对比两次画面。</p><p class="why">目标：体会硬约束动构图、软约束动气质。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">04 / 自检</span>硬约束与软约束，各走各的口</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出结构条件落在 CONDITIONING 上，风格条件改的是 MODEL。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 ControlNetApplyAdvanced 的 positive 与 negative 两个输出都要接回采样器。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 AIO_Preprocessor 的预处理器类型必须与 ControlNet 模型同类，本套分辨率统一 512。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 ReferenceLatent 要先有 LATENT，不能直接接 IMAGE。</span></label>
+    <label class="check"><input type="checkbox"><span>我能解释 IPAdapterAdvanced 的 end_at 与 IPAdapterNoise 的 type、strength、blur 各管什么。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-02-text-conditioning.html"><span class="dir">← 上一册</span>L2-02 文本条件</a>
+    <a href="l2-02c-text-tools.html"><span class="dir">下一册 →</span>L2-02c 文字工具</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-02b-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>L2-03 采样与后处理 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 var(--sans);
+  background-image:linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px);
+  background-size:32px 32px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:920px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-size:40px;line-height:1.24;margin:16px 0 12px;font-weight:800;letter-spacing:-.015em}
+.lede{font-size:17.5px;color:var(--muted);margin:0;max-width:640px}
+.hero{margin-bottom:26px}
+.hero2{display:grid;grid-template-columns:1.12fr .88fr;gap:22px;align-items:end}
+.panel{background:#18212f;color:#e9ecf5;border-radius:14px;padding:15px 16px 13px;font-family:var(--mono);font-size:11.5px;box-shadow:var(--shadow)}
+.panel h4{font-family:var(--sans);font-size:11px;color:#9aa6bd;margin:0 0 9px;letter-spacing:.1em;font-weight:700}
+.prow{display:flex;justify-content:space-between;gap:12px;padding:4.5px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.prow:last-of-type{border-bottom:none}
+.prow span{color:#8ea0bf}
+.prow b{color:#fff;font-weight:600;text-align:right;word-break:break-all}
+.sbar{display:flex;gap:2px;margin-top:9px}
+.sbar i{flex:1;height:4px;border-radius:2px;background:#4051d6}
+.panel .cap{font-family:var(--sans);font-size:10.5px;color:#7f8ca6;margin-top:7px}
+h2{font-size:24px;line-height:1.4;margin:48px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:13px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-size:17px;margin:26px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 12px 12px 0;margin:20px 0;font-size:15px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:16px 0;box-shadow:var(--shadow)}
+.scroll-note{display:none}
+@media(max-width:680px){.scroll-note{display:block;font-family:var(--sans);font-size:12px;color:var(--faint);margin:-6px 0 14px}}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:660px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#faf9f6;font-size:11.5px;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{color:var(--accent);word-break:break-all}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:16px 0;font-size:12.5px}
+.chain .n{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-family:var(--mono);font-size:11.5px;box-shadow:var(--shadow)}
+.chain .ar{color:var(--faint);font-family:var(--mono)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--cat);border-radius:12px;margin:0 0 12px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:13px 15px;display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 10px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;word-break:break-all}
+.entry .one{font-size:12.5px;color:var(--muted)}
+.entry .val{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:#fff;background:var(--cat);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.entry .chev{font-family:var(--mono);color:var(--cat);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:13px 16px 15px;border-top:1px dashed var(--line)}
+.entry .body p{font-size:14px;margin:0 0 9px}
+.entry .body table{min-width:0;font-size:12px}
+.entry .body th,.entry .body td{padding:6px 6px}
+.io{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 10px;font-family:var(--mono);font-size:10.5px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-size:12.5px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 11px;margin:9px 0 0;line-height:1.7}
+.ex b{color:var(--cat)}
+.pit{font-size:12.5px;color:var(--amber);margin:8px 0 0;line-height:1.7}
+.meter{margin:14px 0 4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 12px;box-shadow:var(--shadow)}
+.meter .bar{display:flex;gap:3px;margin:10px 0 6px}
+.meter .bar i{flex:1;height:14px;border-radius:3px;background:#e8e5dc}
+.meter .bar i.on-1{background:rgba(15,122,108,.55)}
+.meter .bar i.on-2{background:rgba(64,81,214,.55)}
+.meter .bar i.on-3{background:rgba(194,46,99,.55)}
+.meter .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.meter .tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;font-size:12px;color:var(--muted);line-height:1.6}
+.meter .tri b{display:block;color:var(--ink);font-size:12.5px}
+.meter .tri .c1 b{color:var(--teal)}.meter .tri .c2 b{color:var(--accent)}.meter .tri .c3 b{color:var(--rose)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.rc{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:11px;padding:12px 13px;box-shadow:var(--shadow);font-size:12.5px;color:var(--muted);line-height:1.65}
+.rc b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.rc code{font-size:11px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:760px){
+  .hero2{grid-template-columns:1fr}
+  .cards3{grid-template-columns:1fr}
+  .meter .tri{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  body{font-size:15px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:30px}.lede{font-size:15.5px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .entry summary{padding:12px 13px}
+  .entry .val{order:3;margin-left:0}
+  .entry .chev{order:4;margin-left:auto}
+  .entry .body{padding:11px 13px 13px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 节点字典 · 03 / 04</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../视觉规范.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-03 采样与后处理</p>
+
+  <header class="hero">
+    <div class="hero2">
+      <div>
+        <span class="kicker">L2 节点字典 · 第三册</span>
+        <h1>采样与后处理：<br>从一团噪点，<br>到一张能交的图</h1>
+        <p class="lede">同一句提示词、同一个模型，只改步数或 denoise，结果就会变。这一册把“发动机”（采样）和“修整车间”（Latent 与放大）拆开，做成可查的旋钮表。</p>
+      </div>
+      <aside class="panel" aria-label="04 工作流根图采样器真实参数面板">
+        <h4>04 · 根图 KSampler #4</h4>
+        <div class="prow"><span>steps</span><b>15</b></div>
+        <div class="prow"><span>cfg</span><b>3.0</b></div>
+        <div class="prow"><span>sampler</span><b>euler_ancestral</b></div>
+        <div class="prow"><span>scheduler</span><b>normal</b></div>
+        <div class="prow"><span>denoise</span><b>1.0</b></div>
+        <div class="prow"><span>seed</span><b>901186…662</b></div>
+        <div class="sbar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="cap">一根小格 = 一步；15 格全亮表示从头开始去噪</div>
+      </aside>
+    </div>
+  </header>
+
+  <div class="callout">
+    <p><b>为什么先看这张表：</b>采样器不是“一键出图”，它每次只做一小步去噪。你调的所有参数，最终都在回答三个问题：从多吵的噪声开始、走几步、每一步听提示词多少。</p>
+  </div>
+
+  <h2 id="map"><span class="no">01 / 先定位</span>同一条工作流，可能采两次</h2>
+  <p>打开 03、04、05 这类“毛坯 + 参考图”工作流，会看到两套采样参数：根图一个 KSampler，子图里还有一条 <code>SamplerCustomAdvanced</code> 链。它们不是重复，而是分工：根图负责“按你的图与提示词生成”，子图负责“参考图/局部区域的小循环”。</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>工作流</th><th>根图采样节点</th><th>步数</th><th>CFG</th><th>采样器 / 调度器</th><th>子图里的采样</th></tr></thead>
+      <tbody>
+        <tr><td>01 线稿+文字</td><td><code>#177 KSampler</code></td><td>20</td><td>2.95</td><td>euler_ancestral / normal</td><td>Flux2Scheduler 20 步</td></tr>
+        <tr><td>02 线稿+参考图</td><td><code>#119 KSampler</code></td><td>12</td><td>3.0</td><td>euler_ancestral / normal</td><td>BasicScheduler simple · 4 步</td></tr>
+        <tr><td>03 室内毛坯</td><td><code>#4 KSampler</code></td><td>15</td><td>2.67</td><td>euler_ancestral / normal</td><td>Flux2Scheduler 4 步</td></tr>
+        <tr><td>04 建筑毛坯</td><td><code>#4 KSampler</code></td><td>15</td><td>3.0</td><td>euler_ancestral / normal</td><td>Flux2Scheduler 1 步</td></tr>
+        <tr><td>05 手动涂抹</td><td><code>#257 DetailerForEach</code></td><td>25</td><td>1.0</td><td>uni_pc / sgm_uniform</td><td>Flux2Scheduler 4 步</td></tr>
+        <tr><td>06 文字识别局部</td><td><code>#22 KSampler</code></td><td>20</td><td>3.0</td><td>euler_ancestral / normal</td><td>Flux2Scheduler 4 步</td></tr>
+        <tr><td>07 高清放大</td><td>无（直接放大）</td><td>—</td><td>—</td><td>—</td><td>Flux2Scheduler 1 步</td></tr>
+        <tr><td>文生图</td><td><code>#4 KSampler</code></td><td>20</td><td>2.95</td><td>euler_ancestral / normal</td><td>无子图</td></tr>
+        <tr><td>LINK 练习</td><td><code>#15 KSampler</code></td><td>20</td><td>3.0</td><td>euler / normal</td><td>无子图</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="scroll-note">表格可左右滑动查看完整列 →</p>
+  <p class="small quiet">表内数字全部取自 <code>ComfyUI_工作流架构</code> 的真实 JSON。不同版本节点可能多出字段，以实际 JSON 为准。</p>
+
+  <h2 id="ksampler"><span class="no">02 / 七格旋钮</span>KSampler 里每一项在控什么</h2>
+  <p>先认这个最常见的节点：<code>KSampler</code>。它的面板从左到右一共七格，顺序固定。下面按“最该先动”的顺序排，不按面板顺序。</p>
+
+  <details class="entry" id="term-sampler" open>
+    <summary><span class="type">KSampler</span><span class="one">经典采样器，根图最常用</span><span class="val">15 步 / 3.0</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>把“噪声 + 条件 + 模型”一步步推成一张潜空间图。它不负责解码，输出仍是 LATENT，后面要接 <code>VAEDecode</code>。</p>
+      <div class="io"><span>MODEL</span><span>positive</span><span>negative</span><span>LATENT</span><span class="out">LATENT</span></div>
+      <table>
+        <thead><tr><th style="width:26%">字段</th><th style="width:20%">本套常见值</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code>seed</code></td><td>长整数</td><td>起始噪声编号，决定“从哪团噪声开始”。</td></tr>
+          <tr><td><code>control_after_generate</code></td><td><code>randomize</code></td><td>每次运行后如何处理种子：随机、固定、递增等。</td></tr>
+          <tr><td><code>steps</code></td><td>12–25</td><td>去噪步数。</td></tr>
+          <tr><td><code>cfg</code></td><td>2.67–3.0（根图）</td><td>提示词引导强度。</td></tr>
+          <tr><td><code>sampler_name</code></td><td><code>euler_ancestral</code></td><td>每一步怎么走。</td></tr>
+          <tr><td><code>scheduler</code></td><td><code>normal</code></td><td>每一步的噪声强度怎么排。</td></tr>
+          <tr><td><code>denoise</code></td><td><b>1.0</b>（根图）</td><td>从多吵开始；1.0 等于完全重画。</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">04 <b>#4</b>：seed <code>901186358219662</code> / 15 步 / CFG 3.0 / euler_ancestral / normal / denoise 1.0。03 <b>#4</b> 只把 CFG 换成 <b>2.67</b>；02 <b>#119</b> 是 12 步 / CFG 3.0。</div>
+      <p class="pit">易错：改了步数但没改种子，画面会变；想做“只改一个变量”的对比，种子要锁死。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-steps">
+    <summary><span class="type">steps</span><span class="one">走几步，决定细节够不够</span><span class="val">12 / 15 / 20 / 25</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>扩散模型不是一次画完，而是把噪声一点点擦掉。步数就是这个“擦”的次数。步数太少，形状没收敛；步数太多，细节收益变小，时间线性增加。</p>
+      <table>
+        <thead><tr><th style="width:22%">档位</th><th>典型现象</th><th>本套出现位置</th></tr></thead>
+        <tbody>
+          <tr><td>12 步</td><td>速度快，结构够用，细节偏软</td><td>02 根图 <code>#119</code></td></tr>
+          <tr><td>15 步</td><td>建筑/室内毛坯的常用平衡点</td><td>03 <code>#4</code>、04 <code>#4</code>、IPA <code>#4</code></td></tr>
+          <tr><td>20 步</td><td>线稿与文字描述，细节更稳</td><td>01 <code>#177</code>、06 <code>#22</code>、LINK <code>#15</code></td></tr>
+          <tr><td>25 步</td><td>局部重绘的小区域反复修</td><td>05 <code>#257 DetailerForEach</code></td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：步数与采样器绑定。换成 <code>uni_pc</code> 或 Flux 的 1–4 步调度时，不能照搬 20 步的经验。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-cfg">
+    <summary><span class="type">cfg</span><span class="one">提示词的“听话程度”</span><span class="val">1.0 / 2.67 / 3.0 / 5.0</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>CFG 比较“正向条件”和“负向条件”的差距，再把结果放大。数值越高越贴提示词，也越容易僵硬、过饱和；太低则自由发挥。</p>
+      <table>
+        <thead><tr><th style="width:24%">场景</th><th>本套数值</th><th>读法</th></tr></thead>
+        <tbody>
+          <tr><td>SDXL 根图</td><td>2.67–3.0</td><td>偏低但稳定，适合建筑/室内这种怕过曝的题材</td></tr>
+          <tr><td>线稿+文字</td><td>2.95</td><td>略高一点，保证线条被描述覆盖</td></tr>
+          <tr><td>Flux 子图</td><td><b>1</b></td><td>蒸馏模型不靠 CFG 拉开差距，1 即关闭放大</td></tr>
+          <tr><td>01 子图 CFGGuider</td><td><b>5</b></td><td>该子图仍使用较高引导</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">02–07 的子图 <code>CFGGuider</code> 全部为 <b>1</b>；只有 01 的子图 <b>#136</b> 是 <b>5</b>。根图 KSampler 则集中在 2.67–3.0。</div>
+      <p class="pit">易错：Flux 系把 CFG 调到 7 不会“更听话”，只会过曝或崩坏；先确认模型是不是蒸馏版。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-seed">
+    <summary><span class="type">seed</span><span class="one">同一团噪声，才能复现</span><span class="val">随机长整数</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>种子决定起始噪声。模型、提示词、步数、CFG、采样器完全一致时，同一个种子会得到同一张图（同一台机器、同一版本）。</p>
+      <div class="ex">04 根图 <b>#4</b> <code>901186358219662</code>；03 <b>#4</b> <code>442517239714949</code>；02 <b>#119</b> <code>496726432833939</code>；01 <b>#177</b> <code>712591521404267</code>；05 <b>#257</b> <code>374707593963303</code>。子图里另有独立噪声，例如 04 子图 <b>#337</b> <code>524953574022149</code>。</div>
+      <p class="pit">易错：只记种子不够。换模型、换分辨率、换采样器，种子相同也不会复现同一张图。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-denoise">
+    <summary><span class="type">denoise</span><span class="one">从多吵的图开始改</span><span class="val">1.0 / 0.8</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>denoise = 1.0 表示从纯噪声开始，完全重画；0.5 表示保留一半原图信息再改；0.2 只做轻微润色。图生图、局部重绘、放大精修都靠它。</p>
+      <div class="meter">
+        <div class="bar" aria-hidden="true">
+          <i class="on-1"></i><i class="on-1"></i><i class="on-1"></i><i class="on-1"></i><i class="on-1"></i>
+          <i class="on-2"></i><i class="on-2"></i><i class="on-2"></i><i class="on-2"></i><i class="on-2"></i>
+          <i class="on-3"></i><i class="on-3"></i><i class="on-3"></i><i class="on-3"></i><i class="on-3"></i><i class="on-3"></i>
+        </div>
+        <div class="ticks"><span>0.0</span><span>0.5</span><span>1.0</span></div>
+        <div class="tri">
+          <div class="c1"><b>0.2–0.4 微调</b>保留原图结构，只改材质、颜色、光线。</div>
+          <div class="c2"><b>0.5–0.7 改造</b>结构还在，风格与细节明显变化。</div>
+          <div class="c3"><b>0.8–1.0 重画</b>原图只剩构图参考，细节全部重生成。</div>
+        </div>
+      </div>
+      <div class="ex">根图 KSampler 全部为 <b>1.0</b>；05 局部重绘的 <code>DetailerForEach</code>（<b>#257</b>）用 <b>0.8</b>，意思是“这块区域大部分重画，但保留周边关系”。</div>
+      <p class="pit">易错：denoise 与 steps 不是一回事。denoise 决定“从哪一步开始”，steps 决定“总共走几步”。</p>
+    </div>
+  </details>
+
+  <h2 id="advanced"><span class="no">03 / 高级链</span>把一个 KSampler 拆成五件套</h2>
+  <p>子图里看到的不是 KSampler，而是一条更“可插拔”的链。每个节点只干一件事，方便把噪声、引导、采样方法、步数表分别替换。</p>
+  <div class="chain" aria-label="高级采样链的组成">
+    <span class="n">RandomNoise</span><span class="ar">＋</span>
+    <span class="n">CFGGuider</span><span class="ar">＋</span>
+    <span class="n">KSamplerSelect</span><span class="ar">＋</span>
+    <span class="n">Flux2Scheduler</span><span class="ar">→</span>
+    <span class="n">SamplerCustomAdvanced</span>
+  </div>
+
+  <details class="entry" id="term-advanced">
+    <summary><span class="type">SamplerCustomAdvanced</span><span class="one">五路输入的总装台</span><span class="val">01–07 子图</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>它本身不设置参数，只把五路输入接起来：噪声、引导器、采样方法、步数表、起始潜变量。输出两路 LATENT，通常取 <code>output</code> 去解码。</p>
+      <div class="io"><span>noise</span><span>guider</span><span>sampler</span><span>sigmas</span><span>latent_image</span><span class="out">output</span><span class="out">denoised_output</span></div>
+      <div class="ex">01 <b>#137</b>、02 <b>#155</b>、03 <b>#337</b>、04 <b>#336</b>、05 <b>#460</b>、06 <b>#46</b>、07 <b>#365</b>，七份工作流的子图里各有一个。</div>
+      <p class="pit">易错：<code>output</code> 与 <code>denoised_output</code> 不是同一个东西；接错会出现“怎么调都不变”的假象。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-flux2">
+    <summary><span class="type">Flux2Scheduler / BasicScheduler</span><span class="one">步数表：每一步噪声多大</span><span class="val">1 / 4 / 20 步</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>调度器决定“第 1 步到第 N 步，噪声分别降到多少”。同样是 4 步，换调度器会得到不同的收敛节奏。</p>
+      <table>
+        <thead><tr><th style="width:30%">节点</th><th>本套参数</th><th>出现位置</th></tr></thead>
+        <tbody>
+          <tr><td><code>Flux2Scheduler</code></td><td>20 / 1024 / 1024</td><td>01 子图 <code>#135</code></td></tr>
+          <tr><td><code>Flux2Scheduler</code></td><td>4 / 1024 / 1024</td><td>03 <code>#334</code>、05 <code>#458</code>、06 <code>#44</code></td></tr>
+          <tr><td><code>Flux2Scheduler</code></td><td><b>1</b> / 1024 / 1024</td><td>04 <code>#351</code>、07 <code>#382</code></td></tr>
+          <tr><td><code>BasicScheduler</code></td><td><code>simple</code> / 4 / 1</td><td>02 子图 <code>#151</code></td></tr>
+        </tbody>
+      </table>
+      <p class="small quiet">前三项依次为步数、宽、高；宽高在后两位固定为 1024，具体含义以实际节点版本为准。</p>
+      <p class="pit">易错：这里的“1024”不是最终出图尺寸。最终尺寸由 EmptyLatent 或后处理决定，两者要分开看。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-noise">
+    <summary><span class="type">RandomNoise / CFGGuider / KSamplerSelect</span><span class="one">噪声、引导、采样方法，各管一段</span><span class="val">seed · 1 · euler</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>三者分别替代 KSampler 里的三个字段：<code>RandomNoise</code> 管种子，<code>CFGGuider</code> 管 CFG，<code>KSamplerSelect</code> 管采样方法。</p>
+      <table>
+        <thead><tr><th style="width:32%">节点</th><th>本套真实值</th></tr></thead>
+        <tbody>
+          <tr><td><code>RandomNoise</code></td><td>01 <b>#139</b> 460707242992239；02 <b>#153</b> 55129233503117；03 <b>#338</b> 820702903115951；04 <b>#337</b> 524953574022149</td></tr>
+          <tr><td><code>CFGGuider</code></td><td>02–07 全部为 <b>1</b>；01 <b>#136</b> 为 <b>5</b></td></tr>
+          <tr><td><code>KSamplerSelect</code></td><td>七份子图全部为 <code>euler</code></td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：<code>CFGGuider</code> 的输入是 model、positive、negative，不是直接接 LATENT；它输出的是 GUIDER。</p>
+    </div>
+  </details>
+
+  <h2 id="latent"><span class="no">04 / 潜空间</span>采样发生在“压缩后的图”上</h2>
+
+  <details class="entry" id="term-latent" open>
+    <summary><span class="type">LATENT</span><span class="one">采样器的通用货币</span><span class="val">4 通道 · 1/8 边长</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>LATENT 不是给人看的图，而是被 VAE 压缩后的数值网格。采样器只认它；要看到图，必须再 <code>VAEDecode</code>。</p>
+      <table>
+        <thead><tr><th style="width:30%">来源</th><th>节点</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>从零开始</td><td><code>EmptyLatentImage</code> / <code>EmptyFlux2LatentImage</code></td><td>文生图的起点</td></tr>
+          <tr><td>从图编码</td><td><code>VAEEncode</code></td><td>图生图、参考图、局部重绘</td></tr>
+          <tr><td>带遮罩编码</td><td><code>VAEEncodeForInpaint</code></td><td>只改遮罩区域</td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：LATENT 的宽高是像素尺寸除以 8。1600×904 的图，对应潜空间约 200×113。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-emptylatent">
+    <summary><span class="type">EmptyLatentImage / EmptyFlux2LatentImage</span><span class="one">文生图的“空白画布”</span><span class="val">1600×904×3 / 1024²×1</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>生成一张指定宽高、指定批次数量的空白潜变量。它不含任何内容，只决定画布大小和一次出几张。</p>
+      <table>
+        <thead><tr><th style="width:34%">节点 / 位置</th><th>真实参数</th></tr></thead>
+        <tbody>
+          <tr><td><code>EmptyLatentImage</code> 文生图 <b>#8</b></td><td>1600 × 904 × <b>3</b></td></tr>
+          <tr><td><code>EmptyLatentImage</code> 02 子图 <b>#161</b></td><td>512 × 512 × 1</td></tr>
+          <tr><td><code>EmptyFlux2LatentImage</code> 01 子图 <b>#145</b></td><td>1024 × 1024 × 1</td></tr>
+          <tr><td><code>EmptyFlux2LatentImage</code> 03 子图 <b>#339</b>、04 <b>#338</b>、05 <b>#462</b>、06 <b>#48</b>、07 <b>#367</b></td><td>均为 1024 × 1024 × 1</td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：宽高通常要是 8 的倍数；随意填 1001 这类数字，会被向下取整或直接报错。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-vaeencode">
+    <summary><span class="type">VAEEncode / VAEEncodeForInpaint</span><span class="one">把已有图送进潜空间</span><span class="val">padding 6</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p><code>VAEEncode</code> 把 IMAGE 压成 LATENT，用于图生图与参考图；<code>VAEEncodeForInpaint</code> 额外接收遮罩，把遮罩区域处理成可重绘的潜变量。</p>
+      <div class="io"><span>IMAGE</span><span>VAE</span><span class="out">LATENT</span></div>
+      <table>
+        <thead><tr><th style="width:34%">节点 / 位置</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code>VAEEncode</code> 03/04 <b>#16</b>、01 <b>#180</b>、02 <b>#114</b></td><td>把底图压成 LATENT 再采样</td></tr>
+          <tr><td><code>VAEEncodeForInpaint</code> 06 <b>#33</b></td><td>遮罩外扩 <b>6</b> 像素（<code>grow_mask_by</code>）</td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：<code>VAEEncodeForInpaint</code> 的遮罩要接在 <code>mask</code> 输入上；把遮罩当图像接进 <code>pixels</code> 会得到奇怪的结果。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-batch">
+    <summary><span class="type">batch_size</span><span class="one">一次出几张，不是“多跑几次”</span><span class="val">3</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p><code>batch_size</code> 是同一个提示词、同一批噪声一次并行生成多张。它与“排队跑三次”不同：显存占用更高，但共用同一轮加载。</p>
+      <div class="ex">文生图与文生图（自动翻译）的 <code>EmptyLatentImage</code> <b>#8</b> 都是 <b>1600 × 904 × 3</b>；02 的工作流里还有一组名为“出图数量”的分组专门管这件事。</div>
+      <p class="pit">易错：把 batch 调大不会让每张更精细，只会多出几张；想提高单张质量，调步数或放大，不要堆 batch。</p>
+    </div>
+  </details>
+
+  <h2 id="inpaint"><span class="no">05 / 局部重绘</span>只改一块，其余别动</h2>
+  <p>局部重绘的动机很具体：整张图已经满意，只不满意地面、墙面或某件家具。重跑整张会破坏其他部分，所以要把“修改范围”缩到遮罩里。</p>
+
+  <details class="entry" id="term-detailer">
+    <summary><span class="type">DetailerForEach</span><span class="one">对遮罩区域逐个精修</span><span class="val">25 步 · denoise 0.8</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>它先按遮罩或检测框裁出小区域，再把每个区域放大、重采样、贴回原图。数值上相当于“局部的小型图生图”。</p>
+      <div class="io"><span>IMAGE</span><span>SEGS</span><span>MODEL</span><span>CLIP</span><span>VAE</span><span>positive</span><span>negative</span><span class="out">IMAGE</span></div>
+      <table>
+        <thead><tr><th style="width:34%">参数</th><th>05 <b>#257</b> 真实值</th></tr></thead>
+        <tbody>
+          <tr><td><code>guide_size</code></td><td>512</td></tr>
+          <tr><td><code>max_size</code></td><td>1024</td></tr>
+          <tr><td><code>steps</code></td><td>25</td></tr>
+          <tr><td><code>cfg</code></td><td>1</td></tr>
+          <tr><td><code>sampler_name</code></td><td><code>uni_pc</code></td></tr>
+          <tr><td><code>scheduler</code></td><td><code>sgm_uniform</code></td></tr>
+          <tr><td><code>denoise</code></td><td>0.8</td></tr>
+          <tr><td><code>feather</code></td><td>5</td></tr>
+        </tbody>
+      </table>
+      <p class="small quiet">其余字段（检测阈值、裁切系数等）随 Impact Pack 版本略有差异，以实际 JSON 为准。</p>
+      <div class="ex">05 的分组名直接写了操作路径：“涂抹需要修改的区域（右键 · 遮罩编辑器）”，下一组是“需要修改成什么”。这说明遮罩与提示词是两件事，要分别给。</div>
+      <p class="pit">易错：denoise 0.8 很高，遮罩边缘容易“换材质”；feather 5 是让边缘过渡，不要为了干净把 feather 设成 0。</p>
+    </div>
+  </details>
+
+  <h2 id="upscale"><span class="no">06 / 放大</span>三条路线，别混着用</h2>
+  <div class="cards3">
+    <div class="rc"><b>① 模型放大</b><code>UpscaleModelLoader + ImageUpscaleWithModel</code><br>用 4x-UltraSharp 这类超分模型直接放大，速度快，细节是“猜”出来的。</div>
+    <div class="rc"><b>② 按倍数缩放</b><code>ImageScaleBy</code><br>只改分辨率，不增加细节，常用来把 4 倍结果压回可接受尺寸。</div>
+    <div class="rc"><b>③ 目标像素缩放</b><code>ImageScaleToTotalPixels</code><br>按“总像素数”归一化，2 MP 与 8 MP 是两档常用目标。</div>
+  </div>
+
+  <details class="entry" id="term-upscale" open>
+    <summary><span class="type">UpscaleModelLoader + ImageUpscaleWithModel</span><span class="one">超分模型放大</span><span class="val">4x-UltraSharp</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>先加载放大模型，再把图像送进去。模型决定“补出来的细节长什么样”，不是简单插值。</p>
+      <table>
+        <thead><tr><th style="width:36%">节点 / 位置</th><th>真实值</th></tr></thead>
+        <tbody>
+          <tr><td><code>UpscaleModelLoader</code> 03 <b>#353</b>、07 <b>#3</b>、07 子图 <b>#380</b></td><td><code>4x-UltraSharp.pth</code></td></tr>
+          <tr><td><code>ImageUpscaleWithModel</code> 03 <b>#351</b>、07 <b>#2</b>、07 子图 <b>#383</b></td><td>无额外参数，模型即配置</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">07 的分组名是“直接放大模型算法”；03 在放大后又接了 <code>ColorMatch</code>（<b>#352</b>，<code>mkl</code>，强度 1），把放大的偏色拉回参考图。</div>
+      <p class="pit">易错：4x 不是“最终就是 4 倍”。07 后面还有 <code>ImageScaleBy</code> <b>#4</b> 用 <b>0.5</b> 把结果压回一半；看最终尺寸要顺着链走完。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-scaleby">
+    <summary><span class="type">ImageScaleBy / ImageScaleToTotalPixels</span><span class="one">按倍数或按总像素改尺寸</span><span class="val">0.5 / 2 MP / 8 MP</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>两者都不增加真实细节，只改变像素数量。<code>ImageScaleBy</code> 用倍数，<code>ImageScaleToTotalPixels</code> 用目标百万像素。</p>
+      <table>
+        <thead><tr><th style="width:44%">节点 / 位置</th><th>真实参数</th></tr></thead>
+        <tbody>
+          <tr><td><code>ImageScaleBy</code> 07 <b>#4</b></td><td><code>nearest-exact</code> · 0.5</td></tr>
+          <tr><td><code>ImageScaleToTotalPixels</code> 03 <b>#350</b> / <b>#355</b></td><td>2 MP / 8 MP</td></tr>
+          <tr><td><code>ImageScaleToTotalPixels</code> 07 子图 <b>#378</b> / <b>#386</b></td><td>2 MP / 8 MP</td></tr>
+          <tr><td><code>ImageScaleToTotalPixels</code> 04 子图 <b>#349</b></td><td>2 MP</td></tr>
+        </tbody>
+      </table>
+      <p class="pit">易错：放大后再缩小时，重采样方法会影响锐度；<code>nearest-exact</code> 适合保持像素边界，不适合人像柔化。</p>
+    </div>
+  </details>
+
+  <details class="entry" id="term-resize">
+    <summary><span class="type">ImageResize+</span><span class="one">输入端的统一尺寸</span><span class="val">512 × 512 · lanczos</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <p>上传的参考图尺寸五花八门，进采样前先统一到 512×512，避免显存忽高忽低、ControlNet 预处理器吃不下。</p>
+      <table>
+        <thead><tr><th style="width:36%">参数</th><th>本套常见值</th></tr></thead>
+        <tbody>
+          <tr><td>宽 / 高</td><td>512 × 512</td></tr>
+          <tr><td>重采样</td><td><code>lanczos</code></td></tr>
+          <tr><td>保持比例</td><td><code>keep proportion</code></td></tr>
+          <tr><td>对齐步长</td><td>32（以实际节点版本为准）</td></tr>
+        </tbody>
+      </table>
+      <div class="ex">04 <b>#79</b>、03 <b>#72</b>、02 <b>#111</b>、LINK <b>#17</b>、IPA <b>#79</b>，五处完全一致。</div>
+      <p class="pit">易错：这里缩到 512 只是为了控制输入；最终出图尺寸由后面的 EmptyLatent 或放大链决定，不要看到 512 就以为成图只有 512。</p>
+    </div>
+  </details>
+
+  <h2 id="practice"><span class="no">07 / 动手</span>只改一个旋钮，看差异</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，把根图 <b>#4</b> 的 steps 从 15 改成 8，种子保持 <code>901186358219662</code> 不变，只跑一次。</p><p class="why">目标：观察“步数不足”是结构先坏还是细节先糊。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 05，把 <b>#257 DetailerForEach</b> 的 denoise 从 0.8 降到 0.45，其他不动，重绘同一块地面。</p><p class="why">目标：体会 denoise 与“改动幅度”的关系。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 03，顺着 <b>#351 ImageUpscaleWithModel</b> → <b>#355 ImageScaleToTotalPixels</b> 找到最终尺寸，写下放大前后的像素数。</p><p class="why">目标：分清“模型放大”和“目标像素归一化”各做什么。</p></div></div>
+    <div class="task"><div class="idx">4</div><div><p>打开 02，对比根图 <b>#119</b>（12 步 / CFG 3）与子图 <code>CFGGuider</code>（CFG 1），解释为什么子图不需要高 CFG。</p><p class="why">目标：把“蒸馏模型不吃 CFG”与真实参数对上。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">08 / 自检</span>采样参数不是玄学</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出 KSampler 七格中哪一格决定“从多吵开始”。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 denoise 1.0 与 0.8 的差别，不是“步数多少”的差别。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 Flux 子图的 CFGGuider 为什么常为 1。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清 EmptyLatent 的 batch_size 与“多跑几次”。</span></label>
+    <label class="check"><input type="checkbox"><span>我能按顺序说出：ImageUpscaleWithModel → ImageScaleBy 的最终尺寸。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 4x 放大模型不等于最终一定是 4 倍尺寸。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="./L2-02-条件与编码.html"><span class="dir">← 上一册</span>L2-02 条件与编码</a>
+    <a href="./L2-04-输出与组织.html"><span class="dir">下一册 →</span>L2-04 输出与组织</a>
+  </nav>
+
+  <footer>《AI 入门与 ComfyUI 出图课》· 李智博 · 2026 · L2-03 采样与后处理 · 参数取自 <code>ComfyUI_工作流架构</code> 真实 JSON<br>单文件离线可用 · 无外部依赖 · <a href="../index.html">返回课程地图</a></footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-03-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

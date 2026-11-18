@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L3-C1b · 两种放大 | AI 入门与 ComfyUI 出图课</title>
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
+               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
+    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .secnav::-webkit-scrollbar{display:none}
+  .secnav a{font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;white-space:nowrap;font-weight:600}
+  .secnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  /* hero */
+  .hero{padding:44px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--rose);background:var(--rose-soft);border:1px solid rgba(194,46,99,.22);padding:5px 12px;border-radius:999px}
+  h1{font-size:clamp(28px,4.2vw,40px);line-height:1.24;letter-spacing:-.02em;font-weight:800;margin-top:16px}
+  .sub{color:var(--muted);margin-top:10px;max-width:760px}
+
+  .goal{margin-top:24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)}
+  .goal .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--rose);font-weight:700}
+  .goal p{font-size:17px;line-height:1.65;margin-top:6px}
+  .goal strong{background:linear-gradient(180deg,transparent 62%,rgba(194,46,99,.16) 62%)}
+
+  .metas{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .chip{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
+
+  /* position map */
+  .posmap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px;box-shadow:var(--shadow)}
+  .posmap .ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .posmap .ph b{font-size:13px}
+  .posmap .ph span{font-size:11.5px;color:var(--faint)}
+  .track{display:flex;overflow-x:auto;padding-bottom:6px}
+  .pstop{flex:1 1 0;min-width:118px;position:relative;padding-top:20px;border-top:3px solid rgba(64,81,214,.22)}
+  .pstop::before{content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #a9b0f0}
+  .pstop .pc{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+  .pstop .pn{font-size:12.5px;font-weight:600;margin-top:2px;line-height:1.4;color:var(--muted)}
+  .pstop.here{border-top-color:var(--rose)}
+  .pstop.here::before{background:var(--rose);border-color:var(--rose);box-shadow:0 0 0 5px rgba(194,46,99,.14)}
+  .pstop.here .pn{color:var(--ink);font-weight:800}
+  .pstop.here .pc{color:var(--rose)}
+  .here-tag{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--rose);border-radius:4px;padding:0 5px;margin-left:5px;vertical-align:1px}
+
+  /* sections */
+  section{padding:46px 0 2px;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .snum{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.12em}
+  h2{font-size:clamp(21px,2.8vw,27px);letter-spacing:-.02em;line-height:1.32}
+  .slead{color:var(--muted);max-width:780px;margin:6px 0 20px;font-size:14px}
+  .mini{font-size:12.5px;color:var(--faint)}
+  h3.sub3{font-size:16px;margin:26px 0 8px}
+
+  /* pre knowledge */
+  .pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pre{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+  .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
+  .pre h3{font-size:14px;margin:8px 0 4px}
+  .pre p{font-size:12.5px;color:var(--muted);margin:0}
+  .pre a{font-weight:600}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note b{color:var(--ink)}
+
+  /* figure */
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px;overflow-x:auto}
+  .fig svg{display:block;width:100%;min-width:1000px;height:auto}
+  .fig.narrow svg{min-width:760px}
+  .fig text{font-family:inherit}
+  .fig .tb{font-size:13.5px;font-weight:700;fill:#18212f}
+  .fig .t{font-size:12.5px;fill:#2c3546}
+  .fig .ts{font-size:10.5px;fill:#5d6779}
+  .fig .tm{font-family:var(--mono);font-size:9.5px;fill:#8b93a3;letter-spacing:.02em}
+  .fig .box{fill:#fff;stroke:#cbc6ba;stroke-width:1.2}
+  .fig .boxA{fill:#f1f2fd;stroke:#4051d6;stroke-width:1.4}
+  .fig .boxD{fill:#fffafa;stroke:#c22e63;stroke-width:1.3;stroke-dasharray:5 4}
+  .fig .panel{fill:#fcfbf8;stroke:#e2ded4;stroke-width:1}
+  .fig .ln{stroke:#8f97a8;stroke-width:1.4;fill:none}
+  .fig .lnA{stroke:#4051d6;stroke-width:1.4;fill:none}
+  .fig .lnX{stroke:#c22e63;stroke-width:1.3;fill:none;stroke-dasharray:4 4}
+  .fig .rule{stroke:#e2ded4;stroke-width:1}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:10px 4px 2px;border-top:1px dashed var(--line);margin-top:10px}
+  .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  /* nesting ladder */
+  .nest{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;align-items:stretch}
+  .nest .n{flex:0 0 auto;width:132px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 11px}
+  .nest .n .id{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--ink)}
+  .nest .n .nm{font-size:11px;color:var(--faint);margin-top:2px;line-height:1.4}
+  .nest .n .ct{font-size:11px;color:var(--muted);margin-top:6px}
+  .nest .n.real{border-color:rgba(64,81,214,.35);background:#f7f8ff}
+  .nest .n.real .id{color:var(--accent)}
+  .nest .arrow{align-self:center;color:var(--faint);font-size:12px}
+
+  /* node cards */
+  .ngroup{margin-top:26px}
+  .ngroup-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .ngroup-head .idx{font-family:var(--mono);font-size:11px;color:#fff;background:var(--ink);border-radius:6px;padding:2px 7px;font-weight:700}
+  .ngroup-head h3{font-size:16px}
+  .ngroup-head .gp{font-size:11.5px;color:var(--faint)}
+  .cards{display:grid;gap:10px}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
+  .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
+  .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .nrole{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .ncard .bd{padding:12px 15px 14px}
+  .ncard .bd p{font-size:13.5px;color:#2c3546;margin:0 0 8px}
+  .ncard .bd p:last-child{margin-bottom:0}
+  .ncard .bd b{color:var(--ink)}
+  .params{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 14px;margin:8px 0 6px;padding:9px 12px;background:#faf9f5;border:1px solid var(--line);border-radius:8px}
+  .params div{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted #e8e4da;padding-bottom:3px}
+  .params div:last-child{border-bottom:none}
+  .params b{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-align:right;word-break:break-all}
+  .io{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .io span{font-family:var(--mono);font-size:10.5px;border-radius:4px;padding:1px 6px;background:#f1f2f6;color:var(--muted)}
+  .io .in{background:rgba(61,111,196,.10);color:#2f5aa8}
+  .io .out{background:rgba(47,125,91,.10);color:#256b4c}
+  .warn-inline{font-size:12.5px;color:var(--danger);background:var(--danger-soft);border-radius:7px;padding:7px 10px;margin-top:8px}
+  .warn-inline b{color:var(--danger)}
+
+  /* table */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin:12px 0 20px}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:720px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent)}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .up{color:var(--amber);font-weight:700}
+  .down{color:#3d6fc4;font-weight:700}
+
+  /* pitfalls */
+  .pits{display:grid;gap:10px}
+  .pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--danger);border-radius:0 12px 12px 0;padding:14px 16px}
+  .pit h3{font-size:14px;margin-bottom:4px}
+  .pit .where{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em;margin-bottom:6px}
+  .pit p{font-size:13px;color:var(--muted);margin:0}
+  .pit p+p{margin-top:6px}
+  .pit .fix{color:var(--teal);font-weight:600}
+  .pit.lv2{border-left-color:var(--amber)}
+  .pit.ok{border-left-color:var(--teal)}
+  .pit.ok .fix{color:var(--teal)}
+
+  /* exercise */
+  .ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .ex .no{font-family:var(--mono);font-size:10.5px;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .ex h3{font-size:13.5px;margin:5px 0}
+  .ex p{font-size:12.5px;color:var(--muted);margin:0}
+  .ex .see{font-size:12px;color:var(--ink);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)}
+  .ex .see b{color:var(--teal)}
+
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;box-shadow:var(--shadow)}
+  .check h3{font-size:14px;margin-bottom:8px}
+  .check ul{list-style:none}
+  .check li{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--muted);border-bottom:1px dotted var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check input{margin-top:5px;accent-color:var(--teal);width:14px;height:14px;flex:0 0 auto}
+
+  .next{margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,rgba(64,81,214,.07),rgba(15,122,108,.07));border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .next .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:700}
+  .next .nt{font-size:17px;font-weight:800;margin-top:2px}
+  .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src code{color:var(--muted)}
+
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:860px){
+    .pre-grid,.ex-grid{grid-template-columns:1fr}
+    .params{grid-template-columns:1fr}
+    .secnav{display:none}
+  }
+  @media print{
+    .topbar,.secnav{display:none}
+    body{background:#fff}
+    section{padding:20px 0 0;page-break-inside:avoid}
+    .ncard,.pre,.ex{box-shadow:none}
+  }
+  /* 术语表：窄屏改成卡片，四列不挤 */
+  .term-tbl table{min-width:0}
+  @media (min-width:601px){
+    .term-tbl th:nth-child(1),.term-tbl td:nth-child(1){width:13%}
+    .term-tbl th:nth-child(2),.term-tbl td:nth-child(2){width:21%}
+    .term-tbl th:nth-child(3),.term-tbl td:nth-child(3){width:37%}
+    .term-tbl th:nth-child(4),.term-tbl td:nth-child(4){width:29%}
+  }
+  @media (max-width:600px){
+    .term-tbl table,.term-tbl thead,.term-tbl tbody,.term-tbl tr,.term-tbl td{display:block;width:auto;min-width:0}
+    .term-tbl thead{display:none}
+    .term-tbl tr{padding:11px 12px;border-bottom:1px solid var(--line)}
+    .term-tbl tr:last-child{border-bottom:none}
+    .term-tbl td{border:none;padding:2px 0}
+    .term-tbl td:first-child{font-size:13px;font-weight:700}
+    .term-tbl td:nth-child(2){font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+    .term-tbl td:nth-child(3){font-size:12.5px;line-height:1.7;padding-top:4px}
+    .term-tbl td:nth-child(4){font-size:12px;line-height:1.65;color:var(--muted);padding-top:5px}
+    .term-tbl td:nth-child(4)::before{content:"反例 · ";font-weight:700;color:var(--rose)}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <span class="crumb">L3 / C 线 / C1 前置</span>
+    <nav class="secnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#s2">前置</a>
+      <a href="#s3">两条路线</a>
+      <a href="#s4">五个问题</a>
+      <a href="#s5">参数</a>
+      <a href="#s6">踩坑</a>
+      <a href="#s7">练习</a>
+      <a href="../guides/visual-spec.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">L3 · 单品课 · 07 号先修</span>
+    <h1>两种放大</h1>
+    <p class="sub">周五交展板，60 × 90 厘米，打印店要 150 dpi（每英寸 150 个点，印厂用的分辨率口径）。算下来是 3543 × 5315 像素，接近 19 MP。你手上只有一张 1024 见方的图。同学说“用 4x 模型放一下”，另一个说“尺寸拉大就行”。这两句话差的不是参数，是<strong>有没有新内容被造出来</strong>。</p>
+
+    <div class="goal">
+      <div class="lab">01 / 一句话目标</div>
+      <p>看完这一节，你能对任何一步放大回答两个问题：<strong>它是在补内容，还是只把格子摊大</strong>；以及 07 号那条链里，哪一步在补、哪一步只在摊。</p>
+    </div>
+
+    <div class="metas">
+      <span class="chip">前置 <b>L2-03c</b></span>
+      <span class="chip">关联工作流 <b>07 号</b></span>
+      <span class="chip">两类工序 <b>插值 / 模型</b></span>
+      <span class="chip">中间峰值 <b>≈32 MP</b></span>
+      <span class="chip">数据核对日 <b>2026-11-09</b></span>
+    </div>
+
+    <div class="posmap">
+      <div class="ph"><b>当前位置</b><span>夹在“尺寸概念”和“07 号实链”之间</span></div>
+      <div class="track">
+        <div class="pstop"><div class="pc">L2-03c</div><div class="pn">三条路线、四种尺寸节点</div></div>
+        <div class="pstop here"><div class="pc">L3-07b</div><div class="pn">两种放大怎么分<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop"><div class="pc">L3-07</div><div class="pn">07 号四步放大实链</div></div>
+        <div class="pstop"><div class="pc">C2</div><div class="pn">文生图 + 深度控制</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 02 前置 -->
+  <section id="s2">
+    <div class="shead"><span class="snum">02 / PREREQUISITES</span><h2>前置知识卡</h2></div>
+    <p class="slead">这一节只回答“两条放大怎么分”。节点参数、接线、四层子图都不在这里。下面三张卡说清各自归哪一节，免得你以为这一节会重讲一遍。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">L2-03c</span>
+        <h3>放大与尺寸</h3>
+        <p>三条路线（模型放大、按倍率、按总像素）和它们各自的参数表，都在那一节。这一节不重复参数，只讲它们<strong>差在哪</strong>。<a href="../l2/l2-03c-upscale-size.html#upscale">回看 02 节</a>。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L1-01</span>
+        <h3>潜空间与 VAE</h3>
+        <p>潜空间（Latent）是把像素按 1/8 缩小后的那张草稿画布；VAE 是有损翻译机，负责在像素和草稿之间来回翻。07 号的一步精修就发生在草稿上。<a href="../l1/l1-01-latent-space-vae.html">回看 L1-01</a>。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L3-07</span>
+        <h3>07 号实链</h3>
+        <p>8 个顶层节点、四层同名子图、#4 的死端。这一节只引用它的结论，<strong>不改一个值</strong>。<a href="l3-07-hd-upscale.html#s3">回看全景图</a>。</p>
+      </div>
+    </div>
+
+    <div class="pre-note">
+      <b>本节边界：</b>不教参数怎么填（L2-03c 管），不教 07 号怎么接线（L3-07 管），不教 denoise 的原理（L3-08 管）。它只回答一个问题：同样把图变大，<b>两条路线各自多了什么、少了什么</b>。本节不新增模型，也不改工作流；用到的是你已经有的 07 号和一张自己的 1024 级图。
+    </div>
+
+    <h3 class="sub3">这一课会用到的词</h3>
+    <div class="table-wrap term-tbl">
+      <table>
+        <thead><tr><th>词</th><th>英文原名</th><th>一句人话</th><th>一个反例</th></tr></thead>
+        <tbody>
+          <tr><td><b>插值放大</b></td><td>Interpolation Upscaling</td><td>图变大时，按周边像素算出新格子的颜色，不生成新内容。</td><td>不是“变清楚”：格子变多了，信息还是原来那些。</td></tr>
+          <tr><td><b>重采样</b></td><td>Resampling</td><td>换一套像素网格时，重新算每个格子的颜色；放大缩小都算。</td><td>不是重新生成：它不认识画面里画的是什么。</td></tr>
+          <tr><td><b>lanczos</b></td><td>Lanczos resampling</td><td>一种重采样算法，拿周边一圈像素加权平均，边缘比较锐。</td><td>不是放大模型：它只做算术，不会补纹理。</td></tr>
+          <tr><td><b>nearest-exact</b></td><td>Nearest-neighbor（最近邻）</td><td>直接复制最近的那个像素，最快，边缘最硬。</td><td>别被 exact 骗：它“精确复制”，不是“精确还原”。</td></tr>
+          <tr><td><b>超分模型</b></td><td>Super-Resolution Model</td><td>专门训练来把图变大、并按学到的规律补细节的小模型。</td><td>不是锐化滤镜：它生成新像素，不只是加对比。</td></tr>
+          <tr><td><b>ESRGAN</b></td><td>Enhanced Super-Resolution GAN</td><td>一类超分网络的训练方式：一个网络造假图，一个网络挑错，逼出合理细节。</td><td>不是万能修复：它补“像样”的纹理，不保证“真实”。</td></tr>
+          <tr><td><b>分块放大</b></td><td>Tiling</td><td>把大图切成若干小块，每块单独放大，再拼回去。</td><td>不是“能放得更大”：它换的是显存占用，不是清晰度上限。</td></tr>
+          <tr><td><b>显存</b></td><td>VRAM</td><td>显卡上放中间结果的那块内存，图越大占得越多。</td><td>不是硬盘：关掉程序就释放，装不下会直接报错。</td></tr>
+          <tr><td><b>二洗</b></td><td>Low-denoise re-sample</td><td>放大完再走一遍很轻的重画，压掉接缝与过锐。</td><td>不是“再放大一次”：它不改尺寸，只改质感。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <b>三个新类比，登记理由：</b>
+      ① 插值放大 = <b>举着放大镜看报纸</b>，字变大了，笔画没变多。登记表里的 12 条没有“只改尺寸”的概念，不能借 VAE 的“有损翻译机”——那说的是编码解码，不是重采样。
+      ② 放大模型 = <b>背过大量「糊—清」配对题的临摹者</b>，按学过的规律补笔画。没有复用“生成式模型 = 画师”，因为画师重画整张、会换构图，而放大模型只补原有轮廓上的笔画。两条分开，才不至于把“放大”和“重画”混成一件事。
+      ③ 分块放大 = <b>把大海报切成几张 A4 分别处理，再拼回去</b>。登记表里没有空间切分的概念；“工作台”已经归了上下文窗口，不能挪用。
+    </div>
+  </section>
+
+  <!-- 03 两条路线 -->
+  <section id="s3">
+    <div class="shead"><span class="snum">03 / TWO ROUTES</span><h2>两条路线在 07 号里的位置</h2></div>
+    <p class="slead">先纠正一个常见误会：07 号上并没有“左边一条插值路线、右边一条模型路线”并排放着。它们是<strong>两类工序</strong>，交替出现在同一条链里。你要认的不是位置，是每个节点属于哪一类。</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 1060 430" role="img" aria-label="07 号工作流里插值工序与模型放大工序的实际位置">
+        <defs>
+          <marker id="c1b" viewBox="0 0 10 10" refX="5.7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8f97a8"/>
+          </marker>
+          <marker id="c1br" viewBox="0 0 10 10" refX="5.7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#c22e63"/>
+          </marker>
+        </defs>
+
+        <rect class="panel" x="20" y="18" width="1020" height="214" rx="12"/>
+        <text class="tm" x="40" y="44" text-anchor="start">A · 07 号真实链 · 唯一落盘的一条</text>
+
+        <rect class="box" x="30" y="86" width="140" height="58" rx="8"/>
+        <text class="tb" x="100" y="106" text-anchor="middle" dominant-baseline="central">LoadImage</text>
+        <text class="tm" x="100" y="126" text-anchor="middle" dominant-baseline="central">#1 · 1024 见方</text>
+
+        <path class="ln" d="M174,115 H196" marker-end="url(#c1b)"/>
+
+        <rect class="boxA" x="200" y="86" width="140" height="58" rx="8"/>
+        <text class="tb" x="270" y="106" text-anchor="middle" dominant-baseline="central">2 MP 归一</text>
+        <text class="tm" x="270" y="126" text-anchor="middle" dominant-baseline="central">#378 · 插值</text>
+
+        <path class="ln" d="M344,115 H366" marker-end="url(#c1b)"/>
+
+        <rect class="box" x="370" y="86" width="140" height="58" rx="8"/>
+        <text class="tb" x="440" y="106" text-anchor="middle" dominant-baseline="central">一步精修</text>
+        <text class="tm" x="440" y="126" text-anchor="middle" dominant-baseline="central">#382 steps 1</text>
+
+        <path class="ln" d="M514,115 H536" marker-end="url(#c1b)"/>
+
+        <rect class="boxA" x="540" y="86" width="140" height="58" rx="8"/>
+        <text class="tb" x="610" y="106" text-anchor="middle" dominant-baseline="central">模型 4×</text>
+        <text class="tm" x="610" y="126" text-anchor="middle" dominant-baseline="central">#383 · 补细节</text>
+
+        <path class="ln" d="M684,115 H706" marker-end="url(#c1b)"/>
+
+        <rect class="boxA" x="710" y="86" width="140" height="58" rx="8"/>
+        <text class="tb" x="780" y="106" text-anchor="middle" dominant-baseline="central">8 MP 封顶</text>
+        <text class="tm" x="780" y="126" text-anchor="middle" dominant-baseline="central">#386 · 插值</text>
+
+        <path class="ln" d="M854,115 H876" marker-end="url(#c1b)"/>
+
+        <rect class="box" x="880" y="86" width="140" height="58" rx="8"/>
+        <text class="tb" x="950" y="106" text-anchor="middle" dominant-baseline="central">SaveImage</text>
+        <text class="tm" x="950" y="126" text-anchor="middle" dominant-baseline="central">#384 · ComfyUI</text>
+
+        <text class="tm" x="270" y="70" text-anchor="middle" dominant-baseline="central">摊格子</text>
+        <text class="tm" x="440" y="70" text-anchor="middle" dominant-baseline="central">重画</text>
+        <text class="tm" x="610" y="70" text-anchor="middle" dominant-baseline="central">补内容</text>
+        <text class="tm" x="780" y="70" text-anchor="middle" dominant-baseline="central">摊格子</text>
+
+        <text class="ts" x="610" y="164" text-anchor="middle" dominant-baseline="central">中间产物 ≈32 MP，过路不落盘</text>
+        <text class="ts" x="610" y="184" text-anchor="middle" dominant-baseline="central">#380 载入权重 → #383 执行放大</text>
+        <text class="tm" x="40" y="212" text-anchor="start">四步放大：归一 → 精修 → 模型放大 → 再归一（节点编号与 L3-07 一致）</text>
+
+        <rect class="panel" x="20" y="250" width="1020" height="150" rx="12"/>
+        <text class="tm" x="40" y="276" text-anchor="start">B · 死端支路 · 从 #3 开始，到 #4 停下</text>
+
+        <rect class="box" x="30" y="300" width="140" height="56" rx="8"/>
+        <text class="tb" x="100" y="320" text-anchor="middle" dominant-baseline="central">#3 载入权重</text>
+        <text class="tm" x="100" y="340" text-anchor="middle" dominant-baseline="central">4x-UltraSharp.pth</text>
+
+        <path class="ln" d="M174,328 H196" marker-end="url(#c1b)"/>
+
+        <rect class="boxA" x="200" y="300" width="140" height="56" rx="8"/>
+        <text class="tb" x="270" y="320" text-anchor="middle" dominant-baseline="central">#2 模型 4×</text>
+        <text class="tm" x="270" y="340" text-anchor="middle" dominant-baseline="central">补细节</text>
+
+        <path class="ln" d="M344,328 H366" marker-end="url(#c1b)"/>
+
+        <rect class="boxD" x="370" y="300" width="140" height="56" rx="8"/>
+        <text class="tb" x="440" y="320" text-anchor="middle" dominant-baseline="central">#4 缩 0.5</text>
+        <text class="tm" x="440" y="340" text-anchor="middle" dominant-baseline="central">nearest-exact</text>
+
+        <path class="lnX" d="M514,328 H560" marker-end="url(#c1br)"/>
+        <text class="ts" x="566" y="320" text-anchor="start" dominant-baseline="central">没有下游</text>
+        <text class="tm" x="566" y="338" text-anchor="start" dominant-baseline="central">links = []</text>
+        <text class="ts" x="700" y="320" text-anchor="start" dominant-baseline="central">整段没有 SaveImage，也没有线通向 #390</text>
+        <text class="tm" x="40" y="386" text-anchor="start">这条支路本身是完整的，缺的只是最后那根线；所以它不能拿来和 8 MP 成品比清晰度。</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#4051d6"></i>蓝色：属于“摊格子”或“补内容”的关键工序</span>
+        <span><i style="background:#cbc6ba"></i>灰色：普通连接</span>
+        <span><i style="background:#c22e63"></i>玫瑰虚线：死端</span>
+      </div>
+    </div>
+    <p class="mini" style="margin-top:10px">读图顺序：先看 A 段五个方块，认出哪两个是“摊格子”、哪一个是“补内容”。再看 B 段：#3 → #2 → #4 一路连到底，但 #4 后面什么都没有。图里的 <code>LoadImage</code> 是读图节点、<code>SaveImage</code> 是落盘节点，都属于一道工序；其余放大与缩放节点的分工见下表。</p>
+
+    <h3 class="sub3">同一张画布，两类工序</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>工序</th><th>07 号里的节点</th><th>它动的是什么</th><th>结果</th></tr></thead>
+        <tbody>
+          <tr><td><b>插值缩放</b></td><td><code>ImageScaleToTotalPixels</code> #378 / #386</td><td>像素网格的疏密</td><td>尺寸变了，信息不变</td></tr>
+          <tr><td><b>模型放大</b></td><td><code>UpscaleModelLoader</code> #380 / #3 → <code>ImageUpscaleWithModel</code> #383 / #2</td><td>按学到的规律补像素</td><td>尺寸变大，细节是补的</td></tr>
+          <tr><td><b>按倍率缩</b></td><td><code>ImageScaleBy</code> #4</td><td>像素网格的疏密</td><td>尺寸变了，信息不变</td></tr>
+          <tr><td><b>一步精修</b></td><td>#363–#366 → #382 steps 1</td><td>潜空间里的内容</td><td>会改动画面，不是放大</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>看出规律没有：<b>只有“模型放大”和“精修”会碰内容</b>。其余三个节点都只是换网格，一个像素的“含义”没变。这就是为什么两条路线值得分开记——它们失败的样子完全不同。</p>
+
+    <div class="warn-inline"><b>硬信息，只引用不改：</b>#4 的 <code>outputs[0].links</code> 是空数组，这是死支结论的唯一依据；它<strong>不是接线接反</strong>，也不是参数写错。07 号做了四步放大（归一 → 精修 → 模型放大 → 再归一），中间峰值 ≈32 MP，最终封顶 8 MP；四层子图是 #390 → #389 → #388 → #387，真身 22 个节点。这些值在 L3-07 里逐项写过，本节不改。</div>
+  </section>
+
+  <!-- 04 五个问题 -->
+  <section id="s4">
+    <div class="shead"><span class="snum">04 / FIVE QUESTIONS</span><h2>把两条路线问到底</h2></div>
+    <p class="slead">下面五个问题，按学员最常问的顺序排。每个都先给结论，再给理由；读完你该能自己判断“这一步值不值得做”。</p>
+
+    <h3 class="sub3">Q1 · 插值在做什么？它连“猜”都算不上</h3>
+    <p><b>结论：插值是算出来的，不是猜出来的。</b>新格子里的颜色，完全由旧格子的颜色按公式加权得出，输入几个像素，输出就由这几个像素决定。</p>
+    <p>拿 lanczos 来说，它看新格子周围一圈旧像素，按距离远近分配权重，再求平均。距离近的权重大，远的权重小，还会带一点负权重来保住边缘。nearest-exact 更直接：谁离得近，就整格复制谁。</p>
+    <p>所以 2 × 2 的图放大成 4 × 4，格子从 4 个变 16 个，但能独立取值的仍然只有 4 个。剩下的 12 个是算出来的，不是新拍到的。这就是“放大不增信息”的全部意思。</p>
+
+    <div class="fig narrow">
+      <svg viewBox="0 0 760 330" role="img" aria-label="同一块两像素见方区域，用最近邻、lanczos 与放大模型放大后的差别">
+        <rect class="panel" x="16" y="16" width="728" height="288" rx="10"/>
+
+        <!-- panel 1 -->
+        <text class="tb" x="80" y="46" text-anchor="middle">nearest-exact</text>
+        <text class="ts" x="80" y="64" text-anchor="middle">整格复制</text>
+        <g stroke="#c9c4b8" stroke-width="1">
+          <rect x="42" y="78" width="38" height="38" fill="#cdd7ee"/><rect x="80" y="78" width="38" height="38" fill="#cdd7ee"/><rect x="118" y="78" width="38" height="38" fill="#e6e3da"/><rect x="156" y="78" width="38" height="38" fill="#e6e3da"/>
+          <rect x="42" y="116" width="38" height="38" fill="#cdd7ee"/><rect x="80" y="116" width="38" height="38" fill="#cdd7ee"/><rect x="118" y="116" width="38" height="38" fill="#e6e3da"/><rect x="156" y="116" width="38" height="38" fill="#e6e3da"/>
+          <rect x="42" y="154" width="38" height="38" fill="#e6e3da"/><rect x="80" y="154" width="38" height="38" fill="#e6e3da"/><rect x="118" y="154" width="38" height="38" fill="#cdd7ee"/><rect x="156" y="154" width="38" height="38" fill="#cdd7ee"/>
+          <rect x="42" y="192" width="38" height="38" fill="#e6e3da"/><rect x="80" y="192" width="38" height="38" fill="#e6e3da"/><rect x="118" y="192" width="38" height="38" fill="#cdd7ee"/><rect x="156" y="192" width="38" height="38" fill="#cdd7ee"/>
+        </g>
+        <text class="ts" x="80" y="252" text-anchor="middle">16 个格子，4 种取值</text>
+        <text class="tm" x="80" y="272" text-anchor="middle">边缘出现方形台阶</text>
+
+        <!-- panel 2 -->
+        <text class="tb" x="340" y="46" text-anchor="middle">lanczos</text>
+        <text class="ts" x="340" y="64" text-anchor="middle">周边加权平均</text>
+        <g stroke="#c9c4b8" stroke-width="1">
+          <rect x="302" y="78" width="38" height="38" fill="#cdd7ee"/><rect x="340" y="78" width="38" height="38" fill="#d3dcef"/><rect x="378" y="78" width="38" height="38" fill="#dfe4f1"/><rect x="416" y="78" width="38" height="38" fill="#e6e3da"/>
+          <rect x="302" y="116" width="38" height="38" fill="#d3dcef"/><rect x="340" y="116" width="38" height="38" fill="#d8dfef"/><rect x="378" y="116" width="38" height="38" fill="#e0e3ee"/><rect x="416" y="116" width="38" height="38" fill="#e2e5f0"/>
+          <rect x="302" y="154" width="38" height="38" fill="#dfe4f1"/><rect x="340" y="154" width="38" height="38" fill="#e0e3ee"/><rect x="378" y="154" width="38" height="38" fill="#d8dfef"/><rect x="416" y="154" width="38" height="38" fill="#d5ddef"/>
+          <rect x="302" y="192" width="38" height="38" fill="#e6e3da"/><rect x="340" y="192" width="38" height="38" fill="#e2e5f0"/><rect x="378" y="192" width="38" height="38" fill="#d5ddef"/><rect x="416" y="192" width="38" height="38" fill="#cdd7ee"/>
+        </g>
+        <text class="ts" x="340" y="252" text-anchor="middle">台阶变缓，取值变多</text>
+        <text class="tm" x="340" y="272" text-anchor="middle">但每格仍由那 4 个算出</text>
+
+        <!-- panel 3 -->
+        <text class="tb" x="600" y="46" text-anchor="middle">放大模型</text>
+        <text class="ts" x="600" y="64" text-anchor="middle">按学过的纹理补</text>
+        <g stroke="#c9c4b8" stroke-width="1">
+          <rect x="562" y="78" width="38" height="38" fill="#cdd7ee"/><rect x="600" y="78" width="38" height="38" fill="#cfd9ef"/><rect x="638" y="78" width="38" height="38" fill="#dfe4f1"/><rect x="676" y="78" width="38" height="38" fill="#e6e3da"/>
+          <rect x="562" y="116" width="38" height="38" fill="#cfd9ef"/><rect x="600" y="116" width="38" height="38" fill="#d3dcef"/><rect x="638" y="116" width="38" height="38" fill="#e0e3ee"/><rect x="676" y="116" width="38" height="38" fill="#e2e5f0"/>
+          <rect x="562" y="154" width="38" height="38" fill="#dfe4f1"/><rect x="600" y="154" width="38" height="38" fill="#e0e3ee"/><rect x="638" y="154" width="38" height="38" fill="#d8dfef"/><rect x="676" y="154" width="38" height="38" fill="#d5ddef"/>
+          <rect x="562" y="192" width="38" height="38" fill="#e6e3da"/><rect x="600" y="192" width="38" height="38" fill="#e2e5f0"/><rect x="638" y="192" width="38" height="38" fill="#d5ddef"/><rect x="676" y="192" width="38" height="38" fill="#cdd7ee"/>
+        </g>
+        <g stroke="#8f97a8" stroke-width="1.2" fill="none">
+          <path d="M566,112 H596"/><path d="M604,86 V110"/><path d="M642,124 H668"/><path d="M646,182 V204"/>
+          <path d="M572,166 H592"/><path d="M608,196 H628"/>
+        </g>
+        <text class="ts" x="600" y="252" text-anchor="middle">灰线是补出来的笔画</text>
+        <text class="tm" x="600" y="272" text-anchor="middle">合理，但不是原图拍到的</text>
+
+        <text class="tm" x="24" y="300" text-anchor="start">示意：三块都是 4 × 4 网格，尺寸一样；差别只在多出来的格子怎么来。</text>
+      </svg>
+    </div>
+
+    <p><b>所以那句“放大就清楚了”错在哪：</b>清晰度看的是每个小区域里有多少独立的笔画信息，不看总像素。1024 见方的糊脸，插值到 4096 还是同一张糊脸，只是每块糊都更贵、更占显存。</p>
+
+    <h3 class="sub3">Q2 · 放大模型补的是什么？它补的是“像样”，不是“真相”</h3>
+    <p><b>结论：放大模型会把合理但未必真实的细节画进去。</b>这是它的价值，也是它最容易骗人的地方。</p>
+    <p>ESRGAN 这类模型训练时看成对的图：一张压缩糊了的，一张清晰的。它要做的事是“从糊的那张，推出清晰的那张”。看多了之后，它学会的是纹理的统计规律——砖缝通常怎么排、发丝通常怎么弯、窗框通常几道边。</p>
+    <p><code>4x-UltraSharp.pth</code> 就是这类权重里的一个。把它接到 <code>ImageUpscaleWithModel</code> 上，它会在原有轮廓里补笔画；轮廓、构图、人脸位置都不动，动的只是“细节画得多实”。</p>
+    <p>反过来说：原图没拍到的砖缝，它会给你补一条；原图糊掉的文字，它会补成一个“看起来像字”的东西。所以放大后的图，适合打印、适合看，但不适合当证据。</p>
+
+    <h3 class="sub3">Q3 · 为什么“边长乘 4”和“细节变多”是两件事</h3>
+    <p><b>结论：边长乘 4 是算术，细节变多是模型的事。</b>前者必然发生，后者不一定发生。</p>
+    <p>先算算术：边长乘 4，面积就乘 16。1024 见方（约 1.0 MP）按 4 倍边长摊开，是 4096 见方（约 16.8 MP）。这一步不需要任何模型，插值就能做完，信息一个都没有多。</p>
+    <p>再看 07 号，几个数字各管一件事，很容易混成一个：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>位置</th><th>数值</th><th>它是什么</th><th>边长变化</th></tr></thead>
+        <tbody>
+          <tr><td>#378 归一</td><td><code>2.0 MP</code></td><td>目标像素量，插值</td><td>1024 → 约 1414（×1.38）</td></tr>
+          <tr><td>#383 模型放大</td><td><code>4×</code></td><td>权重自带的放大倍率，补细节</td><td>约 1414 → 约 5656（×4）</td></tr>
+          <tr><td>#386 封顶</td><td><code>8 MP</code></td><td>目标像素量，插值</td><td>约 5656 → 约 2828（÷2）</td></tr>
+          <tr><td>#4（死支）</td><td><code>0.5</code></td><td>按倍率缩，插值</td><td>4 × 0.5 = 净值 2 倍</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>所以最终成品约 2828 见方，是输入 1024 的 <b>约 2.76 倍边长</b>，不是 4 倍。真正“从 4 倍边长”走完的是中间那一步（≈32 MP），而它被 #386 一刀切回了 8 MP。</p>
+    <p>顺带解释 #18 那条 Note：<code>0.25 一倍 / 0.5 两倍 / 0.75 三倍</code>。因为 4× 模型已经先放大了四倍，后面的倍率是<b>净值</b>：4 × 0.5 = 2。把 0.5 读成“缩一半”，就会得出“这条链在降分辨率”的错误结论。</p>
+
+    <h3 class="sub3">Q4 · 分块放大为什么能省显存，代价是什么</h3>
+    <p><b>结论：峰值显存不在最终那张图上，在中间最大的那张上。</b>07 号的峰值出现在 4× 之后：≈32 MP 的图要整张贴进显存，然后才被 #386 压回 8 MP。</p>
+    <p>分块放大（Tiling）就是绕开这个峰值：把 ≈32 MP 切成 4 块 8 MP，每块单独过一遍模型，再拼回一张。峰值按“一块”算，不按“整张”算。代价有两个：模型要多跑几次，边界要处理。</p>
+
+    <div class="fig narrow">
+      <svg viewBox="0 0 760 300" role="img" aria-label="整张放大与分块放大的显存峰值对比">
+        <rect class="panel" x="16" y="16" width="360" height="180" rx="10"/>
+        <text class="tb" x="196" y="42" text-anchor="middle">整张一次过</text>
+        <rect x="66" y="58" width="260" height="112" rx="4" fill="#fffafa" stroke="#c22e63" stroke-width="1.3" stroke-dasharray="5 4"/>
+        <text class="t" x="196" y="106" text-anchor="middle" dominant-baseline="central">≈32 MP 整张</text>
+        <text class="tm" x="196" y="126" text-anchor="middle" dominant-baseline="central">峰值：一整张</text>
+        <text class="ts" x="196" y="176" text-anchor="middle" dominant-baseline="central">调用 1 次 · 接缝 0 条</text>
+
+        <rect class="panel" x="392" y="16" width="352" height="180" rx="10"/>
+        <text class="tb" x="568" y="42" text-anchor="middle">切 4 块分别过</text>
+        <g fill="#f1f2fd" stroke="#4051d6" stroke-width="1.2">
+          <rect x="470" y="58" width="96" height="52" rx="3"/><rect x="570" y="58" width="96" height="52" rx="3"/>
+          <rect x="470" y="114" width="96" height="52" rx="3"/><rect x="570" y="114" width="96" height="52" rx="3"/>
+        </g>
+        <text class="tm" x="518" y="88" text-anchor="middle" dominant-baseline="central">块 1 · 8 MP</text>
+        <text class="tm" x="618" y="88" text-anchor="middle" dominant-baseline="central">块 2 · 8 MP</text>
+        <text class="tm" x="518" y="144" text-anchor="middle" dominant-baseline="central">块 3 · 8 MP</text>
+        <text class="tm" x="618" y="144" text-anchor="middle" dominant-baseline="central">块 4 · 8 MP</text>
+        <text class="ts" x="568" y="176" text-anchor="middle" dominant-baseline="central">调用 4 次 · 接缝要处理</text>
+
+        <text class="tm" x="24" y="228" text-anchor="start">峰值显存（示意，同一台机器）</text>
+        <rect x="24" y="238" width="300" height="14" rx="3" fill="rgba(194,46,99,.45)"/>
+        <text class="tm" x="332" y="249" text-anchor="start">整张 ≈32 MP</text>
+        <rect x="24" y="262" width="75" height="14" rx="3" fill="rgba(15,122,108,.55)"/>
+        <text class="tm" x="107" y="273" text-anchor="start">单块 8 MP · 约 1/4</text>
+      </svg>
+    </div>
+
+    <p>接缝是怎么来的：每块独立预测，块与块之间的推算不连续，拼回去就出现一条网格线。常见缓解办法是让相邻块重叠几十到一百多像素（具体数值看所用的分块节点），重叠区只取中间部分；或者最后统一洗一遍（见 Q5）。</p>
+    <div class="warn-inline"><b>别把概念当参数：</b>本套 07 号<strong>没有分块节点</strong>，上面的切块是通用做法，不是 07 的参数。07 号省显存的方式是 #386 把峰值压回 8 MP，不是分块。</div>
+
+    <h3 class="sub3">Q5 · 什么时候该“放大后再洗一遍”</h3>
+    <p><b>结论：只有当你看到接缝、塑料感、或放大模型的过锐，才值得二洗；单纯想“更清楚”，二洗给不了新信息。</b></p>
+    <p>二洗的做法是：放大完成后，把图送回一次很轻的重采样，去噪强度（denoise，从噪声路径哪一段起手）压得很低，一般 0.2–0.4。它改的是质感，不是内容：把块状接缝揉开，把过锐的边缘压回自然一点。denoise 一旦拉到 0.6 上下，起手点就明显靠前，开始改内容了，五官和文字最先变形。</p>
+    <p>现在回头看 07 号，会发现它的顺序是反的：先一步精修（#382 <code>steps 1</code>），再模型放大（#380 → #383），最后封顶（#386）。也就是<b>先洗后放</b>。它洗的是精修前的糊，不是放大后的接缝。</p>
+    <p>还有一点要记住：Flux2 是 07 号用的那套模型，它的链上没有 denoise 这个旋钮（L3-07 已经讲过），重画多少由 <code>steps 1</code> 和 CFGGuider（把 CFG 当输入接进来的引导节点；CFG = 听话程度，<a href="../l1/l1-03-cfg-seed.html">L1-03</a> 讲）的引导强度 <code>1.0</code> 一起决定。denoise 是 SDXL 那类模型常见的旋钮，<a href="l3-08-depth-control.html">L3-08</a> 专门讲。</p>
+  </section>
+
+  <!-- 05 参数 -->
+  <section id="s5">
+    <div class="shead"><span class="snum">05 / CHEAT SHEET</span><h2>参数速查表</h2></div>
+    <p class="slead">这张表只解决“该动哪个、什么时候动”。具体填法、上下限与位置，回看 <a href="../l2/l2-03c-upscale-size.html#upscale">L2-03c 第 02 节</a>。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>参数</th><th>本套现值</th><th>位置</th><th>它管什么</th><th>什么时候改</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>重采样方法<br><code>upscale_method</code></td><td><code>nearest-exact</code></td>
+            <td>#378 / #386 / #4</td><td>只影响格子怎么算，不影响内容</td>
+            <td>缩小回人像时换 <code>lanczos</code>，边缘更柔</td>
+          </tr>
+          <tr>
+            <td>目标像素<br><code>megapixels</code></td><td><code>2.0</code> / <code>8</code></td>
+            <td>#378 / #386</td><td>把总像素拉到指定值，比例不变</td>
+            <td>显存紧就降 #386；精修补不出细部就升 #378</td>
+          </tr>
+          <tr>
+            <td>放大模型<br><code>model_name</code></td><td><code>4x-UltraSharp.pth</code></td>
+            <td>#380 / #3</td><td>补细节的风格与强度</td>
+            <td>嫌过锐换更保守的 4× 权重；换 2× 要重算倍数</td>
+          </tr>
+          <tr>
+            <td>模型倍率</td><td><code>4×</code></td>
+            <td>权重自带，不在节点里</td><td>边长乘几</td>
+            <td>不能单独调，只能换权重</td>
+          </tr>
+          <tr>
+            <td>精修步数<br><code>steps</code></td><td><code>1</code></td>
+            <td>#382</td><td>精修重画几遍</td>
+            <td>0 等于只放不修；2 以上开始改内容</td>
+          </tr>
+          <tr>
+            <td>分块<br><code>tile</code></td><td>本套 07 号无</td>
+            <td>—</td><td>峰值显存</td>
+            <td>大图直接崩了才上，先试降 #386</td>
+          </tr>
+          <tr>
+            <td>二洗强度<br><code>denoise</code></td><td>本套 07 号无此旋钮</td>
+            <td>SDXL 链的 KSampler（采样器节点）</td><td>重画多少</td>
+            <td>有接缝或过锐才用；0.2–0.4，过 0.6 改内容</td>
+          </tr>
+          <tr>
+            <td>死端缩放<br><code>scale_by</code></td><td><code>0.5</code></td>
+            <td>#4</td><td>净值倍数，不是“缩一半”</td>
+            <td>本段未接线，改它不影响出图</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mini">读表顺序：先看“它管什么”那一列。写着“只影响格子”的，改了不会让细节变多；写着“补细节”的，才是花钱买内容的地方。</p>
+  </section>
+
+  <!-- 06 踩坑 -->
+  <section id="s6">
+    <div class="shead"><span class="snum">06 / TRAPS</span><h2>踩坑</h2></div>
+    <p class="slead">六个坑，前三个会让你对 07 号下错结论，后三个会让你在别的链上白折腾。</p>
+
+    <div class="pits">
+      <div class="pit">
+        <div class="where">07 号 · #4 与 #18</div>
+        <h3>4x 不是“最终 4 倍”</h3>
+        <p>4× 是权重的放大倍率，#4 的 <code>0.5</code> 是在这个基础上再乘。4 × 0.5 = 2，净值两倍。#18 的 Note 写的就是这张净值换算表。</p>
+        <p class="fix">修法：读倍率前先问一句“这是模型倍率，还是净值”。</p>
+      </div>
+
+      <div class="pit">
+        <div class="where">07 号 · 根画布 #3 → #2 → #4</div>
+        <h3>“放大前后没区别”，是图没落盘，不是模型没用</h3>
+        <p>#3 载入、#2 放大、#4 缩 0.5，链路完整，参数齐全。但 #4 的 <code>outputs[0].links</code> 是空数组，没有任何节点吃它的图。SaveImage 只吃 #390。</p>
+        <p class="fix">修法：给 #4 单独接一个 SaveImage 再做对比，或者把整段删掉。</p>
+      </div>
+
+      <div class="pit ok">
+        <div class="where">07 号 · #377 → #381 → #372 → CFGGuider；#369 → #370 → CFGGuider</div>
+        <h3>正负向没有接反，这条不要当坑改</h3>
+        <p>复核结论：slot 1 来自 #372 ReferenceLatent，往上是 #381 的正向编码，文字是 <code>8K,4K,增加细节</code>；slot 2 来自 #370，往上是 #369 的空字符串。两条 ReferenceLatent 共用同一个 latent（#371），视觉上挤成一团，容易被当成接错，但方向是对的。</p>
+        <p class="fix">结论：不要改。记成“易误读但正确”比记成“坑”更有用。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">任何链 · ImageScaleToTotalPixels</div>
+        <h3>把插值拉大当成超分</h3>
+        <p>把 2 MP 拉到 8 MP，边缘看着“顺”了，就以为变清楚了。其实只是糊得更均匀：格子多了，信息没多。</p>
+        <p class="fix">修法：判断有没有补内容，看细节里有没有“新笔画”，不看总像素。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">分块链 · 块边界</div>
+        <h3>分块不留重叠，拼出网格线</h3>
+        <p>块与块各自预测，边界处推算不连续，拼回去就是一张网格。很多人第一反应是“模型坏了”，换权重换了半天。</p>
+        <p class="fix">修法：先加重叠再换模型；重叠区只取中间部分拼。</p>
+      </div>
+
+      <div class="pit lv2">
+        <div class="where">二洗 · denoise</div>
+        <h3>二洗把 denoise 拉到 0.6，内容被改</h3>
+        <p>低 denoise 洗的是质感，0.6 上下开始重画内容。人脸变形、文字走样，都是这一步造成的，却常被算在放大模型头上。</p>
+        <p class="fix">修法：二洗固定 0.2–0.4；要更多变化就别叫它“洗”，那是重画。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 练习 -->
+  <section id="s7">
+    <div class="shead"><span class="snum">07 / PRACTICE</span><h2>动手练习 + 自检清单</h2></div>
+    <p class="slead">每个练习只改一个变量。做完你对“像素变多”和“信息变多”的差别会有一手体感。</p>
+
+    <div class="ex-grid">
+      <div class="ex">
+        <div class="no">EX 01 · 8 分钟</div>
+        <h3>同一张图，两条路线并排</h3>
+        <p>用同一张 1024 图：一次只走 <code>ImageScaleToTotalPixels</code> 到 8 MP，一次走 <code>ImageUpscaleWithModel</code>（4x-UltraSharp）再封顶 8 MP。两张放一起看。</p>
+        <div class="see">看什么：<b>插值那侧边缘是软台阶，模型那侧有笔画</b>。尺寸一样，内容不一样。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 02 · 5 分钟</div>
+        <h3>给 07 号的节点分类</h3>
+        <p>把 07 号里出现的放大、缩放、精修节点列出来，逐个标“摊格子 / 补内容 / 重画”。</p>
+        <div class="see">看什么：<b>摊格子的节点比你以为的多</b>，#378、#386、#4 都算。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 03 · 10 分钟</div>
+        <h3>只降 #386</h3>
+        <p>把 #386 的 <code>megapixels</code> 从 <code>8</code> 改成 <code>4</code>，其余不动，同 seed 再跑。</p>
+        <div class="see">看什么：<b>峰值显存的下降</b>，以及细节的“编造感”是否更明显。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 04 · 10 分钟</div>
+        <h3>验证死支</h3>
+        <p>把 #384 静音后排队，再只把 #4 接到一个新的 SaveImage 上排队。两次各跑一次。</p>
+        <div class="see">看什么：<b>静音 #384 后一张都不落盘</b>，说明 #4 确实没有下游。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 05 · 10 分钟</div>
+        <h3>二洗两档</h3>
+        <p>在一条 SDXL 放大链上，对同一张放大结果分别做 denoise 0.25 与 0.45 的二洗。</p>
+        <div class="see">看什么：<b>0.45 那一档开始改五官</b>，0.25 只压质感。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EX 06 · 15 分钟 · 选做</div>
+        <h3>手动切四块</h3>
+        <p>把一张 8 MP 图裁成四块，逐块放大后拼回，观察拼接处。</p>
+        <div class="see">看什么：<b>接缝长什么样</b>，以及加不加重叠的差别。</div>
+      </div>
+    </div>
+
+    <div class="check">
+      <h3>自检清单（勾选状态会存在本机）</h3>
+      <ul>
+        <li><input type="checkbox"><span>我能用一句话说清插值和放大模型的区别。</span></li>
+        <li><input type="checkbox"><span>我知道“放大不增信息”指的是什么，不是指尺寸没用。</span></li>
+        <li><input type="checkbox"><span>我能算出边长 ×4 后像素量 ×16。</span></li>
+        <li><input type="checkbox"><span>我能指出 07 号里哪一步是插值、哪一步是模型放大。</span></li>
+        <li><input type="checkbox"><span>我知道 #4 的 0.5 为什么等于净值两倍。</span></li>
+        <li><input type="checkbox"><span>我能说出分块省的是显存，不是提高清晰度上限。</span></li>
+        <li><input type="checkbox"><span>我知道二洗的 denoise 超过 0.6 会改内容。</span></li>
+        <li><input type="checkbox"><span>我确认过 07 号的正负向接法正确，不会去“修”它。</span></li>
+      </ul>
+    </div>
+
+    <div class="next">
+      <div>
+        <div class="lab">NEXT · 回到主线</div>
+        <div class="nt">L3-07 · 高清放大</div>
+        <div class="nd">现在再打开 07 号：四步放大里哪一步在摊、哪一步在补，你应该能一秒指出来。</div>
+      </div>
+      <a class="go" href="l3-07-hd-upscale.html">回到 L3-07 →</a>
+    </div>
+
+    <div class="src">
+      <b>本课硬信息与核对方式：</b>节点编号、连线与参数全部引自 <a href="l3-07-hd-upscale.html">L3-07 高清放大</a>，本节只引用、不改值：顶层 8 个节点、#4 的 <code>outputs[0].links</code> 为空数组（死支结论的唯一依据）、四层子图 #390 → #389 → #388 → #387（真身 22 个节点）、四步放大（#378 归一 2 MP → 精修 <code>steps 1</code> → #380/#383 模型 4× → #386 封顶 8 MP）、中间峰值 ≈32 MP、#4 <code>0.5</code> 与 #18 的净值换算、正负向 slot 1 / slot 2 的复核结论。像素换算为算术示意，取整以实际 JSON 为准。<b>注意：</b>分块（Tiling）本套 07 号没有对应节点，本节只讲概念，未编造参数。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var boxes = document.querySelectorAll('.check input[type="checkbox"]');
+    boxes.forEach(function(b, i){
+      var key = 'cui-c1b-check-' + i;
+      try { if (localStorage.getItem(key) === '1') b.checked = true; } catch(e){}
+      b.addEventListener('change', function(){
+        try { localStorage.setItem(key, b.checked ? '1' : '0'); } catch(e){}
+      });
+    });
+  })();
+
+  (function(){
+    var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+    document.querySelectorAll('[data-bind]').forEach(function(el){
+      var v = map[el.getAttribute('data-bind')];
+      if (v) el.textContent = v;
+    });
+    document.title = 'L3-C1b · 两种放大 | ' + COURSE.name;
+  })();
+</script>
+</body>
+</html>

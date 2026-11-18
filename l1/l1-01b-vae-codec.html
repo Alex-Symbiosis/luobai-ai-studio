@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-01b VAE 编解码 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --course-name:"AI 入门与 ComfyUI 出图课";
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;
+  --shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+code,.mono{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:860px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:40px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;letter-spacing:-.01em;margin:16px 0 12px;font-weight:800}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:640px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:52px 0 14px;font-weight:800;letter-spacing:-.01em;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}
+.quiet{color:var(--muted)}
+.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}
+.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}
+.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}
+.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:17px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:13.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:14px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.svg-num{font-family:var(--mono);font-size:13px;fill:var(--accent);font-weight:700}
+.pipeline{display:grid;gap:10px;margin:24px 0}
+.pipe-row{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;align-items:start}
+.pipe-row .n{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;background:var(--accent-soft);border-radius:8px;text-align:center;padding:5px 0}
+.pipe-row h4{font-family:var(--sans);font-size:15.5px;margin:0 0 3px}
+.pipe-row p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.split li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-weight:700;color:var(--ink);font-size:12.5px;letter-spacing:.02em}
+td code{word-break:break-all}
+tr:last-child td{border-bottom:none}
+.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.calc-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.calc-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.calc-head .val{font-family:var(--mono);font-size:15px;color:var(--accent);font-weight:700}
+input[type=range]{width:100%;accent-color:var(--accent);margin:12px 0 6px;height:22px}
+.calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.calc-out div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.calc-out .k{font-family:var(--sans);font-size:11.5px;color:var(--faint);letter-spacing:.04em}
+.calc-out .v{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--ink);line-height:1.4;word-break:break-all}
+.calc-note{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:10px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}
+.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;background:var(--accent-soft);color:var(--accent);border-radius:5px;padding:1px 6px;margin:0 2px}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}
+  .topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}
+  .lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}
+  h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .split{grid-template-columns:1fr}
+  .calc-out{grid-template-columns:1fr}
+  .calc-out div{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .calc-out .v{font-size:14px}
+  table{font-size:12.5px}
+  th,td{padding:7px 5px}
+  .pager{flex-direction:column}
+  .pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 01B</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-01b VAE 编解码</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第一课 B</span>
+    <h1>VAE 编解码：<br>草稿怎么来，又怎么翻回一张能看的图</h1>
+    <p class="lede">上一节把像素压成了一张 1/8 大的草稿画布。这一节只解决两件事：草稿怎么来，怎么回去。顺带说明白，为什么这一步有损耗。</p>
+    <div class="meta">
+      <span>预计 12 分钟</span><span>建议先读 L1-01</span><span>对应节点：VAEEncode / VAEDecode / VAELoader</span>
+    </div>
+  </header>
+
+  <h2><span class="no">01 / 前情</span>上一节留下的三句话</h2>
+  <p><b>像素是给人看的，潜空间是给模型算的。</b>显示器和你的眼睛只认像素，采样器只认草稿。</p>
+  <p><b>潜空间是一张 1/8 大的草稿画布。</b>长宽各除以 8，通道从 3 变 4，数字量只剩大约 1/48。</p>
+  <p><b>采样器全程只在草稿上工作。</b>它从没直接碰过像素，所以你看到的那张图，是最后一步翻出来的。</p>
+  <div class="callout">
+    <p><b>本节只回答一个问题：</b>像素和草稿之间，是谁在翻，怎么翻，翻的时候丢了什么。想不起来潜空间怎么算，回 <a href="l1-01-latent-space-vae.html">L1-01 潜空间</a> 看一眼换算表，再往下读。</p>
+  </div>
+
+  <h2 id="encode"><span class="no">02 / 编码</span>编码：像素怎么变成那张草稿</h2>
+  <p><b>VAE</b>（Variational Autoencoder，变分自编码器）：一台有损翻译机，在像素和潜空间之间来回翻译。反例：它不是一个更小的模型，也不负责画内容——画笔在采样器手里，它只搬运。</p>
+  <p><b>编码</b>（encode）：把像素图按长宽各除以 8 压进潜空间，通道从 3 变 4。反例：不是存成一个小文件，也不是裁剪；画面信息还在，只是换了一种写法。</p>
+  <p><b>通道</b>（channel）：同一个点上叠了几层数字。像素图叠 3 层（红、绿、蓝），潜变量叠 4 层。反例：不是图层，你没法单独关掉某一层只留另一层。</p>
+  <p>具体到数字。一张 2400×2400 的照片进去，出来是 300×300×4。像素那头 1728 万个数字，草稿这头 36 万个。采样器就在这 36 万个数字上反复算，省下来的正是这一步。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 480 176" role="img" aria-label="编码把像素图压成潜变量，解码把潜变量摊回像素图">
+      <rect x="20" y="44" width="160" height="88" rx="10" fill="rgba(64,81,214,.09)" stroke="#4051d6" stroke-width="1.4"/>
+      <text x="100" y="73" text-anchor="middle" dominant-baseline="middle" class="svg-title" style="font-size:15px">像素图</text>
+      <text x="100" y="95" text-anchor="middle" dominant-baseline="middle" class="svg-num">2400 × 2400 × 3</text>
+      <text x="100" y="117" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12.5px">1728 万个数字</text>
+
+      <rect x="300" y="44" width="160" height="88" rx="10" fill="rgba(15,122,108,.10)" stroke="#0f7a6c" stroke-width="1.4"/>
+      <text x="380" y="73" text-anchor="middle" dominant-baseline="middle" class="svg-title" style="font-size:15px">潜变量（草稿）</text>
+      <text x="380" y="95" text-anchor="middle" dominant-baseline="middle" class="svg-num" style="fill:#0f7a6c">300 × 300 × 4</text>
+      <text x="380" y="117" text-anchor="middle" dominant-baseline="middle" class="svg-sub" style="font-size:12.5px">36 万个数字</text>
+
+      <line x1="184" y1="76" x2="290" y2="76" stroke="#4051d6" stroke-width="1.6"/>
+      <polygon points="296,76 288,72 288,80" fill="#4051d6"/>
+      <text x="240" y="54" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">编码 encode ÷8</text>
+
+      <line x1="296" y1="104" x2="190" y2="104" stroke="#0f7a6c" stroke-width="1.6"/>
+      <polygon points="184,104 192,100 192,108" fill="#0f7a6c"/>
+      <text x="240" y="126" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">解码 decode ×8</text>
+    </svg>
+    <figcaption>编码除以 8、解码乘回 8，尺寸对得上，数字却不是原来的那一份——这就是“有损”的来源。</figcaption>
+  </figure>
+
+  <h2 id="decode"><span class="no">03 / 解码</span>解码：草稿怎么变回图，文生图为什么不用这一步</h2>
+  <p><b>解码</b>（decode）：把 4 通道的潜变量翻回 3 通道像素，长宽各乘 8。反例：不是放大，也不是超分；它不新增画面内容，只是把草稿摊回原来的尺寸。</p>
+  <p>2400×2400 进，2400×2400 出。尺寸表上看不出它动过手，数字却换了两套写法：1728 万个压成 36 万，采样完再摊回来。你在屏幕上看到的，始终是解码之后的那一份。</p>
+  <p><b>文生图没有编码这一步。</b>它手里没有现成的图：提示词只说明“要什么”，不说明“改哪张”。采样器从一张空潜变量开始，空画布由 <code>EmptyLatentImage</code>（Flux 系是 <code>EmptyFlux2LatentImage</code>）按你填的尺寸造出来，不经过编码。</p>
+  <p>反过来，图生图、参考图、局部重绘都有一张现成的图。不先编码，采样器手上就没有那张草稿，这几类流程也就无从下手。</p>
+
+  <h2 id="lossy"><span class="no">04 / 有损</span>有损：损失在哪，为什么它既不是 zip 也不是超分</h2>
+  <p><b>有损</b>（lossy）：翻过去再翻回来，画面回不到一模一样的原样。反例：不是随机丢数字；丢的是肉眼不容易察觉的细节，不是整块画面。</p>
+  <p>损失藏在哪儿？整体看没问题，放大就露馅：边缘、细文字、密纹理会先发软。同一张图来回翻几轮，比只翻一趟更糊。</p>
+  <p>为什么必须接受这点？草稿上只剩原图约 1/48 的数字，Flux 系的 VAE 常见 16 个潜通道，约 1/12。用这么少的数字记住整张图，只能记“大意”，记不下每个像素。</p>
+
+  <h3>VAE 与 zip</h3>
+  <p>zip 是无损的：解压回来，一个比特都不差。VAE 不是。解码出来的是一张“看起来一样”的新图，不是原件。</p>
+
+  <h3>VAE 与超分</h3>
+  <p>超分负责把小图变大图，会新增像素。VAE 只做同尺寸的来回翻译：2400 进，2400 出，尺寸没变过。</p>
+
+  <div class="callout warn">
+    <p><b>常见误解：</b>“VAE 选得好，图就更清晰。”更准确的说法是：VAE 只影响解码质量，比如色彩、细节和文字边缘。画面内容、构图、风格，主要由采样器和条件（conditioning，提示词、参考图这些“要求”，L2-02 专讲）决定。换 VAE 能修“发灰、发糊”，修不了“构图不对”。</p>
+  </div>
+
+  <h2 id="nodes"><span class="no">05 / 落到工作流</span>在本套 JSON 里，谁负责编码，谁负责解码</h2>
+  <p>表里的编号来自真实的 workflow JSON。打开对应的 <code>.json</code>，在画布上按编号找，位置对得上。</p>
+  <table>
+    <thead><tr><th style="width:32%">节点</th><th style="width:30%">真实位置</th><th style="width:38%">本套里的实际值 / 作用</th></tr></thead>
+    <tbody>
+      <tr><td><code>VAEEncode</code></td><td>04 建筑毛坯 · 根图 <b>#16</b></td><td>编码那一头：把上传的现状照片压进潜空间，交给采样器。</td></tr>
+      <tr><td><code>VAEDecode</code></td><td>04 建筑毛坯 · 根图 <b>#9</b></td><td>解码那一头：把采样完成的潜变量还原成可保存的像素。</td></tr>
+      <tr><td><code>VAELoader</code></td><td>04 · 子图 <b>#346</b></td><td>单独加载 <code>full_encoder_small_decoder.safetensors</code>，供 Flux2 子图里的 #342 / #347 使用。</td></tr>
+      <tr><td><code>CheckpointLoaderSimple</code></td><td>04 · 根图 <b>#1</b></td><td>模型名 <code>SDXL建筑大模型.safetensors</code>。它的 <b>VAE</b> 输出直接接到 #16 和 #9，这两步就不用另找 VAE。</td></tr>
+      <tr><td><code>VAEEncode</code> / <code>VAEDecode</code></td><td>04 · 子图 <b>#342</b> / <b>#347</b></td><td>子图里再走一遍“编码—采样—解码”，为二次处理留的。</td></tr>
+    </tbody>
+  </table>
+  <p class="small quiet">术语不熟可以先跳到 <a href="../l2/l2-01-input-loading.html#term-vae">L2-01 · VAE</a> 查表，再回来继续。</p>
+
+  <div class="callout tip">
+    <p><b>一个容易被忽略的细节：</b>#1 已经把 VAE 送出来了，子图为什么还要 #346 单独加载？因为子图跑的是 Flux2，用的编码器和 SDXL 那一套不是同一个。两者的潜通道数不同，4 个对 16 个，不能互换。</p>
+  </div>
+
+  <h2 id="practice"><span class="no">06 / 动手</span>三个小实验，把编解码变成手感</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 <code>04📚基础版 建筑毛坯+参考图出图 .json</code>，找到 <b>#16 VAEEncode</b> 和 <b>#9 VAEDecode</b>，看看它们连的线是什么颜色。</p><p class="why">目标：亲手确认 IMAGE 和 LATENT 是两种数据类型。把 IMAGE 线往 LATENT 口上插，ComfyUI 会直接拒收。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>在 <b>#346 VAELoader</b> 里换一个 VAE 文件，其余节点不动，跑一次。对比色彩、细节和文字边缘。</p><p class="why">目标：看清 VAE 只动解码质量。构图、内容、风格不会因为换 VAE 而变化。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 04 的子图，找到 <b>#342 VAEEncode</b> 与 <b>#347 VAEDecode</b>，对照根图的 <b>#16</b> / <b>#9</b>，看同一套工序为什么在子图里再来一遍。</p><p class="why">目标：两套编解码不是重复劳动，而是子图把“编码—采样—解码”打包成了可复用的一段。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">07 / 自检</span>能用自己的话答上来，再进下一课</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说清编码做什么、解码做什么，各举一个数字变化。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道文生图为什么跳过编码，也知道哪几类流程必须有编码。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 VAE 有损，损失藏在细节里，不在构图里。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说出 VAE 与 zip、与超分各差在哪。</span></label>
+    <label class="check"><input type="checkbox"><span>我能在 04 的 JSON 里指出 #16、#9、#346 三个节点。</span></label>
+  </div>
+
+  <div class="callout myth">
+    <p><b>如果只记一句话：</b>VAE 是一台有损翻译机，把像素翻成草稿，再把草稿翻回像素。</p>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-01-latent-space-vae.html"><span class="dir">← 上一课</span>L1-01 潜空间</a>
+    <a href="l1-02-sampling-steps.html"><span class="dir">下一课 →</span>L1-02 采样与步数</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  // 顶部阅读进度
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // 尺寸计算器：本节没有滑杆，元素不存在就跳过
+  var range=document.getElementById('sideRange');
+  var sideVal=document.getElementById('sideVal');
+  var pxOut=document.getElementById('pxOut');
+  var latOut=document.getElementById('latOut');
+  var ratioOut=document.getElementById('ratioOut');
+  function fmt(n){return n.toLocaleString('zh-CN');}
+  function calc(){
+    var side=parseInt(range.value,10);
+    var px=side*side*3;
+    var lat=Math.round(side/8);
+    var latNums=lat*lat*4;
+    sideVal.textContent=side+' px';
+    pxOut.textContent=fmt(px);
+    latOut.textContent=lat+' × '+lat+' × 4';
+    ratioOut.textContent=(px/latNums).toFixed(1).replace('.0','')+' ×';
+  }
+  if(range){range.addEventListener('input',calc);calc();}
+
+  // 自检清单持久化（独立键，不和 L1-01 互相勾选）
+  var boxes=document.querySelectorAll('.check input');
+  boxes.forEach(function(box,i){
+    var key='l1-01b-check-'+i;
+    try{ if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');} }catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

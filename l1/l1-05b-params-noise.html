@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-05b 参数与噪声 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:870px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:28px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:680px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 0}
+.layer{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 13px;font-family:var(--sans);box-shadow:var(--shadow)}
+.layer .n{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.08em}
+.layer b{display:block;font-size:13.5px;margin:3px 0}
+.layer span{font-size:11.5px;color:var(--muted);line-height:1.6}
+.layer:nth-child(1){border-top:3px solid var(--violet)}
+.layer:nth-child(2){border-top:3px solid var(--accent)}
+.layer:nth-child(3){border-top:3px solid var(--teal)}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--violet);background:var(--violet-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--violet)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:16px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:12.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:13.5px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.type{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 17px;box-shadow:var(--shadow)}
+.type h4{font-family:var(--sans);font-size:14.5px;margin:0 0 5px}
+.type .tag{font-family:var(--mono);font-size:10.5px;color:var(--violet);background:var(--violet-soft);padding:2px 6px;border-radius:5px}
+.type p{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.7}
+.sim{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.sim-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.sim-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.sim-head .val{font-family:var(--mono);color:var(--violet);font-weight:700}
+.ctl{margin-top:14px}
+.ctl .lab{display:flex;justify-content:space-between;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:2px}
+input[type=range]{width:100%;accent-color:var(--violet);margin:4px 0 0;height:22px}
+.meters{display:grid;gap:9px;margin:14px 0 4px}
+.meter{display:grid;grid-template-columns:78px 1fr 42px;gap:10px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--muted)}
+.meter .bar{height:8px;background:#eeece6;border-radius:99px;overflow:hidden}
+.meter .bar i{display:block;height:100%;border-radius:99px;background:var(--violet);transition:width .18s ease}
+.meter .bar i.content{background:var(--teal)}
+.verdict{font-family:var(--sans);font-size:13px;background:var(--paper);border:1px dashed var(--line2);border-radius:9px;padding:9px 12px;margin-top:12px;line-height:1.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.split li{margin:5px 0}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .layers,.types,.split{grid-template-columns:1fr}
+  .meter{grid-template-columns:68px 1fr 38px}
+  table{font-size:11.5px}th,td{padding:7px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 05b</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-05b 参数与噪声</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第五课 B</span>
+    <h1>参数与噪声：<br>weight、weight_type 与 IPAdapterNoise</h1>
+    <p class="lede">上一节讲完了注入链和分工。这一节只碰参数：weight 给多少、weight_type 选哪种、区间从哪停到哪，以及 IPAdapterNoise 那张噪声图到底加在哪。</p>
+    <div class="meta"><span>预计 12 分钟</span><span>建议先读 L1-05</span><span>对应节点：IPAdapterAdvanced / IPAdapterNoise</span></div>
+  </header>
+
+  <div class="callout">
+    <p><b>前情提要：</b>上一节讲了注入链：参考图经 CLIP Vision（把图读成一组数的编码器，不是识图工具）编成向量，注入采样器；它只带气质，结构归 ControlNet，整体重画归图生图。这一节不重复那条链，只回答两个问题：参数怎么调，噪声怎么加。</p>
+  </div>
+
+  <h2 id="weight"><span class="no">01 / 参数</span>weight 管配比，weight_type 管维度</h2>
+  <p><b>weight</b>（权重）：风格掺进这次采样里的比例。反例：它不是音量，拉满不会“更清楚”，只会把底图带跑。</p>
+  <p>本套五个工作流填的是 0.70、0.75、0.70、0.72、0.80。区间落在 0.70–0.80，没有出现 1.0。</p>
+  <p><b>weight_type</b>（权重类型）：决定风格往哪些维度掺。反例：它不是强度，强度归 <code>weight</code> 管。本套只用到两个取值。style transfer 偏色彩、材质、光影氛围；strong style transfer 纹理与笔触更贴参考图，顺手把构图也带动一些。</p>
+  <p>选法很直白。结构已经有 ControlNet 锁着，只想补气质，用 style transfer。参考图本身就是你要的那张风格，用 strong style transfer。</p>
+
+  <h3>start_at 与 end_at：进度百分比，不是时间轴</h3>
+  <p><b>start_at</b> 与 <b>end_at</b>：注入区间的起点和终点，按采样进度算，取值 0 到 1。反例：不是秒数，也不是第几步；换采样器、改步数，这两个数字的含义都不变。</p>
+  <p>本套五条全部从 0 起步，终点分别是 1.0、0.9、0.95、0.877、1.0。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 480 152" role="img" aria-label="0 到 1 的采样进度条，start_at 与 end_at 之间为注入区间，0.95 之后不再注入">
+      <!-- 底条：0 → 1 的采样进度 -->
+      <rect x="40" y="76" width="400" height="22" rx="11" fill="#eeece6" stroke="#cbc6ba"/>
+      <!-- 注入区间：start_at 0 → end_at 0.95 -->
+      <rect x="40" y="76" width="380" height="22" rx="11" fill="rgba(124,77,219,.18)" stroke="#7c4ddb" stroke-width="1.4"/>
+      <!-- 起止标记 -->
+      <line x1="40" y1="52" x2="40" y2="106" stroke="#b26206" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <line x1="420" y1="52" x2="420" y2="106" stroke="#b26206" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <circle cx="40" cy="76" r="3" fill="#b26206"/>
+      <circle cx="420" cy="76" r="3" fill="#b26206"/>
+      <!-- 标签 -->
+      <text x="40" y="40" text-anchor="start" dominant-baseline="middle" class="svg-lbl" style="fill:#b26206">start_at 0.00</text>
+      <text x="420" y="40" text-anchor="end" dominant-baseline="middle" class="svg-lbl" style="fill:#b26206">end_at 0.95</text>
+      <text x="230" y="87" text-anchor="middle" dominant-baseline="middle" class="svg-lbl" style="fill:#7c4ddb">这一段风格一直生效</text>
+      <text x="40" y="117" text-anchor="middle" dominant-baseline="middle" class="svg-sub">0</text>
+      <text x="440" y="117" text-anchor="middle" dominant-baseline="middle" class="svg-sub">1</text>
+      <text x="240" y="140" text-anchor="middle" dominant-baseline="middle" class="svg-sub">0.95 之后不再注入，最后 5% 交给模型收细节</text>
+    </svg>
+    <figcaption>条长代表一次采样的 0 → 1；紫色段是注入区间，右端 0.95 由 end_at 决定。本套五条都从 0 起步，其中三条提前收手，02 与 LINK 跑满 1.0。</figcaption>
+  </figure>
+
+  <h3>end_at：为什么不是全程注入</h3>
+  <p>先看数字：03 在 0.9 停，04 在 0.95 停，IPA 在 0.877 停。02 与 LINK 跑满 1.0。</p>
+  <p>为什么停？前三个想把后半段留给模型自己收细节。<b>风格一直压着画面</b>，纹理容易糊，颜色容易重。跑满 1.0 也有它的用处：风格越稳越好，就用满。</p>
+
+  <div class="sim">
+    <div class="sim-head"><h4>拖一拖：权重与停止点</h4><span class="val" id="ipVal">0.70 / 0.95</span></div>
+    <div class="ctl">
+      <div class="lab"><span>weight 风格权重</span><span id="wTxt">0.70</span></div>
+      <input type="range" id="wRange" min="0" max="100" step="1" value="70" aria-label="IPAdapter 权重">
+    </div>
+    <div class="ctl">
+      <div class="lab"><span>end_at 停止注入</span><span id="eTxt">0.95</span></div>
+      <input type="range" id="eRange" min="10" max="100" step="1" value="95" aria-label="IPAdapter 停止注入位置">
+    </div>
+    <div class="meters">
+      <div class="meter"><span>风格影响</span><div class="bar"><i id="mStyle"></i></div><span id="tStyle">—</span></div>
+      <div class="meter"><span>内容保真</span><div class="bar"><i class="content" id="mContent"></i></div><span id="tContent">—</span></div>
+    </div>
+    <div class="verdict" id="ipVerdict">0.70 / 0.95：本套 04 的实际组合，风格明显，但后半段交还给模型收细节。</div>
+    <p class="small quiet" style="margin:10px 0 0">比例为教学示意；真实效果还受 weight_type、参考图内容和底图结构影响。</p>
+  </div>
+
+  <div class="callout myth">
+    <p><b>常见误解：</b>“权重越高越像，那就拉到 1.0。”</p>
+    <p>0.9 以上，底图的材质、颜色，甚至结构，都很容易被带跑。本套五个工作流最高只到 0.80。权重是“配比”，不是“音量”。</p>
+  </div>
+
+  <h2 id="noise"><span class="no">02 / 噪声</span>IPAdapterNoise：给风格加一点“反例”</h2>
+  <p><b>IPAdapterNoise</b>（图像噪声节点）：按你给的参数造一张参照图，用来当反方向的示例。反例：它不是给画面加颗粒做旧。</p>
+  <p>五个工作流都用了它，参数一模一样：<code>type = fade</code>、<code>strength = 0.4</code>、<code>blur = 5</code>。</p>
+  <p>造出来的是带渐变的噪声图。这张图不进画面，接到 <code>IPAdapterAdvanced</code> 的 <code>image_negative</code> 输入上，当反向参照用。</p>
+  <p>看 04 的接法。<b>#33</b> 的参考图走两条路：一条送进 <b>#37 IPAdapterAdvanced</b> 的 <code>image</code>，一条送进 <b>#41 IPAdapterNoise</b> 的 <code>image_optional</code>。#41 的输出，再回到 #37 的 <code>image_negative</code>。</p>
+  <p>作用很直接。给“风格”配一个反方向的参照，压一压过强的贴合，画面不至于变成参考图的复印件。</p>
+
+  <div class="callout warn">
+    <p><b>先分清楚：风格像，不等于内容像。</b></p>
+    <p>出图的构图要是和参考图一模一样，别急着夸 IPAdapter。多半是同时开了图生图或 ControlNet，也可能底图本身就是那张参考图。看工作流时，先看清哪张图进了哪个入口。</p>
+  </div>
+
+  <h3>噪声与去噪：一个改参照，一个改采样</h3>
+  <p><b>噪声</b>（noise）：这里的噪声图是 IMAGE，不是 CONDITIONING。它由 <code>IPAdapterNoise</code> 生成，接到 <code>IPAdapterAdvanced</code> 的 <code>image_negative</code> 口上，告诉采样器“别往这个方向贴”。反例：它不是画面上的颗粒，也不会出现在最终图里。</p>
+  <p><b>去噪</b>（denoise）：一个 0–1 的标量，决定从噪声路径的哪一段起手。1.0 从纯噪声起手，0.8 就从 80% 处起手，原图只当底子。反例：它不是“重画百分比”，也不随步数变化；噪声图只是挂在条件侧的一张参照，两件事互不相干。</p>
+  <p>两者不要混。IPAdapterNoise 调的是“多听谁一点”，denoise 调的是“从哪一段起手”。同一个词根，干的不是一件事。</p>
+
+  <h2 id="practice"><span class="no">03 / 动手</span>三个小实验：权重、区间、噪声</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，锁定 <b>#4</b> 的种子。<b>#37</b> 的 weight 从 0.70 依次改成 0.40、0.70、0.95，各跑一次。</p><p class="why">要看的：风格浓到哪一步，内容开始被压。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>同一个种子，把 <b>#37</b> 的 end_at 从 0.95 改成 0.60，再改成 1.0，各跑一次。</p><p class="why">要看的：松手越早，后半段越由模型自己收细节，风格也随之变淡。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>把 <b>#41 IPAdapterNoise</b> 静音，其余不动，和上一张并排比。</p><p class="why">要看的：<code>image_negative</code> 那路噪声到底在抑制什么。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">04 / 自检</span>参数对得上号，再进下一课</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说清 weight 与 weight_type 各管什么，也知道本套权重为什么只到 0.80。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 start_at 与 end_at 是采样进度百分比，不是时间，也不是步数。</span></label>
+    <label class="check"><input type="checkbox"><span>我能解释 03 停在 0.9、04 停在 0.95、IPA 停在 0.877 的原因。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 IPAdapterNoise 的三个真实值 fade / 0.4 / 5，以及它接到 #37 的哪个输入。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清噪声图接的是 <code>image_negative</code>、denoise 调的是采样步，两者不混。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-05-ipadapter.html"><span class="dir">← 上一课</span>L1-05 IPAdapter</a>
+    <a href="l1-06-unet-dit.html"><span class="dir">下一课 →</span>L1-06 UNet 与 DiT</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var w=document.getElementById('wRange'),e=document.getElementById('eRange');
+  var wTxt=document.getElementById('wTxt'),eTxt=document.getElementById('eTxt'),ipVal=document.getElementById('ipVal');
+  var mStyle=document.getElementById('mStyle'),mContent=document.getElementById('mContent');
+  var tStyle=document.getElementById('tStyle'),tContent=document.getElementById('tContent');
+  var ipVerdict=document.getElementById('ipVerdict');
+  function upd(){
+    var wv=parseInt(w.value,10)/100;
+    var ev=parseInt(e.value,10)/100;
+    wTxt.textContent=wv.toFixed(2);eTxt.textContent=ev.toFixed(2);
+    ipVal.textContent=wv.toFixed(2)+' / '+ev.toFixed(2);
+    var style=Math.round(wv*100);
+    var content=Math.round(100-wv*58-((1-ev)*18));
+    content=Math.max(5,Math.min(100,content));
+    mStyle.style.width=style+'%';mContent.style.width=content+'%';
+    tStyle.textContent=style+'%';tContent.textContent=content+'%';
+    var s;
+    if(wv<0.35){s='风格很淡，更像“轻微调色”；适合只想要一点氛围。';}
+    else if(wv<0.6){s='风格与内容较平衡，参考图的气质开始稳定出现。';}
+    else if(wv<=0.85){s='本套工作流的区间（0.70–0.80）：风格明显，仍需结构约束配合。';}
+    else{s='风格压过内容，容易出现材质糊、颜色重、结构被带跑。';}
+    if(ev<0.5){s+=' 停止点偏早，后半段几乎完全交还给模型。';}
+    else if(ev<0.9){s+=' 后半段逐步松手，细节更自然。';}
+    else{s+=' 接近全程注入，风格更稳，但细节自由度更低。';}
+    ipVerdict.textContent=s;
+  }
+  w.addEventListener('input',upd);e.addEventListener('input',upd);upd();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l1-05b-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>版权与使用说明 · AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="本站文字内容的著作权、转载规则、商用限制、改编授权与第三方名称声明。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1;
+    --card:#ffffff;
+    --ink:#18212f;
+    --muted:#5d6779;
+    --faint:#8b93a3;
+    --line:#e2ded4;
+    --line2:#cbc6ba;
+    --accent:#4051d6;
+    --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c;
+    --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206;
+    --amber-soft:rgba(178,98,6,.10);
+    --radius:14px;
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -18px rgba(24,33,47,.30);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:
+      linear-gradient(90deg,rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      linear-gradient(rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      var(--paper);
+    color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(64,81,214,.28)}
+  a:hover{border-bottom-color:var(--accent)}
+  code{font-family:var(--mono);font-size:.86em;background:#fbfaf7;border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--accent);word-break:break-word}
+
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(246,245,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:56px;max-width:1040px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;letter-spacing:.01em;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .brand small{font-weight:600;color:var(--faint);font-size:12px;letter-spacing:.08em}
+  .topnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;white-space:nowrap;border-bottom:none}
+  .topnav a:hover{background:var(--accent-soft);color:var(--accent);border-bottom:none}
+
+  header.hero{padding:72px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent);background:var(--accent-soft);border:1px solid rgba(64,81,214,.22);padding:5px 12px;border-radius:999px;margin-bottom:20px}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  h1.cover{font-size:clamp(30px,5vw,46px);line-height:1.15;letter-spacing:-.03em;font-weight:800}
+  .cover-rule{width:44px;height:3px;background:var(--accent);border-radius:2px;margin:22px 0 18px}
+  .lede{max-width:720px;color:var(--muted);font-size:16.5px;line-height:1.8}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+  .meta div{padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+  .meta span{display:block;font-size:11px;letter-spacing:.1em;color:var(--faint);margin-bottom:3px}
+  .meta b{font-size:14px;font-weight:700}
+
+  section{padding:48px 0 4px;scroll-margin-top:72px}
+  h2{font-size:clamp(20px,2.6vw,25px);letter-spacing:-.02em;line-height:1.35;font-weight:800;margin-bottom:12px}
+  h2 .num{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin-right:10px;vertical-align:2px}
+  p{margin:0 0 14px;color:var(--ink)}
+  ul{margin:0 0 16px;padding-left:1.4em}
+  li{margin:7px 0}
+  .note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.8}
+  .note b{color:var(--amber)}
+  .ok{background:var(--teal-soft);border-left-color:var(--teal);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.8}
+  .ok b{color:var(--teal)}
+
+  footer{margin-top:56px;padding:22px 0 48px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+  footer .wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;max-width:1040px}
+  footer a{color:var(--faint);border-bottom:1px solid rgba(139,147,163,.4)}
+  footer a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+  @media (max-width:640px){
+    .wrap{padding:0 18px}
+    .meta{grid-template-columns:1fr}
+    header.hero{padding:48px 0 8px}
+    .topbar .wrap{padding:0 18px}
+    footer .wrap{padding:0 18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+    <nav class="topnav">
+      <a href="../index.html">课目表</a>
+      <a href="./visual-spec.html">视觉规范</a>
+      <a href="./language-spec.html">语言规范</a>
+      <a href="./term-graph.html">术语依赖图</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <header class="hero">
+    <div class="kicker"><span class="dot"></span>版权 · 授权 · 第三方声明</div>
+    <h1 class="cover">版权与使用说明</h1>
+    <div class="cover-rule"></div>
+    <p class="lede">这一页说明本站文字内容归谁所有、可以怎么用、哪些用法需要先获得授权，以及文中提到的产品名称与图标归谁。</p>
+    <div class="meta">
+      <div><span>著作权人</span><b>李智博（落白lite）</b></div>
+      <div><span>授权协议</span><b>CC BY-NC-SA 4.0</b></div>
+      <div><span>年份</span><b>2026</b></div>
+    </div>
+  </header>
+
+  <section id="owner">
+    <h2><span class="num">01</span>著作权人</h2>
+    <p>本站《AI 入门与 ComfyUI 出图课》的全部文字内容，著作权归 <b>李智博</b> 所有，网名 <b>落白lite</b>。页脚统一署名为「© 2026 李智博（落白lite）」。</p>
+    <p>课程中的示例工作流、参数值与节点编号来自实际工程文件；文字讲解、插图、页面结构与排版由著作权人整理与撰写。</p>
+  </section>
+
+  <section id="allowed">
+    <h2><span class="num">02</span>你可以做什么</h2>
+    <ul>
+      <li><b>个人学习：</b>可以自由阅读、做笔记、跟着课里的步骤在自己的电脑上练习。</li>
+      <li><b>转载：</b>可以转载文字内容，但必须保留署名「李智博（落白lite）」，并附上原文链接；不得删除或遮挡页脚署名。</li>
+      <li><b>教学引用：</b>在课堂、社团或公开分享中引用片段时，请注明来源与本页链接；整章转载按上一条处理。</li>
+    </ul>
+    <div class="ok"><b>一句话：</b>个人怎么学都行；拿出去给别人看，署名和原文链接要带上。</div>
+  </section>
+
+  <section id="forbidden">
+    <h2><span class="num">03</span>不可以做什么</h2>
+    <ul>
+      <li><b>不得商用：</b>不得将本站内容整体或实质性部分用于付费课程、付费社群、商业培训、商业咨询、引流变现或其他以营利为目的的场景。</li>
+      <li><b>不得冒充：</b>不得移除、替换或伪造作者署名，不得以他人名义发布。</li>
+      <li><b>不得拆卖：</b>不得把课程内容拆成素材包、文档包、提示词包单独售卖。</li>
+    </ul>
+    <div class="note"><b>需要商用：</b>请先通过课程页给出的联系方式取得书面授权，说明用途、范围与发布渠道。</div>
+  </section>
+
+  <section id="remix">
+    <h2><span class="num">04</span>改编与相同方式共享</h2>
+    <p>本站文字内容采用 <b>CC BY-NC-SA 4.0</b>（署名—非商业性使用—相同方式共享 4.0 国际）授权。</p>
+    <ul>
+      <li><b>署名（BY）：</b>改编、节选、重排后发布，必须标注原作者「李智博（落白lite）」与原作链接。</li>
+      <li><b>非商业（NC）：</b>不得用于商业目的。</li>
+      <li><b>相同方式共享（SA）：</b>基于本站内容改编出的新作品，必须以同样的 CC BY-NC-SA 4.0 协议发布，不得改换成更宽松或更严格的条款。</li>
+    </ul>
+  </section>
+
+  <section id="trademarks">
+    <h2><span class="num">05</span>第三方名称与图标</h2>
+    <p>文中提到的 ComfyUI、Stable Diffusion、FLUX、ControlNet、IPAdapter、GitHub、Cloudflare 等产品名称、商标与图标，归各自公司或项目所有。</p>
+    <p>这些名称与图标仅用于识别、介绍与说明技术流程，不表示本站与上述公司存在合作、赞助或背书关系。若相关权利人认为某处使用不当，可通过课程页给出的联系方式提出，我们会及时调整。</p>
+  </section>
+
+  <section id="contact">
+    <h2><span class="num">06</span>联系与授权</h2>
+    <p>转载确认、商用授权、内容纠错、侵权反馈，请通过课程页给出的联系方式联系著作权人。来信请说明：使用场景、发布渠道、涉及章节与期望授权范围。</p>
+    <p>未取得书面授权前，请勿将本站内容用于任何商业用途。</p>
+  </section>
+
+  <section id="archive">
+    <h2><span class="num">07</span>关于 <code>_archive/</code></h2>
+    <p><code>_archive/</code> 保存的是课程改版前的历史快照，仅用于对照旧版写法与内容演进。<b>它不在任何课程导航中，也不参与现站点的链接维护</b>；其中的旧文件名与旧链接可能已经失效，属于预期情况。</p>
+    <p>阅读现行课程请从 <a href="../index.html">课程地图</a> 进入。历史快照不保证与现行术语、文件名或页面结构一致。</p>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2026 李智博（落白lite）</div>
+      <div><a href="./copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+      <div>ICP 备案号：待填（占位）</div>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

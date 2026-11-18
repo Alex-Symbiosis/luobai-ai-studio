@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>L0-02 · 装什么与界面怎么用 | AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="ComfyUI 模型目录、界面六个区域、载入工作流、运行与报错排查。按 01 号工作流给出真实文件名与目录。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --code:#fbfaf7; --max:940px;
+    --shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:
+      linear-gradient(90deg,rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      linear-gradient(rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      var(--paper);
+    color:var(--ink);font-size:16.5px;line-height:1.85;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(64,81,214,.3)}
+  a:hover{border-bottom-color:var(--accent)}
+  p{margin:0 0 15px}
+  ul,ol{margin:0 0 16px;padding-left:1.4em}
+  li{margin:6px 0}
+  strong{font-weight:700}
+  em{font-style:normal;background:linear-gradient(transparent 62%,rgba(64,81,214,.16) 62%)}
+  code{font-family:var(--mono);font-size:.86em;background:var(--code);border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--ink);word-break:break-word}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(246,245,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:56px;max-width:1040px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .topnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;white-space:nowrap;border-bottom:none}
+  .topnav a:hover{background:var(--accent-soft);color:var(--accent);border-bottom:none}
+
+  /* manual hero */
+  header.hero{padding:58px 0 0}
+  .mh{display:grid;grid-template-columns:104px 1fr;gap:20px;align-items:start}
+  .mnum{font-family:var(--mono);font-size:68px;font-weight:800;line-height:.95;letter-spacing:-.06em;color:var(--line2);padding-top:4px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.22);padding:5px 12px;border-radius:999px;margin-bottom:16px}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  h1{font-size:clamp(30px,5.2vw,48px);line-height:1.16;letter-spacing:-.035em;font-weight:800}
+  .sub{font-size:clamp(15.5px,1.9vw,17.5px);color:var(--muted);max-width:700px;line-height:1.75;margin-top:14px}
+
+  .outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px}
+  .oc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+  .oc b{display:block;font-size:13.5px;margin-bottom:3px}
+  .oc span{font-size:12.5px;color:var(--muted);line-height:1.65}
+  .oc::before{content:"";display:block;width:18px;height:3px;border-radius:2px;background:var(--teal);margin-bottom:9px}
+
+  .minitoc{display:flex;gap:6px;flex-wrap:wrap;margin-top:22px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  .minitoc span{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.1em;padding:4px 2px}
+  .minitoc a{font-size:12.5px;font-weight:600;color:var(--muted);padding:3px 8px;border-radius:6px;border-bottom:none}
+  .minitoc a:hover{background:var(--teal-soft);color:var(--teal)}
+
+  /* sections */
+  section{padding:50px 0 0;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .snum{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--teal);font-weight:700}
+  h2{font-size:clamp(22px,3vw,27px);line-height:1.35;letter-spacing:-.02em;font-weight:800}
+  h3{font-size:16px;margin:24px 0 8px;font-weight:700}
+  .lead{color:var(--muted);max-width:760px;margin:0 0 20px}
+
+  /* figure */
+  figure{margin:22px 0;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .fig-scroll{overflow-x:auto}
+  figure svg{display:block;width:100%;height:auto}
+  .only-wide{display:block}
+  .only-narrow{display:none}
+  figcaption{font-size:12.5px;color:var(--faint);margin-top:10px;line-height:1.7;text-align:center}
+  svg text{font-family:inherit}
+  svg .mono{font-family:var(--mono)}
+  .s-panel{fill:#fcfbf9;stroke:var(--line);stroke-width:1}
+  .s-box{fill:#fff;stroke:var(--ink);stroke-width:1.4}
+  .s-box-s{fill:#fbfaf7;stroke:var(--line2);stroke-width:1.3}
+  .s-hi{fill:rgba(15,122,108,.10);stroke:none}
+  .s-line{fill:none;stroke:var(--ink);stroke-width:1.3}
+  .s-line-t{fill:none;stroke:var(--teal);stroke-width:1.3}
+  .s-t{font-size:14px;fill:var(--ink)}
+  .s-tb{font-size:14.5px;fill:var(--ink);font-weight:600}
+  .s-ts{font-size:12px;fill:var(--muted)}
+  .s-note{font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:#fcfbf9;stroke-width:4px;stroke-linejoin:round}
+  .s-mono{font-family:var(--mono);font-size:12px;fill:var(--muted)}
+  .s-mono-hi{font-family:var(--mono);font-size:12px;fill:var(--ink);font-weight:600}
+
+  /* step cards */
+  .steps{display:grid;gap:10px;margin:18px 0}
+  .step{display:grid;grid-template-columns:54px 1fr;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(24,33,47,.04)}
+  .step .n{background:linear-gradient(180deg,rgba(15,122,108,.10),rgba(15,122,108,.03));color:var(--teal);font-family:var(--mono);font-size:19px;font-weight:700;display:flex;align-items:flex-start;justify-content:center;padding-top:15px;border-right:1px solid var(--line)}
+  .step .c{padding:14px 16px 15px}
+  .step h3{margin:0 0 5px;font-size:15px}
+  .step p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.75}
+  .step p:last-child{margin-bottom:0}
+  .step .see{font-size:12.5px;color:var(--ink);background:#fbfaf7;border-left:2px solid var(--teal);padding:7px 10px;border-radius:0 6px 6px 0;line-height:1.7}
+  .step .see b{color:var(--teal)}
+
+  /* table */
+  .tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:760px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{background:transparent;border:none;padding:0;color:var(--ink);font-size:12px}
+  .cn{font-family:var(--mono);font-size:11.5px;white-space:nowrap;color:var(--muted)}
+
+  /* notes */
+  .note{margin:18px 0;padding:13px 17px;border-left:3px solid var(--amber);background:var(--amber-soft);border-radius:0 12px 12px 0;font-size:13.5px;line-height:1.75}
+  .note b{color:var(--amber)}
+  .note.ok{border-left-color:var(--teal);background:var(--teal-soft)}
+  .note.ok b{color:var(--teal)}
+  .note.err{border-left-color:var(--danger);background:var(--danger-soft)}
+  .note.err b{color:var(--danger)}
+
+  .codebox{font-family:var(--mono);font-size:12px;line-height:1.75;background:#1b2230;color:#e8ecf5;padding:13px 15px;border-radius:10px;overflow-x:auto;margin:14px 0}
+  .codebox b{color:#ffd479;font-weight:600}
+  .codebox span{color:#9aa7bd}
+
+  /* check */
+  .tasks{list-style:none;margin:18px 0;padding:0;counter-reset:t}
+  .tasks li{counter-increment:t;position:relative;padding:13px 16px 13px 46px;margin:0 0 8px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:14px}
+  .tasks li::before{content:counter(t);position:absolute;left:14px;top:13px;width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:11.5px;line-height:22px;text-align:center;font-weight:700}
+  .checklist{list-style:none;margin:16px 0;padding:0}
+  .checklist li{display:flex;gap:10px;align-items:flex-start;padding:9px 13px;margin:0 0 7px;background:var(--card);border:1px solid var(--line);border-radius:9px;font-size:13.5px}
+  .checklist input{margin-top:5px;width:14px;height:14px;accent-color:var(--teal);flex:none}
+  .checklist label{cursor:pointer}
+
+  /* next */
+  .next{margin:52px 0 0;padding:20px 22px;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:14px;box-shadow:var(--shadow)}
+  .next .nl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--teal);font-weight:700;margin-bottom:5px}
+  .next h2{font-size:19px;margin:0 0 5px}
+  .next p{font-size:13.5px;color:var(--muted);margin:0}
+  .next .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .next .links a{font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:8px;padding:7px 12px;background:#fff;border-bottom:1px solid var(--line)}
+  .next .links a:hover{border-color:var(--teal);color:var(--teal)}
+
+  footer{margin-top:54px;padding:20px 0 46px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+  footer .wrap{display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;max-width:1040px}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:760px){
+    .outcomes{grid-template-columns:1fr}
+    .mh{grid-template-columns:1fr;gap:6px}
+    .mnum{font-size:44px;color:var(--line2);padding:0}
+    .only-wide{display:none}
+    .only-narrow{display:block}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px}
+    .topbar .wrap{padding:0 16px}
+    .topnav a{padding:6px 7px;font-size:12px}
+    h1{font-size:28px}
+    h2{font-size:21px}
+    .step{grid-template-columns:44px 1fr}
+    .step .n{font-size:16px;padding-top:16px}
+    section{padding:42px 0 0}
+    .minitoc{padding:10px 12px}
+  }
+  @media print{
+    .topbar{display:none}
+    body{background:#fff}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <nav class="topnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#models">模型目录</a>
+      <a href="#ui">界面分区</a>
+      <a href="#errors">报错</a>
+      <a href="../视觉规范.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="mh">
+      <div class="mnum">02</div>
+      <div>
+        <span class="kicker"><span class="dot"></span>L0 · 开篇 · 第 2 站</span>
+        <h1>装什么，界面怎么用</h1>
+        <p class="sub">这一课不解释原理，只让你能打开 01 号工作流、看见它的节点、并把运行按钮按下去。模型放哪、界面分几块、怎么载入、报错先看哪，按顺序来。</p>
+      </div>
+    </div>
+
+    <div class="outcomes">
+      <div class="oc"><b>6 个模型文件各归其位</b><span>按目录表放，节点下拉里能选到，不出现红字。</span></div>
+      <div class="oc"><b>认得出界面 6 个区域</b><span>菜单、左栏、画布、队列、运行条、节点。</span></div>
+      <div class="oc"><b>能载入并跑起来</b><span>拖入 JSON，上传自己的图，Queue 一次。</span></div>
+    </div>
+
+    <nav class="minitoc">
+      <span>本课目录</span>
+      <a href="#models">01 模型放哪</a>
+      <a href="#ui">02 界面分区</a>
+      <a href="#load">03 载入工作流</a>
+      <a href="#run">04 怎么运行</a>
+      <a href="#errors">05 报错先看哪</a>
+      <a href="#practice">06 练习与自检</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="models">
+    <div class="shead"><span class="snum">01</span><h2>模型放哪：只认目录，不认人</h2></div>
+    <p class="lead">ComfyUI 找模型的方式很笨：按文件名去固定目录里翻。目录对、文件名对，节点就能加载；错一个字符，节点就变红。</p>
+    <p>01 号工作流一共引用了 <strong>6 个模型文件</strong>。它们分别属于主模型、LoRA、ControlNet、Flux2 主模型、文本编码器和 VAE。下面的树只列会用到的那几个，后面还有几个常见但不强制的目录。</p>
+
+    <figure>
+      <div class="fig-scroll only-wide">
+        <svg viewBox="0 0 720 400" role="img" aria-label="ComfyUI models 目录树与 01 号工作流用到的六个模型文件">
+          <rect class="s-panel" x="0" y="0" width="720" height="400" rx="12"/>
+          <text class="s-tb" x="24" y="29">ComfyUI/models/ · 01 号工作流需要的 6 个文件</text>
+          <rect x="492" y="19" width="11" height="11" rx="3" fill="rgba(15,122,108,.10)" stroke="#0f7a6c" stroke-width="1.2"/>
+          <text class="s-note" x="510" y="29">青色 = 01 会用到</text>
+
+          <line x1="40" y1="66" x2="40" y2="346" stroke="#cbc6ba" stroke-width="1.2"/>
+
+          <rect class="s-hi" x="58" y="42" width="646" height="28" rx="6"/>
+          <line x1="40" y1="58" x2="52" y2="58" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="58" r="2.6" fill="#0f7a6c"/>
+          <text class="s-mono-hi" x="66" y="62">checkpoints/</text>
+          <text class="s-mono" x="320" y="62">SDXL室内大模型.safetensors</text>
+
+          <rect class="s-hi" x="58" y="78" width="646" height="28" rx="6"/>
+          <line x1="40" y1="94" x2="52" y2="94" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="94" r="2.6" fill="#0f7a6c"/>
+          <text class="s-mono-hi" x="66" y="98">loras/</text>
+          <text class="s-mono" x="320" y="98">SDXL 室内/大平层SDXL.safetensors</text>
+
+          <rect class="s-hi" x="58" y="114" width="646" height="28" rx="6"/>
+          <line x1="40" y1="130" x2="52" y2="130" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="130" r="2.6" fill="#0f7a6c"/>
+          <text class="s-mono-hi" x="66" y="134">controlnet/</text>
+          <text class="s-mono" x="320" y="134">SDXL/mistoLine_rank256.safetensors</text>
+
+          <rect class="s-hi" x="58" y="150" width="646" height="28" rx="6"/>
+          <line x1="40" y1="166" x2="52" y2="166" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="166" r="2.6" fill="#0f7a6c"/>
+          <text class="s-mono-hi" x="66" y="170">diffusion_models/</text>
+          <text class="s-mono" x="320" y="170">flux-2-klein-base-9b-fp8.safetensors</text>
+
+          <rect class="s-hi" x="58" y="186" width="646" height="28" rx="6"/>
+          <line x1="40" y1="202" x2="52" y2="202" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="202" r="2.6" fill="#0f7a6c"/>
+          <text class="s-mono-hi" x="66" y="206">text_encoders/</text>
+          <text class="s-mono" x="320" y="206">qwen_3_8b_fp8mixed.safetensors</text>
+
+          <rect class="s-hi" x="58" y="222" width="646" height="28" rx="6"/>
+          <line x1="40" y1="238" x2="52" y2="238" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="238" r="2.6" fill="#0f7a6c"/>
+          <text class="s-mono-hi" x="66" y="242">vae/</text>
+          <text class="s-mono" x="320" y="242">full_encoder_small_decoder.safetensors</text>
+
+          <line x1="40" y1="274" x2="52" y2="274" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="274" r="2.6" fill="#cbc6ba"/>
+          <text class="s-mono" x="66" y="278">upscale_models/</text>
+          <text class="s-note" x="320" y="278">放大模型，01 号不强制</text>
+
+          <line x1="40" y1="310" x2="52" y2="310" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="310" r="2.6" fill="#cbc6ba"/>
+          <text class="s-mono" x="66" y="314">embeddings/</text>
+          <text class="s-note" x="320" y="314">文本嵌入，01 号不用</text>
+
+          <line x1="40" y1="346" x2="52" y2="346" stroke="#cbc6ba" stroke-width="1.2"/>
+          <circle cx="56" cy="346" r="2.6" fill="#cbc6ba"/>
+          <text class="s-mono" x="66" y="350">clip_vision/</text>
+          <text class="s-note" x="320" y="350">视觉编码，01 号不用</text>
+
+          <text class="s-note" x="24" y="384">文件名里的斜杠就是子目录：SDXL/mistoLine_rank256.safetensors → models/controlnet/SDXL/…</text>
+        </svg>
+      </div>
+
+      <div class="only-narrow">
+        <svg viewBox="0 0 340 420" role="img" aria-label="移动版模型目录清单，六个文件分别放在对应文件夹">
+          <rect class="s-panel" x="0" y="0" width="340" height="420" rx="12"/>
+          <text class="s-tb" x="16" y="27" font-size="13">models/ · 01 号用到的 6 个</text>
+
+          <rect class="s-hi" x="12" y="40" width="316" height="44" rx="8"/>
+          <text class="s-mono-hi" x="26" y="58" font-size="12.5">checkpoints/</text>
+          <text class="s-mono" x="26" y="76" font-size="10.5">SDXL室内大模型.safetensors</text>
+
+          <rect class="s-hi" x="12" y="92" width="316" height="44" rx="8"/>
+          <text class="s-mono-hi" x="26" y="110" font-size="12.5">loras/</text>
+          <text class="s-mono" x="26" y="128" font-size="10.5">SDXL 室内/大平层SDXL.safetensors</text>
+
+          <rect class="s-hi" x="12" y="144" width="316" height="44" rx="8"/>
+          <text class="s-mono-hi" x="26" y="162" font-size="12.5">controlnet/</text>
+          <text class="s-mono" x="26" y="180" font-size="10.5">SDXL/mistoLine_rank256.safetensors</text>
+
+          <rect class="s-hi" x="12" y="196" width="316" height="44" rx="8"/>
+          <text class="s-mono-hi" x="26" y="214" font-size="12.5">diffusion_models/</text>
+          <text class="s-mono" x="26" y="232" font-size="10.5">flux-2-klein-base-9b-fp8.safetensors</text>
+
+          <rect class="s-hi" x="12" y="248" width="316" height="44" rx="8"/>
+          <text class="s-mono-hi" x="26" y="266" font-size="12.5">text_encoders/</text>
+          <text class="s-mono" x="26" y="284" font-size="10.5">qwen_3_8b_fp8mixed.safetensors</text>
+
+          <rect class="s-hi" x="12" y="300" width="316" height="44" rx="8"/>
+          <text class="s-mono-hi" x="26" y="318" font-size="12.5">vae/</text>
+          <text class="s-mono" x="26" y="336" font-size="10.5">full_encoder_small_decoder.safetensors</text>
+
+          <text class="s-note" x="16" y="376">旧版目录名：unet/ 对应 diffusion_models/，</text>
+          <text class="s-note" x="16" y="394">clip/ 对应 text_encoders/。放任意一个都能扫到。</text>
+        </svg>
+      </div>
+      <figcaption>先按这张表把 6 个文件放好，再打开工作流。顺序反了，你会先看到一排红字。</figcaption>
+    </figure>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>目录</th><th>放什么</th><th>01 号里的文件</th><th>对应节点</th></tr></thead>
+        <tbody>
+          <tr><td><code>models/checkpoints/</code></td><td>主模型（Checkpoint）</td><td><code>SDXL室内大模型.safetensors</code></td><td class="cn">CheckpointLoaderSimple</td></tr>
+          <tr><td><code>models/loras/</code></td><td>风格与细节补丁</td><td><code>SDXL 室内/大平层SDXL.safetensors</code></td><td class="cn">LoraLoader</td></tr>
+          <tr><td><code>models/controlnet/</code></td><td>结构控制模型</td><td><code>SDXL/mistoLine_rank256.safetensors</code></td><td class="cn">ControlNetLoader</td></tr>
+          <tr><td><code>models/diffusion_models/</code><br><span class="cn">旧版 models/unet/</span></td><td>Flux2 主模型</td><td><code>flux-2-klein-base-9b-fp8.safetensors</code></td><td class="cn">UNETLoader · 子图内</td></tr>
+          <tr><td><code>models/text_encoders/</code><br><span class="cn">旧版 models/clip/</span></td><td>文本编码器</td><td><code>qwen_3_8b_fp8mixed.safetensors</code></td><td class="cn">CLIPLoader · 子图内</td></tr>
+          <tr><td><code>models/vae/</code></td><td>图像编解码</td><td><code>full_encoder_small_decoder.safetensors</code></td><td class="cn">VAELoader · 子图内</td></tr>
+          <tr><td><code>models/upscale_models/</code></td><td>放大模型</td><td>01 号不强制</td><td class="cn">放大节点</td></tr>
+          <tr><td><code>models/embeddings/</code></td><td>文本嵌入</td><td>01 号不用</td><td class="cn">Embedding</td></tr>
+          <tr><td><code>models/clip_vision/</code></td><td>视觉编码器</td><td>01 号不用</td><td class="cn">ClipVisionLoader</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note ok"><b>斜杠不是装饰：</b>节点里写 <code>SDXL/mistoLine_rank256.safetensors</code>，意味着文件要放在 <code>models/controlnet/SDXL/mistoLine_rank256.safetensors</code>。只放到 <code>controlnet/</code> 根目录，节点就找不到它。</div>
+
+    <div class="note"><b>还有一类东西不叫模型：</b>01 号里的 <code>Image Comparer (rgthree)</code>、<code>DeepTranslatorTextNode</code>、<code>AIO_Preprocessor</code>、<code>CR Latent Batch Size</code> 属于自定义节点，装在 <code>ComfyUI/custom_nodes/</code>。缺了它们，画布上会出现红色节点框，而不是模型下拉红字。装法见本节最后。</div>
+
+    <p>缺自定义节点时，最省事的路径是用 ComfyUI Manager：在 Manager 里按关键词搜 <code>rgthree</code>、<code>DeepTranslator</code>、<code>AIO</code>、<code>CR</code>，装完重启。重启后重新拖入 JSON，红色节点应该恢复正常。若你装的是整合包，Manager 可能已经在菜单里；没有就手动把插件文件夹放进 <code>custom_nodes/</code>，再重启。</p>
+  </section>
+
+  <section id="ui">
+    <div class="shead"><span class="snum">02</span><h2>界面分几块：先认位置，再认按钮</h2></div>
+    <p class="lead">不同版本的 ComfyUI 会把按钮左右挪，但功能区域只有这六类。你要找的东西，一定在其中一块里。</p>
+
+    <figure>
+      <div class="fig-scroll only-wide">
+        <svg viewBox="0 0 720 460" role="img" aria-label="ComfyUI 界面六个功能区域示意：菜单、左侧面板、画布、右侧队列、运行条、节点">
+          <rect class="s-panel" x="0" y="0" width="720" height="460" rx="12"/>
+
+          <rect class="s-box-s" x="16" y="16" width="688" height="34" rx="8"/>
+          <text class="s-t" x="32" y="38">① 菜单区　Workflow / Edit / Help</text>
+
+          <rect class="s-box-s" x="16" y="60" width="124" height="350" rx="8"/>
+          <text class="s-tb" x="28" y="83" font-size="13">② 左侧面板</text>
+          <text class="s-ts" x="28" y="108">Workflows</text>
+          <text class="s-ts" x="28" y="132">Models</text>
+          <text class="s-ts" x="28" y="156">Node Library</text>
+          <text class="s-note" x="28" y="188">工作流列表、模型库、</text>
+          <text class="s-note" x="28" y="205">节点库都在这里。</text>
+
+          <rect class="s-box-s" x="150" y="60" width="390" height="350" rx="8"/>
+          <text class="s-tb" x="162" y="83" font-size="13">③ 画布</text>
+          <text class="s-note" x="162" y="103">⑥ 节点 = 一个动作：标题栏 + 输入口 + 输出口 + 参数</text>
+
+          <rect class="s-box" x="166" y="122" width="130" height="52" rx="7"/>
+          <text class="s-t" x="178" y="144" font-size="13">上传图 #222</text>
+          <text class="s-ts" x="178" y="162" font-size="11">LoadImage</text>
+
+          <rect class="s-box" x="334" y="122" width="180" height="52" rx="7"/>
+          <text class="s-t" x="346" y="144" font-size="13">Flux2 精修子图</text>
+          <text class="s-ts" x="346" y="162" font-size="11">#196 · 双击可进入</text>
+
+          <rect class="s-box" x="334" y="238" width="180" height="52" rx="7"/>
+          <text class="s-t" x="346" y="260" font-size="13">保存 #132</text>
+          <text class="s-ts" x="346" y="278" font-size="11">SaveImage</text>
+
+          <path class="s-line" d="M296 148 H330" marker-end="url(#arrUi)"/>
+          <text class="s-note" x="315" y="140" text-anchor="middle">图像</text>
+          <path class="s-line" d="M424 174 V234" marker-end="url(#arrUi)"/>
+          <text class="s-note" x="436" y="204">输出</text>
+
+          <rect x="166" y="330" width="348" height="44" rx="8" fill="rgba(64,81,214,.09)" stroke="#4051d6" stroke-width="1.2"/>
+          <text class="s-t" x="182" y="357" font-size="12.5" fill="#4051d6">⑤ 运行条　Queue / Run · 快捷键 Ctrl+Enter</text>
+
+          <rect class="s-box-s" x="550" y="60" width="154" height="350" rx="8"/>
+          <text class="s-tb" x="562" y="83" font-size="12.5">④ 右侧队列</text>
+          <text class="s-ts" x="562" y="108" font-size="11.5">Queue</text>
+          <text class="s-note" x="562" y="128">正在跑的任务</text>
+          <text class="s-ts" x="562" y="152" font-size="11.5">History</text>
+          <text class="s-note" x="562" y="172">跑完的任务</text>
+          <text class="s-note" x="562" y="202">新版可能把这块</text>
+          <text class="s-note" x="562" y="219">收进底部或左栏，</text>
+          <text class="s-note" x="562" y="236">认“队列 / 历史”</text>
+          <text class="s-note" x="562" y="253">两个词即可。</text>
+
+          <defs>
+            <marker id="arrUi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#18212f"/></marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="only-narrow">
+        <svg viewBox="0 0 340 520" role="img" aria-label="移动版界面六个区域清单">
+          <rect class="s-panel" x="0" y="0" width="340" height="520" rx="12"/>
+          <text class="s-tb" x="16" y="28" font-size="13">界面 6 个区域（简化版）</text>
+
+          <rect class="s-box-s" x="12" y="44" width="316" height="72" rx="8"/>
+          <circle cx="34" cy="68" r="11" fill="#0f7a6c"/>
+          <text x="34" y="72" text-anchor="middle" font-size="11.5" fill="#fff">1</text>
+          <text class="s-t" x="54" y="72" font-size="13" font-weight="600">菜单区</text>
+          <text class="s-ts" x="54" y="93" font-size="11.5">Workflow / Edit / Help，打开与保存</text>
+          <text class="s-ts" x="54" y="108" font-size="11.5">都在这里。</text>
+
+          <rect class="s-box-s" x="12" y="126" width="316" height="72" rx="8"/>
+          <circle cx="34" cy="150" r="11" fill="#0f7a6c"/>
+          <text x="34" y="154" text-anchor="middle" font-size="11.5" fill="#fff">2</text>
+          <text class="s-t" x="54" y="154" font-size="13" font-weight="600">左侧面板</text>
+          <text class="s-ts" x="54" y="175" font-size="11.5">Workflows / Models / Node Library</text>
+          <text class="s-ts" x="54" y="190" font-size="11.5">工作流、模型、节点都从这里找。</text>
+
+          <rect class="s-box-s" x="12" y="208" width="316" height="72" rx="8"/>
+          <circle cx="34" cy="232" r="11" fill="#0f7a6c"/>
+          <text x="34" y="236" text-anchor="middle" font-size="11.5" fill="#fff">3</text>
+          <text class="s-t" x="54" y="236" font-size="13" font-weight="600">画布</text>
+          <text class="s-ts" x="54" y="257" font-size="11.5">节点与连线铺在这里；滚轮缩放，</text>
+          <text class="s-ts" x="54" y="272" font-size="11.5">空白处拖动平移。</text>
+
+          <rect class="s-box-s" x="12" y="290" width="316" height="72" rx="8"/>
+          <circle cx="34" cy="314" r="11" fill="#0f7a6c"/>
+          <text x="34" y="318" text-anchor="middle" font-size="11.5" fill="#fff">4</text>
+          <text class="s-t" x="54" y="318" font-size="13" font-weight="600">队列 / 历史</text>
+          <text class="s-ts" x="54" y="339" font-size="11.5">Queue 是正在跑，History 是跑完的。</text>
+          <text class="s-ts" x="54" y="354" font-size="11.5">新版位置会变，认这两个词。</text>
+
+          <rect class="s-box-s" x="12" y="372" width="316" height="72" rx="8"/>
+          <circle cx="34" cy="396" r="11" fill="#0f7a6c"/>
+          <text x="34" y="400" text-anchor="middle" font-size="11.5" fill="#fff">5</text>
+          <text class="s-t" x="54" y="400" font-size="13" font-weight="600">运行条</text>
+          <text class="s-ts" x="54" y="421" font-size="11.5">Queue / Run，快捷键 Ctrl+Enter。</text>
+          <text class="s-ts" x="54" y="436" font-size="11.5">旧版在右侧面板底部。</text>
+
+          <text class="s-note" x="16" y="478">⑥ 节点：画布里每个方块 = 一个动作。</text>
+          <text class="s-note" x="16" y="496">标题栏写类型，左右两侧是输入/输出口，</text>
+          <text class="s-note" x="16" y="512">中间是参数。</text>
+        </svg>
+      </div>
+      <figcaption>先认区域，再找按钮。位置记不住没关系，认标题文字就行。</figcaption>
+    </figure>
+
+    <p><strong>画布怎么动：</strong>滚轮缩放，空白处按住拖动平移。节点太多看不清时，先缩小看全貌，不要急着拖节点改位置。第一次打开一张别人的工作流，画布乱是正常的。</p>
+  </section>
+
+  <section id="load">
+    <div class="shead"><span class="snum">03</span><h2>载入一个工作流：三种方式，选一种</h2></div>
+    <p class="lead">工作流是 JSON 文件，不是双击就能看的网页。你要把它交给 ComfyUI 的画布。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">A</div>
+        <div class="c">
+          <h3>直接拖进画布</h3>
+          <p>把 <code>01📚基础版 线稿+文字描述出图.json</code> 从文件夹拖到 ComfyUI 画布的空白处，松手。节点图铺开，就说明载入成功。</p>
+          <div class="see"><b>你会看到：</b>画布上出现 21 个顶层节点和 6 个分组框，部分节点是子图（可以双击进入）。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">B</div>
+        <div class="c">
+          <h3>从菜单打开</h3>
+          <p>点菜单 <code>Workflow</code> → <code>Open</code>（有的版本是顶部文件夹图标），选中同一个 JSON。效果和拖入一样。</p>
+          <div class="see"><b>你会看到：</b>载入后画布自动定位到工作流区域；如果没定位，滚轮缩小找一下。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">C</div>
+        <div class="c">
+          <h3>载入后先检查三件事</h3>
+          <p>一看节点有没有红框；二看模型下拉里有没有文件名；三看 <code>#222 LoadImage</code> 里有没有图。三件事都正常，再谈运行。</p>
+          <div class="see"><b>你会看到：</b>红框 = 缺自定义节点；下拉红字 = 模型没放对；图片空白 = 示例图不在你电脑上，需要自己上传。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note"><b>不要拖错文件：</b>拖的是 <code>.json</code>，不是课程 HTML，也不是截图。ComfyUI 也能从它生成的 PNG 里读回工作流，但我们的素材是 JSON，直接拖 JSON 最稳。</div>
+  </section>
+
+  <section id="run">
+    <div class="shead"><span class="snum">04</span><h2>怎么点运行：从选图到找到文件</h2></div>
+    <p class="lead">运行不是“点一下等奇迹”，它有明确的五步。第一次跑会慢，因为要把 6 个模型读进显存。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <div class="c">
+          <h3>换掉示例图</h3>
+          <p>双击 <code>#222 LoadImage</code>，点上传，选你自己的线稿。JSON 里写的 <code>image (26).png</code> 是作者电脑上的文件名，你这里一定没有。</p>
+          <div class="see"><b>你会看到：</b>节点缩略图变成你的图。若还是空白或红字，说明文件没选上。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <div class="c">
+          <h3>确认保存位置</h3>
+          <p><code>#132 SaveImage</code> 的前缀是 <code>Flux2-Klein-4b-base</code>。第一次不用改，先让文件落下来。</p>
+          <div class="see"><b>你会看到：</b>节点里有一行文件名前缀输入框，后面跟着生成序号。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <div class="c">
+          <h3>按运行</h3>
+          <p>点 <code>Queue</code> 或 <code>Run</code>，也可以按 <code>Ctrl+Enter</code>。只按一次，不要连点。</p>
+          <div class="see"><b>你会看到：</b>队列里出现一条任务，画布上正在执行的节点会有进度或高亮。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <div class="c">
+          <h3>看进度，不要走开太远</h3>
+          <p>第一次要加载模型，可能几十秒到几分钟。看队列里的任务状态；如果报错，先别关页面，错误信息就在队列条目里。</p>
+          <div class="see"><b>你会看到：</b>任务从等待变成执行，最后变成完成；失败则会变红，并给出节点编号。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">5</div>
+        <div class="c">
+          <h3>去 output 找图</h3>
+          <p>生成的文件在 <code>ComfyUI/output/</code>，文件名类似 <code>Flux2-Klein-4b-base_00001_.png</code>。画布上的 <code>#26 Image Comparer</code> 也能直接看 A/B 对比。</p>
+          <div class="see"><b>你会看到：</b>output 文件夹里多出一张 PNG；序号每次加一，不会覆盖上一张。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note ok"><b>第一次成功的标准：</b>不是图多好看，而是 output 里真的出现了一个新文件，且你能说清它是从哪个节点保存的。</div>
+  </section>
+
+  <section id="errors">
+    <div class="shead"><span class="snum">05</span><h2>报错先看哪：按这个顺序，不要乱翻</h2></div>
+    <p class="lead">ComfyUI 的报错分散在三个地方。先看画布，再看队列，最后看启动窗口。顺序反了，会在无关的地方浪费很久。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <div class="c">
+          <h3>先看画布上的红框</h3>
+          <p>红色节点框通常写着 <code>Missing Node Type</code>，意思是缺自定义节点。它是最常见、也最容易修的一类。</p>
+          <div class="see"><b>处理：</b>记下红框里的节点类型，去 Manager 搜关键词安装，重启后重新拖入 JSON。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <div class="c">
+          <h3>再看队列里的红色条目</h3>
+          <p>点开失败的任务，错误会带节点编号，比如 <code>#215</code>、<code>#196</code>。回到画布找同编号的节点，问题通常就在它的输入上。</p>
+          <div class="see"><b>处理：</b>先看该节点的模型下拉、图片输入、数值范围，再决定是换文件还是改参数。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <div class="c">
+          <h3>最后看启动窗口</h3>
+          <p>启动 ComfyUI 的那个终端窗口，最后 20 行往往有完整堆栈。浏览器里只显示一句摘要，终端里才是原因。</p>
+          <div class="see"><b>处理：</b>从最下面往上读，找第一个 <code>Error</code> 或 <code>Traceback</code>，不要从第一行开始逐字读。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="codebox"><b>Prompt outputs failed validation</b><br><span># 典型摘要：某个节点的输入不合法</span><br>- Return type mismatch between linked nodes<br><span># 先回到错误里提到的节点编号，检查连线类型与必填项</span></div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>现象</th><th>先看哪</th><th>怎么处理</th></tr></thead>
+        <tbody>
+          <tr><td>节点是红框，写着 Missing Node Type</td><td>画布</td><td>缺自定义节点。Manager 搜 <code>rgthree</code>、<code>DeepTranslator</code>、<code>AIO</code>、<code>CR</code>，装完重启。</td></tr>
+          <tr><td>模型下拉是红的、空的，或提示 value not in list</td><td>该节点的下拉框</td><td>按模型目录表核对目录和文件名，注意子目录斜杠与大小写。</td></tr>
+          <tr><td>Prompt outputs failed validation</td><td>队列错误条目</td><td>按错误里的节点编号回去，检查输入类型、必填项、数值范围。</td></tr>
+          <tr><td>CUDA out of memory</td><td>启动窗口</td><td>关掉其他占显存的程序；先跑小图、少步数；必要时用低显存启动参数。</td></tr>
+          <tr><td>浏览器打不开 127.0.0.1:8188</td><td>启动窗口</td><td>后台是否还在运行、端口是否被占用；换端口后地址也要跟着换。</td></tr>
+          <tr><td>翻译节点报错或一直不出英文</td><td>队列与网络</td><td>翻译服务需要联网；断网时直接在英文提示词节点里手填。</td></tr>
+          <tr><td>一直停在 waiting</td><td>队列面板</td><td>前面还有任务没结束；等它跑完，或清空队列后重排。</td></tr>
+          <tr><td>图出来了，但全黑或完全不像</td><td>输入图与参数</td><td>先确认上传图不是纯白；再查 ControlNet 权重、提示词语言、采样步数。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note err"><b>不要做的事：</b>一报错就乱拖节点、删连线、重装整套。先定位是“缺节点”“缺模型”“参数不合法”“显存不够”中的哪一类，再动手。四类的修法完全不同。</div>
+  </section>
+
+  <section id="practice">
+    <div class="shead"><span class="snum">06</span><h2>练习与自检</h2></div>
+    <p class="lead">这一课的练习都在“能不能照着做”，不在“记住多少词”。</p>
+    <ol class="tasks">
+      <li>把 6 个模型文件按目录表放好，重启 ComfyUI，在对应节点的下拉里逐个找到它们。找到 6 个，算过。</li>
+      <li>拖入 01 号 JSON，在画布上指出：菜单区、左侧面板、画布、队列、运行条分别在什么位置。</li>
+      <li>上传一张自己的线稿，不改任何参数，按一次运行。去 <code>output/</code> 找到新生成的 PNG，并说出是哪个节点保存的。</li>
+    </ol>
+    <ul class="checklist">
+      <li><input type="checkbox" id="d1"><label for="d1">我知道模型要放在 <code>models/</code> 下对应的子目录，而不是 <code>models/</code> 根目录。</label></li>
+      <li><input type="checkbox" id="d2"><label for="d2">我知道文件名里的斜杠表示子目录。</label></li>
+      <li><input type="checkbox" id="d3"><label for="d3">我能说出界面至少 4 个区域的名字。</label></li>
+      <li><input type="checkbox" id="d4"><label for="d4">我知道载入工作流是拖 JSON，不是双击 HTML。</label></li>
+      <li><input type="checkbox" id="d5"><label for="d5">报错时我会按“画布红框 → 队列条目 → 启动窗口”的顺序看。</label></li>
+    </ul>
+  </section>
+
+  <div class="next">
+    <div class="nl">NEXT · L0-03</div>
+    <h2>完整出一次图</h2>
+    <p>下一课直接拿 01 号工作流走全程：载入、改提示词、设参数、运行、看图、存图。你会第一次真正拿到一张自己出的图。</p>
+    <div class="links">
+      <a href="./L0-03-完整出一次图.html">继续 → L0-03</a>
+      <a href="./L0-01-ComfyUI是什么.html">← 回看 L0-01</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b data-bind="name">AI 入门与 ComfyUI 出图课</b> · <span data-bind="author">李智博</span> · <span data-bind="year">2026</span></div>
+    <div>L0-02 · 装什么与界面怎么用</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v = map[el.getAttribute('data-bind')];
+    if (v) el.textContent = v;
+  });
+  document.title = 'L0-02 · 装什么与界面怎么用 | ' + COURSE.name;
+
+  var KEY = 'course-l0-02-check';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+  document.querySelectorAll('.checklist input[type=checkbox]').forEach(function(cb){
+    cb.checked = !!saved[cb.id];
+    cb.addEventListener('change', function(){
+      saved[cb.id] = cb.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L2-05 检测与分割 · AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="GroundingDINO 的开放词表检测与 SAM 的提示式分割：为什么检测词只写名词，框和遮罩各自能接什么。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.hero{margin-bottom:26px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:700px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.meta span{border:1px solid var(--line);background:var(--card);padding:5px 10px;border-radius:999px}
+.meta b{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout.defer{border-color:var(--amber);background:var(--amber-soft);font-size:14.5px;color:var(--muted)}
+.callout.defer b{color:var(--amber)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow);overflow-x:auto}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:14px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:11.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.grid2 .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.grid2 .box h4{font-family:var(--sans);font-size:14px;margin:0 0 6px}
+.grid2 .box p{font-size:13.5px;margin:0;color:var(--muted)}
+.grid2 .box p+p{margin-top:6px}
+.pits{display:grid;gap:12px;margin:20px 0}
+.pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:14px 16px}
+.pit h3{font-size:16px;margin:0 0 4px}
+.pit p{font-size:14px;margin:0;color:var(--muted)}
+.pit p+p{margin-top:6px}
+.pit .fix{color:var(--teal);font-weight:600}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .grid2{grid-template-columns:1fr}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 节点字典 · 05</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-05 检测与分割</p>
+
+  <header class="hero">
+    <span class="kicker">L2 节点字典 · 第五册</span>
+    <h1>检测与分割：<br>先找到物体，再贴住它的边</h1>
+    <p class="lede">你想改地板，于是把“把地板换成黑色大理石”整句塞进检测框。跑完，遮罩全黑，什么都没找到。问题不在句子不够长，而在你让一个只找名词的模型去执行指令。这一课只解决一件事：分清框和遮罩，知道该给谁写什么。</p>
+    <div class="meta">
+      <span>先修 <b>L2-02</b></span>
+      <span>实例来源 <b>L3-06</b></span>
+      <span>检测 <b>GroundingDINO SwinB · 0.3</b></span>
+      <span>分割 <b>SAM vit_b</b></span>
+    </div>
+  </header>
+
+  <h2 id="flow"><span class="no">01 / FLOW</span>一张图看懂：一句话怎么变成一张遮罩</h2>
+  <p>先给你一个具体任务。图里是客厅，地板要换材质。你不想手涂，因为墙角一歪，贴回去就有缝。你希望机器自己把地板圈出来。</p>
+  <p>这件事分成两步。第一步只回答“地板大概在哪一块”，产出<b>检测框</b>（bounding box，也叫 bbox）：一个四条边都平行于图片边缘的矩形。第二步才回答“哪几个像素属于地板”，产出<b>遮罩</b>（mask）：一张和原图同宽高的 0–1 图，白（1）的地方要改，黑（0）的地方不动，灰的地方按比例改。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 224" role="img" aria-label="一句话经检测得到矩形框，再经分割得到贴合地板的像素遮罩">
+      <defs>
+        <marker id="ar05" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+
+      <rect x="4" y="16" width="132" height="96" rx="8" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <rect x="12" y="80" width="116" height="24" fill="#e3ded2"/>
+      <rect x="28" y="52" width="46" height="30" rx="4" fill="#c9b79c" stroke="#b6a488"/>
+      <rect x="82" y="38" width="34" height="18" rx="3" fill="#fff" stroke="#d9d4c8"/>
+      <circle cx="40" cy="40" r="9" fill="#e8f2ef" stroke="#9fc9c0"/>
+      <text x="70" y="128" text-anchor="middle" class="svg-title">原图 + 名词</text>
+      <text x="70" y="144" text-anchor="middle" class="svg-sub">prompt: floor</text>
+
+      <line x1="138" y1="64" x2="158" y2="64" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar05)"/>
+
+      <rect x="164" y="16" width="132" height="96" rx="8" fill="#fbfaf7" stroke="#cbc6ba"/>
+      <rect x="172" y="80" width="116" height="24" fill="#e3ded2"/>
+      <rect x="188" y="52" width="46" height="30" rx="4" fill="#c9b79c" stroke="#b6a488"/>
+      <rect x="242" y="38" width="34" height="18" rx="3" fill="#fff" stroke="#d9d4c8"/>
+      <circle cx="200" cy="40" r="9" fill="#e8f2ef" stroke="#9fc9c0"/>
+      <rect x="170" y="78" width="120" height="28" rx="3" fill="none" stroke="#0f7a6c" stroke-width="1.8" stroke-dasharray="5 4"/>
+      <text x="230" y="128" text-anchor="middle" class="svg-title">检测框</text>
+      <text x="230" y="144" text-anchor="middle" class="svg-sub">只有一个矩形</text>
+
+      <line x1="298" y1="64" x2="318" y2="64" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar05)"/>
+
+      <rect x="324" y="16" width="132" height="96" rx="8" fill="#18212f" stroke="#18212f"/>
+      <rect x="332" y="80" width="116" height="24" fill="#ffffff"/>
+      <text x="390" y="128" text-anchor="middle" class="svg-title">像素遮罩</text>
+      <text x="390" y="144" text-anchor="middle" class="svg-sub">白 = 改，黑 = 不动</text>
+
+      <text x="230" y="176" text-anchor="middle" class="svg-lbl">框是矩形，会把沙发腿、地毯一起圈进去；遮罩才贴着地板真实边缘。</text>
+      <text x="230" y="200" text-anchor="middle" class="svg-lbl">两步不能合并：检测负责“哪儿”，分割负责“边界”。</text>
+    </svg>
+    <figcaption>第一步只给你一个矩形，第二步才把矩形里的地板沿着墙角抠出来。局部重绘要的是右边的遮罩，不是中间的框。</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p><b>三个词先分清：</b><b>检测</b>（detection）输出框；<b>分割</b>（segmentation）给每个像素判“是不是目标”，输出遮罩；<b>局部重绘</b>（inpaint）拿遮罩去改图。</p>
+    <p>反例：遮罩不是抠好的透明背景图，也不是矩形。它只回答“这个像素要不要改”，不带你抠下来的颜色。</p>
+  </div>
+
+  <div class="callout defer">
+    <p><b>后面专门讲：</b>遮罩怎么接到重绘节点、白区为什么有时要外扩，<a href="../l3/l3-05-manual-inpaint.html">L3-05 手动涂抹局部修改</a> 用手涂的方式讲过一遍。这一课只解释遮罩是怎么来的，不展开重绘参数。</p>
+  </div>
+
+  <div class="chips">
+    <a href="#detect">开放词表</a><a href="#threshold">阈值 0.3</a>
+    <a href="#sam">提示式分割</a><a href="#mask">遮罩</a>
+    <a href="#output">框 / 遮罩 / 控制图</a><a href="#pitfalls">踩坑</a>
+  </div>
+
+  <p class="small quiet">本课不新增比喻。节点仍按登记表叫“一道工序”，连线仍叫“交接单”；检测与分割按字面理解，不另设说法。</p>
+
+  <h2 id="detect"><span class="no">02 / DETECT</span>开放词表：写名词，不写句子</h2>
+  <p>先看失败现场。你在检测框里写“把地板换成黑色大理石”，跑完没有任何框。换成 <code>floor</code>，地板立刻被框住。同一个模型，同一张图，差别只在输入的那几个词。</p>
+
+  <h3>它问的是“这个词对应哪块区域”</h3>
+  <p>这类检测器叫 <b>GroundingDINO</b>。它做的不是执行指令，而是拿你给的名词去图里找对应区域。这种“类别不预先写死、你给什么词就找什么”的能力，叫<b>开放词表</b>（open vocabulary）。</p>
+  <p>反例：开放词表不是“什么句子都能听懂”。你写“换成”“大理石”“右下角那块”，它没有对应的物体可以匹配，框自然出不来。</p>
+
+  <h3>为什么只写一个名词</h3>
+  <p><code>floor</code> 是一个物体名，能对上图里的地板。<code>sofa</code>、<code>window</code>、<code>rug</code> 同理。名称越具体、越常见，命中越稳。</p>
+  <p>反过来，“黑色大理石地砖”是材质描述，不是物体名；“把地板换成……”是动作指令，更不是它要的东西。检测器只负责找，不负责换。</p>
+
+  <h3 id="threshold">0.3 是把握分数线</h3>
+  <p>每找到一个候选框，模型会给一个<b>置信度</b>（confidence）：0 到 1 之间的把握分数。低于<b>阈值</b>（threshold）的框直接丢掉。L3-06 的实例里，阈值是 <b>0.3</b>，偏宽松。</p>
+  <div class="grid2">
+    <div class="box">
+      <h4>调低，比如 0.1</h4>
+      <p>宁可多框。地毯、台阶、一小块墙面都可能被当成地板。</p>
+    </div>
+    <div class="box">
+      <h4>调高，比如 0.5</h4>
+      <p>只留很有把握的框。画面暗、地板被挡时，可能整块都找不到。</p>
+    </div>
+  </div>
+  <p>反例：阈值不是“准确率”。调高不会让框更准，只会让框更少；调低也不会让框更对，只会让框更多。</p>
+
+  <div class="callout tip">
+    <p><b>实例里的模型：</b><code>GroundingDINO_SwinB</code>，938MB。SwinB 是检测骨干的型号，B 比 T 更准也更慢。骨干只影响“找框”的质量，不负责像素边界。中文不是绝对不能试，但英文名词在这类模型上更稳，所以 L3-06 先用翻译节点把“地面”转成 <code>floor</code>。</p>
+  </div>
+
+  <h2 id="sam"><span class="no">03 / SEGMENT</span>提示式分割：框给范围，它给边界</h2>
+  <p>现在你有了框，但框是矩形。沙发腿、地毯、桌脚只要伸进这个矩形，都会被圈进去。直接拿框去改，这些不该动的东西也会一起变。你需要第二步。</p>
+
+  <h3>SAM 收的是空间提示，不是文字</h3>
+  <p><b>SAM</b>（Segment Anything Model）是一个<b>提示式分割</b>模型（promptable segmentation）。你给它一个空间提示——一个框，或者一个点——它在提示范围内沿着真实边缘抠出遮罩。</p>
+  <p>反例：这里的“提示”不是提示词。SAM 不读 <code>floor</code> 这个词，也不知道什么叫地板。它只回答“从你指的这块区域里，把物体边界找出来”。文字理解是上一步检测器的事。</p>
+
+  <div class="grid2">
+    <div class="box">
+      <h4>给框</h4>
+      <p>适合你已经知道大概位置。框圈住地板，SAM 在框内贴边。</p>
+    </div>
+    <div class="box">
+      <h4>给点</h4>
+      <p>适合你只想指一下“从这个位置开始找”。点少时，遇到同类物体容易分错。</p>
+    </div>
+  </div>
+
+  <h3>遮罩长什么样</h3>
+  <p id="mask">一张和原图同宽高的黑白图。白色是被选中的像素，黑色是不动的像素。它没有颜色，也没有透明通道；它只是一张“要不要改”的名单。</p>
+  <p>反例：遮罩不是矩形框，也不是抠图结果。框可以有四个角，遮罩可以沿着墙角拐弯；抠图会带走颜色，遮罩只带位置。</p>
+
+  <h3>两个加载节点，一次推理</h3>
+  <p>L3-06 里你会看到 <code>GroundingDinoModelLoader</code> 和 <code>SAMLoader</code> 两个节点，它们只负责把模型读进显卡内存（显存），不做推理。真正的推理（inference，模型跑一遍算出结果）在 <code>GroundingDinoSAMSegment</code> 里：先按名词找框，再在框内分割。图上只有一个盒子，里面是两次推理。</p>
+  <p>SAM 的实例模型是 <code>sam_vit_b_01ec64.pth</code>。vit_b 是它的骨干型号，b 指 base。Prefer GPU 表示优先用显卡跑；没有显卡会退回 CPU（用处理器算），只是慢很多。</p>
+
+  <div class="callout warn">
+    <p><b>别把骨干当任务：</b>SwinB 和 vit_b 不是“两个不同的任务模型”，它们分别是检测器和分割器的内部主干。任务分工看节点，型号只决定同一个任务跑得多准、多慢。</p>
+  </div>
+
+  <h2 id="output"><span class="no">04 / OUTPUT</span>两种输出，三种去处</h2>
+  <p>框和遮罩长得不一样，能接的地方也不一样。接错口，轻则报错，重则整张图被改。</p>
+
+  <table>
+    <thead><tr><th style="width:20%">输出</th><th style="width:28%">它是什么</th><th style="width:26%">能接什么</th><th style="width:26%">不能接什么</th></tr></thead>
+    <tbody>
+      <tr><td><b>检测框</b><br><span class="quiet">bbox</span></td><td>四个数：左上角坐标、宽、高。</td><td>交给 SAM 当提示；裁出局部；画预览。</td><td>不能直接当遮罩用。框内的非目标像素也会被改。</td></tr>
+      <tr><td><b>遮罩</b><br><span class="quiet">MASK</span></td><td>与原图同宽高的 0–1 图：1 可改，0 保留，中间值表示部分允许。纯黑白是最常用的特例，不是全部；灰阶怎么用见 <a href="../l3/l3-05b-mask.html">L3-05b 遮罩是什么</a>。</td><td>接 <code>VAEEncodeForInpaint</code>（按遮罩把待改区域编成草稿）；接 <code>MaskToImage</code>（把遮罩转成预览图）。</td><td>不能直接塞进 ControlNet 的 image 口。它要的是彩色控制图。</td></tr>
+      <tr><td><b>控制图</b><br><span class="quiet">control image</span></td><td>一张彩色图（RGB，红绿蓝三通道），比如深度图、线稿、语义色块图。</td><td>接 ControlNet。原理见 <a href="../l1/l1-04-controlnet.html">L1-04 ControlNet</a>。</td><td>不是检测框，也不是遮罩：遮罩是 0–1 图，只回答“改不改”，不带颜色。</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>grow 6 是什么：</b>局部重绘前，遮罩向外扩 6 像素，给接缝留余量。它补的是边缘，不是被家具挡住的一大片地板。</p>
+  <p><b>1 MP 是什么：</b>约一百万像素。检测和分割本身不缩图：06 的 <code>#10 GroundingDinoSAMSegment</code> 直接吃 <code>#1</code> 原图，墙角这种细边才能保住。1 MP 只出现在后面的精修子图 <code>#68</code> 里，那里先把图缩到这个量级再重绘。所以是重绘阶段在缩放，不是检测与分割在缩放。</p>
+
+  <div class="callout">
+    <p><b>两处配套阅读：</b>完整接线、22 个节点和那条“遮罩没参与落盘”的死端，在 <a href="../l3/l3-06-text-guided-inpaint.html">L3-06 文字识别局部修改</a> 里逐节点拆过。条件（CONDITIONING，编码后的提示与约束）怎么接进采样器（sampler，一步步去噪出图），<a href="l2-02-text-conditioning.html">L2-02 条件与编码</a> 讲过，采样本身另见 <a href="../l1/l1-02-sampling-steps.html">L1-02 采样与步数</a>；这一课不重复。</p>
+  </div>
+
+  <h2 id="pitfalls"><span class="no">05 / PITFALLS</span>四个高频坑</h2>
+  <div class="pits">
+    <div class="pit">
+      <h3>把整句塞进检测框</h3>
+      <p>症状：遮罩全黑，什么都没找到。检测器要的是名词，不是“换成什么”的指令。</p>
+      <p class="fix">改法：检测词只写物体名，比如 <code>floor</code>、<code>rug</code>、<code>sofa</code>；“换成什么”交给重绘提示词。</p>
+    </div>
+    <div class="pit">
+      <h3>把框当遮罩</h3>
+      <p>症状：只想换地板，结果沙发腿、地毯边缘一起变了。框是矩形，不会贴着物体拐弯。</p>
+      <p class="fix">改法：框后面必须再过一次 SAM；拿最终遮罩去重绘，不要拿框。</p>
+    </div>
+    <div class="pit">
+      <h3>阈值方向调反</h3>
+      <p>症状：漏检时把阈值调高，越调越找不到；误检时调低，越调越脏。</p>
+      <p class="fix">改法：漏检往下调，误检往上调。每次只动 0.05，用叠加预览看范围。</p>
+    </div>
+    <div class="pit">
+      <h3>遮罩有洞，以为 grow 能补</h3>
+      <p>症状：沙发压住的地板、桌下的角落没被选中，改完留一块原色。</p>
+      <p class="fix">改法：grow 6 只补 6 像素边缘；大面积遮挡补不回来。要么换角度重拍，要么改完再局部修。</p>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h4>交作业前自检</h4>
+    <label class="check"><input type="checkbox" data-key="0"><span>我能说清检测输出框、分割输出遮罩，两者为什么必须接力。</span></label>
+    <label class="check"><input type="checkbox" data-key="1"><span>我知道检测词写名词，改图词才写“换成什么”。</span></label>
+    <label class="check"><input type="checkbox" data-key="2"><span>我能说出阈值调高、调低各自的风险。</span></label>
+    <label class="check"><input type="checkbox" data-key="3"><span>我知道 SAM 的“提示”是框或点，不是文字。</span></label>
+    <label class="check"><input type="checkbox" data-key="4"><span>我能指出框、遮罩、控制图各自该接哪类口。</span></label>
+    <label class="check"><input type="checkbox" data-key="5"><span>我知道 grow 6 和 1 MP 分别限制了什么。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-04b-groups-wiring.html"><span class="dir">← 上一课</span>L2-04b 组织与接线</a>
+    <a href="l2-05b-semantic-seg.html"><span class="dir">下一课 →</span>L2-05b 语义分割</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var map={name:COURSE.name,author:COURSE.author,year:COURSE.year};
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v=map[el.getAttribute('data-bind')];if(v)el.textContent=v;
+  });
+
+  document.querySelectorAll('.check input[type="checkbox"]').forEach(function(b){
+    var key='cui-l205-check-'+b.getAttribute('data-key');
+    try{if(localStorage.getItem(key)==='1')b.checked=true;}catch(e){}
+    b.addEventListener('change',function(){
+      try{localStorage.setItem(key,b.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

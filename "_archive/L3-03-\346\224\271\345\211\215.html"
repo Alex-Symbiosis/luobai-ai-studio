@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L3-A3 · 室内毛坯到效果图：和建筑场景差在哪 | AI 入门与 ComfyUI 出图课</title>
+<script>
+const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学生与普通人的 AI 入门课', author: '李智博', year: '2026' };
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --violet:#7c4ddb; --violet-soft:rgba(124,77,219,.10);
+    --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
+    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
+               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
+    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--teal),var(--accent));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .secnav::-webkit-scrollbar{display:none}
+  .secnav a{font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;white-space:nowrap;font-weight:600}
+  .secnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+
+  .hero{padding:44px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.22);padding:5px 12px;border-radius:999px}
+  h1{font-size:clamp(27px,4.2vw,40px);line-height:1.24;letter-spacing:-.02em;font-weight:800;margin-top:16px}
+  .sub{color:var(--muted);margin-top:10px;max-width:790px}
+  .goal{margin-top:24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)}
+  .goal .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--teal);font-weight:700}
+  .goal p{font-size:15.5px;line-height:1.7;margin-top:8px;color:var(--muted)}
+  .goal p.q{font-size:17px;color:var(--ink)}
+  .goal strong{background:linear-gradient(180deg,transparent 62%,rgba(15,122,108,.16) 62%)}
+  .metas{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .chip{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700}
+
+  .posmap{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 16px;box-shadow:var(--shadow)}
+  .posmap .ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .posmap .ph b{font-size:13px}
+  .posmap .ph span{font-size:11.5px;color:var(--faint)}
+  .track{display:flex;overflow-x:auto;padding-bottom:6px}
+  .pstop{flex:1 1 0;min-width:132px;position:relative;padding-top:20px;border-top:3px solid rgba(64,81,214,.22)}
+  .pstop::before{content:"";position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #a9b0f0}
+  .pstop .pc{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+  .pstop .pn{font-size:12.5px;font-weight:600;margin-top:2px;line-height:1.4;color:var(--muted)}
+  .pstop.here{border-top-color:var(--teal)}
+  .pstop.here::before{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 5px rgba(15,122,108,.14)}
+  .pstop.here .pn{color:var(--ink);font-weight:800}
+  .pstop.here .pc{color:var(--teal)}
+  .here-tag{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--teal);border-radius:4px;padding:0 5px;margin-left:5px;vertical-align:1px}
+
+  section{padding:46px 0 2px;scroll-margin-top:70px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .snum{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.12em}
+  h2{font-size:clamp(21px,2.8vw,27px);letter-spacing:-.02em;line-height:1.32}
+  .slead{color:var(--muted);max-width:790px;margin:6px 0 20px;font-size:14px}
+
+  .pre-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pre{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}
+  .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--teal);background:var(--teal-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
+  .pre h3{font-size:14px;margin:8px 0 4px}
+  .pre p{font-size:12.5px;color:var(--muted);margin:0}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note b{color:var(--ink)}
+
+  .pano{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:8px;overflow-x:auto}
+  .pano svg{display:block;width:100%;min-width:920px;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 10px 6px;border-top:1px dashed var(--line);margin-top:4px}
+  .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .mini-flow{display:none;margin-top:10px;background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:2}
+  .mini-flow b{color:var(--ink)}
+
+  .stage{margin-top:30px;position:relative;padding-left:22px}
+  .stage::before{content:"";position:absolute;left:5px;top:8px;bottom:6px;width:2px;background:linear-gradient(var(--teal),rgba(15,122,108,.12))}
+  .stage-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;position:relative}
+  .stage-h::before{content:"";position:absolute;left:-22px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
+  .stage-h .no{font-family:var(--mono);font-size:11px;color:#fff;background:var(--teal);border-radius:6px;padding:2px 7px;font-weight:700}
+  .stage-h h3{font-size:16px}
+  .stage-h .gp{font-size:11.5px;color:var(--faint)}
+  .cards{display:grid;gap:10px}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
+  .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
+  .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
+  .nrole{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+  .ncard .bd{padding:12px 15px 14px}
+  .ncard .bd p{font-size:13.5px;color:#2c3546;margin:0 0 8px}
+  .ncard .bd p:last-child{margin-bottom:0}
+  .ncard .bd b{color:var(--ink)}
+  .params{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 14px;margin:8px 0 6px;padding:9px 12px;background:#faf9f5;border:1px solid var(--line);border-radius:8px}
+  .params div{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted #e8e4da;padding-bottom:3px;min-width:0}
+  .params div:last-child{border-bottom:none}
+  .params b{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-align:right;overflow-wrap:anywhere}
+  .diff{font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:7px;padding:7px 10px;margin-top:8px}
+  .diff b{color:var(--accent)}
+
+  .scale{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:14px;box-shadow:var(--shadow)}
+  .scale h3{font-size:13.5px;margin-bottom:4px}
+  .scale .note{font-size:11.5px;color:var(--faint);margin-bottom:12px}
+  .bars{display:grid;gap:9px}
+  .bar{display:grid;grid-template-columns:96px 1fr 58px;gap:10px;align-items:center}
+  .bar .nm{font-size:11.5px;color:var(--muted)}
+  .bar .tr{height:12px;background:#f0eee8;border-radius:99px;overflow:hidden}
+  .bar .tr i{display:block;height:100%;border-radius:99px}
+  .bar .mono{font-family:var(--mono);font-size:11px;color:var(--ink);text-align:right}
+  .warn-inline{font-size:12.5px;color:var(--danger);background:var(--danger-soft);border-radius:7px;padding:7px 10px;margin-top:8px}
+  .warn-inline b{color:var(--danger)}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin-top:14px}
+  table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:760px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--teal)}
+  tr.grp td{background:var(--teal-soft);font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.06em;padding:5px 12px}
+  .col3{background:rgba(61,111,196,.04)}
+
+  .pits{display:grid;gap:10px}
+  .pit{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--danger);border-radius:0 12px 12px 0;padding:14px 16px}
+  .pit h3{font-size:14px;margin-bottom:4px}
+  .pit .where{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.03em;margin-bottom:6px}
+  .pit p{font-size:13px;color:var(--muted);margin:0}
+  .pit p+p{margin-top:6px}
+  .pit .fix{color:var(--teal);font-weight:600}
+  .pit.lv2{border-left-color:var(--amber)}
+  .pit.lv3{border-left-color:var(--faint)}
+  .pit .sev{font-size:9.5px;font-weight:700;color:#fff;background:var(--danger);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .pit.lv2 .sev{background:var(--amber)}
+  .pit.lv3 .sev{background:var(--faint)}
+
+  .case{display:grid;grid-template-columns:160px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);margin-top:14px}
+  .case .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);font-weight:700}
+  .case .tag{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-top:6px}
+  .case .bad{background:var(--danger-soft);color:var(--danger)}
+  .case h3{font-size:14px;margin-bottom:5px}
+  .case p{font-size:12.8px;color:var(--muted);margin:0 0 6px}
+  .case p:last-child{margin:0}
+  .case b{color:var(--ink)}
+
+  .ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .ex .no{font-family:var(--mono);font-size:10.5px;color:var(--teal);font-weight:700;letter-spacing:.08em}
+  .ex h3{font-size:13.5px;margin:5px 0 5px}
+  .ex p{font-size:12.5px;color:var(--muted);margin:0}
+  .ex .see{font-size:12px;color:var(--ink);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line)}
+  .ex .see b{color:var(--teal)}
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;box-shadow:var(--shadow)}
+  .check h3{font-size:14px;margin-bottom:8px}
+  .check ul{list-style:none}
+  .check li{display:flex;gap:9px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--muted);border-bottom:1px dotted var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check input{margin-top:5px;accent-color:var(--teal);width:14px;height:14px;flex:0 0 auto}
+  .next{margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,rgba(15,122,108,.07),rgba(64,81,214,.07));border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .next .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);font-weight:700}
+  .next .nt{font-size:17px;font-weight:800;margin-top:2px}
+  .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src code{color:var(--muted)}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:860px){
+    .pre-grid,.ex-grid{grid-template-columns:1fr}
+    .params{grid-template-columns:1fr}
+    .case{grid-template-columns:1fr}
+    .secnav{display:none}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 16px}
+    .mini-flow{display:block}
+  }
+  @media print{
+    .topbar,.secnav,.mini-flow{display:none}
+    body{background:#fff}
+    section{padding:20px 0 0;page-break-inside:avoid}
+    .ncard,.pre,.ex,.case{box-shadow:none}
+    .pano{overflow:visible}
+    .pano svg{min-width:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <span class="crumb">L3 / A 线 / A3</span>
+    <nav class="secnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#s2">前置</a>
+      <a href="#s3">对比</a>
+      <a href="#s4">节点</a>
+      <a href="#s5">差异表</a>
+      <a href="#s6">踩坑</a>
+      <a href="#s7">练习</a>
+      <a href="../视觉规范.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">L3 · 单品课 · A 线第 3 站</span>
+    <h1>室内毛坯到效果图：和建筑场景差在哪</h1>
+    <p class="sub">03 号和 04 号像一对双胞胎：同一副“结构 + 参考”的骨架，参数却几乎全不一样。这一课不讲新节点，只讲<b>为什么换场景就要换数值</b>。</p>
+
+    <div class="goal">
+      <div class="lab">01 / 现实问题与一句话目标</div>
+      <p>现实问题：你照着建筑外观的教程调好了 0.35 / 0.30，一换到室内，家具就“贴”在墙上、沙发像塑料、空间进深也没了。你以为是模型不适合室内，其实是<b>控制强度没有为“空房间”让位</b>。</p>
+      <p class="q">这一课的目标：把 03 与 04 并排拆开，记住<strong>室内降结构、升风格、加精修放大</strong>这条经验线，并能说出每一个数字背后的空间理由。</p>
+    </div>
+
+    <div class="metas">
+      <span class="chip">03 源文件 <b>03📚基础版 室内毛坯+参考图出图.json</b></span>
+      <span class="chip">03 节点 <b>38</b></span>
+      <span class="chip">采样 <b>15 步 / CFG 2.67</b></span>
+      <span class="chip">画布 <b>1600</b></span>
+      <span class="chip">对照 <b>04 · 建筑毛坯</b></span>
+      <span class="chip">数据核对日 <b>2026-11-08</b></span>
+    </div>
+
+    <div class="posmap">
+      <div class="ph"><b>当前位置</b><span>A 线 · 出图线 · 第 3 站</span></div>
+      <div class="track">
+        <div class="pstop"><div class="pc">A1</div><div class="pn">文生图</div></div>
+        <div class="pstop"><div class="pc">A2</div><div class="pn">线稿 + 参考图</div></div>
+        <div class="pstop here"><div class="pc">A3</div><div class="pn">室内毛坯 + 参考<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop"><div class="pc">A4</div><div class="pn">建筑毛坯 + 参考</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="s2">
+    <div class="shead"><span class="snum">02 / PREREQUISITES</span><h2>前置知识卡</h2></div>
+    <p class="slead">这一课是“对照课”，默认你已经跑过 02 号的双线结构。下面三张卡是拿来对比的尺子。</p>
+
+    <div class="pre-grid">
+      <div class="pre">
+        <span class="tag">A2</span>
+        <h3>双线骨架</h3>
+        <p>结构支路（Depth + Lineart）管形，风格支路（IPAdapter）管气。03 没有新增节点类型，只是换了强度和尺寸。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">A4</span>
+        <h3>建筑场景的基准</h3>
+        <p>04 号是“建筑毛坯 + 参考图”，2400 长边、0.35 / 0.30、IPAdapter 0.7 end 0.95。它是本课的对照组。</p>
+      </div>
+      <div class="pre">
+        <span class="tag">L2-02</span>
+        <h3>精修子图</h3>
+        <p>Flux2 精修不是放大，是“带参考图重新生成”。03 的精修比 04 多了 <a href="../index.html#term-flux2">放大与校色</a>，这是室内课的关键差异。</p>
+      </div>
+    </div>
+
+    <div class="pre-note">
+      <b>还需要装好这些：</b>SDXL 室内大模型、LoRA <code>SDXL 室内/大平层SDXL.safetensors</code>、<code>diffusers_xl_depth_full</code>、<code>mistoLine_rank256</code>、IPAdapter plus + CLIP-ViT-H、Florence2、<code>4x-UltraSharp.pth</code>、Flux2 的 <code>flux-2-klein-base-9b-fp8</code>。03 的精修链比 04 长，显存占用也更高。
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="shead"><span class="snum">03 / BLUEPRINT</span><h2>把 03 和 04 并排看</h2></div>
+    <p class="slead">两条链的形状几乎一样，差别全在数字上。<b>先看同一位置的两个值</b>，再看本节末尾列出的五处差异；第 5 节会把“为什么”逐条拆开。</p>
+
+    <div class="pano">
+      <svg viewBox="0 0 1200 520" role="img" aria-label="03 室内与 04 建筑工作流参数对比">
+        <defs>
+          <marker id="a3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f7a6c"/></marker>
+          <marker id="a3b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3d6fc4"/></marker>
+          <style>
+            .bx{fill:#fff;stroke:#d9d4c8;stroke-width:1.2}
+            .t1{font:700 11px/1 ui-monospace,Consolas,monospace;fill:#18212f}
+            .t2{font:400 10px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779}
+            .t3{font:400 9.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3}
+            .ln3{fill:none;stroke:#0f7a6c;stroke-width:1.4}
+            .ln4{fill:none;stroke:#3d6fc4;stroke-width:1.4}
+            .rl{font:700 11px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+          </style>
+        </defs>
+
+        <text class="rl" x="30" y="30" text-anchor="start">03 · 室内 · 1600 长边</text>
+        <text class="rl" x="30" y="290" text-anchor="start">04 · 建筑 · 2400 长边</text>
+
+        <rect class="bx" x="30" y="50" width="170" height="60" rx="8"/><rect x="30" y="50" width="4" height="60" rx="2" fill="#0f7a6c"/>
+        <text class="t1" x="44" y="72">#15 结构图</text><text class="t2" x="44" y="89">b50c41a5….png</text><text class="t3" x="44" y="103">室内白模</text>
+
+        <rect class="bx" x="30" y="135" width="170" height="60" rx="8"/><rect x="30" y="135" width="4" height="60" rx="2" fill="#7c4ddb"/>
+        <text class="t1" x="44" y="157">#33 参考图</text><text class="t2" x="44" y="174">18f0fc1d….png</text><text class="t3" x="44" y="188">卧室实景</text>
+
+        <rect class="bx" x="250" y="50" width="170" height="60" rx="8"/>
+        <text class="t1" x="264" y="72">#72 尺寸</text><text class="t2" x="264" y="89">面板 512</text><text class="t3" x="264" y="103">实际 1600</text>
+
+        <rect class="bx" x="250" y="135" width="170" height="60" rx="8"/>
+        <text class="t1" x="264" y="157">#63 正向</text><text class="t2" x="264" y="174">Florence 读参考图</text><text class="t3" x="264" y="188">不是你写的那段</text>
+
+        <rect class="bx" x="470" y="40" width="190" height="90" rx="8"/><rect x="470" y="40" width="4" height="90" rx="2" fill="#b26206"/>
+        <text class="t1" x="484" y="62">#12 深度 0.25</text><text class="t1" x="484" y="82">#48 线稿 0.20</text><text class="t3" x="484" y="100">两条 ControlNet 串联</text><text class="t3" x="484" y="117">start 0 · end 1</text>
+
+        <rect class="bx" x="470" y="145" width="190" height="60" rx="8"/><rect x="470" y="145" width="4" height="60" rx="2" fill="#7c4ddb"/>
+        <text class="t1" x="484" y="167">#37 IPAdapter 0.75</text><text class="t2" x="484" y="184">style transfer</text><text class="t3" x="484" y="198">end 0.9 · V only</text>
+
+        <rect class="bx" x="710" y="60" width="190" height="100" rx="8"/><rect x="710" y="60" width="4" height="100" rx="2" fill="#0f7a6c"/>
+        <text class="t1" x="724" y="83">#4 KSampler</text><text class="t2" x="724" y="101">15 步 · CFG 2.67</text><text class="t2" x="724" y="119">euler_ancestral</text><text class="t3" x="724" y="137">denoise 1.0</text>
+
+        <rect class="bx" x="950" y="50" width="220" height="110" rx="8"/><rect x="950" y="50" width="4" height="110" rx="2" fill="#4051d6"/>
+        <text class="t1" x="964" y="73">#358 精修</text><text class="t2" x="964" y="91">4 步 · 22 节点</text><text class="t3" x="964" y="109">2 MP → 4x-UltraSharp</text><text class="t3" x="964" y="126">→ 8 MP → ColorMatch</text><text class="t3" x="964" y="143">三层子图套娃</text>
+
+        <path class="ln3" d="M200,80 H247" marker-end="url(#a3a)"/>
+        <path class="ln3" d="M200,165 H247" marker-end="url(#a3a)"/>
+        <path class="ln3" d="M420,80 H440 V75 H467" marker-end="url(#a3a)"/>
+        <path class="ln3" d="M420,165 H440 V105 H467" marker-end="url(#a3a)"/>
+        <path class="ln3" d="M660,85 H680 V100 H707" marker-end="url(#a3a)"/>
+        <path class="ln3" d="M660,175 H690 V140 H707" marker-end="url(#a3a)"/>
+        <path class="ln3" d="M900,110 H947" marker-end="url(#a3a)"/>
+
+        <rect class="bx" x="30" y="310" width="170" height="60" rx="8"/><rect x="30" y="310" width="4" height="60" rx="2" fill="#3d6fc4"/>
+        <text class="t1" x="44" y="332">#15 结构图</text><text class="t2" x="44" y="349">7db588f3….jpg</text><text class="t3" x="44" y="363">建筑白模</text>
+
+        <rect class="bx" x="30" y="395" width="170" height="60" rx="8"/><rect x="30" y="395" width="4" height="60" rx="2" fill="#7c4ddb"/>
+        <text class="t1" x="44" y="417">#33 参考图</text><text class="t2" x="44" y="434">8d9696b3….jpg</text><text class="t3" x="44" y="448">实景照片</text>
+
+        <rect class="bx" x="250" y="310" width="170" height="60" rx="8"/>
+        <text class="t1" x="264" y="332">#79 尺寸</text><text class="t2" x="264" y="349">实际 2400</text><text class="t3" x="264" y="363">ImpactInt 直连</text>
+
+        <rect class="bx" x="250" y="395" width="170" height="60" rx="8"/>
+        <text class="t1" x="264" y="417">#63 正向</text><text class="t2" x="264" y="434">Florence 读参考图</text><text class="t3" x="264" y="448">英文 caption</text>
+
+        <rect class="bx" x="470" y="300" width="190" height="90" rx="8"/><rect x="470" y="300" width="4" height="90" rx="2" fill="#b26206"/>
+        <text class="t1" x="484" y="322">#12 深度 0.35</text><text class="t1" x="484" y="342">#48 线稿 0.30</text><text class="t3" x="484" y="360">锁体块更狠</text><text class="t3" x="484" y="377">start 0 · end 1</text>
+
+        <rect class="bx" x="470" y="405" width="190" height="60" rx="8"/><rect x="470" y="405" width="4" height="60" rx="2" fill="#7c4ddb"/>
+        <text class="t1" x="484" y="427">#37 IPAdapter 0.70</text><text class="t2" x="484" y="444">style transfer</text><text class="t3" x="484" y="458">end 0.95</text>
+
+        <rect class="bx" x="710" y="320" width="190" height="100" rx="8"/><rect x="710" y="320" width="4" height="100" rx="2" fill="#3d6fc4"/>
+        <text class="t1" x="724" y="343">#4 KSampler</text><text class="t2" x="724" y="361">15 步 · CFG 3.0</text><text class="t2" x="724" y="379">euler_ancestral</text><text class="t3" x="724" y="397">denoise 1.0</text>
+
+        <rect class="bx" x="950" y="310" width="220" height="110" rx="8"/><rect x="950" y="310" width="4" height="110" rx="2" fill="#4051d6"/>
+        <text class="t1" x="964" y="333">#358 精修</text><text class="t2" x="964" y="351">1 步 · 18 节点</text><text class="t3" x="964" y="369">2 MP</text><text class="t3" x="964" y="386">无放大 · 无校色</text>
+
+        <path class="ln4" d="M200,340 H247" marker-end="url(#a3b)"/>
+        <path class="ln4" d="M200,425 H247" marker-end="url(#a3b)"/>
+        <path class="ln4" d="M420,340 H440 V335 H467" marker-end="url(#a3b)"/>
+        <path class="ln4" d="M420,425 H440 V365 H467" marker-end="url(#a3b)"/>
+        <path class="ln4" d="M660,345 H680 V360 H707" marker-end="url(#a3b)"/>
+        <path class="ln4" d="M660,435 H690 V400 H707" marker-end="url(#a3b)"/>
+        <path class="ln4" d="M900,370 H947" marker-end="url(#a3b)"/>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#0f7a6c"></i>03 室内</span>
+        <span><i style="background:#3d6fc4"></i>04 建筑</span>
+        <span><i style="background:#b26206"></i>ControlNet</span>
+        <span><i style="background:#7c4ddb"></i>IPAdapter / 参考图</span>
+      </div>
+    </div>
+
+    <div class="mini-flow">
+      <b>窄屏速读：</b>03 用 1600、ControlNet 0.25 / 0.20、IPAdapter 0.75 end 0.9、精修 4 步并放大到 8 MP；04 用 2400、0.35 / 0.30、IPAdapter 0.70 end 0.95、精修 1 步不放大。
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="shead"><span class="snum">04 / NODE BY NODE</span><h2>03 号逐节点（只讲和 04 不同处）</h2></div>
+    <p class="slead">结构相同的节点不再重复解释，每张卡底部的绿色条只回答一件事：<b>这个值和 04 差在哪，为什么</b>。</p>
+
+    <div class="stage">
+      <div class="stage-h"><span class="no">A</span><h3>输入与画布：1600 而不是 2400</h3><span class="gp">#15 / #33 / #72 / #16</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#15</span><span class="ntype">LoadImage</span><span class="nrole">室内白模</span></div>
+          <div class="bd">
+            <p><b>它是什么：</b>室内的结构输入，一张只有墙、地、顶和开口的白模图。它不含家具，所以模型必须自己“填”出沙发、茶几、灯具。</p>
+            <div class="params">
+              <div><span>image</span><b>b50c41a5019479dba550c0e356152ef.png</b></div>
+              <div><span>下游</span><b>#17 / #50 / #72</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 的结构图是建筑外观白模，体块大、线条长；室内白模的“空白面积”更大，家具全靠生成，所以后面必须给模型更多自由。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#72</span><span class="ntype">ImageResize+</span><span class="nrole">尺寸</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把白模缩放到采样尺寸。面板上又是 <code>512 × 512</code>，但 width/height 接着 #69 的 <code>1600</code>，实际是 1600 长边、保持比例、对齐 32。</p>
+            <div class="params">
+              <div><span>面板显示</span><b>512 × 512</b></div>
+              <div><span>实际输入</span><b>#69 = 1600</b></div>
+              <div><span>method</span><b>lanczos / keep proportion</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 用 2400。室内看的是近处材质，1600 已够；建筑要到 2400，栏杆、窗棂这些小构件才不糊。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#16 → #31</span><span class="ntype">VAEEncode → CR Latent Batch Size</span><span class="nrole">画布</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把 1600 的白模压进潜空间，batch 固定 1。denoise 1.0 会覆盖起始内容，只借尺寸。</p>
+            <div class="params">
+              <div><span>batch_size</span><b>1</b></div>
+              <div><span>潜空间</span><b>200 × 113 左右</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-h" style="margin-top:26px"><span class="no">B</span><h3>控制：降到 0.25 / 0.20</h3><span class="gp">#12 / #48 / #37</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#17 → #12</span><span class="ntype">Depth + ControlNet</span><span class="nrole">体块 0.25</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>DepthAnythingV2 估出进深，再由深度 ControlNet 以 <b>0.25</b> 注入。室内的主要作用是“别把墙推歪”，不是“把每个转角钉死”。</p>
+            <div class="params">
+              <div><span>预处理分辨率</span><b>512</b></div>
+              <div><span>strength</span><b>0.25</b></div>
+              <div><span>start / end</span><b>0 / 1</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 是 0.35。室内如果把深度拉高，沙发的厚度、地毯的起伏会被压平，画面像“贴在墙上的贴图”。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#50 → #48</span><span class="ntype">Lineart + ControlNet</span><span class="nrole">轮廓 0.20</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>抽出白模的轮廓线，再以 <b>0.20</b> 注入。它确保门窗洞口、墙角线还在，但允许家具遮住一部分线。</p>
+            <div class="params">
+              <div><span>预处理分辨率</span><b>512</b></div>
+              <div><span>control_net</span><b>mistoLine_rank256</b></div>
+              <div><span>strength</span><b>0.2</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 是 0.30。室内的线如果太硬，沙发边缘、窗帘褶皱会出现“描边感”，像 3D 白模没渲染完。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#37</span><span class="ntype">IPAdapterAdvanced</span><span class="nrole">风格 0.75</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把卧室参考图的材质、色调、光线注入。室内风格主要由布艺、木饰面、灯光决定，所以权重反而比建筑高。</p>
+            <div class="params">
+              <div><span>weight</span><b>0.75</b></div>
+              <div><span>weight_type</span><b>style transfer</b></div>
+              <div><span>start / end</span><b>0 / 0.9</b></div>
+              <div><span>embeds_scaling</span><b>V only</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 是 0.70 / end 0.95。室内提前到 0.9 放手，让最后 10% 的步数自己长纹理，避免整屋像同一块材质。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#1 → #2</span><span class="ntype">Checkpoint → LoRA</span><span class="nrole">底模</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b><code>SDXL室内大模型</code> 叠 <code>SDXL 室内/大平层SDXL.safetensors</code>，强度 0.47。它决定了“现代大平层”的默认审美。</p>
+            <div class="params">
+              <div><span>LoRA</span><b>SDXL 室内/大平层SDXL</b></div>
+              <div><span>strength_model</span><b>0.47</b></div>
+              <div><span>strength_clip</span><b>1.0</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 用“美丽乡村”LoRA、0.49。两个 LoRA 不只是题材不同，连默认配色与镜头语言都不一样。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-h" style="margin-top:26px"><span class="no">C</span><h3>提示词：它在按卧室描述画</h3><span class="gp">#60 → #63 → #56</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#60 → #63</span><span class="ntype">Florence2Run → ShowText</span><span class="nrole">读参考图</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>对 #33 做详细描述。JSON 里保存的 caption 写的是：现代奢华卧室、大床、白色床头板、灰白条纹被子、两个床头柜与台灯、绿植、米色墙、抽象挂画、木饰面、落地窗与白纱帘、浅木地板。</p>
+            <div class="params">
+              <div><span>task</span><b>more_detailed_caption</b></div>
+              <div><span>seed</span><b>276812678649684</b></div>
+              <div><span>下游</span><b>#56 / #67</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#56</span><span class="ntype">CLIPTextEncode</span><span class="nrole">正向</span></div>
+          <div class="bd">
+            <p><b>面板里写的是：</b>“interior design, luxury style, modern style, background cabinet, sofa, living room…”——一段客厅提示词。</p>
+            <p><b>但实际生效的是：</b>#63 的卧室 caption。因为 text 输入接着 #63，连线优先于面板。</p>
+            <div class="params">
+              <div><span>面板残留</span><b>living room / sofa</b></div>
+              <div><span>实际输入</span><b>← #63 卧室 caption</b></div>
+              <div><span>负向 #7</span><b>""</b></div>
+            </div>
+            <div class="warn-inline"><b>后果：</b>你拿一张卧参考图去改客厅，它会真的给你生成一张卧室感的客厅：床的位置变成沙发，但配色、灯具、窗帘全是卧室逻辑。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#67 → #66</span><span class="ntype">DeepTranslator → ShowText</span><span class="nrole">死端</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>把英文 caption 翻成简体中文，显示在 #66 里。<b>没有任何下游</b>；#56 用的仍是英文原文。它只是给人看的，不参与出图。</p>
+            <div class="params">
+              <div><span>from / to</span><b>english → chinese (simplified)</b></div>
+              <div><span>下游</span><b>无</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-h" style="margin-top:26px"><span class="no">D</span><h3>采样与精修：4 步 + 放大 + 校色</h3><span class="gp">#4 / #358</span></div>
+      <div class="cards">
+        <div class="ncard">
+          <div class="hd"><span class="nid">#4</span><span class="ntype">KSampler</span><span class="nrole">采样</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>四路合并后跑 15 步。CFG 2.67 比 04 的 3.0 略低，是为了让阴影软一点，不要把室内打成“售楼处硬光”。</p>
+            <div class="params">
+              <div><span>seed</span><b>442517239714949</b></div>
+              <div><span>steps</span><b>15</b></div>
+              <div><span>cfg</span><b>2.67</b></div>
+              <div><span>sampler / scheduler</span><b>euler_ancestral / normal</b></div>
+              <div><span>denoise</span><b>1.0</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>步数相同（15），CFG 低 0.33。室内对硬阴影更敏感，CFG 一高，墙角和柜底最先发黑。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#358</span><span class="ntype">三层子图</span><span class="nrole">精修</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>顶层子图只有 1 个节点，点进去还是子图，再点进去才是 22 个节点的正体：先把图缩到 2 MP，用 <code>4x-UltraSharp.pth</code> 放大，再缩到 8 MP，用 <code>ColorMatch</code>（mkl）校色，最后 Flux2 4 步重绘。</p>
+            <div class="params">
+              <div><span>内层节点</span><b>22</b></div>
+              <div><span>步数 / CFG</span><b>4 / 1</b></div>
+              <div><span>放大模型</span><b>4x-UltraSharp.pth</b></div>
+              <div><span>校色</span><b>ColorMatch · mkl · 1</b></div>
+              <div><span>提示词</span><b>CR Text "8K,4K,增加细节"</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>04 的精修只有 18 个节点、1 步、2 MP，不放大也不校色。室内要看清布纹、木纹、石材反光，所以多了一段“放大 + 校色”。</div>
+          </div>
+        </div>
+
+        <div class="ncard">
+          <div class="hd"><span class="nid">#53</span><span class="ntype">SaveImage</span><span class="nrole">落盘</span></div>
+          <div class="bd">
+            <p><b>它做什么：</b>保存最终结果，前缀又是默认的 <code>ComfyUI</code>。03 和 04 的图会混在同一个序列里，无法从文件名区分场景。</p>
+            <div class="params">
+              <div><span>filename_prefix</span><b>ComfyUI</b></div>
+            </div>
+            <div class="diff"><b>和 04 的差别：</b>没有差别——两个都该改。建议 <code>int_1600_cn025_lora047_s{seed}</code>。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="shead"><span class="snum">05 / PARAMETER DIFF</span><h2>03 与 04 的参数差异速查表</h2></div>
+    <p class="slead">两个工作流的节点结构相同，实质差异只有下面这些数值和精修深度。<b>“为什么”一列是经验解释，不是 JSON 字段</b>——文件只记录数值，理由要你自己补。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>位置</th><th>03 室内</th><th>04 建筑</th><th>为什么这样分</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>采样长边</td><td><b>1600</b> · #69</td><td><b>2400</b> · #79</td><td>室内是近景，布纹、木纹交给精修放大；建筑是远景，栏杆、窗棂在第一次采样就得站住，否则后面补不回来。</td></tr>
+          <tr><td>深度 ControlNet</td><td><b>0.25</b> · #12</td><td><b>0.35</b> · #12</td><td>室内白模没有家具，结构锁太死，模型就不敢往空地上摆沙发。降强度=给“填家具”留余地。</td></tr>
+          <tr><td>线稿 ControlNet</td><td><b>0.20</b> · #48</td><td><b>0.30</b> · #48</td><td>同上。室内墙线本来就少，线稿权重一高，画面会变得像“描边效果图”，材质出不来。</td></tr>
+          <tr><td>IPAdapter 权重</td><td><b>0.75</b> · #37</td><td><b>0.70</b> · #37</td><td>室内要的是参考图的“装修气”（木色、软装、灯光），权重略高；建筑外观抬太高容易把体块也一起搬走。</td></tr>
+          <tr><td>IPAdapter end</td><td><b>0.90</b> · #37</td><td><b>0.95</b> · #37</td><td>两者都提前收手，把最后一段采样留给模型自己收边。建筑收得更晚，因为远景更需要风格统一。</td></tr>
+          <tr><td>LoRA</td><td><b>0.47</b> · 大平层SDXL</td><td><b>0.49</b> · 美丽乡村SDXL</td><td>数值接近，但模型不同：室内用室内专模，建筑用乡村建筑专模。<b>换场景先换 LoRA，再谈强度</b>。</td></tr>
+          <tr><td>采样步数</td><td><b>15</b> · #4</td><td><b>15</b> · #4</td><td>一致。SDXL + 双 ControlNet 在 15 步左右已收敛，再往上主要是烧时间。</td></tr>
+          <tr><td>CFG</td><td><b>2.67</b> · #4</td><td><b>3.0</b> · #4</td><td>室内对硬阴影更敏感，CFG 一高，墙角和柜底最先发黑。建筑外观反而需要一点“硬度”撑住轮廓。</td></tr>
+          <tr><td>精修步数</td><td><b>4</b></td><td><b>1</b></td><td>室内细节多，Flux2 重绘要 4 步才把材质与边缘理干净；建筑 1 步只做轻微统一。</td></tr>
+          <tr><td>精修节点数</td><td><b>22</b></td><td><b>18</b></td><td>03 多出的节点就是“放大 + 校色”那一段。</td></tr>
+          <tr><td>精修分辨率</td><td><b>2 MP → 4x → 8 MP → 校色</b></td><td><b>2 MP</b></td><td>室内要看清布纹、石材反光，必须放大；建筑 2400 长边已经够用，再放大只是徒增显存。</td></tr>
+          <tr><td>保存前缀</td><td><b>ComfyUI</b> · #53</td><td><b>ComfyUI</b> · #53</td><td>两个都没改。结果就是两门课的图混在同一串编号里，事后无法用文件名回溯参数。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pre-note">
+      <b>只允许改一个数时，先改哪个？</b>先改 <b>ControlNet 两个强度</b>（0.35 / 0.30 → 0.25 / 0.20），它决定“能不能长出家具”；再改 <b>CFG</b>（3.0 → 2.67），它决定“长出来的家具脏不脏”。尺寸和精修放最后，那是成本项，不是效果项。
+    </div>
+
+    <div class="scale">
+      <h3>三档起步配方（室内）</h3>
+      <p class="note">同一张白模、同一张参考图，只动控制强度。先用低档跑通，再往上加。</p>
+      <div class="bars">
+        <div class="bar"><span class="nm">保守 · 家具多</span><div class="tr"><i style="width:52%;background:var(--teal)"></i></div><span class="mono">0.20 / 0.15</span></div>
+        <div class="bar"><span class="nm">03 原配</span><div class="tr"><i style="width:66%;background:var(--accent)"></i></div><span class="mono">0.25 / 0.20</span></div>
+        <div class="bar"><span class="nm">偏结构 · 易空</span><div class="tr"><i style="width:88%;background:var(--amber)"></i></div><span class="mono">0.35 / 0.30</span></div>
+      </div>
+      <p class="note" style="margin-top:10px;margin-bottom:0">条越长=结构锁得越死。第三档就是 04 的值，直接搬到室内，最常见的结果是“房子很准，但没有生活痕迹”。</p>
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="shead"><span class="snum">06 / PITFALLS</span><h2>踩坑：从 04 抄参数，抄出七个问题</h2></div>
+    <p class="slead">下面每一条都能在源文件里指到具体节点或具体数字。前四条是“数值/连线”的坑，后三条是“工程习惯”的坑。</p>
+
+    <div class="pits">
+      <div class="pit">
+        <h3>把 04 的 0.35 / 0.30 原样搬到室内<span class="sev">高频</span></h3>
+        <div class="where">#12 / #48 · 对照 04 同编号节点</div>
+        <p>症状：白模的墙、地、顶都极准，但房间是空的，或者只在墙边挤出一排“贴墙家具”，空间进深像被压扁。</p>
+        <p class="fix">改法：先把 #12 降到 0.25、#48 降到 0.20，其他不动，出一张对比。结构够用就停，不要为了“更准”继续加。</p>
+      </div>
+
+      <div class="pit">
+        <h3>面板里写的客厅提示词，根本没生效<span class="sev">高频</span></h3>
+        <div class="where">#56 CLIPTextEncode ← #63（Florence caption）</div>
+        <p>症状：#56 框里明明写着客厅、沙发、落地窗，出图却像另一间卧室。原因：正向输入口接了 #63 的英文 caption，<b>连线优先于面板值</b>，你写的那段被整段覆盖。</p>
+        <p class="fix">改法：临时断开 #63 → #56 的连线再跑一次，确认面板文字真的能进采样；要长期用中文提示词，就把 Florence 支路摘掉，而不是两段都留着。</p>
+      </div>
+
+      <div class="pit lv2">
+        <h3>#72 面板写着 512，实际出图是 1600<span class="sev">中</span></h3>
+        <div class="where">#72 ImageResize+ · width/height ← #69</div>
+        <p>症状：照着面板把 512 改来改去，出图尺寸毫无变化。因为 width/height 两个口接了 #69 的整数 <code>1600</code>，框里的 512 只是“没接线时的默认值”。</p>
+        <p class="fix">改法：要改尺寸就去改 #69；判断任何参数前，先看它左边有没有小圆点连着线。</p>
+      </div>
+
+      <div class="pit lv2">
+        <h3>#67 → #66 是一条死端<span class="sev">中</span></h3>
+        <div class="where">#67 的输出没有接到任何下游</div>
+        <p>症状：以为某个中间结果也参与了出图，实际它算完就被丢掉，既费显存又不影响画面。</p>
+        <p class="fix">改法：从 SaveImage 倒推，只保留能一路连回保存节点的支路；确认没用的节点直接静音（Ctrl+M），别让它白跑。</p>
+      </div>
+
+      <div class="pit lv3">
+        <h3>三层子图，第一层只显示 1 个节点<span class="sev">低</span></h3>
+        <div class="where">#358 → #357 → #356</div>
+        <p>症状：双击 #358 进去，只看到一个节点，以为工作流坏了。其实还要再双击两层，才到 22 个节点的正体。</p>
+        <p class="fix">改法：进子图后看左上角的面包屑，逐层点。改参数前先确认自己在第几层——同名子图最容易改错层。</p>
+      </div>
+
+      <div class="pit lv3">
+        <h3>精修链 22 节点 + 8 MP，显存直接翻倍<span class="sev">低</span></h3>
+        <div class="where">#358 内层 · 2 MP → 4x-UltraSharp → 8 MP</div>
+        <p>症状：初采样十几秒，一进精修就爆显存或卡住。03 比 04 多一整段放大与校色，成本不是一个量级。</p>
+        <p class="fix">改法：先把 #358 静音，只跑初采样调控制强度；确认构图对了，再开精修。显存紧张时把 8 MP 降到 4 MP。</p>
+      </div>
+
+      <div class="pit lv3">
+        <h3>两门课的前缀都叫 ComfyUI<span class="sev">低</span></h3>
+        <div class="where">#53 SaveImage · filename_prefix</div>
+        <p>症状：03 和 04 的图混在同一串 <code>ComfyUI_00xxx_.png</code> 里，过一周就分不清哪张是哪组参数。</p>
+        <p class="fix">改法：前缀写成可回溯的密码，例如 <code>int_1600_cn025_lora047_s442517</code>。场景、尺寸、两个控制强度、种子，一行全在里面。</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <div>
+        <div class="k">真实案例 · 反例</div>
+        <span class="tag bad">室外样本</span>
+      </div>
+      <div>
+        <h3>庭院 00067：控制不够时，模型开始在空白处“编”</h3>
+        <p>这张图不是 03 的输出，而是同门 04 的室外样本，用来演示同一种失败：画面左下凭空多出一条水渠，天空有圆点状伪影，草坪质感像地毯。</p>
+        <p><b>怎么读：</b>结构控制只锁住了主体，没锁住的地方模型就按“常见庭院”去猜。室内同理——你把 ControlNet 降得太低，它会在墙角给你加一扇不存在的门。</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <div>
+        <div class="k">真实案例 · 正例</div>
+        <span class="tag" style="background:var(--teal-soft);color:var(--teal)">室外样本</span>
+      </div>
+      <div>
+        <h3>圆形楼栋 00065：大形、透视、光影、材质都站住了</h3>
+        <p>同一套“结构 + 参考”骨架，控制强度合适时，楼栋的圆弧、窗洞节奏、玻璃反光都能对上参考图。</p>
+        <p><b>但仍然会漂：</b>配楼被改成了木格栅，露台上的人比例偏小。这就是“控制力有边界”——它管大关系，不管每一处细节都百分百忠实。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="shead"><span class="snum">07 / PRACTICE</span><h2>练习：用一张白模，把关键数字试一遍</h2></div>
+    <p class="slead">不要一次全改。每改一个就跑一张，把结果按“结构 / 家具 / 材质 / 进深”四项打分，你才能建立自己的手感。</p>
+
+    <div class="ex-grid">
+      <div class="ex">
+        <div class="no">EXERCISE 01</div>
+        <h3>验证“连线优先”</h3>
+        <p>找到 #56 和 #63，记下面板里的客厅提示词；断开 #63 → #56 的连线再跑一次。</p>
+        <div class="see">应该看到：<b>画面从卧室变成客厅</b>，证明之前生效的是 Florence caption。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 02</div>
+        <h3>1600 换 2400</h3>
+        <p>把 #69 的 1600 改成 2400，其他不动，记录出图时间与家具占画面的比例。</p>
+        <div class="see">应该看到：<b>时间明显变长，家具反而更小更远</b>——画布变了，构图也会跟着变。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 03</div>
+        <h3>结构强度三连</h3>
+        <p>用 0.35/0.30、0.25/0.20、0.15/0.10 各跑一张，保持同一 seed。</p>
+        <div class="see">应该看到：<b>强度越低，家具越多，但墙线越容易歪</b>。找到“墙不歪且房间不空”的那一档。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 04</div>
+        <h3>风格权重回调</h3>
+        <p>把 #37 的 0.75 降到 0.60，end 保持 0.9。</p>
+        <div class="see">应该看到：<b>木色和软装气质变淡</b>，但结构更听话。用来确认 IPAdapter 管的是“气”，不是“形”。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 05</div>
+        <h3>数清三层子图</h3>
+        <p>从 #358 开始双击三层，记录每层节点数，找到 <code>4x-UltraSharp</code> 与 <code>ColorMatch</code> 分别在第几层。</p>
+        <div class="see">应该看到：<b>最内层 22 个节点</b>，放大与校色都在这里，不在第一层。</div>
+      </div>
+      <div class="ex">
+        <div class="no">EXERCISE 06</div>
+        <h3>让文件名自己说话</h3>
+        <p>把 #53 前缀改成 <code>int_1600_cn025_lora047_s442517</code>，再跑一张。</p>
+        <div class="see">应该看到：<b>输出文件名带全部关键参数</b>，一周后还能凭文件名复现这一张。</div>
+      </div>
+    </div>
+
+    <div class="check">
+      <h3>交作业前自检</h3>
+      <ul>
+        <li><input type="checkbox"><span>我能说出 03 与 04 在尺寸、两个 ControlNet、IPAdapter、CFG 上的具体差值。</span></li>
+        <li><input type="checkbox"><span>我知道 #56 面板里的提示词为什么没生效，以及怎么验证。</span></li>
+        <li><input type="checkbox"><span>我改尺寸时改的是 #69，不是 #72 的框。</span></li>
+        <li><input type="checkbox"><span>我能从 SaveImage 倒推出哪条支路真正参与出图，哪条是死端。</span></li>
+        <li><input type="checkbox"><span>我进过 #358 的最内层，知道精修里多了放大与校色。</span></li>
+        <li><input type="checkbox"><span>我的保存前缀能看出场景、尺寸、控制强度和种子。</span></li>
+        <li><input type="checkbox"><span>我能用一句话解释“为什么室内要降结构、升风格、加精修放大”。</span></li>
+      </ul>
+    </div>
+
+    <div class="next">
+      <div>
+        <div class="lab">NEXT · A4</div>
+        <div class="nt">建筑毛坯 + 参考图出图</div>
+        <div class="nd">回到本课的对照组：2400、0.35 / 0.30、IPAdapter 0.7 end 0.95，看看这些数字在室外为什么成立。</div>
+      </div>
+      <a class="go" href="L3-04-建筑毛坯与参考图.html">去 A4 →</a>
+    </div>
+
+    <div class="src">
+      <b>本课数据来源与核对方式：</b><code>ComfyUI_工作流架构/03📚基础版 室内毛坯+参考图出图.json</code>（38 节点 / 53 连线 / 3 个子图）与 <code>04📚基础版 建筑毛坯+参考图出图 .json</code>（34 节点 / 52 连线 / 3 个子图）。所有数值逐项读取自 <code>widgets_values</code>，连线关系读取自 <code>links</code>；“为什么”一列为教学解释，不是文件字段。案例图来自 <code>Workflow/生图/庭院</code>（00067）与 <code>Workflow/生图/圆形楼栋</code>（00065），均为室外样本，仅作控制力边界的旁证，不是 03 号的输出。核对日 2026-11-08。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b data-bind="name">AI 入门与 ComfyUI 出图课</b> · <span data-bind="author">李智博</span> · <span data-bind="year">2026</span></div>
+    <div>L3-A3 · 室内毛坯到效果图 · <a href="../index.html">返回课程地图</a></div>
+  </div>
+</footer>
+
+<script>
+  // 自检清单勾选状态持久化（file:// 下同样可用）
+  (function(){
+    var boxes = document.querySelectorAll('.check input[type="checkbox"]');
+    boxes.forEach(function(b, i){
+      var key = 'cui-a5-check-' + i;
+      try { if (localStorage.getItem(key) === '1') b.checked = true; } catch(e){}
+      b.addEventListener('change', function(){
+        try { localStorage.setItem(key, b.checked ? '1' : '0'); } catch(e){}
+      });
+    });
+  })();
+
+  /* 品牌文本绑定：与 index.html 同源 */
+  (function(){
+    var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+    document.querySelectorAll('[data-bind]').forEach(function(el){
+      var v = map[el.getAttribute('data-bind')];
+      if (v) el.textContent = v;
+    });
+    document.title = 'L3-A3 · 室内毛坯到效果图 | ' + COURSE.name;
+  })();
+</script>
+</body>
+</html>

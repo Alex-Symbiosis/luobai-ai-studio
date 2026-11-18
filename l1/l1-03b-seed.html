@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L1-03b 种子 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:40;width:0}
+main{max-width:860px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:660px}
+.hero{margin-bottom:22px}
+.dials{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 0}
+.dial{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow);font-family:var(--sans)}
+.dial .k{font-size:10.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.dial .v{font-family:var(--mono);font-size:19px;font-weight:700;margin-top:2px}
+.dial .d{font-size:12px;color:var(--muted);line-height:1.6}
+.dial.seed{border-top:3px solid var(--violet)}.dial.seed .v{color:var(--violet);font-size:14px;word-break:break-all}
+.dial.mode{border-top:3px solid var(--teal)}.dial.mode .v{color:var(--teal);font-size:15px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:54px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--accent);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:18px;margin:28px 0 8px;font-weight:700}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin:22px 0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.myth{border-color:var(--rose);background:var(--rose-soft)}.callout.myth b{color:var(--rose)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:16px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:12.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:14px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.svg-mono{font-family:var(--mono);font-size:12px;fill:var(--faint)}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 7px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:12px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.sim{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin:24px 0}
+.sim-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.sim-head h4{font-family:var(--sans);font-size:16px;margin:0}
+.sim-head .val{font-family:var(--mono);color:var(--accent);font-weight:700}
+.seedlab{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.seedbox{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px}
+.seedbox .hd{display:flex;justify-content:space-between;font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-bottom:8px}
+.seedbox .noise{width:100%;aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:#2f3444}
+.seedbox .noise svg{display:block;width:100%;height:100%}
+.seedbox .id{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:7px;word-break:break-all;text-align:center}
+.btnrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px}
+button{font-family:var(--sans);font-size:13px;padding:9px 14px;border-radius:9px;border:1px solid var(--line2);background:var(--card);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--violet);color:var(--violet)}
+button.primary{background:var(--violet);border-color:var(--violet);color:#fff}
+button.primary:hover{filter:brightness(.95);color:#fff}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.split .card{margin:0}
+.split h4{font-family:var(--sans);font-size:15px;margin:0 0 8px}
+.split p{font-size:14px;color:var(--muted);margin:0 0 8px;line-height:1.75}
+.split p:last-child{margin-bottom:0}
+.split .neg{color:var(--rose)}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:42px}h3{font-size:16.5px}
+  .card{padding:18px 16px}
+  .dials,.split,.seedlab{grid-template-columns:1fr}
+  table{font-size:12px}th,td{padding:7px 5px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L1 原理 · 03B</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L1 原理<span class="sep">/</span>L1-03b 种子</p>
+
+  <header class="hero">
+    <span class="kicker">L1 原理 · 第三课 B</span>
+    <h1>种子：<br>每一次从哪出发</h1>
+    <p class="lede">昨天很满意的一张图，今天重跑却全变了；想再换一张，又不想把风格弄丢。种子管的就是这两个场景：它决定采样从哪一张噪声起步。</p>
+    <div class="dials">
+      <div class="dial seed"><div class="k">SEED · 本套 04 的 #4</div><div class="v">901186358219662</div><div class="d">主采样节点 #4 的起点编号</div></div>
+      <div class="dial mode"><div class="k">模式 · 04 的 #4</div><div class="v">randomize</div><div class="d">每次运行后自动换一颗</div></div>
+    </div>
+  </header>
+
+  <div class="callout tip">
+    <p><b>前情提要：</b>上一节 L1-03 讲的是 CFG（Classifier-Free Guidance，“听话程度”）：它决定模型每一步有多贴近提示词。这一节讲种子：它只在开局决定纯噪声长什么样。一个管“多听话”，一个管“从哪出发”，两者不是一回事，也不在同一个环节。</p>
+  </div>
+
+  <h2 id="seed-detail"><span class="no">01 / 种子</span>种子：给起点噪声编个号</h2>
+  <p>采样不是从白纸开始，是从一张纯噪声开始。噪声不是凭空来的：程序拿一颗种子喂给随机数生成器，算出一整张起点图。种子相同，这张图就相同；种子换了，整张图就换。</p>
+  <p>所以种子只是一串整数，功能是“编号”。它不描述画面里有什么，也不代表风格。</p>
+  <p class="small quiet">反例：种子不是“图片编号”，也不是“风格编号”。它只锁定起点，不负责内容。</p>
+
+  <h3>五个词，一次对齐</h3>
+  <div class="split">
+    <div class="card">
+      <h4>种子 · seed</h4>
+      <p>一个整数，用来指定开局那张纯噪声。</p>
+      <p class="neg">反例：它不是图片编号。换种子不是把“第 5 张”换成“第 6 张”，换的是起点。</p>
+    </div>
+    <div class="card">
+      <h4>随机数生成器 · RNG</h4>
+      <p>Random Number Generator，按编号吐随机数的程序；同一编号，吐同一串。</p>
+      <p class="neg">反例：它不是“真随机”。这里的随机可以重复，复现才成立。</p>
+    </div>
+    <div class="card">
+      <h4>噪声 · noise</h4>
+      <p>采样开始前那张满是杂点的图；模型从它出发，一步步擦出画面。</p>
+      <p class="neg">反例：不是“噪点滤镜”。它不叠在成图上，而在成图之前。</p>
+    </div>
+    <div class="card">
+      <h4>复现 · reproducibility</h4>
+      <p>同样的输入再跑一次，能得到同一张图，或肉眼难辨的近似。</p>
+      <p class="neg">反例：不是“记住上一次结果”。换模型、换显卡、改参数，它都会失效。</p>
+    </div>
+    <div class="card">
+      <h4>randomize</h4>
+      <p>每次运行后自动换一颗种子，新值就显示在种子框里。</p>
+      <p class="neg">反例：不是“没有种子”。每次都有种子，只是它替你换。</p>
+    </div>
+  </div>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 210" role="img" aria-label="种子决定初始噪声，初始噪声决定出图起点">
+      <defs>
+        <marker id="ars" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+      <rect x="18" y="56" width="112" height="72" rx="10" fill="#f3efff" stroke="#7c4ddb"/>
+      <text x="74" y="82" text-anchor="middle" dominant-baseline="middle" class="svg-title">种子</text>
+      <text x="74" y="104" text-anchor="middle" dominant-baseline="middle" class="svg-sub">一串整数</text>
+
+      <line x1="134" y1="92" x2="176" y2="92" stroke="#5d6779" stroke-width="1.5" marker-end="url(#ars)"/>
+      <text x="155" y="80" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">决定</text>
+
+      <rect x="180" y="56" width="112" height="72" rx="10" fill="#fff" stroke="#cbc6ba"/>
+      <text x="236" y="82" text-anchor="middle" dominant-baseline="middle" class="svg-title">初始噪声</text>
+      <text x="236" y="104" text-anchor="middle" dominant-baseline="middle" class="svg-sub">同样的花样</text>
+
+      <line x1="296" y1="92" x2="338" y2="92" stroke="#5d6779" stroke-width="1.5" marker-end="url(#ars)"/>
+      <text x="317" y="80" text-anchor="middle" dominant-baseline="middle" class="svg-lbl">起步</text>
+
+      <rect x="342" y="56" width="100" height="72" rx="10" fill="#fff" stroke="#cbc6ba"/>
+      <text x="392" y="82" text-anchor="middle" dominant-baseline="middle" class="svg-title">出图</text>
+      <text x="392" y="104" text-anchor="middle" dominant-baseline="middle" class="svg-sub">同样的轨迹</text>
+
+      <text x="230" y="168" text-anchor="middle" dominant-baseline="middle" class="svg-sub">但前提是：模型、步数、CFG、分辨率也都没变</text>
+    </svg>
+    <figcaption>种子只锁定“起点”，不单独锁定“终点”。任一参数变化，轨迹都会分叉。</figcaption>
+  </figure>
+
+  <h2 id="rng"><span class="no">02 / RNG</span>同一颗种子，吐出同一张噪声</h2>
+  <p>随机数生成器（RNG，Random Number Generator）听名字像“不可控”，实际相反：它按种子算数。同一颗种子，每次吐出的那一串数完全一样，所以同一颗种子总能得到同一张噪声图。</p>
+  <p>ComfyUI 的种子框后面跟着模式。<code>randomize</code> 是每次运行后自动换一颗；<code>fixed</code> 是锁死，不再换。想复现，先切 <code>fixed</code>。</p>
+
+  <div class="sim">
+    <div class="sim-head"><h4>小演示：种子锁定的是什么</h4><span class="val" id="seedPair">A ≠ B</span></div>
+    <div class="seedlab">
+      <div class="seedbox">
+        <div class="hd"><span>图 A</span><span id="labelA">随机</span></div>
+        <div class="noise"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><filter id="nzA"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7"/><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="100" height="100" filter="url(#nzA)"/></svg></div>
+        <div class="id" id="idA">seed 000000</div>
+      </div>
+      <div class="seedbox">
+        <div class="hd"><span>图 B</span><span id="labelB">随机</span></div>
+        <div class="noise"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><filter id="nzB"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="19"/><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="100" height="100" filter="url(#nzB)"/></svg></div>
+        <div class="id" id="idB">seed 000000</div>
+      </div>
+    </div>
+    <div class="btnrow">
+      <button id="btnRandom">再随机一次</button>
+      <button id="btnLock" class="primary">把 B 锁成与 A 相同</button>
+    </div>
+    <p class="small quiet" style="margin:10px 0 0">这里只演示“种子 → 噪声起点”的关系，噪声由 SVG 滤镜生成，不是真实采样结果。</p>
+  </div>
+
+  <h2 id="reproduce"><span class="no">03 / 复现</span>复现的最小条件</h2>
+  <p>“同种子可复现”不是一句口号，它有一串前提。少一个，轨迹就可能分叉。</p>
+  <div class="callout tip">
+    <p><b>复现的最小条件：</b>同一台机器、同一个模型与 LoRA（补丁，挂在主模型上的小改动，L2-01 专讲）、同样的提示词、同样的步数 / 采样器 / 调度器 / CFG / 分辨率 / denoise，再加上同一个种子。换显卡、驱动或计算精度，仍可能出现肉眼难辨的细微差异。</p>
+  </div>
+  <p>所以复现失败时，先按这张清单逐项核对，别急着怪种子。种子只保证起点一致；步数、CFG、denoise 任一变动，后半程就走别的路。</p>
+
+  <h2 id="real"><span class="no">04 / 真实值</span>本套里的真实种子</h2>
+  <p>种子是一长串整数。同一个工作流里可以有多颗：主采样一颗，局部重绘一颗，子图里的采样再一颗。</p>
+  <table>
+    <thead><tr><th style="width:44%">位置</th><th style="width:32%">种子</th><th style="width:24%">说明</th></tr></thead>
+    <tbody>
+      <tr><td>04 · KSampler <b>#4</b></td><td><code>901186358219662</code></td><td>建筑毛坯，模式 randomize</td></tr>
+      <tr><td>03 · KSampler <b>#4</b></td><td><code>442517239714949</code></td><td>室内毛坯，根图采样</td></tr>
+      <tr><td>03 子图 · <b>#338</b></td><td><code>820702903115951</code></td><td>RandomNoise，精修种子（子图 <b>#358</b> 内）</td></tr>
+      <tr><td>02 · KSampler <b>#119</b>（旁支，不执行）</td><td><code>496726432833939</code></td><td>SDXL 线稿+参考图</td></tr>
+      <tr><td>02 子图 · <b>#153</b></td><td><code>55129233503117</code></td><td>RandomNoise，02 真正出图的种子</td></tr>
+      <tr><td>01 · KSampler <b>#177</b>（旁支，不落盘）</td><td><code>712591521404267</code></td><td>SDXL 线稿出图</td></tr>
+      <tr><td>01 子图 · <b>#139</b></td><td><code>460707242992239</code></td><td>RandomNoise，01 真正出图的种子</td></tr>
+      <tr><td>05 · <b>#257</b>（旁支，不执行）</td><td><code>374707593963303</code></td><td>DetailerForEach，没接保存</td></tr>
+      <tr><td>05 子图 · <b>#461</b></td><td><code>110482447692313</code></td><td>RandomNoise，05 真正出图的种子</td></tr>
+      <tr><td>04 子图 · <b>#337</b></td><td><code>524953574022149</code></td><td>RandomNoise，子图内的采样</td></tr>
+    </tbody>
+  </table>
+  <p>复现时要逐颗锁定，只锁一颗不够。根图对了、精修却不一样，多半是 03 子图 <b>#338</b> 或 05 子图 <b>#461</b> 那颗没锁。</p>
+  <div class="callout warn">
+    <p><b>别填错栏：</b>01 子图的 CFGGuider <b>#136</b> 是 CFG = 5，不是种子。CFG 管听话程度，种子管起点，两个框不要互相抄。</p>
+  </div>
+
+  <h2 id="practice"><span class="no">05 / 动手</span>把“复现”跑成手感</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，把 <b>#4</b> 改成 <code>fixed</code>，记下种子 <code>901186358219662</code>，跑一次；重启 ComfyUI 后再跑一次，比对两张图。</p><p class="why">目标：亲手验证“同种子 + 同参数”的可复现性。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>CFG、提示词、步数全部不动，只把种子换成 <code>442517239714949</code>，再跑一次。</p><p class="why">目标：看构图和姿态怎么变，确认种子换的是起点，不是风格档位。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>把 <b>#4</b>、04 子图 <b>#337</b>、05 子图 <b>#461</b> 三颗种子都改成 <code>fixed</code>，再复现整套工作流。</p><p class="why">目标：养成逐颗锁定的习惯，知道一个工作流里不止一颗种子。</p></div></div>
+  </div>
+
+  <div class="callout myth">
+    <p><b>常见误解：</b>“种子就是图片编号，换一个就换一张完全不同的图。”不完全对。种子只决定噪声起点。提示词、模型和参数都很强时，不同种子也可能给出相似构图；反过来，只改种子也可能让姿态完全变。</p>
+  </div>
+
+  <h2 id="check"><span class="no">06 / 自检</span>种子到底锁住了什么</h2>
+  <div class="checklist">
+    <h4>勾选你真正理解的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出种子锁定的是起点噪声，不是最终画面。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道复现需要哪些前提，也知道换显卡仍可能有细微差异。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清 randomize 和 fixed，知道一个工作流里可能有多颗种子。</span></label>
+    <label class="check"><input type="checkbox"><span>我能举出一个“种子不是图片编号”的例子。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 CFG 和种子不在同一个环节，也不会把两者的值填进对方。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l1-03-cfg-seed.html"><span class="dir">← 上一课</span>L1-03 CFG</a>
+    <a href="l1-04-controlnet.html"><span class="dir">下一课 →</span>L1-04 ControlNet</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // 种子演示
+  function rnd(){return Math.floor(Math.random()*900000)+100000;}
+  var a=739201,b=154876;
+  var fA=document.getElementById('nzA'),fB=document.getElementById('nzB');
+  function render(){
+    fA.setAttribute('seed',String(a));
+    fB.setAttribute('seed',String(b));
+    document.getElementById('idA').textContent='seed '+a;
+    document.getElementById('idB').textContent='seed '+b;
+    var same=(a===b);
+    document.getElementById('seedPair').textContent=same?'A = B':'A ≠ B';
+    document.getElementById('labelA').textContent=same?'已锁定':'随机';
+    document.getElementById('labelB').textContent=same?'已锁定':'随机';
+  }
+  document.getElementById('btnRandom').addEventListener('click',function(){a=rnd();b=rnd();render();});
+  document.getElementById('btnLock').addEventListener('click',function(){b=a;render();});
+  render();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l1-03b-seed-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

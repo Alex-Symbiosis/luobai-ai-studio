@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>L2-01 输入与加载 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:960px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:680px}
+.hero{margin-bottom:26px}
+.map4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.map4 div{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--cat);border-radius:11px;padding:12px 13px;font-family:var(--sans);box-shadow:var(--shadow)}
+.map4 b{display:block;font-size:13px;margin-bottom:3px}
+.map4 span{font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.6;word-break:break-word}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:50px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:17px;margin:26px 0 8px;font-weight:700}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:9px 7px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:12px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.dict{display:grid;grid-template-columns:186px 1fr;gap:26px;margin-top:20px}
+.dnav{position:sticky;top:62px;align-self:start;font-family:var(--sans)}
+.dnav .t{font-size:10.5px;letter-spacing:.12em;color:var(--faint);margin-bottom:8px}
+.dnav a{display:block;font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 8px;border-radius:7px;border-left:2px solid transparent;line-height:1.5}
+.dnav a:hover{background:var(--cat-soft);color:var(--cat);border-left-color:var(--cat)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--cat);border-radius:12px;margin:0 0 12px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);word-break:break-all}
+.entry .one{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.entry .chev{margin-left:auto;font-family:var(--mono);color:var(--cat);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:12px 16px 16px;border-top:1px dashed var(--line)}
+.entry .body p{font-size:14.5px;margin:0 0 10px}
+.io{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px;font-family:var(--mono);font-size:11px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-family:var(--sans);font-size:12.5px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 11px;margin:10px 0 0;line-height:1.75}
+.pit{font-family:var(--sans);font-size:12.5px;color:var(--amber);margin:9px 0 0;line-height:1.7}
+.entry table{font-size:12px;margin:8px 0}
+.entry th,.entry td{padding:6px 6px}
+.errs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.err{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--rose);border-radius:10px;padding:14px 15px}
+.err b{font-family:var(--sans);font-size:13px;display:block;margin-bottom:4px}
+.err span{font-size:13px;color:var(--muted);line-height:1.7}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:820px){
+  .dict{grid-template-columns:1fr}
+  .dnav{position:static;display:flex;flex-wrap:wrap;gap:6px}
+  .dnav .t{width:100%;margin-bottom:2px}
+  .dnav a{border:1px solid var(--line);border-left:1px solid var(--line);border-radius:99px;padding:4px 9px}
+}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .map4{grid-template-columns:1fr 1fr}
+  .errs{grid-template-columns:1fr}
+  table{font-size:12px}th,td{padding:7px 5px}
+  .entry summary{padding:13px 14px}
+  .entry .body{padding:11px 14px 14px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 节点字典 · 01 / 04</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../视觉规范.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-01 输入与加载</p>
+
+  <header class="hero">
+    <span class="kicker">L2 节点字典 · 第一册</span>
+    <h1>输入与加载：<br>先把“材料”正确搬进画布</h1>
+    <p class="lede">工作流一跑，满屏红框，十有八九是材料没接上：图找不到，模型放错目录，VAE 配错族。这一课解决的就是“材料从哪来”——按“我要加载什么”来查，每条都给真实节点编号和文件名。</p>
+    <div class="map4">
+      <div><b>图像</b><span>LoadImage</span></div>
+      <div><b>主模型</b><span>Checkpoint / UNET</span></div>
+      <div><b>文本编码器</b><span>CLIP / DualCLIP</span></div>
+      <div><b>适配与后段</b><span>LoRA / ControlNet / Upscale</span></div>
+    </div>
+  </header>
+
+  <h2 id="map"><span class="no">01 / 先认路</span>一个工作流的“材料清单”</h2>
+  <p>打开一张新工作流，先别动参数。看最左边那几个方块：图从哪来，模型从哪来。材料没到位的图，调什么都白调。</p>
+  <p>加载节点很好认：左边没有输入线，只有右边出去的线。它们站在整张图的最前面，一道工序而已。你只要记住它吐出什么类型，就不会接错。</p>
+  <div class="callout">
+    <p><b>两种装法，别混：</b>SDXL 系走 <code>CheckpointLoaderSimple</code>，一次拿到 MODEL / CLIP / VAE 三路。Flux 系拆成 <code>UNETLoader</code> + <code>CLIPLoader</code> + <code>VAELoader</code> 三件。04 的根图用前者，子图用后者，正好一组对照。</p>
+  </div>
+  <p>三路输出先认下来。MODEL 是真正动笔的主画师；CLIP 是文本编码器，把你说的话转成一串模型能读的条件；VAE 是有损翻译机，在像素和 1/8 草稿画布（潜空间）之间来回翻，翻一次损一次。反例：VAE 不是画质增强，它不美化画面，只换一种表示。潜空间在 L1-01 讲过，这里只关心谁把它搬进来。</p>
+  <p>ControlNet 和 IPAdapter 的原理在 L1-04、L1-05 讲过。这一册只看一件事：它们的模型文件从哪加载、接到哪个口。</p>
+
+  <h3>速查：我要… 用哪个节点</h3>
+  <table>
+    <thead><tr><th style="width:40%">需求</th><th style="width:30%">节点</th><th style="width:30%">输出类型</th></tr></thead>
+    <tbody>
+      <tr><td>读一张本地图片</td><td><code>LoadImage</code></td><td>IMAGE + MASK</td></tr>
+      <tr><td>加载 SDXL 整合大模型</td><td><code>CheckpointLoaderSimple</code></td><td>MODEL + CLIP + VAE</td></tr>
+      <tr><td>加载 Flux 扩散模型</td><td><code>UNETLoader</code></td><td>MODEL</td></tr>
+      <tr><td>加载 Flux 文本编码器</td><td><code>CLIPLoader</code></td><td>CLIP</td></tr>
+      <tr><td>加载 Flux 的 VAE</td><td><code>VAELoader</code></td><td>VAE</td></tr>
+      <tr><td>给模型加一个 LoRA</td><td><code>LoraLoader</code></td><td>MODEL + CLIP</td></tr>
+      <tr><td>加载结构控制模型</td><td><code>ControlNetLoader</code></td><td>CONTROL_NET</td></tr>
+      <tr><td>加载风格迁移模型</td><td><code>IPAdapterModelLoader</code> + <code>CLIPVisionLoader</code></td><td>IPADAPTER + CLIP_VISION</td></tr>
+      <tr><td>加载放大模型</td><td><code>UpscaleModelLoader</code></td><td>UPSCALE_MODEL</td></tr>
+      <tr><td>自动分割物体</td><td><code>SAMLoader</code> + <code>GroundingDinoModelLoader</code></td><td>SAM_MODEL + 检测模型</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="dict"><span class="no">02 / 字典</span>逐条查：参数、接口、真实例子</h2>
+  <p>上面那张速查表按“我要什么”排。不用从头背，遇到红框或接不上时，回来查一行。</p>
+  <p class="small quiet">点标题展开。每条左侧的编号都对应真实 JSON 里的节点 id；带“子图”字样的，需要先双击进入子图才能看到。</p>
+
+  <div class="dict">
+    <aside class="dnav">
+      <div class="t">本册条目</div>
+      <a href="#term-loadimage">LoadImage</a>
+      <a href="#term-checkpoint">CheckpointLoaderSimple</a>
+      <a href="#term-unet">UNETLoader</a>
+      <a href="#term-clip">CLIPLoader / DualCLIPLoader</a>
+      <a href="#term-vae">VAELoader</a>
+      <a href="#term-lora">LoraLoader</a>
+      <a href="#term-controlnet-loader">ControlNetLoader</a>
+      <a href="#term-ipadapter-loader">IPAdapterModelLoader</a>
+      <a href="#term-clipvision">CLIPVisionLoader</a>
+      <a href="#term-upscale-loader">UpscaleModelLoader</a>
+      <a href="#term-sam">SAMLoader / GroundingDino</a>
+    </aside>
+
+    <div class="entries">
+      <details class="entry" id="term-loadimage" open>
+        <summary><span class="type">LoadImage</span><span class="one">把一张图读成 IMAGE</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>手上有一张实拍照片，想拿它当底图；或者有一张风格参考图，要喂给 IPAdapter。第一步都是把图读进来。</p>
+          <p><code>LoadImage</code> 干的就是这件事：从 <code>input</code> 目录挑一张图，吐出 IMAGE 和 MASK 两路。IMAGE 是像素图，下游拿去编码、缩放、当控制图；MASK 是图片自带的透明通道。反例：它不是“上传按钮”。上传只是帮你把文件放进目录，真正交给下游的是那两个输出口。</p>
+          <div class="io"><span class="out">IMAGE</span><span class="out">MASK</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">image</th><td>文件名。下拉里能看到 <code>input</code> 目录中的图片。</td></tr>
+            <tr><th>upload</th><td>界面上的上传按钮，不产生参数值。</td></tr>
+          </tbody></table>
+          <div class="ex">04 建筑：<b>#15</b> 是底图 <code>7db588…jpg</code>，<b>#33</b> 是风格参考图 <code>8d9696…jpg</code>；03 室内：<b>#15</b> 底图、<b>#33</b> 参考图；07 放大：<b>#1</b> <code>Stable Diffusion.png</code>。</div>
+          <p class="pit">易错：MASK 不是“自动抠图”，而是图片自带的透明通道。JPG 没有 alpha，MASK 往往是空的；要抠图请走分割节点。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-checkpoint">
+        <summary><span class="type">CheckpointLoaderSimple</span><span class="one">一次加载 MODEL + CLIP + VAE</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>第一次打开 SDXL 工作流，你得先回答一个问题：用哪个大模型。选错了，后面调多久都白费。</p>
+          <p><code>CheckpointLoaderSimple</code> 就是回答这一步。它读一个 <code>.safetensors</code> 文件，一次吐出 MODEL、CLIP、VAE 三条线：主画师、文本编码器、有损翻译机。三样都在一个文件里，于是三个加载节点可以省掉。反例：它不是“一个模型的另一个叫法”。它是一条三路输出，少接一路，后面就断。</p>
+          <div class="io"><span class="out">MODEL</span><span class="out">CLIP</span><span class="out">VAE</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">ckpt_name</th><td>大模型文件名，放在 <code>models/checkpoints</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04 <b>#1</b> = <code>SDXL建筑大模型.safetensors</code>；03 <b>#1</b>、06 <b>#35</b>、文生图 <b>#1</b> = <code>SDXL室内大模型.safetensors</code>；02 <b>#136</b> = <code>SDXL建筑大模型.safetensors</code>。</div>
+          <p class="pit">易错：SDXL 的 LoRA 不能配 SD1.5 的 checkpoint；模型族不匹配时，画面会直接崩或完全不听提示词。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-unet">
+        <summary><span class="type">UNETLoader</span><span class="one">只加载扩散模型本体</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>跑 Flux 工作流时，你在下拉里找不到能用的 Checkpoint。不是你装错了，是 Flux 把三件东西拆开给。</p>
+          <p><code>UNETLoader</code> 只负责其中一件：主画师。它输出 MODEL，不含 CLIP 也不含 VAE，所以还得配 <code>CLIPLoader</code> 和 <code>VAELoader</code>，三件凑齐才能出图。反例：它不是“整个模型”，只是画图那一部分；少了另外两件，采样器连提示词都读不到。</p>
+          <div class="io"><span class="out">MODEL</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">unet_name</th><td>扩散模型文件，放在 <code>models/unet</code> 或 <code>models/diffusion_models</code>。</td></tr>
+            <tr><th>weight_dtype</th><td>权重精度。本套取 <code>default</code> 或 <code>fp8_e4m3fn</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04 子图 <b>#344</b> = <code>flux-2-klein-base-9b-fp8.safetensors</code> · <code>default</code>；05 根图 <b>#252</b> = <code>flux_dev_fp8_scaled_diffusion_model.safetensors</code> · <code>fp8_e4m3fn</code>。</div>
+          <p class="pit">易错：<code>weight_dtype</code> 不是“越省越好”。选错可能变慢、报错或画质下降；没有把握就先用 default。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-clip">
+        <summary><span class="type">CLIPLoader / DualCLIPLoader</span><span class="one">把文字变成条件</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>你写了一段很具体的中文，出图却像没看见。先怀疑这一路：文本编码器。</p>
+          <p>CLIP 是文本编码器，把句子转成一串条件向量。模型只读这串向量，不读你的原文。反例：它不是图像模型，看不懂画面，也不生成像素。Flux2 用一个 <code>CLIPLoader</code>；Flux1 常用 <code>DualCLIPLoader</code>，T5 管长句，CLIP-L 管关键词，两路同时上。</p>
+          <div class="io"><span class="out">CLIP</span></div>
+          <table><tbody>
+            <tr><th style="width:30%">clip_name</th><td>编码器文件。Flux2 用 <code>qwen_3_8b_fp8mixed.safetensors</code>。</td></tr>
+            <tr><th>type</th><td>编码器类型。Flux2 填 <code>flux2</code>；Flux1 双编码器填 <code>flux</code>。</td></tr>
+            <tr><th>device</th><td>运行设备，本套均为 <code>default</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04 子图 <b>#345</b> = <code>qwen_3_8b_fp8mixed</code> · <code>flux2</code> · <code>default</code>；05 根图 <b>#253 DualCLIPLoader</b> = <code>t5xxl_fp8_e4m3fn</code> + <code>clip_l</code> · <code>flux</code>。</div>
+          <p class="pit">易错：CLIPLoader 的 <code>type</code> 选错，节点可能能跑但提示词几乎不起作用；换模型族时先检查这一项。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-vae">
+        <summary><span class="type">VAELoader</span><span class="one">单独加载编解码器</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>用了 UNET + CLIP 的拆分方案，你会发现还差一路：解码。没有它，采样完的图回不到像素。</p>
+          <p><code>VAELoader</code> 把 VAE 单独读进来。VAE 是有损翻译机：进采样前把像素压成 1/8 草稿画布，出图后再翻回像素，翻两次损两次。反例：它不是“提画质的工具”，用错 VAE 只会掉画质，不会加画质。</p>
+          <div class="io"><span class="out">VAE</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">vae_name</th><td>VAE 文件名，放在 <code>models/vae</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04/02/03 子图 <b>#346</b> 等 = <code>full_encoder_small_decoder.safetensors</code>；05 根图 <b>#256</b> = <code>ae.safetensors</code>。</div>
+          <p class="pit">易错：VAE 与模型族必须匹配。用错 VAE 常见表现是颜色发灰、发绿或整体发糊，而不是报错。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-lora">
+        <summary><span class="type">LoraLoader</span><span class="one">在主模型上叠一层补丁</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>想换画风，又不想重下主模型。加一个 LoRA 就够了。</p>
+          <p>LoRA 是补丁：不动主模型，只往 MODEL 和 CLIP 上各叠一层偏移。两个强度，一个管画面（<code>strength_model</code>），一个管提示词理解（<code>strength_clip</code>）。反例：它不是“小模型”，不能单独加载出图；拿掉主模型，它什么也生不出来。</p>
+          <div class="io"><span class="out">MODEL</span><span class="out">CLIP</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">lora_name</th><td>LoRA 文件名，放在 <code>models/loras</code>。</td></tr>
+            <tr><th>strength_model</th><td>对画面的影响强度。</td></tr>
+            <tr><th>strength_clip</th><td>对提示词理解的影响强度，本套全部为 1。</td></tr>
+          </tbody></table>
+          <div class="ex">04 <b>#2</b> <code>美丽乡村SDXL</code> 0.49；02 <b>#135</b> <code>建筑外观XL终极版</code> 0.30；03 <b>#2</b> 0.47；06 <b>#36</b> 0.22；LINK <b>#13</b> 0.50；文生图 <b>#2</b> 0.41。</div>
+          <p class="pit">易错：两个强度不是“双倍效果”。多数场景只调 <code>strength_model</code>，把 <code>strength_clip</code> 保持在 1；两个一起拉高更容易过拟合。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-controlnet-loader">
+        <summary><span class="type">ControlNetLoader</span><span class="one">加载结构控制模型</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>想让画面照着线稿或深度图走，先把对应的控制模型读进来。</p>
+          <p><code>ControlNetLoader</code> 读权重，输出 CONTROL_NET。它只负责“拿模型”；真正施加控制的是下一册的 <code>ControlNetApplyAdvanced</code>。反例：它不是“控制开关”，接上它画面不会自动跟着线稿走，中间还差一个施加节点。</p>
+          <div class="io"><span class="out">CONTROL_NET</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">control_net_name</th><td>控制模型文件名，放在 <code>models/controlnet</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04 <b>#13</b> <code>diffusers_xl_depth_full</code>、<b>#49</b> <code>mistoLine_rank256</code>；文生图+深度+语义 <b>#24</b> <code>SDXL 语义分割</code>；LINK <b>#3</b> <code>xinsir_union_promax</code>。</div>
+          <p class="pit">易错：加载器只是“拿模型”。如果预处理器类型和模型类型不一致，强度再高也没用。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-ipadapter-loader">
+        <summary><span class="type">IPAdapterModelLoader</span><span class="one">加载风格迁移模型</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>想让出图带上参考图的风格，又不想改构图。这一路要两个文件，先读 IPAdapter 权重。</p>
+          <p>读完后输出 IPADAPTER，交给 <code>IPAdapterAdvanced</code> 用。它必须和 CLIP Vision 编码器配对。反例：它不是“风格开关”，单独接上什么也不会发生；下游还得有施加节点和一张参考图。</p>
+          <div class="io"><span class="out">IPADAPTER</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">ipadapter_file</th><td>放在 <code>models/ipadapter</code>，本套统一为 <code>ip-adapter-plus_sdxl_vit-h.safetensors</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04 <b>#36</b>、03 <b>#36</b>、IPA <b>#36</b>、02 <b>#109</b>、LINK <b>#35</b>，文件名完全一致。</div>
+          <p class="pit">易错：文件名里的 <code>vit-h</code> 提示它要配 ViT-H 的 CLIP Vision，不能随手配一个 ViT-L 编码器。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-clipvision">
+        <summary><span class="type">CLIPVisionLoader</span><span class="one">加载读图用的视觉编码器</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>IPAdapter 要先看懂参考图。做这件事的不是文本那个 CLIP，是它的一个近亲。</p>
+          <p><code>CLIPVisionLoader</code> 读入视觉编码器，输出 CLIP_VISION。它把一张图压成一个向量，供 IPAdapter 使用。反例：它不是文本编码器，喂文字进去没有意义。两个名字只差一个 Vision，分工完全不同。</p>
+          <div class="io"><span class="out">CLIP_VISION</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">clip_name</th><td>本套统一为 <code>CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">04 <b>#44</b>、03 <b>#44</b>、IPA <b>#44</b>、02 <b>#110</b>、LINK <b>#11</b>。</div>
+          <p class="pit">易错：CLIP Vision 只读图，不读文字；提示词仍然走 CLIPTextEncode。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-upscale-loader">
+        <summary><span class="type">UpscaleModelLoader</span><span class="one">加载放大模型</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>图出完了，尺寸不够交付，你打算先放大。放大权重也得先加载。</p>
+          <p><code>UpscaleModelLoader</code> 读一个 ESRGAN 一类的模型，输出 UPSCALE_MODEL，交给 <code>ImageUpscaleWithModel</code>。反例：它不是“放大按钮”，本身不动一个像素；真正干活的是下游那个节点。</p>
+          <div class="io"><span class="out">UPSCALE_MODEL</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">model_name</th><td>放在 <code>models/upscale_models</code>，本套为 <code>4x-UltraSharp.pth</code>。</td></tr>
+          </tbody></table>
+          <div class="ex">03 子图 <b>#353</b>、07 根图 <b>#3</b> 与子图 <b>#380</b>。</div>
+          <p class="pit">易错：4× 放大后像素量变 16 倍。后续往往还要 <code>ImageScaleBy</code> 或 <code>ImageScaleToTotalPixels</code> 收回来（见 L2-03）。</p>
+        </div>
+      </details>
+
+      <details class="entry" id="term-sam">
+        <summary><span class="type">SAMLoader / GroundingDinoModelLoader</span><span class="one">自动分割与文字定位</span><span class="chev">＋</span></summary>
+        <div class="body">
+          <p>一张图里只改地面，别的都不动。你得先把那块区域精确切出来。</p>
+          <p>06 的“文字识别局部修改”用这一对：GroundingDINO 按文字找目标框，SAM 按框切出精确掩码。一个负责“找”，一个负责“切”。反例：这里只是模型加载，切图动作在下游的分割节点里；它不会自己吐出掩码。</p>
+          <div class="io"><span class="out">SAM_MODEL</span><span class="out">检测模型</span></div>
+          <table><tbody>
+            <tr><th style="width:34%">SAMLoader</th><td><code>sam_vit_b_01ec64.pth</code> · <code>Prefer GPU</code>（#11）。</td></tr>
+            <tr><th>GroundingDino</th><td><code>GroundingDINO_SwinB (938MB)</code>（#12）。</td></tr>
+          </tbody></table>
+          <div class="ex">06 根图 <b>#11</b> 与 <b>#12</b>，分割结果再进入 <code>MaskToSEGS</code> 与 <code>DetailerForEach</code>。</div>
+          <p class="pit">易错：模型下拉里没有条目，通常不是节点坏了，而是文件没有放到对应的 <code>models</code> 子目录。</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <h2 id="errors"><span class="no">03 / 避坑</span>加载阶段最常见的四个错</h2>
+  <div class="errs">
+    <div class="err"><b>模型族错配</b><span>SDXL 的 checkpoint 配了 SD1.5 的 LoRA 或 ControlNet。轻则效果差，重则直接报维度错误。</span></div>
+    <div class="err"><b>VAE 用错</b><span>颜色发灰、发绿、整体发糊，却没有一条报错。先查 VAE 是不是同一模型族。</span></div>
+    <div class="err"><b>把 MASK 当抠图</b><span>LoadImage 的 MASK 只是透明通道。JPG 没有 alpha，输出常为空。</span></div>
+    <div class="err"><b>加载器当处理器</b><span>UpscaleModelLoader、ControlNetLoader 只“拿模型”，不放大，也不施加控制。</span></div>
+  </div>
+
+  <h2 id="practice"><span class="no">04 / 动手</span>用编号定位，不靠猜</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04。先找 <b>#1</b>、<b>#2</b>、<b>#15</b>、<b>#33</b> 这四个编号，写下各自的节点类型和文件名。</p><p class="why">目标：把“底图 / 风格参考 / 主模型 / LoRA”四件事对到四个编号上。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>双击进 04 的子图，找到 <b>#344–#346</b>。想一想：这里为什么不用 CheckpointLoaderSimple？</p><p class="why">目标：理解 Flux 三件套与 SDXL 整合模型的差别。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>打开 06，找到 <b>#11 SAMLoader</b> 和 <b>#12 GroundingDinoModelLoader</b>。说出谁负责“找”，谁负责“切”。</p><p class="why">目标：分清检测与分割，不要把两个角色压给一个节点。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">05 / 自检</span>加载对了，后面才谈得上调参</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出 CheckpointLoaderSimple 一次吐出哪三路，各自干什么。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 Flux 为什么要拆成 UNET + CLIP + VAE 三件套。</span></label>
+    <label class="check"><input type="checkbox"><span>我能说清 LoadImage 的 IMAGE 和 MASK 分别是什么。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 LoRA 的两个 strength 分别作用于哪里。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清“加载模型”和“施加控制、放大”是两道不同的工序。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="./L1-05-IPAdapter.html"><span class="dir">← 上一课</span>L1-05 IPAdapter</a>
+    <a href="./L2-02-条件与编码.html"><span class="dir">下一册 →</span>L2-02 条件与编码</a>
+  </nav>
+
+  <footer>《AI 入门与 ComfyUI 出图课》· 李智博 · 2026 · L2-01 输入与加载 · 参数取自 <code>ComfyUI_工作流架构</code> 真实 JSON<br>单文件离线可用 · 无外部依赖 · <a href="../index.html">返回课程地图</a></footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-01-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

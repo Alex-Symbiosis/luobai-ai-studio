@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="李智博（落白lite）">
+<meta name="color-scheme" content="light">
+<title>L0-01 · ComfyUI 是什么 | AI 入门与 ComfyUI 出图课</title>
+<meta name="description" content="ComfyUI 能给你什么：把出图拆成一条能改的产线，只动一处、能复现、坏了查得到。零基础可读。">
+<script>
+/* ============ 唯一品牌修改点：改这里，全站生效 ============ */
+const COURSE = {
+  name: 'AI 入门与 ComfyUI 出图课',
+  tagline: '面向大学生与普通人的 AI 入门课',
+  author: '李智博',
+  year: '2026'
+};
+</script>
+<style>
+  :root{
+    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
+    --line:#e2ded4; --line2:#cbc6ba;
+    --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
+    --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
+    --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
+    --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
+    --code:#fbfaf7; --max:880px;
+    --shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    background:
+      linear-gradient(90deg,rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      linear-gradient(rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
+      var(--paper);
+    color:var(--ink);font-size:16.5px;line-height:1.85;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(64,81,214,.3)}
+  a:hover{border-bottom-color:var(--accent)}
+  p{margin:0 0 15px}
+  ul,ol{margin:0 0 16px;padding-left:1.4em}
+  li{margin:6px 0}
+  strong{font-weight:700}
+  em{font-style:normal;background:linear-gradient(transparent 62%,rgba(64,81,214,.16) 62%)}
+  code{font-family:var(--mono);font-size:.86em;background:var(--code);border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--accent);word-break:break-word}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(246,245,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:14px;height:56px;max-width:1040px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
+  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
+  .topnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;white-space:nowrap;border-bottom:none}
+  .topnav a:hover{background:var(--accent-soft);color:var(--accent);border-bottom:none}
+
+  /* hero */
+  header.hero{padding:72px 0 0}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--teal);background:var(--teal-soft);border:1px solid rgba(15,122,108,.22);padding:5px 12px;border-radius:999px;margin-bottom:18px}
+  .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  h1{font-size:clamp(30px,5.4vw,50px);line-height:1.16;letter-spacing:-.035em;font-weight:800}
+  .hero-rule{width:44px;height:3px;background:var(--teal);border-radius:2px;margin:20px 0 18px}
+  .sub{font-size:clamp(16px,2vw,18px);color:var(--muted);max-width:680px;line-height:1.75}
+  .goal{display:grid;grid-template-columns:86px 1fr;gap:16px;align-items:start;margin:28px 0 0;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .goal .gl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--teal);font-weight:700;padding-top:3px}
+  .goal p{font-size:14.5px;margin:0;line-height:1.8}
+
+  /* ten-second strip */
+  .tensec{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0 0}
+  .tensec .lab{grid-column:1/-1;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);font-weight:700}
+  .tensec .tv{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .tensec .tv::before{content:"";display:block;width:18px;height:3px;border-radius:2px;background:var(--teal);margin-bottom:9px}
+  .tensec .tv b{display:block;font-size:13.5px;margin-bottom:3px}
+  .tensec .tv span{font-size:12.5px;color:var(--muted);line-height:1.65}
+
+  /* position map */
+  .posmap{margin:30px 0 0;padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .posmap .pm-t{font-size:11px;letter-spacing:.12em;color:var(--faint);font-weight:700;margin-bottom:12px}
+  .stops{display:flex;gap:6px;align-items:stretch}
+  .stop{flex:1;min-width:0;padding:9px 10px;border:1px dashed var(--line2);border-radius:9px;background:#fdfcfa;color:var(--faint);font-size:12px;line-height:1.45}
+  .stop b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;margin-bottom:2px}
+  .stop.now{border-style:solid;border-color:var(--teal);background:var(--teal-soft);color:var(--ink)}
+  .stop.now b{color:var(--teal)}
+  .stop.done{border-style:solid;border-color:rgba(15,122,108,.35);background:#fff;color:var(--muted)}
+  .stop a{display:block;color:inherit;border-bottom:none}
+  .stop a:hover{color:var(--teal)}
+
+  /* sections */
+  section{padding:52px 0 0;scroll-margin-top:70px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+  .sec-num{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--faint)}
+  h2{font-size:24px;line-height:1.35;letter-spacing:-.02em;font-weight:800}
+  h3{font-size:16.5px;margin:24px 0 8px;font-weight:700}
+  .lead{color:var(--muted);max-width:720px;margin:0 0 20px}
+
+  /* scene */
+  .scene{margin:22px 0;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 14px 14px 0;box-shadow:var(--shadow)}
+  .scene .sl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .scene p{font-size:14.5px;line-height:1.85;margin:0 0 10px}
+  .scene p:last-child{margin-bottom:0}
+  .scene .q{font-weight:700}
+
+  /* contrast */
+  .contrast{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 8px}
+  .ccard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;box-shadow:var(--shadow)}
+  .ccard.web{border-top:3px solid var(--faint)}
+  .ccard.node{border-top:3px solid var(--teal)}
+  .ccard .ch{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;margin-bottom:8px}
+  .ccard.web .ch{color:var(--muted)}
+  .ccard.node .ch{color:var(--teal)}
+  .ccard .ch .sq{width:8px;height:8px;border-radius:2px;background:currentColor}
+  .ccard p{font-size:13.5px;color:var(--muted);margin:0 0 10px;line-height:1.7}
+  .ccard ul{margin:0;padding-left:1.15em;font-size:13.5px;color:var(--muted)}
+  .ccard li{margin:5px 0}
+  .ccard .tagline{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.06em;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+
+  /* figure */
+  figure{margin:24px 0;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .fig-scroll{overflow-x:auto}
+  figure svg{display:block;width:100%;height:auto;min-width:820px}
+  .only-wide{display:block}
+  .only-narrow{display:none}
+  .only-narrow svg{min-width:0}
+  @media (max-width:640px){
+    .only-wide{display:none}
+    .only-narrow{display:block}
+  }
+  figcaption{font-size:12.5px;color:var(--faint);margin-top:10px;line-height:1.7;text-align:center}
+  svg text{font-family:inherit}
+  .s-panel{fill:#fcfbf9;stroke:var(--line);stroke-width:1}
+  .s-box{fill:#fff;stroke:var(--ink);stroke-width:1.4}
+  .s-box-a{fill:var(--accent);stroke:var(--accent);stroke-width:1.4}
+  .s-box-s{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.3}
+  .s-box-t{fill:var(--teal-soft);stroke:var(--teal);stroke-width:1.3}
+  .s-line{fill:none;stroke:var(--ink);stroke-width:1.3}
+  .s-line-a{fill:none;stroke:var(--accent);stroke-width:1.3}
+  .s-line-t{fill:none;stroke:var(--teal);stroke-width:1.3}
+  .s-t{font-size:14px;fill:var(--ink)}
+  .s-ts{font-size:12px;fill:var(--muted)}
+  .s-tb{font-size:14.5px;fill:var(--ink);font-weight:600}
+  .s-tw{font-size:14.5px;fill:#fff;font-weight:600}
+  .s-note{font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:#fcfbf9;stroke-width:4px;stroke-linejoin:round}
+
+  /* reasons */
+  .reasons{margin:20px 0;border-top:1px solid var(--line)}
+  .reason{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .reason .rn{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--line2);line-height:1.1;letter-spacing:-.04em}
+  .reason h3{margin:0 0 4px;font-size:16px}
+  .reason p{margin:0;font-size:14px;color:var(--muted);line-height:1.75}
+
+  /* cost strip */
+  .costs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+  .cost{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px}
+  .cost b{display:block;font-size:13px;margin-bottom:4px}
+  .cost span{font-size:12.5px;color:var(--muted);line-height:1.65}
+  .cost::before{content:"";display:block;width:18px;height:3px;border-radius:2px;background:var(--amber);margin-bottom:9px}
+
+  /* callout */
+  .note{margin:20px 0;padding:14px 18px;border-left:3px solid var(--amber);background:var(--amber-soft);border-radius:0 12px 12px 0;font-size:13.5px;line-height:1.75}
+  .note b{color:var(--amber)}
+  .note.ok{border-left-color:var(--teal);background:var(--teal-soft)}
+  .note.ok b{color:var(--teal)}
+
+  /* practice */
+  .tasks{counter-reset:t;list-style:none;margin:18px 0;padding:0}
+  .tasks li{counter-increment:t;position:relative;padding:13px 16px 13px 46px;margin:0 0 8px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:14px}
+  .tasks li::before{content:counter(t);position:absolute;left:14px;top:13px;width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:11.5px;line-height:22px;text-align:center;font-weight:700}
+  .checklist{list-style:none;margin:16px 0;padding:0}
+  .checklist li{display:flex;gap:10px;align-items:flex-start;padding:9px 13px;margin:0 0 7px;background:var(--card);border:1px solid var(--line);border-radius:9px;font-size:13.5px}
+  .checklist input{margin-top:5px;width:14px;height:14px;accent-color:var(--teal);flex:none}
+
+  /* next */
+  .next{margin:52px 0 0;padding:22px 24px;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:14px;box-shadow:var(--shadow)}
+  .next .nl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--teal);font-weight:700;margin-bottom:6px}
+  .next h2{font-size:19px;margin:0 0 6px}
+  .next p{font-size:13.5px;color:var(--muted);margin:0}
+  .next .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .next .links a{font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:8px;padding:7px 12px;background:#fff;border-bottom:1px solid var(--line)}
+  .next .links a:hover{border-color:var(--teal);color:var(--teal)}
+
+  footer{margin-top:56px;padding:22px 0 48px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+  footer .wrap{display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;max-width:1040px}
+  footer b{color:var(--ink);font-weight:700}
+
+  @media (max-width:760px){
+    .contrast{grid-template-columns:1fr}
+    .costs{grid-template-columns:1fr}
+    .tensec{grid-template-columns:1fr}
+    .tensec .lab{grid-column:auto}
+    .reason{grid-template-columns:46px 1fr;gap:12px}
+    .goal{grid-template-columns:1fr;gap:6px}
+    .stops{overflow-x:auto;padding-bottom:4px}
+    .stop{min-width:112px}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px}
+    .topbar .wrap{padding:0 16px}
+    .topnav a{padding:6px 7px;font-size:12px}
+    h1{font-size:28px}
+    h2{font-size:21px}
+    section{padding:44px 0 0}
+  }
+  @media print{
+    .topbar{display:none}
+    body{background:#fff}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
+    <nav class="topnav">
+      <a href="../index.html">← 课程地图</a>
+      <a href="#why">为什么是工作流</a>
+      <a href="#cost">代价</a>
+      <a href="../guides/language-spec.html">语言规范</a>
+      <a href="../guides/visual-spec.html">视觉规范</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker"><span class="dot"></span>L0 · 开篇 · 第 1 站</span>
+    <h1>ComfyUI 是什么</h1>
+    <div class="hero-rule"></div>
+    <p class="sub">一句话：它把 AI 出图从“抽一次盲盒”，变成“一条你能改的产线”。每一步摆在你面前，你可以只动其中一步。</p>
+
+    <div class="tensec">
+      <div class="lab">十秒版 · 它能给你什么</div>
+      <div class="tv"><b>只改一处</b><span>换风格、锁结构、放大，各改各的，不用整张重来。</span></div>
+      <div class="tv"><b>能再来一次</b><span>参数存进文件，下周还能复现出同一张图。</span></div>
+      <div class="tv"><b>坏了查得到</b><span>图糊了，能顺着链找到是哪一步出的问题。</span></div>
+    </div>
+
+    <div class="goal">
+      <div class="gl">看完判断</div>
+      <p>什么时候用网页版就够了，什么时候该把图搬进 ComfyUI。这一课先不装软件，也不讲节点参数。</p>
+    </div>
+
+    <div class="posmap">
+      <div class="pm-t">当前位置 · L0 开篇三站</div>
+      <div class="stops">
+        <div class="stop now"><b>L0-01</b>ComfyUI 是什么<br>你在这里</div>
+        <a class="stop" href="l0-02-install-and-ui.html"><b>L0-02</b>装什么、界面怎么用</a>
+        <a class="stop" href="l0-03-first-generation.html"><b>L0-03</b>完整出一次图</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="recap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>先看它能在哪个时刻救你</h2></div>
+    <p class="lead">不讲架构，先讲一个你大概率会遇到的下午。</p>
+
+    <div class="scene">
+      <div class="sl">场景 · 周五 17:40</div>
+      <p>老师看完你上周交的室内效果图，说：<span class="q">“就按这张，再来三版。把墙角那盏灯换成暖光，别的都别动。”</span></p>
+      <p>你打开网页版，把提示词改了两个字，点生成。出来四张新图：墙换了颜色，沙发换了款式，连窗外的天都从晴变成了阴。</p>
+      <p>问题不在提示词。问题在于——网页版只让你说一句话，剩下的决定它全替你做了。你没有“只改灯”这个按钮。</p>
+      <p>ComfyUI 就是把那个按钮还给你。代价是：你得自己把这条产线接起来。</p>
+    </div>
+
+    <p>你在 <a href="../a/a04-word-family.html">A04 词族辨析</a> 里已经分清：<strong>提示词</strong>是给模型的输入，<strong>Agent</strong> 是带循环的决策系统，而 <strong>Workflow</strong> 是把一串固定动作排成一条可重复执行的流水线。</p>
+    <p>ComfyUI 做的，就是给“出图”这件事装上那条流水线。网页版替你做了“选模型、编码提示词、加控制条件、采样、解码、保存”这些事，ComfyUI 把它们重新摆到桌面上，让你自己连。</p>
+
+    <div class="note ok"><b>一句话版本：</b>网页版卖你一张图，ComfyUI 给你一条产线。要稳定、要复现、要只改一处不动全身，就得自己拿产线。</div>
+  </section>
+
+  <section id="contrast">
+    <div class="sec-head"><span class="sec-num">02</span><h2>同一句话，两边各发生了什么</h2></div>
+    <p class="lead">不比谁高级，只比控制权在谁手里。</p>
+
+    <div class="contrast">
+      <div class="ccard web">
+        <div class="ch"><span class="sq"></span>网页版 AI 生图</div>
+        <p>你看到的是一个输入框、一个生成按钮、四张候选图。</p>
+        <ul>
+          <li>模型版本由平台决定，可能随时更换</li>
+          <li>步数、CFG、种子大多不可见</li>
+          <li>想加结构控制，只能等平台上线对应功能</li>
+          <li>同一句话，明天可能出不同的东西</li>
+        </ul>
+        <span class="tagline">结果导向 · 开箱即用</span>
+      </div>
+      <div class="ccard node">
+        <div class="ch"><span class="sq"></span>ComfyUI</div>
+        <p>你看到的是一张节点图。每个方块有输入、输出和参数。</p>
+        <ul>
+          <li>模型、LoRA、ControlNet 都可以自己换</li>
+          <li>步数、CFG、种子、去噪强度全部可见可改</li>
+          <li>少一个环节就补一个节点，不用等版本</li>
+          <li>整张图存成 JSON，下次原样复现</li>
+        </ul>
+        <span class="tagline">过程导向 · 需要动手</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="what">
+    <div class="sec-head"><span class="sec-num">03</span><h2>拆开看：一块画布 + 一台本地发动机</h2></div>
+    <p class="lead">知道它能给你什么之后，再看它为什么长这样。</p>
+    <p><strong>节点编辑器</strong>是你看见的那层界面。每个方块叫一个<a href="../index.html#term-checkpoint">节点</a>（Node），方块里写着一件具体的事：加载模型、读一张图、编码一段文字、采样一次、保存一张图。</p>
+    <p>方块之间的线是连线。一条线就是一次数据交接，交接的东西可能是一张图、一段条件、一个<a href="../index.html#term-latent">潜空间</a>张量。上游算完，下游才拿得到。</p>
+    <p><strong>本地运行时</strong>是背后真正干活的部分。它跑在你自己的显卡上，把这张图翻成计算顺序，一个节点一个节点执行。所以 ComfyUI 不是一个模型，而是一个能编排很多模型的工具。</p>
+    <p>你现在打开的 01 号工作流，就是一张已经连好的图：<strong>21 个顶层节点、6 个分组</strong>，从选模型一路连到保存和对比。它没有藏起来的魔法，只有一条你能逐段检查的链路。</p>
+
+    <figure>
+      <div class="fig-scroll only-wide">
+        <svg viewBox="0 0 920 270" role="img" aria-label="聊天式生图与工作流式生图的结构对比">
+          <rect class="s-panel" x="0" y="0" width="920" height="270" rx="12"/>
+
+          <!-- top: chat -->
+          <text class="s-ts" x="24" y="30" font-weight="700" fill="#5d6779">聊天式：一条黑箱</text>
+          <rect class="s-box" x="24" y="46" width="150" height="54" rx="8"/>
+          <text class="s-tb" x="42" y="70">一句话</text>
+          <text class="s-ts" x="42" y="88">“室内效果图”</text>
+
+          <rect class="s-box" x="238" y="46" width="230" height="54" rx="8" fill="#f1f0ec" stroke="#8b93a3" stroke-dasharray="5 4"/>
+          <text class="s-t" x="258" y="70">平台内部（你看不见）</text>
+          <text class="s-ts" x="258" y="88">模型 / 参数 / 控制条件</text>
+
+          <rect class="s-box" x="532" y="46" width="150" height="54" rx="8"/>
+          <text class="s-tb" x="550" y="70">四张图</text>
+          <text class="s-ts" x="550" y="88">挑一张，结束</text>
+
+          <path class="s-line" d="M174 73 H232" marker-end="url(#ar1)"/>
+          <path class="s-line" d="M468 73 H526" marker-end="url(#ar1)"/>
+          <text class="s-note" x="203" y="63" text-anchor="middle">输入</text>
+          <text class="s-note" x="497" y="63" text-anchor="middle">输出</text>
+
+          <!-- divider -->
+          <line x1="24" y1="128" x2="896" y2="128" stroke="#e2ded4" stroke-width="1"/>
+
+          <!-- bottom: workflow -->
+          <text class="s-ts" x="24" y="144" font-weight="700" fill="#0f7a6c">工作流式：一条可检查的链</text>
+
+          <rect class="s-box" x="24" y="174" width="118" height="58" rx="8"/>
+          <text class="s-tb" x="40" y="197">加载模型</text>
+          <text class="s-ts" x="40" y="215">Checkpoint</text>
+
+          <rect class="s-box-s" x="182" y="174" width="118" height="58" rx="8"/>
+          <text class="s-tb" x="198" y="197">编码提示词</text>
+          <text class="s-ts" x="198" y="215">CLIP</text>
+
+          <rect class="s-box-t" x="340" y="174" width="118" height="58" rx="8"/>
+          <text class="s-tb" x="356" y="197">结构控制</text>
+          <text class="s-ts" x="356" y="215">ControlNet</text>
+
+          <rect class="s-box-a" x="502" y="174" width="106" height="58" rx="8"/>
+          <text class="s-tw" x="518" y="197">采样</text>
+          <text class="s-ts" x="518" y="215" fill="#dfe3ff">KSampler</text>
+
+          <rect class="s-box" x="652" y="174" width="100" height="58" rx="8"/>
+          <text class="s-tb" x="668" y="197">解码</text>
+          <text class="s-ts" x="668" y="215">VAE</text>
+
+          <rect class="s-box" x="790" y="174" width="106" height="58" rx="8"/>
+          <text class="s-tb" x="806" y="197">保存 / 对比</text>
+          <text class="s-ts" x="806" y="215">Save · Compare</text>
+
+          <path class="s-line-t" d="M142 203 H176" marker-end="url(#ar2)"/>
+          <path class="s-line-t" d="M300 203 H334" marker-end="url(#ar2)"/>
+          <path class="s-line-t" d="M458 203 H496" marker-end="url(#ar2)"/>
+          <path class="s-line-a" d="M608 203 H646" marker-end="url(#ar3)"/>
+          <path class="s-line" d="M752 203 H784" marker-end="url(#ar1)"/>
+
+          <text class="s-note" x="162" y="164" text-anchor="middle">数据</text>
+          <text class="s-note" x="320" y="164" text-anchor="middle">条件</text>
+          <text class="s-note" x="480" y="164" text-anchor="middle">条件</text>
+          <text class="s-note" x="630" y="164" text-anchor="middle">潜空间</text>
+          <text class="s-note" x="771" y="164" text-anchor="middle">图像</text>
+
+          <defs>
+            <marker id="ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#18212f"/></marker>
+            <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f7a6c"/></marker>
+            <marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4051d6"/></marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="only-narrow">
+        <svg viewBox="0 0 340 470" role="img" aria-label="移动版：聊天式是一条黑箱，工作流式每一步可检查">
+          <rect class="s-panel" x="0" y="0" width="340" height="470" rx="12"/>
+
+          <text class="s-tb" x="16" y="24" font-size="12.5">聊天式：一条黑箱</text>
+          <rect class="s-box" x="16" y="36" width="308" height="48" rx="8"/>
+          <text class="s-tb" x="30" y="58" font-size="13">一句话</text>
+          <text class="s-ts" x="30" y="74" font-size="11.5">“室内效果图”</text>
+
+          <path class="s-line" d="M170 84 V96" marker-end="url(#arM)"/>
+
+          <rect class="s-box-s" x="16" y="100" width="308" height="52" rx="8" stroke-dasharray="5 4"/>
+          <text class="s-tb" x="30" y="123" font-size="13">平台内部（你看不见）</text>
+          <text class="s-ts" x="30" y="141" font-size="11.5">模型 · 参数 · 控制</text>
+
+          <line x1="16" y1="172" x2="324" y2="172" stroke="#e2ded4" stroke-width="1"/>
+
+          <text class="s-tb" x="16" y="196" font-size="12.5">工作流式：每一步可检查</text>
+
+          <rect class="s-box" x="16" y="208" width="308" height="42" rx="7"/>
+          <text class="s-tb" x="30" y="234" font-size="13">加载模型（Checkpoint）</text>
+          <path class="s-line-t" d="M170 250 V258" marker-end="url(#arM)"/>
+
+          <rect class="s-box" x="16" y="262" width="308" height="42" rx="7"/>
+          <text class="s-tb" x="30" y="288" font-size="13">编码提示词（CLIP）</text>
+          <path class="s-line-t" d="M170 304 V312" marker-end="url(#arM)"/>
+
+          <rect class="s-box" x="16" y="316" width="308" height="42" rx="7"/>
+          <text class="s-tb" x="30" y="342" font-size="13">采样（KSampler）</text>
+          <path class="s-line" d="M170 358 V366" marker-end="url(#arM)"/>
+
+          <rect class="s-box" x="16" y="370" width="308" height="42" rx="7"/>
+          <text class="s-tb" x="30" y="396" font-size="13">保存 / 对比</text>
+
+          <text class="s-note" x="16" y="434">完整链：加载 → 编码 → 结构控制 →</text>
+          <text class="s-note" x="16" y="452">采样 → 解码 → 保存/对比。</text>
+
+          <defs>
+            <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#18212f"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <figcaption>上面你只看到输入和输出；下面每个决定都有名字、有位置，能单独换掉。</figcaption>
+    </figure>
+  </section>
+
+  <section id="why">
+    <div class="sec-head"><span class="sec-num">04</span><h2>四个时刻，你会庆幸自己用的是工作流</h2></div>
+    <p class="lead">不是为了显得专业。是网页版在这四件事上，真的没有答案。</p>
+
+    <div class="reasons">
+      <div class="reason">
+        <div class="rn">01</div>
+        <div><h3>可复现：同一张图能再来一次</h3><p>客户说“就按上次那张再来一版”。种子、步数、CFG、模型、LoRA 权重都躺在 JSON 里，你打开文件就能复现，不用凭记忆把提示词再背一遍。</p></div>
+      </div>
+      <div class="reason">
+        <div class="rn">02</div>
+        <div><h3>可替换：只动一个环节</h3><p>想换风格？换 LoRA。想锁结构？加 <a href="../index.html#term-controlnet">ControlNet</a>。想放大？接一个放大节点。其它部分不动，出了问题也容易找到是谁。</p></div>
+      </div>
+      <div class="reason">
+        <div class="rn">03</div>
+        <div><h3>可复用：一张图变成一套模板</h3><p>把常用的模型、提示词、控制网和保存设置连好，存成工作流。下次换张输入图、改两句提示词就能开工。一次性投入，不是一次性劳动。</p></div>
+      </div>
+      <div class="reason">
+        <div class="rn">04</div>
+        <div><h3>可解释：坏了知道坏在哪</h3><p>图糊了。是预处理没提出线，还是 ControlNet 权重太低，还是 CFG 太低？节点图把因果摆开：你可以逐段预览，也可以逐段关掉，不用对着“重新生成”猜。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost">
+    <div class="sec-head"><span class="sec-num">05</span><h2>但它要收三笔学费</h2></div>
+    <p class="lead">先把丑话说前面：工作流不是免费的自由。</p>
+    <div class="costs">
+      <div class="cost"><b>概念成本</b><span>要认识节点、连线、模型、潜空间这些词。前两课会把这些词逐个落地，不用一次记住。</span></div>
+      <div class="cost"><b>硬件成本</b><span>本地跑图吃显存。显存小就先跑小图、少步数，或者用云主机；课程里的参数都按能跑通的量级给。</span></div>
+      <div class="cost"><b>管理成本</b><span>模型、LoRA、ControlNet 要自己下载、命名、放进对应目录。放错地方，节点就会报“找不到模型”。</span></div>
+    </div>
+    <div class="note"><b>不要被吓退：</b>你不需要先学完所有节点才能出图。下一课只做两件事——把模型放对位置，认清界面上哪几个按钮真的会用到。然后第三课直接跑通 01 号工作流。</div>
+  </section>
+
+  <section id="practice">
+    <div class="sec-head"><span class="sec-num">06</span><h2>练习与自检</h2></div>
+    <ol class="tasks">
+      <li>用一句话向没接触过的人解释：网页版 AI 生图和 ComfyUI 的区别。句子里要出现“控制权”或“可复现”其中一个词。</li>
+      <li>打开 <a href="../index.html#l0">课程地图的 L0 层</a>，说出这三站分别解决什么问题。</li>
+      <li>看一眼 <a href="../a/a04-word-family.html">A04</a> 里 Workflow 那一节，把“工作流”在 Agent 语境和 ComfyUI 语境下的区别写下来。</li>
+    </ol>
+    <ul class="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">我能说出 ComfyUI 至少两个和网页版不同的地方。</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">我知道“节点”是一件具体的事，“连线”是一次数据交接。</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">我知道工作流可以存成 JSON，并且能复现。</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">我知道下一课要先解决“模型放哪”和“界面怎么用”。</label></li>
+    </ul>
+  </section>
+
+  <div class="next">
+    <div class="nl">NEXT · L0-02</div>
+    <h2>装什么与界面怎么用</h2>
+    <p>把模型放进正确目录，认清画布、菜单、队列和运行按钮。这一课不碰参数，只保证你能把一张工作流打开并跑起来。</p>
+    <div class="links">
+      <a href="l0-02-install-and-ui.html">继续 → L0-02</a>
+      <a href="../index.html#l0">回到 L0 层</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var map = { name: COURSE.name, tagline: COURSE.tagline, author: COURSE.author, year: COURSE.year };
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v = map[el.getAttribute('data-bind')];
+    if (v) el.textContent = v;
+  });
+  document.title = 'L0-01 · ComfyUI 是什么 | ' + COURSE.name;
+
+  var KEY = 'course-l0-01-check';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+  document.querySelectorAll('.checklist input[type=checkbox]').forEach(function(cb){
+    cb.checked = !!saved[cb.id];
+    cb.addEventListener('change', function(){
+      saved[cb.id] = cb.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

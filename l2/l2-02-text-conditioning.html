@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="李智博（落白lite）">
+<title>L2-02 文本条件 · AI 入门与 ComfyUI 出图课</title>
+<style>
+:root{
+  --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
+  --line:#e2ded4;--line2:#cbc6ba;
+  --accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+  --cat:#b26206;--cat-soft:rgba(178,98,6,.10);
+  --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);
+  --amber:#b26206;--amber-soft:rgba(178,98,6,.10);
+  --rose:#c22e63;--rose-soft:rgba(194,46,99,.09);
+  --violet:#7c4ddb;--violet-soft:rgba(124,77,219,.10);
+  --radius:14px;--shadow:0 1px 2px rgba(24,33,47,.05),0 10px 30px -18px rgba(24,33,47,.30);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.9 var(--serif);
+  background-image:linear-gradient(rgba(24,33,47,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(24,33,47,.032) 1px,transparent 1px);
+  background-size:28px 28px;}
+code{font-family:var(--mono);font-size:.9em}
+a{color:var(--accent);text-underline-offset:3px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;font-family:var(--sans);font-size:13px}
+.brand{font-weight:700;color:var(--ink);text-decoration:none}.brand span{color:var(--accent)}
+.topbar .sp{flex:1}
+.topbar a.nav{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:8px}
+.topbar a.nav:hover{background:var(--accent-soft);color:var(--accent)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cat);z-index:40;width:0}
+main{max-width:880px;margin:0 auto;padding:34px 22px 80px}
+.crumbs{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.04em;margin:0 0 18px}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 7px;color:var(--line2)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cat);background:var(--cat-soft);padding:6px 11px;border-radius:999px}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cat)}
+h1{font-family:var(--sans);font-size:42px;line-height:1.25;margin:16px 0 12px;font-weight:800;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:690px}
+.hero{margin-bottom:24px}
+h2{font-family:var(--sans);font-size:25px;line-height:1.4;margin:50px 0 14px;font-weight:800;scroll-margin-top:70px}
+h2 .no{color:var(--cat);font-size:14px;font-weight:700;letter-spacing:.1em;display:block;margin-bottom:6px}
+h3{font-family:var(--sans);font-size:17.5px;margin:30px 0 8px;font-weight:700;scroll-margin-top:70px}
+p{margin:0 0 16px}.quiet{color:var(--muted)}.small{font-size:14px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:15.5px}
+.callout b{color:var(--accent)}
+.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.warn b{color:var(--amber)}
+.callout.tip{border-color:var(--teal);background:var(--teal-soft)}.callout.tip b{color:var(--teal)}
+.callout p:last-child{margin-bottom:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px 12px;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;max-width:580px;height:auto;margin:0 auto}
+.fig figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.65}
+.svg-title{font-family:var(--sans);font-size:14px;font-weight:700;fill:var(--ink)}
+.svg-sub{font-family:var(--sans);font-size:11.5px;fill:var(--muted)}
+.svg-lbl{font-family:var(--sans);font-size:12px;fill:var(--muted);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:14px 0;table-layout:fixed}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:#faf9f6;font-size:11.5px;font-weight:700}
+td code{word-break:break-all}tr:last-child td{border-bottom:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 6px;font-family:var(--sans);font-size:12px}
+.chips a{text-decoration:none;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px}
+.chips a:hover{border-color:var(--cat);color:var(--cat);background:var(--cat-soft)}
+.entry{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;margin:0 0 14px;box-shadow:var(--shadow);scroll-margin-top:70px}
+.entry summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.entry summary::-webkit-details-marker{display:none}
+.entry .type{font-family:var(--mono);font-size:13px;font-weight:700;word-break:break-all}
+.entry .one{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.entry .chev{margin-left:auto;font-family:var(--mono);color:var(--accent);font-size:17px;line-height:1;transition:transform .15s}
+.entry[open] .chev{transform:rotate(45deg)}
+.entry .body{padding:12px 16px 15px;border-top:1px dashed var(--line);display:grid;grid-template-columns:1.06fr .94fr;gap:18px}
+.entry .body p{font-size:14px;margin:0 0 9px}
+.io{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 9px;font-family:var(--mono);font-size:10.5px}
+.io span{border-radius:5px;padding:2px 6px;background:#f2f0ea;color:var(--muted)}
+.io .out{background:var(--accent-soft);color:var(--accent)}
+.ex{font-family:var(--sans);font-size:12px;background:#fbfaf6;border:1px dashed var(--line2);border-radius:8px;padding:9px 10px;line-height:1.75;margin:0}
+.ex b{color:var(--cat)}
+.pit{font-family:var(--sans);font-size:12px;color:var(--amber);margin:9px 0 0;line-height:1.7}
+.entry table{font-size:11.5px;margin:6px 0}
+.entry th,.entry td{padding:5px 5px}
+.practice{display:grid;gap:12px;margin:20px 0}
+.task{display:grid;grid-template-columns:30px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.task .idx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;margin-top:2px}
+.task p{margin:0;font-size:14.5px}.task .why{color:var(--muted);font-size:13px;margin-top:4px}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0;box-shadow:var(--shadow)}
+.checklist h4{font-family:var(--sans);font-size:14px;margin:0 0 10px;letter-spacing:.04em;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-family:var(--sans);font-size:14px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.check:last-child{border-bottom:none}
+.check input{margin:4px 0 0;accent-color:var(--teal);width:16px;height:16px;flex:none}
+.check.done span{color:var(--faint);text-decoration:line-through}
+.pager{display:flex;justify-content:space-between;gap:14px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:13.5px}
+.pager a{text-decoration:none;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;max-width:48%}
+.pager a:hover{border-color:var(--accent);color:var(--accent)}
+.pager .dir{display:block;font-size:10.5px;letter-spacing:.1em;color:var(--faint);margin-bottom:2px}
+footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint);text-align:center;line-height:1.8}
+@media(max-width:680px){
+  body{font-size:15.5px}
+  .topbar .in{padding:9px 14px;gap:8px;font-size:12px}.topbar .hide-s{display:none}
+  main{padding:24px 15px 60px}
+  h1{font-size:31px}.lede{font-size:16px}
+  h2{font-size:21px;margin-top:40px}h3{font-size:16.5px}
+  .entry .body{grid-template-columns:1fr;gap:10px}
+  table{font-size:11.5px}th,td{padding:6px 4px}
+  .pager{flex-direction:column}.pager a{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topbar"><div class="in">
+  <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
+  <span class="sp"></span>
+  <span class="hide-s" style="color:var(--faint)">L2 节点字典 · 02 / 04</span>
+  <a class="nav" href="../index.html">课目表</a>
+  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
+</div></nav>
+
+<main>
+  <p class="crumbs"><a href="../index.html">课目表</a><span class="sep">/</span>L2 节点字典<span class="sep">/</span>L2-02 文本条件</p>
+
+  <header class="hero">
+    <span class="kicker">L2 节点字典 · 第二册</span>
+    <h1>文本条件：<br>一句话怎么变成 CONDITIONING</h1>
+    <p class="lede">提示词写了三行，出图完全不照做；负向填了词，画面还是老样子。问题常出在同一步：那句话还没被翻译成模型认得的那种输入。这一节只走文字这一条来路，把输入框到采样的接力棒交清楚。</p>
+  </header>
+
+  <h2 id="flow"><span class="no">01 / 一张图看懂</span>条件的两条来路</h2>
+  <p>条件只有两条来路：一条来自你说的话，一条来自你给的图。两条都在采样之前汇合，合成采样器唯一认得的那种输入。采样本身在 L1-02 讲过，这里只管一件事：什么条件被送了进去。</p>
+  <p>这一步先看上排：文字经编码变成条件。下排的参考图属于另一条线，结构控制与风格注入在 L2-02b 展开；图上的字怎么读成一句话，在 L2-02c。本节把上排走完。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 460 220" role="img" aria-label="文本经翻译与 CLIP 编码成为条件，参考图经控制或风格适配成为附加条件，汇入采样">
+      <defs>
+        <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#5d6779"/>
+        </marker>
+      </defs>
+      <!-- 上排 -->
+      <rect x="8" y="24" width="92" height="48" rx="9" fill="#fff" stroke="#cbc6ba"/>
+      <text x="54" y="42" text-anchor="middle" dominant-baseline="middle" class="svg-title">提示词</text>
+      <text x="54" y="59" text-anchor="middle" dominant-baseline="middle" class="svg-sub">中文 / 英文</text>
+
+      <line x1="104" y1="48" x2="126" y2="48" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar)"/>
+
+      <rect x="130" y="24" width="92" height="48" rx="9" fill="#fff" stroke="#cbc6ba"/>
+      <text x="176" y="42" text-anchor="middle" dominant-baseline="middle" class="svg-title">翻译 / 识别</text>
+      <text x="176" y="59" text-anchor="middle" dominant-baseline="middle" class="svg-sub">可选</text>
+
+      <line x1="226" y1="48" x2="248" y2="48" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar)"/>
+
+      <rect x="252" y="24" width="92" height="48" rx="9" fill="#eef0ff" stroke="#4051d6"/>
+      <text x="298" y="42" text-anchor="middle" dominant-baseline="middle" class="svg-title">CLIP 编码</text>
+      <text x="298" y="59" text-anchor="middle" dominant-baseline="middle" class="svg-sub">变成条件</text>
+
+      <line x1="348" y1="48" x2="370" y2="48" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar)"/>
+
+      <rect x="374" y="24" width="80" height="48" rx="9" fill="#eef0ff" stroke="#4051d6"/>
+      <text x="414" y="48" text-anchor="middle" dominant-baseline="middle" class="svg-title">条件</text>
+
+      <!-- 下排 -->
+      <rect x="8" y="130" width="92" height="48" rx="9" fill="#fff" stroke="#cbc6ba"/>
+      <text x="54" y="148" text-anchor="middle" dominant-baseline="middle" class="svg-title">参考图</text>
+      <text x="54" y="165" text-anchor="middle" dominant-baseline="middle" class="svg-sub">结构或风格</text>
+
+      <line x1="104" y1="154" x2="126" y2="154" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar)"/>
+
+      <rect x="130" y="130" width="110" height="48" rx="9" fill="#f3efff" stroke="#7c4ddb"/>
+      <text x="185" y="148" text-anchor="middle" dominant-baseline="middle" class="svg-title">控制 / 风格</text>
+      <text x="185" y="165" text-anchor="middle" dominant-baseline="middle" class="svg-sub">ControlNet / IPAdapter</text>
+
+      <path d="M244,154 H410 V76" fill="none" stroke="#5d6779" stroke-width="1.4" marker-end="url(#ar)"/>
+      <text x="400" y="142" text-anchor="end" dominant-baseline="middle" class="svg-lbl">附加条件</text>
+    </svg>
+    <figcaption>上排是你说的话，下排是你给的图，两条在采样前汇合，变成采样器能读的条件。</figcaption>
+  </figure>
+
+  <div class="callout">
+    <p><b>先认清这个类型：</b>条件（CONDITIONING）是一串已经编码好的引导信息，采样器照着它调整方向。它既不是图，也不是你写的那句话。看到紫线或黄线，下游要么接采样器，要么接条件运算节点。</p>
+    <p>反例：它不是提示词原文。你改文字，这串数字不会自己跟着变，得重新走一遍编码。</p>
+  </div>
+
+  <div class="chips">
+    <a href="#term-cond">CLIPTextEncode</a><a href="#term-fluxcond">CLIPTextEncodeFlux</a>
+    <a href="#term-zero">ConditioningZeroOut</a>
+    <a href="l2-02b-structure-style.html">→ L2-02b 结构与风格条件</a>
+    <a href="l2-02c-text-tools.html">→ L2-02c 文字工具</a>
+  </div>
+
+  <h2 id="text"><span class="no">02 / 文本条件</span>从一句话到 CONDITIONING</h2>
+  <p>一句话要变成条件，中间先过一道切分。token（词元）：一段话被切成的碎片，一个大致的经验是，一个汉字、半个英文长词，都可能占上一块。反例：它不是“关键词”，你写的一整句会先碎成几十块，再一起送进编码器。</p>
+  <p>CLIP（文本编码器）：把 token 序列翻成一串向量的那一层网络。反例：它不是聊天模型，读不懂你的意图，也不会替你把句子补完整，只负责翻译。同样的文字，配上不同的 CLIP 权重，出来的向量就不一样。</p>
+  <p>于是链路很清楚：文字进 <code>CLIPTextEncode</code>，出来 CONDITIONING。正向写“要什么”，负向写“不要什么”，用的都是同一个节点类型，区别只在接采样器哪个口。</p>
+
+  <details class="entry" id="term-cond" open>
+    <summary><span class="type">CLIPTextEncode</span><span class="one">提示词的标准入口</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>最常见的一步：你有一句话，要把它变成条件。</p>
+        <p>输入一段文字和一个 CLIP，输出 CONDITIONING。正向你写“要什么”，负向你写“不要什么”，用的是同一个节点类型，只是接在采样器不同的口上。反例：它的输出不是提示词原文；下游显示的文字换了，这里也不会自动跟着换。</p>
+        <div class="io"><span>CLIP</span><span>STRING</span><span class="out">CONDITIONING</span></div>
+        <table><tbody>
+          <tr><th style="width:32%">text</th><td>提示词正文，支持多行。</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">04 <b>#59</b> 正向：一段英文建筑描述；<b>#7</b> 负向：空字符串。03 <b>#56</b> 正向英文；<b>#7</b> 负向空。01 <b>#142</b> 是中文正向，<b>#178/#179</b> 是英文正向与空负向。</div>
+        <p class="pit">易错：文本编码器有长度上限，过长可能被截断；“负向留空”很常见，但空字符串不等于关闭负向。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-fluxcond">
+    <summary><span class="type">CLIPTextEncodeFlux</span><span class="one">Flux1 的双文本 + guidance</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>跑 Flux1 时，节点换了一个，长句也更管用。</p>
+        <p>Flux1 有两个文本编码器：CLIP-L 管短描述，T5 管长描述。这个节点一次收两段文字，另带一个 guidance 参数。反例：guidance 不是 CFG，两个参数不在同一处，也别拿一个去推另一个。</p>
+        <div class="io"><span>CLIP</span><span class="out">CONDITIONING</span></div>
+        <table><tbody>
+          <tr><th style="width:34%">clip_l</th><td>短文本，通常放关键词。</td></tr>
+          <tr><th>t5xxl</th><td>长文本，可放完整句子。</td></tr>
+          <tr><th>guidance</th><td>引导强度，与 CFG 不是同一个参数。</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ex">05 手动局部修改 <b>#254</b>：两段都是 <code>A car was driving on the road</code>，guidance = <b>3.5</b>。</div>
+        <p class="pit">易错：Flux1 与 Flux2 的编码方式不同；Flux2 子图用的是 <code>CLIPLoader + CLIPTextEncode</code>，不要混用。</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="entry" id="term-zero">
+    <summary><span class="type">ConditioningZeroOut</span><span class="one">把条件清零，当作负向</span><span class="chev">＋</span></summary>
+    <div class="body">
+      <div>
+        <p>Flux 系不太需要写负向提示词，但负向口也不能空着不接。</p>
+        <p><code>ConditioningZeroOut</code> 收一路 CONDITIONING，输出一路数值全为零的条件，接到负向输入上。反例：它不是“把提示词删掉”，你的文字还在上游；这里只是另给一版全零的条件。</p>
+        <div class="io"><span>CONDITIONING</span><span class="out">CONDITIONING</span></div>
+      </div>
+      <div>
+        <div class="ex">02 子图 <b>#144</b>；05 根图 <b>#258</b>。</div>
+        <p class="pit">易错：它不是“删除条件”，而是生成一个数值为零的条件；仍然要接到负向输入上才起作用。</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="callout tip">
+    <p><b>负向口怎么接：</b>三种都常见。写一段负向词，用 <code>CLIPTextEncode</code> 接进去；留一个空字符串，同样走 <code>CLIPTextEncode</code>；Flux 系干脆用 <code>ConditioningZeroOut</code> 给一版全零条件。</p>
+    <p>空字符串不等于“关闭负向”。它仍然是一路编码后的条件，只是内容为空；零条件是把数值清零的另一版，两者别混。</p>
+  </div>
+
+  <h2 id="practice"><span class="no">03 / 动手</span>只改文字，看条件怎么变</h2>
+  <div class="practice">
+    <div class="task"><div class="idx">1</div><div><p>打开 04，找到 <b>#59</b> 正向与 <b>#7</b> 负向。把 <b>#7</b> 的空字符串换成一句“blurry, low quality”，其余不动，跑一次。</p><p class="why">目标：确认同一个 CLIPTextEncode 既能当正向，也能当负向。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 05 手动局部修改，找到 <b>#254 CLIPTextEncodeFlux</b>。两段文本保持 <code>A car was driving on the road</code>，把 guidance 从 <b>3.5</b> 改成 2.0 跑一次；再把采样器的 CFG 单独改一次。</p><p class="why">目标：分清 guidance 与 CFG，两个参数不在同一处。</p></div></div>
+    <div class="task"><div class="idx">3</div><div><p>在 05 根图里把 <b>#258 ConditioningZeroOut</b> 暂时断开。看负向缺失后，是报错，还是画面跑偏。</p><p class="why">目标：确认零条件也是条件，不是“没有”。</p></div></div>
+  </div>
+
+  <h2 id="check"><span class="no">04 / 自检</span>文字到条件，这条链没有断</h2>
+  <div class="checklist">
+    <h4>勾选你真正掌握的条目（本机自动记住）</h4>
+    <label class="check"><input type="checkbox"><span>我能说出 CONDITIONING 既不是图像，也不是提示词原文。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 CLIPTextEncode 的正向与负向是同一个节点类型，区别只在接采样器哪个口。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 Flux1 的 clip_l 管短描述、t5xxl 管长描述，guidance 与 CFG 不是同一个参数。</span></label>
+    <label class="check"><input type="checkbox"><span>我能分清负向留空、写负向词、接 ConditioningZeroOut 这三件事。</span></label>
+    <label class="check"><input type="checkbox"><span>我知道 Flux2 子图用 CLIPLoader + CLIPTextEncode，不能和 Flux1 的编码节点混用。</span></label>
+  </div>
+
+  <nav class="pager">
+    <a href="l2-01b-extra-loaders.html"><span class="dir">← 上一册</span>L2-01b 输入与加载 · 附加五项</a>
+    <a href="l2-02b-structure-style.html"><span class="dir">下一册 →</span>L2-02b 结构与风格条件</a>
+  </nav>
+
+  <footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function openHash(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    var el=document.getElementById(id);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash);openHash();
+  document.querySelectorAll('.check input').forEach(function(box,i){
+    var key='l2-02-check-'+i;
+    try{if(localStorage.getItem(key)==='1'){box.checked=true;box.closest('.check').classList.add('done');}}catch(e){}
+    box.addEventListener('change',function(){
+      box.closest('.check').classList.toggle('done',box.checked);
+      try{localStorage.setItem(key,box.checked?'1':'0');}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>
