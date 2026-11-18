@@ -12,36 +12,23 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
 <style>
   :root{
-    --paper:#f6f5f1;--card:#ffffff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
-    --line:#e2ded4;--line2:#cbc6ba;--accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
+    --paper:#e6eefa;--card:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44));--ink:#18212f;--muted:#59616e;--faint:#6b7280;
+    --line:rgba(23,42,74,.12);--line2:rgba(23,42,74,.22);--accent:#4051d6;--accent-soft:rgba(64,81,214,.09);
     --teal:#0f7a6c;--teal-soft:rgba(15,122,108,.10);--amber:#b26206;
-    --radius:16px;--shadow:0 1px 2px rgba(24,33,47,.05),0 18px 50px -32px rgba(24,33,47,.45);
+    --radius:16px;--shadow:inset 0 1px 0 rgba(255,255,255,.85);
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
-    background:
-      linear-gradient(90deg,rgba(24,33,47,.028) 1px,transparent 1px) 0 0/72px 72px,
-      linear-gradient(rgba(24,33,47,.028) 1px,transparent 1px) 0 0/72px 72px,
-      var(--paper);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+
     color:var(--ink);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
-  }
+
+  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+}
   a{color:var(--accent);text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-  .topbar{position:sticky;top:0;z-index:60;background:rgba(246,245,241,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .topbar .wrap{display:flex;align-items:center;gap:16px;height:60px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:.01em;white-space:nowrap;color:var(--ink)}
-  .brand .mark{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative;flex:0 0 auto}
-  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.92}
-  .brand small{font-weight:600;color:var(--faint);font-size:11px;letter-spacing:.1em}
-  .topnav{margin-left:auto;display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
-  .topnav::-webkit-scrollbar{display:none}
-  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:7px 11px;border-radius:8px;white-space:nowrap}
-  .topnav a:hover{background:var(--accent-soft);color:var(--accent)}
-  .topnav a.go{background:var(--ink);color:#fff;margin-left:4px}
-  .topnav a.go:hover{background:var(--accent);color:#fff}
 
   .hero{padding:82px 0 34px;position:relative;overflow:hidden}
   .hero::after{content:"";position:absolute;right:-140px;top:-120px;width:420px;height:420px;border-radius:50%;
@@ -145,7 +132,7 @@
 
   .terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
   .term{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;transition:.15s}
-  .term:hover{border-color:rgba(64,81,214,.4);background:#fff}
+  .term:hover{border-color:rgba(64,81,214,.4);background:rgba(255,255,255,.85)}
   .term b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--accent);margin-bottom:2px}
   .term span{font-size:12px;color:var(--faint)}
 
@@ -168,7 +155,7 @@
   @media (max-width:560px){
     .wrap{padding:0 18px}
     .hero{padding-top:52px}
-    .topnav a:not(.go){display:none}
+
     .lesson{grid-template-columns:34px 1fr;gap:6px 10px}
     .lesson .code{grid-column:2}
     .lesson .t{grid-column:2}
@@ -181,7 +168,7 @@
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 <style id="sitebar-css">
-.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(250,253,255,.72);-webkit-backdrop-filter:blur(18px) saturate(1.35);backdrop-filter:blur(18px) saturate(1.35);border-bottom:1px solid rgba(23,42,74,.08)}
 .sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
 .sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
 .sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
@@ -201,7 +188,7 @@
 .sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
 .sb-burger::before{top:0}.sb-burger::after{bottom:0}
 .sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
-.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(252,254,255,.94);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 54px -32px rgba(18,35,70,.55);box-sizing:border-box}
 .sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
 .sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
 .sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
@@ -223,6 +210,7 @@
   <div class="sb-in">
     <a class="sb-brand" href="index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
     <nav class="sb-nav" aria-label="站点导航">
+      <a href="index.html">首页</a>
       <a href="courses.html" aria-current="page">课程</a>
       <a href="resources.html">资料库</a>
       <a href="community.html">社区</a>
@@ -231,6 +219,7 @@
     <details class="sb-menu">
       <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
       <nav class="sb-panel" aria-label="站点菜单">
+        <a href="index.html">首页</a>
         <a href="courses.html" aria-current="page">课程</a>
         <a href="resources.html">资料库</a>
         <a href="community.html">社区</a>
@@ -396,7 +385,7 @@
 <footer>
   <div class="wrap">
     <div>落白lite & AI研学社 · © 2026 落白lite</div>
-    <div><a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
+    <div><a href="community.html">社区</a> · <a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
     <div><a href="#mainline">回到主线</a></div>
   </div>
 </footer>

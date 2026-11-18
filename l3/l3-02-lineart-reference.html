@@ -12,8 +12,8 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
 </script>
 <style>
   :root{
-    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
-    --line:#e2ded4; --line2:#cbc6ba;
+    --paper:#e6eefa; --card:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44)); --ink:#18212f; --muted:#59616e; --faint:#6b7280;
+    --line:rgba(23,42,74,.12); --line2:rgba(23,42,74,.22);
     --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
     --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
     --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
@@ -22,27 +22,22 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
     --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
     --t-image:#2f7d5b; --t-model:#3d6fc4; --t-cond:#7a4fc0; --t-latent:#b0447f;
     --t-control:#b26206; --t-string:#6b7f3a; --t-io:#6b7280;
-    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --shadow:inset 0 1px 0 rgba(255,255,255,.85);
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
-    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
-               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
-    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
-  }
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+
+  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+}
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
   code,.mono{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
 
-  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
-  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
-  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
   .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
   .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
   .secnav::-webkit-scrollbar{display:none}
@@ -88,9 +83,9 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
   .pre h3{font-size:14px;margin:8px 0 4px}
   .pre p{font-size:12.5px;color:var(--muted);margin:0}
-  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.55);border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
   .pre-note b{color:var(--ink)}
-  .term{background:#fbfaf7;border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:10px 14px;margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.8}
+  .term{background:rgba(255,255,255,.55);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:10px 14px;margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.8}
   .term p{margin:0 0 6px}
   .term p:last-child{margin:0}
   .term b{color:var(--ink)}
@@ -100,7 +95,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   .legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 10px 6px;border-top:1px dashed var(--line);margin-top:4px}
   .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
   .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
-  .mini-flow{display:none;margin-top:10px;background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:2}
+  .mini-flow{display:none;margin-top:10px;background:rgba(255,255,255,.55);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:2}
   .mini-flow b{color:var(--ink)}
 
   .stage{margin-top:30px;position:relative;padding-left:22px}
@@ -111,7 +106,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   .stage-h h3{font-size:16px}
   .stage-h .gp{font-size:11.5px;color:var(--faint)}
   .cards{display:grid;gap:10px}
-  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9);overflow:hidden}
   .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
   .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
   .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
@@ -144,7 +139,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin-top:14px}
   table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:700px}
   th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:rgba(255,255,255,.55);white-space:nowrap}
   tr:last-child td{border-bottom:none}
   td code{color:var(--accent)}
   tr.grp td{background:var(--accent-soft);font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.06em;padding:5px 12px}
@@ -189,7 +184,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   .next .nt{font-size:17px;font-weight:800;margin-top:2px}
   .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
   .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
-  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:rgba(255,255,255,.55);border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
   .src code{color:var(--muted)}
   footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
   footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -207,7 +202,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
     .bar{grid-template-columns:82px 1fr 52px}
   }
   @media print{
-    .topbar,.secnav,.mini-flow{display:none}
+
     body{background:#fff}
     section{padding:20px 0 0;page-break-inside:avoid}
     .ncard,.pre,.ex,.case,.scale{box-shadow:none}
@@ -216,7 +211,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   }
 </style>
 <style id="sitebar-css">
-.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(250,253,255,.72);-webkit-backdrop-filter:blur(18px) saturate(1.35);backdrop-filter:blur(18px) saturate(1.35);border-bottom:1px solid rgba(23,42,74,.08)}
 .sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
 .sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
 .sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
@@ -236,7 +231,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
 .sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
 .sb-burger::before{top:0}.sb-burger::after{bottom:0}
 .sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
-.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(252,254,255,.94);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 54px -32px rgba(18,35,70,.55);box-sizing:border-box}
 .sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
 .sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
 .sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
@@ -257,6 +252,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   <div class="sb-in">
     <a class="sb-brand" href="../index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
     <nav class="sb-nav" aria-label="站点导航">
+      <a href="../index.html">首页</a>
       <a href="../courses.html" aria-current="page">课程</a>
       <a href="../resources.html">资料库</a>
       <a href="../community.html">社区</a>
@@ -265,6 +261,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
     <details class="sb-menu">
       <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
       <nav class="sb-panel" aria-label="站点菜单">
+        <a href="../index.html">首页</a>
         <a href="../courses.html" aria-current="page">课程</a>
         <a href="../resources.html">资料库</a>
         <a href="../community.html">社区</a>
@@ -273,7 +270,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
   </div>
 </div>
 
-<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">L3 · 单品课</span><span style="color:#8b93a3;">第 40 / 52 节</span><span style="color:#8b93a3;">先修：L3-A1</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-01-text-to-image.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-03-interior-render.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+<div class="course-rail" id="course-rail" style="background:rgba(255,255,255,.55);border-bottom:1px solid rgba(23,42,74,.12);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#59616e;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:rgba(23,42,74,.22);">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:rgba(23,42,74,.22);">·</span><span style="font-weight:700;color:#18212f;">L3 · 单品课</span><span style="color:#6b7280;">第 40 / 52 节</span><span style="color:#6b7280;">先修：L3-A1</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:rgba(23,42,74,.22);">|</span><a href="l3-01-text-to-image.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-03-interior-render.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
 
 
 <header class="hero">
@@ -351,14 +348,14 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
           <style>
             .bx{fill:#fff;stroke:#d9d4c8;stroke-width:1.2}
             .t1{font:700 11px/1 ui-monospace,Consolas,monospace;fill:#18212f}
-            .t2{font:400 10px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779}
-            .t3{font:400 9.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#8b93a3}
+            .t2{font:400 10px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#59616e}
+            .t3{font:400 9.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#6b7280}
             .ln{fill:none;stroke:#8f97a8;stroke-width:1.4}
             .ln-a{fill:none;stroke:#b26206;stroke-width:1.5}
             .ln-v{fill:none;stroke:#7c4ddb;stroke-width:1.5}
             .ln-b{fill:none;stroke:#4051d6;stroke-width:1.5}
-            .lbl{font:700 10.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#5d6779;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
-          </style>
+            .lbl{font:700 10.5px/1 -apple-system,"Microsoft YaHei",sans-serif;fill:#59616e;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+</style>
         </defs>
 
         <text class="lbl" x="30" y="22" text-anchor="start">结构支路 · 线稿管形</text>

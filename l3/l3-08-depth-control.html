@@ -19,34 +19,29 @@ const COURSE = {
 </script>
 <style>
   :root{
-    --paper:#f6f5f1; --card:#ffffff; --ink:#18212f; --muted:#5d6779; --faint:#8b93a3;
-    --line:#e2ded4; --line2:#cbc6ba;
+    --paper:#e6eefa; --card:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44)); --ink:#18212f; --muted:#59616e; --faint:#6b7280;
+    --line:rgba(23,42,74,.12); --line2:rgba(23,42,74,.22);
     --accent:#4051d6; --accent-soft:rgba(64,81,214,.09);
     --teal:#0f7a6c; --teal-soft:rgba(15,122,108,.10);
     --amber:#b26206; --amber-soft:rgba(178,98,6,.10);
     --rose:#c22e63; --rose-soft:rgba(194,46,99,.09);
     --danger:#b3261e; --danger-soft:rgba(179,38,30,.08);
-    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -20px rgba(24,33,47,.35);
+    --shadow:inset 0 1px 0 rgba(255,255,255,.85);
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
-    background:linear-gradient(90deg,rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,
-               linear-gradient(rgba(24,33,47,.03) 1px,transparent 1px) 0 0/64px 64px,var(--paper);
-    color:var(--ink);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
-  }
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+
+  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+}
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
   code,.mono{font-family:var(--mono);font-size:.86em}
 
-  .topbar{position:sticky;top:0;z-index:80;background:rgba(246,245,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .topbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;white-space:nowrap}
-  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative}
-  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9}
   .crumb{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
   .secnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
   .secnav::-webkit-scrollbar{display:none}
@@ -98,7 +93,7 @@ const COURSE = {
   .pre .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;display:inline-block;font-weight:700}
   .pre h3{font-size:14px;margin:8px 0 4px}
   .pre p{font-size:12.5px;color:var(--muted);margin:0}
-  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
+  .pre-note{margin-top:12px;font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.55);border:1px dashed var(--line2);border-radius:10px;padding:11px 14px}
   .pre-note b{color:var(--ink)}
 
   .fig{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px;overflow-x:auto}
@@ -107,14 +102,14 @@ const COURSE = {
   .fig text{font-family:inherit}
   .fig .tb{font-size:13.5px;font-weight:700;fill:#18212f}
   .fig .t{font-size:12.5px;fill:#2c3546}
-  .fig .ts{font-size:10.5px;fill:#5d6779}
-  .fig .tm{font-family:var(--mono);font-size:9.5px;fill:#8b93a3;letter-spacing:.02em}
-  .fig .box{fill:#fff;stroke:#cbc6ba;stroke-width:1.2}
+  .fig .ts{font-size:10.5px;fill:#59616e}
+  .fig .tm{font-family:var(--mono);font-size:9.5px;fill:#6b7280;letter-spacing:.02em}
+  .fig .box{fill:#fff;stroke:rgba(23,42,74,.22);stroke-width:1.2}
   .fig .boxA{fill:#f1f2fd;stroke:#4051d6;stroke-width:1.4}
   .fig .boxT{fill:#eef7f4;stroke:#0f7a6c;stroke-width:1.3}
   .fig .ln{stroke:#8f97a8;stroke-width:1.4;fill:none}
   .fig .lnA{stroke:#4051d6;stroke-width:1.4;fill:none}
-  .fig .rule{stroke:#e2ded4;stroke-width:1}
+  .fig .rule{stroke:rgba(23,42,74,.12);stroke-width:1}
   .legend{display:flex;flex-wrap:wrap;gap:14px;padding:10px 4px 2px;border-top:1px dashed var(--line);margin-top:10px}
   .legend span{font-size:11.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
   .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
@@ -135,7 +130,7 @@ const COURSE = {
   .ngroup-head h3{font-size:16px}
   .ngroup-head .gp{font-size:11.5px;color:var(--faint)}
   .cards{display:grid;gap:10px}
-  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(24,33,47,.04);overflow:hidden}
+  .ncard{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9);overflow:hidden}
   .ncard .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfbf8}
   .nid{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:5px;padding:1px 7px}
   .ntype{font-family:var(--mono);font-size:12.5px;font-weight:700}
@@ -156,7 +151,7 @@ const COURSE = {
   .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);margin:12px 0 20px}
   table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:720px}
   th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:#fbfaf7;white-space:nowrap}
+  th{font-size:11px;letter-spacing:.05em;color:var(--faint);font-weight:700;background:rgba(255,255,255,.55);white-space:nowrap}
   tr:last-child td{border-bottom:none}
   td code{color:var(--accent)}
   .up{color:var(--amber);font-weight:700}
@@ -193,7 +188,7 @@ const COURSE = {
   .next .nd{font-size:12.5px;color:var(--muted);margin-top:2px}
   .next .go{margin-left:auto;font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
 
-  .src{margin-top:26px;font-size:12px;color:var(--faint);background:#fbfaf7;border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
+  .src{margin-top:26px;font-size:12px;color:var(--faint);background:rgba(255,255,255,.55);border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;line-height:1.8}
   .src code{color:var(--muted)}
 
   footer{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 44px;color:var(--faint);font-size:12.5px}
@@ -206,7 +201,7 @@ const COURSE = {
     .secnav{display:none}
   }
   @media print{
-    .topbar,.secnav{display:none}
+
     body{background:#fff}
     section{padding:20px 0 0;page-break-inside:avoid}
     .ncard,.pre,.ex{box-shadow:none}
@@ -227,7 +222,7 @@ const COURSE = {
   }
 </style>
 <style id="sitebar-css">
-.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(250,253,255,.72);-webkit-backdrop-filter:blur(18px) saturate(1.35);backdrop-filter:blur(18px) saturate(1.35);border-bottom:1px solid rgba(23,42,74,.08)}
 .sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
 .sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
 .sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
@@ -247,7 +242,7 @@ const COURSE = {
 .sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
 .sb-burger::before{top:0}.sb-burger::after{bottom:0}
 .sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
-.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(252,254,255,.94);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 54px -32px rgba(18,35,70,.55);box-sizing:border-box}
 .sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
 .sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
 .sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
@@ -268,6 +263,7 @@ const COURSE = {
   <div class="sb-in">
     <a class="sb-brand" href="../index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
     <nav class="sb-nav" aria-label="站点导航">
+      <a href="../index.html">首页</a>
       <a href="../courses.html" aria-current="page">课程</a>
       <a href="../resources.html">资料库</a>
       <a href="../community.html">社区</a>
@@ -276,6 +272,7 @@ const COURSE = {
     <details class="sb-menu">
       <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
       <nav class="sb-panel" aria-label="站点菜单">
+        <a href="../index.html">首页</a>
         <a href="../courses.html" aria-current="page">课程</a>
         <a href="../resources.html">资料库</a>
         <a href="../community.html">社区</a>
@@ -284,7 +281,7 @@ const COURSE = {
   </div>
 </div>
 
-<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">L3 · 单品课</span><span style="color:#8b93a3;">第 48 / 52 节</span><span style="color:#8b93a3;">先修：L3-A4</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-07b-upscale-methods.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-09-depth-segmentation.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+<div class="course-rail" id="course-rail" style="background:rgba(255,255,255,.55);border-bottom:1px solid rgba(23,42,74,.12);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#59616e;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:rgba(23,42,74,.22);">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:rgba(23,42,74,.22);">·</span><span style="font-weight:700;color:#18212f;">L3 · 单品课</span><span style="color:#6b7280;">第 48 / 52 节</span><span style="color:#6b7280;">先修：L3-A4</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:rgba(23,42,74,.22);">|</span><a href="l3-07b-upscale-methods.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-09-depth-segmentation.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
 
 
 <header class="hero">
@@ -380,7 +377,7 @@ const COURSE = {
         <!-- 1 原图 -->
         <text class="tb" x="130" y="26" text-anchor="middle" dominant-baseline="central">原图</text>
         <g>
-          <rect x="20" y="46" width="220" height="200" rx="6" fill="#fbf9f4" stroke="#cbc6ba" stroke-width="1"/>
+          <rect x="20" y="46" width="220" height="200" rx="6" fill="#fbf9f4" stroke="rgba(23,42,74,.22)" stroke-width="1"/>
           <path d="M40,190 L220,190 L232,236 L28,236 Z" fill="#e6ddcc"/>
           <rect x="40" y="66" width="180" height="124" fill="#f3ece0" stroke="#d8cfbf" stroke-width="1"/>
           <rect x="58" y="88" width="62" height="56" fill="#dde9f1" stroke="#c3d3df" stroke-width="1"/>
@@ -394,7 +391,7 @@ const COURSE = {
         <!-- 2 深度 -->
         <text class="tb" x="370" y="26" text-anchor="middle" dominant-baseline="central">深度图</text>
         <g>
-          <rect x="260" y="46" width="220" height="200" rx="6" fill="#efefef" stroke="#cbc6ba" stroke-width="1"/>
+          <rect x="260" y="46" width="220" height="200" rx="6" fill="#efefef" stroke="rgba(23,42,74,.22)" stroke-width="1"/>
           <path d="M280,190 L460,190 L472,236 L268,236 Z" fill="#9a9a9a"/>
           <rect x="280" y="66" width="180" height="124" fill="#c3c3c3" stroke="none"/>
           <rect x="298" y="88" width="62" height="56" fill="#f0f0f0" stroke="none"/>
@@ -408,7 +405,7 @@ const COURSE = {
         <!-- 3 线稿 -->
         <text class="tb" x="610" y="26" text-anchor="middle" dominant-baseline="central">线稿</text>
         <g>
-          <rect x="500" y="46" width="220" height="200" rx="6" fill="#ffffff" stroke="#cbc6ba" stroke-width="1"/>
+          <rect x="500" y="46" width="220" height="200" rx="6" fill="#ffffff" stroke="rgba(23,42,74,.22)" stroke-width="1"/>
           <path d="M520,190 L700,190 L712,236 L508,236 Z" fill="#fff" stroke="#333" stroke-width="1.6" stroke-linejoin="round"/>
           <rect x="520" y="66" width="180" height="124" fill="#fff" stroke="#333" stroke-width="1.6"/>
           <rect x="538" y="88" width="62" height="56" fill="#fff" stroke="#333" stroke-width="1.6"/>
@@ -422,7 +419,7 @@ const COURSE = {
         <!-- 4 语义分割 -->
         <text class="tb" x="850" y="26" text-anchor="middle" dominant-baseline="central">语义分割</text>
         <g>
-          <rect x="740" y="46" width="220" height="200" rx="6" fill="#ffffff" stroke="#cbc6ba" stroke-width="1"/>
+          <rect x="740" y="46" width="220" height="200" rx="6" fill="#ffffff" stroke="rgba(23,42,74,.22)" stroke-width="1"/>
           <path d="M760,190 L940,190 L952,236 L748,236 Z" fill="#d9c9a3" stroke="none"/>
           <rect x="760" y="66" width="180" height="124" fill="#c9d6e5" stroke="none"/>
           <rect x="778" y="88" width="62" height="56" fill="#a8c3d8" stroke="none"/>
@@ -565,7 +562,7 @@ const COURSE = {
           </div>
         </div>
         <div class="ncard">
-          <div class="hd"><span class="nid">#19</span><span class="ntype" style="color:#5d6779">PreviewImage</span><span class="nrole">唯一验证入口</span></div>
+          <div class="hd"><span class="nid">#19</span><span class="ntype" style="color:#59616e">PreviewImage</span><span class="nrole">唯一验证入口</span></div>
           <div class="bd">
             <p>深度图长什么样，只能在这里看。它不参与生成，但决定了你要不要继续排队。</p>
           </div>

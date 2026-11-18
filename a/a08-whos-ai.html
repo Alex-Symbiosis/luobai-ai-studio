@@ -21,56 +21,41 @@ const COURSE = {
 </script>
 <style>
   :root{
-    --paper:#f6f5f1;
-    --card:#ffffff;
+    --paper:#e6eefa;
+    --card:linear-gradient(180deg,rgba(255,255,255,.66),rgba(255,255,255,.44));
     --ink:#18212f;
-    --muted:#5d6779;
-    --faint:#8b93a3;
-    --line:#e2ded4;
-    --line2:#cbc6ba;
+    --muted:#59616e;
+    --faint:#6b7280;
+    --line:rgba(23,42,74,.12);
+    --line2:rgba(23,42,74,.22);
     --accent:#4051d6;
     --accent-soft:rgba(64,81,214,.09);
     --teal:#0f7a6c;
     --teal-soft:rgba(15,122,108,.10);
     --amber:#b26206;
     --amber-soft:rgba(178,98,6,.10);
-    --code:#fbfaf7;
+    --code:rgba(255,255,255,.55);
     --max:800px;
-    --shadow:0 1px 2px rgba(24,33,47,.05), 0 10px 30px -18px rgba(24,33,47,.30);
+    --shadow:inset 0 1px 0 rgba(255,255,255,.85);
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
-    margin:0;
-    background:
-      linear-gradient(90deg,rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
-      linear-gradient(rgba(24,33,47,.035) 1px,transparent 1px) 0 0/64px 64px,
-      var(--paper);
+  margin:0;
+
     color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
     font-size:16.5px;
     line-height:1.85;
     letter-spacing:.01em;
     -webkit-font-smoothing:antialiased;
-  }
+
+  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+}
   .wrap{max-width:var(--max);margin:0 auto;padding:52px 28px 92px;}
 
   /* 顶栏 */
-  .topbar{
-    position:sticky;top:0;z-index:60;
-    background:rgba(246,245,241,.88);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .topbar-inner{max-width:var(--max);margin:0 auto;padding:0 28px;height:56px;display:flex;align-items:center;gap:14px;}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;letter-spacing:.01em;white-space:nowrap;}
-  .brand-text{display:inline;}
-  .brand .mark{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:linear-gradient(135deg,var(--accent),var(--teal));position:relative;}
-  .brand .mark::after{content:"";position:absolute;inset:6px;border:1.5px solid #fff;border-radius:2px;opacity:.9;}
-  .topnav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
-  .topnav::-webkit-scrollbar{display:none}
-  .topnav a{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;white-space:nowrap;border-bottom:none;text-decoration:none;}
-  .topnav a:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none;border-bottom:none;}
 
   /* 标题区 */
   header{padding-bottom:26px;border-bottom:1px solid var(--line);}
@@ -95,7 +80,7 @@ const COURSE = {
   .first-why{font-size:13.5px;line-height:1.8;color:var(--muted);margin:7px 0 16px;}
   .first-why b{color:var(--ink);}
   .first-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
-  .ftile{display:flex;gap:10px;align-items:flex-start;padding:10px 11px;background:#fbfaf7;border:1px solid var(--line);border-radius:10px;min-width:0;}
+  .ftile{display:flex;gap:10px;align-items:flex-start;padding:10px 11px;background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:10px;min-width:0;}
   .ftile .plate{width:38px;height:38px;border-radius:9px;}
   .ftile .plate img{width:26px;height:26px;}
   .ftile b{display:block;font-size:13.5px;line-height:1.35;letter-spacing:-.01em;}
@@ -225,8 +210,7 @@ const COURSE = {
   }
   @media (max-width:640px){
     .wrap{padding:36px 18px 72px;}
-    .topbar-inner{padding:0 18px;}
-    .topnav a{font-size:11.5px;padding:6px 6px;}
+
     h1{font-size:30px;}
     .meta{grid-template-columns:1fr;}
     .stats{grid-template-columns:repeat(2,1fr);}
@@ -236,7 +220,7 @@ const COURSE = {
     .stop-head h2{font-size:19px;}
     .fig-wide{display:none;}
     .fig-mobile{display:grid;gap:0;max-width:320px;margin:0 auto;}
-    .brand-text{display:none;}
+
   }
   @media (max-width:560px){
     .first-grid{grid-template-columns:1fr;}
@@ -244,13 +228,13 @@ const COURSE = {
     .map h2{font-size:20px;}
   }
   @media print{
-    .topbar{display:none;}
+
     body{background:#fff;}
     .card,.stop,.src-list li,.ftile{break-inside:avoid;}
   }
 </style>
 <style id="sitebar-css">
-.sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
+.sitebar{position:sticky;top:0;z-index:90;background:rgba(250,253,255,.72);-webkit-backdrop-filter:blur(18px) saturate(1.35);backdrop-filter:blur(18px) saturate(1.35);border-bottom:1px solid rgba(23,42,74,.08)}
 .sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
 .sb-brand{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#18212f;font-size:13.5px;font-weight:700;letter-spacing:.01em;text-decoration:none;white-space:nowrap;flex:0 0 auto}
 .sb-mark{width:22px;height:22px;border-radius:6px;background:#4051d6;position:relative;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
@@ -270,7 +254,7 @@ const COURSE = {
 .sb-burger::before,.sb-burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:2px}
 .sb-burger::before{top:0}.sb-burger::after{bottom:0}
 .sb-menu[open] summary{background:rgba(64,81,214,.09);color:#4051d6}
-.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid rgba(24,33,47,.10);box-shadow:0 22px 50px -30px rgba(18,28,43,.55);box-sizing:border-box}
+.sb-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(260px,calc(100vw - 32px));padding:6px;border-radius:14px;background:rgba(252,254,255,.94);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 54px -32px rgba(18,35,70,.55);box-sizing:border-box}
 .sb-panel a{display:flex;align-items:center;min-height:46px;padding:0 12px;border-radius:9px;color:#243044;font-size:14px;font-weight:600;text-decoration:none}
 .sb-panel a:hover{background:rgba(64,81,214,.09);color:#4051d6}
 .sb-panel a[aria-current="page"]{color:#4051d6;background:rgba(64,81,214,.07)}
@@ -291,6 +275,7 @@ const COURSE = {
   <div class="sb-in">
     <a class="sb-brand" href="../index.html" title="回到首页"><span class="sb-mark" aria-hidden="true"></span><span>落白lite <span class="sb-sub">&amp; AI研学社</span></span><small>Luobai AI Studio</small></a>
     <nav class="sb-nav" aria-label="站点导航">
+      <a href="../index.html">首页</a>
       <a href="../courses.html" aria-current="page">课程</a>
       <a href="../resources.html">资料库</a>
       <a href="../community.html">社区</a>
@@ -299,6 +284,7 @@ const COURSE = {
     <details class="sb-menu">
       <summary><span class="sb-burger" aria-hidden="true"></span><span>菜单</span></summary>
       <nav class="sb-panel" aria-label="站点菜单">
+        <a href="../index.html">首页</a>
         <a href="../courses.html" aria-current="page">课程</a>
         <a href="../resources.html">资料库</a>
         <a href="../community.html">社区</a>
@@ -307,7 +293,7 @@ const COURSE = {
   </div>
 </div>
 
-<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">A · AI 通识</span><span style="color:#8b93a3;">第 8 / 52 节</span><span style="color:#8b93a3;">先修：A07</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="a07-glossary.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="../l0/l0-01-what-is-comfyui.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+<div class="course-rail" id="course-rail" style="background:rgba(255,255,255,.55);border-bottom:1px solid rgba(23,42,74,.12);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#59616e;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:rgba(23,42,74,.22);">·</span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程 01</a><span style="color:rgba(23,42,74,.22);">·</span><span style="font-weight:700;color:#18212f;">A · AI 通识</span><span style="color:#6b7280;">第 8 / 52 节</span><span style="color:#6b7280;">先修：A07</span><span style="flex:1 1 24px;"></span><a href="../course-01.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:rgba(23,42,74,.22);">|</span><a href="a07-glossary.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="../l0/l0-01-what-is-comfyui.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
 
 
 <div class="wrap">
