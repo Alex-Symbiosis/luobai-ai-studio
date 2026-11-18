@@ -156,7 +156,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <h2 id="why"><span class="no">01 / 场景</span>“我想要这种感觉”，但说不清是什么感觉</h2>
   <p>你翻到一张很喜欢的图。暖木色、低饱和、傍晚的柔光。你照着写提示词：“warm wood, low saturation, soft evening light”。生成出来的图，总差一点。颜色能写清楚，材质和光照的配比写不出来。</p>
-  <p><b>结论：IPAdapter 不是 ControlNet。</b>ControlNet 管构图对齐，IPAdapter 管像不像参考图的风格。IPAdapter（图像提示适配器）做的事很直接。它不靠文字描述风格。直接把参考图读成一个向量，再注入生成过程。</p>
+  <p><b>结论：IPAdapter 不是 ControlNet。</b>ControlNet 管构图对齐，IPAdapter 管像不像参考图的风格。上一课 <a href="l1-04-controlnet.html">L1-04</a> 已经把 ControlNet 的机制拆过，这里不重讲，只强调一点：两边都叫「参考图」，但 ControlNet 那张要先变成条件图，锁的是结构；IPAdapter 这张只借风格与内容。IPAdapter（图像提示适配器）做的事很直接：不靠文字描述风格，直接把参考图读成一个向量，再注入生成过程。</p>
   <p>它也不挑参考图。图和你的底图构图可以完全不一样，内容也不必相同。</p>
 
   <div class="callout">

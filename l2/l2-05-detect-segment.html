@@ -277,6 +277,8 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
   <p><b>grow 6 是什么：</b>局部重绘前，遮罩向外扩 6 像素，给接缝留余量。它补的是边缘，不是被家具挡住的一大片地板。</p>
   <p><b>1 MP 是什么：</b>约一百万像素。检测和分割本身不缩图：06 的 <code>#10 GroundingDinoSAMSegment</code> 直接吃 <code>#1</code> 原图，墙角这种细边才能保住。1 MP 只出现在后面的精修子图 <code>#68</code> 里，那里先把图缩到这个量级再重绘。所以是重绘阶段在缩放，不是检测与分割在缩放。</p>
 
+  <p>换成人物、产品或商品图，这张遮罩拿到手后一般做三件事：把人物从背景里分离出来换场景，把产品单独圈出来改色或换材质，把某个部件（衣袖、瓶盖、包装标签）拆出来单独重绘；框和遮罩一样能用于“先定位再处理”，但真正贴边、能直接喂给局部重绘的仍是 SAM 那张遮罩。</p>
+
   <div class="callout">
     <p><b>两处配套阅读：</b>完整接线、22 个节点和那条“遮罩没参与落盘”的死端，在 <a href="../l3/l3-06-text-guided-inpaint.html">L3-06 文字识别局部修改</a> 里逐节点拆过。条件（CONDITIONING，编码后的提示与约束）怎么接进采样器（sampler，一步步去噪出图），<a href="l2-02-text-conditioning.html">L2-02 条件与编码</a> 讲过，采样本身另见 <a href="../l1/l1-02-sampling-steps.html">L1-02 采样与步数</a>；这一课不重复。</p>
   </div>

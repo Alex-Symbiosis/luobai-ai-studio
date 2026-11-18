@@ -180,7 +180,7 @@ footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-
   </header>
 
   <div class="callout">
-    <p><b>先给场景：</b>图只差一点，你却不知道该动哪个参数。这一节里的七格，最后都在回答三个问题。从多吵的噪声开始，走几步，每一步听提示词多少。</p>
+    <p><b>先给场景：</b>L1-01 讲过潜空间、L1-02 讲过步数，这里把 KSampler 的每个输入串起来。图只差一点，你却不知道该动哪个参数。这一节里的七格，最后都在回答三个问题。从多吵的噪声开始，走几步，每一步听提示词多少。</p>
     <p>潜空间（Latent）：把像素按 1/8 缩小的草稿画布，采样器就在这张草稿上动笔。L1-01 专门讲过它。</p>
     <p>采样（Sampling）：按草稿擦噪声。从一团噪声起步，一小步一小步擦出潜空间里的图。反例：它不是“一键出图”，点一下拿不到成品，中间要跑很多步。L1-02 讲过采样与步数，这里补节点层怎么接。</p>
   </div>
@@ -215,7 +215,7 @@ footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-
   <p class="small quiet">05 手动涂抹、06 文字识别局部这两行，随局部重绘放进了 <a href="l2-03b-latent-inpaint.html#map">L2-03b</a>；07 高清放大那一行随尺寸链放进了 <a href="l2-03c-upscale-size.html#map">L2-03c</a>。表头与列名三节一致。</p>
 
   <h2 id="ksampler"><span class="no">02 / 七格参数</span>KSampler 里每一项在控什么</h2>
-  <p>第一次打开 <code>KSampler</code>，你会看到七格数字，不知道先动哪个。面板从左到右固定七格。下面按“最该先动”的顺序排，不按面板顺序。</p>
+  <p>第一次打开 <code>KSampler</code>，你会看到七格数字。先别忙着记参数名，跟着你手上这张图走一遍：它现在只有四路输入——模型、正向条件、负向条件、一张空画布；进门之后，先按 seed 抽一团噪声，再按 steps 一步一步擦，每一步用 CFG 决定听提示词多少、用 sampler_name 决定往哪个方向走、用 scheduler 决定这一步还剩多少噪声，denoise 则决定从多吵的位置起手。面板从左到右固定七格；下面按“最该先动”的顺序排，不按面板顺序。</p>
 
   <details class="entry" id="term-sampler" open>
     <summary><span class="type">KSampler</span><span class="one">根图最常用，七格管全流程</span><span class="val">15 步 / 3.0</span><span class="chev">＋</span></summary>
@@ -307,7 +307,7 @@ footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-
   </details>
 
   <h2 id="advanced"><span class="no">03 / 高级链</span>把一个 KSampler 拆成五件套</h2>
-  <p>子图里要换的常常只有噪声或步数。于是那几个字段被拆成独立节点。一个管噪声，一个管引导，一个管采样方法，一个管步数表。每个节点只干一件事，换哪个就动哪个，不用重接整条链。</p>
+  <p>子图里要换的常常只有噪声或步数。于是那几个字段被拆成独立节点：你手上那张草稿 latent，先由 <code>RandomNoise</code> 抽一团噪声，再交给 <code>CFGGuider</code> 决定听不听话、<code>KSamplerSelect</code> 决定往哪走、<code>Flux2Scheduler</code> 排好每一步剩多少噪声，最后由 <code>SamplerCustomAdvanced</code> 把这几路和 latent 串成一次采样。一个管噪声，一个管引导，一个管采样方法，一个管步数表。每个节点只干一件事，换哪个就动哪个，不用重接整条链。</p>
   <div class="chain" aria-label="高级采样链的组成">
     <span class="n">RandomNoise</span><span class="ar">＋</span>
     <span class="n">CFGGuider</span><span class="ar">＋</span>
@@ -378,6 +378,8 @@ footer{margin-top:46px;font-size:12px;color:var(--faint);text-align:center;line-
     <label class="check"><input type="checkbox"><span>我能分清 steps 与 scheduler：一个决定走几步，一个决定每一步剩多少噪声。</span></label>
     <label class="check"><input type="checkbox"><span>我能说出 01–07 子图里 SamplerCustomAdvanced 的五路输入分别接什么。</span></label>
   </div>
+
+  <p>这张图走出采样器时，还只是一份 latent。接下来 <a href="l2-03b-latent-inpaint.html">L2-03b 潜变量与局部重绘</a> 讲同一套采样怎么只在遮罩里动笔；<a href="l2-04-output.html">L2-04 输出</a> 讲预览、对比与保存，把这份 latent 真正落成一张 PNG。</p>
 
   <nav class="pager">
     <a href="l2-02c-text-tools.html"><span class="dir">← 上一册</span>L2-02c 文字工具</a>

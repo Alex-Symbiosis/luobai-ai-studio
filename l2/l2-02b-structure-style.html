@@ -147,7 +147,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <h2 id="struct"><span class="no">01 / 结构条件</span>把参考图变成“硬约束”</h2>
   <p>硬约束：位置、轮廓、前后关系照参考图走，模型没有商量余地。反例：它不是提示词里那句“请照着这个构图”，写多少遍都不如接一路控制来得直接。一张照片要变成硬约束，中间还得先加工成控制图。</p>
-  <p>完整的一条链有四步：参考图 → 预处理 → ControlNet 模型 → 压制进条件。前两步备料，第三步加载，最后一步才真正生效。ControlNet 的原理在 L1-04 讲过，这里只看节点怎么接、值是多少。</p>
+  <p>完整的一条链有四步：参考图 → 预处理 → ControlNet 模型 → 压制进条件。前两步备料，第三步加载，最后一步才真正生效。ControlNet 的原理在 <a href="../l1/l1-04-controlnet.html">L1-04</a> 讲过，这里只看节点怎么接、值是多少。</p>
 
   <details class="entry" id="term-controlnet" open>
     <summary><span class="type">ControlNetApplyAdvanced</span><span class="one">真正施加 ControlNet 的地方</span><span class="chev">＋</span></summary>
@@ -209,7 +209,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <h2 id="style"><span class="no">02 / 风格条件</span>不改变构图，只改变气质</h2>
   <p>软约束：只借参考图的配色、光线与笔触，位置和轮廓交回给提示词与采样。反例：它不是“调低强度的 ControlNet”，两者作用的层不同，一个改条件，一个改模型。</p>
-  <p>判断标准很短：输出接 CONDITIONING 的，归结构这一路；输出接 MODEL 的，归风格这一路。IPAdapter 属于后者，它插在模型加载与采样器之间，主模型不动，只被改装一层。原理在 L1-05 讲过，这里看接法与真实参数。</p>
+  <p>判断标准很短：输出接 CONDITIONING 的，归结构这一路；输出接 MODEL 的，归风格这一路。IPAdapter 属于后者，它插在模型加载与采样器之间，主模型不动，只被改装一层。原理在 <a href="../l1/l1-05-ipadapter.html">L1-05</a> 讲过，这里看接法与真实参数。</p>
 
   <details class="entry" id="term-ipadapter">
     <summary><span class="type">IPAdapterAdvanced</span><span class="one">把图像向量注入模型</span><span class="chev">＋</span></summary>
@@ -254,6 +254,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
   <div class="callout tip">
     <p><b>两路可以同时开：</b>04 的深度控制 <b>#12</b> 设 0.35，风格注入 <b>#37</b> 设 0.70，一个管构图，一个管质感。两条线互不抢口，因为一条走条件，一条走模型。</p>
     <p>顺序也别记反：先有模型，再让 IPAdapter 改装模型，最后才交给采样器。ReferenceLatent 相反，它挂在条件上，跟着条件一起进采样器。</p>
+    <p>两条线最后怎么在同一个 KSampler 上叠加生效，<a href="l2-03-sampling-core.html">L2-03 采样核心</a> 会接着讲。</p>
   </div>
 
   <h2 id="practice"><span class="no">03 / 动手</span>沿链找来源，再动手换参考图</h2>

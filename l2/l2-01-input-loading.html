@@ -156,11 +156,11 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <h2 id="map"><span class="no">01 / 先认路</span>一个工作流的“材料清单”：六项打底</h2>
   <p>打开一张新工作流，先别动参数。看最左边那几个方块：图从哪来，模型从哪来。材料没到位的图，调什么都白调。</p>
-  <p>加载节点很好认：左边没有输入线，只有右边出去的线。它们站在整张图的最前面，一道工序而已。你只要记住它吐出什么类型，就不会接错。</p>
+  <p>加载节点很好认：左边没有输入线，只有右边出去的线。它们站在整张图的最前面，一道工序而已。你只要记住它吐出什么类型，就不会接错。节点和连线的类型概念，<a href="../l0/l0-01-what-is-comfyui.html">L0-01</a> 已经讲过；这一课只看输入这一侧：谁把第一份材料递进来。</p>
   <div class="callout">
     <p><b>两种装法，别混：</b>SDXL 系走 <code>CheckpointLoaderSimple</code>，一次拿到 MODEL / CLIP / VAE 三路。Flux 系拆成 <code>UNETLoader</code> + <code>CLIPLoader</code> + <code>VAELoader</code> 三件。04 的根图用前者，子图用后者，正好一组对照。</p>
   </div>
-  <p>三路输出先认下来。MODEL 是真正动笔的主画师；CLIP 是文本编码器，把你说的话转成一串模型能读的条件；VAE 是有损翻译机，在像素和 1/8 草稿画布（潜空间）之间来回翻，翻一次损一次。反例：VAE 不是画质增强，它不美化画面，只换一种表示。潜空间在 L1-01 讲过，这里只关心谁把它搬进来。</p>
+  <p>三路输出先认下来：MODEL、CLIP、VAE。MODEL 与 VAE 在 L1-01、L1-06 已经讲过，CLIP 的细节在 L2-02 还会展开，这里不重复定义，只关心谁把它们搬进来。反例：VAE 不是画质增强，换 VAE 解决不了构图问题。</p>
 
   <h3>速查：我要… 用哪个节点</h3>
   <table>

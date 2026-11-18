@@ -302,7 +302,7 @@ const COURSE = {
   <!-- 02 前置 -->
   <section id="s2">
     <div class="shead"><span class="snum">02 / PREREQUISITES</span><h2>先认三张底牌</h2></div>
-    <p class="slead">这条链路只有 8 个节点，但每个节点都压着一个大概念。下面三张卡先把最常拦人的几个词落地：它们是什么、不是什么。缺一张，第四节就会卡住。</p>
+    <p class="slead">这一课用到 L0-01 的六步主链与 L1-02 的采样参数，后面 L3-02 会加入结构控制。这条链路只有 8 个节点，但每个节点都压着一个大概念。下面三张卡先把最常拦人的几个词落地：它们是什么、不是什么。缺一张，第四节就会卡住。</p>
 
     <div class="pre-grid">
       <div class="pre">
@@ -330,7 +330,7 @@ const COURSE = {
   <!-- 03 全景 -->
   <section id="s3">
     <div class="shead"><span class="snum">03 / BLUEPRINT</span><h2>全景：一条从噪声到 PNG 的路</h2></div>
-    <p class="slead">节点（Node）就是画布上一个方块，写着一件具体的事；连线是上游把数据交给下游的那一下。看图别从左往右扫，<b>先找出口</b>：右下角 #11 SaveImage。倒着往回走，只有一条路能到它——#9 解码 ← #4 采样 ← 三份输入（#5 正向、#7 负向、#8 空画布），而 #4 的模型来自 #2 LoRA ← #1 Checkpoint。全部就这些。</p>
+    <p class="slead">你手上这张待生成的图，现在还只是一张 1600 × 904 的空白噪声画布。先别从左往右扫节点，先找它的出口：右下角 #11 SaveImage。从出口往回走：这张图的上一步是 #9 VAEDecode 把潜空间翻译回像素；再往前，是 #4 KSampler 跑的那 20 步；#4 手里握着三样东西——#5 正向条件、#7 负向条件、#8 空画布，而它用的模型来自 #2 LoRA，再往上一站才是 #1 Checkpoint。节点（Node）就是画布上一个方块，写着一件具体的事；连线是上游把数据交给下游的那一下。整条路只有 8 个节点、11 根线，倒着走一遍，你就知道这张图经过谁。</p>
 
     <div class="pano">
       <svg viewBox="0 0 1200 430" role="img" aria-label="文生图工作流全景：模型装载、提示词编码、采样、解码与保存">
@@ -453,7 +453,7 @@ const COURSE = {
   <!-- 04 节点 -->
   <section id="s4">
     <div class="shead"><span class="snum">04 / NODE BY NODE</span><h2>逐个节点：每站收什么、交什么</h2></div>
-    <p class="slead">按信号流分四段：装载、写条件、采样、输出。每张卡只回答三个问题——这一站收什么、做什么、把什么交给下一站。</p>
+    <p class="slead">现在跟着这张图走一遍。它先在 #1 装上模型三件套，再由 #2 叠一层室内 LoRA；接着 #5 把 128 词英文描述压成正向条件，#7 用空字符串给一份负向条件，#8 递来一张 1600 × 904、batch 3 的空画布；#4 拿着这四路跑 20 步，把噪声擦成潜空间里的客厅；最后 #9 翻译回像素，#11 存成三张 PNG。每张卡只回答三个问题——这一站收什么、做什么、把什么交给下一站。</p>
 
     <div class="stage">
       <div class="stage-h"><span class="no">A</span><h3>装载：把模型和风格补丁接上</h3><span class="gp">#1 → #2</span></div>
