@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="李智博（落白lite）">
-<title>L2-02b 结构与风格条件 · AI 入门与 ComfyUI 出图课</title>
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<title>L2-02b 结构与风格条件 · 落白lite & AI研学社</title>
 <style>
 :root{
   --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
@@ -112,12 +114,13 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 </head>
 <body>
 <div class="progress" id="progress"></div>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 29 / 52 小节 · L2 · 节点字典</span><span style="color:#8b93a3;">先修：L1-04、L1-05、L2-02</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l2-02-text-conditioning.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l2-02c-text-tools.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 <nav class="topbar"><div class="in">
   <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
   <span class="sp"></span>
   <span class="hide-s" style="color:var(--faint)">L2 字典 · 02b</span>
   <a class="nav" href="../index.html">课目表</a>
-  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
 </div></nav>
 
 <main>
@@ -160,7 +163,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
         </tbody></table>
       </div>
       <div>
-        <div class="ex">04 深度 <b>#12</b> 0.35（0–1）、线稿 <b>#48</b> 0.3（0–1）；03 0.25 / 0.2；02 两张都是 0.6；LINK <b>#2</b> 0.7，区间 <b>0–0.7</b>；01 <b>#188</b> 0.6，区间 0–0.8。</div>
+        <div class="ex">04 深度 <b>#12</b> 0.35（0–1）、线稿 <b>#48</b> 0.3（0–1）；03 0.25 / 0.2；02 两张都是 0.6；综合 <b>#2</b> 0.7，区间 <b>0–0.7</b>；01 <b>#188</b> 0.6，区间 0–0.8。</div>
         <p class="pit">易错：它有两个输出，正负向都要接回采样器；只接正向会让负向绕开控制，效果变得不稳定。</p>
       </div>
     </div>
@@ -179,7 +182,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
         </tbody></table>
       </div>
       <div>
-        <div class="ex">04 深度 <b>#17</b> <code>DepthAnythingV2Preprocessor</code>、线稿 <b>#50</b> <code>LineartStandardPreprocessor</code>；文生图+深度+语义 <b>#25</b> <code>OneFormer-ADE20K-SemSegPreprocessor</code>；LINK <b>#4</b> <code>LineArtPreprocessor</code>。</div>
+        <div class="ex">04 深度 <b>#17</b> <code>DepthAnythingV2Preprocessor</code>、线稿 <b>#50</b> <code>LineartStandardPreprocessor</code>；文生图+深度+语义 <b>#25</b> <code>OneFormer-ADE20K-SemSegPreprocessor</code>；综合 <b>#4</b> <code>LineArtPreprocessor</code>。</div>
         <p class="pit">易错：预处理器类型必须与 ControlNet 模型同类；分辨率 512 意味着细节会被压缩，不等于原图全分辨率。</p>
       </div>
     </div>
@@ -222,7 +225,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
         </tbody></table>
       </div>
       <div>
-        <div class="ex">04 <b>#37</b> 0.70 · style · 0–0.95；03 <b>#37</b> 0.75 · style · 0–0.9；02 <b>#134</b> 0.70 · strong · 0–1；IPA <b>#37</b> 0.72 · strong · 0–0.877；LINK <b>#10</b> 0.80 · style · 0–1。</div>
+        <div class="ex">04 <b>#37</b> 0.70 · style · 0–0.95；03 <b>#37</b> 0.75 · style · 0–0.9；02 <b>#134</b> 0.70 · strong · 0–1；IPA <b>#37</b> 0.72 · strong · 0–0.877；综合 <b>#10</b> 0.80 · style · 0–1。</div>
         <p class="pit">易错：把它当条件节点接在采样器后面，会直接接不上；它是“改装模型”，位置在采样之前。</p>
       </div>
     </div>
@@ -242,7 +245,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
         </tbody></table>
       </div>
       <div>
-        <div class="ex">04 <b>#41</b>、03 <b>#41</b>、02 <b>#132</b>、IPA <b>#41</b>、LINK <b>#8</b>，五处参数完全一致。04 中 #41 接收 #33 的参考图，输出回 #37 的 <code>image_negative</code>。</div>
+        <div class="ex">04 <b>#41</b>、03 <b>#41</b>、02 <b>#132</b>、IPA <b>#41</b>、综合 <b>#8</b>，五处参数完全一致。04 中 #41 接收 #33 的参考图，输出回 #37 的 <code>image_negative</code>。</div>
         <p class="pit">易错：它输出的是图像，不是条件；不要接到 CONDITIONING 口。</p>
       </div>
     </div>
@@ -277,7 +280,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>

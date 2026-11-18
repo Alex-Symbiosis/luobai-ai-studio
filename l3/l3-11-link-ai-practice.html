@@ -3,15 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
-<title>L3-D1 · LINK AI 工作流练习 | AI 入门与 ComfyUI 出图课</title>
+<title>L3-D1 · 综合工作流练习 | 落白lite & AI研学社</title>
 <script>
 /* ============ 唯一品牌修改点：改这里，全站生效 ============ */
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '李智博',
+  author: '落白lite（李智博）',
   year: '2026'
 };
 </script>
@@ -230,6 +232,8 @@ const COURSE = {
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 51 / 52 小节 · L3 · 单品课</span><span style="color:#8b93a3;">先修：L3-A1–L3-C4</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-10-ipadapter-style.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-12-review.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
@@ -243,7 +247,6 @@ const COURSE = {
       <a href="#s5">参数</a>
       <a href="#s6">踩坑</a>
       <a href="#s7">练习</a>
-      <a href="../guides/visual-spec.html">视觉规范</a>
     </nav>
   </div>
 </div>
@@ -251,7 +254,7 @@ const COURSE = {
 <header class="hero">
   <div class="wrap">
     <span class="kicker">L3 · 单品课 · D 线 · 工程习惯</span>
-    <h1>LINK AI 工作流练习</h1>
+    <h1>综合工作流练习</h1>
     <p class="sub">同一条线要接四个地方，你就得画六条横穿画布的长线。三天后回来改图，自己都找不到底图在哪。这一课不教新效果，只教怎么把画布收拾干净。</p>
 
     <div class="goal">
@@ -260,12 +263,11 @@ const COURSE = {
     </div>
 
     <div class="metas">
-      <span class="chip">源文件 <b>⚙️LINK AI 工作流搭建练习V1.0</b></span>
+      <span class="chip">工作流 <b>建筑表现综合工作流</b></span>
       <span class="chip">节点 <b>32</b></span>
       <span class="chip">连线 <b>39</b></span>
       <span class="chip">分组 <b>8 块</b></span>
       <span class="chip">变量 <b>2 定义 / 4 取用</b></span>
-      <span class="chip">数据核对日 <b>2026-11-08</b></span>
     </div>
 
     <div class="posmap">
@@ -275,7 +277,7 @@ const COURSE = {
         <div class="pstop done"><div class="pc">C2</div><div class="pn">文生图 + 深度</div></div>
         <div class="pstop done"><div class="pc">C3</div><div class="pn">深度 + 语义分割</div></div>
         <div class="pstop done"><div class="pc">C4</div><div class="pn">IPA 风格迁移</div></div>
-        <div class="pstop here"><div class="pc">D1</div><div class="pn">LINK 搭建练习<span class="here-tag">你在这里</span></div></div>
+        <div class="pstop here"><div class="pc">D1</div><div class="pn">综合搭建练习<span class="here-tag">你在这里</span></div></div>
         <div class="pstop"><div class="pc">R</div><div class="pn">综合复盘</div></div>
       </div>
     </div>
@@ -639,49 +641,49 @@ const COURSE = {
 
     <div class="pits">
       <div class="pit">
-        <div class="where">LINK 工作流 · #23 #24</div>
+        <div class="where">综合工作流 · #23 #24</div>
         <h3>反推跑得很认真，字幕却没人用</h3>
         <p>#24 的 <code>STRING</code> 输出没有连线，<code>links</code> 是空数组。整段 Florence 推理只是把文字显示给你看，没有进提示词。你会以为“AI 在帮我写词”，实际上两个 CLIPTextEncode 都是空的。</p>
         <p class="fix">修法：把 #24 的 STRING 接到 #20 的 text；否则直接删掉 #23 #24，省一份显存与时间。</p>
       </div>
 
       <div class="pit">
-        <div class="where">LINK 工作流 · #10 / #20 / #21</div>
+        <div class="where">综合工作流 · #10 / #20 / #21</div>
         <h3>“模型没接”是错觉</h3>
         <p>这三处的输入在画布上都是空的，但能跑。因为 #14 在做隐式广播。新手常把 #14 删掉“清理画布”，结果立刻报错。</p>
         <p class="fix">修法：先点开 #14 看它收了什么；要删就把模型/CLIP 显式接到 #10、#20、#21，再删。</p>
       </div>
 
       <div class="pit">
-        <div class="where">LINK 工作流 · #28 / #31</div>
+        <div class="where">综合工作流 · #28 / #31</div>
         <h3>两个 Set 标题一模一样</h3>
         <p>都叫 <code>Set_IMAGE</code>，只有变量名不同（基础底图 / 参考图）。找节点时靠标题会找错。</p>
         <p class="fix">修法：把节点标题改成 <code>SET_底图</code> / <code>SET_参考</code>；重命名变量时，四张 Get 要一起改，否则它们会变成“找不到变量”。</p>
       </div>
 
       <div class="pit lv2">
-        <div class="where">LINK 工作流 · #8</div>
+        <div class="where">综合工作流 · #8</div>
         <h3>这里的 IPAdapterNoise 确实没接图</h3>
         <p>C4 里它接参考图、做“褪色负向”；这里 <code>image_optional</code> 为空，输出是纯噪声。两课的节点名一样、行为不一样。</p>
         <p class="fix">修法：读节点先读出入口，再读参数。别因为名字相同就假设接法相同。</p>
       </div>
 
       <div class="pit lv2">
-        <div class="where">LINK 工作流 · #15</div>
+        <div class="where">综合工作流 · #15</div>
         <h3>euler 和 euler_ancestral 不能随手换</h3>
         <p>这条链用 euler，C4 用 euler_ancestral。前者更稳、后者更活。在“形不能跑”的场景里，ancestral 会带来看不见的轻微抖动。</p>
         <p class="fix">修法：锁形优先 euler；想要空气感再换 ancestral，并同步降一点 IPA 权重。</p>
       </div>
 
       <div class="pit lv2">
-        <div class="where">LINK 工作流 · #40</div>
+        <div class="where">综合工作流 · #40</div>
         <h3>对比器的 A 面就是原图</h3>
         <p>它接的是 #41 GetNode，往上追是 #28 SetNode ← #27 LoadImage，也就是原图本身，不是 #17 缩放后的图。若你想看“缩放后 vs 成品”，才需要把 A 面改接到 #17 的输出。</p>
         <p class="fix">修法：对比前先确认 A 面接的是哪一个阶段的图，否则会误判“放大后变模糊”。</p>
       </div>
 
       <div class="pit lv2">
-        <div class="where">LINK 工作流 · 全局</div>
+        <div class="where">综合工作流 · 全局</div>
         <h3>分组不会被执行，但它决定你敢不敢改</h3>
         <p>8 个分组框只是视觉容器。删掉它们照样能跑，但三天后你会在一堆同名节点里找不到“底图在哪”。</p>
         <p class="fix">修法：新建工作流先分块再连线；每块用动词命名（提供底图 / 出图尺寸 / 提示词反推），别用“组1、组2”。</p>
@@ -753,17 +755,13 @@ const COURSE = {
       </div>
       <a class="go" href="l3-12-review.html">进入下一课 →</a>
     </div>
-
-    <div class="src">
-      <b>本课数据来源与核对方式：</b><code>ComfyUI_工作流架构/⚙️LINK AI 工作流搭建练习V1.0 .json</code>。32 个节点、39 条连线、8 个分组。Set：#28 <code>基础底图</code>、#31 <code>参考图</code>；Get：#36 #41（基础底图）、#32 #29（参考图）。空值：#20 #21 均 <code>""</code>，#24 输出 links 为空，#8 <code>image_optional</code> 未连接。关键值：#2 <code>0.7 / 0 / 0.7</code>、#10 <code>0.8 / style transfer / 0 / 1.0</code>、#16 1800、#15 <code>20 步 / CFG 3 / euler</code>。
-    </div>
   </section>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -786,7 +784,7 @@ const COURSE = {
       var v = map[el.getAttribute('data-bind')];
       if (v) el.textContent = v;
     });
-    document.title = 'L3-D1 · LINK AI 工作流练习 | ' + COURSE.name;
+    document.title = 'L3-D1 · 综合工作流练习 | 落白lite & AI研学社';
   })();
 </script>
 </body>

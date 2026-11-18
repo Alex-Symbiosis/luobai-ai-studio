@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="李智博（落白lite）">
-<title>L1-05b 参数与噪声 · AI 入门与 ComfyUI 出图课</title>
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<title>L1-05b 参数与噪声 · 落白lite & AI研学社</title>
 <style>
 :root{
   --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
@@ -128,12 +130,13 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 </head>
 <body>
 <div class="progress" id="progress"></div>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 24 / 52 小节 · L1 · 原理</span><span style="color:#8b93a3;">先修：L1-05</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l1-05-ipadapter.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l1-06-unet-dit.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 <nav class="topbar"><div class="in">
   <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
   <span class="sp"></span>
   <span class="hide-s" style="color:var(--faint)">L1 原理 · 05b</span>
   <a class="nav" href="../index.html">课目表</a>
-  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
 </div></nav>
 
 <main>
@@ -179,11 +182,11 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
       <text x="440" y="117" text-anchor="middle" dominant-baseline="middle" class="svg-sub">1</text>
       <text x="240" y="140" text-anchor="middle" dominant-baseline="middle" class="svg-sub">0.95 之后不再注入，最后 5% 交给模型收细节</text>
     </svg>
-    <figcaption>条长代表一次采样的 0 → 1；紫色段是注入区间，右端 0.95 由 end_at 决定。本套五条都从 0 起步，其中三条提前收手，02 与 LINK 跑满 1.0。</figcaption>
+    <figcaption>条长代表一次采样的 0 → 1；紫色段是注入区间，右端 0.95 由 end_at 决定。本套五条都从 0 起步，其中三条提前收手，02 与 综合 跑满 1.0。</figcaption>
   </figure>
 
   <h3>end_at：为什么不是全程注入</h3>
-  <p>先看数字：03 在 0.9 停，04 在 0.95 停，IPA 在 0.877 停。02 与 LINK 跑满 1.0。</p>
+  <p>先看数字：03 在 0.9 停，04 在 0.95 停，IPA 在 0.877 停。02 与 综合 跑满 1.0。</p>
   <p>为什么停？前三个想把后半段留给模型自己收细节。<b>风格一直压着画面</b>，纹理容易糊，颜色容易重。跑满 1.0 也有它的用处：风格越稳越好，就用满。</p>
 
   <div class="sim">
@@ -250,7 +253,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>

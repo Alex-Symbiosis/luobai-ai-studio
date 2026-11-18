@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
-<title>L0-02b · 界面怎么用 | AI 入门与 ComfyUI 出图课</title>
+<title>L0-02b · 界面怎么用 | 落白lite & AI研学社</title>
 <meta name="description" content="把 ComfyUI 界面当地图用：六个区域、画布三个动作、节点四个部位、三种载入方式，以及载入后先看的三处红。">
 <script>
 /* ============ 唯一品牌修改点：改这里，全站生效 ============ */
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '李智博',
+  author: '落白lite（李智博）',
   year: '2026'
 };
 </script>
@@ -182,6 +184,8 @@ const COURSE = {
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 11 / 52 小节 · L0 · 开篇</span><span style="color:#8b93a3;">先修：L0-02</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l0-02-install-and-ui.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l0-03-first-generation.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
@@ -193,7 +197,6 @@ const COURSE = {
       <a href="#node">节点</a>
       <a href="#load">载入</a>
       <a href="#red">三处红</a>
-      <a href="../guides/term-graph.html">依赖图</a>
     </nav>
   </div>
 </div>
@@ -567,7 +570,6 @@ const COURSE = {
     <div class="links">
       <a href="l0-03-first-generation.html">继续 → L0-03</a>
       <a href="l0-02-install-and-ui.html">← 回看 L0-02</a>
-      <a href="../guides/term-graph.html">术语依赖图</a>
     </div>
   </div>
 
@@ -575,7 +577,7 @@ const COURSE = {
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -587,7 +589,7 @@ const COURSE = {
     var v = map[el.getAttribute('data-bind')];
     if (v) el.textContent = v;
   });
-  document.title = 'L0-02b · 界面怎么用 | ' + COURSE.name;
+  document.title = 'L0-02b · 界面怎么用 | 落白lite & AI研学社';
 
   var KEY = 'course-l0-02b-check';
   var saved = {};

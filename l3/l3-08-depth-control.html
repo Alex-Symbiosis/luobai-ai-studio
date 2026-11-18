@@ -3,15 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
-<title>L3-C2 · 文生图 + 深度控制 | AI 入门与 ComfyUI 出图课</title>
+<title>L3-C2 · 文生图 + 深度控制 | 落白lite & AI研学社</title>
 <script>
 /* ============ 唯一品牌修改点：改这里，全站生效 ============ */
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '李智博',
+  author: '落白lite（李智博）',
   year: '2026'
 };
 </script>
@@ -226,6 +228,8 @@ const COURSE = {
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 48 / 52 小节 · L3 · 单品课</span><span style="color:#8b93a3;">先修：L3-A4</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-07b-upscale-methods.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-09-depth-segmentation.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
@@ -239,7 +243,6 @@ const COURSE = {
       <a href="#s5">参数</a>
       <a href="#s6">踩坑</a>
       <a href="#s7">练习</a>
-      <a href="../guides/visual-spec.html">视觉规范</a>
     </nav>
   </div>
 </div>
@@ -261,7 +264,6 @@ const COURSE = {
       <span class="chip">控制网 <b>1 道 · depth</b></span>
       <span class="chip">strength <b>1.0</b></span>
       <span class="chip">采样 <b>15 步 · CFG 2.67</b></span>
-      <span class="chip">数据核对日 <b>2026-11-08</b></span>
     </div>
 
     <div class="posmap">
@@ -271,7 +273,7 @@ const COURSE = {
         <div class="pstop here"><div class="pc">C2</div><div class="pn">文生图 + 深度<span class="here-tag">你在这里</span></div></div>
         <div class="pstop"><div class="pc">C3</div><div class="pn">深度 + 语义分割</div></div>
         <div class="pstop"><div class="pc">C4</div><div class="pn">IPA 风格迁移</div></div>
-        <div class="pstop"><div class="pc">D1</div><div class="pn">LINK 搭建练习</div></div>
+        <div class="pstop"><div class="pc">D1</div><div class="pn">综合搭建练习</div></div>
         <div class="pstop"><div class="pc">R</div><div class="pn">综合复盘</div></div>
       </div>
     </div>
@@ -710,17 +712,13 @@ const COURSE = {
       </div>
       <a class="go" href="l3-09-depth-segmentation.html">进入下一课 →</a>
     </div>
-
-    <div class="src">
-      <b>本课数据来源与核对方式：</b><code>ComfyUI_工作流架构/基础工作流 文生图+深度控制.json</code>。共 15 个节点、无分组、无子图；参数逐项读取自 <code>widgets_values</code>（#2 LoRA 0.47 / 1.0，#4 seed 846530841037298、15 步、CFG 2.67、euler_ancestral、normal、denoise 1.0，#12 strength 1 / 0 / 1.0，#17 512，#31 batch 1）。三预处理对照为示意绘制，不代表真实像素值；#19 的实际输出请以你本机预览为准。
-    </div>
   </section>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -743,7 +741,7 @@ const COURSE = {
       var v = map[el.getAttribute('data-bind')];
       if (v) el.textContent = v;
     });
-    document.title = 'L3-C2 · 文生图 + 深度控制 | ' + COURSE.name;
+    document.title = 'L3-C2 · 文生图 + 深度控制 | 落白lite & AI研学社';
   })();
 </script>
 </body>

@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
-<title>L0-03b · 读懂 01 号主链 | AI 入门与 ComfyUI 出图课</title>
+<title>L0-03b · 读懂 01 号主链 | 落白lite & AI研学社</title>
 <meta name="description" content="不跑图，只读图：21 个顶层节点、3 个子图，分清 01 号工作流的主链与旁支，并学会用四个问题读陌生工作流。">
 <script>
 /* ============ 唯一品牌修改点：改这里，全站生效 ============ */
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '李智博',
+  author: '落白lite（李智博）',
   year: '2026'
 };
 </script>
@@ -181,6 +183,8 @@ const COURSE = {
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 13 / 52 小节 · L0 · 开篇</span><span style="color:#8b93a3;">先修：L0-03</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l0-03-first-generation.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l0-04-cloud-gpu.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
@@ -192,7 +196,6 @@ const COURSE = {
       <a href="#inner">#196</a>
       <a href="#boxes">两个子图</a>
       <a href="#branch">旁支</a>
-      <a href="../guides/term-graph.html">依赖图</a>
     </nav>
   </div>
 </div>
@@ -593,13 +596,13 @@ const COURSE = {
   </section>
 
   <div class="next">
-    <div class="nl">NEXT · L1-01</div>
-    <h2>原理：潜空间与 VAE</h2>
-    <p>主链里那个 <code>#196</code> 为什么要在 1024×1024 的草稿上画，而不是直接在像素上画？下一课从最底层回答这个问题。</p>
+    <div class="nl">NEXT · L0-04</div>
+    <h2>显卡不够，就租一台云机器</h2>
+    <p>如果你在本机跑 1024 图时已经开始爆显存，下一课把“换一台机器”这件事走完：选镜像、放模型、开端口，在云上跑通同一条 01 号工作流。本机够用可以跳过，直接去 L1-01。</p>
     <div class="links">
-      <a href="../l1/l1-01-latent-space-vae.html">继续 → L1-01</a>
+      <a href="l0-04-cloud-gpu.html">继续 → L0-04</a>
+      <a href="../l1/l1-01-latent-space-vae.html">跳过，去 L1-01</a>
       <a href="l0-03-first-generation.html">← 回看 L0-03</a>
-      <a href="../guides/term-graph.html">术语依赖图</a>
     </div>
   </div>
 
@@ -607,7 +610,7 @@ const COURSE = {
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -619,7 +622,7 @@ const COURSE = {
     var v = map[el.getAttribute('data-bind')];
     if (v) el.textContent = v;
   });
-  document.title = 'L0-03b · 读懂 01 号主链 | ' + COURSE.name;
+  document.title = 'L0-03b · 读懂 01 号主链 | 落白lite & AI研学社';
 
   var KEY = 'course-l0-03b-check';
   var saved = {};

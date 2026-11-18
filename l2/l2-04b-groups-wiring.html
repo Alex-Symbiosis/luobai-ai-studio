@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="李智博（落白lite）">
-<title>L2-04b 组织与接线 · AI 入门与 ComfyUI 出图课</title>
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<title>L2-04b 组织与接线 · 落白lite & AI研学社</title>
 <style>
 :root{
   --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
@@ -134,12 +136,13 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 </head>
 <body>
 <div class="progress" id="progress"></div>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 35 / 52 小节 · L2 · 节点字典</span><span style="color:#8b93a3;">先修：L2-04</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l2-04-output.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l2-05-detect-segment.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 <nav class="topbar"><div class="in">
   <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
   <span class="sp"></span>
   <span class="hide-s" style="color:var(--faint)">L2 字典 · 04b</span>
   <a class="nav" href="../index.html">课目表</a>
-  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
 </div></nav>
 
 <main>
@@ -187,7 +190,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
       <text class="svg-lbl" x="239" y="51" text-anchor="middle" dominant-baseline="middle">同名即相连</text>
       <text class="svg-lbl" x="239" y="94" text-anchor="middle" dominant-baseline="middle">不必真拉线</text>
     </svg>
-    <figcaption>LINK 练习工作流里，SetNode 写入“基础底图”“参考图”。多个 GetNode 在不同位置按同名取用。虚线与箭头只是示意，实际画布上没有这根线。</figcaption>
+    <figcaption>综合练习工作流里，SetNode 写入“基础底图”“参考图”。多个 GetNode 在不同位置按同名取用。虚线与箭头只是示意，实际画布上没有这根线。</figcaption>
   </figure>
 
   <div class="callout warn">
@@ -206,7 +209,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
         <tbody>
           <tr><td>04 建筑毛坯</td><td>“请勿调整该模组下任何参数”（原组名前带禁止图标）、上传现状照片、上传风格参考图、模型选择与出图数量、图像对比与保存</td></tr>
           <tr><td>01 线稿+文字</td><td>三套 1–4 编号组（模型选择 / 输入提示词 / 上传线稿 / 图像对比与保存，共 11 个），另有“采样出图”“Controlnet控制网”，合计 13 个</td></tr>
-          <tr><td>LINK 练习</td><td>控制组、IPA风格迁移组、基础模型组、出图尺寸参数组、提示词反推组、提示词组、提供底图、提供参考图</td></tr>
+          <tr><td>综合练习</td><td>控制组、IPA风格迁移组、基础模型组、出图尺寸参数组、提示词反推组、提示词组、提供底图、提供参考图</td></tr>
           <tr><td>03 室内毛坯</td><td>其中一个组名仍是默认的 <code>Group</code>，属于没整理完的痕迹</td></tr>
         </tbody>
       </table>
@@ -274,7 +277,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
     <div class="body">
       <p>线跨了半屏、又不想拉长线，就用这一对。SetNode 把一路输入存进一个名字，GetNode 拿同一个名字取回。类型跟着存进去的值走，取的时候不用再声明。反例：它不是连线，画布上没有那根线，只有名字。</p>
       <div class="io"><span>任意类型</span><span class="out">同名取值</span></div>
-      <div class="ex">LINK 练习：<b>#28</b> 写入“基础底图”，<b>#31</b> 写入“参考图”；<b>#36 / #41</b> 读取“基础底图”，<b>#29 / #32</b> 读取“参考图”。同一个名字可以被多个 Get 复用，这正是它省线的地方。</div>
+      <div class="ex">综合练习：<b>#28</b> 写入“基础底图”，<b>#31</b> 写入“参考图”；<b>#36 / #41</b> 读取“基础底图”，<b>#29 / #32</b> 读取“参考图”。同一个名字可以被多个 Get 复用，这正是它省线的地方。</div>
       <p class="pit">易错：Set 与 Get 之间没有可见连线。排查断流，要靠名字搜索，盯着画布找线是找不到的。</p>
     </div>
   </details>
@@ -289,10 +292,10 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
   </details>
 
   <details class="entry" id="term-anything">
-    <summary><span class="type">Anything Everywhere</span><span class="one">按类型广播，省线也埋雷</span><span class="val">04 · 06 · LINK</span><span class="chev">＋</span></summary>
+    <summary><span class="type">Anything Everywhere</span><span class="one">按类型广播，省线也埋雷</span><span class="val">04 · 06 · 综合</span><span class="chev">＋</span></summary>
     <div class="body">
       <p>模型、VAE 这种到处都要接的东西，一根根拉线太累。Anything Everywhere 把一路值按类型广播出去。画布上所有匹配的空输入都会收到。反例：它不是“选中就送”，只填空着的口，已经接好的它不动。</p>
-      <div class="ex">04 <b>#38</b>、06 <b>#37</b>、LINK <b>#14</b> 各有一个。</div>
+      <div class="ex">04 <b>#38</b>、06 <b>#37</b>、综合 <b>#14</b> 各有一个。</div>
       <p class="pit">易错：广播按类型匹配，同类输入可能被意外填上。排查诡异结果时，先看是不是它在暗中接线。</p>
     </div>
   </details>
@@ -304,7 +307,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
       <table>
         <thead><tr><th style="width:34%">工作流 / 节点</th><th>值</th></tr></thead>
         <tbody>
-          <tr><td>02 <code>#112</code>、LINK <code>#16</code></td><td>1800</td></tr>
+          <tr><td>02 <code>#112</code>、综合 <code>#16</code></td><td>1800</td></tr>
           <tr><td>03 <code>#69</code>、IPA <code>#78</code></td><td>1600</td></tr>
           <tr><td>04 <code>#78</code></td><td>2400</td></tr>
         </tbody>
@@ -324,7 +327,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <h2 id="practice"><span class="no">04 / 动手</span>同名接线、建组、理一条乱线</h2>
   <div class="practice">
-    <div class="task"><div class="idx">1</div><div><p>打开 LINK 练习，搜“基础底图”。数一数有几个 GetNode 在用它，再把 <b>#28</b> 与这些 Get 的相对位置画出来。</p><p class="why">目标：体会 Set / Get 如何替代长线。</p></div></div>
+    <div class="task"><div class="idx">1</div><div><p>打开 综合练习，搜“基础底图”。数一数有几个 GetNode 在用它，再把 <b>#28</b> 与这些 Get 的相对位置画出来。</p><p class="why">目标：体会 Set / Get 如何替代长线。</p></div></div>
     <div class="task"><div class="idx">2</div><div><p>打开 01，分别记下三个子图的输入与输出，判断哪个最像“模型装载子图”。再回到 04，确认那五个组各框住了哪些节点。</p><p class="why">目标：从壳的接口反推子图职责，顺带摸清组的边界。</p></div></div>
     <div class="task"><div class="idx">3</div><div><p>打开 03，找到根图 <b>#18 Reroute</b>。挑一条横穿画布的线，改用 Set / Get，再删掉多余的拐点。</p><p class="why">目标：按“短距离拐弯、长距离改名”走一遍整理顺序。</p></div></div>
   </div>
@@ -346,7 +349,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>

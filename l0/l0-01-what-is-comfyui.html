@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
-<title>L0-01 · ComfyUI 是什么 | AI 入门与 ComfyUI 出图课</title>
+<title>L0-01 · ComfyUI 是什么 | 落白lite & AI研学社</title>
 <meta name="description" content="ComfyUI 能给你什么：把出图拆成一条能改的产线，只动一处、能复现、坏了查得到。零基础可读。">
 <script>
 /* ============ 唯一品牌修改点：改这里，全站生效 ============ */
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '李智博',
+  author: '落白lite（李智博）',
   year: '2026'
 };
 </script>
@@ -197,6 +199,19 @@ const COURSE = {
     .stops{overflow-x:auto;padding-bottom:4px}
     .stop{min-width:112px}
   }
+  /* data flow */
+  .flow{display:grid;gap:6px;margin:20px 0}
+  .flow .step{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+  .flow .fn{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--teal);padding-top:2px}
+  .flow b{font-size:13.5px}
+  .flow span{display:block;font-size:12.8px;color:var(--muted);line-height:1.7}
+  .flow .arrow{justify-self:center;color:var(--line2);font-size:12px;line-height:1}
+  .tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px;background:var(--card);border:1px solid var(--line)}
+  .tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+  .tbl th{font-size:11px;letter-spacing:.08em;color:var(--faint);font-weight:700;background:#fbfaf7}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td:first-child{font-weight:700}
+
   @media (max-width:520px){
     .wrap{padding:0 16px}
     .topbar .wrap{padding:0 16px}
@@ -213,16 +228,17 @@ const COURSE = {
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 9 / 52 小节 · L0 · 开篇</span><span style="color:#8b93a3;">先修：A06、A07</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="../a/a08-whos-ai.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l0-02-install-and-ui.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
     <div class="brand"><span class="mark"></span><span data-bind="name">AI 入门与 ComfyUI 出图课</span></div>
     <nav class="topnav">
       <a href="../index.html">← 课程地图</a>
+      <a href="#flow">数据怎么流</a>
       <a href="#why">为什么是工作流</a>
-      <a href="#cost">代价</a>
-      <a href="../guides/language-spec.html">语言规范</a>
-      <a href="../guides/visual-spec.html">视觉规范</a>
+      <a href="#compare">它的边界</a>
     </nav>
   </div>
 </div>
@@ -247,11 +263,12 @@ const COURSE = {
     </div>
 
     <div class="posmap">
-      <div class="pm-t">当前位置 · L0 开篇三站</div>
+      <div class="pm-t">当前位置 · L0 开篇主站</div>
       <div class="stops">
         <div class="stop now"><b>L0-01</b>ComfyUI 是什么<br>你在这里</div>
         <a class="stop" href="l0-02-install-and-ui.html"><b>L0-02</b>装什么、界面怎么用</a>
         <a class="stop" href="l0-03-first-generation.html"><b>L0-03</b>完整出一次图</a>
+        <a class="stop" href="l0-04-cloud-gpu.html"><b>L0-04</b>显卡不够就上云<br>可选</a>
       </div>
     </div>
   </div>
@@ -435,8 +452,55 @@ const COURSE = {
     </figure>
   </section>
 
+  <section id="flow">
+    <div class="sec-head"><span class="sec-num">04</span><h2>你手上这张图，在节点之间走了哪几步</h2></div>
+    <p class="lead">先把“数据怎么流”这件事走一遍。不需要记节点名，只要记住每一步交接的是什么东西。</p>
+
+    <p>一张图不是一次算出来的。它从模型文件和一段文字出发，被拆成几种不同形态的数据，在节点之间一段段交接，最后才落回一张能看的图片。以课程里的 01 号工作流为例，主线只有六步：</p>
+
+    <div class="flow">
+      <div class="step"><div class="fn">01</div><div><b>载入模型</b><span>Checkpoint（整套模型文件）一次给出三样东西：MODEL 负责画，CLIP 负责读文字，VAE 负责在像素和潜空间之间翻译。它们从这里开始各自走一条线。</span></div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="fn">02</div><div><b>文字变成条件</b><span>正向提示词和负向提示词分别经过 CLIP 编码，变成 CONDITIONING（条件）。它不是一段文字了，而是一组模型能读的数字。</span></div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="fn">03</div><div><b>准备一张空画布</b><span>Empty Latent Image 给出一个指定尺寸、全是噪声的 LATENT。采样从这里起步，而不是从白纸起步。</span></div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="fn">04</div><div><b>采样</b><span>KSampler 同时拿到 MODEL、正负 CONDITIONING、LATENT，加上步数、CFG、种子，一步步把噪声擦掉，输出的仍然是 LATENT。</span></div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="fn">05</div><div><b>解码</b><span>VAE Decode 把 LATENT 翻回 IMAGE。到这一步，你才第一次得到一张真正意义上的像素图。</span></div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="fn">06</div><div><b>落盘</b><span>Save Image 把 IMAGE 写成文件，同时决定文件名前缀和保存位置。</span></div></div>
+    </div>
+
+    <p>这条走法不只对建筑有效。换成人像、产品、插画、电商主图，六步的顺序完全一样，变的只是输入图和提示词——所以后面讲到建筑案例时，你可以随时把它替换成自己熟悉的题材。</p>
+
+    <h3>插口是有类型的，不是随便插</h3>
+    <p>节点之间的线不是“数据线”三个字就能概括。每个插口都标了类型，类型对不上，ComfyUI 根本不允许你连。常见的有这几种：</p>
+    <table class="tbl">
+      <thead><tr><th>类型</th><th>它是什么</th><th>从哪来、到哪去</th></tr></thead>
+      <tbody>
+        <tr><td>MODEL</td><td>真正动笔的网络</td><td>从载入模型出来，进 KSampler</td></tr>
+        <tr><td>CLIP</td><td>文本编码器</td><td>从载入模型出来，进提示词编码节点</td></tr>
+        <tr><td>VAE</td><td>像素 ⇄ 潜空间的翻译机</td><td>载入模型或单独载入，进编码/解码节点</td></tr>
+        <tr><td>CONDITIONING</td><td>编码后的“条件”</td><td>提示词编码出来，进 KSampler 或 ControlNet</td></tr>
+        <tr><td>LATENT</td><td>1/8 大小的草稿画布</td><td>空画布或采样器出来，进采样器或解码器</td></tr>
+        <tr><td>IMAGE</td><td>像素图</td><td>读图、解码、放大节点之间传递</td></tr>
+        <tr><td>MASK</td><td>黑白遮罩</td><td>局部重绘时告诉模型“只改这里”</td></tr>
+      </tbody>
+    </table>
+
+    <h3>连错了会怎样：三种不同的疼</h3>
+    <ol>
+      <li><b>接不上。</b>把 IMAGE 往 LATENT 的口上拖，线会直接拖不过去。这是最轻的一种错——界面当场拦住你。</li>
+      <li><b>能跑，但结果不对。</b>该接正向条件的地方接了负向，或者两张参考图的角色接反。图能出来，只是越跑越偏，你会以为是模型不行。</li>
+      <li><b>能跑，但等于没接。</b>线从某个节点拉出来，却没有接到任何要用的地方，成了旁支。ComfyUI 不报错、队列照常跑完，你以为那个控制生效了，其实它从头到尾没进主链。这是最贵的一种错，因为它浪费的是你的判断力。</li>
+    </ol>
+
+    <div class="note"><b>下一课先不深究：</b><a href="l0-03b-read-main-chain.html">L0-03b</a> 会带你逐个节点读 01 号主链，专门找“看着接了、其实没接”的死端。潜空间和采样器为什么长这样，则在 <a href="../l1/l1-01-latent-space-vae.html">L1-01</a>、<a href="../l1/l1-02-sampling-steps.html">L1-02</a> 展开。</div>
+  </section>
+
   <section id="why">
-    <div class="sec-head"><span class="sec-num">04</span><h2>四个时刻，你会庆幸自己用的是工作流</h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2>四个时刻，你会庆幸自己用的是工作流</h2></div>
     <p class="lead">不是为了显得专业。是网页版在这四件事上，真的没有答案。</p>
 
     <div class="reasons">
@@ -459,8 +523,42 @@ const COURSE = {
     </div>
   </section>
 
+  <section id="compare">
+    <div class="sec-head"><span class="sec-num">06</span><h2>它在整个 AI 版图里站哪一格</h2></div>
+    <p class="lead">ComfyUI 不是模型，也不是唯一的玩法。知道它替不了什么，才不会拿错工具。</p>
+
+    <table class="tbl">
+      <thead><tr><th>工具形态</th><th>强在哪</th><th>弱在哪 / 什么时候别用它</th></tr></thead>
+      <tbody>
+        <tr><td>网页版文生图<br><span style="font-weight:400;color:var(--muted)">Midjourney、即梦一类</span></td><td>出图快，审美预设好，不需要懂参数</td><td>参数不可见、控制点少、版本可能变；只想要一张成品图时，它更省事</td></tr>
+        <tr><td>本地 WebUI 类工具</td><td>参数全，插件多，单线调参顺手</td><td>流程结构固定，多分支、子流程、复用不好表达</td></tr>
+        <tr><td>ComfyUI</td><td>流程可编排，子图可复用，控制点能精确插入，能批量与脚本化</td><td>学习曲线陡，模型和目录要自己管，简单出图反而绕</td></tr>
+        <tr><td>商业 API / 云模型服务</td><td>免运维，按次计费，接进产品快</td><td>改不了内部链路，数据要出本机，成本随调用量走</td></tr>
+        <tr><td>LLM、视频、3D 生成模型</td><td>解决的是另外的问题：文字、动态、立体</td><td>不是同一类任务；ComfyUI 主战场仍是图像流程编排，能接部分视频/3D 节点，但不是它的核心</td></tr>
+      </tbody>
+    </table>
+
+    <h3>它真正替代不了的三件事</h3>
+    <div class="reasons">
+      <div class="reason">
+        <div class="rn">01</div>
+        <div><h3>把“顺序”变成资产</h3><p>一条链调好之后，可以打包成子图、存成 JSON。下次换输入图就能开工，改一处，全链跟着生效。网页版没有“顺序”这个东西可存。</p></div>
+      </div>
+      <div class="reason">
+        <div class="rn">02</div>
+        <div><h3>每个注入点都露在外面</h3><p>ControlNet 从第几成开始听、IPAdapter 到哪一步停、局部重绘只改哪块，都能精确到百分比。控制不是“开/关”，而是“在第几步、用多大力度”。</p></div>
+      </div>
+      <div class="reason">
+        <div class="rn">03</div>
+        <div><h3>能离开鼠标</h3><p>同一张 JSON 可以排队跑一批，也可以由脚本调用。要做 50 张只差一个参数的变体，不需要点 50 次。</p></div>
+      </div>
+    </div>
+
+    <div class="note"><b>边界要说清：</b>ComfyUI 不会提高模型本身的上限。模型画不出的细节，接再多节点也变不出来；它做的是把已有能力用准、用稳、复用。如果一张图只需要“差不多好看”，网页版往往更快。</div>
+  </section>
+
   <section id="cost">
-    <div class="sec-head"><span class="sec-num">05</span><h2>但它要收三笔学费</h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2>但它要收三笔学费</h2></div>
     <p class="lead">先把丑话说前面：工作流不是免费的自由。</p>
     <div class="costs">
       <div class="cost"><b>概念成本</b><span>要认识节点、连线、模型、潜空间这些词。前两课会把这些词逐个落地，不用一次记住。</span></div>
@@ -471,17 +569,20 @@ const COURSE = {
   </section>
 
   <section id="practice">
-    <div class="sec-head"><span class="sec-num">06</span><h2>练习与自检</h2></div>
+    <div class="sec-head"><span class="sec-num">08</span><h2>练习与自检</h2></div>
     <ol class="tasks">
       <li>用一句话向没接触过的人解释：网页版 AI 生图和 ComfyUI 的区别。句子里要出现“控制权”或“可复现”其中一个词。</li>
+      <li>不看上文，把“载入模型 → 编码文字 → 空画布 → 采样 → 解码 → 保存”这六步默写一遍，并说出每一步交接的是什么类型的数据。</li>
       <li>打开 <a href="../index.html#l0">课程地图的 L0 层</a>，说出这三站分别解决什么问题。</li>
       <li>看一眼 <a href="../a/a04-word-family.html">A04</a> 里 Workflow 那一节，把“工作流”在 Agent 语境和 ComfyUI 语境下的区别写下来。</li>
     </ol>
     <ul class="checklist">
       <li><input type="checkbox" id="c1"><label for="c1">我能说出 ComfyUI 至少两个和网页版不同的地方。</label></li>
       <li><input type="checkbox" id="c2"><label for="c2">我知道“节点”是一件具体的事，“连线”是一次数据交接。</label></li>
-      <li><input type="checkbox" id="c3"><label for="c3">我知道工作流可以存成 JSON，并且能复现。</label></li>
-      <li><input type="checkbox" id="c4"><label for="c4">我知道下一课要先解决“模型放哪”和“界面怎么用”。</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">我能说出数据从像素到 LATENT、再回到像素的路径。</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">我知道工作流可以存成 JSON，并且能复现。</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">我知道“线接了但没进主链”这种错为什么最贵。</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">我知道下一课要先解决“模型放哪”和“界面怎么用”。</label></li>
     </ul>
   </section>
 
@@ -499,7 +600,7 @@ const COURSE = {
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -511,7 +612,7 @@ const COURSE = {
     var v = map[el.getAttribute('data-bind')];
     if (v) el.textContent = v;
   });
-  document.title = 'L0-01 · ComfyUI 是什么 | ' + COURSE.name;
+  document.title = 'L0-01 · ComfyUI 是什么 | 落白lite & AI研学社';
 
   var KEY = 'course-l0-01-check';
   var saved = {};

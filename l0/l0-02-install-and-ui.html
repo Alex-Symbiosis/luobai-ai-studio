@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
-<title>L0-02 · 装什么与界面怎么用 | AI 入门与 ComfyUI 出图课</title>
+<title>L0-02 · 装什么与界面怎么用 | 落白lite & AI研学社</title>
 <meta name="description" content="ComfyUI 模型目录、界面六个区域、载入工作流、运行与报错排查。按 01 号工作流给出真实文件名与目录。">
 <script>
 /* ============ 唯一品牌修改点：改这里，全站生效 ============ */
 const COURSE = {
   name: 'AI 入门与 ComfyUI 出图课',
   tagline: '面向大学生与普通人的 AI 入门课',
-  author: '李智博',
+  author: '落白lite（李智博）',
   year: '2026'
 };
 </script>
@@ -190,6 +192,8 @@ const COURSE = {
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 10 / 52 小节 · L0 · 开篇</span><span style="color:#8b93a3;">先修：L0-01</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l0-01-what-is-comfyui.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l0-02b-using-the-interface.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
@@ -199,7 +203,6 @@ const COURSE = {
       <a href="#models">模型目录</a>
       <a href="#ui">界面分区</a>
       <a href="#errors">报错</a>
-      <a href="../guides/visual-spec.html">视觉规范</a>
     </nav>
   </div>
 </div>
@@ -221,7 +224,7 @@ const COURSE = {
       <div class="oc"><b>能载入并跑起来</b><span>拖入 JSON，上传自己的图，Queue 一次。</span></div>
     </div>
 
-    <div class="note ok"><b>这一课的术语规矩：</b>会出现 Checkpoint、LoRA、ControlNet、VAE、文本编码器这几个词。每个第一次出现时，我都给你一句人话，并标出它在后面哪一课专门拆。你现在只要知道它「干嘛用」，不用会讲原理——按《语言规范》，术语要么当场解释，要么明说出处，不许裸着过去。</div>
+    <div class="note ok"><b>这一课的术语规矩：</b>会出现 Checkpoint、LoRA、ControlNet、VAE、文本编码器这几个词。每个第一次出现时，我都给你一句人话，并标出它在后面哪一课专门讲。你现在只要知道它「干嘛用」，不用会讲原理——术语要么当场解释，要么说清在哪一课展开，不裸着过去。</div>
 
     <nav class="minitoc">
       <span>本课目录</span>
@@ -643,11 +646,11 @@ const COURSE = {
   </section>
 
   <div class="next">
-    <div class="nl">NEXT · L0-03</div>
-    <h2>完整出一次图</h2>
-    <p>下一课不再只按按钮。我们拿 01 号工作流走全程：改提示词、设参数、运行、看图、存图，然后逐段认一遍主链——你会第一次说清「这张图是怎么来的」。</p>
+    <div class="nl">NEXT · L0-02b</div>
+    <h2>界面怎么用</h2>
+    <p>下一课把界面拆细：六个区域各管什么、三种载入方式、载入后三处红分别代表什么。先认清界面，再跑图会少走很多弯路。</p>
     <div class="links">
-      <a href="l0-03-first-generation.html">继续 → L0-03</a>
+      <a href="l0-02b-using-the-interface.html">继续 → L0-02b</a>
       <a href="l0-01-what-is-comfyui.html">← 回看 L0-01</a>
     </div>
   </div>
@@ -656,7 +659,7 @@ const COURSE = {
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -668,7 +671,7 @@ const COURSE = {
     var v = map[el.getAttribute('data-bind')];
     if (v) el.textContent = v;
   });
-  document.title = 'L0-02 · 装什么与界面怎么用 | ' + COURSE.name;
+  document.title = 'L0-02 · 装什么与界面怎么用 | 落白lite & AI研学社';
 
   var KEY = 'course-l0-02-check';
   var saved = {};

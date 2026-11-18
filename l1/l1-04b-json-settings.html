@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="李智博（落白lite）">
-<title>L1-04b 这套 JSON 怎么填 · AI 入门与 ComfyUI 出图课</title>
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<title>L1-04b 这套 JSON 怎么填 · 落白lite & AI研学社</title>
 <style>
 :root{
   --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
@@ -126,12 +128,13 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 </head>
 <body>
 <div class="progress" id="progress"></div>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 22 / 52 小节 · L1 · 原理</span><span style="color:#8b93a3;">先修：L1-04</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l1-04-controlnet.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l1-05-ipadapter.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 <nav class="topbar"><div class="in">
   <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
   <span class="sp"></span>
   <span class="hide-s" style="color:var(--faint)">L1 原理 · 04b</span>
   <a class="nav" href="../index.html">课目表</a>
-  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
 </div></nav>
 
 <main>
@@ -170,7 +173,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
       <tr><td>02 线稿+参考</td><td>Depth + Lineart</td><td>DepthAnythingV2 #125 / LineartStandard #126</td><td>depth_full #124 / mistoLine #127</td><td><b>0.6 / 0.6</b> · 0–1</td></tr>
       <tr><td>文生图+深度+语义</td><td>Depth + Seg</td><td><code>DepthAnythingV2</code> #17 / <code>OneFormer-ADE20K-SemSeg</code> #25</td><td>depth_full #13 / <code>SDXL 语义分割</code> #24</td><td><b>1.0 / 0.14</b> · 0–1</td></tr>
       <tr><td>IPA 风格迁移</td><td>Depth + Lineart</td><td>DepthAnythingV2 #17 / LineartStandard #50</td><td>depth_full #13 / mistoLine #49</td><td><b>0.42 / 0.5</b> · 0–1</td></tr>
-      <tr><td>LINK 练习</td><td>Lineart</td><td><code>LineArtPreprocessor</code> #4</td><td><code>xinsir_union_promax</code> #3</td><td><b>0.7</b> · <b>0–0.7</b></td></tr>
+      <tr><td>综合练习</td><td>Lineart</td><td><code>LineArtPreprocessor</code> #4</td><td><code>xinsir_union_promax</code> #3</td><td><b>0.7</b> · <b>0–0.7</b></td></tr>
       <tr><td>01 线稿</td><td>Lineart</td><td><code>LineartStandardPreprocessor</code> #185</td><td><code>mistoLine_rank256</code> #186</td><td><b>0.6</b> · 0–0.8</td></tr>
     </tbody>
   </table>
@@ -238,15 +241,15 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
   <p>核对顺序就这么三步：看预处理器吐出什么类型，找同类型的权重，再看 apply 节点的强度。第一步错，后两步全白搭。想亲手验证“换个预处理器就崩”，直接做下一节的第 1 题。</p>
 
   <h2 id="union"><span class="no">04 / union</span>一个权重切模式，强度往上挪一档</h2>
-  <p>本套里只有一个“通用型”尝试：LINK 用 <code>xinsir_union_promax</code>，配的是 <code>LineArtPreprocessor</code>。union 模型也不是万能的。用之前先去模型卡确认它支持哪几类控制，别默认“一个模型通吃”。</p>
+  <p>本套里只有一个“通用型”尝试：综合练习里用 <code>xinsir_union_promax</code>，配的是 <code>LineArtPreprocessor</code>。union 模型也不是万能的。用之前先去模型卡确认它支持哪几类控制，别默认“一个模型通吃”。</p>
   <p><b>union 模型</b>（union ControlNet）：一个权重文件里装了几类控制的读法，喂进去哪种控制图，就走哪种模式。反例：它不是“什么控制图都认”，模型卡没写的那几类照样不认。</p>
-  <p>本套这一行填得比别处硬。LINK 练习是 <b>Lineart</b>：<code>LineArtPreprocessor</code> #4 接 <code>xinsir_union_promax</code> #3，强度 <b>0.7</b>，区间 <b>0–0.7</b>。同样是线稿，01 那行是 <b>0.6</b>，区间 0–0.8。union 这一格更高，区间上限也压得更紧。</p>
+  <p>本套这一行填得比别处硬。综合练习是 <b>Lineart</b>：<code>LineArtPreprocessor</code> #4 接 <code>xinsir_union_promax</code> #3，强度 <b>0.7</b>，区间 <b>0–0.7</b>。同样是线稿，01 那行是 <b>0.6</b>，区间 0–0.8。union 这一格更高，区间上限也压得更紧。</p>
   <p>本套的填法是：先按同类专用模型的值起步，union 往上挪一档。这不是通用公式，换个 union 权重就得重看模型卡。拿不准时，从 0.6 试起，比一上来拉到 1.0 稳。</p>
 
   <h2 id="practice"><span class="no">05 / 动手</span>三道题，把表对到画布上</h2>
   <div class="practice">
     <div class="task"><div class="idx">1</div><div><p>打开 04，在画布上按编号找到 <b>#17</b>、<b>#50</b>、<b>#13</b>、<b>#49</b>、<b>#48</b>，把两条支路各写一行：预处理器是谁、模型是谁、强度多少。</p><p class="why">要看的：深度那一路是 #17 → #13，线稿那一路是 #50 → #49，#48 是线稿一路的 apply。写不出来，说明还没对上号。顺手把 #17 换成 <code>LineartStandardPreprocessor</code>、#13 不动，跑一次看错配，再换回来。</p></div></div>
-    <div class="task"><div class="idx">2</div><div><p>打开 LINK 练习，把 <b>#4</b> 的 <code>LineArtPreprocessor</code> 换成另一种预处理（比如深度），<b>#3</b> 的 <code>xinsir_union_promax</code> 不动，跑一次。</p><p class="why">要看的：union 一个权重切模式，靠的就是喂进去的控制图。换完记得换回 Lineart。</p></div></div>
+    <div class="task"><div class="idx">2</div><div><p>打开 综合练习，把 <b>#4</b> 的 <code>LineArtPreprocessor</code> 换成另一种预处理（比如深度），<b>#3</b> 的 <code>xinsir_union_promax</code> 不动，跑一次。</p><p class="why">要看的：union 一个权重切模式，靠的就是喂进去的控制图。换完记得换回 Lineart。</p></div></div>
     <div class="task"><div class="idx">3</div><div><p>回到 04，把线稿那一路的强度从 <b>0.3</b> 改成 <b>0.6</b>，深度保持 <b>0.35</b>，跑一次；再把线稿改回 0.3。</p><p class="why">要看的：单张拉到 01 的值，双控制还撑不撑得住。画面发僵，就是两张硬约束在打架。</p></div></div>
   </div>
 
@@ -255,7 +258,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
     <h4>勾选你真正掌握的条目（本机自动记住）</h4>
     <label class="check"><input type="checkbox"><span>我能按表说出 04 的深度与线稿各用哪个预处理器、哪个模型、什么编号。</span></label>
     <label class="check"><input type="checkbox"><span>我知道预处理器与 ControlNet 模型必须同类，错配时提高强度也救不回来。</span></label>
-    <label class="check"><input type="checkbox"><span>我能指出 LINK 用的是 union 模型 #3，强度 0.7，区间 0–0.7。</span></label>
+    <label class="check"><input type="checkbox"><span>我能指出 综合练习 用的是 union 模型 #3，强度 0.7，区间 0–0.7。</span></label>
     <label class="check"><input type="checkbox"><span>我知道 union 是一个权重切模式，换预处理器就是换模式，不是随便什么都认。</span></label>
     <label class="check"><input type="checkbox"><span>我知道 512 是控制图进 ControlNet 前被缩到的分辨率，不是原图尺寸。</span></label>
   </div>
@@ -267,7 +270,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>

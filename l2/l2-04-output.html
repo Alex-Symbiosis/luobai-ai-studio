@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="李智博（落白lite）">
-<title>L2-04 输出：让图落地 · AI 入门与 ComfyUI 出图课</title>
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
+<title>L2-04 输出：让图落地 · 落白lite & AI研学社</title>
 <style>
 :root{
   --paper:#f6f5f1;--card:#fff;--ink:#18212f;--muted:#5d6779;--faint:#8b93a3;
@@ -134,12 +136,13 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 </head>
 <body>
 <div class="progress" id="progress"></div>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 34 / 52 小节 · L2 · 节点字典</span><span style="color:#8b93a3;">先修：L2-03</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l2-03c-upscale-size.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l2-04b-groups-wiring.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 <nav class="topbar"><div class="in">
   <a class="brand" href="../index.html">AI 入门与 <span>ComfyUI</span> 出图课</a>
   <span class="sp"></span>
   <span class="hide-s" style="color:var(--faint)">L2 字典 · 04</span>
   <a class="nav" href="../index.html">课目表</a>
-  <a class="nav" href="../guides/visual-spec.html">视觉规范</a>
 </div></nav>
 
 <main>
@@ -181,7 +184,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
     <div class="body">
       <p>接完线先别急着保存，用 PreviewImage 看一眼。它把任何 IMAGE 显示在节点上，方便检查中间步骤。反例：它不是交付通道——图一般进临时区，关闭或清理后可能消失。</p>
       <div class="io"><span>IMAGE</span></div>
-      <div class="ex">01 <b>#187</b>；02 <b>#128 / #131 / #133</b>；03 <b>#42 / #64 / #47 / #19 / #51</b> 共五个，分别盯着参考图、控制图与成图；04 <b>#42 / #51 / #19</b>；06 <b>#14</b>；LINK <b>#38</b>；IPA <b>#19 / #42 / #51</b>。</div>
+      <div class="ex">01 <b>#187</b>；02 <b>#128 / #131 / #133</b>；03 <b>#42 / #64 / #47 / #19 / #51</b> 共五个，分别盯着参考图、控制图与成图；04 <b>#42 / #51 / #19</b>；06 <b>#14</b>；综合 <b>#38</b>；IPA <b>#19 / #42 / #51</b>。</div>
       <p class="pit">易错：预览图看着正常，不代表存下来的就是它。两路可能接在不同分支上；改过线，就要重新核对。</p>
     </div>
   </details>
@@ -201,7 +204,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
           <tr><td>05 手动涂抹</td><td><code>#260</code></td></tr>
           <tr><td>06 文字识别局部</td><td><code>#42</code></td></tr>
           <tr><td>07 高清放大</td><td><code>#6</code></td></tr>
-          <tr><td>LINK / IPA</td><td><code>#40</code> / <code>#46</code></td></tr>
+          <tr><td>综合 / IPA</td><td><code>#40</code> / <code>#46</code></td></tr>
         </tbody>
       </table>
       <p class="pit">易错：它是终点节点，不是图片源。想保存对比结果，还得在上游另接 SaveImage。</p>
@@ -219,7 +222,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
           <tr><td>01 <code>#132</code></td><td><code>Flux2-Klein-4b-base</code></td></tr>
           <tr><td>02 <code>#80</code></td><td><code>Flux2-Klein</code></td></tr>
           <tr><td>03 <code>#53</code>、04 <code>#87</code>、05 <code>#383</code></td><td><code>ComfyUI</code></td></tr>
-          <tr><td>06 <code>#26</code>、07 <code>#384</code>、LINK <code>#26</code></td><td><code>ComfyUI</code></td></tr>
+          <tr><td>06 <code>#26</code>、07 <code>#384</code>、综合 <code>#26</code></td><td><code>ComfyUI</code></td></tr>
           <tr><td>IPA <code>#85</code>、文生图 <code>#11</code></td><td><code>ComfyUI</code></td></tr>
         </tbody>
       </table>
@@ -272,7 +275,7 @@ footer{margin-top:46px;font-family:var(--sans);font-size:12px;color:var(--faint)
 
   <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>

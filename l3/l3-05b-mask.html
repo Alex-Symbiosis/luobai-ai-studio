@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="李智博（落白lite）">
+<meta name="author" content="落白lite（李智博）">
+<meta name="application-name" content="落白lite & AI研学社">
+<meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="description" content="遮罩与 alpha 的入门微课：黑白许可表、二值/灰度/alpha 的区别、羽化与外扩、像素遮罩与潜空间遮罩、clipspace 为什么换机就断。">
-<title>L3-05b · 遮罩是什么：一张许可表 | AI 入门与 ComfyUI 出图课</title>
+<title>L3-05b · 遮罩是什么：一张许可表 | 落白lite & AI研学社</title>
 <script>
-const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学生与普通人的 AI 入门课', author: '李智博', year: '2026' };
+const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学生与普通人的 AI 入门课', author: '落白lite（李智博）', year: '2026' };
 </script>
 <style>
   :root{
@@ -176,6 +178,8 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
 </style>
 </head>
 <body>
+<div class="course-rail" id="course-rail" style="background:#fbfaf7;border-bottom:1px solid #e2ded4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;line-height:1.65;color:#5d6779;"><div style="max-width:1040px;margin:0 auto;padding:9px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;"><span style="font-weight:800;color:#18212f;">落白lite &amp; AI研学社</span><span style="color:#d8d3c7;">·</span><span style="font-weight:700;color:#18212f;">第 44 / 52 小节 · L3 · 单品课</span><span style="color:#8b93a3;">先修：L3-B1</span><span style="flex:1 1 24px;"></span><a href="../index.html" style="color:#4051d6;text-decoration:none;font-weight:600;">课程地图</a><span style="color:#d8d3c7;">|</span><a href="l3-05-manual-inpaint.html" style="color:#18212f;text-decoration:none;">← 上一课</a><a href="l3-06-text-guided-inpaint.html" style="color:#18212f;text-decoration:none;">下一课 →</a></div></div>
+
 
 <div class="topbar">
   <div class="wrap">
@@ -189,7 +193,6 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
       <a href="#s5">坐标系</a>
       <a href="#s6">踩坑</a>
       <a href="#s7">练习</a>
-      <a href="../guides/visual-spec.html">视觉规范</a>
     </nav>
   </div>
 </div>
@@ -625,10 +628,6 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
       <a class="go" href="l3-05-manual-inpaint.html">回 B1</a>
       <a class="go" href="l3-06-text-guided-inpaint.html">去 B2 →</a>
     </div>
-
-    <div class="src">
-      <b>本课不新增工作流。</b>遮罩约定、alpha 读法与 clipspace 路径取自 <code>ComfyUI_工作流架构/05📚基础版 手动涂抹局部修改.json</code> 及 <a href="l3-05-manual-inpaint.html">L3-05</a> 的核对结果；<code>grow_mask_by 6</code>、<code>feather 5</code>、1 MP（约一百万像素，B1 讲过）、去噪强度（denoise）等值只引用，不改；像素遮罩与潜空间的 8 倍对照 <a href="l3-01-text-to-image.html">L3-01</a> 的 1600 × 904 → 200 × 113；SAM 遮罩与 <code>grow 6</code> 对照 <a href="l3-06-text-guided-inpaint.html">L3-06</a>。核对日 2026-11-09。
-    </div>
   </section>
 
 
@@ -636,7 +635,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
 
 <footer>
   <div class="wrap">
-    <div class="footer-copy">© 2026 李智博（落白lite）</div>
+    <div class="footer-copy">落白lite & AI研学社 · © 2026 落白lite（李智博）</div>
     <div class="footer-license"><a href="../guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
@@ -661,7 +660,7 @@ const COURSE = { name: 'AI 入门与 ComfyUI 出图课', tagline: '面向大学�
       var v = map[el.getAttribute('data-bind')];
       if (v) el.textContent = v;
     });
-    document.title = 'L3-05b · 遮罩是什么 | ' + COURSE.name;
+    document.title = 'L3-05b · 遮罩是什么 | 落白lite & AI研学社';
   })();
 </script>
 </body>
