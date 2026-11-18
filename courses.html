@@ -17,9 +17,9 @@
     --ink:#14181f;--ink2:#2b323c;--muted:#5a626d;--faint:#6b7280;
     --line:rgba(23,42,74,.12);--line-soft:rgba(23,42,74,.07);
     --blue:#4051d6;--blue-deep:#2f3cb0;
-    --glass:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.48));
+    --glass:linear-gradient(180deg,rgba(255,255,255,.68),rgba(255,255,255,.46));
     --glass-stroke:rgba(255,255,255,.82);
-    --glass-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 1px 2px rgba(18,28,43,.03),0 36px 80px -56px rgba(18,35,70,.5);
+    --glass-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 0 0 1px rgba(255,255,255,.40),inset 0 -26px 36px -30px rgba(18,35,70,.40),0 1px 2px rgba(18,28,43,.04),0 32px 64px -48px rgba(18,35,70,.46);
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
     --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
@@ -30,10 +30,10 @@
   html{scroll-behavior:smooth;scroll-padding-top:96px;background:var(--bg)}
   body{min-height:100vh;color:var(--ink2);font-family:var(--sans);font-size:16.5px;line-height:1.9;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
     background:
-      radial-gradient(900px 520px at 18% -12%,rgba(255,255,255,.95),rgba(255,255,255,0) 60%),
-      radial-gradient(1100px 680px at 8% -10%,rgba(64,81,214,.12),transparent 62%),
-      radial-gradient(900px 560px at 100% 0%,rgba(34,190,255,.10),transparent 58%),
-      linear-gradient(180deg,#f7fbff 0%,#e9f1fb 46%,#f6faff 100%);
+      radial-gradient(56% 46% at 15% -10%,rgba(255,255,255,1) 0%,rgba(255,255,255,.62) 32%,rgba(255,255,255,0) 68%),
+      radial-gradient(42% 38% at 95% -2%,rgba(70,170,255,.20) 0%,rgba(70,170,255,0) 66%),
+      radial-gradient(62% 50% at 2% -4%,rgba(64,81,214,.16),rgba(64,81,214,0) 62%),
+      linear-gradient(180deg,#f9fcff 0%,#e7effa 46%,#f3f8ff 100%);
     background-attachment:fixed}
   body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
     background-image:linear-gradient(rgba(23,42,74,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(23,42,74,.04) 1px,transparent 1px);
@@ -54,7 +54,10 @@
 
   .wrap{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:52px 32px 64px}
 
-  .unit{display:block;padding:34px 36px 32px;margin:0 0 24px;border:1px solid var(--glass-stroke);border-radius:18px;background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(1.22);backdrop-filter:blur(18px) saturate(1.22);box-shadow:var(--glass-shadow);scroll-margin-top:96px}
+  .unit{display:block;padding:34px 36px 32px;margin:0 0 24px;border:1px solid var(--glass-stroke);border-top-color:rgba(255,255,255,.98);border-bottom-color:rgba(23,42,74,.11);border-radius:18px;background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(1.22);backdrop-filter:blur(18px) saturate(1.22);box-shadow:var(--glass-shadow);scroll-margin-top:96px}
+  .unit{transition:transform .2s ease,border-color .2s ease}
+  .unit:hover{transform:translateY(-1.5px);border-color:rgba(255,255,255,.99)}
+  @media(prefers-reduced-motion:reduce){.unit:hover{transform:none}}
   .u-id{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--faint)}
   .unit.live .u-id{color:var(--blue)}
   .unit h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,32px);line-height:1.5;letter-spacing:-.02em;margin:10px 0 12px;color:var(--ink)}

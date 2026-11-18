@@ -25,7 +25,12 @@
 
     color:var(--ink);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
 
-  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+  background:
+    radial-gradient(760px 440px at 12% -120px,rgba(255,255,255,.92),rgba(255,255,255,0) 66%),
+    radial-gradient(520px 360px at 94% -40px,rgba(70,170,255,.16),rgba(70,170,255,0) 68%),
+    radial-gradient(1000px 520px at 40% -160px,rgba(122,166,236,.24),rgba(122,166,236,0) 72%) no-repeat fixed,
+    linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,
+    var(--paper);
 }
   a{color:var(--accent);text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
@@ -140,6 +145,9 @@
   footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;padding-top:24px;padding-bottom:34px;color:var(--faint);font-size:12.5px}
   footer a{color:var(--muted)}
   footer a:hover{color:var(--accent)}
+
+  /* 光感升级：描边上亮下暗（阅读区不加模糊） */
+  .path-card,.skill,.who-box,.course-block,.stage-check,.after-card{border-top-color:rgba(255,255,255,.9);border-bottom-color:rgba(23,42,74,.14)}
 
   @media (max-width:900px){
     .hero-grid,.who,.skills{grid-template-columns:1fr}

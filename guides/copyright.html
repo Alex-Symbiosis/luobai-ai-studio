@@ -44,7 +44,12 @@ const COURSE = {
 
     color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
 
-  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+  background:
+    radial-gradient(760px 440px at 12% -120px,rgba(255,255,255,.92),rgba(255,255,255,0) 66%),
+    radial-gradient(520px 360px at 94% -40px,rgba(70,170,255,.16),rgba(70,170,255,0) 68%),
+    radial-gradient(1000px 520px at 40% -160px,rgba(122,166,236,.24),rgba(122,166,236,0) 72%) no-repeat fixed,
+    linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,
+    var(--paper);
 }
   .wrap{max-width:860px;margin:0 auto;padding:0 24px}
   a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(64,81,214,.28)}
@@ -58,7 +63,7 @@ const COURSE = {
   .cover-rule{width:44px;height:3px;background:var(--accent);border-radius:2px;margin:22px 0 18px}
   .lede{max-width:720px;color:var(--muted);font-size:16.5px;line-height:1.8}
   .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
-  .meta div{padding:14px 16px;background:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.48));-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);border:1px solid rgba(255,255,255,.75);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 40px -38px rgba(18,35,70,.4)}
+  .meta div{padding:14px 16px;background:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.48));-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);border:1px solid rgba(255,255,255,.75);border-top-color:rgba(255,255,255,.95);border-bottom-color:rgba(23,42,74,.10);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 40px -38px rgba(18,35,70,.4)}
   .meta span{display:block;font-size:11px;letter-spacing:.1em;color:var(--faint);margin-bottom:3px}
   .meta b{font-size:14px;font-weight:700}
 
@@ -68,7 +73,7 @@ const COURSE = {
   p{margin:0 0 14px;color:var(--ink)}
   ul{margin:0 0 16px;padding-left:1.4em}
   li{margin:7px 0}
-  .note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.8;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .note{background:var(--card);border:1px solid var(--line);border-top-color:rgba(255,255,255,.88);border-bottom-color:rgba(23,42,74,.13);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.8;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
   .note b{color:var(--amber)}
   .ok{background:var(--teal-soft);border-left-color:var(--teal);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.8}
   .ok b{color:var(--teal)}

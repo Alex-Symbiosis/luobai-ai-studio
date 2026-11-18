@@ -44,7 +44,12 @@ const COURSE = {
     letter-spacing:.01em;
     -webkit-font-smoothing:antialiased;
 
-  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+  background:
+    radial-gradient(760px 440px at 12% -120px,rgba(255,255,255,.92),rgba(255,255,255,0) 66%),
+    radial-gradient(520px 360px at 94% -40px,rgba(70,170,255,.16),rgba(70,170,255,0) 68%),
+    radial-gradient(1000px 520px at 40% -160px,rgba(122,166,236,.24),rgba(122,166,236,0) 72%) no-repeat fixed,
+    linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,
+    var(--paper);
 }
   .wrap{max-width:var(--max);margin:0 auto;padding:56px 28px 96px;}
   header{padding-bottom:28px;border-bottom:1px solid var(--line);}
@@ -192,6 +197,8 @@ const COURSE = {
   footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);line-height:1.8;}
   footer p{margin:0;}
 
+/* 光感升级：描边上亮下暗（阅读区不加模糊） */
+.card,.dial,.fig,.sim,.checklist,.task,.pager a,.verdict{border-top-color:rgba(255,255,255,.88);border-bottom-color:rgba(23,42,74,.14)}
   @media (max-width:640px){
     .wrap{padding:36px 18px 72px;}
     h1{font-size:1.72rem;}

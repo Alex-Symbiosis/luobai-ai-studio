@@ -66,7 +66,12 @@
   min-height:100vh;font-family:var(--sans);color:var(--ink);font-size:16.5px;line-height:1.85;
     -webkit-font-smoothing:antialiased;
 
-  background:radial-gradient(1100px 560px at 50% -180px,rgba(122,166,236,.26),rgba(122,166,236,0) 72%) no-repeat fixed,linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,var(--paper);
+  background:
+    radial-gradient(760px 440px at 12% -120px,rgba(255,255,255,.92),rgba(255,255,255,0) 66%),
+    radial-gradient(520px 360px at 94% -40px,rgba(70,170,255,.16),rgba(70,170,255,0) 68%),
+    radial-gradient(1000px 520px at 40% -160px,rgba(122,166,236,.24),rgba(122,166,236,0) 72%) no-repeat fixed,
+    linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14)) fixed,
+    var(--paper);
 }
   body::before{
     content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
@@ -107,6 +112,9 @@
   .foot{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;font-size:12.5px;color:var(--faint);line-height:1.7}
   .foot a{color:var(--muted);text-decoration:none}
   .foot a:hover{color:var(--blue);text-decoration:underline}
+  /* 光感升级：描边上亮下暗（阅读区不加模糊） */
+  .sheet{border-top-color:rgba(255,255,255,.95);border-bottom-color:rgba(23,42,74,.12)}
+
   @media(max-width:760px){
     body{font-size:16px;line-height:1.8}
     .wrap,footer{padding-left:20px;padding-right:20px}
