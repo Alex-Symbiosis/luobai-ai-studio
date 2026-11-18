@@ -13,219 +13,170 @@
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
-    --bg:#f2f7fd;
-    --ink:#121c2b;--ink2:#243044;--muted:#4d5b70;--faint:#5f6f85;
-    --line:rgba(23,42,74,.10);--line2:rgba(23,42,74,.16);
-    --blue:#4051d6;--blue-soft:rgba(64,81,214,.075);
-    --glass:rgba(255,255,255,.58);
-    --stroke:rgba(255,255,255,.78);
-    --shadow:0 1px 2px rgba(18,28,43,.03),0 30px 70px -52px rgba(18,35,70,.45);
+    --bg:#f7f8fa;
+    --ink:#14181f;--ink2:#2b323c;--muted:#5a626d;--faint:#8c939d;
+    --line:rgba(20,24,31,.14);--line-soft:rgba(20,24,31,.07);
+    --blue:#4051d6;--blue-deep:#2f3cb0;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
     --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
-    --shell:1160px;
+    --shell:1120px;
+    --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:80px;background:#eef4fb}
-  body{
-    min-height:100vh;font-family:var(--sans);color:var(--ink);font-size:16.5px;line-height:1.85;
-    background:
-      radial-gradient(1000px 620px at 6% -8%,rgba(64,81,214,.10),transparent 62%),
-      radial-gradient(820px 520px at 98% 2%,rgba(34,190,255,.09),transparent 60%),
-      radial-gradient(760px 620px at 50% 108%,rgba(15,122,108,.055),transparent 62%),
-      linear-gradient(180deg,#f9fcff 0%,#f0f6fd 55%,#f8fbff 100%);
-    background-attachment:fixed;
-    -webkit-font-smoothing:antialiased;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
-    background-image:
-      linear-gradient(rgba(23,42,74,.042) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(23,42,74,.042) 1px,transparent 1px);
-    background-size:72px 72px;
-    -webkit-mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
-    mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
-  }
-  body::after{
-    content:"";position:fixed;left:-140px;top:16%;width:440px;height:440px;border-radius:50%;
-    z-index:0;pointer-events:none;filter:blur(70px);
-    background:radial-gradient(circle,var(--blue-soft),transparent 68%);
-  }
-  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-  a:hover{text-decoration-thickness:2px}
-  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+  html{scroll-behavior:smooth;scroll-padding-top:96px;background:var(--bg)}
+  body{min-height:100vh;background:var(--bg);color:var(--ink2);font-family:var(--sans);font-size:16.5px;line-height:1.9;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:rgba(64,81,214,.38);transition:color .16s var(--ease),text-decoration-color .16s var(--ease)}
+  a:hover{color:var(--blue-deep);text-decoration-color:currentColor}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+  ::selection{background:rgba(64,81,214,.14)}
   .mono{font-family:var(--mono)}
-  .skip{
-    position:fixed;left:18px;top:-64px;z-index:120;padding:10px 16px;border-radius:10px;
-    background:#fff;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;
-    border:1px solid var(--line2);transition:top .18s ease;
-  }
-  .skip:focus{top:12px}
-  .glass{
-    background:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.46));
-    -webkit-backdrop-filter:blur(18px) saturate(1.22);
-    backdrop-filter:blur(18px) saturate(1.22);
-    border:1px solid var(--stroke);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),var(--shadow);
-  }
+  .skip{position:fixed;left:20px;top:-60px;z-index:120;padding:10px 16px;background:#fff;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--line);transition:top .18s var(--ease)}
+  .skip:focus{top:14px}
 
-  .hero{position:relative;z-index:1;padding:72px 0 16px}
-  .hero-inner{max-width:var(--shell);margin:0 auto;padding:0 32px;display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:44px;align-items:center}
-  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
-  .kicker::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
-  h1{margin-top:18px;max-width:740px;font-family:var(--serif);font-weight:500;font-size:clamp(38px,5vw,56px);line-height:1.16;letter-spacing:-.02em}
-  h1 em{font-style:normal;border-bottom:2px solid rgba(64,81,214,.55);padding-bottom:.04em}
-  .sub{margin-top:22px;max-width:610px;color:var(--muted);font-size:17px;line-height:1.9}
-  .hero-meta{margin-top:32px;padding:16px 20px;border-radius:14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-  .hero-meta div{padding-right:14px;min-width:0}
-  .hero-meta dt{font-size:10.5px;letter-spacing:.08em;color:var(--faint);font-weight:600;margin-bottom:3px}
-  .hero-meta dd{font-size:13px;line-height:1.5;color:var(--ink);font-weight:600}
-  .hero-art{width:280px;max-width:100%;height:auto;opacity:.72;pointer-events:none}
+  /* 首屏 */
+  .hero{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:88px 32px 0}
+  .hero-in{display:grid;grid-template-columns:minmax(0,1fr) 232px;grid-template-areas:"copy art" "spec spec";column-gap:56px;row-gap:46px;align-items:start}
+  .hero-copy{grid-area:copy;min-width:0}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--line);flex:0 0 auto}
+  h1{margin-top:22px;font-family:var(--serif);font-weight:400;font-size:clamp(38px,4.6vw,56px);line-height:1.14;letter-spacing:-.03em;color:var(--ink)}
+  h1 em{display:block;margin-top:16px;font-family:var(--mono);font-style:normal;font-weight:500;font-size:clamp(11px,1vw,13px);letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+  .lede{margin-top:26px;max-width:33em;font-size:clamp(17px,1.5vw,18.5px);line-height:1.95;color:var(--muted)}
+  .hero-art{grid-area:art;color:var(--ink);width:100%;max-width:232px;justify-self:end;opacity:.9;pointer-events:none}
+  .spec{grid-area:spec;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .spec div{padding:14px 20px 16px;border-left:1px solid var(--line-soft);min-width:0}
+  .spec div:first-child{border-left:0;padding-left:0}
+  .spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  .spec dd{font-size:14px;line-height:1.5;color:var(--ink);font-weight:600}
 
-  .shell{
-    position:relative;z-index:1;max-width:var(--shell);margin:0 auto;
-    padding:18px 32px 36px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px;align-items:start;
-  }
-  .toc{position:sticky;top:82px;border-radius:16px;padding:12px 10px}
-  .toc-title{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--faint);padding:2px 10px 8px}
+  /* 正文骨架 */
+  .shell{position:relative;z-index:1;max-width:var(--shell);margin:0 auto;padding:0 32px 56px;display:grid;grid-template-columns:192px minmax(0,1fr);column-gap:56px;align-items:start}
+  .toc{position:sticky;top:96px;padding-top:56px}
+  .toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);padding:0 0 12px 15px}
   .toc-toggle{display:none}
-  .toc-list{list-style:none;display:grid;gap:2px}
-  .toc-list a{
-    display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:9px;
-    color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;
-    transition:background .18s ease,color .18s ease,box-shadow .18s ease;
-  }
-  .toc-list a .n{width:18px;flex:0 0 auto;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-  .toc-list a:hover{background:rgba(255,255,255,.55);color:var(--ink)}
-  .toc-list a.active{background:var(--blue-soft);color:var(--ink);box-shadow:inset 2px 0 0 var(--blue)}
+  .toc-list{list-style:none;border-left:1px solid var(--line)}
+  .toc-list a{display:flex;align-items:baseline;gap:12px;min-height:40px;padding:0 0 0 14px;margin-left:-1px;border-left:2px solid transparent;color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;transition:color .16s var(--ease),border-color .16s var(--ease)}
+  .toc-list a .n{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.04em;color:var(--faint);transition:color .16s var(--ease)}
+  .toc-list a:hover{color:var(--ink)}
+  .toc-list a.active{color:var(--ink);border-left-color:var(--blue)}
   .toc-list a.active .n{color:var(--blue)}
-
   main{min-width:0}
-  .part{position:relative;padding:38px 40px 42px;border-radius:22px;margin-bottom:18px;scroll-margin-top:84px}
-  .part-head{display:grid;grid-template-columns:72px minmax(0,1fr);gap:26px}
-  .pnum{padding-top:5px;line-height:1.5}
-  .pnum b{display:block;font-family:var(--mono);font-size:19px;font-weight:400;color:var(--blue);letter-spacing:.02em}
-  .ptag{display:block;margin-top:3px;font-size:11.5px;letter-spacing:.04em;color:var(--faint)}
-  .part h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,2.6vw,30px);line-height:1.35;letter-spacing:-.015em;margin-bottom:14px}
-  .part h3.sub-h{font-family:var(--serif);font-weight:600;font-size:clamp(20px,2.2vw,25px);line-height:1.4;letter-spacing:-.01em;margin:30px 0 12px;padding-top:24px;border-top:1px solid var(--line)}
-  .part p{margin:0 0 15px;color:var(--ink2)}
+
+  .part{padding:56px 0 8px;border-top:1px solid var(--line);scroll-margin-top:96px}
+  .part-head{display:grid;grid-template-columns:60px minmax(0,1fr);column-gap:32px}
+  .pnum{padding-top:6px}
+  .pnum b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.16em;color:var(--blue)}
+  .ptag{display:block;margin-top:8px;font-size:11px;line-height:1.5;letter-spacing:.04em;color:var(--faint)}
+  .part h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.4vw,31px);line-height:1.5;letter-spacing:-.015em;color:var(--ink);margin-bottom:20px}
+  .part p{margin:0 0 18px;color:var(--ink2);max-width:36em}
   .part p:last-child{margin-bottom:0}
-  .part p.soft{color:var(--muted);font-size:14.5px;line-height:1.8}
-  .part strong{font-weight:700;color:var(--ink)}
+  .part strong{font-weight:600;color:var(--ink)}
   .part em{font-style:normal;font-weight:600;color:var(--ink)}
+  .part p.soft{margin-top:24px;padding-top:14px;border-top:1px solid var(--line-soft);font-size:13.5px;line-height:1.8;color:var(--muted);max-width:36em}
 
-  .pull{
-    margin:24px 0;padding:22px 24px;border-radius:14px;
-    background:linear-gradient(180deg,rgba(64,81,214,.055),rgba(255,255,255,.34));
-    border:1px solid rgba(64,81,214,.12);
-    font-family:var(--serif);font-size:21px;line-height:1.75;color:var(--ink);
-  }
-  .pull span{display:block;margin-top:8px;font-family:var(--sans);font-size:12.5px;line-height:1.7;color:var(--muted);letter-spacing:.01em}
+  /* 设计过的桌面断行 */
+  .br-d{display:none}
+  @media (min-width:761px){.br-d{display:inline}}
 
-  .part .html-q{font-size:13.5px;font-weight:600;line-height:1.6;letter-spacing:.02em;color:var(--muted);margin:-2px 0 0}
-  .part .html-q::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--blue);margin-right:8px;vertical-align:middle}
-  .part .html-a{font-family:var(--serif);font-size:22px;line-height:1.7;color:var(--ink);margin:10px 0 24px;padding-left:16px;border-left:2px solid rgba(64,81,214,.5)}
+  .pull{margin:30px 0;padding:2px 0 2px 22px;border-left:1px solid var(--line);font-family:var(--serif);font-size:21px;line-height:1.75;color:var(--ink);max-width:30em}
+  .pull span{display:block;margin-top:10px;font-family:var(--sans);font-size:13px;line-height:1.75;color:var(--muted)}
 
-  .list{list-style:none;margin:16px 0 4px}
-  .list li{position:relative;padding:11px 0 11px 20px;border-bottom:1px solid var(--line);color:var(--ink2);font-size:15.5px}
-  .list li:first-child{border-top:1px solid var(--line)}
-  .list li::before{content:"";position:absolute;left:2px;top:1.35em;width:7px;height:1px;background:var(--blue);opacity:.65}
-  .list.two{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
-  .list.two li:nth-child(2){border-top:1px solid var(--line)}
+  .html-q{font-size:12.5px;font-weight:600;line-height:1.6;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+  .html-a{font-family:var(--serif);font-size:21px;line-height:1.75;color:var(--ink);margin:0 0 26px;padding-left:20px;border-left:1px solid var(--line)}
 
-  /* 现在有什么：状态卡 */
-  .note{margin:22px 0 0;padding:22px 24px;border-radius:16px;background:rgba(255,255,255,.5);border:1px solid var(--line)}
-  .note-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-  .note-top .id{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--blue)}
-  .note-top .nm{font-family:var(--serif);font-size:20px;line-height:1.4;color:var(--ink)}
-  .note-top .st{font-size:11px;font-weight:700;letter-spacing:.04em;color:#0f7a6c;background:rgba(15,122,108,.10);border:1px solid rgba(15,122,108,.18);border-radius:999px;padding:2px 10px}
-  .note-top .st.prep{color:#b26206;background:rgba(178,98,6,.10);border-color:rgba(178,98,6,.18)}
-  .note-meta{margin:12px 0 0;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
-  .note p{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.8}
-  .note .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;min-height:44px;padding:0 16px;border-radius:10px;background:var(--blue);color:#fff;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 10px 24px -14px rgba(64,81,214,.85);transition:background .18s ease,transform .18s ease}
-  .note .go:hover{background:#3343bb;transform:translateY(-1px);text-decoration:none}
+  .list{list-style:none;margin:22px 0 26px;border-top:1px solid var(--line-soft);max-width:40em}
+  .list li{position:relative;padding:11px 0 11px 20px;border-bottom:1px solid var(--line-soft);color:var(--ink2);font-size:15.5px;line-height:1.85}
+  .list li::before{content:"";position:absolute;left:2px;top:.95em;width:7px;height:1px;background:rgba(20,24,31,.3)}
+  .list.two{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;max-width:none}
 
-  .invite{margin-top:22px;padding:22px 24px;border-radius:16px;background:rgba(255,255,255,.5);border:1px solid var(--line)}
-  .invite h3{font-size:15px;font-weight:700;margin-bottom:8px}
-  .invite p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
-  .mail{
-    display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:10px;
-    background:var(--blue);color:#fff;font-family:var(--mono);font-size:13.5px;font-weight:600;text-decoration:none;
-    box-shadow:0 10px 24px -14px rgba(64,81,214,.85);
-    transition:background .18s ease,transform .18s ease;
-  }
-  .mail:hover{background:#3343bb;transform:translateY(-1px);text-decoration:none}
-  .invite .fine{margin:12px 0 0;font-size:12.5px;color:var(--faint);line-height:1.7}
+  /* 课程条目：无卡片，仅细线与留白 */
+  .note{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--line)}
+  .note-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+  .note-top .id{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--faint)}
+  .note-top .nm{font-family:var(--serif);font-size:21px;line-height:1.4;color:var(--ink)}
+  .note-top .st{position:relative;padding-left:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted)}
+  .note-top .st::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;background:currentColor}
+  .note-meta{margin-top:12px;display:flex;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .note-meta span+span::before{content:"·";color:var(--faint);margin:0 12px}
+  .note p{margin:12px 0 0;font-size:14.5px;line-height:1.85;color:var(--muted);max-width:40em}
+  .note .go{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:14px;font-weight:600;color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(64,81,214,.35);padding-bottom:2px;transition:border-color .16s var(--ease),transform .16s var(--ease)}
+  .note .go:hover{border-bottom-color:currentColor;transform:translateX(2px)}
 
-  .sign{margin-top:26px;padding:20px 4px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+  .invite{margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+  .invite h3{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--ink);margin-bottom:10px}
+  .invite p{font-size:14.5px;line-height:1.85;color:var(--muted);margin-bottom:14px;max-width:36em}
+  .mail{font-family:var(--mono);font-size:14px;color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(64,81,214,.35);padding-bottom:2px;transition:border-color .16s var(--ease)}
+  .mail:hover{border-bottom-color:currentColor}
+  .invite .fine{margin:14px 0 0;font-size:12.5px;line-height:1.75;color:var(--faint)}
+
+  .sign{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
   .sign .name{font-family:var(--serif);font-size:18px;color:var(--ink)}
 
-  footer{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(255,255,255,.44);-webkit-backdrop-filter:blur(14px) saturate(1.25);backdrop-filter:blur(14px) saturate(1.25)}
-  .foot{max-width:var(--shell);margin:0 auto;padding:20px 32px 26px;display:flex;justify-content:space-between;align-items:center;gap:10px 22px;flex-wrap:wrap;font-size:12.5px;line-height:1.7;color:var(--muted)}
-  .foot-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-  .foot a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-  .foot a:hover{color:var(--blue)}
-  .backtop{
-    position:fixed;right:24px;bottom:24px;z-index:60;width:44px;height:44px;border-radius:50%;
-    display:inline-flex;align-items:center;justify-content:center;color:var(--ink);font-size:17px;text-decoration:none;
-    background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
-    border:1px solid var(--stroke);box-shadow:0 12px 30px -18px rgba(18,35,70,.45);
-    opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease;
-  }
-  .backtop.show{opacity:1;transform:none;pointer-events:auto}
+  footer{position:relative;z-index:1;border-top:1px solid var(--line)}
+  .foot{max-width:var(--shell);margin:0 auto;padding:24px 32px 32px;display:flex;justify-content:space-between;align-items:center;gap:8px 24px;flex-wrap:wrap;font-size:12.5px;line-height:1.8;color:var(--muted)}
+  .foot-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .foot a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted);text-decoration:none}
+  .foot a:hover{color:var(--blue);text-decoration:underline;text-underline-offset:4px}
 
+  .backtop{position:fixed;right:28px;bottom:28px;z-index:60;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--line);border-radius:2px;color:var(--ink);font-size:15px;text-decoration:none;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .18s var(--ease),transform .18s var(--ease),border-color .18s var(--ease)}
+  .backtop.show{opacity:1;transform:none;pointer-events:auto}
+  .backtop:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* 动效：入场、滚动、hover；默认只在允许动效时启用 */
   @media (prefers-reduced-motion:no-preference){
-    .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .38s cubic-bezier(.22,.61,.36,1),transform .38s cubic-bezier(.22,.61,.36,1)}
-    .js .reveal.in{opacity:1;transform:none}
+    .js .rise{animation:rise .32s var(--ease) both;animation-delay:var(--d,0ms)}
+    .js .reveal .part-head{opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+    .js .reveal .part-body{opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease) .09s,transform .3s var(--ease) .09s}
+    .js .reveal.in .part-head,.js .reveal.in .part-body{opacity:1;transform:none}
   }
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
-  }
-  @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
-    .glass,footer,.backtop{background:rgba(255,255,255,.92)}
+    *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}
   }
 
   @media (max-width:1023px){
-    .hero-inner{grid-template-columns:1fr}
+    .hero-in{grid-template-columns:1fr;grid-template-areas:"copy" "spec";row-gap:36px}
     .hero-art{display:none}
-    .shell{grid-template-columns:1fr;gap:14px;padding-top:14px}
-    .toc{position:sticky;top:70px;z-index:30;padding:8px 10px}
+    .shell{grid-template-columns:1fr;column-gap:0;padding-bottom:36px}
+    .toc{position:sticky;top:62px;z-index:40;padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
     .toc-title{display:none}
-    .toc-toggle{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 10px;background:none;border:0;cursor:pointer;font-family:var(--sans);color:var(--ink);font-size:13px;font-weight:700;text-align:left}
-    .toc-toggle::after{content:"⌄";margin-left:auto;color:var(--faint);font-size:14px;transition:transform .18s ease}
+    .toc-toggle{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:0 2px;background:none;border:0;cursor:pointer;font-family:var(--sans);color:var(--ink);font-size:13px;font-weight:600;text-align:left}
+    .toc-toggle::after{content:"⌄";margin-left:auto;color:var(--faint);font-size:14px;transition:transform .18s var(--ease)}
     .toc.open .toc-toggle::after{transform:rotate(180deg)}
-    .toc-current{margin-left:2px;color:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:400}
-    .js .toc-list{display:none;grid-template-columns:1fr 1fr;gap:2px 6px;margin-top:6px}
+    .toc-current{margin-left:2px;font-family:var(--mono);font-size:10.5px;font-weight:400;color:var(--muted)}
+    .js .toc-list{display:none;border-left:0;grid-template-columns:1fr 1fr;column-gap:16px;padding:0 0 10px}
     .js .toc.open .toc-list{display:grid}
-    .toc-list a{min-height:40px}
+    .toc-list a{min-height:40px;border-left:0;padding-left:0;margin-left:0}
+    .toc-list a.active{border-left:0;color:var(--ink)}
+    .part{padding-top:40px}
   }
 
   @media (max-width:760px){
-    body{font-size:16px;line-height:1.8}
-    .hero{padding:48px 0 10px}
-    .hero-inner{padding:0 20px}
-    h1{font-size:32px;line-height:1.22}
-    .sub{font-size:16px;line-height:1.85;margin-top:18px}
-    .hero-meta{grid-template-columns:1fr 1fr;margin-top:26px;padding:14px 16px}
-    .hero-meta div{padding-right:10px}
-    .hero-meta div:nth-child(n+3){margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
-    .shell{padding:12px 20px 28px}
-    .part{padding:26px 22px 28px;border-radius:18px;margin-bottom:14px}
-    .part-head{grid-template-columns:1fr;gap:6px}
-    .pnum{display:flex;align-items:baseline;gap:8px;padding-top:0}
-    .pnum b{font-size:15px}
+    body{font-size:16px;line-height:1.85}
+    .hero{padding:52px 20px 0}
+    h1{font-size:clamp(30px,8.4vw,38px);line-height:1.2}
+    .lede{margin-top:20px;font-size:16.5px;line-height:1.9}
+    .spec{grid-template-columns:1fr 1fr}
+    .spec div{padding:12px 0 12px 14px}
+    .spec div:nth-child(odd){border-left:0;padding-left:0}
+    .spec div:nth-child(n+3){border-top:1px solid var(--line-soft)}
+    .shell{padding:0 20px 28px}
+    .part{padding-top:36px}
+    .part-head{grid-template-columns:1fr;row-gap:10px}
+    .pnum{display:flex;align-items:baseline;gap:10px;padding-top:0}
     .ptag{margin-top:0;font-size:11px}
-    .part h2{font-size:22px;margin-bottom:12px}
-    .part h3.sub-h{font-size:19px;margin-top:24px;padding-top:20px}
-    .part .html-a{font-size:19px;margin-bottom:20px}
-    .pull{font-size:18px;padding:18px}
+    .part h2{font-size:24px;line-height:1.5;margin-bottom:16px}
+    .part .html-a{font-size:19px;padding-left:16px}
+    .pull{font-size:18px;padding-left:16px}
     .list.two{grid-template-columns:1fr}
-    .list.two li:nth-child(2){border-top:0}
-    .sign{display:block}
-    .sign .name{margin-top:6px}
-    .foot{display:block;padding:18px 20px 24px}
-    .foot-links{margin-top:6px}
+    .note-top{gap:6px 12px}
+    .note-top .nm{font-size:19px}
+    .sign{display:block;margin-top:36px}
+    .sign .name{margin-top:8px}
+    .foot{display:block;padding:20px 20px 26px}
+    .foot-links{margin-top:4px;gap:16px}
     .backtop{right:16px;bottom:16px}
   }
 </style>
@@ -291,43 +242,40 @@
 </div>
 
 <header class="hero">
-  <div class="hero-inner">
-    <div>
-      <span class="kicker">Luobai AI Studio · 2026</span>
-      <h1>落白lite &amp; AI研学社<br><em>Luobai AI Studio</em></h1>
-      <p class="sub">我们是一群对 AI 感兴趣的人，喜欢把新工具、新平台拆开试一试，再把弄懂的部分写下来。这里记的是上手的方法、踩过的坑，和一条还没走完的路——你愿意的话，可以接着往下修。</p>
-      <dl class="hero-meta glass">
-        <div><dt>课程</dt><dd>2 门</dd></div>
-        <div><dt>已上线</dt><dd>52 个小节</dd></div>
-        <div><dt>维护</dt><dd>落白lite</dd></div>
-        <div><dt>起始</dt><dd>2026</dd></div>
-      </dl>
+  <div class="hero-in">
+    <div class="hero-copy">
+      <span class="eyebrow rise" style="--d:0ms">Luobai AI Studio · 2026</span>
+      <h1 class="rise" style="--d:50ms">落白lite &amp; AI研学社<em>Luobai AI Studio</em></h1>
+      <p class="lede rise" style="--d:100ms">我们是一群对 AI 感兴趣的人，喜欢把新工具、新平台拆开试一试，再把弄懂的部分写下来。这里记的是上手的方法、踩过的坑，和一条还没走完的路——你愿意的话，可以接着往下修。</p>
     </div>
-    <svg class="hero-art" viewBox="0 0 280 360" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="paper" x1="44" y1="24" x2="240" y2="336" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#ffffff" stop-opacity=".72"/>
-          <stop offset="1" stop-color="#ffffff" stop-opacity=".28"/>
-        </linearGradient>
-      </defs>
-      <rect x="26" y="18" width="228" height="324" rx="16" fill="url(#paper)" stroke="rgba(64,81,214,.18)"/>
-      <g stroke="rgba(23,42,74,.09)" stroke-width="1">
-        <path d="M50 60H230M50 84H230M50 108H230M50 132H230M50 156H230M50 180H230M50 204H230M50 228H230M50 252H230M50 276H230M50 300H230"/>
-        <path d="M50 42V318M74 42V318M98 42V318M122 42V318M146 42V318M170 42V318M194 42V318M218 42V318"/>
-      </g>
-      <rect x="54" y="48" width="96" height="9" rx="4.5" fill="rgba(18,28,43,.16)"/>
-      <rect x="54" y="66" width="140" height="5" rx="2.5" fill="rgba(18,28,43,.09)"/>
-      <path d="M74 210C106 210 112 178 144 178C176 178 182 146 212 146" stroke="#4051d6" stroke-opacity=".55" stroke-width="1.4"/>
-      <circle cx="74" cy="210" r="3" fill="#4051d6"/>
-      <circle cx="144" cy="178" r="3" fill="#4051d6" fill-opacity=".7"/>
-      <circle cx="212" cy="146" r="3.4" fill="#4051d6"/>
-      <rect x="196" y="66" width="16" height="5" rx="2.5" fill="rgba(64,81,214,.35)"/>
+    <svg class="hero-art rise" style="--d:150ms" viewBox="0 0 232 312" fill="none" aria-hidden="true">
+      <rect x="0.5" y="0.5" width="231" height="311" stroke="currentColor" stroke-opacity=".28"/>
+      <path d="M28 44H204" stroke="currentColor" stroke-opacity=".5"/>
+      <path d="M28 62H178" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 76H196" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 90H150" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 118H204" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 132H172" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 146H188" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 160H136" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 200H204" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M28 214H160" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M44 258C76 258 92 232 124 232C156 232 172 204 200 204" stroke="currentColor" stroke-opacity=".45"/>
+      <circle cx="44" cy="258" r="2.5" fill="currentColor" fill-opacity=".4"/>
+      <circle cx="124" cy="232" r="2.5" fill="currentColor" fill-opacity=".4"/>
+      <circle cx="200" cy="204" r="3" fill="#4051d6"/>
     </svg>
+    <dl class="spec rise" style="--d:150ms">
+      <div><dt>课程</dt><dd>2 门</dd></div>
+      <div><dt>已上线</dt><dd>52 个小节</dd></div>
+      <div><dt>维护</dt><dd>落白lite</dd></div>
+      <div><dt>起始</dt><dd>2026</dd></div>
+    </dl>
   </div>
 </header>
 
 <div class="shell">
-  <nav class="toc glass" id="toc" aria-label="章节导航">
+  <nav class="toc" id="toc" aria-label="章节导航">
     <div class="toc-title">章节目录</div>
     <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
       <span>章节目录</span><span class="toc-current">01 为什么做</span>
@@ -344,11 +292,11 @@
 
   <main id="main">
 
-    <section class="part glass reveal" id="why">
+    <section class="part reveal" id="why">
       <div class="part-head">
         <div class="pnum"><b>01</b><span class="ptag">为什么做</span></div>
         <div class="part-body">
-          <h2>因为 AI 太快，而学习太碎</h2>
+          <h2>因为 AI 太快，<br class="br-d">而学习太碎</h2>
           <p>AI 变得很快。半年不碰，再打开时界面、模型、名词已经换了一轮。不碰它，等于把自己未来的可能性关掉一部分——这句话不是恐吓，是我们自己的感受。</p>
           <p>但 AI 学习本身是碎的。画图、写代码、做视频、搭智能体，每样都有术业有专攻的人在玩；教程散在不同平台，术语各说各话。一个刚进来的人，往往不是学不会，而是<strong>不知道该先学哪一个</strong>。</p>
           <div class="pull">我们想做的，是把散落的东西收拢：先讲通共同的原理，再排成一条能走的路。<span>走完一段，至少知道自己在哪里、下一步往哪走。</span></div>
@@ -357,11 +305,11 @@
       </div>
     </section>
 
-    <section class="part glass reveal" id="now">
+    <section class="part reveal" id="now">
       <div class="part-head">
         <div class="pnum"><b>02</b><span class="ptag">现在有什么</span></div>
         <div class="part-body">
-          <h2>先有一门课，把路走通</h2>
+          <h2>先有一门课，<br class="br-d">把路走通</h2>
           <p>研学社的第一门主课是《AI 入门与 ComfyUI 出图课》，已经上线 52 个小节，分成 5 个单元：先建立共同语言，再跑出第一张图，然后看懂参数、认识节点，最后做出成品。</p>
           <div class="note">
             <div class="note-top">
@@ -377,7 +325,7 @@
             <div class="note-top">
               <span class="id">课程 02</span>
               <span class="nm">人工智能应用工程师</span>
-              <span class="st prep">筹备中</span>
+              <span class="st">筹备中</span>
             </div>
             <div class="note-meta"><span>3 个等级</span><span>初级 → 中级 → 高级</span><span>章节未发布</span></div>
             <p>面向 AI 应用工程师方向，分初级、中级、高级三段推进。现在没有内容，第一章也还没放出来——三段分别对应什么能力，等第一章出来后写明。</p>
@@ -388,11 +336,11 @@
       </div>
     </section>
 
-    <section class="part glass reveal" id="html">
+    <section class="part reveal" id="html">
       <div class="part-head">
         <div class="pnum"><b>03</b><span class="ptag">HTML 是版面</span></div>
         <div class="part-body">
-          <h2>HTML 不是容器，是版面。</h2>
+          <h2>HTML 不是容器，<br class="br-d">是版面。</h2>
           <p class="html-q">为什么是 HTML？</p>
           <p class="html-a">因为我们是用网页把文章印出来。</p>
           <p>我们的课不是长在某个平台上的，是一份一份的文件。</p>
@@ -403,11 +351,11 @@
       </div>
     </section>
 
-    <section class="part glass reveal" id="together">
+    <section class="part reveal" id="together">
       <div class="part-head">
         <div class="pnum"><b>04</b><span class="ptag">怎么一起</span></div>
         <div class="part-body">
-          <h2>开放不是口号，是具体的做法</h2>
+          <h2>开放不是口号，<br class="br-d">是具体的做法</h2>
           <p>“开放、包容、共建、共享”这几个词很容易被写成标语，所以我们说得具体一点：</p>
           <ul class="list two">
             <li>文字内容采用 CC BY-NC-SA 4.0：可以转载、可以改编，保留署名和原文链接就行。</li>
@@ -420,11 +368,11 @@
       </div>
     </section>
 
-    <section class="part glass reveal" id="thanks">
+    <section class="part reveal" id="thanks">
       <div class="part-head">
         <div class="pnum"><b>05</b><span class="ptag">致敬</span></div>
         <div class="part-body">
-          <h2>哪些不是我们想出来的</h2>
+          <h2>哪些不是<br class="br-d">我们想出来的</h2>
           <p>这门课不是从零长出来的。结构和做法上，我们参照了 Datawhale 的开源课程与共创方式——“把知识拆成能走的路径、让学过的人回来补”这件事，不是我们发明的。</p>
           <p>ComfyUI 的节点知识来自官方文档和社区里公开的讨论；参数怎么影响画面，很多结论是先有人试出来、写下来，我们才跟着验证。凡是能指出出处的，我们都尽量写清楚，不把别人公开的成果包装成自己的。</p>
           <p class="soft">如果你发现哪一段没有署上该署的名字，写信告诉我们，我们改。</p>
@@ -432,11 +380,11 @@
       </div>
     </section>
 
-    <section class="part glass reveal" id="invite">
+    <section class="part reveal" id="invite">
       <div class="part-head">
         <div class="pnum"><b>06</b><span class="ptag">邀请</span></div>
         <div class="part-body">
-          <h2>你愿意的话，可以接着往下修</h2>
+          <h2>你愿意的话，<br class="br-d">可以接着往下修</h2>
           <p>这里没有报名表，也没有“学员群”。觉得有用，就拿去用；觉得哪里不对，就说出来。能一起把一课讲清楚，就是贡献。</p>
           <div class="invite">
             <h3>写信给这个研学社</h3>
@@ -517,7 +465,7 @@
       entries.forEach(function(e){
         if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}
       });
-    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    },{threshold:.05,rootMargin:'0px 0px -8% 0px'});
     reveals.forEach(function(el){rio.observe(el);});
   }else{
     reveals.forEach(function(el){el.classList.add('in');});

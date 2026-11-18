@@ -10,6 +10,69 @@
 <title>社区 · 落白lite &amp; AI研学社</title>
 <meta name="description" content="社区还没开门。现在能做的只有一件事：发邮件。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --bg:#f7f8fa;
+    --ink:#14181f;--ink2:#2b323c;--muted:#5a626d;--faint:#8c939d;
+    --line:rgba(20,24,31,.14);--line-soft:rgba(20,24,31,.07);
+    --blue:#4051d6;--blue-deep:#2f3cb0;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:96px;background:var(--bg)}
+  body{min-height:100vh;background:var(--bg);color:var(--ink2);font-family:var(--sans);font-size:16.5px;line-height:1.9;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:rgba(64,81,214,.38);transition:color .16s var(--ease),text-decoration-color .16s var(--ease)}
+  a:hover{color:var(--blue-deep);text-decoration-color:currentColor}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+  ::selection{background:rgba(64,81,214,.14)}
+  .skip{position:fixed;left:20px;top:-60px;z-index:120;padding:10px 16px;background:#fff;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--line);transition:top .18s var(--ease)}
+  .skip:focus{top:14px}
+
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 32px 56px}
+  .hero{padding:96px 0 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--line);flex:0 0 auto}
+  h1{margin-top:22px;font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,58px);line-height:1.1;letter-spacing:-.03em;color:var(--ink)}
+
+  .sheet{margin:44px 0 0;padding-top:32px;border-top:1px solid var(--line)}
+  .sheet p{font-size:16.5px;line-height:1.95;color:var(--ink2);margin-bottom:20px;max-width:36em}
+  .sheet p:first-child{font-size:19px;line-height:1.9;color:var(--ink);max-width:32em}
+  .sheet p:last-of-type{margin-bottom:0}
+  .mail{font-family:var(--mono);font-size:.94em;text-decoration:none;border-bottom:1px solid rgba(64,81,214,.4);padding-bottom:1px;transition:border-color .16s var(--ease)}
+  .mail:hover{border-bottom-color:currentColor}
+  .end{margin-top:32px;padding-top:18px;border-top:1px solid var(--line-soft);font-size:12.5px;line-height:1.75;color:var(--faint);max-width:none}
+
+  footer{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 32px 46px}
+  .foot{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:12.5px;color:var(--faint);line-height:1.8}
+  .foot a{color:var(--muted);text-decoration:none;border-bottom:0}
+  .foot a:hover{color:var(--blue);text-decoration:underline;text-underline-offset:4px}
+
+  @media (prefers-reduced-motion:no-preference){
+    .js .rise{animation:rise .32s var(--ease) both;animation-delay:var(--d,0ms)}
+    .js .reveal .sheet>p:first-child{opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+    .js .reveal .sheet>p:not(:first-child){opacity:0;transform:translateY(10px);transition:opacity .3s var(--ease) .09s,transform .3s var(--ease) .09s}
+    .js .reveal.in .sheet>p{opacity:1;transform:none}
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}
+  }
+
+  @media(max-width:760px){
+    body{font-size:16px;line-height:1.85}
+    .wrap,footer{padding-left:20px;padding-right:20px}
+    .hero{padding:56px 0 0}
+    h1{font-size:clamp(32px,9vw,42px)}
+    .sheet{margin-top:34px;padding-top:24px}
+    .sheet p{font-size:16px}
+    .sheet p:first-child{font-size:17.5px}
+  }
+</style>
 <style id="sitebar-css">
 .sitebar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid rgba(24,33,47,.08)}
 .sb-in{max-width:1160px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:6px;box-sizing:border-box}
@@ -46,73 +109,6 @@
 }
 @media(prefers-reduced-motion:reduce){.sb-nav a,.sb-go{transition:none}}
 </style>
-<style>
-  :root{
-    --bg:#f2f7fd;
-    --ink:#121c2b;--ink2:#243044;--muted:#4d5b70;--faint:#5f6f85;
-    --line:rgba(23,42,74,.10);--line2:rgba(23,42,74,.16);
-    --blue:#4051d6;--blue-soft:rgba(64,81,214,.075);
-    --glass:rgba(255,255,255,.58);
-    --stroke:rgba(255,255,255,.78);
-    --shadow:0 1px 2px rgba(18,28,43,.03),0 30px 70px -52px rgba(18,35,70,.45);
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
-    --serif:Georgia,"Times New Roman","Songti SC","SimSun",serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:80px;background:#eef4fb}
-  body{
-    min-height:100vh;font-family:var(--sans);color:var(--ink);font-size:16.5px;line-height:1.85;
-    background:
-      radial-gradient(1000px 620px at 6% -8%,rgba(64,81,214,.10),transparent 62%),
-      radial-gradient(820px 520px at 98% 2%,rgba(34,190,255,.09),transparent 60%),
-      radial-gradient(760px 620px at 50% 108%,rgba(15,122,108,.055),transparent 62%),
-      linear-gradient(180deg,#f9fcff 0%,#f0f6fd 55%,#f8fbff 100%);
-    background-attachment:fixed;-webkit-font-smoothing:antialiased;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
-    background-image:
-      linear-gradient(rgba(23,42,74,.042) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(23,42,74,.042) 1px,transparent 1px);
-    background-size:72px 72px;
-    -webkit-mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
-    mask-image:radial-gradient(1200px 820px at 50% 0%,#000 18%,transparent 78%);
-  }
-  a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-  a:hover{text-decoration-thickness:2px}
-  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
-  .skip{position:fixed;left:18px;top:-64px;z-index:120;padding:10px 16px;border-radius:10px;background:#fff;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--line2);transition:top .18s ease}
-  .skip:focus{top:12px}
-  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 32px}
-  .hero{padding:88px 0 30px}
-  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
-  .kicker::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
-  h1{margin-top:18px;font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,56px);line-height:1.16;letter-spacing:-.02em}
-  .sheet{
-    margin:12px 0 40px;padding:34px 38px 30px;border-radius:20px;
-    background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.50));
-    -webkit-backdrop-filter:blur(18px) saturate(1.2);
-    backdrop-filter:blur(18px) saturate(1.2);
-    border:1px solid var(--stroke);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),var(--shadow);
-  }
-  .sheet p{color:var(--ink2);margin-bottom:16px}
-  .sheet p:last-of-type{margin-bottom:0}
-  .sheet .mail{font-weight:600}
-  .end{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);line-height:1.7}
-  footer{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:6px 32px 46px}
-  .foot{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;font-size:12.5px;color:var(--faint);line-height:1.7}
-  .foot a{color:var(--muted);text-decoration:none}
-  .foot a:hover{color:var(--blue);text-decoration:underline}
-  @media(max-width:760px){
-    body{font-size:16px;line-height:1.8}
-    .wrap,footer{padding-left:20px;padding-right:20px}
-    .hero{padding:56px 0 24px}
-    h1{font-size:38px}
-    .sheet{padding:26px 22px 22px;border-radius:16px}
-  }
-  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.skip{transition:none}}
-</style>
 </head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
@@ -139,11 +135,11 @@
 
 <main id="main" class="wrap">
   <header class="hero">
-    <span class="kicker">社区</span>
-    <h1>社区还没开门</h1>
+    <span class="eyebrow rise" style="--d:0ms">社区</span>
+    <h1 class="rise" style="--d:50ms">社区还没开门</h1>
   </header>
 
-  <section class="sheet">
+  <section class="sheet reveal">
     <p>我们打算在这儿放一个能互相看的地方：谁卡在哪一步、谁调出了什么效果、谁的搭法更省显存，都可以贴上来。</p>
     <p>现在还没有。不是不想做，是没人维护、也没有内容——一间空屋子，门开着比关着更没意思。</p>
     <p>在这之前，有话说就发邮件：<a class="mail" href="mailto:3380977874@qq.com">3380977874@qq.com</a>。问题、纠错、想看的选题，都算。收到的会回。</p>
@@ -157,6 +153,23 @@
     <div><a href="community.html">社区</a> · <a href="guides/copyright.html">文字内容采用 CC BY-NC-SA 4.0 授权</a></div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals=[].slice.call(document.querySelectorAll('.reveal'));
+  if(!reduce&&'IntersectionObserver' in window){
+    var rio=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}
+      });
+    },{threshold:.05,rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(el){rio.observe(el);});
+  }else{
+    reveals.forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
 
 <script id="sitebar-js">
 (function(){function close(){var d=document.querySelector('.sb-menu[open]');if(d)d.open=false}
