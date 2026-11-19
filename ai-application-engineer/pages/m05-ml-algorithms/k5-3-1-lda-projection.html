@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.3.1 LDA：让两类投得最开 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 Fisher 准则，并解释类间散度与类内散度各管什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-3-lda-cart.html">5.3 线性判别分析与分类回归树</a><span class="sep">/</span><span class="here">5.3.1 LDA：让两类投得最开</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.3</span>
+    <span class="tag">知识点 5.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>LDA：让两类投得最开</h1>
+  <p class="lede">高维数据画不出来，最直接的办法是投影到一条线上。可方向有无数个：有的投完两类叠在一起，有的投完泾渭分明。LDA 要做的，就是用标签把「分得开」写成一个可优化的目标。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 Fisher 准则，并解释类间散度与类内散度各管什么。</li><li>能说出 LDA 与 PCA 在监督性、优化目标上的区别。</li><li>能判断两个候选投影方向哪个更好，并给出依据。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同样压到一维，两种选向</h2>
+<p>同一批二维两类点，两个人各选了一个投影方向：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>只看数据摊得多开</h3><p>不看标签，计算方差最大的方向，把点投到这条线上；用于压缩与可视化。投影后两类是否分开，不在考虑范围内。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>看两类分不分得开</h3><p>用标签算出类均值与类内散布，找让「类间距离大、类内散布小」的方向；投影后的坐标直接用于分类。</p></div>
+</div>
+<p class="ask">同样是压到一维，为什么 A 可能把两类压成一团，B 却能让它们分开？</p>
+<p>因为两者的目标函数不同。A 最大化的方差可能来自类内差异；B 的目标里带着类间与类内的比值，方向朝分开两类走。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>找一条最会分人的线</h2>
+<p>一群人站在操场上，要排成一列并让两个班组尽量分开。你会选一个「班组之间差得最大、组内身高又比较齐」的方向来排队，而不是让队伍最长。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="PCA 与 LDA：两种投影目标">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">PCA 与 LDA：两种投影目标</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">PCA：让方差最大</text><text class="f-s" x="80" y="108">· 不看标签，只看数据分布</text><text class="f-s" x="80" y="138">· 找数据摊得最开的方向</text><text class="f-s" x="80" y="168">· 用于压缩、可视化</text><text class="f-s" x="80" y="198">· 投影后类别可能混在一起</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">LDA：让类间/类内最大</text><text class="f-s" x="530" y="108">· 使用标签，看两类分得开不开</text><text class="f-s" x="530" y="138">· 最大化类间散度与类内散度之比</text><text class="f-s" x="530" y="168">· 用于降维后分类</text><text class="f-s" x="530" y="198">· 类别数决定最多投影维数</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-10　PCA 与 LDA：两种投影目标</b>　PCA 找方差最大的方向，LDA 找类间与类内比值最大的方向；目标不同，投出来的结果就不同。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>「分得开」不是「摊得开」。LDA 的投影方向由标签定义，而不是由数据的总方差定义。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>Fisher 准则与两个散度</h2>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>Fisher 准则 <span class="term">J(w) = (wᵀ S_B w) / (wᵀ S_W w)</span>，其中 S_B 是类间散度、S_W 是类内散度；最优方向 <span class="term">w ∝ S_W⁻¹ (μ1 − μ0)</span>。多类时对 S_W⁻¹ S_B 做特征分解，最多取 C − 1 个方向（S_W 满秩时）。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>对比项</th><th>PCA</th><th>LDA</th></tr></thead>
+  <tbody>
+    <tr><td>用不用标签</td><td>不用，无监督</td><td>用，监督</td></tr>
+    <tr><td>优化目标</td><td>投影后方差最大</td><td>类间与类内散度之比最大</td></tr>
+    <tr><td>维数上限</td><td>受特征数与样本数限制</td><td>类别数减 1（满秩时）</td></tr>
+    <tr><td>典型用途</td><td>压缩、去噪、可视化</td><td>降维后分类、类间可视化</td></tr>
+    <tr><td>失败方式</td><td>方差大的方向未必分得开</td><td>高斯同协方差假设不成立时边界失准</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">单元编排说明</span>
+  <p>细纲把 LDA 与 CART 放进同一个单元，不是因为两者相似，而是因为它们代表两种早期划分思路：LDA 用一次几何投影把空间压扁再切开，CART 用一串轴对齐的规则把空间切成方块。本单元按「先线性投影、再规则划分」组织，前者看方向，后者看阈值，不是强行绑定。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么是比值，不是距离</h2>
+<p>只把类间距离做大是危险的：把投影尺度放大十倍，类间距离也放大十倍，目标值可以无限增长，方向却毫无意义。除以类内散度相当于先做尺度归一，让「分得开」与「聚得紧」在同一把尺子上比较。</p>
+<p>两个散度都只依赖均值与协方差：S_W 是各类内部散布矩阵之和，S_B 是类均值相对总均值的加权散布。因此 LDA 要估的参数很少，就是几个均值加一个共享协方差，小样本时反而稳定。</p>
+<p>概率视角给出同一答案：若各类服从高斯且共享协方差，后验对数比是 x 的线性函数，边界是超平面；若各类协方差不同，则得到 QDA，边界变成二次曲面。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两个方向，一次比较</h2>
+<p>两类点协方差相近时，最优方向接近两类中心的连线：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>候选方向</th><th>投影后类间距离</th><th>投影后类内散布</th><th>判断</th></tr></thead>
+  <tbody>
+    <tr><td>沿两类中心连线</td><td>大</td><td>小</td><td>保留，比值最高</td></tr>
+    <tr><td>垂直于中心连线</td><td>小</td><td>大</td><td>放弃，投影后重叠</td></tr>
+  </tbody>
+</table>
+</div>
+<p>若两类的协方差形状差别很大（一个细长、一个接近圆形），最优方向会从中心连线偏转，偏向类内散布更小的那一侧。这也是 LDA 与「直接连两个均值」的区别：它不只看均值，还看散布。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>各类近似高斯、协方差相近</td><td>协方差差异大时线性边界失准，应改用 QDA</td></tr>
+    <tr><td>样本量足以估计 S_W</td><td>特征数接近样本数时 S_W 奇异，需要收缩</td></tr>
+    <tr><td>类别数不多，可接受强压缩</td><td>最多 C − 1 维，信息被大幅压缩</td></tr>
+    <tr><td>需要可解释的投影方向</td><td>多类方向是特征组合，单个方向难解释</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画两个方向，判断哪个更好</h2>
+<p><strong>任务：</strong>给一组二维两类点，画两个候选投影方向，并说明取舍。</p>
+<ol>
+  <li>画出两类点的均值连线，以及与它垂直的方向。</li>
+  <li>分别把点投到两条线上，用肉眼估类间距离与类内散布。</li>
+  <li>写出哪个方向更好，理由必须同时提到「类间」与「类内」。</li>
+</ol>
+<p><strong>追问：</strong>如果一类是细长条、另一类接近圆形，最优方向会偏向哪一侧？为什么？</p>
+<p><strong>验收：</strong>理由指向两个散度的比值，而不是「看起来更开」这种描述。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-3-2-lda-classify.html">5.3.2 LDA 分类：投影之后切一刀</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-2-5-two-projects-demo.html"><span class="p-label">← 上一知识点 5.2.5</span><span class="p-title">两个微型项目：房价与违约</span></a><a class="next" href="k5-3-2-lda-classify.html"><span class="p-label">下一知识点 5.3.2 →</span><span class="p-title">LDA 分类：投影之后切一刀</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 线性判别分析的概念及方法</dd>
+    <dt>页面编号 / 路径</dt><dd>5.3.1 ｜ <span class="path">pages/m05-ml-algorithms/k5-3-1-lda-projection.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-3-2-lda-classify.html"><b>5.3.2</b>LDA 分类：投影之后切一刀</a><a class="xlink" href="k5-2-3-logistic-regression.html"><b>5.2.3</b>逻辑回归：把得分压成概率</a><a class="xlink" href="u5-3-lda-cart.html"><b>5.3</b>线性判别分析与分类回归树（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-3-1（本页图 5-10）；知识库 M05-S1-05。 ｜ 知识库条目：M05-S1-05《线性判别分析的概念及方法》（filled） ｜ 参考来源：S67 Fisher 1936；S68 scikit-learn《LDA and QDA》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

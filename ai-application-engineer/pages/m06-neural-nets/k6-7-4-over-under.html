@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.7.4 过拟合与欠拟合 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「高度 + 间距」两个维度，把曲线分成欠拟合、合适、过拟合、异常四类。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-7-optimization.html">6.7 优化网络：梯度下降变体、学习率衰减与过拟合抑制</a><span class="sep">/</span><span class="here">6.7.4 过拟合与欠拟合</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.7</span>
+    <span class="tag">知识点 6.7.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>过拟合与欠拟合</h1>
+  <p class="lede">判断模型状态只看一条训练损失，等于只看体温计的一个刻度：两条曲线的高度和间距，才能说明问题出在哪。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「高度 + 间距」两个维度，把曲线分成欠拟合、合适、过拟合、异常四类。</li><li>能指出「训练损失低」不能推出「模型好」，并说明该看哪一个数。</li><li>能按症状选择对策：加容量、加数据、加正则还是查实现。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>训练到 0.001，上线全错</h2>
+<p>一个设备故障预测模型，训练集 5,000 条，8 层网络。训练 200 轮后训练损失 0.001、训练准确率 0.999，验证准确率 0.72。团队以为「再训久一点就好」，又加了 100 轮，训练损失降到 0.0004，验证掉到 0.68。</p>
+<p>这里的问题不是训练不够。模型已经把 5,000 条样本连同标注噪声一起背下来了，损失还能继续降，但降的是「背诵的精度」，不是「判断的能力」。</p>
+<p class="ask">为什么不看训练损失就会误判？</p>
+<p>因为训练损失是模型在自己见过的题上的得分。它单调下降是常态，几乎不提供「是否学过头」的信息。要判断状态，必须同时看验证损失。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>高度与间距</h2>
+<p>把训练损失与验证损失画在同一张图上，只需要读两个量：<strong>高度</strong>（两条线各自停在多高）和<strong>间距</strong>（两条线离多远）。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="过拟合与欠拟合，看两条曲线的间距">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">过拟合与欠拟合，看两条曲线的间距</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M100 90 L200 140 L320 190 L460 235 L620 265 L880 280" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">欠拟合：都高</text><path d="M100 120 L200 210 L300 268 L400 286 L520 292 L880 294" fill="none" stroke="#3f9b78" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#3f9b78" stroke-width="2.6"/><text class="f-s" x="734" y="94">正常：都低</text><path d="M100 120 L220 230 L340 280 L460 294 L600 250 L740 190 L880 150" fill="none" stroke="#d9534f" stroke-width="2.4"/><line x1="700" y1="110" x2="726" y2="110" stroke="#d9534f" stroke-width="2.6"/><text class="f-s" x="734" y="114">过拟合：验证回升</text>
+</svg><figcaption><b>图 6-37　过拟合与欠拟合，看两条曲线的间距</b>　训练损失单调下降是常态；验证损失抬头才是需要动作的信号。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>两条都高 → 欠拟合；两条都低且贴近 → 合适；训练低、验证高且越拉越开 → 过拟合。高度定「学没学会」，间距定「学没学死」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四种形态</h2>
+<p><strong>欠拟合：</strong>训练误差与验证误差都高，偏差大。原因可能是容量不足，也可能是训练不充分、学习率过大、初始化差、实现有 bug。</p>
+<p><strong>过拟合：</strong>训练误差低、验证误差高，方差大。模型把训练集里的噪声也当成了规律。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>形态</th><th>训练损失</th><th>验证损失</th><th>主导因素</th><th>先做什么</th></tr></thead>
+  <tbody>
+    <tr><td>欠拟合</td><td>高</td><td>高</td><td>偏差大</td><td>查实现与学习率，再谈加容量</td></tr>
+    <tr><td>合适</td><td>低</td><td>低且接近</td><td>平衡</td><td>保持并继续监控</td></tr>
+    <tr><td>过拟合</td><td>低</td><td>高且回升</td><td>方差大</td><td>加数据、加正则、早停</td></tr>
+    <tr><td>异常</td><td>高</td><td>低</td><td>数据泄漏或模式错配</td><td>查划分与正则作用域</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第四行最容易被当成「模型很好」。训练高、验证低通常不是好事：可能是验证集与训练集重叠、验证集太简单，或者 Dropout 只在训练时开启——训练读数被削弱，推理时反而完整。先查数据划分，再谈模型。</p>
+<p>量级也要有个参照。训练损失 0.01、验证损失 0.35，相差 35 倍，是明确的过拟合信号；两条都在 0.30 附近，则更可能是容量不足或标签噪声。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>把两条曲线记下来</h2>
+<p>要读曲线，先得把每条都记下来。Keras 的 <code>fit</code> 返回的 <code>history</code> 就是这两个序列：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>read_curves.py</span></div>
+<pre><code>import tensorflow as tf
+
+model.compile(optimizer=tf.keras.optimizers.Adam(0.001),
+              loss=&quot;sparse_categorical_crossentropy&quot;,
+              metrics=[&quot;accuracy&quot;])
+
+h = model.fit(X, y, epochs=60, batch_size=64,
+              validation_split=0.2, verbose=0)
+
+tr, va = h.history[&quot;loss&quot;], h.history[&quot;val_loss&quot;]
+gap = [v - t for t, v in zip(tr, va)]
+best = min(range(len(va)), key=lambda i: va[i]) + 1
+print(&quot;末轮训练/验证:&quot;, round(tr[-1], 4), round(va[-1], 4))
+print(&quot;最佳验证轮次:&quot;, best, &quot;间距:&quot;, round(gap[best], 4))</code></pre>
+</div>
+<p>三个读法。第一，<code>validation_split=0.2</code> 是从训练数据尾部切，不打乱；数据有顺序时先手动打乱，否则验证集可能只覆盖某一类。第二，<code>gap</code> 要按轮算，不能只看最后一轮——间距在扩大，说明分叉已经开始。第三，最佳轮次用 <code>argmin(val_loss)</code>，不是 <code>val_accuracy</code> 最大的那一轮；准确率是阶梯状的，损失更细。</p>
+<p>还要提醒一句：深度网络里「参数多必然过拟合」不成立。参数远超样本量却泛化良好的情况很常见，原因是结构先验、SGD 的隐式正则、数据增强与显式正则共同压住了有效容量。参数量只是风险提示，不是判据。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一个模型，两种结论</h2>
+<p>设训练集 1,000 条、网络 100 万参数，观察两次实验（数值为教学构造）：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>条件</th><th>训练损失</th><th>验证损失</th><th>结论</th><th>动作</th></tr></thead>
+  <tbody>
+    <tr><td>原始 1,000 条</td><td>0.01</td><td>0.35</td><td>过拟合，相差 35 倍</td><td>加数据、加正则、早停</td></tr>
+    <tr><td>扩到 100,000 条</td><td>0.06</td><td>0.12</td><td>间距收窄，转为可接受</td><td>继续训练，观察是否回升</td></tr>
+  </tbody>
+</table>
+</div>
+<p>同一套结构、同一个损失函数，只改样本量，诊断结论就变了。这说明过拟合不是模型的固有属性，而是「容量—数据—正则」三者比例失衡的表现。反过来，如果扩数据后两条都停在 0.30 附近，那是容量不足或标签噪声，继续加数据也没用。</p>
+<div class="callout callout--warn">
+  <span class="c-label">三个常见误判</span>
+  <p>只看训练损失就宣布「收敛了」；看到验证指标高于训练就以为「模型很强」；把「参数比样本多」直接判为过拟合。三条都会把排查方向带偏。真正该做的第一步是并排打印两条曲线。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>先判形态再开方</h2>
+<p><strong>任务：</strong>下面四种曲线形态，各写出判断与第一个动作，动作必须具体到「改哪个参数」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>情况</th><th>训练损失</th><th>验证损失</th><th>你要回答</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>0.62 且几乎不动</td><td>0.65 且几乎不动</td><td>是容量问题还是优化问题</td></tr>
+    <tr><td>B</td><td>0.02</td><td>0.48，第 12 轮起回升</td><td>该在第几轮停</td></tr>
+    <tr><td>C</td><td>0.41</td><td>0.19</td><td>先查什么</td></tr>
+    <tr><td>D</td><td>0.09</td><td>0.11</td><td>还要不要动</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么「验证损失回升」比「验证准确率下降」更早出现？② 加 Dropout 之后训练损失变高，是变差了吗？③ 数据增强属于「加数据」还是「加正则」？</p>
+<p><strong>验收：</strong>四问都先给形态判断，再给动作；C 必须提到数据划分。怎么在回升处自动停，见 <a href="../m06-neural-nets/k6-7-5-early-stop-demo.html">早停、正则与训练策略</a>；正则手段本身见 <a href="../m06-neural-nets/k6-4-3-dropout.html">丢弃正则化</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-7-5-early-stop-demo.html">6.7.5 早停、正则与训练策略</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-7-3-lr-decay.html"><span class="p-label">← 上一知识点 6.7.3</span><span class="p-title">指数衰减学习率</span></a><a class="next" href="k6-7-5-early-stop-demo.html"><span class="p-label">下一知识点 6.7.5 →</span><span class="p-title">早停、正则与训练策略</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)31 · 过拟合与欠拟合</dd>
+    <dt>页面编号 / 路径</dt><dd>6.7.4 ｜ <span class="path">pages/m06-neural-nets/k6-7-4-over-under.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-7-5-early-stop-demo.html"><b>6.7.5</b>早停、正则与训练策略</a><a class="xlink" href="k6-7-1-sgd-loop.html"><b>6.7.1</b>基于梯度下降的优化</a><a class="xlink" href="k6-4-3-dropout.html"><b>6.4.3</b>正则化与丢弃</a><a class="xlink" href="k6-5-2-dnn-structure.html"><b>6.5.2</b>深度神经网络的结构</a><a class="xlink" href="u6-7-optimization.html"><b>6.7</b>优化网络：梯度下降变体、学习率衰减与过拟合抑制（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-7-4（本页图 6-37）；知识库 M06-S4-04。 ｜ 知识库条目：M06-S4-04《过拟合与欠拟合》（filled） ｜ 参考来源：S53《深度学习》第 5、7 章；S87 LeCun 等 2015《Deep learning》；S51 Dropout 原文。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="没有标签，就先看谁像谁">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">没有标签，就先看谁像谁</text><rect class="f-b3" x="60" y="50" width="840" height="256" rx="10"/><path class="f-ax" d="M90 288 L880 288"/><path class="f-ax" d="M90 70 L90 288"/><circle cx="210" cy="110" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="240" cy="140" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="275" cy="118" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="262" cy="160" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="300" cy="140" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="230" cy="165" r="6" fill="#2f6fd0" opacity="0.85"/><ellipse class="f-dash" cx="255" cy="138" rx="95" ry="52"/><circle cx="560" cy="180" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="600" cy="205" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="635" cy="175" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="650" cy="215" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="585" cy="235" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="545" cy="215" r="6" fill="#d98b3a" opacity="0.85"/><ellipse class="f-dash" cx="600" cy="203" rx="95" ry="55"/><circle cx="720" cy="95" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="760" cy="118" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="790" cy="92" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="800" cy="125" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="745" cy="135" r="6" fill="#3f9b78" opacity="0.85"/><ellipse class="f-dash" cx="762" cy="114" rx="80" ry="47"/><text class="f-s" x="60" y="336">簇的形状由距离定义；换一种距离或换一个 K，分组就会变，所以结果必须回到业务里解释。</text>
+</svg>

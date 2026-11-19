@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.8.2 卷积层：参数共享与输出尺寸 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按 k×k×C_in×C_out+C_out 算出任意卷积层的参数量。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-8-cnn.html">6.8 卷积神经网络：卷积、池化与一般框架</a><span class="sep">/</span><span class="here">6.8.2 卷积层：参数共享与输出尺寸</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.8</span>
+    <span class="tag">知识点 6.8.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>卷积层：参数共享与输出尺寸</h1>
+  <p class="lede">卷积层的账只有三行：输出多大、要多少参数、花多少次乘加。三行都能在写代码前算清。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按 k×k×C_in×C_out+C_out 算出任意卷积层的参数量。</li><li>能用 (H−k+2p)/s+1 算出输出边长，并说明步长与填充各自控制什么。</li><li>能解释参数共享为什么让参数量与图像大小无关，以及它的代价。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>换个分辨率就得重搭</h2>
+<p>一个团队先在 32×32 的小图上把模型调通，换到 224×224 的生产数据时，第一层全连接直接报维度不匹配：<code>784×64</code> 的权重接不上 <code>150,528</code> 维的输入。</p>
+<p>改成卷积后，同一份代码直接跑通，一行没改。原因很朴素：卷积层只关心「每个位置看多大的窗口、输出几个通道」，不关心图有多宽。</p>
+<p class="ask">参数量真的能完全不变吗？</p>
+<p>能，只要核大小与输入输出通道不变。32×32×3 与 224×224×3 接同一个 3×3、64 通道的卷积，参数量都是 1,792。变的只有计算量与输出尺寸。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三行账</h2>
+<p>把卷积层当成一台机器：进去的是 <code>H×W×C_in</code>，出来的是 <code>H_out×W_out×C_out</code>。中间只有三行账要记——输出多大、多少参数、多少运算。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="输出尺寸：三个公式够用">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">输出尺寸：三个公式够用</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">参数</text><text class="f-t" x="282.0" y="98">公式</text><text class="f-t" x="492.0" y="98">示例</text><text class="f-t" x="702.0" y="98">结果</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">输出边长</text><text class="f-s" x="282.0" y="139.0">(H − k + 2p)/s + 1</text><text class="f-s" x="492.0" y="139.0">H=28,k=3,p=0,s=1</text><text class="f-s" x="702.0" y="139.0">26</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">同卷积</text><text class="f-s" x="282.0" y="183.0">p=(k−1)/2</text><text class="f-s" x="492.0" y="183.0">k=3 → p=1</text><text class="f-s" x="702.0" y="183.0">28</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">参数量</text><text class="f-s" x="282.0" y="227.0">k×k×C_in×C_out + C_out</text><text class="f-s" x="492.0" y="227.0">3×3×3×16+16</text><text class="f-s" x="702.0" y="227.0">448</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">计算量</text><text class="f-s" x="282.0" y="271.0">H_out×W_out×k²×C_in×C_out</text><text class="f-s" x="492.0" y="271.0">26²×9×3×16</text><text class="f-s" x="702.0" y="271.0">292,032</text><text class="f-s" x="60" y="316">先算形状再算参数量，是读任何 CNN 代码的第一步。</text>
+</svg><figcaption><b>图 6-41　输出尺寸：三个公式够用</b>　先算形状再算参数量，是读任何 CNN 代码的第一步。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>空间尺寸由 K、S、P 决定，参数量由 K、C_in、C_out 决定。两组超参各管一件事，互不干扰。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一层由什么组成</h2>
+<p><strong>定义：</strong>卷积层是 <code>C_out</code> 个尺寸为 <code>C_in×K×K</code> 的权重张量加 <code>C_out</code> 个偏置，配步长、填充、分组等超参，把 <code>C_in</code> 通道映射成 <code>C_out</code> 通道。</p>
+<p><strong>参数共享：</strong>同一个输出通道在全部空间位置复用同一个核，所以参数量写成</p>
+<p><code>#params = k × k × C_in × C_out + C_out</code></p>
+<p>这个式子里没有 <code>H</code> 和 <code>W</code>——这就是「与图像大小无关」的来源。手算 3 通道输入、3×3 核、16 通道输出：<code>3×3×3×16+16 = 432+16 = 448</code>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>超参</th><th>控制什么</th><th>对参数量的影响</th></tr></thead>
+  <tbody>
+    <tr><td>K（核大小）</td><td>单次窗口、单层感受野</td><td>平方级：3→5 变成 25/9</td></tr>
+    <tr><td>C_in</td><td>输入通道数</td><td>线性</td></tr>
+    <tr><td>C_out</td><td>输出特征图数量</td><td>线性</td></tr>
+    <tr><td>S、P</td><td>输出尺寸</td><td>不影响参数量</td></tr>
+  </tbody>
+</table>
+</div>
+<p>共享的代价在梯度上：一个核的梯度是所有位置的梯度之和，若某种模式只在极少数位置出现，它的信号会被大量「没有该模式」的位置稀释。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一层走完的形状账</h2>
+<p>以 <code>Conv2D(64, 3, padding="same")</code>、输入 32×32×3 为例，逐项核对：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>conv_layer.py</span></div>
+<pre><code>import tensorflow as tf
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Input((32, 32, 3)),
+    tf.keras.layers.Conv2D(64, 3, padding=&quot;same&quot;, activation=&quot;relu&quot;),
+    tf.keras.layers.Conv2D(64, 3, strides=2, padding=&quot;same&quot;),
+])
+model.summary()</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项目</th><th>算式</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>第一层输出</td><td>(32+2−3)/1+1</td><td>32×32×64</td></tr>
+    <tr><td>第一层参数</td><td>3×3×3×64+64</td><td>1,792</td></tr>
+    <tr><td>第二层输出</td><td>(32+2−3)/2+1</td><td>16×16×64</td></tr>
+    <tr><td>第二层参数</td><td>3×3×64×64+64</td><td>36,928</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两层的参数量差了 20 倍，差别全在 <code>C_in×C_out</code>：<code>3×64</code> 对 <code>64×64</code>。这也解释了深层网络的参数为什么集中在通道数大的层——通道翻倍，参数按平方涨。</p>
+<p><code>padding="same"</code> 且 <code>strides=1</code> 时输出边长不变；<code>strides=2</code> 时减半。注意 Keras 在 <code>same</code> 且步长为 2 时，填充量是按输出尺寸反推的，<code>(32+2−3)/2+1</code> 只是近似算法，遇到奇数边长要以 <code>model.summary()</code> 的实际输出为准。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>省下来的到底是多少</h2>
+<p>同样把 32×32×3 的输入映射到 64 维表示，两种做法对比：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>做法</th><th>算式</th><th>参数量</th></tr></thead>
+  <tbody>
+    <tr><td>展平 + 全连接 64</td><td>3,072×64+64</td><td>196,672</td></tr>
+    <tr><td>3×3 卷积到 64 通道</td><td>3×3×3×64+64</td><td><strong>1,792</strong></td></tr>
+  </tbody>
+</table>
+</div>
+<p>相差约 110 倍。更关键的不是这个倍数，而是「换分辨率会怎样」：输入变成 224×224 时，全连接层参数量涨到 <code>150,528×64+64 ≈ 963 万</code>，卷积层仍是 1,792。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别把「省参数」当成唯一结论</span>
+  <p>卷积的计算量并不省：32×32、64 通道、3×3、3 输入通道是 <code>32×32×64×9×3 ≈ 177 万</code> 次乘加。参数少不等于算得快，省的是显存里的权重与过拟合风险，换来的是「同一套权重必须对所有位置都适用」这个强假设——图像成立，表格数据往往不成立。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>先算再写代码</h2>
+<p><strong>任务：</strong>设计一个小主干，逐层算出形状与参数量，再与 <code>model.summary()</code> 对照。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层</th><th>配置</th><th>要算的量</th></tr></thead>
+  <tbody>
+    <tr><td>输入</td><td>64×64×1</td><td>—</td></tr>
+    <tr><td>Conv</td><td>8 个 3×3，same</td><td>输出形状、参数</td></tr>
+    <tr><td>Conv</td><td>16 个 3×3，strides=2，same</td><td>输出形状、参数</td></tr>
+    <tr><td>Conv</td><td>16 个 3×3，valid</td><td>输出形状、参数</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 第三层 <code>valid</code> 之后边长是多少，还能再卷一次吗？② 若把核全换成 5×5，参数量变成几倍？③ 为什么说卷积的强假设在表格数据上不成立？</p>
+<p><strong>验收：</strong>三层形状与参数全部算对，误差为 0。窗口怎么滑出第一个数，见 <a href="../m06-neural-nets/k6-8-1-convolution.html">卷积运算</a>；降尺寸的另一种做法，见 <a href="../m06-neural-nets/k6-8-3-pooling.html">池化</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-8-3-pooling.html">6.8.3 池化：降尺寸、留特征</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-8-1-convolution.html"><span class="p-label">← 上一知识点 6.8.1</span><span class="p-title">卷积运算：用小窗口扫全图</span></a><a class="next" href="k6-8-3-pooling.html"><span class="p-label">下一知识点 6.8.3 →</span><span class="p-title">池化：降尺寸、留特征</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)34 · 卷积层</dd>
+    <dt>页面编号 / 路径</dt><dd>6.8.2 ｜ <span class="path">pages/m06-neural-nets/k6-8-2-conv-layer.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-8-1-convolution.html"><b>6.8.1</b>卷积运算：用小窗口扫全图</a><a class="xlink" href="k6-8-3-pooling.html"><b>6.8.3</b>池化：降尺寸、留特征</a><a class="xlink" href="k6-8-4-cnn-framework.html"><b>6.8.4</b>CNN 一般框架</a><a class="xlink" href="k6-8-5-cnn-demo.html"><b>6.8.5</b>手写数字 CNN 实战</a><a class="xlink" href="u6-8-cnn.html"><b>6.8</b>卷积神经网络：卷积、池化与一般框架（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-8-2（本页图 6-41）；知识库 M06-S5-02。 ｜ 知识库条目：M06-S5-02《卷积层》（filled） ｜ 参考来源：S95 PyTorch Conv2d 文档；S92 LeCun 等 1989；S53《深度学习》第 9 章。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

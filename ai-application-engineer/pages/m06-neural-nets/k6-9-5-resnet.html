@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.9.5 ResNet：用残差连接训练更深的网络 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 y=F(x)+x 并解释它为什么让恒等映射容易学。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-9-classic-cnn.html">6.9 经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet</a><span class="sep">/</span><span class="here">6.9.5 ResNet：用残差连接训练更深的网络</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.9</span>
+    <span class="tag">知识点 6.9.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>ResNet：用残差连接训练更深的网络</h1>
+  <p class="lede">56 层的训练误差比 20 层更高，这不是过拟合，是优化器找不到解。残差把「学恒等」变成「把输出压到零」，一下就把深度放开了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 y=F(x)+x 并解释它为什么让恒等映射容易学。</li><li>能区分恒等捷径与投影捷径，并算出投影的参数。</li><li>能说清退化问题与过拟合的差别。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>更深反而更差</h2>
+<p>2015 年，一个反直觉的实验结果摆到台面上：20 层和 56 层的普通卷积网络，在同一个数据集上训练，56 层的<strong>训练误差</strong>反而更高。</p>
+<p>如果只是过拟合，训练误差应该更低、验证误差更高。训练误差都降不下去，说明问题不在容量，而在优化——网络深了，梯度传不回去，连「把多出来的层学成什么都不做」都做不到。</p>
+<p class="ask">为什么「学恒等」会很难？</p>
+<p>因为普通网络要让一堆卷积层输出恰好等于输入，这需要权重精确落在某个特殊值上。权重的默认状态是随机的，凑出恒等比凑出零难得多。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>学增量，不学全量</h2>
+<p>残差块改了要学的目标：不再让这几层直接输出 <code>H(x)</code>，而是输出 <code>F(x)=H(x)−x</code>，最后把输入 <code>x</code> 加回来。网络只需要学「相对输入的修正量」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="残差块：学「增量」，不学「全量」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">残差块：学「增量」，不学「全量」</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">输入 x</text><text class="f-sc" x="117.6" y="154.0">恒等映射</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">卷积 + BN + ReLU</text><text class="f-sc" x="298.79999999999995" y="154.0">F(x) 第一层</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">卷积 + BN</text><text class="f-sc" x="480.0" y="154.0">F(x) 第二层</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">加回 x</text><text class="f-sc" x="661.1999999999999" y="154.0">F(x) + x</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">ReLU 输出</text><text class="f-sc" x="842.4" y="154.0">短路生效</text><text class="f-s" x="40" y="244">网络只需学「相对输入的修正」，深了也不容易退化成恒等映射。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-50　残差块：学「增量」，不学「全量」</b>　网络只需学「相对输入的修正」，深了也不容易退化成恒等映射。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>如果这一层什么都不该做，把 F 的输出压到 0 就行，而权重初始化本来就接近 0——「学会不做」从难题变成了默认选项。这就是深度能被放开的原因。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>捷径与瓶颈</h2>
+<p><strong>残差块：</strong><code>y=F(x)+x</code>，其中 F 是两到三层卷积。维度一致时，捷径不做任何变换、不引入参数，称为<strong>恒等捷径</strong>；维度不一致（通道翻倍或空间下采样）时，用 1×1 卷积把 x 投影到目标维度，称为<strong>投影捷径</strong>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>恒等捷径</th><th>投影捷径</th></tr></thead>
+  <tbody>
+    <tr><td>触发条件</td><td>通道与尺寸都相同</td><td>通道翻倍或步长 2</td></tr>
+    <tr><td>变换</td><td>直接相加</td><td>1×1 卷积，步长 2</td></tr>
+    <tr><td>参数量</td><td>0</td><td>C_in×C_out+C_out</td></tr>
+    <tr><td>64→128 手算</td><td>0</td><td>64×128+128=8,320</td></tr>
+  </tbody>
+</table>
+</div>
+<p>深层版本用<strong>瓶颈结构</strong>：1×1 降维 → 3×3 → 1×1 升维，把中间通道压细再吹回。ResNet-50 就是瓶颈堆出来的，参数约 2,560 万；ResNet-34 约 2,180 万；ResNet-101 约 4,450 万。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一个块写进代码</h2>
+<p>残差块的关键是那条 <code>Add</code>：主干算 F，捷径把 x 原样送过来，维度不对时才补一个 1×1 卷积。顺序必须是「卷积—BN—ReLU」走完再相加。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>res_block.py</span></div>
+<pre><code>import tensorflow as tf
+from tensorflow.keras import layers
+
+def res_block(x, filters, stride=1):
+    shortcut = x
+    y = layers.Conv2D(filters, 3, strides=stride, padding=&quot;same&quot;,
+                      use_bias=False)(x)
+    y = layers.BatchNormalization()(y)
+    y = layers.Activation(&quot;relu&quot;)(y)
+    y = layers.Conv2D(filters, 3, padding=&quot;same&quot;, use_bias=False)(y)
+    y = layers.BatchNormalization()(y)
+
+    if stride != 1 or x.shape[-1] != filters:
+        shortcut = layers.Conv2D(filters, 1, strides=stride,
+                                 use_bias=False)(x)
+        shortcut = layers.BatchNormalization()(shortcut)
+
+    return layers.Activation(&quot;relu&quot;)(layers.Add()([y, shortcut]))</code></pre>
+</div>
+<p>三个细节。第一，<code>use_bias=False</code>：后面紧跟 BN，偏置会被减掉，留着只是浪费参数。第二，BN 放在相加之前，让两条支路的尺度接近，相加才有意义。第三，<code>Add</code> 要求形状完全一致，所以维度变化必须走投影捷径，不能靠补零硬凑——空间尺寸不同时补零也没法逐元素相加。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>梯度有了直通路</h2>
+<p>把 y=F(x)+x 对 x 求导，得 <code>∂y/∂x = 1 + ∂F/∂x</code>。即使 F 那一支的梯度非常小，那个 1 仍然把梯度原样送到前面。反向传播时，误差不必逐层穿过卷积，可以走捷径直接回传。</p>
+<p>这就是 ResNet 与「加宽加深」思路的根本区别：它解决的是优化问题，不是容量问题。BN 负责稳住每层输入分布，残差负责给梯度留通路，两者合起来才让上百层可训。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>结构</th><th>算式</th><th>参数量</th></tr></thead>
+  <tbody>
+    <tr><td>两个 3×3（256 通道）</td><td>2×(9×256×256+256)</td><td>1,180,160</td></tr>
+    <tr><td>瓶颈：1×1 256→64</td><td>256×64+64</td><td>16,448</td></tr>
+    <tr><td>瓶颈：3×3 64→64</td><td>9×64×64+64</td><td>36,928</td></tr>
+    <tr><td>瓶颈：1×1 64→256</td><td>64×256+256</td><td>16,640</td></tr>
+    <tr><td><strong>瓶颈合计</strong></td><td></td><td><strong>70,016</strong></td></tr>
+  </tbody>
+</table>
+</div>
+<p>瓶颈只有普通两层的 5.9%，代价是中间表示被压到 64 维，可能丢一点信息。这也解释了为什么 ResNet-50 用瓶颈而 ResNet-34 不用：层数越多，省算力的收益越明显。</p>
+<div class="callout callout--warn">
+  <span class="c-label">退化不是过拟合</span>
+  <p>过拟合的表现是训练误差低、验证误差高；退化是训练误差本身就高。把两者混为一谈，会得出「加正则就能救深层网络」的错误结论——真正该加的是让优化变容易的结构。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算两笔账</h2>
+<p><strong>任务：</strong>回答三个问题，都要给算式。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>要算的量</th><th>提示</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>投影捷径 128→256 的参数量</td><td>128×256+256</td></tr>
+    <tr><td>B</td><td>瓶颈结构省了多少</td><td>70,016 与 1,180,160 的比</td></tr>
+    <tr><td>C</td><td>∂y/∂x 中「1」起什么作用</td><td>F 的梯度为零时还剩什么</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么恒等捷径不增加参数，却能让训练变容易？② 空间尺寸不同（56→28）时，为什么不能用补零解决？③ 残差连接与 BN 各自修的是哪一处问题？</p>
+<p><strong>验收：</strong>A 算出 33,024，B 说出约 5.9%，C 能讲清「梯度直通」。残差的位置，见 <a href="../m06-neural-nets/k6-8-4-cnn-framework.html">CNN 一般框架</a>；BN 的作用，见 <a href="../m06-neural-nets/k6-4-4-batch-norm.html">批归一化</a>；被它取代的直连堆叠，见 <a href="../m06-neural-nets/k6-9-3-vgg.html">VGGNet</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-9-6-classic-cnn-demo.html">6.9.6 五网络对比与迁移学习</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-9-4-inception.html"><span class="p-label">← 上一知识点 6.9.4</span><span class="p-title">InceptionNet-V3：多尺度并行</span></a><a class="next" href="k6-9-6-classic-cnn-demo.html"><span class="p-label">下一知识点 6.9.6 →</span><span class="p-title">五网络对比与迁移学习</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)42 · ResNet：用残差连接训练更深的网络</dd>
+    <dt>页面编号 / 路径</dt><dd>6.9.5 ｜ <span class="path">pages/m06-neural-nets/k6-9-5-resnet.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-9-3-vgg.html"><b>6.9.3</b>VGGNet：用 3×3 小核堆深</a><a class="xlink" href="k6-9-6-classic-cnn-demo.html"><b>6.9.6</b>五网络对比与迁移学习</a><a class="xlink" href="k6-4-4-batch-norm.html"><b>6.4.4</b>标准化与批归一化</a><a class="xlink" href="u6-9-classic-cnn.html"><b>6.9</b>经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-9-5（本页图 6-50）；知识库 M06-S6-05。 ｜ 知识库条目：M06-S6-05《ResNet》（filled） ｜ 参考来源：S102 He 等 2015 arXiv:1512.03385；S53《深度学习》第 9 章；S100 Simonyan & Zisserman 2014。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

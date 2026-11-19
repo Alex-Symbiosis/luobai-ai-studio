@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.7.2 软间隔与 C：允许犯错的边界 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出软间隔的目标函数，说明松弛变量的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-7-svm.html">5.7 支持向量机</a><span class="sep">/</span><span class="here">5.7.2 软间隔与 C：允许犯错的边界</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.7</span>
+    <span class="tag">知识点 5.7.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>软间隔与 C：允许犯错的边界</h1>
+  <p class="lede">现实数据几乎没有干净可分的两类：总有几个点落在对面，或者两类在边界处重叠。硬间隔遇到这种数据会直接无解，因为它把「可分」当成了铁律。软间隔的做法不是删掉噪声，而是给每个点留一个「可以越界多少」的额度，并给越界定一个价格。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出软间隔的目标函数，说明松弛变量的含义。</li><li>能解释 C 从很小到很大时，边界会怎样变化。</li><li>能区分 C 与 γ 的作用，不用一个参数解释另一个。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一批带噪声的点，两种处理</h2>
+<p>数据里有一个点明显落在对面，两组做法给出了完全不同的边界：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>硬间隔：一点都不许越界</h3><ul><li>不允许任何点越界</li><li>噪声点被当成异常，边界围着它改</li><li>为容下一个点，整条通道被压窄</li><li>异常点一多，问题直接无解</li></ul></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>软间隔：允许越界，但要付钱</h3><ul><li>允许少量点越界</li><li>每个点配一个松弛量</li><li>越界付代价，单价由 C 定</li><li>通道宽度与越界总量一起优化</li></ul></div>
+</div>
+<p class="ask">两种做法都在找最大间隔，差的是哪一步？</p>
+<p>差在「可分」这个前提能不能被违反，以及违反一次要付多少钱。硬间隔把它当铁律，软间隔把它变成一个可以议价的条件——代价系数就是 C。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>C 是越界的单价</h2>
+<p>同一批点，其中一个明显落在对面。硬间隔为了容下它，只能把通道压窄；软间隔承认它可能是噪声，让它越界，换回一条宽得多的通道。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="硬间隔 vs 软间隔">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">硬间隔 vs 软间隔</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">硬间隔</text><text class="f-s" x="80" y="108">· 不允许任何样本越界</text><text class="f-s" x="80" y="138">· 对噪声与异常极敏感</text><text class="f-s" x="80" y="168">· 常常无解</text><text class="f-s" x="80" y="198">· 只适合线性可分数据</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">软间隔</text><text class="f-s" x="530" y="108">· 允许少量样本越界</text><text class="f-s" x="530" y="138">· 用 C 控制容忍度</text><text class="f-s" x="530" y="168">· 总有解、更鲁棒</text><text class="f-s" x="530" y="198">· C 大严、C 小松</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-29　硬间隔与软间隔的边界对比</b>　硬间隔被单个异常点压窄甚至无解；软间隔放开这个点，通道宽度与错误量一起被优化。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>C 就是价格。价格高，模型宁可压窄通道也不许越界；价格低，模型愿意放过几个点换取宽度。调 C 的本质，是在「训练集上的干净」与「对扰动的宽容」之间定价。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>松弛变量、惩罚项与合页损失</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>表达</th><th>由谁决定</th></tr></thead>
+  <tbody>
+    <tr><td>松弛变量 ξ_i</td><td>第 i 个点越界的程度</td><td>ξ_i ≥ 0，未越界时为 0</td><td>求解结果</td></tr>
+    <tr><td>惩罚系数 C</td><td>越界的单价</td><td>C &gt; 0，越大越不容忍</td><td>人设定</td></tr>
+    <tr><td>软间隔目标</td><td>宽度与越界量的加权和</td><td>min ½||w||² + C Σ ξ_i</td><td>优化求解</td></tr>
+    <tr><td>合页损失</td><td>逐点等价的损失写法</td><td>max(0, 1 − y f(x))</td><td>解释用</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>约束写成 y_i(wᵀx_i + b) ≥ 1 − ξ_i，ξ_i ≥ 0。ξ_i = 0 表示没越界；0 &lt; ξ_i &lt; 1 表示进了通道但还没分错；ξ_i &gt; 1 表示已经分到对面。</p>
+</div>
+<p>从损失角度看，软间隔 SVM 等价于「合页损失 + L2 正则」：分对了且留足余量不计罚，一旦进入通道开始线性计罚，分错则继续累加。这与 5.2.3 中逻辑回归的对数损失形成对照——一个只罚「不够自信」，一个连续惩罚「错得有多离谱」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一个旋钮，三处联动</h2>
+<p>C 是这页唯一的旋钮，但它同时牵动三件事：</p>
+<div class="steps">
+  <div class="step"><b>C 很大</b><span>越界几乎不可接受，通道窄、支持向量少而贴边，训练集近乎全对，方差大。</span></div>
+  <div class="step"><b>C 适中</b><span>允许少量越界，通道宽度与错误量平衡，验证分通常在这一段取到峰值。</span></div>
+  <div class="step"><b>C 很小</b><span>越界很便宜，通道极宽、大量点越界，偏差大，接近欠拟合。</span></div>
+  <div class="step"><b>与 γ 的分工</b><span>C 管「错多少」，γ 管「看多远」；两者都能推高训练分，但不能互相替代。</span></div>
+</div>
+<p>还有一个容易被忽略的点：C 的作用依赖特征尺度。同一份数据标准化前后，同一个 C 对应的边界完全不同。所以调 C 之前必须先固定预处理，否则每次调参都在同时改变两件事，结论无法复用。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三档 C 的边界与分数</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>C</th><th>训练分</th><th>验证分</th><th>支持向量占比</th><th>判断</th></tr></thead>
+  <tbody>
+    <tr><td>0.01</td><td>0.71</td><td>0.68</td><td>12%</td><td>欠拟合，通道过宽</td></tr>
+    <tr><td>1</td><td>0.89</td><td>0.86</td><td>23%</td><td>合适，训练验证差距小</td></tr>
+    <tr><td>100</td><td>0.99</td><td>0.79</td><td>41%</td><td>过拟合，边界被单点拽弯</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三行数据对应三种动作：放大、保持、缩小。注意支持向量占比同步变化——它既是过拟合的信号，也是「边界附近有多拥挤」的度量。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>噪声与类别重叠普遍存在</td><td>真正的线性可分数据很少，硬间隔基本无解</td></tr>
+    <tr><td>需要控制过拟合</td><td>C 过大时模型会为个别点改边界，换一批数据就失效</td></tr>
+    <tr><td>样本量中等</td><td>核矩阵 O(n²)，大样本训练仍慢</td></tr>
+    <tr><td>正负类代价大致对称</td><td>代价不对称时需分设 C 或改阈值，单一 C 不够用</td></tr>
+    <tr><td>特征已标准化</td><td>未标准化时最优 C 随量纲漂移，调参结论不可迁移</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「C 越大越准」只在训练集上成立。验证分通常在中间取到峰值，两侧都掉；把 C 拉到最大，得到的往往是一条绕着个别点打转的边界。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三档 C 的扫描与判断</h2>
+<p><strong>任务：</strong>用同一份带噪声的两类数据，跑 C = 0.01、1、100 三档，完成下表并写结论。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>C</th><th>训练分</th><th>验证分</th><th>支持向量数</th><th>过拟合 / 欠拟合</th></tr></thead>
+  <tbody>
+    <tr><td>0.01</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>100</td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 把特征放大十倍再跑，最优 C 会变吗？② C 很大时支持向量为什么反而变多？③ 如果漏判的代价是误判的五倍，应该调 C 还是调阈值？</p>
+<p><strong>验收：</strong>判断与边界形状一致，且能说清「C 调的是容忍度，不是准确率」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-7-3-kernel.html">5.7.3 核技巧：不显式升维</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-7-1-max-margin.html"><span class="p-label">← 上一知识点 5.7.1</span><span class="p-title">最大间隔：为什么只由少数点决定</span></a><a class="next" href="k5-7-3-kernel.html"><span class="p-label">下一知识点 5.7.3 →</span><span class="p-title">核技巧：不显式升维</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)2 · 支持向量机（软间隔）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.7.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-7-2-soft-margin.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-7-1-max-margin.html"><b>5.7.1</b>最大间隔：为什么只由少数点决定</a><a class="xlink" href="k5-7-3-kernel.html"><b>5.7.3</b>核技巧：不显式升维</a><a class="xlink" href="u5-7-svm.html"><b>5.7</b>支持向量机（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-7-2（本页图 5-29）；知识库 M05-S2-01。 ｜ 知识库条目：M05-S2-01《支持向量机的概念、特点及操作原理》（filled） ｜ 参考来源：S78 Cortes &amp; Vapnik《Support-Vector Networks》；S79 scikit-learn《Support Vector Machines》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.8.1 聚类：没有标签怎么分组 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清聚类与分类在目标、评价、结果性质上的差别。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-8-clustering.html">5.8 聚类算法</a><span class="sep">/</span><span class="here">5.8.1 聚类：没有标签怎么分组</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.8</span>
+    <span class="tag">知识点 5.8.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>聚类：没有标签怎么分组</h1>
+  <p class="lede">拿到一份没有类别列的用户表，第一反应往往是「先分个组」。可一旦动手就会发现，分类那套流程在这里第一步就走不通：没有答案，准确率算不出来，模型选哪个也没有依据。聚类要换一套判断标准。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清聚类与分类在目标、评价、结果性质上的差别。</li><li>能区分 KNN 与 K-Means，不把两者混成「K 个最近邻」。</li><li>能为一个分组任务选出合适的相似度与算法类型。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三个人都在分组，谁都交不出结果</h2>
+<p>一份用户行为表，只有浏览时长、下单次数、客单价等特征，没有「人群类别」这一列。运营的要求是「把这些用户分成几类，我们好分别做活动」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>做法</th><th>过程</th><th>卡在哪</th></tr></thead>
+  <tbody>
+    <tr><td>按客单价切三档</td><td>高、中、低三组，很快分完</td><td>同档里有人天天浏览从不买，有人只买一次，行为完全不同</td></tr>
+    <tr><td>照着分类流程走</td><td>先问「准确率多少」</td><td>没有标签，第一步就算不出来，流程直接中断</td></tr>
+    <tr><td>直接跑 K-Means</td><td>得到 4 个簇和 4 组编号</td><td>数字有了，但说不清这 4 组分别代表什么，运营没法用</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">三个人都在「分组」，为什么谁都给不出一个能验收的结果？</p>
+<p>因为他们把分类的目标套在了聚类上。分类有标准答案，错了就是错了；聚类没有答案，它输出的是结构。评价标准必须跟着换。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>背面写了字的卡片，和没写字的卡片</h2>
+<p>整理一箱散落的卡片：背面已经写好类别的，任务是「认类」，认错就是错；背面什么都没写的，任务是「分组」，只能按相似程度把像的放一起，再给每组起个名字。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="分类 vs 聚类">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">分类 vs 聚类</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">分类：有标签</text><text class="f-s" x="80" y="108">· 训练时知道正确答案</text><text class="f-s" x="80" y="138">· 目标是逼近标签</text><text class="f-s" x="80" y="168">· 用准确率、F1 评价</text><text class="f-s" x="80" y="198">· 结果有对错</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">聚类：无标签</text><text class="f-s" x="530" y="108">· 只给特征，不给答案</text><text class="f-s" x="530" y="138">· 目标是发现结构</text><text class="f-s" x="530" y="168">· 用轮廓系数等内部指标</text><text class="f-s" x="530" y="198">· 结果只有合理性</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-32　分类与聚类的任务对照</b>　分类有标签、有对错、用准确率；聚类无标签、只有合理性、用内部指标。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>聚类没有标准答案，只有结构假设。评价的不是「对不对」，而是「分得开不开」以及「这组人能不能被业务解释」。所以同一份数据，换一种相似度就该允许出现另一种分组。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个词与四类方法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>由谁决定</th></tr></thead>
+  <tbody>
+    <tr><td>聚类</td><td>无标签条件下按相似性把样本分成若干组</td><td>任务目标</td></tr>
+    <tr><td>相似度</td><td>刻画「像不像」的度量：欧氏、曼哈顿、余弦</td><td>人选择</td></tr>
+    <tr><td>簇</td><td>一组被认为同质的样本，形状由算法假设决定</td><td>算法与参数</td></tr>
+  </tbody>
+</table>
+</div>
+<p>按簇的假设，常用方法分四类：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>代表</th><th>簇形状假设</th><th>是否需指定簇数</th></tr></thead>
+  <tbody>
+    <tr><td>划分式</td><td>K-Means、K-Medoids</td><td>球形、大小相近</td><td>需要</td></tr>
+    <tr><td>层次式</td><td>凝聚 / 分裂聚类</td><td>依 linkage 而定</td><td>不需要，切树即可</td></tr>
+    <tr><td>密度式</td><td>DBSCAN</td><td>任意形状，可含噪声</td><td>不需要，给半径与密度</td></tr>
+    <tr><td>基于模型</td><td>高斯混合 GMM</td><td>椭圆高斯，软分配</td><td>需要</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四类方法的差别不在「谁更准」，而在「簇被假设成什么形状」。形状假设与数据不符时，调参只会让错误更稳定。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三步流程，三步假设</h2>
+<p>聚类可以拆成三步，每一步都在替数据做决定：</p>
+<div class="steps">
+  <div class="step"><b>选相似度</b><span>用欧氏距离，就假设各方向同等重要；用余弦，就假设关心方向而非长度。选错相似度，后面的步骤全白做。</span></div>
+  <div class="step"><b>选簇形状</b><span>球形、任意形状还是椭圆，决定了候选算法。环形数据交给 K-Means，必然被切成一刀两半。</span></div>
+  <div class="step"><b>定簇数或阈值</b><span>K-Means 给 K，DBSCAN 给半径与最小点数。前者决定粒度，后者决定什么算「噪声」。</span></div>
+</div>
+<p>因此聚类结果不理想时，正确的排查顺序是：先查相似度与形状假设，再查参数，最后才怀疑算法实现。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>四个簇，四种人</h2>
+<p>同一份用户表，K-Means 给出四个簇。把簇心还原成业务画像后，四组人可以被分别命名：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>簇</th><th>画像</th><th>运营动作</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>低频高客单：半年买一次，一次买很多</td><td>节点前定向唤醒</td></tr>
+    <tr><td>2</td><td>高频低客单：每周都来，只买小件</td><td>凑单与满减</td></tr>
+    <tr><td>3</td><td>只浏览不下单：停留长，加购少</td><td>首单优惠</td></tr>
+    <tr><td>4</td><td>一次性用户：买过一次后沉默</td><td>复购提醒</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这四个名字是人对着簇心补上的；能否补上，才是聚类成功的实际判据。</p>
+<p>顺带把高频混淆点分开：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>对比项</th><th>KNN</th><th>K-Means</th></tr></thead>
+  <tbody>
+    <tr><td>学习方式</td><td>有监督</td><td>无监督</td></tr>
+    <tr><td>任务</td><td>分类与回归</td><td>聚类</td></tr>
+    <tr><td>训练过程</td><td>惰性学习，几乎不训练，训练集本身就是模型</td><td>迭代求解簇心</td></tr>
+    <tr><td>预测方式</td><td>找最近的 K 个样本投票或取均值</td><td>把样本归到最近的簇心</td></tr>
+    <tr><td>K 的含义</td><td>邻居的个数</td><td>簇的个数</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">必须分清</span>
+  <p>两者只是都用 K 这个超参数，做的不是同一件事。KNN 是有标签的惰性分类与回归，K-Means 是无标签聚类；KNN 不是「K 个最近邻的聚类」，K-Means 也不是「K 个最近邻」。把两者混为一谈，选型时会直接选错任务类型。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>没有标签、需要发现结构</td><td>簇没有唯一解，结论必须回到业务解释，无法自动验收</td></tr>
+    <tr><td>样本量中等、维度不高</td><td>维度一高，距离失去区分度，任何算法都难以分组</td></tr>
+    <tr><td>相似度能反映业务含义</td><td>距离选错时，分出来的组无法命名，也无法落地</td></tr>
+    <tr><td>允许人工复核</td><td>把簇直接接到自动决策上，错误会被放大且无人发现</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三个任务，先判类型</h2>
+<p><strong>任务：</strong>判断下面三个任务是分类还是聚类，并写出各自的评价方式。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>任务</th><th>类型</th><th>评价方式</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>根据历史标注判断邮件是否为垃圾邮件</td><td></td><td></td></tr>
+    <tr><td>2</td><td>把十万条商品评论按主题归堆，主题名待定</td><td></td><td></td></tr>
+    <tr><td>3</td><td>已知违约标记，预测新客户是否会违约</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 任务 2 如果先人工标了 20 个主题再训练，它还是聚类吗？② 聚类结果「看起来不错」能不能作为验收依据？③ 为什么聚类不能报准确率？</p>
+<p><strong>验收：</strong>类型判断正确，评价方式与有无标签匹配。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-8-2-kmeans.html">5.8.2 K-Means：分配与更新</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-7-4-svm-demo.html"><span class="p-label">← 上一知识点 5.7.4</span><span class="p-title">SVM 实验：C 与 γ 网格</span></a><a class="next" href="k5-8-2-kmeans.html"><span class="p-label">下一知识点 5.8.2 →</span><span class="p-title">K-Means：分配与更新</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)3 · 聚类的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>5.8.1 ｜ <span class="path">pages/m05-ml-algorithms/k5-8-1-clustering.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-8-2-kmeans.html"><b>5.8.2</b>K-Means：分配与更新</a><a class="xlink" href="k5-5-1-knn.html"><b>5.5.1</b>KNN：把训练集当模型</a><a class="xlink" href="u5-8-clustering.html"><b>5.8</b>聚类算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-8-1（本页图 5-32）；知识库 M05-S2-05。 ｜ 知识库条目：M05-S2-05《聚类算法的概念、特点、不同分类及操作原理》（filled） ｜ 参考来源：S38 scikit-learn《Clustering》；S54 ESL；S80 Lloyd《Least Squares Quantization in PCM》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

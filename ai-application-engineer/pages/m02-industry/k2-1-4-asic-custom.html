@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.1.4 ASIC：把算法焊成电路 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清 RTL、流片、NRE、MPW、良率各自指什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-1-infrastructure.html">2.1 基础层：芯片与传感器</a><span class="sep">/</span><span class="here">2.1.4 ASIC：把算法焊成电路</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.1</span>
+    <span class="tag">知识点 2.1.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>ASIC：把算法焊成电路</h1>
+  <p class="lede">省掉通用性的每一项开销，也把「算法不会再改」变成了前提。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清 RTL、流片、NRE、MPW、良率各自指什么。</li><li>能把单颗成本拆成固定成本摊薄与变动成本两段，算出平衡点。</li><li>能用量、算法稳定度两个条件判断一个产品该不该流片。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一次流片，十年回本</h2>
+<p>一款智能门锁要上人脸识别。方案评审会上，硬件负责人算了一笔账：用现成的通用芯片，单颗 40 元，功耗 1.2 瓦，电池撑不过半年；自己开一颗专用芯片，单颗成本能压到 8 元，功耗 0.3 瓦，但前期要投一笔几千万的设计与流片费。</p>
+<p>决定这件事的不是技术，是量。年出货 5 万台，每颗省 32 元，一年 160 万，十年也填不平那笔前期投入；年出货 800 万台，一年省下的钱就是投入的好几倍。</p>
+<p>ASIC 的全部逻辑就在这道算术题里：把算法固化成电路，用一次性投入换单颗成本和功耗。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>把算法焊死</h2>
+<p>ASIC 是专用集成电路：为一件特定的事设计，做完就不能改。通用处理器靠指令一条条指挥，ASIC 把整套流程直接铺成电路——没有取指、没有译码、没有分支预测，数据从输入流到输出，中间只经过必要的运算单元。</p>
+<p>省下来的正是这些「通用性」的开销。代价也同样直接：算法一改，前面的硅就白做，只能重新设计、重新流片。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="定制一颗芯片，要走完五步且不能回头">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">定制一颗芯片，要走完五步且不能回头</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">算法定型</text><text class="f-sc" x="117.6" y="154.0">先确认不会改</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">架构设计</text><text class="f-sc" x="298.79999999999995" y="154.0">数据通路与存储</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">RTL 与验证</text><text class="f-sc" x="480.0" y="154.0">功能与时序</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">流片封测</text><text class="f-sc" x="661.1999999999999" y="154.0">一次投入以千万计</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">量产</text><text class="f-sc" x="842.4" y="154.0">按片计价，越产越便宜</text><text class="f-s" x="40" y="244">算法一改，前面的硅就白做；ASIC 只押在已经稳定的算法上。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-7　定制一颗芯片，要走完五步且不能回头</b>　算法一改，前面的硅就白做；ASIC 只押在已经稳定的算法上。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>ASIC 卖的不是性能，是「同样的事做一百万遍时的单价」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>从 RTL 到良率</h2>
+<p><strong>RTL</strong> 是用硬件描述语言写的寄存器传输级电路，描述每个时钟沿数据怎么流动。<strong>验证</strong>要在流片前做完，因为流片之后无法修改。<strong>流片</strong>是把设计交给晶圆厂做掩模、再生产出芯片，一次先进工艺的掩模与试产费用以千万计，通常还要留一次改版预算。</p>
+<p><strong>NRE</strong> 是一次性工程费用，包含设计人力、IP 授权、EDA 工具、掩模与试产。它与产量无关，产得越多，摊到每颗上越薄。<strong>MPW</strong> 把几个设计拼在一片晶圆上试产，费用低、片数少，适合验证功能，不适合量产。<strong>良率</strong>是合格芯片占全部芯片的比例，面积越大，良率越低，单颗成本越高。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>术语</th><th>含义</th><th>踩坑点</th></tr></thead>
+  <tbody>
+    <tr><td>RTL</td><td>寄存器传输级电路描述</td><td>写完不等于能综合，更不等于能收敛时序</td></tr>
+    <tr><td>验证</td><td>功能与时序检查</td><td>流片后发现，无法补救</td></tr>
+    <tr><td>流片</td><td>做掩模并试产</td><td>一次投入以千万计，还要留改版预算</td></tr>
+    <tr><td>NRE</td><td>一次性工程费</td><td>与产量无关，量小摊不动</td></tr>
+    <tr><td>良率</td><td>合格芯片占比</td><td>面积越大良率越低</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两条成本线</h2>
+<p>ASIC 的成本是两条线相加：一条是固定成本 NRE，一条是随产量线性增长的变动成本，包含晶圆、封装、测试。</p>
+<p>固定成本摊到每颗上，等于 NRE 除以产量；产量翻十倍，这一项就降到十分之一。变动成本不随产量变，所以单颗成本会随量增大逼近变动成本，但永远降不到零。</p>
+<p>这就是「盈亏平衡点」的来历：把 ASIC 方案与现货方案的单颗成本画成两条线，交点之前的量，现货更便宜；交点之后，ASIC 更便宜。</p>
+<p>还有一个变量是时间。流片一次要几个月，改一版再几个月；算法在流片期间变了，前面的投入不是打折，而是归零。所以 ASIC 押的从来不只是量，还有「算法已经稳定」这个前提。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「量大」当成流片的唯一条件，漏掉了「算法冻结」。量再大，算法还在改，流片就是把钱压在会过期的设计上。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>平衡点怎么算</h2>
+<p>以门锁那颗芯片为例做一次手算（下列数字为示例假设，不是报价）。方案 A 用现货芯片：单颗 40 元，无前期投入。方案 B 自研 ASIC：NRE 3,000 万元，单颗变动成本 12 元。</p>
+<p>平衡点＝30,000,000 ÷ (40 − 12) ≈ 107 万颗。年出货 5 万台，要 21 年才回本，方案 A 明显更合理；年出货 300 万台，十个月就跨过平衡点，之后每颗省 28 元。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="量越大，流片的一次性成本摊得越薄">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">量越大，流片的一次性成本摊得越薄</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 282 L200 240 L300 205 L420 175 L560 150 L700 132 L880 118" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">ASIC 单颗成本</text><path d="M110 150 L300 146 L560 142 L880 136" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">GPU / FPGA 单颗成本</text><circle class="f-pt" cx="634" cy="140" r="6"/><text class="f-s" x="644" y="132">盈亏平衡点</text><text class="f-s" x="880" y="322" text-anchor="end">量产规模 →</text><text class="f-s" x="92" y="66" text-anchor="end">单颗成本</text><text class="f-s" x="100" y="340">量小用现货，量大再流片；这个交点就是「值不值得开模」的分界。</text>
+</svg><figcaption><b>图 2-8　量越大，流片的一次性成本摊得越薄</b>　量小用现货，量大再流片；交点就是「值不值得开模」的分界。</figcaption></figure>
+<p>这个算例还说明：平衡点对 NRE 极其敏感。NRE 翻到 6,000 万，平衡点从 107 万颗升到 214 万颗，其余不变。反过来说，少改一版、少一次流片，就等于把平衡点砍掉一半。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>该不该流片</h2>
+<p><strong>任务：</strong>给下面三个产品判断该不该流片，并写出平衡点的量级：① 年出货 2 万台的工业相机，算法每年改两次；② 年出货 60 万台的智能音箱，唤醒词模型迭代三年、趋于稳定；③ 年出货 1,000 万颗的降噪芯片，算法固定。</p>
+<p><strong>要求：</strong>每题写出 NRE、单颗节省、平衡点三个数（可假设），并说明算法是否冻结。</p>
+<p><strong>验收：</strong>至少有一题的结论是「量够但算法不稳，暂不流片」；并能指出这一题里，判断依据不是平衡点，而是变更频率。</p>
+<p>接着看专为张量运算定制的一种 ASIC：<a href="../m02-industry/k2-1-5-tpu-systolic.html">TPU：为张量运算定制的脉动阵列</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-1-5-tpu-systolic.html">2.1.5 TPU：为张量运算定制的脉动阵列</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-1-3-fpga-reconfigurable.html"><span class="p-label">← 上一知识点 2.1.3</span><span class="p-title">FPGA：可重构的「电路橡皮泥」</span></a><a class="next" href="k2-1-5-tpu-systolic.html"><span class="p-label">下一知识点 2.1.5 →</span><span class="p-title">TPU：为张量运算定制的脉动阵列</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)1 · 芯片产业发展概况（ASIC）</dd>
+    <dt>页面编号 / 路径</dt><dd>2.1.4 ｜ <span class="path">pages/m02-industry/k2-1-4-asic-custom.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-1-3-fpga-reconfigurable.html"><b>2.1.3</b>FPGA：可重构的「电路橡皮泥」</a><a class="xlink" href="k2-1-5-tpu-systolic.html"><b>2.1.5</b>TPU：为张量运算定制的脉动阵列</a><a class="xlink" href="k2-3-4-smart-home.html"><b>2.3.4</b>家居：低功耗、离线、可接受的误触发</a><a class="xlink" href="u2-1-infrastructure.html"><b>2.1</b>基础层：芯片与传感器（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-1-4（本页图 2-7）、k2-1-4-b（图 2-8）；知识库 M02-S1-01《芯片产业发展概况（GPU、FPGA、ASIC、TPU）》（filled）。 ｜ 知识库条目：M02-S1-01《芯片产业发展概况（GPU、FPGA、ASIC、TPU）》（filled） ｜ 参考来源：Synopsys、Cadence 公开设计流程文档；晶圆厂公开工艺与 MPW 说明；图为自绘，算例为示例假设。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

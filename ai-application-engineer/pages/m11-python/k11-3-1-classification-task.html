@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.3.1 分类任务与标注词汇 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把文本分类任务写成「输入、标签集、判定规则、样本表」四件事。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-3-classification.html">11.3 文本分类与信息提取</a><span class="sep">/</span><span class="here">11.3.1 分类任务与标注词汇</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.3</span>
+    <span class="tag">知识点 11.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>分类任务与标注词汇</h1>
+  <p class="lede">分类的第一个决定不是选模型，而是定标签：一句话算不算「投诉」，边界在哪，谁来判。标签定义含糊，后面换多少模型都只是在拟合噪声。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把文本分类任务写成「输入、标签集、判定规则、样本表」四件事。</li><li>能区分词性标注与文本分类：前者标词，后者标文档。</li><li>能说明标注集与标注规范为什么必须一起交付。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一批工单，两套标签</h2>
+<p>客服团队要做工单分类，两个小组各自定了标签：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">方案 A</span><h3>按情绪分</h3><p>标签为「满意 / 一般 / 不满」。判定看用户最后一句的语气，但「一般」没有边界，两位标注员给出的一致率不到六成。</p></div>
+  <div class="card mini"><span class="mini-tag">方案 B</span><h3>按诉求分</h3><p>标签为「退款 / 换货 / 咨询 / 投诉」。判定看用户要求客服做什么，边界写成例子；分歧集中在「投诉」与「退款」并存时。</p></div>
+</div>
+<p class="ask">两套方案都能训出模型，为什么只有 B 的指标能用来做决策？</p>
+<p>因为 B 的标签对应可执行的业务动作；A 的「一般」既不可判定，也不可处理。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>给抽屉贴标签</h2>
+<p>整理票据时，抽屉上写「杂项」，最后什么都往里塞；写「餐饮 / 交通 / 住宿」，每张票才有归属。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一条训练样本至少要有这四个字段">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">一条训练样本至少要有这四个字段</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">字段</text><text class="f-t" x="282.0" y="98">含义</text><text class="f-t" x="492.0" y="98">示例</text><text class="f-t" x="702.0" y="98">缺失后果</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">text</text><text class="f-s" x="282.0" y="139.0">原始文本</text><text class="f-s" x="492.0" y="139.0">「恭喜您中奖…」</text><text class="f-s" x="702.0" y="139.0">无法复现输入</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">label</text><text class="f-s" x="282.0" y="183.0">类别标签</text><text class="f-s" x="492.0" y="183.0">spam / ham</text><text class="f-s" x="702.0" y="183.0">学不到目标</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">split</text><text class="f-s" x="282.0" y="227.0">训练 / 测试</text><text class="f-s" x="492.0" y="227.0">train / test</text><text class="f-s" x="702.0" y="227.0">评估被污染</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">note</text><text class="f-s" x="282.0" y="271.0">边界说明</text><text class="f-s" x="492.0" y="271.0">含短链算广告</text><text class="f-s" x="702.0" y="271.0">口径漂移</text><text class="f-s" x="60" y="316">标签定义不清，模型学不准；字段不全，连错在哪都查不出来。</text>
+</svg><figcaption><b>图 11-9　标签定义不清，模型学不准</b>　一条样本至少要有文本、标签、划分与边界说明四个字段；缺一项，错误就无从归因。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>标签不是给数据起的昵称，而是判定规则的缩写；规则写不出来，标签就不成立。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>任务四件套与标注三件套</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>对象</th><th>必须写清</th><th>反例</th></tr></thead>
+  <tbody>
+    <tr><td>输入</td><td>一条样本是什么：整段、单句、还是对话轮次</td><td>训练用整段，上线传单句</td></tr>
+    <tr><td>标签集</td><td>互斥且穷尽，或明确允许「其他」</td><td>既有多标签又当单标签用</td></tr>
+    <tr><td>判定规则</td><td>边界例子：什么算、什么不算</td><td>只写标签名，不写例子</td></tr>
+    <tr><td>样本表</td><td>text / label / split / note</td><td>没有划分字段，评估污染</td></tr>
+  </tbody>
+</table>
+</div>
+<p>标注侧还有三件套：标注集（标签的全集与定义）、标注规范（边界与优先级）、一致性检验（双标与仲裁）。三者缺一，标签就只是少数人的默契。</p>
+<div class="callout callout--def">
+  <span class="c-label">与词性标注的区别</span>
+  <p>词性标注给「词」贴语法标签，文本分类给「文档」贴语义或业务标签；前者是序列标注，后者是文档级分类，评价口径也不同。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>从词典标注看「标签从哪来」</h2>
+<p>文本分类的标签通常人工定义，而词性标注可以先用词典给出候选；下面这段只依赖标准库，演示「查表 + 默认标签」的最小标注器：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>pos_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：词典规则词性标注 + 词级准确率（仅标准库）。&quot;&quot;&quot;
+LEXICON = {
+    &quot;the&quot;: &quot;DT&quot;, &quot;a&quot;: &quot;DT&quot;,
+    &quot;cat&quot;: &quot;NN&quot;, &quot;dog&quot;: &quot;NN&quot;,
+    &quot;sees&quot;: &quot;VBZ&quot;, &quot;likes&quot;: &quot;VBZ&quot;,
+    &quot;red&quot;: &quot;JJ&quot;, &quot;small&quot;: &quot;JJ&quot;,
+}
+
+
+def tag(words: list[str]) -&gt; list[tuple[str, str]]:
+    &quot;&quot;&quot;查词典；未登录词默认标 NN。&quot;&quot;&quot;
+    return [(w, LEXICON.get(w.lower(), &quot;NN&quot;)) for w in words]
+
+
+gold = [(&quot;the&quot;, &quot;DT&quot;), (&quot;cat&quot;, &quot;NN&quot;), (&quot;sees&quot;, &quot;VBZ&quot;), (&quot;a&quot;, &quot;DT&quot;), (&quot;dog&quot;, &quot;NN&quot;)]
+pred = tag([w for w, _ in gold])
+correct = sum(p == g for p, g in zip(pred, gold))
+
+print(&quot;标注结果:&quot;, pred)
+print(f&quot;词级准确率: {correct / len(gold):.0%}&quot;)
+assert correct == len(gold)</code></pre>
+</div>
+<p>这段代码暴露了标注的两个基本问题：未登录词只能给默认标签，兼类词（如 <code>book</code>）无法靠词典消歧。文本分类同样如此——标签体系再完整，边界不清时标注员也只能「凭感觉给默认值」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>运行结果为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>标注结果: [(&#x27;the&#x27;, &#x27;DT&#x27;), (&#x27;cat&#x27;, &#x27;NN&#x27;), (&#x27;sees&#x27;, &#x27;VBZ&#x27;), (&#x27;a&#x27;, &#x27;DT&#x27;), (&#x27;dog&#x27;, &#x27;NN&#x27;)]
+词级准确率: 100%</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>100% 只说明测试句在词典内</h3><p>五个词全部命中词典，准确率当然是满分；换一句含未登录词的句子就会下降。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>默认标签是隐式规则</h3><p><code>get(..., "NN")</code> 把「不认识就当名词」写进了代码；这条规则必须写进标注规范。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>gold 与 pred 逐词对齐</h3><p>评价的前提是同一位置可比；文本分类则要求同一文档、同一划分。</p></div>
+</div>
+<p>做分类任务时，把这张「词典 + 默认值」换成「标签定义 + 边界例子」，逻辑完全同构：先定全集，再定默认，最后逐条比对。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给一个兼类词补规则</h2>
+<p><strong>任务：</strong>在 <code>LEXICON</code> 里加入 <code>book</code>，让它能按上下文取 <code>NN</code> 或 <code>VBZ</code>，并设计三条测试句。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>测试句</th><th>期望标签</th><th>判定依据</th></tr></thead>
+  <tbody>
+    <tr><td>the book is red</td><td>NN</td><td>前面是冠词</td></tr>
+    <tr><td>they book a room</td><td>VBZ</td><td>前面是代词</td></tr>
+    <tr><td>book now</td><td></td><td>没有上下文，默认值是什么</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 默认标签应该设成最高频类别，还是设成「未知」？各自代价是什么？② 如果两位标注员对「投诉」的判定不一致，应该改标签还是改规范？</p>
+<p><strong>验收：</strong>三条测试句都能给出可解释的标签，且默认规则写进了代码注释与页面说明。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-3-2-bag-of-words.html">11.3.2 特征提取：词袋与 n-gram</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-2-4-preprocess-demo.html"><span class="p-label">← 上一知识点 11.2.4</span><span class="p-title">可复用预处理函数与词频报告</span></a><a class="next" href="k11-3-2-bag-of-words.html"><span class="p-label">下一知识点 11.3.2 →</span><span class="p-title">特征提取：词袋与 n-gram</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)3① · 分类和标注词汇</dd>
+    <dt>页面编号 / 路径</dt><dd>11.3.1 ｜ <span class="path">pages/m11-python/k11-3-1-classification-task.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-2-1-corpus-resources.html"><b>11.2.1</b>语料与词汇资源：NLTK 的数据入口</a><a class="xlink" href="k11-3-2-bag-of-words.html"><b>11.3.2</b>特征提取：词袋与 n-gram</a><a class="xlink" href="k11-3-4-error-analysis.html"><b>11.3.4</b>准确率、混淆矩阵与误差分析</a><a class="xlink" href="u11-3-classification.html"><b>11.3</b>文本分类与信息提取（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-3-1（本页图 11-9）；知识库 M11-S3-01。 ｜ 知识库条目：M11-S3-01《分类和标注词汇》（filled） ｜ 参考来源：S118 Jurafsky & Martin；S124 collections；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

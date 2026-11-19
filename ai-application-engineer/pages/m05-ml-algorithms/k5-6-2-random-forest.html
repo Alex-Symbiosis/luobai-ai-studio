@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.6.2 随机森林：两个随机性 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清随机森林的两个随机性分别在哪一步发生，各解决什么问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-6-ensembles.html">5.6 集成学习：Bagging、随机森林、Boosting、AdaBoost</a><span class="sep">/</span><span class="here">5.6.2 随机森林：两个随机性</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.6</span>
+    <span class="tag">知识点 5.6.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>随机森林：两个随机性</h1>
+  <p class="lede">单棵深树有个尴尬的毛病：训练集上几乎全对，换一批数据就面目全非。随机森林的解法不是把树修剪得更聪明，而是种一片林子再投票——每一棵都只看一部分数据、只看一部分特征，平均之后方差大幅下降。它等于 Bagging 加了一层节点特征随机。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清随机森林的两个随机性分别在哪一步发生，各解决什么问题。</li><li>能用方差公式解释「为什么增加树数不如降低树间相关性」。</li><li>能说明随机森林与 Boosting 在训练方式和误差来源上的根本区别。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一棵聪明的树，和一片普通的树</h2>
+<p>同一个二分类任务，两个方案：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>种一棵很深的树</h3>
+    <ul><li>不限深度，训练集几乎全对</li><li>换一批数据，结构就大变</li><li>单模型方差很高</li></ul>
+  </div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>种一片普通的树再投票</h3>
+    <ul><li>每棵树只看一部分样本</li><li>每次分裂只看一部分特征</li><li>每棵更弱，合起来更稳</li></ul>
+  </div>
+</div>
+<p class="ask">B 里每一棵树都比 A 弱，为什么合起来反而更准、还更稳？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>平均能把抖动压下去</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="单树 vs 随机森林">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">单树 vs 随机森林</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">单棵深树</text><text class="f-s" x="80" y="108">· 训练误差极低</text><text class="f-s" x="80" y="138">· 换一批数据，结构大变</text><text class="f-s" x="80" y="168">· 方差高、不稳定</text><text class="f-s" x="80" y="198">· 容易过拟合</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">随机森林</text><text class="f-s" x="530" y="108">· 自助采样造样本差异</text><text class="f-s" x="530" y="138">· 节点分裂再随机选特征</text><text class="f-s" x="530" y="168">· 多树投票或平均</text><text class="f-s" x="530" y="198">· 方差显著下降</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-24　单树 vs 随机森林</b>　单树换数据就变结构，方差高；森林用自助采样造差异、再投票，方差显著下降。</figcaption></figure>
+<p>一个人估体重误差约 5 公斤；十个人独立估再平均，抖动缩到约 1.6 公斤。前提是独立——互相抄答案没有意义。</p>
+<p>随机森林正是这件事：每棵树看到不同数据（自助采样），每次分裂只看部分特征。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>随机森林 = <strong>Bagging + 节点特征随机</strong>：只做前者是 Bagging。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>自助采样、袋外样本与一个方差公式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>关键数字或细节</th></tr></thead>
+  <tbody>
+    <tr><td>自助采样</td><td>有放回地抽 n 个样本训练一棵树</td><td>约 63.2% 的样本被抽中</td></tr>
+    <tr><td>袋外样本</td><td>每次采样中未被抽中的样本</td><td>约 36.8%，可用于近似免费的验证</td></tr>
+    <tr><td>特征随机</td><td>每次分裂从随机特征子集中择优</td><td>分类常取 √p，回归常取 p ÷ 3</td></tr>
+    <tr><td>聚合</td><td>分类投票、回归取平均</td><td>各树独立，可并行训练</td></tr>
+  </tbody>
+</table>
+</div>
+<p>设 B 棵树两两相关性为 ρ、单棵方差 σ²，平均后方差为 <span class="term">ρ × σ² + (1 − ρ) × σ² ÷ B</span>。第二项随 B 增大趋近 0，第一项 ρ × σ² 与树数无关，只要树相关就一直在。所以降 ρ 才是随机森林的贡献。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两个随机性，各管一件事</h2>
+<div class="steps">
+  <div class="step"><b>样本随机</b><span>对训练集做 B 次自助采样，每次训练一棵树；未抽中的记为袋外样本。</span></div>
+  <div class="step"><b>特征随机</b><span>每个节点分裂时，从 p 个特征中随机抽一个子集，只在子集内找最优切分。</span></div>
+  <div class="step"><b>并行训练</b><span>各树互不依赖，可同时训练；与 Boosting 的串行依赖截然不同。</span></div>
+  <div class="step"><b>聚合与评估</b><span>投票或平均得到输出；用袋外样本估计误差，不必另切验证集。</span></div>
+</div>
+<p>两组对比要说清。<strong>Bagging vs 随机森林</strong>：前者只做样本随机，后者再加节点特征随机，树间相关性更低。<strong>随机森林 vs Boosting</strong>：前者并行、各树独立、降方差；后者串行、盯前一棵的错、降偏差。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>分数涨了，波动也小了</h2>
+<p>同一份表格数据，5 折交叉验证（同一划分、同一随机种子）：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>模型</th><th>均值</th><th>标准差</th><th>读法</th></tr></thead>
+  <tbody>
+    <tr><td>单棵深树</td><td>0.79</td><td>0.040</td><td>折与折之间跳动大</td></tr>
+    <tr><td>Bagging（200 棵）</td><td>0.84</td><td>0.015</td><td>平均后立刻变稳</td></tr>
+    <tr><td>随机森林（200 棵）</td><td>0.87</td><td>0.010</td><td>特征随机再降一档</td></tr>
+  </tbody>
+</table>
+</div>
+<p>均值从 0.79 到 0.87 是准确率提升；标准差从 0.040 到 0.010 是稳定性提升。后者是 Bagging 的主要贡献，前者来自额外那层特征随机。</p>
+<p>特征重要性也有代价：两个高度相关的特征会把重要性分摊成各 12%，单独看会误判为「都不重要」。</p>
+<p>分数与稳定性都拿到了，不过森林的收益同样有前提，换数据之前值得逐条对一遍：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>表格数据、基学习器为深树</td><td>对本身低方差的线性模型，Bagging 几乎无收益</td></tr>
+    <tr><td>需要稳健基线与特征重要性排序</td><td>偏差不降：整体系统性偏差大时它救不了</td></tr>
+    <tr><td>可并行、可接受多树推理成本</td><td>模型体积与推理时间随树数线性增长，解释性下降</td></tr>
+    <tr><td>样本量足够支撑重采样</td><td>样本极少时每棵树看到的重复样本过多，多样性不足</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写出两个随机性，各举一个反例</h2>
+<p><strong>任务：</strong>在同一份数据上对比单树、Bagging、随机森林，写成实验记录。</p>
+<ol>
+  <li>写出两个随机性各发生在哪一步。</li>
+  <li>各做一次消融：去掉自助采样、去掉特征随机，记录分数变化。</li>
+  <li>解释为什么去掉特征随机后，增加树数的收益会变小。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>配置</th><th>均值 ± 标准差</th><th>与完整版的差距</th></tr></thead>
+  <tbody>
+    <tr><td>完整随机森林</td><td></td><td>—</td></tr>
+    <tr><td>去掉特征随机</td><td></td><td>回到 Bagging</td></tr>
+    <tr><td>去掉样本随机</td><td></td><td>每棵树看到同一份数据</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检：</strong>能用方差公式里的 ρ 与 B 两项解释消融结果，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-6-3-boosting.html">5.6.3 Boosting：串行纠错</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-6-1-ensemble.html"><span class="p-label">← 上一知识点 5.6.1</span><span class="p-title">集成学习：多样性从哪来</span></a><a class="next" href="k5-6-3-boosting.html"><span class="p-label">下一知识点 5.6.3 →</span><span class="p-title">Boosting：串行纠错</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · Bagging 和随机森林</dd>
+    <dt>页面编号 / 路径</dt><dd>5.6.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-6-2-random-forest.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-6-1-ensemble.html"><b>5.6.1</b>集成学习：多样性从哪来</a><a class="xlink" href="k5-6-3-boosting.html"><b>5.6.3</b>Boosting：串行纠错</a><a class="xlink" href="u5-6-ensembles.html"><b>5.6</b>集成学习：Bagging、随机森林、Boosting、AdaBoost（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张（k5-6-2）+ 知识库 M05-S1-10（Bagging 与随机森林）、M05-S2-04（集成算法）。 ｜ 知识库条目：M05-S1-10《Bagging 和随机森林的概念及特点》（filled）、M05-S2-04《集成算法的概念、特点及操作原理》（filled） ｜ 参考来源：S75 Breiman《Random Forests》；S74 Breiman《Bagging Predictors》；S76 scikit-learn《Ensembles》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

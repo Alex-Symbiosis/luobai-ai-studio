@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="残差：每个点都被量了一次">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">残差：每个点都被量了一次</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M140 248 L820 120" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="200" cy="214" r="6"/><text class="f-s" x="210" y="206"> +18</text><circle class="f-pt" cx="330" cy="224" r="6"/><text class="f-s" x="340" y="216"> −12</text><circle class="f-pt" cx="470" cy="200" r="6"/><text class="f-s" x="480" y="192"> −14</text><circle class="f-pt" cx="600" cy="158" r="6"/><text class="f-s" x="610" y="150"> +3</text><circle class="f-pt" cx="730" cy="146" r="6"/><text class="f-s" x="740" y="138"> −9</text><path class="f-dash" d="M200 214 L200 237"/><text class="f-s" x="208" y="230"></text><path class="f-dash" d="M330 224 L330 212"/><text class="f-s" x="338" y="240"></text><path class="f-dash" d="M470 200 L470 186"/><text class="f-s" x="478" y="216"></text><path class="f-dash" d="M600 158 L600 161"/><text class="f-s" x="608" y="174"></text><path class="f-dash" d="M730 146 L730 137"/><text class="f-s" x="738" y="162"></text><text class="f-s" x="880" y="322" text-anchor="end">x</text><text class="f-s" x="92" y="66" text-anchor="end">y</text><text class="f-s" x="100" y="340">残差有正有负，直接相加会抵消；损失函数要先把它们变成非负数再汇总。</text>
+</svg>

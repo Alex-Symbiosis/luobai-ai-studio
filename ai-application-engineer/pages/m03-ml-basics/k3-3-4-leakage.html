@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3.4 数据泄漏：四种让指标虚高的写法 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能识别预处理泄漏、特征泄漏、时间泄漏、标签泄漏四种典型形态。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-3-datasets.html">3.3 数据集、特征、标签与三个划分</a><span class="sep">/</span><span class="here">3.3.4 数据泄漏：四种让指标虚高的写法</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.3</span>
+    <span class="tag">知识点 3.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>数据泄漏：四种让指标虚高的写法</h1>
+  <p class="lede">离线 0.95，上线 0.62。这种断崖式下跌，九成不是模型问题，而是训练时不小心把「答案」或「未来」喂给了模型。这类错误有一个统一的名字：泄漏。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能识别预处理泄漏、特征泄漏、时间泄漏、标签泄漏四种典型形态。</li><li>能用「这一列在预测时刻拿得到吗」这一问排查特征。</li><li>能说出泄漏为什么在离线评估中几乎不可见。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一列特征，两种可用性</h2>
+<p>两个团队做流失预测，都用了「用户是否提交过注销申请」这列：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>全表直接取用</h3><p>离线 AUC 0.95。上线后要预测「未来一个月会不会流失」，而注销申请是流失发生之后才提交的，预测时根本不存在。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先问可用时点</h3><p>逐列标注「预测那一刻是否已产生」。注销申请被剔除，改用历史服务记录与登录间隔，离线 AUC 0.78，上线 0.75。</p></div>
+</div>
+<p class="ask">两列字面上一模一样，为什么只有 B 的分数能兑现？</p>
+<p>因为 A 的特征里混进了未来信息。数据泄漏不会报错，只会让离线指标虚高，再把问题推迟到上线。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>考试时把答案压在卷子下面</h2>
+<p>泄漏就像考试时把答案纸压在卷子下面——你答得又快又准，但那不是你的水平。离线评估看不到「答案纸」，因为它在数据里，不在模型里。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四类泄漏，四种「指标虚高」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">四类泄漏，四种「指标虚高」</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">类型</text><text class="f-t" x="282.0" y="98">典型做法</text><text class="f-t" x="492.0" y="98">为什么错</text><text class="f-t" x="702.0" y="98">怎么查</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">预处理泄漏</text><text class="f-s" x="282.0" y="139.0">先对全量数据标准化再划分</text><text class="f-s" x="492.0" y="139.0">测试集信息进入训练</text><text class="f-s" x="702.0" y="139.0">把变换放进 Pipeline</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">特征泄漏</text><text class="f-s" x="282.0" y="183.0">用了预测时刻拿不到的特征</text><text class="f-s" x="492.0" y="183.0">上线时该特征不存在</text><text class="f-s" x="702.0" y="183.0">逐特征问「何时可得」</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">时间泄漏</text><text class="f-s" x="282.0" y="227.0">对时序数据随机划分</text><text class="f-s" x="492.0" y="227.0">用未来预测过去</text><text class="f-s" x="702.0" y="227.0">按时间切分，留隔离带</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">标签泄漏</text><text class="f-s" x="282.0" y="271.0">特征里含结果或结果代理</text><text class="f-s" x="492.0" y="271.0">等于直接抄答案</text><text class="f-s" x="702.0" y="271.0">看单特征 AUC 是否异常高</text><text class="f-s" x="60" y="316">泄漏的共同特征：离线分数漂亮，上线立刻掉一大截。</text>
+</svg><figcaption><b>图 3-14　四类泄漏：做法、原因与排查</b>　四类泄漏的共同特征是「离线分数异常漂亮，上线立刻掉一大截」。排查入口永远是同一个问题：这个信息在预测时刻存在吗？</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>泄漏不是「模型太强」，而是<strong>评估条件比上线条件宽松</strong>。它让离线指标失去意义，却不产生任何报错。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四种典型形态</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>典型写法</th><th>本质</th></tr></thead>
+  <tbody>
+    <tr><td>预处理泄漏</td><td>先对全量数据标准化 / 筛特征，再划分</td><td>测试集统计量进入训练</td></tr>
+    <tr><td>特征泄漏</td><td>使用预测时刻不存在的字段</td><td>训练与上线可用信息不一致</td></tr>
+    <tr><td>时间泄漏</td><td>对时序数据随机划分</td><td>用未来信息预测过去</td></tr>
+    <tr><td>标签泄漏</td><td>特征含结果或结果的代理</td><td>模型在抄答案</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>数据泄漏是指训练数据中包含了预测时不可获得的信息，使模型在离线评估中表现虚高，而在真实预测场景中失效。</p>
+</div>
+<p>还有第五种容易被忽略：<strong>重复样本跨集</strong>。同一条记录（或几乎相同的记录）同时出现在训练集和测试集，等于提前见过考题。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么泄漏在离线评估中几乎不可见</h2>
+<div class="steps">
+  <div class="step"><b>没有报错</b><span>泄漏的代码完全合法：`fit_transform` 能跑通，指标也正常返回。</span></div>
+  <div class="step"><b>指标更高</b><span>泄漏通常让分数变好，而人的直觉是「分数高说明做对了」。</span></div>
+  <div class="step"><b>验证集同样被污染</b><span>如果预处理用了全量数据，验证集和测试集一起被污染，交叉验证也救不回来。</span></div>
+</div>
+<p>排查靠三个动作：<strong>逐特征问可得性</strong>（预测时刻拿得到吗）、<strong>看单特征强度</strong>（某一列单独就能到 0.95，先怀疑泄漏）、<strong>做时间/分组切分</strong>（而不是随机切）。</p>
+<span class="teacher">让学生在自己的项目里找「单特征 AUC 最高的一列」，通常能在五分钟内发现问题。</span>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个真实写法</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">写法 1</span><h3>全量标准化</h3><p>`scaler.fit_transform(X)` 之后才 `train_test_split`。测试集的均值方差进入了训练。</p></div>
+  <div class="card mini"><span class="mini-tag">写法 2</span><h3>用「结案金额」预测「是否结案」</h3><p>结案金额只有结案后才有，预测时不存在。这是典型的特征泄漏。</p></div>
+  <div class="card mini"><span class="mini-tag">写法 3</span><h3>随机划分时序数据</h3><p>用 12 月的数据训练、11 月的数据测试。上线时永远拿不到未来。</p></div>
+</div>
+<p>三种写法的共同点：单看代码都「跑得通」，只有把「上线时会怎样」代入，才能发现问题。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>找出泄漏并改写</h2>
+<p><strong>任务：</strong>下面是四段建模描述，逐条指出泄漏类型，并写出改法。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>描述</th><th>泄漏类型</th><th>改法</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>对全量数据做 PCA 降维后再划分</td><td></td><td></td></tr>
+    <tr><td>2</td><td>用「退款金额」预测「是否退款」</td><td></td><td></td></tr>
+    <tr><td>3</td><td>把同一用户的 10 条记录随机分到训练和测试</td><td></td><td></td></tr>
+    <tr><td>4</td><td>用「期末成绩」预测「是否参加补考」</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 这个特征在预测那一刻存在吗？② 我的变换器是在划分之前还是之后 fit 的？③ 同一实体有没有跨集？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「交叉验证能发现泄漏」不成立。如果泄漏发生在划分之前（全量预处理），交叉验证的每一折都被污染，它只会给你一个稳定的、错误的高分。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-3-5-leakage-demo.html">3.3.5 动手复现：先变换再划分，分数会虚高多少</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-3-3-cross-validation.html"><span class="p-label">← 上一知识点 3.3.3</span><span class="p-title">留出法与交叉验证</span></a><a class="next" href="k3-3-5-leakage-demo.html"><span class="p-label">下一知识点 3.3.5 →</span><span class="p-title">动手复现：先变换再划分，分数会虚高多少</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 数据泄漏与评估陷阱</dd>
+    <dt>页面编号 / 路径</dt><dd>3.3.4 ｜ <span class="path">pages/m03-ml-basics/k3-3-4-leakage.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-3-1-dataset-roles.html"><b>3.3.1</b>数据集、特征与标签：先认领角色</a><a class="xlink" href="k3-3-2-three-splits.html"><b>3.3.2</b>训练集、验证集与测试集</a><a class="xlink" href="k3-3-5-leakage-demo.html"><b>3.3.5</b>动手复现：先变换再划分，分数会虚高多少</a><a class="xlink" href="u3-3-datasets.html"><b>3.3</b>数据集、特征、标签与三个划分（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-3-4-a.svg（本页图 3-14）。 ｜  ｜ 参考来源：S41 scikit-learn《Common pitfalls》；S33 Hastie et al.《ESL》；S15 Google《ML Crash Course: data leakage》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

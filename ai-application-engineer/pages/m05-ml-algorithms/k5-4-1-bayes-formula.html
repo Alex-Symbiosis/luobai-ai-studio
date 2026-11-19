@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.4.1 贝叶斯公式：先验、似然与后验 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出贝叶斯公式，并指出先验、似然、证据、后验各对应公式里的哪一项。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-4-bayes.html">5.4 贝叶斯与朴素贝叶斯</a><span class="sep">/</span><span class="here">5.4.1 贝叶斯公式：先验、似然与后验</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.4</span>
+    <span class="tag">知识点 5.4.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>贝叶斯公式：先验、似然与后验</h1>
+  <p class="lede">体检报告上出现「阳性」，多数人的第一反应是「我病了」。可一张灵敏度 99% 的试剂，用在发病率千分之一的病上，阳性之后的真实患病概率可能只有 9%。贝叶斯公式算的就是这件事：原来的判断遇上新证据，该改成什么，以及证据到底有多重。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出贝叶斯公式，并指出先验、似然、证据、后验各对应公式里的哪一项。</li><li>能用患病率、灵敏度、特异度算出阳性之后的真实患病概率。</li><li>能解释为什么高灵敏度检测在低发病率人群里会制造大量误报。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一份写着「准确率 99%」的报告</h2>
+<p>某公司全员筛查一种罕见病：发病率 0.1%，灵敏度 99%，特异度 99%。行政的解读是「准确率 99%，查出就基本确诊」。</p>
+<p>把 10000 人摊开，账目立刻可疑：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>人群</th><th>人数</th><th>阳性人数</th><th>阴性人数</th></tr></thead>
+  <tbody>
+    <tr><td>真患病</td><td>10</td><td>9.9（灵敏度 99%）</td><td>0.1</td></tr>
+    <tr><td>真健康</td><td>9990</td><td>99.9（1% 误报）</td><td>9890.1</td></tr>
+    <tr><td>合计</td><td>10000</td><td>约 109.8</td><td>约 9890.2</td></tr>
+  </tbody>
+</table>
+</div>
+<p>阳性者约 110 人，真正患病不到 10 人，比例约 9%。报告没撒谎，但它回答的是另一个问题。</p>
+<p class="ask">同一个「99%」，为什么从「检出率」换成「阳性者里有多少真病人」就塌了？</p>
+<p>两个 99% 量的方向不同：一个问「病了会不会被测出」，一个问「测出了是不是真病」。接起两者的工具是贝叶斯公式。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先验是底子，证据是修正</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="贝叶斯更新">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">贝叶斯更新</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">先验 P(A)</text><text class="f-sc" x="140.25" y="154.0">原来的判断</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">似然 P(B|A)</text><text class="f-sc" x="366.75" y="154.0">证据在 A 下出现的概率</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">证据 P(B)</text><text class="f-sc" x="593.25" y="154.0">证据的总概率</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">后验 P(A|B)</text><text class="f-sc" x="819.75" y="154.0">看到证据后的判断</text><text class="f-s" x="40" y="244">后验由先验与似然共同决定；先验很小时，一次弱证据不足以推翻它。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 5-15　贝叶斯更新</b>　先验与似然相乘再被证据归一；先验很小时，弱证据推不翻它。</figcaption></figure>
+<p>一次检测等于两次筛选：10000 人里只有 10 个真病人，这是<strong>先验</strong>；病人检出 99%、健康人误报 1%，这是<strong>似然</strong>。两堆人漏进「阳性」的筐，筐里谁多谁少即<strong>后验</strong>。</p>
+<p>决定结果的不是「试剂准不准」，而是「底子里病多不多」：健康人基数大一千倍，即使误报率只有 1%，误报的绝对人数也能压过真检出。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>后验 = <strong>先验 × 似然 ÷ 证据</strong>：先验决定谁人多，似然决定各自掉多少，证据把路径归一。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个名字，一条公式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>名称</th><th>写法</th><th>含义</th><th>本例取值</th></tr></thead>
+  <tbody>
+    <tr><td>先验 P(A)</td><td>看证据之前的判断</td><td>发病率</td><td>0.001</td></tr>
+    <tr><td>似然 P(B|A)</td><td>在 A 成立时出现证据 B 的概率</td><td>灵敏度</td><td>0.99</td></tr>
+    <tr><td>证据 P(B)</td><td>证据出现的总概率（所有路径之和）</td><td>阳性率</td><td>0.011</td></tr>
+    <tr><td>后验 P(A|B)</td><td>看到证据之后的判断</td><td>阳性者的患病率</td><td>0.090</td></tr>
+  </tbody>
+</table>
+</div>
+<p>写成式子：<span class="term">P(A|B) = P(B|A) × P(A) ÷ P(B)</span>。分类时分母与类别无关，只需比分子，这正是朴素贝叶斯写得短的原因。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三步更新，一次算清</h2>
+<div class="steps">
+  <div class="step"><b>写先验</b><span>P(病) = 0.001，P(健康) = 0.999。先验来自人群统计，不是这次检测。</span></div>
+  <div class="step"><b>写似然</b><span>P(阳性|病) = 0.99；P(阳性|健康) = 0.01。两个数由试剂说明书给出。</span></div>
+  <div class="step"><b>算证据</b><span>0.99 × 0.001 + 0.01 × 0.999 = 0.00099 + 0.00999 = 0.01098。</span></div>
+  <div class="step"><b>相除得后验</b><span>0.00099 ÷ 0.01098 ≈ 0.0902，即 9.0%。</span></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>分母不是「试剂准确率」，而是所有能产生该证据的路径之和。漏掉健康人那条，分母只剩 0.00099，后验就成了 100%——「阳性即确诊」的算术来源。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>换一个人群，结论翻转</h2>
+<p>同一支试剂放到高风险门诊（发病率 10%），先验从 0.001 变成 0.1：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>人群</th><th>先验</th><th>证据 P(B)</th><th>后验 P(病|阳性)</th></tr></thead>
+  <tbody>
+    <tr><td>全员筛查</td><td>0.001</td><td>0.01098</td><td>9.0%</td></tr>
+    <tr><td>高风险门诊</td><td>0.100</td><td>0.10800</td><td>91.7%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>似然没变，后验从 9% 跳到 92%：证据强度必须和人群基数一起看。阳性必须复查、分诊先分层，报告要给出阳性预测值。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>先验来自可靠人群统计</td><td>先验失真，后验跟着偏且难发现</td></tr>
+    <tr><td>证据条件概率可估</td><td>稀有事件样本不足，似然估不准</td></tr>
+    <tr><td>多次检测相互独立</td><td>相关检测重复计数，后验被放大</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算一次后验，再用人数法核对</h2>
+<p><strong>任务：</strong>某病发病率 2%，试剂灵敏度 90%，特异度 95%。某人检测为阳性，求他真正患病的概率。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>你的计算</th><th>检查点</th></tr></thead>
+  <tbody>
+    <tr><td>先验</td><td></td><td>是否用发病率，而非 50%</td></tr>
+    <tr><td>似然（两条）</td><td></td><td>误报率是否等于 1 − 特异度 = 5%</td></tr>
+    <tr><td>证据 P(B)</td><td></td><td>两条路径是否都加上</td></tr>
+    <tr><td>后验</td><td></td><td>是否落在 0–1 之间</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>核对：</strong>用 10000 人再算：200 人患病、检出 180；9800 人健康、误报 490；阳性 670，真病 180，比例 26.9%。两种算法必须一致。</p>
+<p><strong>自检：</strong>能说清「分母是所有路径之和」，并指出「阳性预测值」与「灵敏度」不是同一个指标，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-4-2-naive-assumption.html">5.4.2 朴素假设：独立与平滑</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-3-5-tree-demo.html"><span class="p-label">← 上一知识点 5.3.5</span><span class="p-title">树模型实验：深度扫描与可视化</span></a><a class="next" href="k5-4-2-naive-assumption.html"><span class="p-label">下一知识点 5.4.2 →</span><span class="p-title">朴素假设：独立与平滑</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 贝叶斯模型原理</dd>
+    <dt>页面编号 / 路径</dt><dd>5.4.1 ｜ <span class="path">pages/m05-ml-algorithms/k5-4-1-bayes-formula.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-4-2-naive-assumption.html"><b>5.4.2</b>朴素假设：独立与平滑</a><a class="xlink" href="k5-2-3-logistic-regression.html"><b>5.2.3</b>逻辑回归：把得分压成概率</a><a class="xlink" href="u5-4-bayes.html"><b>5.4</b>贝叶斯与朴素贝叶斯（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张（k5-4-1）+ 知识库 M05-S1-07（贝叶斯及朴素贝叶斯）。 ｜ 知识库条目：M05-S1-07《贝叶斯及朴素贝叶斯的模型原理》（filled） ｜ 参考来源：S71 scikit-learn《Naive Bayes》；S02 Russell &amp; Norvig《AIMA》；S70 Maron《Automatic Indexing》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

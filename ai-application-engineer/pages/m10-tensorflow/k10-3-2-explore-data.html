@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.3.2 探索数据：统计、缺失与分布 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用 TensorFlow 算子算出形状、均值、极值、标签分布与缺失数。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-3-workflow.html">10.3 TensorFlow 程序主线：装载、探索、训练、评估、优化</a><span class="sep">/</span><span class="here">10.3.2 探索数据：统计、缺失与分布</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.3</span>
+    <span class="tag">知识点 10.3.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>探索数据：统计、缺失与分布</h1>
+  <p class="lede">效果不好时，先别改模型。把五个数打出来，往往能直接看到问题——而模型只会忠实地把数据问题学进去。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用 TensorFlow 算子算出形状、均值、极值、标签分布与缺失数。</li><li>能从「均值 22.0、标准差 39.01」读出极端值的存在。</li><li>能说出标签不平衡对准确率的影响。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>问题出在模型还是数据</h2>
+<p>一个二分类模型准确率 0.91，团队准备换更深的网络。先看一眼标签分布：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>测试集标签分布</span></div>
+<pre><code>标签分布: [1820, 180]</code></pre>
+</div>
+<p>九成样本是负类。哪怕模型把正类全判错，准确率也有 0.91——这个指标根本没有反映模型会不会「找正类」。</p>
+<p class="ask">顺序应该是什么？</p>
+<p>先数据、后模型。数据层面的问题（极端值、缺失、不平衡）不解决，换模型只是换一种错法。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先体检，再开药</h2>
+<p>体检报告不治病，但没有它，用药就是猜。五个基础读数就是数据的心率、血压与体温。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="数据初诊：五个数，五个判断">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">数据初诊：五个数，五个判断</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">读数</text><text class="f-t" x="352.0" y="98">看什么</text><text class="f-t" x="632.0" y="98">异常信号</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">shape</text><text class="f-s" x="352.0" y="135.8">样本数 × 特征数</text><text class="f-s" x="632.0" y="135.8">样本远少于特征</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">均值 / 标准差</text><text class="f-s" x="352.0" y="173.4">量纲与离散程度</text><text class="f-s" x="632.0" y="173.4">标准差被极端值拉大</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">最小 / 最大</text><text class="f-s" x="352.0" y="211.0">取值范围</text><text class="f-s" x="632.0" y="211.0">差几个数量级</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">标签分布</text><text class="f-s" x="352.0" y="248.60000000000002">各类样本数</text><text class="f-s" x="632.0" y="248.60000000000002">接近 9 : 1 甚至更偏</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">缺失值个数</text><text class="f-s" x="352.0" y="286.2">每列缺多少</text><text class="f-s" x="632.0" y="286.2">某列大面积缺失</text><text class="f-s" x="60" y="328.0">先看数据再看模型：这五项里任何一项异常，都足以让后面所有调参白做。</text>
+</svg><figcaption><b>图 10-11　数据初诊：五个数，五个判断</b>　任何一项异常，都足以让后面所有调参白做。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>描述统计的作用不是「好看」，而是暴露尺度问题：均值与标准差告诉你该不该标准化，极值告诉你该不该处理离群值。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三张表与两条判读规则</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>表</th><th>字段</th><th>判读</th></tr></thead>
+  <tbody>
+    <tr><td>统计表</td><td>均值、标准差、最小、最大</td><td>标准差远大于均值 → 长尾；极值差几个数量级 → 离群</td></tr>
+    <tr><td>缺失表</td><td>每列缺失数与缺失率</td><td>单一列缺失超三成，先考虑该列是否可用</td></tr>
+    <tr><td>标签分布表</td><td>各类样本数</td><td>超过 9 : 1 就别只看准确率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两条规则值得背下来：<b>标准差大于均值</b>通常意味着右偏长尾；<b>最大值远超其余值</b>时，均值和标准差都已不可信，应改用中位数与 IQR。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>用 TF 算子做一次初诊</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>explore_data.py</span></div>
+<pre><code>import tensorflow as tf
+
+x = tf.constant([[1.0, 2.0], [2.0, 4.0], [3.0, 6.0], [4.0, 8.0], [100.0, 200.0]])
+y = tf.constant([0, 0, 1, 1, 1])
+
+print(&quot;shape:&quot;, x.shape, &quot;dtype:&quot;, x.dtype)
+print(&quot;均值:&quot;, tf.reduce_mean(x, axis=0).numpy().tolist())
+print(&quot;标准差:&quot;, tf.math.reduce_std(x, axis=0).numpy().tolist())
+print(&quot;最小/最大:&quot;, tf.reduce_min(x, axis=0).numpy().tolist(), tf.reduce_max(x, axis=0).numpy().tolist())
+print(&quot;标签分布:&quot;, tf.math.bincount(y).numpy().tolist())
+print(&quot;缺失值个数:&quot;, int(tf.reduce_sum(tf.cast(tf.math.is_nan(x), tf.int32))))</code></pre>
+</div>
+<p><code>axis=0</code> 是按列聚合（跨样本），这是描述统计的默认方向；<code>bincount</code> 要求标签是非负整数，正好适合分类标签。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>shape: (5, 2) dtype: &lt;dtype: &#x27;float32&#x27;&gt;
+均值: [22.0, 44.0]
+标准差: [39.0128173828125, 78.025634765625]
+最小/最大: [1.0, 2.0] [100.0, 200.0]
+标签分布: [2, 3]
+缺失值个数: 0</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>均值 22.0</h3><p>去掉 100/200 后第一列均值应为 2.5；22.0 说明均值已经被那一个极端值拉走。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>标准差 39.01</h3><p>标准差约为均值的 1.8 倍，属于典型的长尾形态，标准化前必须先处理。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>标签 2 : 3</h3><p>五条样本里两类接近均衡，这一项暂时不用担心；缺失值为 0。</p></div>
+</div>
+<p>这里的 100/200 是「真实极值还是录入错误」，初诊判断不了，需要进入 <a href="k10-4-3-outlier-detect.html">k10-4-3</a> 的识别流程；完整 EDA 方法与可视化见 <a href="../m03-ml-basics/index.html">模块三</a>，本页只讲在 TF 管道里怎么取这几个数。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三张表，各写一条发现</h2>
+<p><strong>任务：</strong>对给定数据输出统计表、缺失表、标签分布表，各写一条能指向具体列的发现。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>表</th><th>写法</th><th>发现要指到哪</th></tr></thead>
+  <tbody>
+    <tr><td>统计表</td><td><code>reduce_mean</code> / <code>reduce_std</code></td><td>具体列名与量级</td></tr>
+    <tr><td>缺失表</td><td><code>is_nan</code> 求和</td><td>哪一列、缺多少</td></tr>
+    <tr><td>标签分布</td><td><code>bincount</code></td><td>比例，不是绝对数</td></tr>
+  </tbody>
+</table>
+</div>
+<p>「第一列标准差是均值的 1.8 倍，受一个 100 的极端值影响」是合格发现；「数据有异常」不是。</p>
+<p><strong>追问：</strong>① 为什么算标准差前要先确认有没有极端值？② 标签不平衡时，应该补什么指标？</p>
+<p><strong>验收：</strong>三条发现都能定位到列，并给出下一步动作。</p>
+</section>
+<p class="sidenote">注：本页需 NumPy 辅助计算，运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + NumPy 2.5.5 + Python 3.13.14；输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-3-3-train.html">10.3.3 训练模型：编译与 fit</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-3-1-load-data.html"><span class="p-label">← 上一知识点 10.3.1</span><span class="p-title">装载数据：tf.data 管道</span></a><a class="next" href="k10-3-3-train.html"><span class="p-label">下一知识点 10.3.3 →</span><span class="p-title">训练模型：编译与 fit</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)2 · 探索数据</dd>
+    <dt>页面编号 / 路径</dt><dd>10.3.2 ｜ <span class="path">pages/m10-tensorflow/k10-3-2-explore-data.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-3-1-load-data.html"><b>10.3.1</b>装载数据：tf.data 管道</a><a class="xlink" href="k10-4-3-outlier-detect.html"><b>10.4.3</b>离群值识别：分位数与稳健统计</a><a class="xlink" href="k10-4-4-outlier-demo.html"><b>10.4.4</b>离群值处理：截断、稳健标准化与对照</a><a class="xlink" href="u10-3-workflow.html"><b>10.3</b>TensorFlow 程序主线：装载、探索、训练、评估、优化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-3-2（本页图 10-11）；知识库 M10-S2-02；输出为本机实测。 ｜ 知识库条目：M10-S2-02《探索数据》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S159 描述统计基础</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.3.4 异构与冲突：融合到底在解决什么 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分模式异构、实体异构、值异构，并各举一个例子。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-3-fusion.html">7.3 知识表示与知识图谱融合</a><span class="sep">/</span><span class="here">7.3.4 异构与冲突：融合到底在解决什么</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.3</span>
+    <span class="tag">知识点 7.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>异构与冲突：融合到底在解决什么</h1>
+  <p class="lede">两家公司的主数据并表，字段对不上只耽误一天，真正麻烦的是同一家公司在两边有三个名字。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分模式异构、实体异构、值异构，并各举一个例子。</li><li>能按「先模式、再实体、最后值」的顺序给出消解动作。</li><li>能说明归一化只增加可比字段，不改原值。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>合并那天</h2>
+<p>并购完成后，两家公司的主数据要并成一张客户表。A 系统的字段是 <code>cust_name</code>、<code>city</code>，B 系统是 <code>company_name</code>、<code>registered_city</code>。字段一对不上，ETL 先停了一天。</p>
+<p>字段改完还有三关：同一家公司在两边叫「星海科技」「星海科技股份有限公司」「StarSea Tech」；注册资本一边写 5000（万元），一边写 50,000,000（元）；签约日期一边是 2024/01/05，一边是 05/01/2024。</p>
+<p class="ask">融合到底在解决什么？</p>
+<p>不是把表拼在一起，而是让同一条事实在两边指向同一个东西，并且值能比较。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三类不一致</h2>
+<p>把上面的麻烦归三类：模式异构是「结构不同」，实体异构是「同一个东西名字不同」，值异构是「同一个值的写法不同」。三类混在一起修，越修越乱；先分类，再各用各的动作。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三类异构，各有对应的消解动作">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三类异构，各有对应的消解动作</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">异构类型</text><text class="f-t" x="352.0" y="98">典型冲突</text><text class="f-t" x="632.0" y="98">消解动作</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">模式异构</text><text class="f-s" x="352.0" y="135.8">同一概念两种类名</text><text class="f-s" x="632.0" y="135.8">建类映射表，人工确认</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">模式异构</text><text class="f-s" x="352.0" y="173.4">关系方向写反</text><text class="f-s" x="632.0" y="173.4">统一方向，必要时补反向边</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">实体异构</text><text class="f-s" x="352.0" y="211.0">同一实体两个名字</text><text class="f-s" x="632.0" y="211.0">别名表 + 相似度打分</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">值异构</text><text class="f-s" x="352.0" y="248.60000000000002">单位与格式不一致</text><text class="f-s" x="632.0" y="248.60000000000002">先统一单位格式再比较</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">值异构</text><text class="f-s" x="352.0" y="286.2">同音错字、简称混用</text><text class="f-s" x="632.0" y="286.2">词典校正 + 人工复核</text><text class="f-s" x="60" y="328.0">先分类再动手：模式问题改模式，实体问题改标识，值问题改规范。</text>
+</svg><figcaption><b>图 7-16　三类异构，各有对应的消解动作</b>　先分类再动手：模式问题改模式，实体问题改标识，值问题改规范。</figcaption></figure>
+<p>图里每行是一个具体冲突，右侧写对应的消解动作。注意动作落在不同层：模式问题改映射，实体问题改标识，值问题改规范。改错层，问题会换个地方冒出来。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>融合的工作量不在「合并」，在「判定」：判定这两个字段是不是一回事、这两条记录是不是一家公司、这两个数是不是一个值。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三类的定义</h2>
+<p><strong>模式异构：</strong>描述同一概念的结构不同。字段名不同、粒度不同（地址一个字段与省市区三段）、关系方向相反、类名不同（Customer 与 Client）。</p>
+<p><strong>实体异构：</strong>指向同一现实对象的标识不同，或不同对象共用同一名称。前者是全称、简称、英文名、曾用名；后者是「星海科技（杭州）」与「星海科技（北京）」这类同名不同实体。</p>
+<p><strong>值异构：</strong>同一个值在不同来源的表示不同。单位（万元与元）、币种（CNY 与 USD）、日期格式（年/月/日与日/月/年）、编码（行业代码新旧版）、精度（两位与四位小数）。</p>
+<p>还有一类常被单列：事实冲突。同一属性两个来源给出不同值，例如注册资本 5000 万与 8000 万。它不是格式问题，靠归一化解决不了，必须定来源优先级或找人裁决。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>分层的动作</h2>
+<p>三类异构对应三组动作，顺序不能颠倒：先统一模式，再对齐实体，最后归一键值。理由很实际——模式没统一，实体比较连字段都取不到；实体没对齐，值归一会把两家公司的数字平均到一起。</p>
+<p>模式层：建字段映射表，<code>cust_name</code> 映射到 <code>name</code>，<code>registered_city</code> 映射到 <code>city</code>；方向统一成「母公司指向子公司」；地址粒度拆成省、市、区三列。映射要落成配置文件并带版本，不能散在 SQL 里。</p>
+<p>值层：单位换算、按日期汇率折算、日期统一成 ISO 8601。这两步都能写成纯函数，输入原始值，输出可比值和溯源信息。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>normalize.py</span></div>
+<pre><code>import re
+from datetime import datetime
+
+def norm_amount(v, unit=&quot;元&quot;):
+    &quot;&quot;&quot;统一到元：万元乘 10000。&quot;&quot;&quot;
+    return float(v) * (10000 if unit == &quot;万元&quot; else 1)
+
+def norm_date(s, fmt):
+    &quot;&quot;&quot;按来源声明的格式解析，输出 ISO 8601。&quot;&quot;&quot;
+    s = re.sub(r&quot;[./]&quot;, &quot;-&quot;, s.strip())
+    try:
+        return datetime.strptime(s, fmt).date().isoformat()
+    except ValueError:
+        return None
+
+print(norm_amount(5000, &quot;万元&quot;))          # 50000000.0
+print(norm_date(&quot;2021/3/1&quot;, &quot;%Y-%m-%d&quot;))  # 2021-03-01</code></pre>
+</div>
+<p>日期这段必须点明：<code>05/01/2024</code> 到底是 1 月 5 日还是 5 月 1 日，单看字符串无法判断，格式必须由来源声明，猜错会把整批日期平移几个月。单位换算同理：5000 万元等于 50,000,000 元，先换算再比较，否则两列数值差 4 个数量级。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>用正则「试」日期格式。两种格式都能解析成功时，程序不会报错，只会静默选错；日期必须随来源登记格式，解析失败就进待核队列，不能自动兜底。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一张处置表</h2>
+<p>把 200 家公司的冲突逐条登记，处置结果只有三类：合并、保留、待核。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>冲突</th><th>类型</th><th>动作</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>cust_name 与 company_name</td><td>模式</td><td>建字段映射</td><td>并成同一列</td></tr>
+    <tr><td>星海科技与星海科技股份有限公司</td><td>实体</td><td>别名表</td><td>合并为 1 个实体</td></tr>
+    <tr><td>星海科技（杭州）与（北京）</td><td>实体</td><td>保留双实体</td><td>不合并，加城市区分</td></tr>
+    <tr><td>5000 万元与 50,000,000 元</td><td>值</td><td>单位归一</td><td>相等，保留原值溯源</td></tr>
+    <tr><td>2024/01/05 与 05/01/2024</td><td>值</td><td>按来源声明格式</td><td>回查合同再定</td></tr>
+    <tr><td>注册资本 5000 万与 8000 万</td><td>事实冲突</td><td>按来源优先级</td><td>标记待核</td></tr>
+  </tbody>
+</table>
+</div>
+<p>「待核」不是失败，是正确输出。强行合并会把两家不同公司并成一家，后面所有查询都错，而且很难回滚。处置表要留原值、动作、执行人和时间，否则半年后没人能解释一个数字是怎么来的。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>四条怎么判</h2>
+<p><strong>任务：</strong>下面四条记录，各判一类异构并写一个动作：① <code>tel</code> 与 <code>phone</code>；② 杭州云图数据有限公司与云图数据；③ 金额 1.2（百万美元）与 8,600,000（元）；④ 成立日期 2021-03-01 与 2021 年 3 月。</p>
+<p><strong>追问：</strong>① 同名不同城的公司，靠什么字段才能区分？② 币种换算用哪天的汇率，为什么必须写进元数据？③ 事实冲突时，「更新的来源更可信」这条规则有什么风险？</p>
+<p><strong>验收：</strong>四条都判对类型，动作落到对应层；能说清「归一化不改原值，只增加可比字段」。对齐怎么打分见 <a href="../m07-knowledge-graph/k7-3-5-entity-alignment-demo.html">实体对齐</a>；类与约束见 <a href="../m07-knowledge-graph/k7-3-3-ontology.html">本体</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-3-5-entity-alignment-demo.html">7.3.5 实体对齐：相似度规则与召回评估</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-3-3-ontology.html"><span class="p-label">← 上一知识点 7.3.3</span><span class="p-title">本体：类、属性与约束</span></a><a class="next" href="k7-3-5-entity-alignment-demo.html"><span class="p-label">下一知识点 7.3.5 →</span><span class="p-title">实体对齐：相似度规则与召回评估</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)14 · 异构与冲突：融合到底在解决什么</dd>
+    <dt>页面编号 / 路径</dt><dd>7.3.4 ｜ <span class="path">pages/m07-knowledge-graph/k7-3-4-heterogeneity.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-3-3-ontology.html"><b>7.3.3</b>本体：类、属性与约束</a><a class="xlink" href="k7-3-5-entity-alignment-demo.html"><b>7.3.5</b>实体对齐：相似度规则与召回评估</a><a class="xlink" href="u7-3-fusion.html"><b>7.3</b>知识表示与知识图谱融合（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-3-4（本页图 7-16）；知识库 M07-S3-01（filled）。 ｜ 知识库条目：M07-S3-01《知识图谱融合的概念和特点》（filled）、M07-S3-02《知识图谱中的异构分类》（filled） ｜ 参考来源：W3C RDF 1.1 概念与抽象语法；W3C OWL 2 规范；ISO 8601 日期与时间格式；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

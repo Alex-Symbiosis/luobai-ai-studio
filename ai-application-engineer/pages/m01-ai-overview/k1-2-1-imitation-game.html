@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.2.1 从「机器能否思考」到模仿游戏 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明图灵为什么把「机器能否思考」换成模仿游戏。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-2-turing-test.html">1.2 图灵测试：把「能否思考」换成「能否骗过评委」</a><span class="sep">/</span><span class="here">1.2.1 从「机器能否思考」到模仿游戏</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.2</span>
+    <span class="tag">知识点 1.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>从「机器能否思考」到模仿游戏</h1>
+  <p class="lede">要证明机器会思考，先得说清「思考」是什么。图灵发现这个问题无法直接回答，于是换了一个能当场做的实验：不看机器内部，只看它在对话里能不能骗过评委。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明图灵为什么把「机器能否思考」换成模仿游戏。</li><li>能复述模仿游戏要观察的行为与判定依据。</li><li>能把一个关于内在状态的问题改写成一个可观察的测试问题。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>追问脑子，还是看表现</h2>
+<p>面对「机器会不会思考」，两种追问方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>追问内部状态</h3><p>要求先证明机器有思维、有理解、有意识，再谈它是否智能。可这些状态看不见、摸不着，各方对定义也谈不拢，讨论很快卡住。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>改问外部表现</h3><p>不追究内部发生了什么，只设计一场对话，看评委能否把机器和真人区分开；区分不开，就暂时按「表现出智能」处理。</p></div>
+</div>
+<p class="ask">同一个问题，为什么 A 讨论了十几年没有结论，B 却能给出一个可执行的方案？</p>
+<p>因为 A 要求的证据无法公开观察，B 把证据换成了可重复的对话记录。图灵 1950 年做的正是这个替换：不是回答「机器有没有思维」，而是把问题改写成「机器能不能在对话中以假乱真」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>进不去别人的脑袋</h2>
+<p>我们判断一个人是否听懂了一句话，靠的不是打开他的大脑，而是看他能不能接上话、能不能按你说的做。既然对同类也只能看表现，对机器就没有理由要求更高的证据标准。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="看不见的，就换成看得见的">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">看不见的，就换成看得见的</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">内在状态问题</text><text class="f-s" x="80" y="108">· 机器会思考吗</text><text class="f-s" x="80" y="138">· 机器理解语言吗</text><text class="f-s" x="80" y="168">· 机器有意识吗</text><text class="f-s" x="80" y="198">· 答案依赖无法观测的内部状态</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">行为测试问题</text><text class="f-s" x="530" y="108">· 对话中能否骗过评委</text><text class="f-s" x="530" y="138">· 回答是否与人类无法区分</text><text class="f-s" x="530" y="168">· 判定可重复、可比较</text><text class="f-s" x="530" y="198">· 答案只看外部表现</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 1-5　看不见的，就换成看得见的</b>　内在状态无法直接观测，行为表现可以记录、比较与复现；图灵用后者替代前者。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>无法观测的东西，就用可观测的替代。模仿游戏不是证明机器有意识，而是把「会思考」改写成一个能当场做、能重复做的实验。这也是为什么图灵不谈「机器有没有灵魂」，只谈「能不能分辨」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>把内在问题换成行为问题</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>原来的问题</th><th>改写后的问题</th><th>可观察的证据</th></tr></thead>
+  <tbody>
+    <tr><td>机器会思考吗？</td><td>五分钟文字对话后，评委能否可靠区分人机？</td><td>误判率是否达到人类对照水平</td></tr>
+    <tr><td>机器理解语言吗？</td><td>回答是否与人类回答无法区分？</td><td>评委的区分正确率</td></tr>
+    <tr><td>机器有意识吗？</td><td>这题不由测试回答</td><td>无——测试明确不覆盖主观体验</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>设内在状态为 <span class="term">X</span>、行为表现为 <span class="term">B</span>。图灵的替换是：不问 <span class="term">X</span> 是否存在，只问 <span class="term">B</span> 是否与人类不可区分。注意这是「行为等价」，不是「逻辑等价」——<span class="term">B</span> 相同推不出 <span class="term">X</span> 相同。</p>
+</div>
+<p>这个替换有一个明确代价：测试通过只说明「在该测试下表现像人」，不说明内部机制相同。图灵本人清楚这一点，他给的是可操作的判据，不是形而上学的证明。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>操作化的四个动作</h2>
+<p>把一个哲学问题变成实验，需要四步：</p>
+<div class="steps">
+  <div class="step"><b>承认原问题不可直接观测</b><span>「思考」「理解」没有公认的观测指标，继续追问定义只会循环。</span></div>
+  <div class="step"><b>找可观察的替代</b><span>选定对话行为作为代理指标，因为语言能承载推理、常识与应变。</span></div>
+  <div class="step"><b>设计对照实验</b><span>让评委同时面对人与机器，屏蔽身份信息，只留文字通道。</span></div>
+  <div class="step"><b>用误判率判定</b><span>把「区分不开」量化为错误率，与人类对照组比较，而不是凭一次印象下结论。</span></div>
+</div>
+<p>四步里最关键的是第二步：替代指标选得好不好，决定了测试能说明什么。选对话，就注定只能测语言相关的智能；选别的行为，结论也会随之改变。换句话说，测试测的永远是替代指标，读结论时要连同指标一起读。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>1950 年原文怎样提出</h2>
+<p>图灵在《计算机器与智能》开篇提出「机器能思考吗？」（Can machines think?），随即指出该问题本身难以定义，转而提出「模仿游戏」作为可讨论的替代问题。原版游戏里，询问者要通过电传打字判断两位对话者中谁是男性；随后把其中一方替换为机器，看机器能否把询问者的判断错误率维持在人类水平。</p>
+<p>他还给了一个量化预期：约五十年后，计算机可被编程到使普通询问者在五分钟提问后正确识别率不超过 70%，也就是误判率约 30%。这个数字常被转述成「30% 通过率」，原文说的其实是「正确识别率不超过 70%」，方向不能写反。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>需要把「是否智能」变成可执行的实验</td><td>被测试方只靠话术回避，未真正处理语义</td></tr>
+    <tr><td>任务可用纯文本承载</td><td>需要感知、动作或长期学习的任务无法覆盖</td></tr>
+    <tr><td>判定以人类对照为基准</td><td>评委的经验与文化背景会影响误判率</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把三个问题改写成行为问题</h2>
+<p><strong>任务：</strong>把下面三个内在状态问题各改写成一个可观察、可设计实验的测试问题。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>原问题</th><th>改写后的测试问题</th><th>观察什么</th></tr></thead>
+  <tbody>
+    <tr><td>它理解吗？</td><td></td><td></td></tr>
+    <tr><td>它有意识吗？</td><td></td><td></td></tr>
+    <tr><td>它聪明吗？</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 「它有意识吗」这一题，改写后是否还能被测试回答？如果不能，说明测试的边界在哪？② 行为等价推不出内在相同，这个代价会不会让测试失去意义？请给出你的理由。</p>
+<p><strong>自检：</strong>改写后的每题都能指出「谁来测、测什么行为、怎样算通过」，即达标。若仍停留在「看它像不像人」这种无法操作的描述，需要重写。改写时先写「观察什么」，再补「怎样算通过」，顺序反了容易写成口号。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-2-2-three-party.html">1.2.2 三方结构与判定规则</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-1-4-ai-judgement.html"><span class="p-label">← 上一知识点 1.1.4</span><span class="p-title">判定练习：八个系统是不是 AI</span></a><a class="next" href="k1-2-2-three-party.html"><span class="p-label">下一知识点 1.2.2 →</span><span class="p-title">三方结构与判定规则</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)1 · 图灵测试的由来</dd>
+    <dt>页面编号 / 路径</dt><dd>1.2.1 ｜ <span class="path">pages/m01-ai-overview/k1-2-1-imitation-game.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-2-2-three-party.html"><b>1.2.2</b>三方结构与判定规则</a><a class="xlink" href="k1-2-3-behaviorism.html"><b>1.2.3</b>为什么它成了 AI 的行为主义标尺</a><a class="xlink" href="u1-2-turing-test.html"><b>1.2</b>图灵测试：把「能否思考」换成「能否骗过评委」（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-2-1（本页图 1-5）；知识库 M01-S1-03。 ｜ 知识库条目：M01-S1-03《图灵测试》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S11 SEP《The Turing Test》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

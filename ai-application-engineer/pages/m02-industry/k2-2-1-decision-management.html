@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2.1 决策管理：把专家规则变成可执行策略 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出「专家规则 → 决策表 → 策略编排 → 引擎执行 → 留痕」这条链，说清每一段由谁维护。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-2-technology-layer.html">2.2 技术层：五类使能技术</a><span class="sep">/</span><span class="here">2.2.1 决策管理：把专家规则变成可执行策略</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.2</span>
+    <span class="tag">知识点 2.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>决策管理：把专家规则变成可执行策略</h1>
+  <p class="lede">一位风控老手的判断，散落在四十页政策和无数封邮件里。要让它每天跑十万笔，先得变成一张程序读得懂的表。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出「专家规则 → 决策表 → 策略编排 → 引擎执行 → 留痕」这条链，说清每一段由谁维护。</li><li>能为一组二值条件列全决策表的组合，并指出漏格会掉进哪个默认分支。</li><li>能解释可解释性为什么是决策管理的结构自带项，而不是事后补的说明文档。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>四十页政策</h2>
+<p>某城商行的消费贷审批，过去靠三位风控经理。一笔八万元的申请要过五道判断：月收入、负债占收入几成、近半年征信查询次数、当前有无逾期、职业是否稳定。依据写在四十页《授信政策》里，业务员读着吃力，系统更读不了。</p>
+<p>政策改一次，开发排期两周；这期间新旧口径并存，同一客户在两套系统拿到两个结果。量一上来，三位经理一天最多看两百笔。</p>
+<p class="ask">四十页政策，怎么变成每天执行十万次、还能说清理由的东西？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>规则搬出代码</h2>
+<p>决策管理不负责让机器「学会」判断，它把已有判断搬出代码，变成业务能读、能改、能追溯的资产。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="专家脑子里的判断，怎么变成能执行的表">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">专家脑子里的判断，怎么变成能执行的表</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">专家访谈</text><text class="f-sc" x="117.6" y="154.0">问清判断依据</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">写成规则</text><text class="f-sc" x="298.79999999999995" y="154.0">若…则…，一条一条件</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">组织决策表</text><text class="f-sc" x="480.0" y="154.0">条件组合不遗漏</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">策略引擎执行</text><text class="f-sc" x="661.1999999999999" y="154.0">按优先级匹配</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">留痕与复盘</text><text class="f-sc" x="842.4" y="154.0">记录命中与结果</text><text class="f-s" x="40" y="244">规则从人嘴里出来，必须落成表；表里缺的组合，就是上线后的坑。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-13　专家脑子里的判断，怎么变成能执行的表</b>　规则从人嘴里出来，必须落成表；表里缺的组合，就是上线后的坑。</figcaption></figure>
+<p>资产分三层。<strong>规则</strong>是「若……则……」，一条只管一个条件；<strong>决策表</strong>把条件组合排成行列，逼着人把没写的格子补上；<strong>策略集</strong>给多条规则定优先级，解决同时命中时听谁的。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="规则、决策表、引擎，是一条链上的三段">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">规则、决策表、引擎，是一条链上的三段</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">专家规则</text><text class="f-sc" x="117.6" y="154.0">若…则…</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">决策表</text><text class="f-sc" x="298.79999999999995" y="154.0">条件组合列全</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">策略编排</text><text class="f-sc" x="480.0" y="154.0">定优先级与冲突</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">执行</text><text class="f-sc" x="661.1999999999999" y="154.0">按序匹配</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">留痕</text><text class="f-sc" x="842.4" y="154.0">记录命中与结果</text><text class="f-s" x="40" y="244">表里没覆盖的组合，执行时就会掉到默认分支；默认分支要写清楚。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-14　规则、决策表、引擎，是一条链上的三段</b>　表里没覆盖的组合，执行时就会掉到默认分支；默认分支要写清楚。</figcaption></figure>
+<p>三层之上是引擎：按数据匹配规则，按优先级给出结论，并记录命中。没有留痕，规则再多也无法复盘——客户申诉时，你答不出是哪一条拒了他。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四类资产</h2>
+<p>决策管理把业务规则从应用代码里剥离：规则用接近自然语言的形式表达，由引擎在运行时解释，业务人员可自己维护，改一条规则不必重新发版。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>资产</th><th>形态</th><th>谁维护</th><th>改一次的成本</th></tr></thead>
+  <tbody>
+    <tr><td>规则</td><td>若…则…</td><td>业务与风控</td><td>小时级</td></tr>
+    <tr><td>决策表</td><td>条件组合矩阵</td><td>风控</td><td>天级，要回归</td></tr>
+    <tr><td>决策树</td><td>分层判断图</td><td>建模人员</td><td>周级，要重训</td></tr>
+    <tr><td>策略集</td><td>优先级与冲突规则</td><td>架构师</td><td>需评审</td></tr>
+  </tbody>
+</table>
+</div>
+<p>可解释性在这套方法里不是附加项，而是结构自带的：每条结论都能回放到「哪条规则、哪个版本、当时的输入值」。这也是它在信贷、保险理赔里长期站得住的原因。</p>
+<p>产业上它属于符号路线，与统计学习并存，常见组合是规则兜底、模型打分。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>覆盖与冲突</h2>
+<p>引擎把规则条件编译成网络，新数据进来只更新受影响的部分，不必逐条重算；这是工程优化，本页不展开。</p>
+<p>真正决定成败的是三件事。第一，<strong>组合覆盖</strong>：三个二值条件就有八种组合，表里少一格，线上就会掉进默认分支。第二，<strong>冲突消解</strong>：两条规则同时命中且结论不同，必须事先定好听谁的，常见做法是取更严的一条。第三，<strong>版本与灰度</strong>：新规则先跑影子模式，只记录不生效，比对两周再切。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>decide.py</span></div>
+<pre><code>RULES = [
+    (&quot;R-01&quot;, &quot;逾期天数 &gt; 0&quot;, &quot;拒绝&quot;),
+    (&quot;R-02&quot;, &quot;查询次数 &gt; 6 且 负债收入比 &gt; 0.5&quot;, &quot;拒绝&quot;),
+    (&quot;R-03&quot;, &quot;查询次数 &gt; 6&quot;, &quot;人工复核&quot;),
+    (&quot;R-04&quot;, &quot;负债收入比 &gt; 0.5&quot;, &quot;降额&quot;),
+    (&quot;R-05&quot;, &quot;默认&quot;, &quot;通过&quot;),
+]
+
+SEVERITY = {&quot;拒绝&quot;: 3, &quot;人工复核&quot;: 2, &quot;降额&quot;: 1, &quot;通过&quot;: 0}
+
+def decide(app):
+    hits = [r for r in RULES if match(r[1], app)]
+    if not hits:
+        return &quot;人工复核&quot;
+    return max(hits, key=lambda r: SEVERITY[r[2]])[2]</code></pre>
+</div>
+<p><strong>易错点：</strong>用优先级掩盖冲突。两条规则打架，加个数字让它排队，看似解决，实则把矛盾藏起来；半年后没人说得清同一类客户为何两种结果。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>信贷审批规则</h2>
+<p>把政策压成三条件的表，就能看出决策管理在做什么。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>编号</th><th>条件</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>R-01</td><td>当前有逾期</td><td>拒绝</td></tr>
+    <tr><td>R-02</td><td>查询 &gt; 6 次且负债比 &gt; 50%</td><td>拒绝</td></tr>
+    <tr><td>R-03</td><td>查询 &gt; 6 次</td><td>人工复核</td></tr>
+    <tr><td>R-04</td><td>负债比 &gt; 50%</td><td>降额至 3 万</td></tr>
+    <tr><td>R-05</td><td>其余</td><td>通过，额度取月收入 12 倍与 20 万的较小值</td></tr>
+  </tbody>
+</table>
+</div>
+<p>客户 A：月收入 1.2 万元，月负债 7000 元，负债比 58%；近半年查询 9 次；无逾期。命中 R-02，结论拒绝。系统输出一行理由：「拒绝；命中 R-02，查询 9 次 &gt; 6，负债收入比 58% &gt; 50%。」拿这句话就能答复客户。</p>
+<p>客户 B：月收入 2 万元，月负债 6000 元，负债比 30%；查询 3 次；无逾期。只命中 R-05，通过，额度 20 万元（12 倍为 24 万元，触顶）。</p>
+<p>客户 C 同时命中 R-03 与 R-04。按「更严」取 R-03 转人工，按表序取 R-04 直接降额。两种都说得通，但必须只选一种写进规范，否则两个审批员会给出不同答案。</p>
+<p>上量后规则从 40 条涨到 600 条，重复、死角、失效一起出现。治理靠编号、责任人、命中率统计，每半年清理一次零命中的规则。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>八格填满</h2>
+<p><strong>任务：</strong>为「首贷额度」设计一张决策表，条件取三个：负债收入比是否超过 50%、近半年查询是否超过 6 次、当前是否有逾期。八种组合逐格填结论，不留空。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组合</th><th>负债比 &gt; 50%</th><th>查询 &gt; 6 次</th><th>有逾期</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>①</td><td>否</td><td>否</td><td>否</td><td>？</td></tr>
+    <tr><td>②</td><td>否</td><td>否</td><td>是</td><td>？</td></tr>
+    <tr><td>③</td><td>否</td><td>是</td><td>否</td><td>？</td></tr>
+    <tr><td>④</td><td>否</td><td>是</td><td>是</td><td>？</td></tr>
+    <tr><td>⑤</td><td>是</td><td>否</td><td>否</td><td>？</td></tr>
+    <tr><td>⑥</td><td>是</td><td>否</td><td>是</td><td>？</td></tr>
+    <tr><td>⑦</td><td>是</td><td>是</td><td>否</td><td>？</td></tr>
+    <tr><td>⑧</td><td>是</td><td>是</td><td>是</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 有两格给不出结论，说明政策缺什么？② 一条规则半年零命中，该删还是留？③ 模型打分 0.62 与规则「拒绝」冲突时，听谁的？</p>
+<p><strong>验收：</strong>八格填满，冲突有明确优先级，每条结论都能写出理由句。下一节换条路线：不写规则，让模型自己从数据里学表示，见 <a href="../m02-industry/k2-2-2-deep-learning.html">深度学习：用多层表示替代手工特征</a>；规则与模型的取舍，可对照 <a href="../m05-ml-algorithms/k5-9-3-interpretability.html">可解释性</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-2-2-deep-learning.html">2.2.2 深度学习：用多层表示替代手工特征</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-1-6-sensors.html"><span class="p-label">← 上一知识点 2.1.6</span><span class="p-title">传感器：AI 的数据入口</span></a><a class="next" href="k2-2-2-deep-learning.html"><span class="p-label">下一知识点 2.2.2 →</span><span class="p-title">深度学习：用多层表示替代手工特征</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)2 · 决策管理技术的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>2.2.1 ｜ <span class="path">pages/m02-industry/k2-2-1-decision-management.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-2-deep-learning.html"><b>2.2.2</b>深度学习：用多层表示替代手工特征</a><a class="xlink" href="k2-3-2-finance.html"><b>2.3.2</b>金融：高频决策与强监管</a><a class="xlink" href="k2-2-5-nlp.html"><b>2.2.5</b>NLP：让机器处理人类语言</a><a class="xlink" href="u2-2-technology-layer.html"><b>2.2</b>技术层：五类使能技术（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-2-1（本页图 2-13）、k2-2-1-b（图 2-14）；知识库 M02-S2-01《决策管理技术的概念及特点》（filled）。 ｜ 知识库条目：M02-S2-01《决策管理技术的概念及特点》（filled） ｜ 参考来源：OMG《DMN 决策模型与标记》规范（决策表与规则表达）；Drools 官方文档的规则匹配说明；公开银行授信政策口径；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

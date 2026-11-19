@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.6.3 两条路线：人找特征，还是模型学特征 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清特征工程与表示学习的分界是特征决定权，不是模型复杂度。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-6-new-millennium.html">1.6 新千年：数据、算力、算法三要素</a><span class="sep">/</span><span class="here">1.6.3 两条路线：人找特征，还是模型学特征</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.6</span>
+    <span class="tag">知识点 1.6.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>两条路线：人找特征，还是模型学特征</h1>
+  <p class="lede">同一张图，一条路线先算边缘与纹理再交给分类器，另一条把像素直接送进网络。差别不在模型大小，而在「特征由谁决定」——这一步同时决定了能力上限、成本结构与可解释性。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清特征工程与表示学习的分界是特征决定权，不是模型复杂度。</li><li>能对比两条路线在数据需求、可解释性与换任务成本上的差异。</li><li>能为一个具体任务写出两套方案，并说明各自的适用条件。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>先算特征，还是交给模型</h2>
+<p>同一个识别任务，两个小组的起手式不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>先算好特征</h3><p>拿到图像先算边缘方向、纹理统计、颜色直方图，把结果拼成向量交给分类器；换一类目标，就再设计一套特征，再调一次分类器。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>把像素交给模型</h3><p>原始像素直接送进网络，让梯度决定每一层学什么；人只定网络结构与训练目标，不再逐项描述「什么样子算目标」。</p></div>
+</div>
+<p class="ask">两条路线都能出结果，为什么其中一条在 2012 年之后逐渐让位？</p>
+<p>因为两者的上限来源不同：人工特征的上限是设计者的经验，模型学到的表示上限是数据规模与算力。前者靠人加班，后者靠规模扩张。任务越复杂、样本越多，后者的相对优势越明显；反过来，样本极少时前者的先验更值钱。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>成衣尺码，还是自动量体</h2>
+<p>成衣店按标准尺码批量生产，合身与否看运气；定制店量体裁衣，合身，但要师傅一件一件做。人工特征像定制：贴合具体任务，代价是每换一个任务就重来一遍。表示学习像一条能自己调尺码的生产线：前期投入大，一旦跑通，换款式只需换原料。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="人找特征 vs 模型学特征">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">人找特征 vs 模型学特征</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">特征工程时代</text><text class="f-s" x="80" y="108">· 人工设计边缘、纹理、形状</text><text class="f-s" x="80" y="138">· 特征可解释、可复用</text><text class="f-s" x="80" y="168">· 上限受设计者经验限制</text><text class="f-s" x="80" y="198">· 小数据也能工作</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">表示学习时代</text><text class="f-s" x="530" y="108">· 端到端从原始输入学表示</text><text class="f-s" x="530" y="138">· 层次特征自动组合</text><text class="f-s" x="530" y="168">· 需要大量标注与算力</text><text class="f-s" x="530" y="198">· 跨任务迁移更容易</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 1-27　人找特征 vs 模型学特征</b>　左侧由人设计边缘、纹理与形状；右侧由网络端到端学出层次表示，人的工作从设计特征转为定结构与数据。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>两条路线的分界不是「简单与复杂」，而是特征的决定权在人还是在数据。决定权一换，成本结构与能力上限一起换。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>五个维度上的分工差</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>特征工程</th><th>表示学习</th></tr></thead>
+  <tbody>
+    <tr><td>特征来源</td><td>人依据领域知识逐项设计</td><td>模型从原始输入逐层学出</td></tr>
+    <tr><td>人的角色</td><td>设计、筛选、验证特征</td><td>定结构、定目标、定数据</td></tr>
+    <tr><td>主要依赖</td><td>领域经验与小规模标注</td><td>大规模标注与算力</td></tr>
+    <tr><td>可解释性</td><td>每个特征含义清楚</td><td>需借助可视化与归因方法</td></tr>
+    <tr><td>换任务成本</td><td>重新设计特征</td><td>微调或换输出头，复用底层表示</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>记输入为 x、标签为 y。特征工程路线先求一个映射 φ(x)，再由分类器学 f(φ(x)) → y，φ 由人给定；表示学习路线把两步合成一个可微函数 g(x) → y，φ 由训练数据与目标函数共同决定。前者由人把搜索空间划小，后者把搜索空间交给优化。截至 2026-11，两条路线在工程中仍常混用。</p>
+</div>
+<p>两条路线并不互斥：表示学习里也常把人工特征与学到的表示拼接使用。差别在于主特征由谁提供，以及换任务时人要改的是数据，还是代码。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一条自下而上的组合链</h2>
+<p>表示学习的机制，可以拆成一条自下而上的组合链：</p>
+<div class="steps">
+  <div class="step"><b>底层</b><span>前几层对亮度、边缘、颜色对比做出响应，功能上接近早期的边缘类人工特征。</span></div>
+  <div class="step"><b>中层</b><span>中层把边缘组合成纹理与部件，形成对局部结构的检测器。</span></div>
+  <div class="step"><b>高层</b><span>高层把部件组合成整体结构，输出与类别相关的语义表示。</span></div>
+  <div class="step"><b>端到端</b><span>梯度从损失函数一路回传，各层同时调整；人只给数据与目标，不再逐层写规则。</span></div>
+  <div class="step"><b>数据需求</b><span>层次越深、参数越多，需要的标注样本越多；数据不足时端到端反而不如人工特征稳。</span></div>
+</div>
+<p>这条链解释了为什么表示学习「吃数据」：底层特征可以靠少量样本学到，高层语义却需要大量带标签的样本才能定住。人工特征的优势在于把先验直接写进 φ，所以小样本时更省；劣势在于先验写不全，复杂任务的上限被人的想象力卡住。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>SIFT、HOG 与 AlexNet 之间</h2>
+<p>2012 年之前，图像识别的主流流水线是「SIFT 或 HOG 提特征 → 浅层分类器」。SIFT 用关键点邻域的梯度方向直方图描述局部结构，HOG 用分块的方向梯度统计描述轮廓，两者都由人规定「描述什么」，再把结果交给支持向量机一类的分类器。</p>
+<p>2012 年 AlexNet 之后，同一条流水线的中段被端到端训练取代：网络自己学出从边缘到部件的层次表示，在 ImageNet 这类大规模标注集上明显优于手工特征组合。差别不在是否用梯度，而在特征是否还由人逐项指定。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>样本量足够，任务以感知为主（图像、语音、文本）</td><td>样本极少时，端到端容易过拟合，人工特征更稳</td></tr>
+    <tr><td>可接受较长训练周期与较高算力</td><td>算力受限的嵌入式场景，轻量人工特征仍有成本优势</td></tr>
+    <tr><td>可解释性可通过事后归因补足</td><td>需要逐条审计特征含义的合规场景，手工特征更容易交代</td></tr>
+    <tr><td>结构化表格数据的列含义清晰</td><td>表格数据上人工特征配合树模型往往仍占优，端到端收益有限</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给水果分拣写两套方案</h2>
+<p><strong>任务：</strong>为一个水果分拣任务（按品种与成熟度分箱）各写一套方案：人工特征 3 条，表示学习 1 套。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方案</th><th>内容</th><th>需要的数据</th><th>主要风险</th></tr></thead>
+  <tbody>
+    <tr><td>人工特征</td><td>颜色直方图、果径与长宽比、表面纹理统计</td><td>少量标注即可</td><td>换品种或换光照要重新设计</td></tr>
+    <tr><td>表示学习</td><td>采集分拣线图像，端到端训练分类网络</td><td>万级标注图像</td><td>标注成本高，小样本易过拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两条都要写清「谁来定特征」与「换品种时要改什么」，这比写出模型名字重要。</p>
+<p><strong>追问：</strong>① 若分拣线只能装低功耗芯片，两条方案各要付什么代价？② 在什么条件下，人工特征配浅层分类器仍可能赢过端到端？</p>
+<p><strong>自检：</strong>两套方案都能指出特征决定权归属、数据需求与换品种成本，即达标；只写「用卷积网络」而不写数据与成本，需要补充。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-6-4-bottlenecks.html">1.6.4 三要素的现状：三根柱子各有天花板</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-6-2-2012.html"><span class="p-label">← 上一知识点 1.6.2</span><span class="p-title">2012 年：一场比赛把差距拉开</span></a><a class="next" href="k1-6-4-bottlenecks.html"><span class="p-label">下一知识点 1.6.4 →</span><span class="p-title">三要素的现状：三根柱子各有天花板</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 新千年人工智能的发展特点（路线）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.6.3 ｜ <span class="path">pages/m01-ai-overview/k1-6-3-features-vs-representation.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-6-2-2012.html"><b>1.6.2</b>2012 年：一场比赛把差距拉开</a><a class="xlink" href="k1-6-4-bottlenecks.html"><b>1.6.4</b>三要素的现状：三根柱子各有天花板</a><a class="xlink" href="u1-6-new-millennium.html"><b>1.6</b>新千年：数据、算力、算法三要素（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-6-3（本页图 1-27）；知识库 M01-S2-03。 ｜ 知识库条目：M01-S2-03《新千年人工智能的发展特点》（filled） ｜ 参考来源：S27 Krizhevsky et al.《ImageNet Classification with Deep Convolutional Neural Networks》（2012）；S02 Russell & Norvig《AIMA》第 4 版（2021）；S04 国务院《新一代人工智能发展规划》（2017）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

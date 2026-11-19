@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.3.1 步长与学习率 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出梯度下降的更新公式并指出学习率的位置。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-3-gradient-descent.html">4.3 梯度下降：步长、分类与实现</a><span class="sep">/</span><span class="here">4.3.1 步长与学习率</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.3</span>
+    <span class="tag">知识点 4.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>步长与学习率</h1>
+  <p class="lede">梯度只告诉你「往哪走」，没告诉你「走多远」。同一个方向，走一小步可能永远到不了谷底，走一大步可能直接跨到对面山坡。学习率就是控制这一步距离的旋钮，也是梯度下降里最需要手感的超参数。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出梯度下降的更新公式并指出学习率的位置。</li><li>能解释学习率与梯度大小各自决定什么。</li><li>能对简单二次函数手算两步更新。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>方向对了，还是到不了</h2>
+<p>三个人用同一个梯度、同一个初值下山，只改了步长：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">甲</span><h3>步子很小</h3><p>方向完全正确，但走了 500 轮还在半山腰；每轮改善微乎其微。</p></div>
+  <div class="card mini"><span class="mini-tag">乙</span><h3>步子合适</h3><p>每轮都明显下降，几十轮后到达谷底附近，误差稳定。</p></div>
+  <div class="card mini"><span class="mini-tag">丙</span><h3>步子太大</h3><p>第一轮就跨过谷底，第二轮又跨回来，误差来回跳，甚至越跳越高。</p></div>
+</div>
+<p class="ask">三人的方向判断都没错，为什么结果差这么远？</p>
+<p>因为梯度只提供方向与相对陡峭程度，真正的位移还要乘一个步长。步长不与问题尺度匹配，方向再对也到不了。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>下山时每步跨多大</h2>
+<p>下山时你会根据坡度和体力决定步幅：坡缓可以大步，坡陡要小步，快到谷底要收脚。学习率就是把这个「步幅」固定成一个数。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一步更新：方向与距离分开">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">一步更新：方向与距离分开</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 90 L220 150 L320 205 L420 245 L480 260 L540 245 L640 205 L740 150 L840 90" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="340" cy="215" r="6"/><text class="f-s" x="350" y="207">当前点</text><circle class="f-pt" cx="420" cy="245" r="6"/><text class="f-s" x="430" y="237">走一步</text><text class="f-s" x="470" y="292">方向 = 负梯度；距离 = 学习率 × 梯度大小</text><text class="f-s" x="880" y="322" text-anchor="end">参数 θ</text><text class="f-s" x="92" y="66" text-anchor="end">损失 L</text><text class="f-s" x="100" y="340">梯度只回答「往哪走」，学习率回答「走多远」。两者混在一起调，就说不清问题出在哪。</text>
+</svg><figcaption><b>图 4-9　沿负梯度方向的一步更新</b>　当前点沿负梯度走到新点：方向由梯度定，距离等于学习率乘梯度大小。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>更新 = <strong>方向 × 距离</strong>。方向错了是梯度算错，距离不对是学习率没调好；两者混在一起调，就说不清问题出在哪。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一个公式，两个角色</h2>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p><span class="term">θ<sub>t+1</sub> = θ<sub>t</sub> − η · ∇L(θ<sub>t</sub>)</span>。∇L 是损失对参数的梯度，η &gt; 0 是学习率（步长）。负号表示沿梯度反方向走，因为梯度指向上升最快的方向。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>符号</th><th>含义</th><th>由谁决定</th><th>调错的典型现象</th></tr></thead>
+  <tbody>
+    <tr><td>∇L</td><td>当前位置最陡的上升方向</td><td>模型与损失函数</td><td>方向反了，损失单调上升</td></tr>
+    <tr><td>η</td><td>每步走多远</td><td>人（超参数）</td><td>过大震荡，过小停滞</td></tr>
+    <tr><td>θ<sub>0</sub></td><td>起点</td><td>人（初始化）</td><td>影响收敛速度与局部最优</td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意：学习率不是「模型参数」。它不通过训练得到，而是在训练前设定；模型参数 θ 才是被更新、被保存的那部分。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>步长为什么要跟曲率匹配</h2>
+<p>把损失近似成一条抛物线。曲率越大（谷底越窄），同样的步长越容易跨过头。稳定收敛的步长上限，大致与曲率成反比。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>情形</th><th>步长选择</th><th>原因</th></tr></thead>
+  <tbody>
+    <tr><td>特征尺度接近、曲率小</td><td>可以偏大</td><td>谷底宽，跨过头风险低</td></tr>
+    <tr><td>特征尺度差异大</td><td>必须偏小或先标准化</td><td>某个方向曲率极大，容易震荡</td></tr>
+    <tr><td>训练后期</td><td>逐步衰减</td><td>接近谷底时大步会来回跳</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这也解释了为什么「先标准化再梯度下降」几乎是默认操作：标准化把各方向曲率拉到同一量级，一个学习率才有机会同时对所有维度都合适。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「学习率越小越稳」只对了一半。过小会带来三个代价：收敛慢、容易停在平坦区、有限轮数内根本没走到最优。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>二次函数上的三种步长</h2>
+<p>最小化 L(θ) = (θ − 3)²，初值 θ<sub>0</sub> = 0，梯度为 2(θ − 3)。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>学习率</th><th>第 1 步 θ</th><th>第 2 步 θ</th><th>走势</th></tr></thead>
+  <tbody>
+    <tr><td>0.1</td><td>0.6</td><td>1.08</td><td>稳定靠近 3</td></tr>
+    <tr><td>0.5</td><td>3.0</td><td>3.0</td><td>一步到位（恰好）</td></tr>
+    <tr><td>1.1</td><td>6.6</td><td>−1.32</td><td>跨过谷底，来回震荡</td></tr>
+  </tbody>
+</table>
+</div>
+<p>0.5 恰好等于 1/曲率，因此一步到谷底；大于它就开始震荡。这个例子说明「合适的学习率」不是凭感觉，而是与函数曲率直接相关。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算两步更新</h2>
+<p><strong>任务：</strong>最小化 L(θ) = (θ − 5)² + 1，初值 θ<sub>0</sub> = 1，学习率 η = 0.2。</p>
+<ol>
+  <li>写出梯度表达式。</li>
+  <li>手算两步更新，填出 θ<sub>1</sub>、θ<sub>2</sub> 与对应的 L 值。</li>
+  <li>预测：若 η = 1.2，两步后会怎样？用一句话说明。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">检查点</span>
+  <p>更新时用的是「旧参数」算出的梯度，不能先更新再拿新参数算同一步的梯度；这是手算最常见的错。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-3-2-learning-rate.html">4.3.2 学习率过大与过小的现象</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-2-4-iteration-code.html"><span class="p-label">← 上一知识点 4.2.4</span><span class="p-title">10 行代码看迭代收敛</span></a><a class="next" href="k4-3-2-learning-rate.html"><span class="p-label">下一知识点 4.3.2 →</span><span class="p-title">学习率过大与过小的现象</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)3 · 步长的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>4.3.1 ｜ <span class="path">pages/m04-stat-models/k4-3-1-step-size.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-2-2-iteration.html"><b>4.2.2</b>迭代法的三步循环</a><a class="xlink" href="k4-3-2-learning-rate.html"><b>4.3.2</b>学习率过大与过小的现象</a><a class="xlink" href="k4-3-4-gd-implementation.html"><b>4.3.4</b>一维与二维梯度下降的实现</a><a class="xlink" href="u4-3-gradient-descent.html"><b>4.3</b>梯度下降：步长、分类与实现（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-3-1-a.svg（本页图 4-9）。 ｜ 知识库条目：M04-S3-01《步长的概念及优化》（filled） ｜ 参考来源：S55 Boyd《Convex Optimization》；S52 Kingma &amp; Ba《Adam》；S34 scikit-learn《Stochastic Gradient Descent》；S53 Goodfellow《Deep Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

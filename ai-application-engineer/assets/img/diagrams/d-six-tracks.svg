@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-label="人工智能的六条技术脉络">
+  <style>
+    .d5-ln{stroke:#cfe0ff;stroke-width:1.4;stroke-dasharray:5 5}
+    .d5-c{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.6}
+    .d5-ct{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:16px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d5-cs{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11px;fill:#5a6b80;text-anchor:middle}
+    .d5-n{fill:#ffffff;stroke:#cfe0ff;stroke-width:1.5}
+    .d5-nt{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:13.5px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d5-ns{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:10.5px;fill:#5a6b80;text-anchor:middle}
+  </style>
+
+  <line class="d5-ln" x1="480" y1="190" x2="480" y2="76"/>
+  <line class="d5-ln" x1="480" y1="190" x2="740" y2="128"/>
+  <line class="d5-ln" x1="480" y1="190" x2="740" y2="252"/>
+  <line class="d5-ln" x1="480" y1="190" x2="480" y2="304"/>
+  <line class="d5-ln" x1="480" y1="190" x2="220" y2="252"/>
+  <line class="d5-ln" x1="480" y1="190" x2="220" y2="128"/>
+
+  <circle class="d5-c" cx="480" cy="190" r="62"/>
+  <text class="d5-ct" x="480" y="186">人工智能</text>
+  <text class="d5-cs" x="480" y="208">目标：让机器表现出智能</text>
+
+  <rect class="d5-n" x="410" y="44" width="140" height="60" rx="12"/>
+  <text class="d5-nt" x="480" y="70">博弈</text>
+  <text class="d5-ns" x="480" y="90">深蓝 / AlphaGo</text>
+
+  <rect class="d5-n" x="670" y="98" width="150" height="60" rx="12"/>
+  <text class="d5-nt" x="745" y="124">专家系统</text>
+  <text class="d5-ns" x="745" y="144">MYCIN / DENDRAL</text>
+
+  <rect class="d5-n" x="670" y="222" width="150" height="60" rx="12"/>
+  <text class="d5-nt" x="745" y="248">神经计算</text>
+  <text class="d5-ns" x="745" y="268">感知器 → 深度学习</text>
+
+  <rect class="d5-n" x="410" y="274" width="140" height="60" rx="12"/>
+  <text class="d5-nt" x="480" y="300">进化计算</text>
+  <text class="d5-ns" x="480" y="320">遗传算法 / 群体智能</text>
+
+  <rect class="d5-n" x="140" y="222" width="150" height="60" rx="12"/>
+  <text class="d5-nt" x="215" y="248">自然语言处理</text>
+  <text class="d5-ns" x="215" y="268">规则 → 统计 → 大模型</text>
+
+  <rect class="d5-n" x="140" y="98" width="150" height="60" rx="12"/>
+  <text class="d5-nt" x="215" y="124">生物信息学</text>
+  <text class="d5-ns" x="215" y="144">序列比对 / 隐马尔可夫</text>
+</svg>

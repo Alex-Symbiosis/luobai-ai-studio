@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.1.1 从一颗芯片到一条算力链 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按基础层、技术层、应用层给一个 AI 产品定位，并说清它向谁交付。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-1-infrastructure.html">2.1 基础层：芯片与传感器</a><span class="sep">/</span><span class="here">2.1.1 从一颗芯片到一条算力链</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.1</span>
+    <span class="tag">知识点 2.1.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>从一颗芯片到一条算力链</h1>
+  <p class="lede">采购单上三行预算，背后是设计、制造、封测、整机、服务五段；任何一段卡住，算力都交不出来。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按基础层、技术层、应用层给一个 AI 产品定位，并说清它向谁交付。</li><li>能指出算力、存储、互联、功耗四个量里，哪个先到顶。</li><li>能对三个具体任务判断瓶颈落在这四个量中的哪一个。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三行预算</h2>
+<p>季度预算会上，采购把一张单子推到桌子中间：训练集群、推理集群、边缘盒子，三行，金额差了两个数量级。单子下面只有一句要求——够用、能扩、别断供。</p>
+<p>团队按「买卡」的思路填：训练用最贵的加速卡，推理便宜一档，边缘用带 NPU 的小板子。填完才发现三行并不独立：多机互联决定参数能不能切开，显存容量决定同时挂多少会话，功耗决定外壳要不要加散热片。</p>
+<p>再往上一层问：这张单子上的每一项，背后是哪几家厂、哪几道工序可能卡住？</p>
+<p class="ask">同样一句「算力不够」，为什么有人要换芯片，有人只要换一根网线？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一条链，三个层</h2>
+<p>把一颗芯片放回整条链里看：前面是设计、制造、封测，后面是板卡、集群、机房，最后才变成按小时卖的算力。任何一段断了，后面都交不出货。</p>
+<p>产业链的横向切法只有三层：基础层供硬件、设施与数据，技术层供算法、框架与模型，应用层把能力做成行业产品。三层不是并列的生意，而是上游供下游。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="从一颗芯片到一条算力链，中间隔着五段">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">从一颗芯片到一条算力链，中间隔着五段</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">芯片设计</text><text class="f-sc" x="117.6" y="154.0">架构、EDA、IP 复用</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">晶圆制造</text><text class="f-sc" x="298.79999999999995" y="154.0">光刻、刻蚀、掺杂</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">封装测试</text><text class="f-sc" x="480.0" y="154.0">切割、键合、老化</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">板卡与集群</text><text class="f-sc" x="661.1999999999999" y="154.0">互联、散热、整机</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">算力服务</text><text class="f-sc" x="842.4" y="154.0">机房、调度、按需</text><text class="f-s" x="40" y="244">一颗芯片只是零件；从设计到服务，任何一环卡住，算力都交付不出来。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-1　从芯片设计到算力服务，中间隔着五段</b>　一颗芯片只是零件；从设计到服务，任何一环卡住，算力都交付不出来。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>判断产品属于哪一层，只问一句：交付的是器件、能力，还是场景里的结果？</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层与四个量</h2>
+<p><strong>基础层</strong>交付器件与设施：芯片、传感器、服务器、数据中心、数据。<strong>技术层</strong>交付能力：算法框架、预训练模型、开发平台。<strong>应用层</strong>交付结果：行业软件、终端产品、解决方案。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层</th><th>交付什么</th><th>典型形态</th></tr></thead>
+  <tbody>
+    <tr><td>基础层</td><td>器件、设施、数据</td><td>GPU、FPGA、ASIC、传感器、机房</td></tr>
+    <tr><td>技术层</td><td>能力</td><td>框架、模型、API、开发平台</td></tr>
+    <tr><td>应用层</td><td>结果</td><td>行业软件、终端、解决方案</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三层之外还有一条纵向的约束，贯穿全链：<strong>算力、存储、互联、功耗</strong>。四个量互相牵制，任何一个先到顶，另外三个的余量都用不上。</p>
+<p>四个量要说准：算力是单位时间能完成的运算次数；存储分容量与带宽；互联是卡间、机间、机房的数据通路；功耗既指芯片热设计功耗，也指整柜供电与散热上限。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四个量互相卡</h2>
+<p>四个量不是四个独立指标，而是一组互相换算的约束。</p>
+<p><strong>容量卡模型。</strong>显存决定一次能放多大的模型与批次。放不下就得切分，切分就要走互联；带宽不够，通信开销会吃掉并行收益。</p>
+<p><strong>带宽卡算子。</strong>算术强度低的算子，例如逐元素加、归一化，几乎全在等数据；换更快的计算单元没有用，瓶颈在搬运。</p>
+<p><strong>功耗卡密度。</strong>一个机柜能塞几张卡，取决于供电与制冷。风冷机柜常见供电上限十几千瓦，卡越密，单卡功耗预算越小，降频就成了默认。</p>
+<p>所以扩容不是「再加几张卡」：先看机柜还剩多少供电与制冷，再看端口够不够。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把峰值算力当成实际能力。峰值只在数据喂饱、形状刚好、不降频时成立；缺一，实际吞吐往往只剩标称值的一小部分。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个任务判瓶颈</h2>
+<p>三个常见负载的瓶颈，落在不同的边上。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>负载特征</th><th>最短的板</th><th>对策</th></tr></thead>
+  <tbody>
+    <tr><td>大模型预训练</td><td>算力与显存同时吃紧，多卡切分后每步都要同步梯度</td><td>互联带宽（其次是显存容量）</td><td>提高互联带宽、减少同步频次、梯度累积</td></tr>
+    <tr><td>4K 视频转码</td><td>大量规则化编解码运算，算术强度低，搬运多</td><td>硬件编解码单元与内存带宽</td><td>用带硬件编解码的卡，不要用通用计算核</td></tr>
+    <tr><td>人脸解锁</td><td>端侧、毫秒级、电池供电</td><td>功耗与延迟</td><td>小模型 + 专用 NPU，本地完成</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="算力、带宽、功耗，谁最短">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">算力、带宽、功耗，谁最短</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">算力三角</text><text class="f-sc" x="480.0" y="91.0">三者互相牵制</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">供给</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">算力</text><text class="f-sc" x="180.66666666666666" y="212.0">每秒能做多少次运算</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">搬运</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">带宽</text><text class="f-sc" x="480.0" y="212.0">每秒能喂多少数据</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">约束</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">功耗</text><text class="f-sc" x="779.3333333333333" y="212.0">每秒要花多少瓦</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">木桶效应：最短的那条边决定上限；只堆算力，数据喂不进来也是白搭。</text>
+</svg><figcaption><b>图 2-2　算力、带宽、功耗互相牵制</b>　木桶效应：最短的那条边决定上限；只堆算力，数据喂不进来也是白搭。</figcaption></figure>
+<p>三个任务常被放进同一张采购单，瓶颈却分别在互联、带宽、功耗。用同一个「算力」口径去比，结论会完全错：转码加算力不会更快，解锁加算力只会更费电。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>先找最短的板</h2>
+<p><strong>任务：</strong>给三个任务各写一句「最短的板」，并说明加算力为什么没用或有：① 8 卡训练大模型，每步等所有卡同步梯度；② 200 路 1080p 视频实时转 720p；③ 门锁上做人脸比对，电池供电，300 毫秒出结果。</p>
+<p><strong>要求：</strong>每条答案都要落到算力、存储、互联、功耗四个量中的一个，不能写「综合性能不足」。</p>
+<p><strong>验收：</strong>三条答案里至少有一条的结论是「加算力没用」。写完对照本页图 2-2，看自己被哪条边绊住。</p>
+<p>接着看 GPU 怎么用并行把时间换回来：<a href="../m02-industry/k2-1-2-gpu-parallel.html">GPU：用并行吞吐换时间</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-1-2-gpu-parallel.html">2.1.2 GPU：用并行吞吐换时间</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="u2-1-infrastructure.html"><span class="p-label">← 返回</span><span class="p-title">单元 2.1 目录</span></a><a class="next" href="k2-1-2-gpu-parallel.html"><span class="p-label">下一知识点 2.1.2 →</span><span class="p-title">GPU：用并行吞吐换时间</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)1 · 芯片产业发展概况（总起）</dd>
+    <dt>页面编号 / 路径</dt><dd>2.1.1 ｜ <span class="path">pages/m02-industry/k2-1-1-chip-supply-chain.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-1-2-gpu-parallel.html"><b>2.1.2</b>GPU：用并行吞吐换时间</a><a class="xlink" href="k2-1-6-sensors.html"><b>2.1.6</b>传感器：AI 的数据入口</a><a class="xlink" href="k2-3-6-autonomous-driving.html"><b>2.3.6</b>自动驾驶：感知—预测—规划—控制的实时链</a><a class="xlink" href="u2-1-infrastructure.html"><b>2.1</b>基础层：芯片与传感器（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-1-1（本页图 2-1）、k2-1-1-b（图 2-2）；知识库 M02-S1-01《芯片产业发展概况（GPU、FPGA、ASIC、TPU）》（filled）。 ｜ 知识库条目：M02-S1-01《芯片产业发展概况（GPU、FPGA、ASIC、TPU）》（filled） ｜ 参考来源：NVIDIA CUDA C Programming Guide；中国信通院人工智能产业白皮书相关章节；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

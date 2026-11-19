@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.1.4 神经时代：预训练与表示学习 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清词向量、预训练、微调三个概念各自解决什么问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-1-nlp-history.html">9.1 自然语言处理的概念与发展史</a><span class="sep">/</span><span class="here">9.1.4 神经时代：预训练与表示学习</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.1</span>
+    <span class="tag">知识点 9.1.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>神经时代：预训练与表示学习</h1>
+  <p class="lede">词不再是词典里的一个编号，而是一串数字；意思相近的词，数字也挨得近——这串数字是怎么学出来的？</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清词向量、预训练、微调三个概念各自解决什么问题。</li><li>能画出预训练到推理的三段链路，并说出每段的输入、产物与成本。</li><li>能判断一个业务需求该走预训练微调、统计模型还是规则。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三千条标注与一百亿词</h2>
+<p>2013 年，word2vec 让「词的向量」成了常用工具：意思相近的词，向量夹角小。2018 年之后，预训练模型把这件事推到句子和篇章——一套参数，换个输出层就能做分类、问答、摘要。</p>
+<p>一个团队要做投诉分类，手上只有 3000 条人工标注。从头训一个模型，数据不够，准确率卡在七成；拿预训练模型微调，同样 3000 条，能到接近九成。差距不在标注，而在预训练那一步已经读过上百亿词的文本。</p>
+<p>标注和预训练语料的比例，大约是三百万比一。这个不对称，是神经时代最关键的资源事实。</p>
+<p class="ask">没有标注的那部分知识，是怎么进到模型里的？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>换的不是工具，是知识存放处</h2>
+<p>三个时代不是三套互不相干的工具，而是同一条链上换了「知识从哪来」。规则时代，知识写在人脑和规则库里；统计时代，知识写在标注语料的计数里；神经时代，知识写进预训练参数里，下游只学「怎么用」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三个时代，三套技术栈">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">三个时代，三套技术栈</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">规则时代</text><text class="f-s" x="430" y="87.0">词典 + 产生式 + 手工规则，靠专家覆盖语言现象</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">统计时代</text><text class="f-s" x="430" y="151.0">标注语料 + 概率模型 + 特征工程，靠数据估参数</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">神经时代</text><text class="f-s" x="430" y="215.0">大规模文本 + 预训练表示 + 下游微调，靠表示迁移</text><text class="f-s" x="120" y="272">换代不是推翻：今天的模型仍要分词、词表和语言学约束。</text>
+</svg><figcaption><b>图 9-4　三个时代的技术栈</b>　换代不是推翻：今天的模型仍然要分词、词表和语言学约束。</figcaption></figure>
+<p>所以微调不是在「重新训练一个模型」，而是在一套已经会语言的参数上，补一个任务的方向。这也是为什么几千条数据就够——模型要学的只是任务边界，不是语言本身。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>向量、预训练、微调</h2>
+<p><strong>词向量</strong>是把词映射成一串实数（常见 100 到 300 维）。语义相近的词，向量夹角小；「汽车」和「轿车」的余弦相似度接近 1，而 one-hot 表示下两者相似度是 0。</p>
+<p><strong>预训练</strong>是在大规模无标注文本上，用一个自监督目标训练：遮住句中的一个词让它猜，或者给前文让它猜下一个词。答案就在原文里，不需要人标，语料自己提供监督信号。</p>
+<p><strong>微调</strong>是在预训练参数上接一个任务头，用少量标注数据继续训练几轮，让通用表示适配具体任务。三段合起来，就是「预训练—微调」范式。</p>
+<p>本页只讲这条链的分工，不展开网络内部的计算。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么三段缺一不可</h2>
+<p>词向量解决「词表里两个词毫无关系」。one-hot 下每个词是一个孤立的 1，模型学不到「汽车」和「轿车」可以互换；分布式表示把这种相似性变成了可计算的数，近义词推荐、软匹配才有依据。</p>
+<p>预训练解决「标注太少」。自监督目标不需要人工，把一句话遮一个词就能产出一个训练样本，语料有多少，样本就有多少。这是唯一能吃掉百亿级文本的办法。</p>
+<p>微调解决「通用表示不等于任务能力」。预训练学到的是「语言长什么样」，不是「这条投诉属于哪一类」。加一个分类头，用 3000 条标注训练几轮，参数只动一点点，任务能力就出来了。</p>
+<p>代价也要认：预训练一次要大量算力，推理必须固定参数做前向。所以工程上的常态是「别人预训练，自己微调」，只有少数团队从头预训练。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一张三段产物表</h2>
+<p>把链路摊开，每段的输入、产物和成本都不一样：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶段</th><th>输入</th><th>目标</th><th>产物</th><th>规模与成本</th></tr></thead>
+  <tbody>
+    <tr><td>预训练</td><td>百亿词级无标注文本</td><td>预测被遮的词或下一个词</td><td>一套通用参数（含词向量）</td><td>一次，算力最贵</td></tr>
+    <tr><td>微调</td><td>数千条标注 + 通用参数</td><td>任务损失下降</td><td>任务模型（参数 + 任务头）</td><td>几轮，改动小</td></tr>
+    <tr><td>推理</td><td>一条新输入</td><td>不训练</td><td>标签、分数或生成文本</td><td>单次前向，毫秒级</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="预训练—微调—推理：一条链路，三段分工">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">预训练—微调—推理：一条链路，三段分工</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">大规模语料</text><text class="f-sc" x="117.6" y="154.0">无标注文本</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">预训练</text><text class="f-sc" x="298.79999999999995" y="154.0">自监督目标</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">通用表示</text><text class="f-sc" x="480.0" y="154.0">参数中的语言知识</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">下游微调</text><text class="f-sc" x="661.1999999999999" y="154.0">少量标注样本</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">推理部署</text><text class="f-sc" x="842.4" y="154.0">固定参数前向</text><text class="f-s" x="40" y="244">预训练学语言，微调学任务，推理只做前向；三段的数据与算力需求完全不同。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 9-5　预训练、微调与推理的分工</b>　预训练学语言，微调学任务，推理只做前向；三段的数据与算力需求完全不同。</figcaption></figure>
+<p>这张表能回答一个常见问题：为什么换了业务只需要重做第二行。预训练那套参数不动，微调换一批标注、换一个任务头，就是一个新模型；推理那一行只跟着上线环境变。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>选路线，再手算余弦</h2>
+<p><strong>任务一：</strong>给三个需求选路线并说明理由。(a) 从五万条历史工单里分十二类；(b) 从合同里抽甲方、金额、期限；(c) 把两百条内部术语统一成标准写法。<strong>参考：</strong>(a) 预训练加微调，标注足够、类别固定；(b) 预训练加微调做序列标注，规则兜底校验格式；(c) 规则加词典，数据量不值得训模型。</p>
+<p><strong>任务二：</strong>手算余弦。a = (1, 2, 0)，b = (2, 4, 0)，c = (0, 1, 3)。cos(a, b) = 1.00；cos(a, c) = 2 / (√5 × √10) ≈ 0.283。<strong>验收：</strong>两个数算对，并说明「方向相同」不等于「意思相同」——b 只是 a 的两倍长，长度不携带语义。</p>
+<p>回头看 <a href="../m09-nlp/k9-1-3-statistical-era.html">统计时代</a>，再看 <a href="../m09-nlp/k9-1-2-rule-era.html">规则时代</a>，三页连起来就是这条技术线的完整走向。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-2-1-chomsky.html">9.2.1 乔姆斯基层级：四类语法</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-1-3-statistical-era.html"><span class="p-label">← 上一知识点 9.1.3</span><span class="p-title">统计时代：语料库与概率模型</span></a><a class="next" href="k9-2-1-chomsky.html"><span class="p-label">下一知识点 9.2.1 →</span><span class="p-title">乔姆斯基层级：四类语法</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)1 · 历史发展（神经时代）</dd>
+    <dt>页面编号 / 路径</dt><dd>9.1.4 ｜ <span class="path">pages/m09-nlp/k9-1-4-neural-era.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-1-3-statistical-era.html"><b>9.1.3</b>统计时代：语料库与概率模型</a><a class="xlink" href="k9-4-2-smt.html"><b>9.4.2</b>统计机器翻译：从词对齐到解码</a><a class="xlink" href="k9-6-3-similarity-demo.html"><b>9.6.3</b>词义相似度与近义词推荐</a><a class="xlink" href="u9-1-nlp-history.html"><b>9.1</b>自然语言处理的概念与发展史（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k9-1-4（本页图 9-4）、k9-1-4-b（本页图 9-5）；知识库 M09-S1-02《自然语言处理的历史发展》（filled）。 ｜ 知识库条目：M09-S1-02《自然语言处理的历史发展》（filled） ｜ 参考来源：Mikolov et al.《Efficient Estimation of Word Representations in Vector Space》（2013）；Devlin et al.《BERT》（2019）；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

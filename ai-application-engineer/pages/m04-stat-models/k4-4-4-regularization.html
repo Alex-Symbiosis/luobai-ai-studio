@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.4.4 四种抑制过拟合的手段 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能列出四种抑制过拟合的手段及其作用环节。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-4-overfitting.html">4.4 欠拟合与过拟合</a><span class="sep">/</span><span class="here">4.4.4 四种抑制过拟合的手段</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.4</span>
+    <span class="tag">知识点 4.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>四种抑制过拟合的手段</h1>
+  <p class="lede">发现过拟合后，最容易犯的错是直接加正则。实际上更多数据、更简模型、正则化、早停分别作用在不同环节，选错手段不仅无效，还会掩盖真正的问题。先判断成因，再选刹车。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能列出四种抑制过拟合的手段及其作用环节。</li><li>能解释 L1/L2 正则为什么能限制模型复杂度。</li><li>能为具体场景选择一至两条手段并说明预期效果。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>已经过拟合了，先动哪</h2>
+<p>模型训练 0.98、验证 0.71，团队提出四种方案：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">方案 A</span><h3>先加正则</h3><p>给所有参数加 L2 惩罚，期望把权重压小、曲线变平滑。</p></div>
+  <div class="card mini"><span class="mini-tag">方案 B</span><h3>先看数据够不够</h3><p>核对样本量与特征数：样本只有几百条、特征上百个，先扩样本或降维。</p></div>
+</div>
+<p class="ask">两种方案都可能有效，为什么不能默认先加正则？</p>
+<p>因为正则解决的是「容量相对样本过剩」。如果根因是样本太少或特征泄漏，正则会压住症状，却让模型失去本可学到的东西。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>四条刹车，四种路况</h2>
+<p>下坡时刹车不只一种：换宽胎、限速、点刹、提前收油。每种作用于不同环节，路况不同，选择也不同。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四条刹车，作用在不同环节">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">四条刹车，作用在不同环节</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">加数据</text><text class="f-s" x="430" y="87.0">让模型见到更多变化，降低方差</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">降容量</text><text class="f-s" x="430" y="151.0">减少参数或阶数，直接限制拟合能力</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">正则化</text><text class="f-s" x="430" y="215.0">在损失里惩罚复杂度，保留容量但抑制极端参数</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">早停</text><text class="f-s" x="430" y="279.0">验证误差回升就停，避免继续拟合噪声</text><text class="f-s" x="120" y="336">顺序建议：先加数据，再降容量，最后加正则；早停通常与前三者叠加使用。</text>
+</svg><figcaption><b>图 4-17　四条手段与它们作用的环节</b>　更多数据作用于样本；更简模型作用于假设空间；正则作用于损失；早停作用于训练过程。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>四条手段不是互相替代，而是分别卡住<strong>数据、空间、损失、过程</strong>四个环节。先定位环节，再选工具。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四条手段，一张表</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>手段</th><th>做法</th><th>作用环节</th><th>代价</th></tr></thead>
+  <tbody>
+    <tr><td>更多数据</td><td>扩样本、数据增强</td><td>降低方差</td><td>采集成本高</td></tr>
+    <tr><td>更简模型</td><td>降阶、剪枝、减特征</td><td>缩小假设空间</td><td>可能引入偏差</td></tr>
+    <tr><td>正则化</td><td>L1 / L2 / Dropout</td><td>惩罚复杂参数</td><td>需调强度，过强会欠拟合</td></tr>
+    <tr><td>早停</td><td>验证误差回升即停</td><td>限制训练程度</td><td>需要可靠验证集</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">L1 与 L2</span>
+  <p>L2 把权重整体压小，曲线更平滑；L1 把部分权重压到 0，兼做特征选择。惩罚强度 λ 越大，约束越强，过大时模型会从过拟合直接翻到欠拟合。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先加数据，再降容量，最后加正则</h2>
+<div class="steps">
+  <div class="step"><b>第一步：核对数据</b><span>样本是否足够、是否有重复与泄漏。数据问题优先用数据解决。</span></div>
+  <div class="step"><b>第二步：降容量</b><span>减少特征、降低多项式阶数、剪枝。直接缩小空间，副作用可解释。</span></div>
+  <div class="step"><b>第三步：加正则</b><span>在损失里加惩罚，从较小 λ 开始扫描，观察验证误差的 U 形曲线。</span></div>
+  <div class="step"><b>第四步：早停</b><span>训练中持续监控验证误差，回升即停；常与正则配合，作为最后一道保险。</span></div>
+</div>
+<p>这个顺序的理由是<strong>可解释性与副作用</strong>：数据与容量调整的后果容易说清；正则强度是连续超参数，调过头会把模型压成欠拟合，反而更难诊断。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一模型，四种处理</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>处理</th><th>训练误差</th><th>验证误差</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>原始模型</td><td>0.03</td><td>0.39</td><td>过拟合</td></tr>
+    <tr><td>加 3 倍样本</td><td>0.09</td><td>0.24</td><td>裂口明显收窄，最有效</td></tr>
+    <tr><td>L2（λ 适中）</td><td>0.12</td><td>0.26</td><td>有效，训练略升</td></tr>
+    <tr><td>L2（λ 过大）</td><td>0.35</td><td>0.41</td><td>压成欠拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四种处理里，扩样本收益最大，正则次之，λ 过大反而更差。这也说明「加正则」不是无脑操作，必须扫描强度并看验证曲线。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为四个场景选手段</h2>
+<p><strong>任务：</strong>每个场景选一至两条手段，写预期效果与风险。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>场景</th><th>手段</th><th>预期 / 风险</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>样本 300 条、特征 200 个，验证裂口大</td><td></td><td></td></tr>
+    <tr><td>2</td><td>样本充足，十次多项式曲线剧烈摆动</td><td></td><td></td></tr>
+    <tr><td>3</td><td>深度网络，训练 loss 持续降到 0.001，验证回升</td><td></td><td></td></tr>
+    <tr><td>4</td><td>业务要求模型可解释，不能接受黑箱</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>手段与成因对应；至少一条写出「过强会欠拟合」的风险。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-4-5-overfit-demo.html">4.4.5 阶数扫描实验：看见欠拟合与过拟合</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-4-3-learning-curve.html"><span class="p-label">← 上一知识点 4.4.3</span><span class="p-title">用学习曲线诊断</span></a><a class="next" href="k4-4-5-overfit-demo.html"><span class="p-label">下一知识点 4.4.5 →</span><span class="p-title">阶数扫描实验：看见欠拟合与过拟合</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)4 · 过拟合的处理方法</dd>
+    <dt>页面编号 / 路径</dt><dd>4.4.4 ｜ <span class="path">pages/m04-stat-models/k4-4-4-regularization.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-4-2-overfitting.html"><b>4.4.2</b>过拟合：模型背答案</a><a class="xlink" href="k4-4-3-learning-curve.html"><b>4.4.3</b>用学习曲线诊断</a><a class="xlink" href="k4-4-5-overfit-demo.html"><b>4.4.5</b>阶数扫描实验：看见欠拟合与过拟合</a><a class="xlink" href="u4-4-overfitting.html"><b>4.4</b>欠拟合与过拟合（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-4-4-a.svg（本页图 4-17）。 ｜ 知识库条目：M04-S4-02《过拟合的处理方法》（filled） ｜ 参考来源：S54 ESL；S32 scikit-learn《Metrics and scoring》；S15 Google《Overfitting》；S53 Goodfellow《Deep Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

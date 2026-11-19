@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.4.5 最小词对齐演示 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用一个源词连多个目标词的方式，读懂一张对齐矩阵。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-4-statistical-methods.html">9.4 统计方法：统计解析、机器翻译与词义消歧</a><span class="sep">/</span><span class="here">9.4.5 最小词对齐演示</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.4</span>
+    <span class="tag">知识点 9.4.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>最小词对齐演示</h1>
+  <p class="lede">10 组短句、30 条连线、24×38 的共现矩阵：词对齐说到底就是在一张矩阵上点几个点，再数清错在哪。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用一个源词连多个目标词的方式，读懂一张对齐矩阵。</li><li>能按一对多、未登录词、语序差异三类，给连线错误归类计数。</li><li>能解释 30 条与 38 条的差从哪来，以及它为什么是召回问题。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>连完才敢抽短语</h2>
+<p>翻译流水线里最容易被跳过的一步，是「哪个中文词对应哪个英文词」。人看句对能凭语感连出来，机器只能靠词表和共现次数。</p>
+<p>不做这一步，短语表就没有原料；做歪了，短语表里会长出错误的短语对，翻译模型再准也救不回来。</p>
+<p class="ask">对齐到底在连什么？</p>
+<p>连的是位置：中文第 2 个词对英文第 4 个词。允许一个中文词连两个英文词，也允许反过来，还允许连线交叉。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>矩阵上的点</h2>
+<p>把句对摆成矩阵：行是源词，列是目标词，一个点就是一条连线。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="对齐是矩阵上的点集，连线只是把点画出来">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">对齐是矩阵上的点集，连线只是把点画出来</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">源词 / 目标词</text><text class="f-t" x="282.0" y="98">我</text><text class="f-t" x="492.0" y="98">喜欢</text><text class="f-t" x="702.0" y="98">绿茶</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">I</text><text class="f-s" x="282.0" y="139.0">●</text><text class="f-s" x="492.0" y="139.0"></text><text class="f-s" x="702.0" y="139.0"></text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">like</text><text class="f-s" x="282.0" y="183.0"></text><text class="f-s" x="492.0" y="183.0">●</text><text class="f-s" x="702.0" y="183.0"></text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">green</text><text class="f-s" x="282.0" y="227.0"></text><text class="f-s" x="492.0" y="227.0"></text><text class="f-s" x="702.0" y="227.0">●</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">tea</text><text class="f-s" x="282.0" y="271.0"></text><text class="f-s" x="492.0" y="271.0"></text><text class="f-s" x="702.0" y="271.0">●</text><text class="f-s" x="60" y="316">偏出对角线就说明语序要调整；green tea 对绿茶，是一对多的典型。</text>
+</svg><figcaption><b>图 9-22　对齐是矩阵上的点集，连线只是把点画出来</b>　偏出对角线就说明语序要调整；green tea 对绿茶，是一对多的典型。</figcaption></figure>
+<p>理想情况下点沿对角线排；偏出去，说明语序要调；一列上出现两个点，说明一对多。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三类错误：一对多最多，语序最少">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">三类错误：一对多最多，语序最少</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="291.6" width="119.60000000000001" height="8.4" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="230.0" y="283.6">4 处</text><text class="f-sc" x="230.0" y="318">一对多</text><rect x="430.2" y="293.7" width="119.60000000000001" height="6.300000000000001" rx="4" fill="#d9534f" opacity="0.9"/><text class="f-sc" x="490.0" y="285.7">3 处</text><text class="f-sc" x="490.0" y="318">未登录词</text><rect x="690.2" y="295.8" width="119.60000000000001" height="4.2" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="750.0" y="287.8">2 处</text><text class="f-sc" x="750.0" y="318">语序差异</text><text class="f-s" x="100" y="344">共 10 组句子，与 d9_4_align.py 的实测一致；未登录词靠扩词典，语序靠调序。</text>
+</svg><figcaption><b>图 9-23　三类错误：一对多最多，语序最少</b>　共 10 组句子，与 d9_4_align.py 的实测一致；未登录词靠扩词典，语序靠调序。</figcaption></figure>
+<p>图 9-23 把 10 组句子的缺口按类数了一遍：一对多 4 条、未登录词 3 条、语序差异 2 条，数字来自本页 Demo 的实测输出。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一条线也是一个判断</h2>
+<p><strong>词对齐：</strong>给定句对 (f, e)，对齐 a 是若干词对 (i, j) 的集合，i 是源词位置，j 是目标词位置。一个 i 可对多个 j，一个 j 也可对多个 i；连接的有向性决定它是 1:N 还是 N:1。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>缺口</th><th>长什么样</th><th>后果</th></tr></thead>
+  <tbody>
+    <tr><td>一对多</td><td>一个中文词对应两个英文词</td><td>短语表缺一条，译不全</td></tr>
+    <tr><td>未登录词</td><td>词表里没有这个词，整词悬空</td><td>译文缺成分</td></tr>
+    <tr><td>语序差异</td><td>连线交叉，源序与目标序相反</td><td>短语表要带空位模板</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>评价口径：</strong>学术上常用 AER：（模型多连 + 漏连）除以（模型连线 + 标准连线）。本页不算 AER，只按类计数，「错在哪一类」比「错了几成」更能指导下一步。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>查表、打分、取最大</h2>
+<p>Demo 的做法只有三步：查词表拿候选，用共现次数给候选打分，每个源词取分最高的目标词。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>align.py</span></div>
+<pre><code>def score(f, e, cooc, cnt):
+    return cooc.get((f, e), 0) / cnt[f]    # t(e|f) 的简化估计
+
+
+for i, f in enumerate(zh_words):
+    cands = [e for e in LEXICON.get(f, []) if e in en_words]
+    if not cands:
+        empty.append(i)                    # 未登录：中文侧留空
+        continue
+    best = max(cands, key=lambda e: score(f, e, cooc, cnt))
+    links.append((i, en_words.index(best)))</code></pre>
+</div>
+<p>两处细节保证可复现。平局时先按词表候选顺序，再按位置就近；位置项用归一化距离，长短句都能比。这两条不改概率，只决定谁先被选中。</p>
+<p>天花板很清楚：一个源词只出一条线，遇到 mobile phone 这种一对多，永远只能连一个。要突破，得上 EM 类的 IBM 模型，或让注意力把概率分给多个目标词。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>读一遍输出</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>语料        : 10 组中英短句对，词表 21 条
+对齐方法    : 词表候选 + 共现计数 t(e|f) 取最大，平局按位置就近
+共现矩阵    : 中文 24 个词型 × 英文 38 个词型
+
+序号  中文  ||  英文
+------------------------------------------------------------------------
+   1  我 喜欢 猫  ||  I like cats
+      我→I  喜欢→like  猫→cats
+   2  他 喜欢 狗  ||  He likes dogs
+      他→He  喜欢→likes  狗→dogs
+   3  学生 读 书  ||  the student reads books
+      学生→student  读→reads  书→books
+   4  我 给 他 书  ||  I give books to him
+      我→I  给→give  他→him  书→books
+   5  我 买 手机  ||  I buy a mobile phone
+      我→I  买→buy  手机→phone
+   6  他 起床 喝 咖啡  ||  He gets up and drinks coffee
+      他→He  起床→gets  喝→drinks  咖啡→coffee
+   7  学生 上网 查 消息  ||  The students go online to check messages
+      学生→students  上网→online  查→check  消息→messages
+   8  小明 喝 咖啡  ||  Xiaoming drinks coffee
+      小明→∅  喝→drinks  咖啡→coffee
+   9  西湖 很 好  ||  The West Lake is very good
+      西湖→∅  很→very  好→good
+  10  微信 发 电子邮件  ||  WeChat sends an e mail
+      微信→∅  发→sends  电子邮件→e
+------------------------------------------------------------------------
+对齐连线    : 模型 30 条，人工标注 38 条
+错误类型统计
+  一对多    : 4 条（一个中文词对应两个英文词，模型只能给出 1:1）
+  未登录词  : 3 条（词表里没有该词，整词无法对齐）
+  语序差异  : 2 条（连线交叉，需要调序）
+
+典型错例
+1 一对多  手机→mobile phone：标准含 mobile、phone 两个词，模型只连到 phone。
+2 未登录  小明→Xiaoming：词表无“小明”，中文侧留空，英文侧悬空。
+3 语序    我 给 他 书 || I give books to him：中文“给+人+物”，英文“give+物+to+人”，连线交叉。</code></pre>
+</div>
+<p><strong>30 与 38。</strong>人工标了 38 条线，模型只连出 30 条，差 8 条。这 8 条全是「漏连」：连上的 30 条都落在标准答案里，没有一条连错。精确率 100%，召回 30/38 ≈ 0.79，问题在漏不在错。</p>
+<p><strong>4、3、2 怎么对上。</strong>一对多 4 条，分布在「手机」「起床」「上网」「电子邮件」四个词上；未登录 3 条，是「小明」「西湖」「微信」，但少掉的连线是 4 条——「西湖」在英文里对应 West 和 Lake 两个词，一个未登录词能缺两条。4 加 4 正好是 8。</p>
+<p><strong>语序 2 条只有一个来源。</strong>「我 给 他 书」里，「他→him」与「书→books」两条线交叉：中文先给人再给物，英文先物再人。交叉不算连错，但短语表要准备带空位的模板，成本落在这里。</p>
+<p><strong>三类缺口的修法不同。</strong>一对多要放宽「一个源词一条线」的约束；未登录词靠扩充词表或字符级回退；语序靠调序模型。只报一个准确率，看不出该先动哪一块。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>五组句对，三类计数</h2>
+<p><strong>任务：</strong>自拟 5 组中英短句对，写出词表候选，做一遍对齐并画出矩阵；统计一对多、未登录、语序三类各几处，并核对「模型连线数 + 缺口数 = 标准连线数」是否成立。</p>
+<p><strong>追问：</strong>① 平局按位置就近，会不会把正确的远距离对齐让给错误的近邻？② 未登录词除了扩词表，还有哪些退路？③ 一个源词只出一条线，为什么在长句上损失更大？</p>
+<p><strong>验收：</strong>能读懂输出里的每一行；能把 30 与 38 的差拆成三类；能说清精确率与召回在这套方法里各是什么水平。四步流水线怎么接，见 <a href="../m09-nlp/k9-4-2-smt.html">统计机器翻译：从词对齐到解码</a>；对齐的好坏怎么量化，见 <a href="../m09-nlp/k9-4-4-metrics.html">评价指标：BLEU 与解析准确率</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-5-1-model-taxonomy.html">9.5.1 统计模型的概念与分类</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-4-4-metrics.html"><span class="p-label">← 上一知识点 9.4.4</span><span class="p-title">评价指标：BLEU 与解析准确率</span></a><a class="next" href="k9-5-1-model-taxonomy.html"><span class="p-label">下一知识点 9.5.1 →</span><span class="p-title">统计模型的概念与分类</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)4 · 机器翻译（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>9.4.5 ｜ <span class="path">pages/m09-nlp/k9-4-5-alignment-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-4-2-smt.html"><b>9.4.2</b>统计机器翻译：从词对齐到解码</a><a class="xlink" href="k9-4-4-metrics.html"><b>9.4.4</b>评价指标：BLEU 与解析准确率</a><a class="xlink" href="u9-4-statistical-methods.html"><b>9.4</b>统计方法：统计解析、机器翻译与词义消歧（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k9-4-5（本页图 9-22）、k9-4-5-b（本页图 9-23）；Demo 脚本 d9_4_align.py；知识库 M09-S4-02《机器翻译的概念和特点》（filled）。 ｜ 知识库条目：M09-S4-02《机器翻译的概念和特点》（filled） ｜ 参考来源：Koehn《Statistical Machine Translation》；Brown et al.（1993）；Demo 与图为自制。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="AlexNet：把「更深更宽」推到极致">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">AlexNet：把「更深更宽」推到极致</text><rect class="f-b2" x="120" y="54.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="83.0">输入 227×227×3</text><text class="f-s" x="430" y="83.0">比 LeNet 大 16 倍</text><rect class="f-b" x="120" y="110.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="139.0">5 个卷积层</text><text class="f-s" x="430" y="139.0">11×11 起步，通道 96→256</text><rect class="f-b" x="120" y="166.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="195.0">3 个全连接层</text><text class="f-s" x="430" y="195.0">4096 → 4096 → 1000</text><rect class="f-b" x="120" y="222.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="251.0">ReLU + Dropout</text><text class="f-s" x="430" y="251.0">替代 Sigmoid，抑制过拟合</text><rect class="f-b" x="120" y="278.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="307.0">双 GPU 分组</text><text class="f-s" x="430" y="307.0">当年显存放不下的工程拆法</text><text class="f-s" x="120" y="360.0">约 6,000 万参数，其中全连接层占绝大多数；结构不是重点，规模与训练技巧才是。</text>
+</svg>

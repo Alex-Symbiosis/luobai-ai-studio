@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.7.4 SVM 实验：C 与 γ 网格 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能设计一次只改 C 与 γ 的网格实验，并固定其余变量。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-7-svm.html">5.7 支持向量机</a><span class="sep">/</span><span class="here">5.7.4 SVM 实验：C 与 γ 网格</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.7</span>
+    <span class="tag">知识点 5.7.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>SVM 实验：C 与 γ 网格</h1>
+  <p class="lede">C 与 γ 各自的作用单独讲都清楚，放到一起就互相干扰：调大 C 让边界变硬，调大 γ 让边界变弯，两者都能把训练分推高，也都能把模型推向过拟合。只有把 3×3 的边界并排画出来，才看得见它们怎么合谋。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能设计一次只改 C 与 γ 的网格实验，并固定其余变量。</li><li>能同时读边界形状与分数表，判断欠拟合与过拟合。</li><li>能从热力图中选出一组稳健参数并写调参结论。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>每次只改一个参数，还是说不清</h2>
+<p>一位同学在调 SVM，四轮记录如下：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>轮次</th><th>参数</th><th>训练分</th><th>验证分</th><th>他的判断</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>C=1，γ=0.1</td><td>0.89</td><td>0.86</td><td>基线</td></tr>
+    <tr><td>2</td><td>C=100，γ=0.1</td><td>0.97</td><td>0.84</td><td>「再大一点试试」</td></tr>
+    <tr><td>3</td><td>C=100，γ=1</td><td>1.00</td><td>0.69</td><td>「训练全对了，应该更好」</td></tr>
+    <tr><td>4</td><td>C=0.1，γ=0.1</td><td>0.78</td><td>0.80</td><td>「又不行，调回去」</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">他每次只改一个参数，为什么还是说不清「下一步该往哪调」？</p>
+<p>因为 C 与 γ 的效应会叠加：两者变大都会让边界更贴合训练点。只看一维扫描，无法判断是哪一个在起作用，更找不到两者的组合区间。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>纪律与视野</h2>
+<p>C 是纪律，γ 是视野。纪律越严，越不容忍越界；视野越窄，每个点只影响身边一小块。纪律严加上视野窄，边界就会围着每个点长出小岛。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="C × γ 的 3×3 网格">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">C × γ 的 3×3 网格</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">C / γ</text><text class="f-t" x="282.0" y="98">γ = 0.01</text><text class="f-t" x="492.0" y="98">γ = 0.1</text><text class="f-t" x="702.0" y="98">γ = 1</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">C = 0.1</text><text class="f-s" x="282.0" y="139.0">欠拟合</text><text class="f-s" x="492.0" y="139.0">偏平滑</text><text class="f-s" x="702.0" y="139.0">局部弯曲</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">C = 1</text><text class="f-s" x="282.0" y="183.0">较平滑</text><text class="f-s" x="492.0" y="183.0">常用区间</text><text class="f-s" x="702.0" y="183.0">边界变碎</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">C = 100</text><text class="f-s" x="282.0" y="227.0">间隔偏窄</text><text class="f-s" x="492.0" y="227.0">开始过拟合</text><text class="f-s" x="702.0" y="227.0">严重过拟合</text><text class="f-s" x="60" y="272">C 管容忍度，γ 管影响半径；两轴要一起看，单看一个参数会得出错误结论。</text>
+</svg><figcaption><b>图 5-31　C 与 γ 的 3×3 边界网格</b>　C 管容忍度，γ 管影响半径；两轴要一起看，单看一个参数会得出错误结论。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>九张图按行看是「C 增大」，按列看是「γ 增大」。左下角平滑近乎直线，右上角碎成小岛。好参数通常落在中间那一片，而不是某个极端。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一次网格实验的设置</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类别</th><th>本实验设置</th><th>为什么这样定</th></tr></thead>
+  <tbody>
+    <tr><td>自变量</td><td>C 取 0.1、1、100；γ 取 0.01、0.1、1</td><td>覆盖从欠拟合到过拟合的两端</td></tr>
+    <tr><td>控制变量</td><td>同一数据、同一划分、同一种子、标准化后输入</td><td>保证九格的差异只来自参数</td></tr>
+    <tr><td>固定项</td><td>核固定为 RBF</td><td>否则核的效应与 γ 混在一起</td></tr>
+    <tr><td>观测量</td><td>边界形状、训练分、验证分</td><td>形状解释原因，分数比较优劣</td></tr>
+    <tr><td>判据</td><td>验证分最高且训练验证差小于 0.05</td><td>避免选中过拟合的格子</td></tr>
+  </tbody>
+</table>
+</div>
+<p>九个格子只是网格搜索最小的一次。实践中先用粗网格定位区间，再在区间内加密或改用随机搜索；把九格当成终点，等于把调参交给运气。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>记录什么，怎么判断</h2>
+<div class="steps">
+  <div class="step"><b>固定随机性</b><span>划分与初始化都设种子，否则同一格两次运行结果不同，热力图无法比较。</span></div>
+  <div class="step"><b>每格存三个数</b><span>训练分、验证分、支持向量占比；只看验证分会漏掉过拟合的线索。</span></div>
+  <div class="step"><b>同时存边界图</b><span>分数相同而形状不同的两格，泛化表现往往差很多。</span></div>
+  <div class="step"><b>记录网格外的趋势</b><span>最高分贴着边界时，说明真正的峰值可能在网格之外，需要扩一档。</span></div>
+</div>
+<p>判断规则可以写成三句话：训练分高、验证分也高，才算好格；训练分高、验证分掉，是过拟合；两边都低，是欠拟合。落在中间一片、四周不塌的格子，比孤立的最高分更值得选。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>九格分数与边界形态</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>C / γ</th><th>0.01</th><th>0.1</th><th>1</th></tr></thead>
+  <tbody>
+    <tr><td>0.1</td><td>0.72 欠拟合</td><td>0.80 偏平滑</td><td>0.76 局部弯曲</td></tr>
+    <tr><td>1</td><td>0.78 较平滑</td><td><strong>0.86 常用区间</strong></td><td>0.81 边界变碎</td></tr>
+    <tr><td>100</td><td>0.79 间隔偏窄</td><td>0.83 开始过拟合</td><td>0.69 严重过拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>最高分 0.86 落在 C=1、γ=0.1。往右一格（γ=1）掉到 0.81，再往右掉到 0.69；往下（C=100）也掉。峰值周围连续，而不是一个孤立的幸运格——这一点比最高分本身更重要。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="3×3 网格的平均分（示意）">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">3×3 网格的平均分（示意）</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">C / γ</text><text class="f-t" x="282.0" y="98">γ = 0.01</text><text class="f-t" x="492.0" y="98">γ = 0.1</text><text class="f-t" x="702.0" y="98">γ = 1</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">C = 0.1</text><text class="f-s" x="282.0" y="139.0">0.72</text><text class="f-s" x="492.0" y="139.0">0.80</text><text class="f-s" x="702.0" y="139.0">0.76</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">C = 1</text><text class="f-s" x="282.0" y="183.0">0.78</text><text class="f-s" x="492.0" y="183.0">0.86</text><text class="f-s" x="702.0" y="183.0">0.81</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">C = 100</text><text class="f-s" x="282.0" y="227.0">0.79</text><text class="f-s" x="492.0" y="227.0">0.83</text><text class="f-s" x="702.0" y="227.0">0.69</text><text class="f-s" x="60" y="272">示意数据：最高分常在中间格；两侧都掉分，说明参数不是越大越好。</text>
+</svg><figcaption><b>图 5-31b　3×3 网格的平均分热力图</b>　示意数据：最高分常在中间格；两侧都掉分，说明参数不是越大越好。</figcaption></figure>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>特征已标准化、样本量中等</td><td>大样本时每格训练都很慢，九格也跑不完</td></tr>
+    <tr><td>确实需要非线性边界</td><td>线性可分数据上 RBF 只是更慢，不会更好</td></tr>
+    <tr><td>验证集足够大</td><td>小验证集上格子间差异全在噪声里，热力图不可信</td></tr>
+    <tr><td>允许离线调参</td><td>在线场景无法承受九次重训，只能沿用固定参数</td></tr>
+    <tr><td>类别大致均衡</td><td>极不平衡时验证分被多数类主导，应换 F1 或 AUC</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">注意</span>
+  <p>热力图的最高分不是终点。相邻格差异过大，说明该区域不稳定，这时应选「周围都不差」的格子，而不是分数最高的那一格。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>跑完九格，写三条结论</h2>
+<p><strong>任务：</strong>固定数据划分与随机种子，对 C 与 γ 各取三档，跑完 3×3 网格。</p>
+<ol>
+  <li>记录每格的训练分、验证分、支持向量占比。</li>
+  <li>画热力图，标出最高格与它的四邻。</li>
+  <li>写三条结论，每条必须包含「看到什么现象 → 做什么动作」。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>结论与热力图一致；至少要有一条说明「为什么没有选最高分」或「为什么选了最高分」。只写「C=1、γ=0.1 最好」不算达标。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-8-1-clustering.html">5.8.1 聚类：没有标签怎么分组</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-7-3-kernel.html"><span class="p-label">← 上一知识点 5.7.3</span><span class="p-title">核技巧：不显式升维</span></a><a class="next" href="k5-8-1-clustering.html"><span class="p-label">下一知识点 5.8.1 →</span><span class="p-title">聚类：没有标签怎么分组</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)2 · 支持向量机（操作）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.7.4 ｜ <span class="path">pages/m05-ml-algorithms/k5-7-4-svm-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-7-1-max-margin.html"><b>5.7.1</b>最大间隔：为什么只由少数点决定</a><a class="xlink" href="k5-7-2-soft-margin.html"><b>5.7.2</b>软间隔与 C：允许犯错的边界</a><a class="xlink" href="u5-7-svm.html"><b>5.7</b>支持向量机（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k5-7-4（本页图 5-31）、k5-7-4-b（本页图 5-31b）；知识库 M05-S2-01。 ｜ 知识库条目：M05-S2-01《支持向量机的概念、特点及操作原理》（filled） ｜ 参考来源：S79 scikit-learn《Support Vector Machines》；S78 Cortes &amp; Vapnik《Support-Vector Networks》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

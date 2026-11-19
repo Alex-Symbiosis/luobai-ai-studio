@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.6.4 损失函数：任务决定目标 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按任务给出「输出层 + 损失函数 + 标签形式」的配对。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-6-feedforward.html">6.6 深度前馈网络：激活、去线性化与损失函数</a><span class="sep">/</span><span class="here">6.6.4 损失函数：任务决定目标</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.6</span>
+    <span class="tag">知识点 6.6.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>损失函数：任务决定目标</h1>
+  <p class="lede">模型会努力把损失变小，所以选错损失，它就会认真地把错的事做对。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按任务给出「输出层 + 损失函数 + 标签形式」的配对。</li><li>能写出 MSE、BCE、CE 三个式子，并说出各自的适用场景。</li><li>能用数值算一遍，说明分类为什么不该用 MSE 配 sigmoid。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>挤在 0.5 附近的概率</h2>
+<p>缺陷检测，二分类。输出层用了 sigmoid，损失却填了 <code>mse</code>。训练 30 轮，损失从 0.25 慢慢降到 0.22，模型的输出几乎全挤在 0.5 附近，阈值调到哪都不好用。</p>
+<p>换成 <code>binary_crossentropy</code>，其余不动，5 轮内输出就分开了：合格件压到 0.05 以下，缺陷件升到 0.9 以上。</p>
+<p class="ask">同样的网络、同样的数据，为什么只换损失差别这么大？</p>
+<p>因为损失决定了梯度长什么样。MSE 配 sigmoid 时，梯度里多了一个 <code>ŷ(1−ŷ)</code> 因子，模型越不确定，这个因子越小，越学不动。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>任务决定目标</h2>
+<p>损失是「什么算错、错多少算严重」的数学表达。任务不同，错的定义就不同：预测房价，错 1000 元就是错 1000 元；判断是不是缺陷，错的是「把一个缺陷判成合格」这件事，与概率差多少只是间接关系。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="任务决定输出层与损失">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">任务决定输出层与损失</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">任务</text><text class="f-t" x="282.0" y="98">输出层</text><text class="f-t" x="492.0" y="98">损失函数</text><text class="f-t" x="702.0" y="98">标签形式</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">二分类</text><text class="f-s" x="282.0" y="135.8">1 个 Sigmoid</text><text class="f-s" x="492.0" y="135.8">binary_crossentropy</text><text class="f-s" x="702.0" y="135.8">0 / 1</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">多分类</text><text class="f-s" x="282.0" y="173.4">K 个 Softmax</text><text class="f-s" x="492.0" y="173.4">sparse_categorical…</text><text class="f-s" x="702.0" y="173.4">整数 0…K−1</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">多标签</text><text class="f-s" x="282.0" y="211.0">K 个 Sigmoid</text><text class="f-s" x="492.0" y="211.0">binary_crossentropy</text><text class="f-s" x="702.0" y="211.0">K 位 0/1</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">回归</text><text class="f-s" x="282.0" y="248.60000000000002">1 个线性</text><text class="f-s" x="492.0" y="248.60000000000002">mse / huber</text><text class="f-s" x="702.0" y="248.60000000000002">实数</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">排序 / 对比</text><text class="f-s" x="282.0" y="286.2">向量嵌入</text><text class="f-s" x="492.0" y="286.2">triplet / 对比损失</text><text class="f-s" x="702.0" y="286.2">样本对</text><text class="f-s" x="60" y="328.0">输出层与损失必须成对出现；配错时模型仍能训，但学的不是你想的目标。</text>
+</svg><figcaption><b>图 6-31　任务决定输出层与损失</b>　输出层与损失必须成对出现；配错时模型仍能训，但学的不是你想的目标。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>输出层负责「把打分变成合法输出」，损失负责「给这个输出打分」。两者是配套的，不能各挑各的。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三张公式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>输出层</th><th>损失</th><th>标签</th></tr></thead>
+  <tbody>
+    <tr><td>二分类</td><td>1 个 sigmoid</td><td>binary_crossentropy</td><td>0 / 1</td></tr>
+    <tr><td>多分类（互斥）</td><td>K 个 softmax</td><td>categorical / sparse categorical</td><td>one-hot 或整数</td></tr>
+    <tr><td>多标签（不互斥）</td><td>K 个 sigmoid</td><td>binary_crossentropy</td><td>K 位 0/1</td></tr>
+    <tr><td>回归</td><td>1 个线性</td><td>mse / huber</td><td>实数</td></tr>
+  </tbody>
+</table>
+</div>
+<p>回归：<code>L = (1/n)Σ(ŷ − y)²</code>，导数 <code>2(ŷ − y)/n</code>，误差越大惩罚越重。二分类：<code>L = −[y·log ŷ + (1−y)·log(1−ŷ)]</code>。多分类：<code>L = −Σ y_k·log ŷ_k</code>，因为 y 是 one-hot，实际只剩 <code>−log ŷ_c</code>（c 是真实类）。</p>
+<p>Huber 是 MSE 与 MAE 的折中：误差小于 δ 时按平方算，大于 δ 时改成线性。它保住了 MSE 在零点附近的平滑，又不让少数离群点主导梯度，回归任务里遇到极端值时可以优先考虑。</p>
+<p>还有一条必须分清：<strong>损失与度量不是一回事</strong>。准确率、F1 是分段常数、不可微，只能用来评估与选模；训练只能用可微的损失。训练看损失、选模看度量、汇报看业务指标，三者的用途不同。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三种写法与两条梯度</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>loss_pairs.py</span></div>
+<pre><code>import keras
+from keras import layers
+
+def binary():
+    m = keras.Sequential([layers.Input((16,)),
+                          layers.Dense(1, activation=&quot;sigmoid&quot;)])
+    m.compile(optimizer=&quot;adam&quot;, loss=&quot;binary_crossentropy&quot;,
+              metrics=[&quot;accuracy&quot;])
+    return m
+
+def multiclass(k):
+    m = keras.Sequential([layers.Input((16,)),
+                          layers.Dense(k, activation=&quot;softmax&quot;)])
+    m.compile(optimizer=&quot;adam&quot;,
+              loss=&quot;sparse_categorical_crossentropy&quot;,
+              metrics=[&quot;accuracy&quot;])
+    return m
+
+def regression():
+    m = keras.Sequential([layers.Input((16,)),
+                          layers.Dense(1)])            # 不加激活
+    m.compile(optimizer=&quot;adam&quot;, loss=&quot;mse&quot;, metrics=[&quot;mae&quot;])
+    return m</code></pre>
+</div>
+<p>三条梯度要记住。BCE 配 sigmoid：<code>∂L/∂z = ŷ − y</code>。CE 配 softmax：<code>∂L/∂z_k = ŷ_k − y_k</code>（下一页推导）。MSE 配线性输出：<code>∂L/∂z = 2(ŷ − y)</code>。</p>
+<p>而 MSE 配 sigmoid 时：<code>∂L/∂z = 2(ŷ − y)·ŷ(1 − ŷ)</code>。多出来的 <code>ŷ(1−ŷ)</code> 正是 sigmoid 的导数，最大 0.25。模型错得越离谱、越自信，这一项越小，梯度越接近 0——最该学的时候学不动。</p>
+<p>交叉熵恰好把这个因子消掉了，这就是「分类用交叉熵」的全部理由，与信息论的优雅无关，是梯度性质决定的。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>算一遍差多少</h2>
+<p>取一个真实标签 y = 1 的样本，模型输出 ŷ = 0.01，也就是「很自信地判错」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>损失</th><th>损失值</th><th>对 z 的梯度</th></tr></thead>
+  <tbody>
+    <tr><td>MSE</td><td>(0.01 − 1)² = 0.9801</td><td>2 × (−0.99) × 0.01 × 0.99 ≈ −0.0196</td></tr>
+    <tr><td>BCE</td><td>−log 0.01 ≈ 4.605</td><td>0.01 − 1 = −0.99</td></tr>
+  </tbody>
+</table>
+</div>
+<p>梯度差了约 50 倍。这意味着同一个学习率下，BCE 一步就能把 z 往正方向推 0.99，MSE 只推 0.0196。模型不是不愿意学，是信号太弱。</p>
+<p>反过来，样本判对时（ŷ = 0.99），BCE 的梯度只有 −0.01，几乎不动；MSE 的梯度约 −0.0196，还在推。这个对比说明：交叉熵把「注意力」集中在错分样本上，MSE 则对正确样本也持续施压。</p>
+<div class="callout callout--warn">
+  <span class="c-label">三个常见的配错</span>
+  <p>多标签任务用多类交叉熵（会强迫标签互斥）；回归任务用交叉熵（输出不是概率，会出现 log 负数）；类别严重不均衡仍用原始交叉熵（多数类主导梯度，需加权）。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>五个任务，各配一套</h2>
+<p><strong>任务：</strong>写出输出层激活、损失函数、标签形式三项。写错一项，整条链路就要重来。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>输出层</th><th>损失</th><th>标签</th></tr></thead>
+  <tbody>
+    <tr><td>判断邮件是不是垃圾邮件</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>手写数字 0–9 分类</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>一张图同时判断有无口罩、有无帽子</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>预测明天气温</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>预测房价，存在少量极端高价</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 第三行为什么不能把两个标签合成三分类（无、只口罩、只帽子）？② 第五行为什么 MSE 会吃亏，Huber 改了什么？</p>
+<p><strong>验收：</strong>五行配对全对，并能说出「多标签用 BCE、互斥用 CE」的原因。多分类的 softmax 与梯度，见 <a href="../m06-neural-nets/k6-6-5-softmax-demo.html">多类别输出与 Softmax</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-6-5-softmax-demo.html">6.6.5 多类别输出与 Softmax</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-6-3-nonlinearity.html"><span class="p-label">← 上一知识点 6.6.3</span><span class="p-title">去线性化：多层为什么不再是直线</span></a><a class="next" href="k6-6-5-softmax-demo.html"><span class="p-label">下一知识点 6.6.5 →</span><span class="p-title">多类别输出与 Softmax</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)26 · 损失函数：任务决定目标</dd>
+    <dt>页面编号 / 路径</dt><dd>6.6.4 ｜ <span class="path">pages/m06-neural-nets/k6-6-4-loss.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-6-2-activation.html"><b>6.6.2</b>激活函数：给网络加弯折</a><a class="xlink" href="k6-6-5-softmax-demo.html"><b>6.6.5</b>多类别输出与 Softmax</a><a class="xlink" href="k6-6-3-nonlinearity.html"><b>6.6.3</b>去线性化：多层为什么不再是直线</a><a class="xlink" href="k6-5-4-why-deep-demo.html"><b>6.5.4</b>深度学习为什么有效</a><a class="xlink" href="u6-6-feedforward.html"><b>6.6</b>深度前馈网络：激活、去线性化与损失函数（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-6-4（本页图 6-31）；知识库 M06-S3-06。 ｜ 知识库条目：M06-S3-06《损失函数》（filled） ｜ 参考来源：S53《深度学习》第 6 章；S90 Bishop 2006；S32 scikit-learn 指标文档；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

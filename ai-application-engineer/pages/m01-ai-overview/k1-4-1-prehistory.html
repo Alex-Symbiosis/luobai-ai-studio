@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.4.1 前史：控制论、逻辑与神经计算的三条源头 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出三条源头各自的核心问题与代表节点。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-4-early-history.html">1.4 早期历史：三次浪潮与两次寒冬</a><span class="sep">/</span><span class="here">1.4.1 前史：控制论、逻辑与神经计算的三条源头</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.4</span>
+    <span class="tag">知识点 1.4.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>前史：控制论、逻辑与神经计算的三条源头</h1>
+  <p class="lede">人工智能不是 1956 年凭空出现的。控制论给了它「反馈」、数理逻辑给了它「表示与推理」、神经模型给了它「可学习的单元」。三条河先流了很久，1956 年才给汇流后的江起了名字。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出三条源头各自的核心问题与代表节点。</li><li>能把一个概念正确归入控制论、逻辑主义或连接主义。</li><li>能解释「1956 年是命名，不是零起点」。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>从哪一年开始讲</h2>
+<p>同一段历史，两位讲者选了不同的起点：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>从 1956 年讲起</h3><p>先给年份表：1956 年达特茅斯会议、1958 年感知器、1969 年《Perceptrons》。在 1956 年之前，仿佛什么都没有发生。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>从 1943 年讲起</h3><p>先讲三条源头：1943 年的形式神经元、1948 年的控制论、1936 年的可计算性。1956 年只是三条线汇合后被命名的那一刻。</p></div>
+</div>
+<p class="ask">如果 1956 年之前已经有人在做「会推理的机器」，那这一年到底新在哪？</p>
+<p>新在纲领与共同体，不在第一个想法。A 组讲的是学科史的开头，B 组讲的是思想史的开头；只有把两段接上，才能解释为什么计算机一出现，就有人立刻开始谈智能。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三条河汇成一条江</h2>
+<p>三条河在不同地方发源：一条研究系统如何自我调节，一条研究推理如何形式化，一条研究神经元能否被写成逻辑单元。它们流了很久，最后汇进同一条江，江名出现在汇流之后。汇流不是相加：三条河各自带着泥沙，合流后的水色与任何一条都不同。理解这一点，就不会把 AI 的诞生写成某一个人的灵光。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三条源头汇成一条江">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">三条源头汇成一条江</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">控制论</text><text class="f-sc" x="140.25" y="154.0">反馈与自调节</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">数理逻辑</text><text class="f-sc" x="366.75" y="154.0">形式推理与可计算性</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">神经计算</text><text class="f-sc" x="593.25" y="154.0">神经元与连接</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">人工智能</text><text class="f-sc" x="819.75" y="154.0">1956 年命名</text><text class="f-s" x="40" y="244">AI 不是突然出现的学科，它继承了三条传统的问题与方法。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-14　三条源头汇入人工智能</b>　控制论给反馈，数理逻辑给表示与推理，神经模型给可学习单元；1950 年代的计算机让三者跑在同一台机器上。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>AI 继承了三种提问方式：行为如何靠反馈调节、知识如何被形式表示与推理、连接如何从样本中调整。三条源头各自只回答其中一问。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三支传统，三种遗产</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>源头</th><th>代表节点</th><th>核心问题</th><th>留给 AI 的遗产</th></tr></thead>
+  <tbody>
+    <tr><td>控制论</td><td>Wiener《控制论》1948</td><td>系统如何靠反馈自我调节</td><td>目标、误差、闭环</td></tr>
+    <tr><td>数理逻辑</td><td>Frege 1879；Russell &amp; Whitehead 1910–1913；Turing 1936</td><td>推理能否形式化、什么可计算</td><td>形式表示、推理规则、可计算性</td></tr>
+    <tr><td>神经计算</td><td>McCulloch &amp; Pitts 1943</td><td>神经元能否用逻辑单元刻画</td><td>阈值单元、连接权重</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>三条源头分别提供「控制律、表示语言、学习单元」。AI 的工程方案可以写成三者的组合：用表示语言描述问题，用推理或学习产生解，用反馈修正行为。缺任何一支，系统都会退化成规则表或统计拟合。</p>
+</div>
+<p>三者不是三个学派，而是三种互补的工具。早期研究者常常一人跨两支：图灵既写可计算性，也写机器智能；麦卡洛克既做神经生理，也做逻辑演算。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>每一支解决什么，在哪汇合</h2>
+<p>把三支拆开看，各自的贡献非常具体：</p>
+<div class="steps">
+  <div class="step"><b>控制论：把目的写成误差</b><span>系统比较当前状态与目标状态，用差值驱动下一步动作。这个「误差—修正」结构，后来成了强化学习与自动控制共用的骨架。</span></div>
+  <div class="step"><b>逻辑：把知识写成符号</b><span>概念、命题、推理规则被形式化，问题求解变成符号变换。它让「智能」第一次可以被写成可检验的步骤。</span></div>
+  <div class="step"><b>神经模型：把适应写成权重</b><span>阈值单元加连接权重，给「从样本中改变行为」提供了可计算的最小模型。</span></div>
+  <div class="step"><b>汇合点：可执行的机器</b><span>1950 年代的数字计算机让三者第一次跑在同一台机器上；此前它们分属生理学、逻辑学与工程学。</span></div>
+</div>
+<p>汇合不是简单的相加。逻辑提供表示，神经模型提供学习，控制论提供目标与反馈；三者拼在一起，才出现「机器可以自己改进」的想象——这正是达特茅斯提案要写下来的东西。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>1943、1948、1950：三个可核验的坐标</h2>
+<p>1943 年，McCulloch 与 Pitts 提出形式神经元模型，用逻辑门刻画「全或无」发放（S02）。1948 年，Wiener 出版《控制论》，把反馈与自调节推广为统一视角（S02）。1950 年，图灵发表《计算机器与智能》，把「机器能否思考」换成判定问题（S01）。</p>
+<p>三件事都没造出可用的智能系统。它们的价值是语言与工具：一个可计算的单元、一个反馈的框架、一个判定标准。把起点定在 1956 年，会漏掉前十年的积累。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>归类方式的适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>按「解决什么问题」归类，而不是按人物归档</td><td>按作者归档会把跨领域研究者切成碎片，三条线看起来互不相干</td></tr>
+    <tr><td>承认三条线在 1940s–1950s 有交叉</td><td>把交叉当成单线继承，无法解释同一批人为何同时谈控制与逻辑</td></tr>
+    <tr><td>只列可核验的年份与文献</td><td>用「古人早有设想」代替制度史，时间线会失去解释力</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六张概念卡归源头</h2>
+<p><strong>任务：</strong>把下列概念归入三条源头，并写一句指向核心机制的理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>归属</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>反馈回路</td><td></td><td></td></tr>
+    <tr><td>形式语言</td><td></td><td></td></tr>
+    <tr><td>阈值单元</td><td></td><td></td></tr>
+    <tr><td>可计算性</td><td></td><td></td></tr>
+    <tr><td>权重调整</td><td></td><td></td></tr>
+    <tr><td>命题演算</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>归类时先问「它解决的是调节、表示还是学习」，再问作者是谁；顺序反过来，卡片就会被人物关系切碎。</p>
+<p><strong>追问：</strong>① 图灵 1936 年的可计算性论文与 1950 年的机器智能论文，分别更靠近哪条源头？② 为什么说「三条源头」不是「三个学派」？</p>
+<p><strong>自检：</strong>六张卡全部归位，理由能说出「调节 / 表示 / 学习」中的一项，即达标；若把「可计算性」归到神经计算，需要回到 1936 年的问题重读。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-4-2-dartmouth.html">1.4.2 达特茅斯会议：命名的时刻</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-3-4-transfer-failure.html"><span class="p-label">← 上一知识点 1.3.4</span><span class="p-title">迁移失败案例：为什么专用系统换场景就崩</span></a><a class="next" href="k1-4-2-dartmouth.html"><span class="p-label">下一知识点 1.4.2 →</span><span class="p-title">达特茅斯会议：命名的时刻</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 人工智能的早期历史（前史）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.4.1 ｜ <span class="path">pages/m01-ai-overview/k1-4-1-prehistory.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-3-4-transfer-failure.html"><b>1.3.4</b>迁移失败案例：为什么专用系统换场景就崩</a><a class="xlink" href="k1-4-2-dartmouth.html"><b>1.4.2</b>达特茅斯会议：命名的时刻</a><a class="xlink" href="u1-4-early-history.html"><b>1.4</b>早期历史：三次浪潮与两次寒冬（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-4-1（本页图 1-14）；知识库 M01-S2-01。 ｜ 知识库条目：M01-S2-01《人工智能的早期历史》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S02 Russell & Norvig《AIMA》第 4 版（2021）；S03 Dartmouth 1955 提案（1955）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

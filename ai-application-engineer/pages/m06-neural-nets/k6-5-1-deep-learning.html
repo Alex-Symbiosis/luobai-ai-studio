@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.5.1 深度学习：用多层表示学习 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「多层非线性变换 + 自动分层表示 + 端到端」三句话说清深度学习。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-5-deep-learning.html">6.5 深度学习、深度神经网络与正向传播</a><span class="sep">/</span><span class="here">6.5.1 深度学习：用多层表示学习</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.5</span>
+    <span class="tag">知识点 6.5.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>深度学习：用多层表示学习</h1>
+  <p class="lede">规则越写越多还是漏检，问题往往不在规则本身，而在「特征由谁来定义」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「多层非线性变换 + 自动分层表示 + 端到端」三句话说清深度学习。</li><li>能说清深度学习、机器学习、神经网络三者的从属关系，不混为一谈。</li><li>能判断一个任务该不该上深度学习，并说出它的前提条件。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两百条阈值</h2>
+<p>工厂做铸件表面检测。质检组最初的方案是人写规则：灰度低于 60 记一处暗斑，边缘梯度超过阈值记一道裂纹，连通域面积占比超过 0.3% 报警。上线三个月，规则从 40 条涨到 200 多条。</p>
+<p>问题不在规则写得糙。规则写的是「中间判据」，换一种反光、换一批模具，同一处砂眼的灰度就变了，阈值全部要重调。5000 张已标注图片里，人一眼能看出的砂眼，规则版仍漏掉约三成。</p>
+<p class="ask">为什么越写越细，反而越难维护？</p>
+<p>因为判别信息不在某个像素上，而在像素之间的组合关系里。这层组合，人很难逐条写出来；但只要有足够的样本和标签，可以交给网络自己学。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>原料一路加工</h2>
+<p>把原始输入想成流水线的第一道原料。每经过一层，原料被加工一次：第一层看相邻像素的明暗差，第二层把相邻的边缘拼成角点与圆弧，再往上拼成部件，最后一层才判断「是不是缺陷」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="深度来自「逐层抽象」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">深度来自「逐层抽象」</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">像素</text><text class="f-s" x="430" y="87.0">原始亮度，局部相关</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">边缘 / 纹理</text><text class="f-s" x="430" y="151.0">小范围明暗变化</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">部件</text><text class="f-s" x="430" y="215.0">角点、圆弧、组合结构</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">物体</text><text class="f-s" x="430" y="279.0">整体语义，可用于分类</text><text class="f-s" x="120" y="336">层数越深，感受野越大，特征从「局部像素」走向「整体语义」。</text>
+</svg><figcaption><b>图 6-23　深度来自「逐层抽象」</b>　层数越深，感受野越大，特征从「局部像素」走向「整体语义」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>「层」不是叠得好看的积木，而是分工：前几层看细节，后几层看语义。层数就是加工的道数。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个关键词</h2>
+<p><strong>定义：</strong>深度学习是用多层非线性变换自动学习数据分层表示的机器学习分支。浅层学局部、低级特征，深层组合出抽象、语义特征，全过程由同一个损失函数端到端驱动。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>作用</th><th>缺了会怎样</th></tr></thead>
+  <tbody>
+    <tr><td>大数据</td><td>让「少假设、多学习」这条路线成立</td><td>参数学不到稳定模式，不如人工特征加树模型</td></tr>
+    <tr><td>强算力</td><td>矩阵乘法与反向传播跑得动</td><td>一轮训几天，实验迭代不起来</td></tr>
+    <tr><td>算法与正则</td><td>ReLU、合适的初始化、BN、Dropout</td><td>层数一多就训不动，或者迅速过拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个关系要分清：深度学习是<strong>机器学习的一个子集</strong>，仍遵循「数据—模型—损失—优化—评估」这套范式；神经网络是实现深度学习的主要结构，但深度学习不等于「更深的神经网络」；「深」指多个隐藏层，教材没有统一阈值，不要背「必须大于等于两层」这种说法。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一层一个函数</h2>
+<p>一层做的事可以写成一个式子：<code>h = f(Wx + b)</code>。x 是上一层输出，W 与 b 是本层参数，f 是激活函数。多层就是把这件事重复：</p>
+<p><code>h1 = f1(W1x + b1)，h2 = f2(W2h1 + b2)，…，ŷ = fL(WLh(L−1) + bL)</code></p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>build_mlp.py</span></div>
+<pre><code>import keras
+from keras import layers
+
+def build(in_dim, n_classes):
+    return keras.Sequential([
+        layers.Input((in_dim,)),
+        layers.Dense(128, activation=&quot;relu&quot;),
+        layers.Dense(64, activation=&quot;relu&quot;),
+        layers.Dense(n_classes),        # 回归不加激活，分类再换
+    ])</code></pre>
+</div>
+<p>三点说明。第一，只有最后一层按任务选激活：回归用线性，二分类用 sigmoid，多分类用 softmax；第二，隐藏层的 f 必须是非线性的，否则多层可以合并成一层，这一点在 6.6.3 单独展开；第三，相邻层的维度必须对齐，中间层可以不等宽，但前一层输出多少维，后一层就得接收多少维。</p>
+<p>端到端也有代价：可解释性下降，出了问题难定位在哪一层；对数据量的要求也更高。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>从哪里省下了人工</h2>
+<p>同一批 5000 张图、同样三类标签，两种做法的差别不在模型大小，而在「特征从哪来」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>做法</th><th>特征来源</th><th>换产线时</th><th>维护成本</th></tr></thead>
+  <tbody>
+    <tr><td>人工特征 + 树模型</td><td>人算灰度、梯度、面积占比</td><td>重写阈值、重新调参</td><td>随场景数线性上涨</td></tr>
+    <tr><td>多层网络端到端</td><td>隐藏层自己学</td><td>补少量新样本做微调</td><td>主要花在标注上</td></tr>
+  </tbody>
+</table>
+</div>
+<p>深度学习真正省掉的，是「把领域知识翻译成数值判据」这一层人力。人仍然要做两件事：定义什么叫错（损失），决定模型能长多大（结构）。这两件事决定了它能学到什么。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别把它当默认选项</span>
+  <p>只有几百行、要求能逐条解释的表格任务，梯度提升树通常更省事也更准。深度学习不是「任何任务都更好」，它的优势有前提：数据够、模式复杂、可以接受黑箱。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三个任务怎么选</h2>
+<p><strong>任务：</strong>下面三种情况，各写出「用不用深度学习」与理由，理由必须落到数据量、模式复杂度、可解释性三项中的至少一项。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>情况</th><th>数据</th><th>约束</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>300 行客户流失表，20 个字段</td><td>要向业务逐条解释每个字段的影响方向</td></tr>
+    <tr><td>B</td><td>10 万张已标注的工件照片</td><td>缺陷形态多、边界模糊，人工规则写不全</td></tr>
+    <tr><td>C</td><td>40 张缺陷样本，且没有可用预训练模型</td><td>两周内要出可用结果</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 5000 张算不算「大数据」，取决于什么？② 端到端之后模型误检变多，你打算从哪一层开始查？</p>
+<p><strong>验收：</strong>三个判断都能说出「缺哪一项前提」，而不是用「深度学习更强」一句话带过。结构怎么数，见 <a href="../m06-neural-nets/k6-5-2-dnn-structure.html">深度神经网络的结构</a>；层与层怎么连，见 <a href="../m06-neural-nets/k6-6-1-feedforward.html">前馈与全连接</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-5-2-dnn-structure.html">6.5.2 深度神经网络的结构</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-4-5-diagnosis-demo.html"><span class="p-label">← 上一知识点 6.4.5</span><span class="p-title">训练诊断：loss 不降先查什么</span></a><a class="next" href="k6-5-2-dnn-structure.html"><span class="p-label">下一知识点 6.5.2 →</span><span class="p-title">深度神经网络的结构</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)19 · 深度学习：用多层表示学习</dd>
+    <dt>页面编号 / 路径</dt><dd>6.5.1 ｜ <span class="path">pages/m06-neural-nets/k6-5-1-deep-learning.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-5-2-dnn-structure.html"><b>6.5.2</b>深度神经网络的结构</a><a class="xlink" href="k6-6-3-nonlinearity.html"><b>6.6.3</b>去线性化：多层为什么不再是直线</a><a class="xlink" href="k6-6-1-feedforward.html"><b>6.6.1</b>前馈与全连接</a><a class="xlink" href="k6-5-4-why-deep-demo.html"><b>6.5.4</b>深度学习为什么有效</a><a class="xlink" href="u6-5-deep-learning.html"><b>6.5</b>深度学习、深度神经网络与正向传播（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-5-1（本页图 6-23）；知识库 M06-S2-01。 ｜ 知识库条目：M06-S2-01《深度学习的概念》（filled） ｜ 参考来源：S87 LeCun 等 2015《Deep learning》；S53《深度学习》第 1、6 章；S02 AIMA；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

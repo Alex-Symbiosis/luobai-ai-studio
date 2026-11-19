@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.1.2 误差、残差与损失 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分误差、残差与损失三个层次。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-1-model-mse.html">4.1 模型、误差与 MSE</a><span class="sep">/</span><span class="here">4.1.2 误差、残差与损失</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.1</span>
+    <span class="tag">知识点 4.1.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>误差、残差与损失</h1>
+  <p class="lede">说一个模型「错了 3 个单位」，信息量几乎为零：是每个点都错 3，还是有的错 20、有的错 −17 相互抵消？误差、残差与损失，分别回答「单点差多少」「训练集上差多少」「整体怎么汇总成一个数」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分误差、残差与损失三个层次。</li><li>能对一组点手算残差、平方残差与损失值。</li><li>能解释为什么损失函数要先把误差变成非负数。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两个模型的「平均误差」都是 0</h2>
+<p>两个模型在同一批数据上的平均误差都等于 0：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">模型 A</span><h3>几乎每个点都差一点</h3><p>残差在 −2 到 +2 之间来回，平均后正好抵消为 0，但每个点都没预测准。</p></div>
+  <div class="card mini"><span class="mini-tag">模型 B</span><h3>一半差 +20，一半差 −20</h3><p>平均也是 0，但单点误差是 A 的十倍，实际使用会出大问题。</p></div>
+</div>
+<p class="ask">平均误差都为 0，能说明两个模型一样好吗？</p>
+<p>不能。正负相消把「错得有多狠」藏起来了。要比较模型，必须先把每个点的偏差变成一个不会相互抵消的量。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>打靶：每一枪与整体</h2>
+<p>打靶时你会关心两件事：每一枪离靶心多远，以及整组弹着点整体偏不偏。前者是单点误差，后者是把所有偏差汇总后的结论。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="残差：每个点都被量了一次">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">残差：每个点都被量了一次</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M140 248 L820 120" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="200" cy="214" r="6"/><text class="f-s" x="210" y="206"> +18</text><circle class="f-pt" cx="330" cy="224" r="6"/><text class="f-s" x="340" y="216"> −12</text><circle class="f-pt" cx="470" cy="200" r="6"/><text class="f-s" x="480" y="192"> −14</text><circle class="f-pt" cx="600" cy="158" r="6"/><text class="f-s" x="610" y="150"> +3</text><circle class="f-pt" cx="730" cy="146" r="6"/><text class="f-s" x="740" y="138"> −9</text><path class="f-dash" d="M200 214 L200 237"/><text class="f-s" x="208" y="230"></text><path class="f-dash" d="M330 224 L330 212"/><text class="f-s" x="338" y="240"></text><path class="f-dash" d="M470 200 L470 186"/><text class="f-s" x="478" y="216"></text><path class="f-dash" d="M600 158 L600 161"/><text class="f-s" x="608" y="174"></text><path class="f-dash" d="M730 146 L730 137"/><text class="f-s" x="738" y="162"></text><text class="f-s" x="880" y="322" text-anchor="end">x</text><text class="f-s" x="92" y="66" text-anchor="end">y</text><text class="f-s" x="100" y="340">残差有正有负，直接相加会抵消；损失函数要先把它们变成非负数再汇总。</text>
+</svg><figcaption><b>图 4-2　散点、拟合线与每个点的残差</b>　竖线是残差：点在线上方为正，下方为负。残差本身有符号，不能直接相加当损失。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>误差回答「这一个点差多少」，损失回答「整体有多差」。从误差到损失，中间必须做一次<strong>去符号 + 汇总</strong>，否则正负相消会让烂模型看起来很好。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个层次，三种用途</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>定义</th><th>用途</th><th>注意</th></tr></thead>
+  <tbody>
+    <tr><td>误差 e<sub>i</sub></td><td>预测值与真实值之差</td><td>看单点偏差方向</td><td>有正负</td></tr>
+    <tr><td>残差 r<sub>i</sub></td><td>训练集上观测值与拟合值之差</td><td>画残差图做诊断</td><td>实践中常与误差混用</td></tr>
+    <tr><td>损失 L</td><td>把全部误差汇总成一个非负数</td><td>作为优化目标与评分</td><td>必须先去掉符号</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>残差 <span class="term">r<sub>i</sub> = y<sub>i</sub> − ŷ<sub>i</sub></span>；平方损失 <span class="term">L = Σ r<sub>i</sub><sup>2</sup></span>；绝对损失 <span class="term">L = Σ |r<sub>i</sub>|</span>。前者可导、惩罚大误差，后者稳健、但不处处可导。</p>
+</div>
+<p>严格说，误差对真值，残差对拟合值；实际教学中两者常混用。考试按「预测偏离真实」理解即可，但写论文时要区分。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>从逐点到汇总：四步</h2>
+<div class="steps">
+  <div class="step"><b>逐点求差</b><span>对每个样本算 r<sub>i</sub>，保留符号，用于判断高估还是低估。</span></div>
+  <div class="step"><b>去符号</b><span>平方或取绝对值。平方放大极端值，绝对值一视同仁。</span></div>
+  <div class="step"><b>汇总</b><span>求和或求平均。平均让损失与样本量无关，便于跨数据集比较。</span></div>
+  <div class="step"><b>优化或评分</b><span>训练时最小化损失；评估时报告同一损失，保证口径一致。</span></div>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>汇总方式</th><th>公式</th><th>特点</th><th>适用</th></tr></thead>
+  <tbody>
+    <tr><td>MAE</td><td>mean(|r|)</td><td>稳健、量纲与原值一致</td><td>异常值多的数据</td></tr>
+    <tr><td>MSE</td><td>mean(r²)</td><td>可导、重罚大误差</td><td>常规回归与优化</td></tr>
+    <tr><td>Huber</td><td>小误差平方、大误差线性</td><td>折中，需设阈值</td><td>重尾分布</td></tr>
+  </tbody>
+</table>
+</div>
+<p>选哪种汇总不是格式问题，而是<strong>建模立场</strong>：用 MSE 等于宣布「大错不可接受」；用 MAE 等于宣布「每个点同样重要」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>五个点的残差账本</h2>
+<p>一条拟合线给出五个残差：+18、−12、−14、+3、−9。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>汇总方式</th><th>计算</th><th>结果</th><th>解读</th></tr></thead>
+  <tbody>
+    <tr><td>误差和</td><td>18 − 12 − 14 + 3 − 9</td><td>−14</td><td>正负相消，不能当损失</td></tr>
+    <tr><td>绝对误差和</td><td>18 + 12 + 14 + 3 + 9</td><td>56</td><td>平均绝对误差 11.2</td></tr>
+    <tr><td>平方误差和</td><td>324 + 144 + 196 + 9 + 81</td><td>754</td><td>平均平方误差 150.8</td></tr>
+  </tbody>
+</table>
+</div>
+<p>同一组残差，三种汇总给出三个数量级完全不同的数。这也解释了为什么比较模型时必须<strong>固定同一指标</strong>：MSE 150.8 与 MAE 11.2 不是「谁更准」，而是两把不同的尺子。</p>
+<span class="teacher">课堂上让学生先算「误差和」，再问「如果模型把每个点都高估 100，误差和是多少」。答案仍是 0，能立刻暴露正负相消的问题。</span>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算一张残差表</h2>
+<p>给定真实值 y = [3, 5, 7, 9, 11]，模型预测 ŷ = [4, 5, 5, 10, 9]。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>i</th><th>y</th><th>ŷ</th><th>残差 r</th><th>|r|</th><th>r²</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>4</td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td>5</td><td>5</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td>7</td><td>5</td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td>9</td><td>10</td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td>11</td><td>9</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>要求：</strong>补全表格，算出 MAE 与 MSE，并回答「误差和是多少，为什么不能用它评价模型」。</p>
+<div class="callout callout--warn">
+  <span class="c-label">检查点</span>
+  <p>残差符号要与「预测减真实」保持一致；MSE 的量纲是原单位的平方，报告时要说明，或开方成 RMSE。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-1-3-mse.html">4.1.3 MSE：公式、量纲与优缺点</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-1-1-model.html"><span class="p-label">← 上一知识点 4.1.1</span><span class="p-title">模型是什么：假设空间里的一个实例</span></a><a class="next" href="k4-1-3-mse.html"><span class="p-label">下一知识点 4.1.3 →</span><span class="p-title">MSE：公式、量纲与优缺点</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)1 · 误差的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>4.1.2 ｜ <span class="path">pages/m04-stat-models/k4-1-2-error-residual.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-1-1-model.html"><b>4.1.1</b>模型是什么：假设空间里的一个实例</a><a class="xlink" href="k4-1-3-mse.html"><b>4.1.3</b>MSE：公式、量纲与优缺点</a><a class="xlink" href="u4-1-model-mse.html"><b>4.1</b>模型、误差与 MSE（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-1-2-a.svg（本页图 4-2）。 ｜ 知识库条目：M04-S1-02《误差和 MSE 的概念及特点》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S54 ESL；S02 AIMA；S40 scikit-learn《Linear Models》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

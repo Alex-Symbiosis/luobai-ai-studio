@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.1.3 四类典型应用：找关联、分群、预测、异常 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出关联、分群、预测、异常四类任务各自的输入、输出与一个真实场景。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-1-what-is-dm.html">8.1 数据挖掘的概念与时代背景</a><span class="sep">/</span><span class="here">8.1.3 四类典型应用：找关联、分群、预测、异常</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.1</span>
+    <span class="tag">知识点 8.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>四类典型应用：找关联、分群、预测、异常</h1>
+  <p class="lede">同一个会员库，可以问出四种完全不同的问题；先认问法，再谈算法。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出关联、分群、预测、异常四类任务各自的输入、输出与一个真实场景。</li><li>能用「有没有标签、要找什么、输出是什么」三问给一个业务问题定性。</li><li>能指出四类任务之间的边界，以及它们可以组合使用的地方。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>推荐为什么有时比广告准</h2>
+<p>会员卡推了一张券，核销率高得让投放团队意外。原因不神秘：这张券不是按人群画像撒的，而是来自「点 A 的人常加购 B」这条共现规律——推荐的是搭配，不是标签。</p>
+<p>同一周，运营提了四个需求：哪些商品常一起买、会员自然分成几群、下月谁会流失、哪几笔订单不像正常单。四句话都叫「分析一下数据」，落到任务上却是四种。</p>
+<p class="ask">不先分清任务类型，直接问「用什么算法」，会错在哪一步？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先分诊，再开方</h2>
+<p>医生不会见人就开同一张方子。先判断是哪一类病，再决定检查与用药；业务问题也一样，先归到四类任务之一，再挑方法。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四类问法，对应四种输出">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">四类问法，对应四种输出</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">数据挖掘任务</text><text class="f-sc" x="480.0" y="91.0">先问要找什么</text><path class="f-ar" d="M480 110 L143.25 150" marker-end="url(#ah)"/><text class="f-s" x="149.25" y="136" text-anchor="middle">找一起出现</text><rect class="f-b" x="40.0" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="143.25" y="193.0">关联</text><text class="f-sc" x="143.25" y="212.0">同一次交易里的搭配</text><text class="f-sc" x="143.25" y="270">↓</text><path class="f-ar" d="M480 110 L367.75 150" marker-end="url(#ah)"/><text class="f-s" x="373.75" y="136" text-anchor="middle">找相似</text><rect class="f-b" x="264.5" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="367.75" y="193.0">分群</text><text class="f-sc" x="367.75" y="212.0">没有标签也能分组</text><text class="f-sc" x="367.75" y="270">↓</text><path class="f-ar" d="M480 110 L592.25 150" marker-end="url(#ah)"/><text class="f-s" x="598.25" y="136" text-anchor="middle">找未知值</text><rect class="f-b" x="489.0" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="592.25" y="193.0">预测</text><text class="f-sc" x="592.25" y="212.0">有标签才用监督</text><text class="f-sc" x="592.25" y="270">↓</text><path class="f-ar" d="M480 110 L816.75 150" marker-end="url(#ah)"/><text class="f-s" x="822.75" y="136" text-anchor="middle">找不同</text><rect class="f-b" x="713.5" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="816.75" y="193.0">异常</text><text class="f-sc" x="816.75" y="212.0">偏离常态的记录</text><text class="f-sc" x="816.75" y="270">↓</text><text class="f-s" x="40" y="316">先定问法，再挑方法；拿着算法找问题，多半找不到。</text>
+</svg><figcaption><b>图 8-5　四类问法，对应四种输出</b>　先定问法再挑方法；拿着算法找问题，多半找不到。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一个业务问题，可以写成四种问法">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">同一个业务问题，可以写成四种问法</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">任务</text><text class="f-t" x="352.0" y="98">一句话问题</text><text class="f-t" x="632.0" y="98">输出</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">关联</text><text class="f-s" x="352.0" y="139.0">哪些商品常被一起买</text><text class="f-s" x="632.0" y="139.0">规则，如牛奶 → 面包</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">分群</text><text class="f-s" x="352.0" y="183.0">客户自然分成几类</text><text class="f-s" x="632.0" y="183.0">若干组与组内画像</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">预测</text><text class="f-s" x="352.0" y="227.0">这个客户会不会流失</text><text class="f-s" x="632.0" y="227.0">一个标签或一个数值</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">异常</text><text class="f-s" x="352.0" y="271.0">哪几笔交易不像正常单</text><text class="f-s" x="632.0" y="271.0">按偏离程度排序的名单</text><text class="f-s" x="60" y="316">先能把问题写成一句话，才谈得上选方法。</text>
+</svg><figcaption><b>图 8-6　同一个业务问题，可以写成四种问法</b>　问法一变，输入、方法和输出都跟着变。</figcaption></figure>
+<p>图里四类不是四个软件，而是四种「要找的东西」：一起出现的搭配、彼此相似的组、还没发生的值、偏离常态的记录。认清要找什么，方法自然就窄了。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四类任务的输入与输出</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>输入</th><th>输出</th><th>真实场景</th></tr></thead>
+  <tbody>
+    <tr><td>关联</td><td>同一单据里的商品集合</td><td>规则与支持度、置信度、提升度</td><td>茶饮店决定套餐与端架组合</td></tr>
+    <tr><td>分群</td><td>会员行为特征，没有标签</td><td>若干簇与每簇画像</td><td>会员运营把「只买促销款」与「只买新品」分开</td></tr>
+    <tr><td>预测</td><td>带标签的历史样本与特征</td><td>一个类别标签或一个数值</td><td>续费预警、流失名单、信用评分</td></tr>
+    <tr><td>异常</td><td>交易或日志，加一条常态基线</td><td>按偏离程度排序的名单</td><td>报销单核查、设备传感器报警</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四类的分界在两处：<strong>有没有标签</strong>，以及<strong>要找的是共现、分组、值还是偏离</strong>。关联与分群通常无标签，预测必须有标签，异常两者都可能。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三问定性</h2>
+<p>拿到一句话需求，先问三句：有没有已知答案的样本？答案是一个值还是一个组？要找的东西是「一起出现」还是「不一样」？三问走完，任务类型基本就定了。</p>
+<p>四类并不互斥。分群的结果可以作为预测的特征；有标签的异常可以退化成分类；关联规则筛出来的搭配，也能拿去做推荐特征。组合是常态，但每一步仍要先说清自己在做哪一类。</p>
+<p>最常见的错误是反过来：先选定一个算法，再到处找能套的数据。聚类跑出来的五群如果没人能命名、也没人据此改动作，它就只是一张好看的图。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「高价值客户名单」当成挖掘结果。按既定规则（比如年消费前 10%）筛出来的名单是查询，不是分群；分群要求组是算法按相似度找出来的。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一份订单，四种问法</h2>
+<p>还是那 42 万条订单。问「哪些商品常一起买」，走关联，输出是规则与三个指标；问「会员自然分成几群」，走分群，输出是簇与画像；问「下月谁会流失」，走预测，输出是每个会员的概率；问「哪几笔订单不像正常单」，走异常，输出是排序名单。</p>
+<p>四问用的是同一份数据，预处理却不同：关联要按单据聚合商品，分群要按会员聚合行为，预测要构造特征并对齐标签，异常要先估出一条常态基线。数据同源，视图不同。</p>
+<p>还要留一条边界：如果问的是「上月复购率为什么下降」，它不属于这四类，而是解释已发生现象的数据分析，见 8.2.1。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>八张场景卡归类</h2>
+<p><strong>任务：</strong>把八张卡归入四类任务，其中一张不属于挖掘。</p>
+<p>① 哪些商品常被一起买；② 会员自然分成几群；③ 下月谁会流失；④ 哪几笔报销单不像正常单；⑤ 哪些客户像高价值客户；⑥ 有历史标注时，判断新交易是否欺诈；⑦ 哪些门店的销售组合异常；⑧ 上月总销售额是多少。</p>
+<p><strong>参考答案：</strong>① 关联；② 分群；③ 预测；④ 异常；⑤ 分群；⑥ 预测（有标签即分类）；⑦ 异常；⑧ 查询，不属于挖掘。</p>
+<p><strong>验收：</strong>八张全部分类，且能说出 ⑤ 为什么不是查询、⑥ 为什么不是异常。接着看 <a href="../m08-data-mining/k8-1-4-beer-diapers.html">「啤酒与尿布」真伪</a>，用关联规则做一个取证练习。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-1-4-beer-diapers.html">8.1.4 「啤酒与尿布」真伪：一个案例的取证练习</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-1-2-era-background.html"><span class="p-label">← 上一知识点 8.1.2</span><span class="p-title">时代背景：三条技术条件同时成熟</span></a><a class="next" href="k8-1-4-beer-diapers.html"><span class="p-label">下一知识点 8.1.4 →</span><span class="p-title">「啤酒与尿布」真伪：一个案例的取证练习</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)1 · 数据挖掘的概念（典型应用）</dd>
+    <dt>页面编号 / 路径</dt><dd>8.1.3 ｜ <span class="path">pages/m08-data-mining/k8-1-3-four-tasks.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-1-1-what-is-dm.html"><b>8.1.1</b>数据很多，知识很少：数据挖掘要解决什么</a><a class="xlink" href="k8-1-4-beer-diapers.html"><b>8.1.4</b>「啤酒与尿布」真伪：一个案例的取证练习</a><a class="xlink" href="k8-3-4-association-rules.html"><b>8.3.4</b>关联规则：从购物篮里找「一起出现」</a><a class="xlink" href="u8-1-what-is-dm.html"><b>8.1</b>数据挖掘的概念与时代背景（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-1-3（本页图 8-5）、k8-1-3-b（本页图 8-6）；知识库 M08-S1-01《数据挖掘的概念》（filled）。 ｜ 知识库条目：M08-S1-01《数据挖掘的概念》（filled） ｜ 参考来源：Han, Kamber & Pei《数据挖掘：概念与技术》；Fayyad 等 KDD 五步；UCI Machine Learning Repository（任务示例）；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

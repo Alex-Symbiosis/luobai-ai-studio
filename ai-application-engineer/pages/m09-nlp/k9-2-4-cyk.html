@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.2.4 CYK 算法：表格里的动态规划 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 CNF 的两种规则形式，并说清为什么 CYK 要求先转 CNF。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-2-syntax-cyk.html">9.2 句法与形式语法：语法类型与 CYK 算法</a><span class="sep">/</span><span class="here">9.2.4 CYK 算法：表格里的动态规划</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.2</span>
+    <span class="tag">知识点 9.2.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>CYK 算法：表格里的动态规划</h1>
+  <p class="lede">五个词的三角表只有 15 格。每一格不存句子，只存这一段能变成哪些非终结符。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 CNF 的两种规则形式，并说清为什么 CYK 要求先转 CNF。</li><li>能按长度递增的顺序，手填一张 5 词的三角表。</li><li>能用 A → B C 与拆分点，解释每一格的内容从哪里来。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>十句判定</h2>
+<p>10 个句子要判「合不合语法」。最直接的办法是穷举所有可能的树，逐棵试。5 个词的句子有 42 种括号化，6 个词 132 种，试到第 10 句，人已经烦了。</p>
+<p>CYK 换了个方向：不枚举整棵树，而是把每个子区间「能变成哪些非终结符」一次算清，长区间直接查短区间的结果。</p>
+<p class="ask">五个词的表只有 15 格，凭什么能替代 42 棵树？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>长度递增</h2>
+<p>表只填上三角：第 i 行第 j 列表示「从第 i 个词到第 j 个词」这一段。长度从 1 开始，逐层往上推，每一格只依赖更短的格。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="填表按长度递增，从短格推到长格">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">填表按长度递增，从短格推到长格</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">单元格</text><text class="f-t" x="282.0" y="98">覆盖长度</text><text class="f-t" x="492.0" y="98">依赖的两个子格</text><text class="f-t" x="702.0" y="98">填入内容</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">(i, i+1)</text><text class="f-s" x="282.0" y="139.0">1</text><text class="f-s" x="492.0" y="139.0">无，直接查词典</text><text class="f-s" x="702.0" y="139.0">该词的词性</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">(i, i+2)</text><text class="f-s" x="282.0" y="183.0">2</text><text class="f-s" x="492.0" y="183.0">(i,i+1) 与 (i+1,i+2)</text><text class="f-s" x="702.0" y="183.0">可组合的非终结符</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">(i, i+3)</text><text class="f-s" x="282.0" y="227.0">3</text><text class="f-s" x="492.0" y="227.0">所有左右切分点</text><text class="f-s" x="702.0" y="227.0">满足 A → B C 的 A</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">(0, n)</text><text class="f-s" x="282.0" y="271.0">n</text><text class="f-s" x="492.0" y="271.0">拆成两半的各种方式</text><text class="f-s" x="702.0" y="271.0">含起始符 S 即合法</text><text class="f-s" x="60" y="316">只填上三角；每格只依赖更短的格，所以永远不会出现循环依赖。</text>
+</svg><figcaption><b>图 9-9　填表按长度递增，从短格推到长格</b>　只填上三角；每格只依赖更短的格，所以永远不会出现循环依赖。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">关键约束</span>
+  <p>每格只查比自己短的区间。填表顺序一旦按长度排好，就不用递归，也不会绕回自己。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>CNF 与三角表</h2>
+<p>CYK 要求文法先转成乔姆斯基范式（CNF），只有两种规则：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>cnf.txt</span></div>
+<pre><code>A → B C      # 两个非终结符
+A → a        # 一个终结符</code></pre>
+</div>
+<p>右部长度只能是 2 或 1，正好对应「把区间切成两半」和「落到一个词」。一般的 CFG 要先做两步改造：长右部二值化（<code>A → B C D</code> 拆成 <code>A → B X</code>、<code>X → C D</code>），一元规则消去（<code>A → B</code> 合并进引用 A 的地方）。</p>
+<p>表用 <code>table[i][j]</code> 表示区间 <code>w[i:j]</code>，只填 <code>j &gt; i</code>。整张表 <code>n(n+1)/2</code> 格：3 个词 6 格，4 个词 10 格，5 个词 15 格，6 个词 21 格。句子越长，格数按平方涨。</p>
+<p>判定只看一格：<code>S ∈ table[0][n]</code>。起始符出现在整句区间里，句子就合法。</p>
+<p>不转 CNF 就填不了表：右部长度 3 的规则，一个切点只能切出两半，第三个符号无处安放。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>区间拆分</h2>
+<p>递推只有一句：区间 <code>(i, j)</code> 里的 A，必须由某个切点 k 把区间分成两半，左半出 B、右半出 C，且文法里有 <code>A → B C</code>。</p>
+<p>写成集合式子就是 <code>table[i][j] = ∪ { A | A → B C，B ∈ table[i][k]，C ∈ table[k][j]，i &lt; k &lt; j }</code>。三个下标的关系固定，循环写错一个边界，表就会少格或越界。</p>
+<p>用一套最小 CNF 文法走一遍：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>mini_cnf.txt</span></div>
+<pre><code>S  → NP VP
+NP → Det N
+VP → V NP
+Det → the
+N  → cat | dog
+V  → sees</code></pre>
+</div>
+<p>判 <em>the cat sees the dog</em>，5 个词，15 格。长度 1 直接查词表：the 是 Det，cat 是 N，sees 是 V，the 是 Det，dog 是 N。</p>
+<p>长度 2 只看一个切点：<code>(0,2)</code> 是 Det 加 N，得 NP；<code>(3,5)</code> 同理得 NP；<code>(1,3)</code> 是 N 加 V、<code>(2,4)</code> 是 V 加 Det，都没有规则接，留空。</p>
+<p>长度 3 开始有多个切点。<code>(2,5)</code> 覆盖 sees the dog，只有 k=3 一侧非空：V 加 NP，命中 <code>VP → V NP</code>，填 VP。另外两个长度 3 的格，所有切法都至少有一侧为空，留空。</p>
+<p>长度 4 两格全空。长度 5 的 <code>(0,5)</code> 试四个切点，只有 k=2：左半 NP、右半 VP，命中 <code>S → NP VP</code>。判定通过。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>十五格</h2>
+<p>把整张表摊开看，规律很清楚：非空的格都沿着「成分」聚成块，空格的四周也常是空。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>长度</th><th>i=0</th><th>i=1</th><th>i=2</th><th>i=3</th><th>i=4</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Det</td><td>N</td><td>V</td><td>Det</td><td>N</td></tr>
+    <tr><td>2</td><td>NP</td><td>—</td><td>—</td><td>NP</td><td></td></tr>
+    <tr><td>3</td><td>—</td><td>—</td><td>VP</td><td></td><td></td></tr>
+    <tr><td>4</td><td>—</td><td>—</td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td>S</td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>15 格填了 9 格，6 格为空。真正做判定只用最后一格，但前面 14 格不能省：没有 NP 和 VP，就没有最后那一步。</p>
+<p>长度 2 的两格非空、长度 3 只有一格非空，这个形状说明句子左右两半并不对称：主语侧在 <code>(0,2)</code> 就闭合，谓语侧要到 <code>(2,5)</code> 才成形。</p>
+<p>四个切点只有一个走通，说明「拆分点」是主要开销。区间长度 L 有 L−1 个切点，每个切点还要枚举左右两格的符号组合；这就是 CYK 的 <code>O(n³)</code> 来源，再乘上文法大小。</p>
+<p>这也是动态规划的意思：同一个子区间只算一次，被不同的父区间反复复用。</p>
+<p><strong>易错点：</strong>把空格当成「还没算」。空格是算过的结论：这个区间拼不出任何非终结符。填表时若把空格当未知，后面会反复重算，复杂度失控。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手填一表</h2>
+<p><strong>任务：</strong>用上面这套 CNF 规则，手填 <em>the dog sees the cat</em> 的 15 格表；填完回答三个问题。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>长度</th><th>i=0</th><th>i=1</th><th>i=2</th><th>i=3</th><th>i=4</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>？</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>2</td><td>？</td><td>？</td><td>？</td><td>？</td><td></td></tr>
+    <tr><td>3</td><td>？</td><td>？</td><td>？</td><td></td><td></td></tr>
+    <tr><td>4</td><td>？</td><td>？</td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td>？</td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 最后一格 <code>(0,5)</code> 靠哪个切点、哪条规则填上？② 若句长变成 6，格数是多少？③ 表里非空格的个数能说明句子长短吗，为什么？</p>
+<p><strong>验收：</strong>15 格逐格有依据（词表或某条 A → B C 加某个 k），最后一格含 S。程序怎么把这张表变成可回放的树，见 <a href="../m09-nlp/k9-2-5-cyk-demo.html">CYK 实现与 10 句判定</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-2-5-cyk-demo.html">9.2.5 CYK 实现与 10 句判定</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-2-3-parsing-ambiguity.html"><span class="p-label">← 上一知识点 9.2.3</span><span class="p-title">句法分析的任务与歧义</span></a><a class="next" href="k9-2-5-cyk-demo.html"><span class="p-label">下一知识点 9.2.5 →</span><span class="p-title">CYK 实现与 10 句判定</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)2 · 语法的类型</dd>
+    <dt>页面编号 / 路径</dt><dd>9.2.4 ｜ <span class="path">pages/m09-nlp/k9-2-4-cyk.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-2-3-parsing-ambiguity.html"><b>9.2.3</b>句法分析的任务与歧义</a><a class="xlink" href="k9-2-5-cyk-demo.html"><b>9.2.5</b>CYK 实现与 10 句判定</a><a class="xlink" href="k9-2-2-cfg.html"><b>9.2.2</b>上下文无关文法与推导树</a><a class="xlink" href="u9-2-syntax-cyk.html"><b>9.2</b>句法与形式语法：语法类型与 CYK 算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-2-4（本页图 9-9）；知识库 M09-S2-02《CYK 算法概述》（filled）。 ｜ 知识库条目：M09-S2-02《CYK 算法概述》（filled） ｜ 参考来源：CYK 算法原始文献（Cocke–Younger–Kasami）；Jurafsky & Martin《Speech and Language Processing》第 13 章；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

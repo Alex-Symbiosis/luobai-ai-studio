@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.3 网格搜索：把调参变成可复现的实验 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 GridSearchCV 的参数网格与评估设置。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-6-frameworks.html">4.6 实现框架：Scikit-Learn 与 Spark MLlib</a><span class="sep">/</span><span class="here">4.6.3 网格搜索：把调参变成可复现的实验</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.6</span>
+    <span class="tag">知识点 4.6.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>网格搜索：把调参变成可复现的实验</h1>
+  <p class="lede">手调超参数的问题不是慢，而是不可复现：这次调到 0.8，下次换台机器就说不清为什么。网格搜索把候选值列成表，用同一套交叉验证逐个评估，让「哪组最好」变成一个可以重跑的结果。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 GridSearchCV 的参数网格与评估设置。</li><li>能解释网格搜索的计算成本与组合爆炸。</li><li>能读懂 cv_results_ 并选出合适参数。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>手调三小时，说不清为什么</h2>
+<p>两位工程师调同一个模型：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>手动试</h3><p>先试 C=1，再试 C=10，觉得 10 好一点；改了随机种子后又不确定，三小时过去没有记录。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>列网格，统一评估</h3><p>C 取 0.1、1、10，树深取 3、5，共 6 组；每组跑同一套 5 折，记录均值与标准差。</p></div>
+</div>
+<p class="ask">B 跑的次数更多，为什么反而更省时间？</p>
+<p>因为 B 一次跑完就有可比较的完整结果；A 的每次尝试都缺记录，换人就得重来。可复现本身就是效率。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>把候选值铺成一张表</h2>
+<p>两个超参数各三档，就得到 3×3 的九宫格；每格跑一次交叉验证，格子里写平均分。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="3×3 网格：每组参数都要过一遍 K 折">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">3×3 网格：每组参数都要过一遍 K 折</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">C \ gamma</text><text class="f-t" x="282.0" y="98">0.01</text><text class="f-t" x="492.0" y="98">0.1</text><text class="f-t" x="702.0" y="98">1</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">0.1</text><text class="f-s" x="282.0" y="139.0">0.71</text><text class="f-s" x="492.0" y="139.0">0.79</text><text class="f-s" x="702.0" y="139.0">0.76</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">1</text><text class="f-s" x="282.0" y="183.0">0.78</text><text class="f-s" x="492.0" y="183.0">0.84</text><text class="f-s" x="702.0" y="183.0">0.81</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">10</text><text class="f-s" x="282.0" y="227.0">0.80</text><text class="f-s" x="492.0" y="227.0">0.82</text><text class="f-s" x="702.0" y="227.0">0.77</text><text class="f-s" x="60" y="272">最佳组合是 C=1、gamma=0.1（0.84）；但只看最高分不够，还要看它与邻格是否稳定。</text>
+</svg><figcaption><b>图 4-26　参数网格与逐格评估</b>　行与列分别是两个超参数的候选值；每格是一次完整的交叉验证，最后取平均分最高的格子。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一网格的 9 组平均分">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">同一网格的 9 组平均分</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="135.1" y="150.9" width="59.800000000000004" height="149.1" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="165.0" y="142.9">71%</text><text class="f-sc" x="165.0" y="318">C=.1 γ=.01</text><rect x="265.1" y="134.1" width="59.800000000000004" height="165.9" rx="4" fill="#7ea6dd" opacity="0.9"/><text class="f-sc" x="295.0" y="126.1">79%</text><text class="f-sc" x="295.0" y="318">C=.1 γ=.1</text><rect x="395.1" y="140.4" width="59.800000000000004" height="159.6" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="425.0" y="132.4">76%</text><text class="f-sc" x="425.0" y="318">C=.1 γ=1</text><rect x="525.1" y="136.2" width="59.800000000000004" height="163.8" rx="4" fill="#7ea6dd" opacity="0.9"/><text class="f-sc" x="555.0" y="128.2">78%</text><text class="f-sc" x="555.0" y="318">C=1 γ=.01</text><rect x="655.1" y="123.6" width="59.800000000000004" height="176.4" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="685.0" y="115.6">84%</text><text class="f-sc" x="685.0" y="318">C=1 γ=.1</text><rect x="785.1" y="129.9" width="59.800000000000004" height="170.1" rx="4" fill="#7ea6dd" opacity="0.9"/><text class="f-sc" x="815.0" y="121.9">81%</text><text class="f-sc" x="815.0" y="318">C=1 γ=1</text><text class="f-s" x="100" y="344">把 9 组分数并排看，峰值与平台一目了然；孤立的最高分往往不可靠。</text>
+</svg><figcaption><b>图 4-26b　同一网格的九组平均分</b>　分数在网格上并不单调：过高或过低的参数都会掉分，最优点常在中间，需要逐格评估而不是凭直觉。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>网格搜索不是「更聪明的算法」，而是<strong>把尝试过程标准化</strong>：候选值固定、评估固定、记录固定，结论才可复核。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个必填项</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>参数</th><th>含义</th><th>常见设置</th></tr></thead>
+  <tbody>
+    <tr><td>param_grid</td><td>候选值字典</td><td>{"clf__C": [0.1, 1, 10]}</td></tr>
+    <tr><td>cv</td><td>交叉验证折数</td><td>5（分类用分层）</td></tr>
+    <tr><td>scoring</td><td>评估指标</td><td>"f1"、"roc_auc"、"neg_mean_squared_error"</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--code">
+  <span class="c-label">最小示例</span>
+<pre>from sklearn.model_selection import GridSearchCV
+search = GridSearchCV(pipe, {"clf__C": [0.1, 1, 10]},
+                      cv=5, scoring="f1")
+search.fit(X_train, y_train)
+print(search.best_params_, search.best_score_)</pre>
+</div>
+<p>注意 scoring 的方向：回归误差类指标在 sklearn 里常以负值表示（neg_mean_squared_error），因为框架统一按「越大越好」选优。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>成本与选择</h2>
+<p>总训练次数 = 参数组合数 × 折数。组合一多，成本迅速膨胀。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>网格</th><th>组合数</th><th>5 折训练次数</th><th>感受</th></tr></thead>
+  <tbody>
+    <tr><td>1 个参数 × 3 档</td><td>3</td><td>15</td><td>很快</td></tr>
+    <tr><td>3 个参数 × 5 档</td><td>125</td><td>625</td><td>开始变慢</td></tr>
+    <tr><td>5 个参数 × 5 档</td><td>3125</td><td>15625</td><td>需要并行或换策略</td></tr>
+  </tbody>
+</table>
+</div>
+<p>因此实践中的顺序是：先用粗网格定位大致区间，再在小区间细化；或改用随机搜索、贝叶斯优化。不要一上来就铺满所有组合。</p>
+<div class="callout callout--warn">
+  <span class="c-label">选择陷阱</span>
+  <p>用测试集选超参数，等于让测试集参与训练。正确做法是：训练集内交叉验证选参，测试集只用于最后一次性评估。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>九组结果怎么挑</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>C 与 max_depth</th><th>3</th><th>5</th><th>7</th></tr></thead>
+  <tbody>
+    <tr><td>0.1</td><td>0.71</td><td>0.74</td><td>0.73</td></tr>
+    <tr><td>1</td><td>0.76</td><td>0.81</td><td>0.79</td></tr>
+    <tr><td>10</td><td>0.75</td><td>0.80</td><td>0.78</td></tr>
+  </tbody>
+</table>
+</div>
+<p>最高分 0.81 在 (C=1, depth=5)。但若 0.80 与 0.81 的标准差都超过 0.02，两者差异可能不显著；此时应优先选更简单、方差更小的组合，而不是死盯最高分。</p>
+<p>读结果时至少看三项：平均分、标准差、参数是否落在网格边界。若最优点在边界，说明网格没覆盖到更优区域，应向外扩展。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>设计一次可复现的搜索</h2>
+<p><strong>任务：</strong>为一个流水线设计网格搜索方案。</p>
+<ol>
+  <li>选两个超参数，各给 3 档，写出 param_grid。</li>
+  <li>说明 cv 与 scoring 的选择理由。</li>
+  <li>估算总训练次数，并说明若太慢如何缩减。</li>
+  <li>写清「测试集在哪一步才被使用」。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>参数名必须带阶段前缀；测试集只能用于最终评估；至少写出一条缩减成本的策略。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-6-4-mllib.html">4.6.4 Spark MLlib：同一套思路，另一种规模</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-6-2-pipeline.html"><span class="p-label">← 上一知识点 4.6.2</span><span class="p-title">Pipeline：把预处理和模型焊在一起</span></a><a class="next" href="k4-6-4-mllib.html"><span class="p-label">下一知识点 4.6.4 →</span><span class="p-title">Spark MLlib：同一套思路，另一种规模</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)6 · 网格搜索</dd>
+    <dt>页面编号 / 路径</dt><dd>4.6.3 ｜ <span class="path">pages/m04-stat-models/k4-6-3-grid-search.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-6-2-pipeline.html"><b>4.6.2</b>Pipeline：把预处理和模型焊在一起</a><a class="xlink" href="k4-5-3-cross-validation.html"><b>4.5.3</b>交叉验证：让评估结果可重复</a><a class="xlink" href="k4-6-5-pipeline-demo.html"><b>4.6.5</b>端到端实验：从原始表到可用模型</a><a class="xlink" href="u4-6-frameworks.html"><b>4.6</b>实现框架：Scikit-Learn 与 Spark MLlib（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-6-3-a.svg（本页图 4-26）、d-k4-6-3-b.svg（本页图 4-26b）。 ｜ 知识库条目：M04-S6-01《Scikit-Learn 与 Spark MLlib》（filled） ｜ 参考来源：S41 scikit-learn《Getting Started》；S32 scikit-learn《Metrics and scoring》；S31《Hands-On Machine Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

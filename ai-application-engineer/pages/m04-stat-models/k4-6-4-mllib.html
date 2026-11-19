@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.4 Spark MLlib：同一套思路，另一种规模 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 MLlib 中 DataFrame、VectorAssembler、Estimator 的角色。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-6-frameworks.html">4.6 实现框架：Scikit-Learn 与 Spark MLlib</a><span class="sep">/</span><span class="here">4.6.4 Spark MLlib：同一套思路，另一种规模</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.6</span>
+    <span class="tag">知识点 4.6.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>Spark MLlib：同一套思路，另一种规模</h1>
+  <p class="lede">单机放不下数据时，Scikit-Learn 的写法会先卡在内存，而不是卡在算法。Spark MLlib 沿用 Estimator / Transformer 的思想，把同一套建模流程搬到分布式集群；变的是一致性约束，不是建模思路。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 MLlib 中 DataFrame、VectorAssembler、Estimator 的角色。</li><li>能对照 Scikit-Learn 说出两套 API 的对应关系。</li><li>能判断一个任务该用单机还是分布式框架。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>数据放不进一台机器</h2>
+<p>同一个流失预测任务，两种运行环境：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>单机 Scikit-Learn</h3><p>数据 200 万行、特征 300 个，内存勉强装下；训练 20 分钟，调参靠等待。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>Spark MLlib</h3><p>数据在 HDFS 上，按分区并行读取；同一套 Estimator 写法，训练时间随集群规模下降。</p></div>
+</div>
+<p class="ask">两套框架的 API 长得不一样，为什么说建模思路是同一套？</p>
+<p>因为两者都是「定义阶段 → fit → transform / predict」。差别在数据抽象与执行方式，不在建模逻辑本身。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>同一张图纸，两种车间</h2>
+<p>图纸规定工序，车间决定用几台机器、怎么搬运。MLlib 换的是车间，不是图纸。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="分布式解决规模，不解决调参">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">分布式解决规模，不解决调参</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">单机：pandas + scikit-learn</text><text class="f-s" x="80" y="108">· 数据能放进内存</text><text class="f-s" x="80" y="138">· 调参迭代快，反馈以秒计</text><text class="f-s" x="80" y="168">· 生态成熟、调试方便</text><text class="f-s" x="80" y="198">· 几十 GB 以上开始吃力</text><text class="f-s" x="80" y="228">· 适合特征试验与小模型</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">集群：Spark + MLlib</text><text class="f-s" x="530" y="108">· 数据按分区落在多台机器</text><text class="f-s" x="530" y="138">· 训练并行，通信有额外开销</text><text class="f-s" x="530" y="168">· 适合 TB 级批处理</text><text class="f-s" x="530" y="198">· 小数据上反而更慢</text><text class="f-s" x="530" y="228">· 调参成本高，先在单机定方案</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 4-27　Scikit-Learn 与 MLlib 的对应关系</b>　左侧单机流程与右侧分布式流程一一对应：数据容器、特征组装、估计器、流水线，概念可以逐项映射。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>从单机迁到分布式，先做<strong>概念映射</strong>，再改代码。映射清楚了，迁移就只是换类名与数据源。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个核心对象</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>MLlib 对象</th><th>作用</th><th>Scikit-Learn 对应</th></tr></thead>
+  <tbody>
+    <tr><td>DataFrame</td><td>带列名的分布式表</td><td>pandas DataFrame</td></tr>
+    <tr><td>VectorAssembler</td><td>把多列拼成一个特征向量</td><td>ColumnTransformer / 直接传 X</td></tr>
+    <tr><td>Estimator</td><td>有 fit 方法的算法对象</td><td>Estimator</td></tr>
+    <tr><td>Pipeline</td><td>把阶段串成一条流水线</td><td>Pipeline</td></tr>
+  </tbody>
+</table>
+</div>
+<p>一个关键差异：MLlib 的算法通常只接受一个名为 features 的向量列，因此几乎每段代码都要先做 VectorAssembler。这一步在单机框架里常被省略，迁移时最容易漏。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>惰性执行与分布式代价</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">惰性</span><h3>先画图，后执行</h3><p>转换操作只记录计划，遇到 fit、count 等动作才真正计算；报错往往延迟到最后一步。</p></div>
+  <div class="card mini"><span class="mini-tag">分区</span><h3>并行但有开销</h3><p>数据按分区并行处理；分区过多调度开销大，过少则利用不满。</p></div>
+  <div class="card mini"><span class="mini-tag">内存</span><h3>缓存要显式</h3><p>反复使用的中间结果需 cache/persist，否则每次动作都从头重算。</p></div>
+</div>
+<p>这三点决定了 MLlib 的调优重点与单机不同：不是先调模型超参数，而是先看分区、缓存与 shuffle。数据规模没到瓶颈时，分布式框架反而更慢。</p>
+<div class="callout callout--warn">
+  <span class="c-label">选型边界</span>
+  <p>数据能单机处理、迭代频繁、需要丰富算法时，优先 Scikit-Learn；数据超出单机内存、已在数据湖中、需要与批处理共用集群时，再考虑 MLlib。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一任务的两种写法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>Scikit-Learn</th><th>Spark MLlib</th></tr></thead>
+  <tbody>
+    <tr><td>读数据</td><td>pd.read_csv</td><td>spark.read.csv</td></tr>
+    <tr><td>拼特征</td><td>直接选列</td><td>VectorAssembler</td></tr>
+    <tr><td>标准化</td><td>StandardScaler</td><td>StandardScaler（fit 后 transform）</td></tr>
+    <tr><td>模型</td><td>LogisticRegression</td><td>LogisticRegression</td></tr>
+    <tr><td>训练</td><td>fit(X, y)</td><td>fit(df)</td></tr>
+  </tbody>
+</table>
+</div>
+<p>逐行对照后会发现，真正需要重写的只有数据读取与特征组装；模型与评估的概念完全一致。迁移成本主要来自数据层，而不是算法层。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>做一张 API 映射表</h2>
+<p><strong>任务：</strong>把下面五个单机概念映射到 MLlib，并写一句注意事项。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>单机概念</th><th>MLlib 对应</th><th>注意事项</th></tr></thead>
+  <tbody>
+    <tr><td>pandas DataFrame</td><td></td><td></td></tr>
+    <tr><td>X 特征矩阵</td><td></td><td></td></tr>
+    <tr><td>Pipeline</td><td></td><td></td></tr>
+    <tr><td>交叉验证</td><td></td><td></td></tr>
+    <tr><td>模型保存</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>能指出 features 向量列这一差异，并能说明什么情况下不该用分布式框架。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-6-5-pipeline-demo.html">4.6.5 端到端实验：从原始表到可用模型</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-6-3-grid-search.html"><span class="p-label">← 上一知识点 4.6.3</span><span class="p-title">网格搜索：把调参变成可复现的实验</span></a><a class="next" href="k4-6-5-pipeline-demo.html"><span class="p-label">下一知识点 4.6.5 →</span><span class="p-title">端到端实验：从原始表到可用模型</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)6 · Spark MLlib</dd>
+    <dt>页面编号 / 路径</dt><dd>4.6.4 ｜ <span class="path">pages/m04-stat-models/k4-6-4-mllib.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-6-1-sklearn-api.html"><b>4.6.1</b>Scikit-Learn 的统一 API</a><a class="xlink" href="k4-6-2-pipeline.html"><b>4.6.2</b>Pipeline：把预处理和模型焊在一起</a><a class="xlink" href="k4-6-5-pipeline-demo.html"><b>4.6.5</b>端到端实验：从原始表到可用模型</a><a class="xlink" href="u4-6-frameworks.html"><b>4.6</b>实现框架：Scikit-Learn 与 Spark MLlib（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-6-4-a.svg（本页图 4-27）。 ｜ 知识库条目：M04-S6-02《Spark MLlib》（filled） ｜ 参考来源：S41 scikit-learn《Getting Started》；S31《Hands-On Machine Learning》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

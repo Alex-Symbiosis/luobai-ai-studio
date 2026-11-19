@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.5.4 XML 的使用方法 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分良构与有效，并说出各自对应的问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-5-corpus-xml.html">11.5 语言数据管理与 XML</a><span class="sep">/</span><span class="here">11.5.4 XML 的使用方法</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.5</span>
+    <span class="tag">知识点 11.5.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>XML 的使用方法</h1>
+  <p class="lede">XML 常被嫌「太啰嗦」，但在语料标注这类需要长期归档、需要校验结构的场景里，它仍然是硬通货。会用 ElementTree 读写，比争论格式优劣有用。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分良构与有效，并说出各自对应的问题。</li><li>能用 ElementTree 创建、写入、解析并查询 XML。</li><li>能解释 <code>findall</code> 与 <code>.//</code> 的查找范围差异。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一份标注文件打不开</h2>
+<p>同事发来一份标注文件，双击能看，程序一读就报错：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">报错 A</span><h3>标签没闭合</h3><p><code>ParseError: mismatched tag</code>：<code>&lt;w&gt;</code> 与 <code>&lt;/text&gt;</code> 交叉嵌套，违反良构。</p></div>
+  <div class="card mini"><span class="mini-tag">报错 B</span><h3>结构不合约定</h3><p>能解析，但缺少 <code>version</code> 属性；程序按约定读不到字段，属于「有效」层面的问题。</p></div>
+</div>
+<p class="ask">「能打开」和「能信任」是一回事吗？</p>
+<p>不是。良构只保证语法正确、能解析；有效才保证符合约定的结构。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>标签是结构，校验是合同</h2>
+<p>XML 像一套自定义的收纳盒：盒子叫什么、装什么，全由你定义；但一旦向别人承诺「文档必有 <code>id</code>」，这份承诺就得靠 schema 来兑现。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="标签是结构，校验是合同">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">标签是结构，校验是合同</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">corpus 根元素</text><text class="f-sc" x="480.0" y="91.0">version + license</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">document</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">单篇文本</text><text class="f-sc" x="180.66666666666666" y="212.0">id + 元数据</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">annotation</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">标注层</text><text class="f-sc" x="480.0" y="212.0">词性 / 实体</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">meta</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">语料信息</text><text class="f-sc" x="779.3333333333333" y="212.0">来源 / 版本</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">解析只保证「能读」，校验才保证「结构符合约定」；两者缺一不可。</text>
+</svg><figcaption><b>图 11-21　标签是结构，校验是合同</b>　根元素声明语料整体信息，document 承载单篇文本，annotation 与 meta 各自成层；层级本身就是数据模型。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>元素表达「是什么在包含什么」，属性表达「这个东西的标识与描述」；结构越清晰，后续转换与校验越省事。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>六个术语与两类门槛</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>术语</th><th>含义</th><th>例子</th></tr></thead>
+  <tbody>
+    <tr><td>元素</td><td>开始标签 + 内容 + 结束标签</td><td><code>&lt;text lang="en"&gt;hi&lt;/text&gt;</code></td></tr>
+    <tr><td>属性</td><td>元素上的键值对</td><td><code>id="d1"</code></td></tr>
+    <tr><td>良构</td><td>嵌套正确、唯一根、属性加引号</td><td>解析的前提</td></tr>
+    <tr><td>有效</td><td>良构且符合 DTD / XSD</td><td>结构合规</td></tr>
+    <tr><td>命名空间</td><td>用 URI 区分同名元素</td><td>避免词表冲突</td></tr>
+    <tr><td>XPath</td><td>在树中定位节点的路径语言</td><td><code>.//w[@pos]</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>解析模型有三种：DOM（<code>ElementTree.parse</code>）整棵树载入内存，适合中小文件；<code>iterparse</code> 边读边处理，适合大文件；SAX 用事件回调，内存占用最低但只能顺序读一次。</p>
+<div class="callout callout--warn">
+  <span class="c-label">findall 只查直接子节点</span>
+  <p><code>root.findall("document")</code> 不会递归；要找任意深度的节点必须写 <code>.//document</code>。这是初学者最常见的「明明有却查不到」。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>创建、写入、解析、查询</h2>
+<p>只用标准库 <code>xml.etree.ElementTree</code>，Python 3.13.14 直接运行，无第三方依赖：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>xml_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：ElementTree 创建、写入、解析与查询 XML。&quot;&quot;&quot;
+import tempfile
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+root = ET.Element(&quot;corpus&quot;, {&quot;name&quot;: &quot;demo&quot;, &quot;version&quot;: &quot;1.0&quot;})
+for i, (text, lang) in enumerate([(&quot;hello world&quot;, &quot;en&quot;), (&quot;你好，世界&quot;, &quot;zh&quot;)], start=1):
+    doc = ET.SubElement(root, &quot;document&quot;, {&quot;id&quot;: f&quot;d{i}&quot;})
+    ET.SubElement(doc, &quot;text&quot;, {&quot;lang&quot;: lang}).text = text
+
+with tempfile.TemporaryDirectory() as tmp:
+    path = Path(tmp) / &quot;corpus.xml&quot;
+    ET.ElementTree(root).write(path, encoding=&quot;utf-8&quot;, xml_declaration=True)
+
+    tree = ET.parse(path)
+    r = tree.getroot()
+    print(&quot;根元素:&quot;, r.tag, r.attrib)
+    docs = r.findall(&quot;document&quot;)
+    print(&quot;文档数:&quot;, len(docs))
+    for doc in docs:
+        node = doc.find(&quot;text&quot;)
+        print(doc.get(&quot;id&quot;), node.get(&quot;lang&quot;), node.text)
+    assert len(docs) == 2
+    assert docs[1].find(&quot;text&quot;).text == &quot;你好，世界&quot;</code></pre>
+</div>
+<p><code>ET.SubElement(parent, tag, attrib)</code> 一步完成「建节点 + 挂到父节点」；<code>encoding="utf-8"</code> 与 <code>xml_declaration=True</code> 要成对出现，否则中文可能按默认编码写坏；<code>node.text</code> 取的是元素内部的文本。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>在 Python 3.13.14 下运行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>根元素: corpus {&#x27;name&#x27;: &#x27;demo&#x27;, &#x27;version&#x27;: &#x27;1.0&#x27;}
+文档数: 2
+d1 en hello world
+d2 zh 你好，世界</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>根元素带版本</h3><p><code>version</code> 写在根属性上，是判断「这批数据是哪一版」的最快入口。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>文档数 2</h3><p><code>findall</code> 按直接子节点计数；若把 <code>document</code> 嵌到别的容器里，同样代码会返回 0。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>中文原样读出</h3><p>UTF-8 写入并带回声明，<code>你好，世界</code> 往返无损；这是语料交换的最低要求。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">良构不等于安全</span>
+  <p>解析外部 XML 时要注意实体扩展攻击；标准库默认不解析外部实体，但生产环境仍应限制文件大小与来源。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给标注加一层</h2>
+<p><strong>任务：</strong>在每篇 <code>document</code> 下加一个 <code>annotation</code> 子元素，内含若干 <code>&lt;w pos="NN"&gt;cat&lt;/w&gt;</code>，再统计每个词性出现次数。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>用 <code>.//w</code> 查询</td><td>与 <code>findall("w")</code> 的差异</td><td></td></tr>
+    <tr><td>统计 <code>pos</code> 属性</td><td>用 <code>Counter</code> 聚合</td><td></td></tr>
+    <tr><td>删掉 <code>version</code></td><td>程序是否需要报错</td><td>有效性检查</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 什么情况下该用 <code>iterparse</code>？② XML 与 JSON 各自更适合哪类语料交换？</p>
+<p><strong>验收：</strong>能创建、写盘、读回并查询嵌套节点；能说清良构与有效的区别。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-5-5-toolbox-demo.html">11.5.5 Toolbox 数据的特点及使用方法</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-5-3-development.html"><span class="p-label">← 上一知识点 11.5.3</span><span class="p-title">语料库的开发方法</span></a><a class="next" href="k11-5-5-toolbox-demo.html"><span class="p-label">下一知识点 11.5.5 →</span><span class="p-title">Toolbox 数据的特点及使用方法</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)5④ · XML 的使用方法</dd>
+    <dt>页面编号 / 路径</dt><dd>11.5.4 ｜ <span class="path">pages/m11-python/k11-5-4-xml.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-5-5-toolbox-demo.html"><b>11.5.5</b>Toolbox 数据的特点及使用方法</a><a class="xlink" href="k11-5-1-corpus-structure.html"><b>11.5.1</b>语料库的结构</a><a class="xlink" href="k11-1-3-modules.html"><b>11.1.3</b>函数、类与模块：把脚本变成工程</a><a class="xlink" href="u11-5-corpus-xml.html"><b>11.5</b>语言数据管理与 XML（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-5-4（本页图 11-21）；知识库 M11-S5-04；输出为本机实测，仅标准库。 ｜ 知识库条目：M11-S5-04《XML 的使用方法》（filled） ｜ 参考来源：S131 ElementTree 文档；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

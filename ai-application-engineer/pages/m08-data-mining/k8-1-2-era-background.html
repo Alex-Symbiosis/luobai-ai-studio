@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.1.2 时代背景：三条技术条件同时成熟 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能列出数据供给、算力与存储、商业需求三条条件，并说明各自缺了会怎样。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-1-what-is-dm.html">8.1 数据挖掘的概念与时代背景</a><span class="sep">/</span><span class="here">8.1.2 时代背景：三条技术条件同时成熟</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.1</span>
+    <span class="tag">知识点 8.1.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>时代背景：三条技术条件同时成熟</h1>
+  <p class="lede">算法比领域早了近一个世纪；数据挖掘能成为独立行当，靠的不是某篇论文，而是三条条件同时到位。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能列出数据供给、算力与存储、商业需求三条条件，并说明各自缺了会怎样。</li><li>能按依赖顺序排列数据库、数据仓库、互联网日志、算力成本这几件事。</li><li>能区分「前提」「加速」与「约束」，不把所有相关事件都写成原因。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>算法早到，领域晚到</h2>
+<p>回归分析在 19 世纪就已经成形，聚类思想在 20 世纪中期也有人做，决策树、神经网络的办法更不缺。可「数据挖掘」作为一个独立领域，要到 1990 年代才被单列出来。</p>
+<p>反差出在数据这一侧：1970 年代以前，企业的交易大多记在纸上，或者散在互不相通的系统里。算法能处理的问题，只能是小样本实验，算不上「从大量数据里找模式」。</p>
+<p class="ask">公式早就有了，为什么这门手艺要等到数据先到位？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三条线一起抬升</h2>
+<p>把挖掘想成抽水：水库要有水，泵要有电，田里要有人要水。三样缺一样，设备再新也抽不上来。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三条条件，缺一条都挖不起来">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三条条件，缺一条都挖不起来</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">条件</text><text class="f-t" x="352.0" y="98">这几十年发生了什么</text><text class="f-t" x="632.0" y="98">缺了会怎样</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">数据量</text><text class="f-s" x="352.0" y="139.0">业务系统与传感器持续记录</text><text class="f-s" x="632.0" y="139.0">样本太少，模式不可信</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">算力</text><text class="f-s" x="352.0" y="183.0">从单机到集群，单位计算变便宜</text><text class="f-s" x="632.0" y="183.0">算法跑不完，只能抽样</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">算法</text><text class="f-s" x="352.0" y="227.0">统计与机器学习方法逐步成熟</text><text class="f-s" x="632.0" y="227.0">有数据也算不出结论</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">商业价值</text><text class="f-s" x="352.0" y="271.0">从记账转向预测与优化</text><text class="f-s" x="632.0" y="271.0">没人出钱，项目停在演示</text><text class="f-s" x="60" y="316">三条线同时到位，数据挖掘才从论文走进业务；少一条，项目就卡在演示。</text>
+</svg><figcaption><b>图 8-3　三条条件，缺一条都挖不起来</b>　三条线同时到位，数据挖掘才从论文走进业务。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="数据量、算力、需求一起抬升">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">数据量、算力、需求一起抬升</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 244 L240 216 L370 180 L500 142 L620 110 L660 102" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">数据量</text><path d="M110 262 L240 236 L370 206 L500 170 L620 142 L660 136" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">算力</text><path d="M110 274 L240 252 L370 226 L500 192 L620 162 L660 152" fill="none" stroke="#3f9b78" stroke-width="2.4"/><line x1="700" y1="110" x2="726" y2="110" stroke="#3f9b78" stroke-width="2.6"/><text class="f-s" x="734" y="114">商业需求</text><circle class="f-pt" cx="620" cy="136" r="6"/><text class="f-s" x="630" y="128">三条线都在抬升</text><text class="f-s" x="880" y="322" text-anchor="end">时间 →</text><text class="f-s" x="92" y="66" text-anchor="end">相对水平</text><text class="f-s" x="100" y="340">三条线不必真的交于一点：只要同时抬升，数据挖掘就具备落地条件。</text>
+</svg><figcaption><b>图 8-4　数据量、算力与需求一起抬升</b>　三条线不必真的交于一点，只要同时抬升，落地条件就具备了。</figcaption></figure>
+<p>图里三条曲线谁高谁低不重要，重要的是方向一致。只抬一条，项目就卡在演示：有数据没算力只能抽样，有算力没数据只能跑玩具，两样都有但没人要，产出就是「正确的废话」。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四件可核实的事</h2>
+<p>这一页不逐年列里程碑。不同教材对具体年份的表述并不一致，记顺序和依赖比记年份有用。四件事按发生顺序排：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>发生了什么</th><th>具体形态</th><th>对挖掘的意义</th></tr></thead>
+  <tbody>
+    <tr><td>关系数据库普及</td><td>交易按表结构记录，字段可查询</td><td>有了可计算的原料</td></tr>
+    <tr><td>数据仓库与 OLAP</td><td>面向主题、集成、随时间变化的数据层</td><td>跨系统口径能对齐，不必每次拼字段</td></tr>
+    <tr><td>互联网日志规模化</td><td>服务器日志与埋点记录点击、停留、跳转</td><td>非交易的行为数据进入素材</td></tr>
+    <tr><td>存储与算力成本下降</td><td>磁盘、并行数据库、集群计算</td><td>全量保留替代抽样，稀有模式才有机会露头</td></tr>
+  </tbody>
+</table>
+</div>
+<p>再往下才是算法：分类、聚类、关联规则、神经网络。它们不是不存在，而是长期缺前面那三样，只能在小数据上证明自己。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三条相乘，不是三条相加</h2>
+<p>三条条件的关系是乘法：任何一条接近零，结果就接近零。没有电子化记录，算法只能处理问卷；没有集成层，团队大部分时间花在对字段；没有商业需求，项目做完也没人接手。</p>
+<p>顺序也不可颠倒：先有记录，才谈集成；先有集成，算法搜索才有意义；先有搜索，才谈得上把模式变成动作。跳过前两步直接建模，常见的结局是「模型成绩不错，但没人知道它对应哪条业务」。</p>
+<p>存储成本下降这一条常被低估。抽样是缺存储时的妥协，代价是稀有模式永远进不了样本；能全量保留之后，「少见但值钱」的组合才有机会被搜到。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「算法进步」当成唯一原因。算法更早、领域更晚，这个时间差本身就说明瓶颈在数据与需求。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三条链路，三种前提</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">零售</span><h3>POS 到购物篮</h3><p>门店收银系统把每笔交易记成明细，会员卡把单据连到人。前提是「同一单据的商品集合」被完整保留；缺了它，只能看单品销量。</p></div>
+  <div class="card mini"><span class="mini-tag">电信</span><h3>详单到离网预警</h3><p>计费系统按通话与流量出详单，套餐变更留下时间点。前提是记录连续且可对齐；中间断档，流失前的行为序列就拼不起来。</p></div>
+  <div class="card mini"><span class="mini-tag">互联网</span><h3>日志到路径分析</h3><p>服务器日志与埋点记录点击顺序。前提是有稳定的用户标识；标识一换，同一个人就被拆成几段，路径分析失去意义。</p></div>
+</div>
+<p>三条链路的共同结构是：业务系统先记录，集成层再统一，算法最后才登场。倒过来做，任何一条链路都会在字段对齐上耗掉大半时间。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>排时间线，写因果</h2>
+<p><strong>任务：</strong>把五件事排到一条时间线上：关系数据库普及、数据仓库与 OLAP、互联网日志规模化、GPU 用于通用计算、隐私法规收紧。再写两条因果解释。</p>
+<p><strong>参考答案：</strong>顺序为数据库 → 数据仓库 → 互联网日志 → GPU 通用计算 → 隐私法规。两条因果可以这样写：数据仓库先解决「口径统一」，否则挖掘的时间全花在对字段；GPU 普及是加速项，让全量训练可行，但它不改变「有没有数据」这个前提。</p>
+<p><strong>验收：</strong>两条因果要分别标明属于「前提」「加速」还是「约束」，不能只罗列事件。隐私法规不是挖掘兴起的原因，而是后来的约束条件。接着看 <a href="../m08-data-mining/k8-1-3-four-tasks.html">四类典型应用</a>，看这些条件成熟后被用来做什么。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-1-3-four-tasks.html">8.1.3 四类典型应用：找关联、分群、预测、异常</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-1-1-what-is-dm.html"><span class="p-label">← 上一知识点 8.1.1</span><span class="p-title">数据很多，知识很少：数据挖掘要解决什么</span></a><a class="next" href="k8-1-3-four-tasks.html"><span class="p-label">下一知识点 8.1.3 →</span><span class="p-title">四类典型应用：找关联、分群、预测、异常</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)1 · 数据挖掘技术产生的时代背景</dd>
+    <dt>页面编号 / 路径</dt><dd>8.1.2 ｜ <span class="path">pages/m08-data-mining/k8-1-2-era-background.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-1-1-what-is-dm.html"><b>8.1.1</b>数据很多，知识很少：数据挖掘要解决什么</a><a class="xlink" href="k8-1-3-four-tasks.html"><b>8.1.3</b>四类典型应用：找关联、分群、预测、异常</a><a class="xlink" href="k8-2-3-data-mining.html"><b>8.2.3</b>数据挖掘：在数据里找「没人告诉过你」的模式</a><a class="xlink" href="u8-1-what-is-dm.html"><b>8.1</b>数据挖掘的概念与时代背景（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-1-2（本页图 8-3）、k8-1-2-b（本页图 8-4）；知识库 M08-S1-02《数据挖掘技术产生的时代背景》（filled）。 ｜ 知识库条目：M08-S1-02《数据挖掘技术产生的时代背景》（filled） ｜ 参考来源：Fayyad, Piatetsky-Shapiro & Smyth, AI Magazine 1996；Han, Kamber & Pei《数据挖掘：概念与技术》；CRISP-DM 1.0；Inmon 数据仓库论述；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

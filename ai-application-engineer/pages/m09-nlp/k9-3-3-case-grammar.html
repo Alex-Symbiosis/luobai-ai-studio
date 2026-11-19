@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.3.3 格语法：动词决定角色 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出施事、受事、工具、处所四类格角色各自回答的问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-3-semantic-grammar.html">9.3 语义分析与扩展语法：转换、系统、格、语义语法</a><span class="sep">/</span><span class="here">9.3.3 格语法：动词决定角色</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.3</span>
+    <span class="tag">知识点 9.3.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>格语法：动词决定角色</h1>
+  <p class="lede">「我打开了门」主语是我，「钥匙打开了门」主语是钥匙，钥匙并不动手，凭什么能当主语？</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出施事、受事、工具、处所四类格角色各自回答的问题。</li><li>能为一个动词写出格框架，区分必选格与可选格。</li><li>能解释「工具格提升为主语」为什么不是拟人。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>钥匙开门</h2>
+<p>三句话：我打开了门。钥匙打开了门。我用钥匙打开了门。</p>
+<p>第一句的主语是「我」，第二句的主语是「钥匙」，第三句把两者都放进去。三句的受事都是「门」，动作都是「打开」。可钥匙明明不是人，怎么会自己开门？</p>
+<p class="ask">主语换了一个，句子为什么还成立？主语到底由什么决定？</p>
+<p>由动词需要的角色决定。动词「打开」要一个被打开的东西，还可以带一个动手的人、一个用的工具。谁填哪个位置，是角色问题，不是主语问题。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>动词定框架</h2>
+<p>格语法把句子拆成两半：一半是命题，由动词加若干格角色组成；另一半是情态，管时态、语气、否定。命题里每个成分都挂一个角色标签，标签由动词的框架规定。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="动词定框架，句子成分按格填">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">动词定框架，句子成分按格填</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">格角色</text><text class="f-t" x="282.0" y="98">回答的问题</text><text class="f-t" x="492.0" y="98">句中成分</text><text class="f-t" x="702.0" y="98">例子</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">施事</text><text class="f-s" x="282.0" y="135.8">谁做的</text><text class="f-s" x="492.0" y="135.8">主语</text><text class="f-s" x="702.0" y="135.8">老师 打开了门</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">受事</text><text class="f-s" x="282.0" y="173.4">对谁做</text><text class="f-s" x="492.0" y="173.4">宾语</text><text class="f-s" x="702.0" y="173.4">打开了 门</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">工具</text><text class="f-s" x="282.0" y="211.0">用什么</text><text class="f-s" x="492.0" y="211.0">介词短语</text><text class="f-s" x="702.0" y="211.0">用 钥匙 打开</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">处所</text><text class="f-s" x="282.0" y="248.60000000000002">在哪里</text><text class="f-s" x="492.0" y="248.60000000000002">介词短语</text><text class="f-s" x="702.0" y="248.60000000000002">在 教室 里</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">目标</text><text class="f-s" x="282.0" y="286.2">给谁</text><text class="f-s" x="492.0" y="286.2">间接宾语</text><text class="f-s" x="702.0" y="286.2">给 学生 讲</text><text class="f-s" x="60" y="328.0">同一个动词换格框架，句子成分就换位置；格角色由动词的语义决定。</text>
+</svg><figcaption><b>图 9-14　动词定框架，句子成分按格填</b>　同一个动词换格框架，句子成分就换位置；格角色由动词的语义决定。</figcaption></figure>
+<p>图上列了四类常见角色：施事回答「谁做的」，受事回答「对谁做」，工具回答「用什么」，处所回答「在哪里」。同一个成分换个位置，角色不变；同一个位置换个成分，角色就变了。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>主语是表层位置，格角色是深层身份。两者不对应，正是格语法要解决的核心问题。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四类角色</h2>
+<p><strong>定义：</strong>格语法（case grammar）由菲尔墨提出，主张句子深层由「动词＋若干格角色」构成，格角色表达成分与动词之间的语义关系。</p>
+<p>常见格角色：<strong>施事</strong>（动作发出者）、<strong>受事</strong>（动作承受者）、<strong>工具</strong>（动作凭借的手段）、<strong>处所</strong>（动作发生的地点）。此外还有目标、来源、经验者等。</p>
+<p>每个动词有一个<strong>格框架</strong>，规定哪些格必选、哪些可选。「打开」的框架是〔施事可选，受事必选，工具可选，处所可选〕：受事不能缺，其余可省。</p>
+<p>要区分「格角色」与「格标记」。汉语没有形态上的格变化，靠语序和介词表示：「用」引出工具，「在……里」引出处所。标记是表层的，角色是深层的；标记可以省，角色不能凭空消失。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>填一遍框架</h2>
+<p>把格框架写成表，再用它检查三句话。表层选谁当主语，另按一条优先级挑：施事优先于工具，工具优先于受事。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>case_frame.py</span></div>
+<pre><code># 动词「打开」的格框架：受事必选，其余可选
+FRAME = {&quot;打开&quot;: {&quot;施事&quot;: False, &quot;受事&quot;: True, &quot;工具&quot;: False, &quot;处所&quot;: False}}
+
+def fill(verb, **roles):
+    missing = [r for r, need in FRAME[verb].items() if need and r not in roles]
+    if missing:
+        return f&quot;缺必选格：{missing}&quot;
+    return f&quot;{verb}：{roles}&quot;
+
+print(fill(&quot;打开&quot;, 施事=&quot;我&quot;, 受事=&quot;门&quot;))
+# 打开：{&#x27;施事&#x27;: &#x27;我&#x27;, &#x27;受事&#x27;: &#x27;门&#x27;}
+print(fill(&quot;打开&quot;, 工具=&quot;钥匙&quot;, 受事=&quot;门&quot;))
+# 打开：{&#x27;工具&#x27;: &#x27;钥匙&#x27;, &#x27;受事&#x27;: &#x27;门&#x27;}
+print(fill(&quot;打开&quot;, 工具=&quot;钥匙&quot;))
+# 缺必选格：[&#x27;受事&#x27;]</code></pre>
+</div>
+<p>三段调用对应三句话。第二段只有工具和受事，施事缺省，句子照样合法，因为施事可选。第三段只剩工具，受事没了，句子不成立。格框架管的是「缺了哪个角色句子就废」，不是「主语必须是谁」。</p>
+<p>表层的主语选择另有一套规则：施事在就施事当主语；施事不在，工具顶上（钥匙打开了门）；工具也没有，受事顶上去（门打开了）。三句主语不同，深层角色表却一致。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三句一张表</h2>
+<p>把三句话并排，角色的对应关系一目了然：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>主语（表层）</th><th>施事</th><th>受事</th><th>工具</th></tr></thead>
+  <tbody>
+    <tr><td>我打开了门</td><td>我</td><td>我</td><td>门</td><td>—</td></tr>
+    <tr><td>钥匙打开了门</td><td>钥匙</td><td>—</td><td>门</td><td>钥匙</td></tr>
+    <tr><td>我用钥匙打开了门</td><td>我</td><td>我</td><td>门</td><td>钥匙</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第二句最容易被误读成「钥匙自己会开门」。按格语法，它只是把工具格提升成了主语，施事缺省，不是拟人。语言里这类句子很多：石头砸破了窗、大风刮倒了树、水冲垮了堤。</p>
+<p>换一个动词，框架跟着换。「给」的框架是〔施事，受事，目标〕，三格都必选：我给他一本书，少一个就说不通。「睡」只要一个施事：他睡了；硬加受事变成「他睡了床」，意思走样。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把主语当成施事。遇到「钥匙打开了门」「门打开了」这类句子就会解释不通；先标角色再看语序，才是正确顺序。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>锤子砸玻璃</h2>
+<p><strong>任务：</strong>给「锤子砸碎了玻璃」和「我用锤子砸碎了玻璃」标注施事、受事、工具，写出「砸」的格框架，并说明哪一句缺施事、为什么仍然合法。</p>
+<p>提示：先找必选格。玻璃是被砸的对象，两句都在；锤子是工具，两句也都在；差别只在施事。</p>
+<p><strong>追问：</strong>① 「玻璃碎了」和「玻璃被砸碎了」在格框架里差什么？② 若把「砸」的工具设为必选，哪些句子会被判不合格？③ 汉语靠哪些手段标出工具格？</p>
+<p><strong>验收：</strong>两句角色表齐全，能说出「锤子作主语是工具格提升，不是施事」，并给出一句受事作主语的例子。系统语法怎么选主语，见 <a href="../m09-nlp/k9-3-2-systemic.html">系统语法</a>；结构怎么承载意义，见 <a href="../m09-nlp/k9-3-4-semantic-grammar.html">语义语法</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-3-4-semantic-grammar.html">9.3.4 语义语法：从结构走向意义</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-3-2-systemic.html"><span class="p-label">← 上一知识点 9.3.2</span><span class="p-title">系统语法：选择网络与元功能</span></a><a class="next" href="k9-3-4-semantic-grammar.html"><span class="p-label">下一知识点 9.3.4 →</span><span class="p-title">语义语法：从结构走向意义</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)3 · 格语法：动词决定角色</dd>
+    <dt>页面编号 / 路径</dt><dd>9.3.3 ｜ <span class="path">pages/m09-nlp/k9-3-3-case-grammar.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-3-2-systemic.html"><b>9.3.2</b>系统语法：选择网络与元功能</a><a class="xlink" href="k9-3-4-semantic-grammar.html"><b>9.3.4</b>语义语法：从结构走向意义</a><a class="xlink" href="u9-3-semantic-grammar.html"><b>9.3</b>语义分析与扩展语法：转换、系统、格、语义语法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-3-3（本页图 9-14）；知识库 M09-S3-03《格语法的概念和特点》（filled）。 ｜ 知识库条目：M09-S3-03《格语法的概念和特点》（filled） ｜ 参考来源：Fillmore《The Case for Case》（1968）；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

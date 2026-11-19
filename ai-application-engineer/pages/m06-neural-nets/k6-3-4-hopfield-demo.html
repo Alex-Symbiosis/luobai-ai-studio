@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.3.4 实现关注点与图案恢复 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按「编码、建权重、算能量、扫描」四步写出一个可用的 Hopfield 实现。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-3-hopfield.html">6.3 离散型霍普菲尔德网络与实现关注点</a><span class="sep">/</span><span class="here">6.3.4 实现关注点与图案恢复</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.3</span>
+    <span class="tag">知识点 6.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>实现关注点与图案恢复</h1>
+  <p class="lede">25 个单元、两个图案、7 位噪声：把建权重、算能量、做恢复三件事一次跑完，每一步都能核对。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按「编码、建权重、算能量、扫描」四步写出一个可用的 Hopfield 实现。</li><li>能读懂能量序列，指出第一个稳定点出现在哪一轮。</li><li>能判断一次恢复失败是噪声越界还是容量超限。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>先写验收清单</h2>
+<p>要把 Hopfield 讲清楚，光有公式不够。课堂上最有效的做法，是拿两个 5×5 图案跑一遍，把每个中间量都打出来：权重对称吗、对角清了吗、翻了几位、能量怎么走。</p>
+<p>这份清单只有四项：图案怎么编码、权重怎么建、能量怎么算、扫描怎么停。四项都对，恢复结果才有意义；任何一项错了，最后那个 True 都不可信。</p>
+<p class="ask">为什么先验证「对称」和「对角为零」，而不是先看恢复成功？</p>
+<p>因为恢复成功可能是巧合——两个图案离得远，随便一组权重也能分开。对称与零对角是结构条件，它们决定能量是否单调；这两条不成立，成功只是碰巧。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>回忆是一条下坡路</h2>
+<p>带噪图案是起点，异步迭代是下坡，稳定输出是终点。整个过程没有「比对模板」这一步，只有局部场与符号函数。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="回忆：给残缺输入，收敛到最近记忆">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">回忆：给残缺输入，收敛到最近记忆</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">带噪图案</text><text class="f-sc" x="117.6" y="154.0">翻几位</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">作为初始状态</text><text class="f-sc" x="298.79999999999995" y="154.0">s(0)</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">异步迭代</text><text class="f-sc" x="480.0" y="154.0">逐单元改写</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">能量下降</text><text class="f-sc" x="661.1999999999999" y="154.0">单调不增</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">稳定输出</text><text class="f-sc" x="842.4" y="154.0">吸引子</text><text class="f-s" x="40" y="244">Hopfield 做的是「按内容寻址」：给一部分内容，补全整个模式。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-15　回忆：给残缺输入，收敛到最近记忆</b>　Hopfield 做的是「按内容寻址」：给一部分内容，补全整个模式。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>补全不是「猜」，是被权重地形决定的必然结果。同样的起点、同样的权重，结果每次都一样。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个实现关注点</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>要做什么</th><th>写错会怎样</th></tr></thead>
+  <tbody>
+    <tr><td>编码</td><td>0/1 → −1/+1</td><td>混进 0，能量与更新失效</td></tr>
+    <tr><td>建权重</td><td>外积累加、除以图案数、对角清零</td><td>能量不单调，可能震荡</td></tr>
+    <tr><td>算能量</td><td>E = −½sᵀWs，带负号与 ½</td><td>读数符号反，看不出下降</td></tr>
+    <tr><td>扫描</td><td>每轮随机顺序，逐单元改写</td><td>同步更新可能出现 2-周期</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四个环节里，「除以图案数」这一条最容易被当成无关紧要。它确实不改吸引子，但改了能量读数：不除，能量会是除以之后的 2 倍。教程里的数值对不上，多半出在这里。</p>
+<p>扫描的停止条件也要写清楚：一整轮没有任何单元改变，或者达到预设轮数上限。前者是真正的收敛，后者只是保险丝。</p>
+<p>比较用 <code>≥</code> 还是 <code>&gt;</code> 也有讲究。取前者时，局部场恰好为 0 会让单元停在 +1，平票算通过；取后者则翻回 −1。两种约定都能收敛，但混用会改变不动点集合，调试前先统一。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>核心就三个函数</h2>
+<p>下面这段是 Demo 的主体骨架：建权重、算能量、做扫描。每轮扫描记录一次能量，用来核对单调性。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>hopfield_recover.py</span></div>
+<pre><code>import numpy as np
+
+def recover(W, s, rng, sweeps=10):
+    n = s.size
+    hist = [energy(W, s)]
+    for _ in range(sweeps):
+        for i in rng.permutation(n):          # 异步：一次一个
+            s[i] = 1.0 if W[i] @ s &gt;= 0 else -1.0
+            hist.append(energy(W, s))
+    return s, hist</code></pre>
+</div>
+<p><code>hist</code> 的长度是 <code>1 + sweeps × n</code>，第一步记的是初始能量，之后每改一个单元记一次。要看「每轮」，用 <code>hist[::n]</code> 抽样即可。</p>
+<p><code>s</code> 是原地修改的，函数返回时已经是被改写过的数组。如果后面还要用原始输入做对比，进函数前先 <code>copy()</code> 一份，否则起点和终点会指向同一个对象。</p>
+<p>演示时建议在函数返回后再算一次能量，看看是否等于 <code>hist</code> 的最后一项。这一步能顺带验证扫描顺序没写错，也验证 <code>energy</code> 与更新用的是同一个 <code>W</code>。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · NumPy 2.5.5 / Python 3.13.14</span></div>
+<pre><code>对称: True  对角线为零: True
+容量上限(0.15N): 3.75
+翻转位数: 7
+恢复一致: True
+能量 起→终: -24.0 → -150.0
+能量单调不增: True
+能量序列(每轮): [-24.0, -150.0, -150.0, -150.0, -150.0, -150.0, -150.0, -150.0, -150.0, -150.0, -150.0]
+P1 无噪恢复: True
+P2 无噪恢复: True</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="能量随更新步数单调下降">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">能量随更新步数单调下降</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 90 L200 120 L290 160 L380 205 L470 240 L560 262 L650 274 L740 280 L860 282" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="860" cy="282" r="6"/><text class="f-s" x="870" y="274">稳定</text><text class="f-s" x="880" y="322" text-anchor="end">步数</text><text class="f-s" x="92" y="66" text-anchor="end">能量 E</text><text class="f-s" x="100" y="340">不是「差不多下降」，而是每一步都不增；这是收敛性的来源。</text>
+</svg><figcaption><b>图 6-16　能量随更新步数单调下降</b>　不是「差不多下降」，而是每一步都不增；这是收敛性的来源。</figcaption></figure>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>两个 True</h3><p>对称与零对角都成立，说明能量单调的前提具备，后面那个 True 才站得住。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>−24 → −150</h3><p>能量降了 126，跨过了好几个坡；起点距离目标 7 位，仍落在同一个域内。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>第二轮起不动</h3><p>每轮抽样显示第一轮之后一直停在 −150，说明 25 次改写内就到达了不动点。</p></div>
+</div>
+<p><strong>怎么读这组数：</strong>「翻转位数 7、恢复一致 True」说明纠错成功；「能量单调不增 True」说明实现符合理论；「第二轮起全是 −150」说明收敛很快，后面九轮是空转。</p>
+<p>两个容易踩的坑。一是把「第一轮就到底」误读成「网络没在工作」——25 次改写已经足够走完下坡。二是把「P1、P2 都恢复」当成容量还很大——两个图案只用了 3.75 个名额中的一半，加到 4 个以上才会看到串扰。</p>
+<p>第三处是统计口径：只跑一次成功说明不了稳。噪声落在哪几位会改变结果，至少要固定同一噪声位数重复二十次，再看恢复次数，单次结果只能当演示。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>改三个参数再跑</h2>
+<p><strong>任务：</strong>在同一份代码上做三组对照，每组只改一处，记录恢复结果与能量终值。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组别</th><th>改动</th><th>想验证什么</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>翻转位数 7 → 12</td><td>域边界大约在哪</td></tr>
+    <tr><td>B</td><td>sweeps 10 → 1</td><td>收敛是否真的在第一轮内完成</td></tr>
+    <tr><td>C</td><td>加入第三个图案</td><td>容量上限 3.75 是否还够用</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① C 组若恢复失败，是噪声越界还是串扰？怎么用「起点距离」与「终点是谁」区分？② 把 <code>W /= len(patterns)</code> 删掉，能量读数变成多少？恢复结果变不变？</p>
+<p><strong>验收：</strong>三组都能用「域、容量、能量尺度」三个词解释，而不是只说「成功了/失败了」。</p>
+</section>
+<p class="sidenote">注：Hopfield 网络在知识库中无对应条目；细纲原回链的 M06-S1-07 实际讲「神经网络参数」，与本节主题不符。本页按经典教材口径自述；示例只用 NumPy，运行口径为 NumPy 2.5.5 + Python 3.13.14，输出为本机实测。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-4-1-parameters.html">6.4.1 参数与超参数</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-3-3-update-rule.html"><span class="p-label">← 上一知识点 6.3.3</span><span class="p-title">离散型更新规则</span></a><a class="next" href="k6-4-1-parameters.html"><span class="p-label">下一知识点 6.4.1 →</span><span class="p-title">参数与超参数</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)13 · Hopfield 网络实现与图案恢复</dd>
+    <dt>页面编号 / 路径</dt><dd>6.3.4 ｜ <span class="path">pages/m06-neural-nets/k6-3-4-hopfield-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-3-1-hopfield-energy.html"><b>6.3.1</b>Hopfield 结构与能量函数</a><a class="xlink" href="k6-3-2-associative-memory.html"><b>6.3.2</b>吸引子与联想记忆</a><a class="xlink" href="k6-3-3-update-rule.html"><b>6.3.3</b>离散型更新规则</a><a class="xlink" href="k6-4-2-initialization.html"><b>6.4.2</b>初始化：不能全零</a><a class="xlink" href="u6-3-hopfield.html"><b>6.3</b>离散型霍普菲尔德网络与实现关注点（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k6-3-4（本页图 6-15）、k6-3-4-b（图 6-16）；Demo d6_3_hopfield.py；知识库无对应条目，按经典教材口径自述。 ｜  ｜ 参考来源：Hopfield 1982, PNAS；S53《深度学习》第 6 章相关章节；输出为 d6_3_hopfield.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

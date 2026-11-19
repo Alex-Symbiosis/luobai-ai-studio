@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.4.4 语句含义与词义相似度 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分真值条件语义与相似度语义两种路线。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-4-parsing.html">11.4 句法分析与语义初探</a><span class="sep">/</span><span class="here">11.4.4 语句含义与词义相似度</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.4</span>
+    <span class="tag">知识点 11.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>语句含义与词义相似度</h1>
+  <p class="lede">「这句话什么意思」有两种答法：说清它在什么情况下为真，或者量出它和另一句话有多近。前者是逻辑，后者是相似度；两条路都不能回答全部问题。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分真值条件语义与相似度语义两种路线。</li><li>能在玩具模型上计算全称、存在、否定量词句的真值。</li><li>能用词级重合度聚合出句级相似度，并说明其局限。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两种「意思差不多」</h2>
+<p>面对「所有猫都跑」这句话，两个系统给出了不同形式的答案：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">系统 A</span><h3>给真值</h3><p>在给定模型里，若论域中每只猫都在「跑」的集合里，返回 True；否则 False。换个模型，真值可能翻转。</p></div>
+  <div class="card mini"><span class="mini-tag">系统 B</span><h3>给相似度</h3><p>把它和「有些猫在跑」都转成向量，算余弦相似度 0.86；但两句话的真值并不相同，甚至可能一真一假。</p></div>
+</div>
+<p class="ask">相似度高，能推出意思相同吗？</p>
+<p>不能。相似度量的是「像不像」，真值条件量的是「什么时候为真」；前者不能替代后者做推理。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>坐标与距离</h2>
+<p>地图上每个城市有坐标，两点之间有距离。坐标回答「在哪」，距离回答「多近」；知道距离近，不等于知道两地的行政关系。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="先量词，再量句">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">先量词，再量句</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">分词</text><text class="f-sc" x="140.25" y="154.0">内容词优先</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">词义相似度</text><text class="f-sc" x="366.75" y="154.0">路径 / 向量余弦</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">按权重聚合</text><text class="f-sc" x="593.25" y="154.0">IDF 或均权</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">句级分数</text><text class="f-sc" x="819.75" y="154.0">0–1 之间</text><text class="f-s" x="40" y="244">词近不代表句近：否定词、语序、修饰关系都会改变句义，聚合只是近似。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 11-17　先量词，再量句</b>　词级相似度逐词计算，再按权重聚合成句级分数；聚合只是近似，否定与语序信息容易丢失。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>真值条件给「含义的坐标」，相似度给「含义之间的距离」；做推理用前者，做检索与聚类用后者。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两条路线与四个语义关系</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>路线</th><th>核心问题</th><th>输出</th><th>典型用途</th></tr></thead>
+  <tbody>
+    <tr><td>真值条件语义</td><td>句子在什么情况下为真</td><td>True / False</td><td>蕴含判断、问答、语义解析</td></tr>
+    <tr><td>分布式 / 相似度</td><td>两段文本有多接近</td><td>0–1 的分数</td><td>检索、聚类、去重</td></tr>
+  </tbody>
+</table>
+</div>
+<p>真值条件语义依赖三个要素：论域（有哪些个体）、解释函数（谓词对应哪些个体）、组合规则（意义如何随结构组合）。量词是最容易出错的部分：全称在空类上为真（vacuous truth），存在在空类上为假，否定存在则又为真。</p>
+<p>相似度一侧，常用 Jaccard（集合交并比）、余弦（向量夹角）与编辑距离。词级分数聚合成句级分数时，权重、否定词与语序都会被简化，所以它适合「找候选」，不适合「下结论」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先算真值，再算相似度</h2>
+<p>第一段在玩具模型上计算量词句的真值，只依赖标准库：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>semantics_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：在玩具模型上计算量词句的真值（仅标准库）。&quot;&quot;&quot;
+DOMAIN = {&quot;alice&quot;, &quot;bob&quot;, &quot;cat1&quot;}
+CAT = {&quot;cat1&quot;}
+RUN = {&quot;cat1&quot;, &quot;alice&quot;}
+DOG: set[str] = set()
+
+
+def all_(p: set[str], q: set[str]) -&gt; bool:
+    &quot;&quot;&quot;∀x(P(x) → Q(x))：论域内每个 P 都属于 Q。&quot;&quot;&quot;
+    return all((x not in p) or (x in q) for x in DOMAIN)
+
+
+def some(p: set[str], q: set[str]) -&gt; bool:
+    &quot;&quot;&quot;∃x(P(x) ∧ Q(x))：论域内存在同时属于 P 与 Q 的个体。&quot;&quot;&quot;
+    return any((x in p) and (x in q) for x in DOMAIN)
+
+
+def none(p: set[str], q: set[str]) -&gt; bool:
+    &quot;&quot;&quot;¬∃x(P(x) ∧ Q(x))。&quot;&quot;&quot;
+    return not some(p, q)
+
+
+cases = [
+    (&quot;All cats run&quot;, all_(CAT, RUN)),
+    (&quot;Some cats run&quot;, some(CAT, RUN)),
+    (&quot;No cats run&quot;, none(CAT, RUN)),
+    (&quot;All dogs run&quot;, all_(DOG, RUN)),
+]
+for sentence, truth in cases:
+    print(f&quot;{sentence}: {truth}&quot;)
+
+assert all_(CAT, RUN) is True
+assert some(CAT, RUN) is True
+assert none(CAT, RUN) is False
+assert all_(DOG, RUN) is True   # 空类上的全称为真（vacuous truth）</code></pre>
+</div>
+<p>第二段用词集合的重合度近似句级相似度：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>similarity.py</span></div>
+<pre><code>def jaccard(a: str, b: str) -&gt; float:
+    sa, sb = set(a.lower().split()), set(b.lower().split())
+    return len(sa &amp; sb) / len(sa | sb)
+
+
+pairs = [
+    (&quot;the cat sat on the mat&quot;, &quot;a cat sat on a mat&quot;),
+    (&quot;the cat sat on the mat&quot;, &quot;the dog sat on the log&quot;),
+    (&quot;the cat sat on the mat&quot;, &quot;the weather is nice&quot;),
+]
+for a, b in pairs:
+    print(f&quot;{jaccard(a, b):.2f}&quot;, a, &quot;|&quot;, b)</code></pre>
+</div>
+<p>Jaccard 只看词集合，不看语序与否定；<code>not good</code> 与 <code>good</code> 会因为共享 <code>good</code> 而得到不低的分数。这就是「先量词、再量句」的固有损失。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两段实测输出</h2>
+<p>运行 <code>python semantics_demo.py</code>：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>All cats run: True
+Some cats run: True
+No cats run: False
+All dogs run: True</code></pre>
+</div>
+<p>运行 <code>python similarity.py</code>：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>0.67 the cat sat on the mat | a cat sat on a mat
+0.43 the cat sat on the mat | the dog sat on the log
+0.12 the cat sat on the mat | the weather is nice</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三组句对的相似度排序">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">三组句对的相似度排序</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="159.29999999999998" width="119.60000000000001" height="140.70000000000002" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="230.0" y="151.29999999999998">67</text><text class="f-sc" x="230.0" y="318">同义改写</text><rect x="430.2" y="209.7" width="119.60000000000001" height="90.3" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="490.0" y="201.7">43</text><text class="f-sc" x="490.0" y="318">部分重叠</text><rect x="690.2" y="274.8" width="119.60000000000001" height="25.200000000000003" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="750.0" y="266.8">12</text><text class="f-sc" x="750.0" y="318">主题相近</text><text class="f-s" x="100" y="344">三组句对按聚合分数排序；数值对应该页实测的 Jaccard 分数。</text>
+</svg><figcaption><b>图 11-17 附　三组句对的相似度排序</b>　柱高对应该页上面实测的 Jaccard 分数：0.67 / 0.43 / 0.12；分数越高只说明词面越像，不代表含义相同。</figcaption></figure>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>空类全称为真</h3><p>论域里没有狗，<code>All dogs run</code> 仍返回 True；这是逻辑定义，不是常识判断。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>0.67 来自冠词替换</h3><p>两句只差 <code>the / a</code>，集合交并比仍被拉低；停用词会显著影响分数。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>0.43 是换了主语与宾语</h3><p>结构相同、内容词不同，分数中等；相似度无法指出是哪个成分变了。</p></div>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>让一句话从假变真</h2>
+<p><strong>任务：</strong>只改模型，不改函数，让 <code>No cats run</code> 从 False 变成 True；再写一组带否定的句对，观察 Jaccard 的失真。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>改哪个集合</th><th>预期真值</th></tr></thead>
+  <tbody>
+    <tr><td>让「没有猫跑」为真</td><td></td><td>True</td></tr>
+    <tr><td>让「所有狗跑」为假</td><td></td><td>False</td></tr>
+    <tr><td>句对 good / not good</td><td>Jaccard 分数</td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么「所有猫跑」蕴含「有些猫跑」需要额外假定？② 做语义检索时，选真值条件还是相似度，取决于什么？</p>
+<p><strong>验收：</strong>改动只涉及模型数据，函数不变；能说清两种路线各自不能回答什么。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-5-1-corpus-structure.html">11.5.1 语料库的结构</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-4-3-tree-stats.html"><span class="p-label">← 上一知识点 11.4.3</span><span class="p-title">句法树生成与结构统计</span></a><a class="next" href="k11-5-1-corpus-structure.html"><span class="p-label">下一知识点 11.5.1 →</span><span class="p-title">语料库的结构</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)4③ · 分析语句的含义</dd>
+    <dt>页面编号 / 路径</dt><dd>11.4.4 ｜ <span class="path">pages/m11-python/k11-4-4-similarity-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-4-1-sentence-structure.html"><b>11.4.1</b>句子结构与成分分析</a><a class="xlink" href="k11-4-3-tree-stats.html"><b>11.4.3</b>句法树生成与结构统计</a><a class="xlink" href="k11-3-4-error-analysis.html"><b>11.3.4</b>准确率、混淆矩阵与误差分析</a><a class="xlink" href="u11-4-parsing.html"><b>11.4</b>句法分析与语义初探（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-4-4（本页图 11-17）；辅图 1 张：k11-4-4-b；知识库 M11-S4-03；两段输出均为本机实测。 ｜ 知识库条目：M11-S4-03《分析语句的含义》（filled） ｜ 参考来源：S118 Jurafsky & Martin；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

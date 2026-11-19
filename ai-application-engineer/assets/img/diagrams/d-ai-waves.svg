@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-label="人工智能三次浪潮与两次寒冬的时间轴">
+  <style>
+    .d4-axis{stroke:#c8d7ea;stroke-width:1.2}
+    .d4-tick{stroke:#c8d7ea;stroke-width:1}
+    .d4-yr{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80;text-anchor:middle}
+    .d4-curve{fill:none;stroke:#1f5fd0;stroke-width:2.4}
+    .d4-dot{fill:#ffffff;stroke:#1f5fd0;stroke-width:2}
+    .d4-ev{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:10.5px;fill:#123a78;text-anchor:middle}
+    .d4-wband{fill:#fdf3e2;stroke:#f0dcb8;stroke-width:1;stroke-dasharray:4 4}
+    .d4-wl{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#a9670a;text-anchor:middle}
+    .d4-era{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80;text-anchor:middle}
+  </style>
+
+  <rect class="d4-wband" x="353" y="58" width="60" height="218"/>
+  <rect class="d4-wband" x="529" y="58" width="60" height="218"/>
+  <text class="d4-wl" x="383" y="48">第一次寒冬</text>
+  <text class="d4-wl" x="559" y="48">第二次寒冬</text>
+
+  <line class="d4-axis" x1="70" y1="276" x2="910" y2="276"/>
+
+  <path class="d4-curve" d="M70,238 C110,232 170,132 226,126 C285,120 320,250 353,256 C382,262 400,261 412,254 C440,238 448,152 461,146 C492,132 512,250 529,256 C552,264 572,260 588,250 C612,236 620,150 627,144 C690,126 730,104 773,100 C822,96 872,88 910,84"/>
+
+  <line class="d4-tick" x1="99" y1="272" x2="99" y2="282"/>
+  <line class="d4-tick" x1="226" y1="272" x2="226" y2="282"/>
+  <line class="d4-tick" x1="353" y1="272" x2="353" y2="282"/>
+  <line class="d4-tick" x1="461" y1="272" x2="461" y2="282"/>
+  <line class="d4-tick" x1="529" y1="272" x2="529" y2="282"/>
+  <line class="d4-tick" x1="627" y1="272" x2="627" y2="282"/>
+  <line class="d4-tick" x1="773" y1="272" x2="773" y2="282"/>
+  <line class="d4-tick" x1="910" y1="272" x2="910" y2="282"/>
+
+  <text class="d4-yr" x="99" y="296">1943</text>
+  <text class="d4-yr" x="226" y="296">1956</text>
+  <text class="d4-yr" x="353" y="296">1969</text>
+  <text class="d4-yr" x="461" y="296">1980</text>
+  <text class="d4-yr" x="529" y="296">1987</text>
+  <text class="d4-yr" x="627" y="296">1997</text>
+  <text class="d4-yr" x="773" y="296">2012</text>
+  <text class="d4-yr" x="910" y="296">2026</text>
+
+  <circle class="d4-dot" cx="226" cy="126" r="4.5"/>
+  <text class="d4-ev" x="226" y="110">达特茅斯会议</text>
+  <circle class="d4-dot" cx="353" cy="256" r="4.5"/>
+  <circle class="d4-dot" cx="461" cy="146" r="4.5"/>
+  <text class="d4-ev" x="461" y="130">专家系统兴起</text>
+  <circle class="d4-dot" cx="529" cy="256" r="4.5"/>
+  <circle class="d4-dot" cx="627" cy="144" r="4.5"/>
+  <text class="d4-ev" x="627" y="128">深蓝战胜棋王</text>
+  <circle class="d4-dot" cx="773" cy="100" r="4.5"/>
+  <text class="d4-ev" x="773" y="84">AlexNet</text>
+
+  <text class="d4-era" x="290" y="336">符号主义与早期乐观 1956–1969</text>
+  <text class="d4-era" x="495" y="336">专家系统产业化 1980–1987</text>
+  <text class="d4-era" x="800" y="336">深度学习与规模化 2012–</text>
+</svg>

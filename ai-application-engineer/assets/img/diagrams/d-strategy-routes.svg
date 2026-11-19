@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" role="img" aria-label="四种国家人工智能战略路线对比">
+  <style>
+    .d7-card{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.4}
+    .d7-head{fill:#1f5fd0}
+    .d7-head2{fill:#2f74e0}
+    .d7-hd{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#ffffff;text-anchor:middle}
+    .d7-k{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d7-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11px;fill:#5a6b80;text-anchor:middle}
+    .d7-base{fill:#eef4ff;stroke:#cfe0ff;stroke-width:1.4}
+    .d7-bt{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;fill:#123a78;text-anchor:middle}
+  </style>
+
+  <rect class="d7-card" x="20" y="56" width="210" height="170" rx="14"/>
+  <path d="M20,70 a14,14 0 0 1 14,-14 h182 a14,14 0 0 1 14,14 v16 h-210 z" class="d7-head"/>
+  <text class="d7-hd" x="125" y="56" dy="16">美国</text>
+  <text class="d7-k" x="125" y="112">市场 + 基础研究</text>
+  <text class="d7-s" x="125" y="138">企业主导，联邦研发投入</text>
+  <text class="d7-s" x="125" y="158">风险投资活跃</text>
+  <text class="d7-s" x="125" y="186">关键词：领先</text>
+
+  <rect class="d7-card" x="250" y="56" width="210" height="170" rx="14"/>
+  <path d="M250,70 a14,14 0 0 1 14,-14 h182 a14,14 0 0 1 14,14 v16 h-210 z" class="d7-head2"/>
+  <text class="d7-hd" x="355" y="56" dy="16">欧盟</text>
+  <text class="d7-k" x="355" y="112">监管先行</text>
+  <text class="d7-s" x="355" y="138">以可信 AI 与合规换信任</text>
+  <text class="d7-s" x="355" y="158">统一市场规则</text>
+  <text class="d7-s" x="355" y="186">关键词：可信</text>
+
+  <rect class="d7-card" x="480" y="56" width="210" height="170" rx="14"/>
+  <path d="M480,70 a14,14 0 0 1 14,-14 h182 a14,14 0 0 1 14,14 v16 h-210 z" class="d7-head"/>
+  <text class="d7-hd" x="585" y="56" dy="16">日本</text>
+  <text class="d7-k" x="585" y="112">社会问题导向</text>
+  <text class="d7-s" x="585" y="138">Society 5.0 与少子老龄化</text>
+  <text class="d7-s" x="585" y="158">产业与生活场景融合</text>
+  <text class="d7-s" x="585" y="186">关键词：共生</text>
+
+  <rect class="d7-card" x="710" y="56" width="230" height="170" rx="14"/>
+  <path d="M710,70 a14,14 0 0 1 14,-14 h202 a14,14 0 0 1 14,14 v16 h-230 z" class="d7-head2"/>
+  <text class="d7-hd" x="825" y="56" dy="16">中国</text>
+  <text class="d7-k" x="825" y="112">规划牵引 + 产业落地</text>
+  <text class="d7-s" x="825" y="138">三步走目标，场景开放</text>
+  <text class="d7-s" x="825" y="158">制造与城市治理先行</text>
+  <text class="d7-s" x="825" y="186">关键词：融合</text>
+
+  <rect class="d7-base" x="20" y="252" width="920" height="50" rx="12"/>
+  <text class="d7-bt" x="480" y="282">共同要素：人才储备 · 数据供给 · 算力基础设施 · 标准与治理 · 产业应用</text>
+</svg>

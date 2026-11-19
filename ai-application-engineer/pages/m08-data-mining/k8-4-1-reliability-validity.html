@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.4.1 信度与效度：数据可靠吗，结论算数吗 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「重复测量是否一致」判断信度，用「是否测到目标构念」判断效度。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-4-big-data-thinking.html">8.4 大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环</a><span class="sep">/</span><span class="here">8.4.1 信度与效度：数据可靠吗，结论算数吗</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.4</span>
+    <span class="tag">知识点 8.4.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>信度与效度：数据可靠吗，结论算数吗</h1>
+  <p class="lede">同一份问卷隔一周再测，分数掉了一截；同一套指标，测的根本不是你要的东西——这是两个问题。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「重复测量是否一致」判断信度，用「是否测到目标构念」判断效度。</li><li>能把四个业务场景判进「高信度低效度」等四种组合，并说出修法。</li><li>能为一个指标写出定义、口径、采集环节与一次复测方案。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两个问题，一起出现</h2>
+<p>一家在线教育公司每月做一次学员满意度调研，5 分制。三月平均 4.2，四月把同一份问卷发给同一批学员，平均 3.6。运营说「满意度掉了」，课程负责人说「人没换、课没改，怎么会掉」。</p>
+<p>另一件事同时发生：客服质检用一套自动打分，只统计语速、关键词命中数和通话时长，却被拿来考核「服务态度」。同一通录音跑两次，分数能差 20 分。</p>
+<p>第一个问题问的是稳不稳，第二个问题问的是准不准。它们经常一起出现，修法却完全不同：前者要改测量过程，后者要改测量内容。</p>
+<p class="ask">同一份数据，凭什么说它「不可靠」和「不算数」是两件事？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>聚不聚，中不中</h2>
+<p>把测量想成打靶：每次测量是一发子弹，靶心是你要测的那个真值。</p>
+<p>弹着点聚在一起，说明重复测量一致，这是信度；弹着点的中心落在靶心附近，说明测的就是那件事，这是效度。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="可靠不等于正确">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">可靠不等于正确</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">信度：测得稳不稳</text><text class="f-s" x="80" y="108">· 同一对象重复测，结果一致</text><text class="f-s" x="80" y="138">· 换人、换时间、换设备都稳定</text><text class="f-s" x="80" y="168">· 主要关注随机误差</text><text class="f-s" x="80" y="198">· 高信度不代表测对了</text><text class="f-s" x="80" y="228">· 检查方法：重测、分半</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">效度：测的是不是那件事</text><text class="f-s" x="530" y="108">· 测到的正是要测的概念</text><text class="f-s" x="530" y="138">· 换测量方式仍指向同一结论</text><text class="f-s" x="530" y="168">· 主要关注系统偏差</text><text class="f-s" x="530" y="198">· 高效度通常以信度为前提</text><text class="f-s" x="530" y="228">· 检查方法：对照、专家评审</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 8-29　可靠不等于正确</b>　信度看结果稳不稳，效度看结果是不是那件事；两者检查方法不同，不能互相替代。</figcaption></figure>
+<p>四种组合都会出现。又聚又中，数据可以进决策；聚但偏，每次错得一样，最危险，因为稳定会让人误以为正确；散但平均落在中心，个体值不能信，大样本均值还能用；又散又偏，两头都丢。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="靶心图：聚不聚看信度，偏不偏看效度">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">靶心图：聚不聚看信度，偏不偏看效度</text><circle cx="250" cy="110" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="110" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="110" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="244" cy="104" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="256" cy="110" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="250" cy="118" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="258" cy="102" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="246" cy="112" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="250" y="180">信度高 · 效度高</text><text class="f-sc" x="250" y="198">稳且准，可以拿来决策</text><circle cx="710" cy="110" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="110" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="110" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="722" cy="124" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="732" cy="130" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="726" cy="136" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="736" cy="120" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="728" cy="128" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="710" y="180">信度高 · 效度低</text><text class="f-sc" x="710" y="198">每次都偏在同一处</text><circle cx="250" cy="252" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="252" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="252" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="226" cy="232" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="272" cy="244" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="240" cy="276" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="266" cy="266" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="252" cy="254" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="250" y="322">信度低 · 效度高</text><text class="f-sc" x="250" y="340">平均下来落在中心</text><circle cx="710" cy="252" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="252" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="252" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="680" cy="230" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="742" cy="242" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="700" cy="282" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="752" cy="268" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="716" cy="250" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="710" y="322">信度低 · 效度低</text><text class="f-sc" x="710" y="340">又散又偏，两头都丢</text>
+</svg><figcaption><b>图 8-30　靶心图：聚不聚看信度，偏不偏看效度</b>　同一张靶上四种弹着分布，对应四种数据质量状态与四种处置方式。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">一句记住</span>
+  <p>信度高只说明每次量得一样；量得一样，不代表量的是长度。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两个词，四种检验</h2>
+<p><strong>信度：</strong>同一对象重复测量时结果的一致程度，分重测、评分者、内部一致三类。</p>
+<p><strong>效度：</strong>测量是否真的测到了它声称要测的构念，分内容、效标、区分三类。内容看题目覆盖，效标看与已知结果的相关，区分看与无关指标是否划得开。</p>
+<p>两者的关系不对称：信度是效度的必要条件，不是充分条件。信度低时效度不可能高，信度高时效度可以很低。</p>
+<p>落到业务数据上，「测量」不只是问卷，也包括埋点、评分卡、自动打分与人工标注；任何环节换人、换版本、换口径，都要重新问一次信度。</p>
+<div class="callout callout--warn">
+  <span class="c-label">口径说明</span>
+  <p>本页把信度与效度当作检查业务数据的思维工具使用，属于方法论，非学术共识；心理测量学内部对两者的定义与估计方法仍有不同流派，工程上取「可复现 + 指向目标」这层意思即可。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先修稳，再修准</h2>
+<p>信度四条检查：①重测——同一批对象隔一周再测，看两次结果是否一致；②分半——题目按奇偶分成两半，比较两半得分；③评分者——两人独立评同一批样本，算一致率；④内部一致——同一构念的题目是否同向。</p>
+<p>效度三条检查：①内容——把构念的主要方面列出来，逐条看题目覆盖没有；②效标——找一个已可信的结果对照，如满意度与续费率；③区分——与无关指标做相关，太高反而说明测混了。</p>
+<p>落地成一张指标卡，四行：定义、口径、采集、复测。缺哪一行，这个指标就不能单独拿去做结论。</p>
+<p>顺序不能反：先修信度，再谈效度。测量本身在抖，讨论「测得准不准」没有意义。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>四张靶纸，四种判法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>观察到什么</th><th>判定</th><th>先做什么</th></tr></thead>
+  <tbody>
+    <tr><td>电子秤零点偏移 -0.3kg</td><td>连称 5 次读数一致</td><td>高信度 · 低效度</td><td>校准，不改称法</td></tr>
+    <tr><td>新员工问卷</td><td>个人答案每次差异大，200 人均值 3.8 与离职率吻合</td><td>低信度 · 高效度</td><td>个体不可用，群体均值可用</td></tr>
+    <tr><td>自动质检打分</td><td>同一录音两次差 20 分，且与人工评级方向不一致</td><td>低信度 · 低效度</td><td>先固定评分规则与输入</td></tr>
+    <tr><td>技能测评</td><td>两次排名一致，与三个月后实操考核相关 0.6</td><td>高信度 · 高效度</td><td>可用于筛选，仍需定期复测</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第三个例子最容易被误判：分数不稳时，人常怪「模型不行」，其实先要查输入、版本和评分规则有没有固定。相关 0.6 也只是支持效度的一条证据，不是证明。</p>
+<p>第二个例子要单独说：低信度高效度只在「平均」时成立。200 人的均值能抵消随机误差，单个人的 3.8 分没有意义。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写一张指标卡</h2>
+<p><strong>任务：</strong>给「课程完课率」写一张指标卡：定义、口径（分母是报名还是开课）、采集环节、复测方案；再找一个效标（续费率或测评通过率）。</p>
+<p><strong>追问：</strong>① 同一指标换口径后数值变了，这是信度问题还是效度问题？② 一个指标很稳定但业务方说「没用」，先查哪一边？③ 自动打分「两次差 20 分」该记在信度还是效度？</p>
+<p><strong>验收：</strong>四种组合能说清理由；能写一条重测方案；知道「稳定」不能代替「有效」。下一步把问题切开再比较，见 <a href="../m08-data-mining/k8-4-2-classification-thinking.html">分类思维：先把问题切开</a>；数据分析与数据挖掘的分工，见 <a href="../m08-data-mining/k8-2-3-data-mining.html">数据挖掘：在数据里找「没人告诉过你」的模式</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-4-2-classification-thinking.html">8.4.2 分类思维：先把问题切开</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-3-6-profiling-deviation.html"><span class="p-label">← 上一知识点 8.3.6</span><span class="p-title">特征分析与偏差分析：先看「长什么样」，再找「哪里不对」</span></a><a class="next" href="k8-4-2-classification-thinking.html"><span class="p-label">下一知识点 8.4.2 →</span><span class="p-title">分类思维：先把问题切开</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)4 · 信度与效度</dd>
+    <dt>页面编号 / 路径</dt><dd>8.4.1 ｜ <span class="path">pages/m08-data-mining/k8-4-1-reliability-validity.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-4-2-classification-thinking.html"><b>8.4.2</b>分类思维：先把问题切开</a><a class="xlink" href="k8-4-6-index-closed-loop.html"><b>8.4.6</b>指数化与闭环：让比较公平，让行动可回收</a><a class="xlink" href="k8-2-3-data-mining.html"><b>8.2.3</b>数据挖掘：在数据里找「没人告诉过你」的模式</a><a class="xlink" href="u8-4-big-data-thinking.html"><b>8.4</b>大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-4-1（本页图 8-29）、k8-4-1-b（图 8-30）；知识库 M08-S3-01《信度与效度思维的概念及区别》（filled）。 ｜ 知识库条目：M08-S3-01《信度与效度思维的概念及区别》（filled） ｜ 参考来源：经典测验理论（Classical Test Theory）关于信度与效度的基本口径；AERA/APA/NCME《教育与心理测验标准》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

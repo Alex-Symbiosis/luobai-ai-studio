@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.1.3 1.x 与 2.x：计算图、会话与 Eager · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 1.x「先建图、后开会话」与 2.x「调用即计算」的执行差别。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-1-tf-basics.html">10.1 TensorFlow 的概念、特点与工具包</a><span class="sep">/</span><span class="here">10.1.3 1.x 与 2.x：计算图、会话与 Eager</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.1</span>
+    <span class="tag">知识点 10.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>1.x 与 2.x：计算图、会话与 Eager</h1>
+  <p class="lede">考纲写的是「计算图、会话」，你装好的 2.21 里却一行 Session 都找不到。这不是教材错了，而是它描述的是 1.x——两种范式都得认识。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 1.x「先建图、后开会话」与 2.x「调用即计算」的执行差别。</li><li>能解释 tf.function 为什么在 2.x 里仍然重要。</li><li>能把一段 1.x 写法改写成等价的 2.x 写法，并说明结果为何一致。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>教材和屏幕对不上</h2>
+<p>照着教材敲：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>教材上的 1.x 写法（在 2.x 下会报错）</span></div>
+<pre><code>import tensorflow as tf
+
+a = tf.placeholder(tf.float32)
+b = tf.placeholder(tf.float32)
+c = a + b
+
+with tf.Session() as sess:
+    print(sess.run(c, feed_dict={a: 3.0, b: 4.0}))</code></pre>
+</div>
+<p>在 TF 2.21 里运行会得到 <code>AttributeError: module 'tensorflow' has no attribute 'placeholder'</code>。同一个目的，2.x 只需要两行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>等价的 2.x 写法</span></div>
+<pre><code>import tensorflow as tf
+
+a = tf.constant(3.0)
+b = tf.constant(4.0)
+print((a + b).numpy())</code></pre>
+</div>
+<p class="ask">「图」消失了吗？</p>
+<p>没有。它从「你必须手动搭的东西」变成了「框架在需要时替你生成的东西」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先画图纸，还是边做边改</h2>
+<p>1.x 像装修：先出完整施工图，再交给施工队按图施工；图一旦建好，改动就要重建。2.x 像搭积木：放一块就能看到结果，错了立刻拆。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一段加法，两种求值路径">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一段加法，两种求值路径</text><rect class="f-red" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">1.x：先建图，再开会话</text><text class="f-s" x="80" y="108">· placeholder 只占位，没有值</text><text class="f-s" x="80" y="138">· a + b 只是往图里加节点</text><text class="f-s" x="80" y="168">· Session.run 才真正计算</text><text class="f-s" x="80" y="198">· 好处：图可整体优化</text><text class="f-s" x="80" y="228">· 代价：调试只能看节点名</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">2.x：调用即计算</text><text class="f-s" x="530" y="108">· 默认 Eager，逐条立即求值</text><text class="f-s" x="530" y="138">· 可以直接 print、断点、判空</text><text class="f-s" x="530" y="168">· tf.function 把函数编译成图</text><text class="f-s" x="530" y="198">· 好处：写起来像 NumPy</text><text class="f-s" x="530" y="228">· 代价：图模式下有额外约束</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 10-3　同一段加法，两种求值路径</b>　考点按 1.x 描述，工程按 2.x 落地；两者算出的数值完全一致。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>Eager 优先解决「调试」：能 print、能断点、能按 Python 逻辑分支。图模式解决「速度」：能整体优化、能脱离 Python 执行。<code>tf.function</code> 就是两者的接口。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个词，一条时间线</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>术语</th><th>属于</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><td>计算图（graph）</td><td>1.x 核心，2.x 可选</td><td>节点是运算、边是数据的依赖图</td></tr>
+    <tr><td>会话（Session）</td><td>1.x</td><td>执行图的入口，负责分配资源并运行节点</td></tr>
+    <tr><td>Eager Execution</td><td>2.x 默认</td><td>调用即求值，行为接近 NumPy</td></tr>
+    <tr><td><code>tf.function</code></td><td>2.x</td><td>把 Python 函数追踪成图，兼顾速度与部署</td></tr>
+  </tbody>
+</table>
+</div>
+<p>时间线：TF 1.0（2017）以图与会话为核心；TF 2.0（2019）默认 Eager，把 <code>tf.function</code> 作为「需要图时」的开关；TF 2.16 起默认搭配 Keras 3。所以考纲的原词要保留，但代码必须按 2.x 写。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>2.x 下先跑一遍即时执行</h2>
+<p>本页只演示 2.x 的一半；1.x 的会话写法在 <a href="k10-2-3-session.html">k10-2-3</a> 用 <code>tf.compat.v1</code> 完整对照，那里会真正关闭 Eager，必须单独开进程。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>tf1_vs_tf2.py</span></div>
+<pre><code>import tensorflow as tf
+
+# 2.x 的默认写法：调用即求值
+a = tf.constant(3.0)
+b = tf.constant(4.0)
+print(&quot;2.x eager:&quot;, (a + b).numpy())
+
+# 1.x 的写法（需在独立进程中先关闭 eager，完整对照见 k10-2-3）
+# c = tf.compat.v1.placeholder(tf.float32, shape=[])
+# sess.run(c, feed_dict={c: 7.0})</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>2.x eager: 7.0</code></pre>
+</div>
+<p><code>tf.function</code> 的用法只多一个装饰器：函数体照常写 Python，首次调用时被追踪成图，之后同形状输入直接复用图。这也带来约束——函数里不能依赖 Python 的副作用（例如往列表里 append 后指望下次还能读到）。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一件事的三种写法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>目的</th><th>1.x</th><th>2.x</th></tr></thead>
+  <tbody>
+    <tr><td>放一个数</td><td><code>tf.placeholder(tf.float32)</code></td><td><code>tf.constant(3.0)</code></td></tr>
+    <tr><td>执行</td><td><code>sess.run(c, feed_dict=...)</code></td><td>直接 <code>c.numpy()</code></td></tr>
+    <tr><td>求梯度</td><td><code>tf.gradients</code> + <code>sess.run</code></td><td><code>tf.GradientTape</code></td></tr>
+    <tr><td>要图加速</td><td>默认就是图</td><td><code>@tf.function</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意 <code>tf.compat.v1</code> 不是「1.x 代码原样能跑」的保险箱：它提供同名 API 与 <code>Session</code>，但要真正进入图模式，仍需 <code>tf.compat.v1.disable_eager_execution()</code>，而这一步不可逆——所以只能放在单独脚本里。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把一段 1.x 改写掉</h2>
+<p><strong>任务：</strong>把下面这段改写成 2.x Eager 写法，保持输出一致。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>待改写片段</span></div>
+<pre><code>import tensorflow as tf
+tf.compat.v1.disable_eager_execution()   # 必须放在最前，且不可逆
+
+x = tf.compat.v1.placeholder(tf.float32, shape=[2])
+w = tf.Variable([2.0, 3.0])
+y = x * w
+
+with tf.compat.v1.Session() as sess:
+    sess.run(tf.compat.v1.global_variables_initializer())
+    print(sess.run(y, feed_dict={x: [1.0, 10.0]}))</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>placeholder → constant</td><td>还需不需要 feed</td><td>值直接写在张量里</td></tr>
+    <tr><td>删掉 Session</td><td>结果怎么取</td><td><code>.numpy()</code></td></tr>
+    <tr><td>变量初始化</td><td>2.x 还需不需要显式 init</td><td>创建时即已初始化</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>disable_eager_execution()</code> 一旦调用就无法恢复？② 什么场景下 2.x 反而要主动加 <code>@tf.function</code>？</p>
+<p><strong>验收：</strong>改写后输出为 <code>[2.0, 30.0]</code>，且全脚本不出现 <code>Session</code>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-1-4-minimal-demo.html">10.1.4 最小训练脚本与模型摘要</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-1-2-toolkit.html"><span class="p-label">← 上一知识点 10.1.2</span><span class="p-title">工具包地图：keras、data、TensorBoard</span></a><a class="next" href="k10-1-4-minimal-demo.html"><span class="p-label">下一知识点 10.1.4 →</span><span class="p-title">最小训练脚本与模型摘要</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)1 · TF 的概念及特点（版本）</dd>
+    <dt>页面编号 / 路径</dt><dd>10.1.3 ｜ <span class="path">pages/m10-tensorflow/k10-1-3-tf1-vs-tf2.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-2-1-graph.html"><b>10.2.1</b>计算图：节点与边</a><a class="xlink" href="k10-2-3-session.html"><b>10.2.3</b>会话：图执行的入口</a><a class="xlink" href="k10-1-1-what-is-tf.html"><b>10.1.1</b>TensorFlow 的定位与特点</a><a class="xlink" href="u10-1-tf-basics.html"><b>10.1</b>TensorFlow 的概念、特点与工具包（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-1-3（本页图 10-3）；知识库 M10-S3-01、M10-S3-03；输出为本机实测。 ｜ 知识库条目：M10-S3-01《计算图》（filled）、M10-S3-03《会话》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S153 TF 1.x → 2.x 迁移指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

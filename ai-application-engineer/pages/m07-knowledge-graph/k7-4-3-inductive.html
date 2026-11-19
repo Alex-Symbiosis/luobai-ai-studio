@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.4.3 归纳推理与图谱补全 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清归纳推理为什么只给概率性结论。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-4-reasoning.html">7.4 知识图谱推理</a><span class="sep">/</span><span class="here">7.4.3 归纳推理与图谱补全</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.4</span>
+    <span class="tag">知识点 7.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>归纳推理与图谱补全</h1>
+  <p class="lede">演绎只能给必然，图谱里真正缺的边没人能保证：归纳只能给出候选和分数。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清归纳推理为什么只给概率性结论。</li><li>能列举链接预测的三类依据：邻居、路径、属性。</li><li>能算一个 Jaccard 得分，并说明预测边入库要带置信度。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>缺的边没人保证</h2>
+<p>供应链图谱里有一万多家企业、三万多条「供货」边，覆盖的只是已签约的合同。采购想问：还有哪些企业可能给某家厂供货？</p>
+<p>演绎答不了。没有哪条规则能从已有边必然推出「A 供货 B」——供货是商业事实，不是逻辑必然。规则写得再全，也推不出一条没发生过的交易。</p>
+<p>学术图谱也一样：两位作者从没合作过，但共同合作者有一堆。要不要把他们连起来，是排序问题，不是真假问题。</p>
+<p class="ask">缺的边，凭什么猜？</p>
+<p>凭的是图里的规律：结构相似、路径相近、属性相同的节点，更可能有边。这类「从个别观察推一般规律」的路子，就是归纳。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三类依据</h2>
+<p>归纳不从规则出发，从数据里的规律出发：相似的节点更可能相连。相似有三类算法。</p>
+<p><strong>看邻居</strong>：共同邻居越多越可能。两位作者有 5 个共同合作者，比只有 1 个的更可能认识。</p>
+<p><strong>看路径</strong>：两跳内有没有通路、路径的类型是什么。「A 供货 B、B 供货 C」，让 A 与 C 更可能有边。</p>
+<p><strong>看属性</strong>：类型、行业、地区、规模接近的节点更可能相连。两家同城同行业的企业，比跨行业跨地区的更可能合作。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="链接预测看三类依据">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">链接预测看三类依据</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">链接预测</text><text class="f-sc" x="480.0" y="91.0">缺的边可能是什么</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">看邻居</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">邻居重合</text><text class="f-sc" x="180.66666666666666" y="212.0">共同邻居越多，越可能有边</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">看路径</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">路径可达</text><text class="f-sc" x="480.0" y="212.0">两跳内有通路，就给更高的分</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">看属性</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">属性相近</text><text class="f-sc" x="779.3333333333333" y="212.0">类型与取值接近，更可能相连</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">三类依据可以加权组合；预测只是候选，进图谱前仍要验证。</text>
+</svg><figcaption><b>图 7-21　链接预测看三类依据</b>　邻居重合、路径可达、属性相近，三类信号加权组合成候选分数。</figcaption></figure>
+<p>三类依据可以单独用，也可以加权。它们都在回答同一个问题：这两个节点在该出现边的地方，长得像不像。像不等于就是，所以归纳的输出永远是一张排序表。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>概率而非判决</h2>
+<p><strong>归纳推理：</strong>从个别观察总结一般规律，结论只具有或然性。它给的是「多数情况下成立」，不是「一定成立」。</p>
+<p><strong>链接预测：</strong>给定图 G，对候选三元组 (头实体, 关系, 尾实体) 打分并排序，取前 k 个作为候选。任务的输出是排序，不是一组真值。</p>
+<p>最常用的邻居指标是 Jaccard 系数：<code>J(u,v) = |N(u) ∩ N(v)| / |N(u) ∪ N(v)|</code>。共同邻居 3 个、并集 12 个，得分 0.25；共同 6 个、并集 10 个，得分 0.6。前者只是「有一点像」，后者才值得看一眼。</p>
+<p>组合打分可以加权：<code>score = 0.5×邻居 + 0.3×路径 + 0.2×属性</code>。权重不是拍脑袋定的，要在留出的测试边上调：先藏起 10% 的已知边，用其余边去预测，再看真实边落进前 10 名的比例，即 Hits@10。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>打分四步</h2>
+<p>流程只有四步：生成候选、逐项打分、按阈值截断、人工或业务验证。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>link_pred.py</span></div>
+<pre><code>def jaccard(a, b, adj):
+    na, nb = adj.get(a, set()), adj.get(b, set())
+    if not na or not nb:
+        return 0.0
+    return len(na &amp; nb) / len(na | nb)
+
+adj = {&quot;A&quot;: {&quot;B&quot;, &quot;C&quot;, &quot;D&quot;}, &quot;E&quot;: {&quot;C&quot;, &quot;D&quot;, &quot;F&quot;}}
+score = jaccard(&quot;A&quot;, &quot;E&quot;, adj)   # 交集 {C,D}，并集 {B,C,D,F}</code></pre>
+</div>
+<p>按定义手算：交集 2 个、并集 4 个，得分 0.5。代码只做这一件事，其余三类依据都是同样的形状——给定一对节点，返回一个 0 到 1 之间的分数。</p>
+<p>第一，候选不能全图枚举。n 个节点的候选对是 O(n²)，一万个节点就有一亿对。先按类型、地区、两跳邻域把范围缩下来，再打分。</p>
+<p>第二，有向图的邻居要分方向。「A 指向谁」和「谁指向 A」是两套邻居，混着算会把供应商和客户当成同类，分数再高也没有业务含义。</p>
+<p>第三，验证要按时间切。随机切分会让未来的边泄漏进训练，指标虚高；按时间切，用 2024 年的图预测 2025 年的边，才接近上线后的真实处境。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>候选不等于事实</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>候选对</th><th>共同邻居</th><th>并集</th><th>Jaccard</th><th>处置</th></tr></thead>
+  <tbody>
+    <tr><td>甲—乙</td><td>3</td><td>12</td><td>0.25</td><td>低于阈值 0.3，不推</td></tr>
+    <tr><td>丙—丁</td><td>6</td><td>10</td><td>0.60</td><td>进候选，核实确有供货</td></tr>
+    <tr><td>戊—己</td><td>4</td><td>8</td><td>0.50</td><td>进候选，核实是同一集团的子公司，非交易关系</td></tr>
+  </tbody>
+</table>
+</div>
+<p>2 条候选、1 条成立，精确率 0.5。这个数字不算失败：候选表本来的作用是把人工核查的范围从一万对缩到两对，省下的是核查成本，不是判断责任。</p>
+<p>更该注意的是戊—己这一类：邻居多、路径短、属性也像，但关系类型不对。分数只能说明「结构上像」，说明不了「业务上成立」。同一集团的子公司天天一起出现在采购单里，结构上比真供应商还像。</p>
+<div class="callout callout--warn">
+  <span class="c-label">最常见的误读</span>
+  <p>把预测边当事实。归纳结论写进图谱，如果不标类型和置信度，下一个人会把它当观测使用，再拿去做演绎前提——一次猜测就这样被固化成了一条「事实」，之后再也查不出来。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>排序与标注</h2>
+<p><strong>任务：</strong>给一张 6 个节点的合作图算 Jaccard，排出前 3 对，每对标注「可确认」「待核实」「否决」，并写明依据来自哪类信号。</p>
+<p><strong>追问：</strong>① 有向边怎么定义邻居，出入边要不要分开算？② 为什么随机切分会高估效果？③ 预测边入库后，下游查询要不要默认使用？</p>
+<p><strong>验收：</strong>能说清三类依据各看什么；能算一个 Jaccard 得分；能说清「归纳结论是概率性的，不能写成一定」；知道候选边入库要带置信度、类型和来源。演绎怎么推必然结论，见 <a href="../m07-knowledge-graph/k7-4-2-deductive.html">演绎推理</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-4-4-reasoning-limits-demo.html">7.4.4 推理的边界：不一致、开放世界与规则维护</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-4-2-deductive.html"><span class="p-label">← 上一知识点 7.4.2</span><span class="p-title">演绎推理：规则引擎与传递闭包</span></a><a class="next" href="k7-4-4-reasoning-limits-demo.html"><span class="p-label">下一知识点 7.4.4 →</span><span class="p-title">推理的边界：不一致、开放世界与规则维护</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)4 · 基于归纳的知识图谱推理方法</dd>
+    <dt>页面编号 / 路径</dt><dd>7.4.3 ｜ <span class="path">pages/m07-knowledge-graph/k7-4-3-inductive.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-4-1-reasoning-concept.html"><b>7.4.1</b>推理：从已知事实推出未知事实</a><a class="xlink" href="k7-4-2-deductive.html"><b>7.4.2</b>演绎推理：规则引擎与传递闭包</a><a class="xlink" href="k7-4-4-reasoning-limits-demo.html"><b>7.4.4</b>推理的边界：不一致、开放世界与规则维护</a><a class="xlink" href="u7-4-reasoning.html"><b>7.4</b>知识图谱推理（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-4-3（本页图 7-21）；知识库 M07-S4-03（filled）。 ｜ 知识库条目：M07-S4-03《基于归纳的知识图谱推理方法》（filled） ｜ 参考来源：AIMA《人工智能：一种现代的方法》；W3C RDF 1.1 Semantics；Neo4j 图数据科学文档（链接预测）；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

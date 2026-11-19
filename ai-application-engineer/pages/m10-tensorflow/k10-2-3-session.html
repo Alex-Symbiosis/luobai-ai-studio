@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.2.3 会话：图执行的入口 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 Session 在 1.x 中承担的三件事：分配资源、运行节点、返回数值。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-2-graph-tensor.html">10.2 计算图、张量、会话与变量</a><span class="sep">/</span><span class="here">10.2.3 会话：图执行的入口</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.2</span>
+    <span class="tag">知识点 10.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>会话：图执行的入口</h1>
+  <p class="lede">图只是图纸。1.x 里，图纸要交给「会话」才会真正开工；理解这一层，才能读懂老代码，也才知道 2.x 到底替你省了什么。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 Session 在 1.x 中承担的三件事：分配资源、运行节点、返回数值。</li><li>能读懂 sess.run 的 feed 与 fetch 两个参数。</li><li>能说明为什么这段代码必须单独跑一个进程。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>图画好了，谁来执行</h2>
+<p>1.x 的两段式写法：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">第一步</span><h3>建图</h3><p>用 <code>placeholder</code> 占位，用 <code>a + b</code> 往图里加一个 <code>AddV2</code> 节点。此时没有任何数值被计算。</p></div>
+  <div class="card mini"><span class="mini-tag">第二步</span><h3>开会话</h3><p><code>Session</code> 负责把图放到设备上、分配内存，<code>run</code> 时才真正执行，把结果取回来。</p></div>
+</div>
+<p class="ask">为什么不能像函数一样直接调用？</p>
+<p>因为图是「声明」，不是「调用」。声明里没有数据，只有槽位；执行需要另一个角色来决定什么时候跑、跑在哪个设备上。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>图纸交给施工队</h2>
+<p>建筑师画好图，不会自己动手；施工队按图施工，还要决定先做哪层、用几台吊车。会话就是那个施工队。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="1.x 的执行链：图 → 会话 → 结果">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">1.x 的执行链：图 → 会话 → 结果</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">建图</text><text class="f-sc" x="117.6" y="154.0">节点与依赖</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">placeholder 占位</text><text class="f-sc" x="298.79999999999995" y="154.0">只有槽位，没有数据</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">Session 打开</text><text class="f-sc" x="480.0" y="154.0">分配资源</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">feed 喂值</text><text class="f-sc" x="661.1999999999999" y="154.0">feed_dict</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">fetch 取结果</text><text class="f-sc" x="842.4" y="154.0">sess.run 返回数值</text><text class="f-s" x="40" y="244">会话是 1.x 唯一能「跑」图的入口；2.x 把这一步藏进了每一次函数调用。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 10-7　1.x 的执行链：图 → 会话 → 结果</b>　会话是 1.x 唯一能「跑」图的入口；2.x 把这一步藏进了每一次函数调用。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>建图与执行分离，好处是图可以脱离 Python 单独优化与部署；代价是每次取值都要显式 <code>run</code>。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>Session、run、feed、fetch</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>作用</th><th>代码位置</th></tr></thead>
+  <tbody>
+    <tr><td>Session</td><td>持有图与设备资源，管理生命周期</td><td><code>with tf.compat.v1.Session() as sess:</code></td></tr>
+    <tr><td>run(fetches)</td><td>要取回的节点（fetch）</td><td><code>sess.run(c)</code></td></tr>
+    <tr><td>feed_dict</td><td>给 placeholder 喂的值（feed）</td><td><code>feed_dict={a: 3.0, b: 4.0}</code></td></tr>
+    <tr><td>disable_eager_execution</td><td>关闭 2.x 默认的即时执行</td><td>必须在建图前调用，且不可逆</td></tr>
+  </tbody>
+</table>
+</div>
+<p>2.x 中 <code>tf.compat.v1.Session</code> 仍然存在，但默认 Eager 打开时，<code>placeholder</code> 无法创建；因此这段代码必须<b>先关闭 Eager</b>，并且只能放在独立脚本里跑。</p>
+<div class="callout callout--warn">
+  <span class="c-label">不可逆</span>
+  <p><code>disable_eager_execution()</code> 只影响当前进程，调用后无法恢复。把它混进主程序，会让同进程里所有 2.x 写法失效。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>完整可运行的 1.x 对照</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>session_demo.py（需独立进程）</span></div>
+<pre><code>import tensorflow as tf
+
+tf.compat.v1.disable_eager_execution()
+print(&quot;eager:&quot;, tf.executing_eagerly())
+
+a = tf.compat.v1.placeholder(tf.float32, shape=[], name=&quot;a&quot;)
+b = tf.compat.v1.placeholder(tf.float32, shape=[], name=&quot;b&quot;)
+c = a + b
+
+with tf.compat.v1.Session() as sess:
+    print(&quot;sess.run(c, feed={a:3,b:4}):&quot;, sess.run(c, feed_dict={a: 3.0, b: 4.0}))
+    print(&quot;计算图操作数:&quot;, len(tf.compat.v1.get_default_graph().get_operations()))</code></pre>
+</div>
+<p>注意 <code>shape=[]</code> 是 0 维标量，不是「未知形状」；如果写成 <code>shape=[None]</code>，就成了长度可变的向量，feed 一个标量会报形状错误。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>eager: False
+sess.run(c, feed={a:3,b:4}): 7.0
+计算图操作数: 3</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>eager: False</h3><p>确认已经进入图模式；这一步没生效，后面的 placeholder 会直接报错。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>3 个操作</h3><p>两个 <code>Placeholder</code> 加一个 <code>AddV2</code>，没有多余的 Identity——因为 fetch 的就是 <code>c</code> 本身。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>7.0</h3><p>feed 的值在 <code>run</code> 时才进入图；同一张图可以换不同的 feed 反复跑。</p></div>
+</div>
+<p>运行时 stderr 会打印 <code>disable_eager_execution</code> 相关的提示，属于预期行为，不影响 stdout 的结果。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>标注三处关键位置</h2>
+<p><strong>任务：</strong>读下面这段 1.x 代码，标出「建图」「开会话」「取结果」三处，并说出执行顺序。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>阅读材料</span></div>
+<pre><code>import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
+
+x = tf.compat.v1.placeholder(tf.float32, shape=[2])
+w = tf.constant([2.0, 3.0])
+y = x * w
+
+sess = tf.compat.v1.Session()
+out = sess.run(y, feed_dict={x: [1.0, 10.0]})
+print(out)
+sess.close()</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>位置</th><th>属于哪一步</th><th>判断依据</th></tr></thead>
+  <tbody>
+    <tr><td><code>placeholder</code> 与 <code>x * w</code></td><td>建图</td><td>只加节点，没有数值</td></tr>
+    <tr><td><code>Session()</code></td><td>开会话</td><td>分配资源</td></tr>
+    <tr><td><code>sess.run(y, ...)</code></td><td>取结果</td><td>feed 进去、fetch 出来</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 不调用 <code>sess.close()</code> 会怎样，为什么推荐 <code>with</code>？② 这段代码在 2.x 里等价写法是什么？</p>
+<p><strong>验收：</strong>三处标注正确，输出为 <code>[ 2. 30.]</code>。</p>
+</section>
+<p class="sidenote">注：本页需关闭 Eager 才能创建 placeholder，代码必须在独立进程中运行；运行口径为 tensorflow-cpu 2.21.0 + Python 3.13.14，输出为本机实测。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-2-4-variable.html">10.2.4 变量：可训练的状态</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-2-2-tensor.html"><span class="p-label">← 上一知识点 10.2.2</span><span class="p-title">张量：形状、类型与秩</span></a><a class="next" href="k10-2-4-variable.html"><span class="p-label">下一知识点 10.2.4 →</span><span class="p-title">变量：可训练的状态</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)3 · 会话</dd>
+    <dt>页面编号 / 路径</dt><dd>10.2.3 ｜ <span class="path">pages/m10-tensorflow/k10-2-3-session.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-2-1-graph.html"><b>10.2.1</b>计算图：节点与边</a><a class="xlink" href="k10-1-3-tf1-vs-tf2.html"><b>10.1.3</b>1.x 与 2.x：计算图、会话与 Eager</a><a class="xlink" href="k10-2-4-variable.html"><b>10.2.4</b>变量：可训练的状态</a><a class="xlink" href="u10-2-graph-tensor.html"><b>10.2</b>计算图、张量、会话与变量（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-2-3（本页图 10-7）；知识库 M10-S3-03；输出为本机实测。 ｜ 知识库条目：M10-S3-03《会话》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S157 tf.compat.v1 迁移说明</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

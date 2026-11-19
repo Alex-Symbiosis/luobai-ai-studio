@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.3 交叉验证：让评估结果可重复 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明 K 折交叉验证的切分与评估流程。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-5-evaluation.html">4.5 模型评估与改进</a><span class="sep">/</span><span class="here">4.5.3 交叉验证：让评估结果可重复</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.5</span>
+    <span class="tag">知识点 4.5.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>交叉验证：让评估结果可重复</h1>
+  <p class="lede">只切一次训练/验证集，结论会随切法大幅波动：碰巧切到容易的样本，模型就显得好。交叉验证让每个样本都轮流当一次验证集，用多次结果的平均值代替一次运气。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明 K 折交叉验证的切分与评估流程。</li><li>能解释它为什么比单次留出法更稳定。</li><li>能识别交叉验证中最常见的数据泄漏。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>换个随机种子，结论就变了</h2>
+<p>同一模型、同一份数据，只改切分随机种子：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>切分</th><th>验证准确率</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>种子 1</td><td>0.78</td><td>可以接受</td></tr>
+    <tr><td>种子 2</td><td>0.71</td><td>偏低</td></tr>
+    <tr><td>种子 3</td><td>0.83</td><td>很好</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">同一个模型，为什么换一次切分就换一个结论？</p>
+<p>因为单次留出法的验证集太小，结果主要由「切到了哪些样本」决定。要得到稳定结论，必须让评估覆盖更多切法。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>轮流当考官</h2>
+<p>一次考试可能碰到擅长的题。让每个学生轮流当一次被考对象、其余人当考官，取平均分，才更接近真实水平。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="5 折交叉验证：每折都当一次验证集">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">5 折交叉验证：每折都当一次验证集</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">轮次</text><text class="f-t" x="282.0" y="98">训练集</text><text class="f-t" x="492.0" y="98">验证集</text><text class="f-t" x="702.0" y="98">记录</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">第 1 折</text><text class="f-s" x="282.0" y="135.8">第 2–5 份</text><text class="f-s" x="492.0" y="135.8">第 1 份</text><text class="f-s" x="702.0" y="135.8">score 1</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">第 2 折</text><text class="f-s" x="282.0" y="173.4">第 1、3–5 份</text><text class="f-s" x="492.0" y="173.4">第 2 份</text><text class="f-s" x="702.0" y="173.4">score 2</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">第 3 折</text><text class="f-s" x="282.0" y="211.0">第 1、2、4、5 份</text><text class="f-s" x="492.0" y="211.0">第 3 份</text><text class="f-s" x="702.0" y="211.0">score 3</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">第 4 折</text><text class="f-s" x="282.0" y="248.60000000000002">第 1–3、5 份</text><text class="f-s" x="492.0" y="248.60000000000002">第 4 份</text><text class="f-s" x="702.0" y="248.60000000000002">score 4</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">第 5 折</text><text class="f-s" x="282.0" y="286.2">第 1–4 份</text><text class="f-s" x="492.0" y="286.2">第 5 份</text><text class="f-s" x="702.0" y="286.2">score 5</text><text class="f-s" x="60" y="328.0">最终报告的是 5 个分数的均值与标准差；分类任务应使用分层 K 折，保持每折类别比例。</text>
+</svg><figcaption><b>图 4-21　K 折交叉验证的轮流验证</b>　数据均分为 K 份，每轮取一份作验证、其余作训练；K 轮结束后取平均，每个样本恰好被验证一次。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>交叉验证不是「更复杂的切分」，而是<strong>把一次评估变成 K 次评估再平均</strong>。它降低的是评估结果的方差，不是模型本身的方差。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>K 折、分层与留一</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方式</th><th>做法</th><th>优点</th><th>代价</th></tr></thead>
+  <tbody>
+    <tr><td>K 折</td><td>均分 K 份，轮流验证</td><td>稳定、通用</td><td>训练 K 次，成本高</td></tr>
+    <tr><td>分层 K 折</td><td>每折保持类别比例</td><td>类别不平衡时更可靠</td><td>实现稍复杂</td></tr>
+    <tr><td>留一法</td><td>每次只留 1 个样本验证</td><td>训练集最大</td><td>训练 N 次，方差仍可能大</td></tr>
+    <tr><td>时间序列切分</td><td>按时间顺序滚动</td><td>不穿越未来</td><td>不能随机打乱</td></tr>
+  </tbody>
+</table>
+</div>
+<p>K 常取 5 或 10：太小则每折验证集小、结果抖；太大则训练次数多、边际收益低。类别不平衡时优先用分层 K 折，而不是普通 K 折。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>必须在折内做的事</h2>
+<div class="steps">
+  <div class="step"><b>先切分，再预处理</b><span>标准化、填补缺失、特征选择都只能使用训练折的数据，否则验证折的信息泄漏进训练。</span></div>
+  <div class="step"><b>每折独立训练</b><span>每折都从零训练一个模型，不能把上一折的模型继续用。</span></div>
+  <div class="step"><b>记录每折分数</b><span>不只记平均，还要记标准差；标准差大说明结果不稳。</span></div>
+  <div class="step"><b>用同一套折比较模型</b><span>比较两个模型时使用完全相同的折，否则差异可能来自切分。</span></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">最常见的泄漏</span>
+  <p>先对全体数据做标准化或特征选择，再交叉验证。这样验证折的统计量已经进入训练，分数会虚高。正确顺序是：切分 → 在训练折内 fit → 变换验证折。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>五折结果怎么读</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>折</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>平均</th><th>标准差</th></tr></thead>
+  <tbody>
+    <tr><td>准确率</td><td>0.79</td><td>0.81</td><td>0.77</td><td>0.80</td><td>0.78</td><td>0.79</td><td>0.014</td></tr>
+  </tbody>
+</table>
+</div>
+<p>平均 0.79、标准差 0.014，说明结果较稳；若某一折明显偏离（如 0.62），应先检查那一折是否包含特殊样本，而不是直接取平均掩盖。</p>
+<p>报告规范：写「5 折交叉验证，准确率 0.79 ± 0.014」，而不是只写 0.79。标准差是结论可信度的一部分。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三个任务设计切分</h2>
+<p><strong>任务：</strong>为下面三个任务选择交叉验证方式，并说明理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>任务</th><th>方式</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>二分类，正类占 8%</td><td></td><td></td></tr>
+    <tr><td>2</td><td>按日预测销量，需评估未来一周</td><td></td><td></td></tr>
+    <tr><td>3</td><td>样本仅 60 条，希望充分利用数据</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>如果先对全体数据做标准化再交叉验证，分数会偏高还是偏低？为什么？</p>
+<p><strong>验收：</strong>能指出时间序列不能随机打乱，以及预处理必须放进折内。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-5-4-imbalanced.html">4.5.4 类别不平衡：多数类会淹没少数类</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-5-2-roc-auc.html"><span class="p-label">← 上一知识点 4.5.2</span><span class="p-title">ROC 与 AUC：与阈值无关的整体排序能力</span></a><a class="next" href="k4-5-4-imbalanced.html"><span class="p-label">下一知识点 4.5.4 →</span><span class="p-title">类别不平衡：多数类会淹没少数类</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)5 · 交叉验证</dd>
+    <dt>页面编号 / 路径</dt><dd>4.5.3 ｜ <span class="path">pages/m04-stat-models/k4-5-3-cross-validation.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-4-3-learning-curve.html"><b>4.4.3</b>用学习曲线诊断</a><a class="xlink" href="k4-5-1-confusion-matrix.html"><b>4.5.1</b>混淆矩阵：把「错」拆成四格</a><a class="xlink" href="k4-5-5-improvement-demo.html"><b>4.5.5</b>改进实验：从基线到可用模型</a><a class="xlink" href="u4-5-evaluation.html"><b>4.5</b>模型评估与改进（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-5-3-a.svg（本页图 4-21）。 ｜ 知识库条目：M04-S5-01《模型评估与改进》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S54 ESL；S31《Hands-On Machine Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

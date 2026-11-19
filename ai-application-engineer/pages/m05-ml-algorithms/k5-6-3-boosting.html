@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.6.3 Boosting：串行纠错 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明 Boosting 与 Bagging 在训练依赖关系上的根本差别。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-6-ensembles.html">5.6 集成学习：Bagging、随机森林、Boosting、AdaBoost</a><span class="sep">/</span><span class="here">5.6.3 Boosting：串行纠错</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.6</span>
+    <span class="tag">知识点 5.6.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>Boosting：串行纠错</h1>
+  <p class="lede">Bagging 平均掉的是方差，可如果基学习器本身就是「太简单、学不动」的高偏差模型，平均再多次也不会变准。Boosting 换了个方向：不并行地看同一份数据，而是串行地接力——每一轮都专门去补上一轮做错的地方。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明 Boosting 与 Bagging 在训练依赖关系上的根本差别。</li><li>能解释为什么组合浅树能降低偏差，而 Bagging 组合浅树几乎没有收益。</li><li>能说出 Boosting 对噪声与离群点敏感的原因，并给出两条缓解手段。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两百棵树平均完，只涨了一个点</h2>
+<p>非线性数据上，单棵浅树（深度 2）只有 0.72，于是用 Bagging 组合 200 棵同样的浅树：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方案</th><th>验证分数</th><th>与单模型之差</th></tr></thead>
+  <tbody>
+    <tr><td>单棵浅树</td><td>0.72</td><td>—</td></tr>
+    <tr><td>Bagging，50 棵浅树</td><td>0.73</td><td>+0.01</td></tr>
+    <tr><td>Bagging，200 棵浅树</td><td>0.73</td><td>+0.01</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">Bagging 在深树上那么有效，为什么换成浅树就失效了？</p>
+<p>因为误差来源不同：深树方差大，平均能消方差；浅树偏差大，平均只是确认同一个偏差。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>接力补短板，而不是投票</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三轮串行纠错">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">三轮串行纠错</text><rect class="f-b2" x="40.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="178.0" y="135.0">第 1 轮</text><text class="f-sc" x="178.0" y="154.0">拟合原始数据</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">第 2 轮盯错分</text><text class="f-sc" x="480.0" y="154.0">提高错分样本权重</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="644.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="782.0" y="135.0">第 3 轮再盯</text><text class="f-sc" x="782.0" y="154.0">继续修正残余错误</text><text class="f-s" x="40" y="244">后一轮专门补前一轮的短板；串行是 Boosting 与 Bagging 的根本区别。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 5-25　三轮串行纠错</b>　第一轮拟合原始数据，第二、三轮紧盯前一轮错分的样本；串行是 Boosting 与 Bagging 的分界。</figcaption></figure>
+<p>Bagging 像开小组会：各自看材料，最后投票。Boosting 像补课：第一次考砸的题，第二次专门练；还错的，第三次继续练。</p>
+<p>所以每一轮都不能并行——后一轮的目标依赖前一轮。这也是它训练慢、却能用很弱的基学习器堆出强分类器的原因。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>Bagging 是<strong>并行平均、降方差</strong>；Boosting 是<strong>串行累加、降偏差</strong>。弱学习器用错集成方式，收益可能为零。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>弱学习器与加法模型</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>典型设置</th></tr></thead>
+  <tbody>
+    <tr><td>弱学习器</td><td>仅略优于随机猜测的模型</td><td>深度 1 的决策树（决策 stump）</td></tr>
+    <tr><td>加法模型</td><td>最终模型是各轮模型的累加</td><td>F<sub>t</sub> = F<sub>t−1</sub> + ν × h<sub>t</sub></td></tr>
+    <tr><td>纠错机制</td><td>后一轮聚焦前一轮的错误</td><td>重加权样本，或拟合残差</td></tr>
+    <tr><td>收缩系数</td><td>每轮只走一小步</td><td>ν 常取 0.1，与轮数此消彼长</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Boosting 是一族方法的总称：AdaBoost 用样本重加权纠错，是最经典的实现；把重加权推广成拟合残差，就是梯度提升（GBDT），也是 XGBoost、LightGBM 的家族。</p>
+<p>能降偏差，是因为每轮拟合「当前模型还差的那部分」，单模型的系统性误差被后续模型补偿。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三轮之后，错误率怎么走</h2>
+<div class="steps">
+  <div class="step"><b>第 1 轮</b><span>用原始数据训练一个决策树桩，错误率 0.30。</span></div>
+  <div class="step"><b>第 2 轮</b><span>提高错分样本的权重，新一轮专注这些样本，错误率降到 0.18。</span></div>
+  <div class="step"><b>第 3 轮</b><span>继续上调新的错分样本，错误率降到 0.11。</span></div>
+  <div class="step"><b>加权合成</b><span>表现好的轮次话语权更大，最终模型是各轮的加权和。</span></div>
+</div>
+<p>三个数字要连着看：错误率一路下降，降幅在收窄。轮数太少欠拟合，太多则拟合噪声。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>轮数不是越多越好，噪声才是真对手</h2>
+<p>把 5% 训练标签随机翻转，两种集成分道扬镳。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>模型</th><th>干净标签</th><th>5% 标签翻转</th><th>降幅</th></tr></thead>
+  <tbody>
+    <tr><td>AdaBoost（50 轮）</td><td>0.85</td><td>0.74</td><td>−0.11</td></tr>
+    <tr><td>随机森林（200 棵）</td><td>0.87</td><td>0.83</td><td>−0.04</td></tr>
+  </tbody>
+</table>
+</div>
+<p>差距来自机制：Boosting 不断给「学不会的样本」加权，其中混着错标标签，越加权越把错误当真；随机森林每棵树独立采样，噪声只影响少数树。</p>
+<p>缓解两条：限制轮数、提高学习率（早停）；先做标签清洗。两者都指向——别让模型对噪声过度认真。</p>
+<p>噪声这一关过了，Boosting 其余的限制也该提前划清，免得上线后才发现：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>学习器为浅树、偏差主导</td><td>基学习器太强时易过拟合，也失去「弱学习器」前提</td></tr>
+    <tr><td>标签噪声低、离群点少</td><td>错分样本可能是噪声，权重被反复上调，模型围着噪声转</td></tr>
+    <tr><td>可接受串行训练、较慢</td><td>无法并行，训练时间随轮数线性增长</td></tr>
+    <tr><td>轮数与学习率联合调整</td><td>轮数过多、学习率过大都会让验证分数下滑</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画三轮纠错，再做一次对照</h2>
+<p><strong>任务：</strong>在同一份数据上完成两组实验。</p>
+<ol>
+  <li>用深度 1 的树做 Boosting，记录 1、10、50、200 轮的验证分数并画曲线。</li>
+  <li>记录每轮被错分的样本编号，标出连续两轮都被错分的样本。</li>
+  <li>用同一批浅树做一次 Bagging 对照，比较分数差异。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>观察</th><th>要写出的结论</th></tr></thead>
+  <tbody>
+    <tr><td>分数随轮数先升后平</td><td>存在有效轮数区间，需早停</td></tr>
+    <tr><td>同一批样本反复被错分</td><td>可能是难样本，也可能是噪声</td></tr>
+    <tr><td>Bagging 浅树几乎不动</td><td>平均不降偏差，集成方式要匹配误差来源</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检：</strong>能解释「串行纠错降偏差、并行平均降方差」，并指出 Boosting 对噪声敏感的机制，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-6-4-adaboost.html">5.6.4 AdaBoost：两套权重</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-6-2-random-forest.html"><span class="p-label">← 上一知识点 5.6.2</span><span class="p-title">随机森林：两个随机性</span></a><a class="next" href="k5-6-4-adaboost.html"><span class="p-label">下一知识点 5.6.4 →</span><span class="p-title">AdaBoost：两套权重</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · Boosting 的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>5.6.3 ｜ <span class="path">pages/m05-ml-algorithms/k5-6-3-boosting.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-6-1-ensemble.html"><b>5.6.1</b>集成学习：多样性从哪来</a><a class="xlink" href="k5-6-4-adaboost.html"><b>5.6.4</b>AdaBoost：两套权重</a><a class="xlink" href="u5-6-ensembles.html"><b>5.6</b>集成学习：Bagging、随机森林、Boosting、AdaBoost（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张（k5-6-3）+ 知识库 M05-S1-11（Boosting 与 AdaBoost）、M05-S2-04（集成算法）。 ｜ 知识库条目：M05-S1-11《Boosting 和 AdaBoost 的概念及特点》（filled）、M05-S2-04《集成算法的概念、特点及操作原理》（filled） ｜ 参考来源：S77 Freund &amp; Schapire 1997；S76 scikit-learn《Ensembles》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

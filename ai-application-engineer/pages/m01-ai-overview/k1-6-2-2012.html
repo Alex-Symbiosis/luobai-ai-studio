@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.6.2 2012 年：一场比赛把差距拉开 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能读出 2010–2012 三届 ImageNet 冠军错误率的变化形态。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-6-new-millennium.html">1.6 新千年：数据、算力、算法三要素</a><span class="sep">/</span><span class="here">1.6.2 2012 年：一场比赛把差距拉开</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.6</span>
+    <span class="tag">知识点 1.6.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>2012 年：一场比赛把差距拉开</h1>
+  <p class="lede">把 2012 年概括成「深度学习赢了」，等于只记住了结论。真正发生的是：同一条识别任务链上，错误率在一个年份出现台阶，而台阶背后是训练方式换了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能读出 2010–2012 三届 ImageNet 冠军错误率的变化形态。</li><li>能说明 ReLU、Dropout 与双 GPU 训练各自解决了什么问题。</li><li>能把「误差台阶」与「方法换代」对应起来，而不是只记模型名。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>记住一个名字，还是看见一个台阶</h2>
+<p>同一份比赛记录，两位学习者的读法不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>记住冠军名字</h3><p>把 2012 记成「AlexNet 拿了第一」，年份与模型名对上就算掌握；再追问「为什么是这一年」，只能回答「因为它更先进」。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>读一条误差曲线</h3><p>把 2010、2011、2012 三届冠军的错误率排在一起，看台阶落在哪一格，再问那一格换掉了训练链上的什么。</p></div>
+</div>
+<p class="ask">同一个年份，一个记住了名字，一个看到了台阶。哪一种记法能在被追问「为什么是这一年」时站住？</p>
+<p>名字会过时，台阶不会。2012 年的意义在于误差从「缓慢下降」变成「跳变」，而跳变通常意味着方法换代，不是同一套方法继续调优。读出形态，才有可能解释原因。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>成绩突然跳一格，多半换了跑法</h2>
+<p>跑步成绩每年进步一点，是训练得更勤；某一年突然从 12 秒跑进 11 秒，多半是换了跑法或换了装备。看比赛记录时，先找「哪一年出现落差」，再问「那一年改了什么」，比背冠军名单有用得多。落差越陡，越说明变化来自方法，而不是来自更努力。读图之前先确认纵轴：三届必须同一口径，错误率越低越好；口径一换，台阶就可能是画出来的。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="2010–2012 ImageNet Top-5 错误率（论文原表口径，示意呈现）">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">2010–2012 ImageNet Top-5 错误率（论文原表口径，示意呈现）</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="241.2" width="119.60000000000001" height="58.800000000000004" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="230.0" y="233.2">28%</text><text class="f-sc" x="230.0" y="318">2010 冠军</text><rect x="430.2" y="245.4" width="119.60000000000001" height="54.6" rx="4" fill="#4f83cf" opacity="0.9"/><text class="f-sc" x="490.0" y="237.4">26%</text><text class="f-sc" x="490.0" y="318">2011 冠军</text><rect x="690.2" y="266.4" width="119.60000000000001" height="33.6" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="750.0" y="258.4">16%</text><text class="f-sc" x="750.0" y="318">2012 AlexNet</text><text class="f-s" x="100" y="344">2012 年一次比赛把误差拉开近 10 个百分点；纵轴按整数百分比简化，精确值以论文为准。</text>
+</svg><figcaption><b>图 1-26　2010–2012 三届冠军的 Top-5 错误率</b>　纵轴是错误率，越低越好；前两年缓慢下滑，2012 年一栏明显下探，形成台阶。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>判断一个年份是否算分水岭，看误差曲线是否出现台阶，而不是看当年是否冒出一个新名字。台阶是「方法换代」的可观测证据。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三年三个数字，一条口径</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>届次</th><th>冠军方案</th><th>Top-5 错误率（论文口径）</th><th>相对上一届</th></tr></thead>
+  <tbody>
+    <tr><td>2010</td><td>人工特征 + 浅层分类器</td><td>约 28%</td><td>—</td></tr>
+    <tr><td>2011</td><td>人工特征 + 浅层分类器</td><td>约 26%</td><td>下降约 2 个百分点</td></tr>
+    <tr><td>2012</td><td>AlexNet（深层卷积网络）</td><td>15.3%</td><td>下降 10 个百分点以上</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>以 E<sub>t</sub> 记第 t 届冠军的 Top-5 错误率，则 2010→2011 的降幅约 2 个百分点，2011→2012 的降幅超过 10 个百分点。同一任务、同一评测口径下，降幅突然放大一个量级，就是方法换代的可观测信号。截至 2026-11，这三届数字仍是讲 2012 年拐点时最常被引用的一组。</p>
+</div>
+<p>表里只有三个数字，读法却有讲究：错误率越低越好，且必须注明 Top-5 口径；换成 Top-1、换一届比赛或换评测集，数字都不可直接比较；同一年若换了评测协议，结论也要重算。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四处改动，解决同一件事</h2>
+<p>2012 年那一版网络改的不是「把网络简单加深」，而是训练链上的几处关键环节：</p>
+<div class="steps">
+  <div class="step"><b>ReLU 激活</b><span>取代饱和型激活函数，梯度不易消失，深层网络终于训得动。</span></div>
+  <div class="step"><b>Dropout</b><span>训练时随机丢弃部分连接，抑制过拟合，让大模型在有限数据上仍能泛化。</span></div>
+  <div class="step"><b>双 GPU 并行</b><span>把网络切到两块 GPU 上训练，显存与算力同时翻倍，训练周期进入可接受范围。</span></div>
+  <div class="step"><b>数据增强与归一化</b><span>用裁剪、翻转扩充样本，统一输入分布，进一步压住过拟合。</span></div>
+</div>
+<p>四处改动合起来解决同一件事：让「更深的网络 + 更大的数据」这套组合在当时的硬件上真的跑得完，而且不在训练集上过拟合。单看任何一处，都不足以解释十个百分点以上的落差；四处是一组，不是四选一。换个说法，它们都在降低「训练一次的成本」：算得更快、梯度更稳、更不容易白训一遍。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>把 2012 年前后并排放</h2>
+<p>把两个时代的做法并排看，差别集中在任务链的中段：</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一条任务链，两个时代的做法">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一条任务链，两个时代的做法</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">2010 年前</text><text class="f-s" x="80" y="108">· 人工设计特征（边缘、纹理）</text><text class="f-s" x="80" y="138">· 分类器以浅层模型为主</text><text class="f-s" x="80" y="168">· 数据规模与算力受限</text><text class="f-s" x="80" y="198">· 提升靠特征与调参经验</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">2012 年后</text><text class="f-s" x="530" y="108">· 模型端到端学表示</text><text class="f-s" x="530" y="138">· 深层网络逐层组合特征</text><text class="f-s" x="530" y="168">· 大规模标注与 GPU 并行</text><text class="f-s" x="530" y="198">· 提升靠数据、算力与结构</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 1-26b　同一条任务链，两个时代的做法</b>　上游的数据采集与下游的评测方式没变，中段由人工设计特征换成端到端训练深层网络。</figcaption></figure>
+<p>2012 年之前，识别一条链是「人工设计特征 → 浅层分类器 → 调参」；2012 年之后，中段换成「端到端训练深层网络 → 逐层学表示」。上游与下游都没换，换的是中间那一段由谁完成特征。这也解释了为什么同一年其他队伍照搬结构也难复现同等落差：四处改动要一起上，缺一处就退回原量级。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>以同一比赛、同一评测口径的连续成绩作证据</td><td>拿不同届、不同口径的错误率横向比较，会得出虚假的台阶</td></tr>
+    <tr><td>把「台阶」与「训练链改动」对应起来</td><td>只记冠军名字与年份，被追问机制时无法回答</td></tr>
+    <tr><td>承认单届结果受当年数据与算力条件约束</td><td>把一次夺冠直接推成「某类方法普遍更优」</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写两句可被推翻的假设</h2>
+<p><strong>任务：</strong>读上面的结果表，写两句「差距来自哪里」的假设，并为每句标注验证方式。假设要能被数据推翻。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>假设</th><th>验证方式</th><th>什么结果会推翻它</th></tr></thead>
+  <tbody>
+    <tr><td>例：深层网络学到的特征比人工特征更判别</td><td>固定数据与算力，只替换特征来源，比较错误率</td><td>替换后差距消失</td></tr>
+    <tr><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>写假设时避免「因为用了深度学习」这类同义反复；要把机制落在一个可替换的环节上，例如激活函数、正则化，或训练时的并行方式。拆不出可替换的环节，说明假设还停在「它更先进」这一层，无法检验。</p>
+<p><strong>追问：</strong>① 若当年其他队伍的水平也提高了，如何把「方法」与「对手」的影响分开？② 十个百分点以上的落差，能不能全部归给 ReLU？</p>
+<p><strong>自检：</strong>两句假设都写出了「替换哪个环节、看哪个指标、什么结果会推翻它」，即达标；只有结论没有验证方式，需要重写。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-6-3-features-vs-representation.html">1.6.3 两条路线：人找特征，还是模型学特征</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-6-1-three-factors.html"><span class="p-label">← 上一知识点 1.6.1</span><span class="p-title">三要素：数据、算力、算法，缺一项飞轮就停</span></a><a class="next" href="k1-6-3-features-vs-representation.html"><span class="p-label">下一知识点 1.6.3 →</span><span class="p-title">两条路线：人找特征，还是模型学特征</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 新千年人工智能的发展特点（节点）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.6.2 ｜ <span class="path">pages/m01-ai-overview/k1-6-2-2012.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-6-1-three-factors.html"><b>1.6.1</b>三要素：数据、算力、算法，缺一项飞轮就停</a><a class="xlink" href="k1-6-3-features-vs-representation.html"><b>1.6.3</b>两条路线：人找特征，还是模型学特征</a><a class="xlink" href="u1-6-new-millennium.html"><b>1.6</b>新千年：数据、算力、算法三要素（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k1-6-2、k1-6-2-b（本页图 1-26、1-26b）；知识库 M01-S2-03。 ｜ 知识库条目：M01-S2-03《新千年人工智能的发展特点》（filled） ｜ 参考来源：S27 Krizhevsky et al.《ImageNet Classification with Deep Convolutional Neural Networks》（2012）；S21 Vaswani et al.《Attention Is All You Need》（2017）；S02 Russell & Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

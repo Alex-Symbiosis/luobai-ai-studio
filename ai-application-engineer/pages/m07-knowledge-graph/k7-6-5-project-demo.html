@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.6.5 校园知识图谱综合实战与复盘 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把需求、schema、抽取、入库、查询串成一个最小闭环。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-6-enterprise-kg.html">7.6 企业知识图谱构建与综合项目</a><span class="sep">/</span><span class="here">7.6.5 校园知识图谱综合实战与复盘</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.6</span>
+    <span class="tag">知识点 7.6.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>校园知识图谱综合实战与复盘</h1>
+  <p class="lede">七十六个实体、一百五十条关系、五条查询。跑通只是开始，验收要看三张卷子。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把需求、schema、抽取、入库、查询串成一个最小闭环。</li><li>能用「能查、查准、可维护」三道验收读出 Demo 结果。</li><li>能针对失败项写出下一轮的补强动作。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>验收会</h2>
+<p>交付验收会上坐了三方：教务处关心先修链对不对，学院关心实验室成员全不全，学生端关心能不能查到教师。三方各提一个问题，正好落在同一张图上。</p>
+<p>演示不能只放一张截图。要能现场改一个参数、再查一次，还要能说清每条结果的依据来自哪份表。做不到这三点，验收就过不去。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>五步闭环</h2>
+<p>整条链路是五步：需求定范围，schema 定类型，抽取取事实，入库做校验，查询回答案。查询的结果再回头修需求，闭环才成立。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="最小闭环：需求定范围，其余四步转起来">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">最小闭环：需求定范围，其余四步转起来</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">需求</text><text class="f-sc" x="480" y="200">决定范围与验收</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">Schema</text><text class="f-sc" x="480.0" y="92.0">定类、关系与约束</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">抽取</text><text class="f-sc" x="742.0" y="200.0">从数据里取事实</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">入库</text><text class="f-sc" x="480.0" y="308.0">校验后写入图库</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">查询</text><text class="f-sc" x="218.0" y="200.0">用结果回答需求</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">五步闭环：需求定 schema，schema 定抽取，抽取出事实，事实供查询，查询再回头修需求。</text>
+</svg><figcaption><b>图 7-35　最小闭环：需求定范围，其余四步转起来</b>　需求决定 schema，schema 决定抽取，抽取出事实，事实供查询，查询再回头修需求。</figcaption></figure>
+<p>闭环里最容易被忽略的是最后那条回边。查询答不上来的问题，往往不是查询写错，而是 schema 里缺了一条边。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="复盘五个维度，每维一句检查">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">复盘五个维度，每维一句检查</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">复盘</text><text class="f-sc" x="480.0" y="91.0">交付后回看</text><path class="f-ar" d="M480 110 L120.8 150" marker-end="url(#ah)"/><text class="f-s" x="126.8" y="136" text-anchor="middle">起点</text><rect class="f-b" x="40.0" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="120.8" y="193.0">需求</text><text class="f-sc" x="120.8" y="212.0">问题是否真的需要图</text><text class="f-sc" x="120.8" y="270">↓</text><path class="f-ar" d="M480 110 L300.4 150" marker-end="url(#ah)"/><text class="f-s" x="306.4" y="136" text-anchor="middle">底料</text><rect class="f-b" x="219.6" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="300.4" y="193.0">数据</text><text class="f-sc" x="300.4" y="212.0">来源是否稳定可追溯</text><text class="f-sc" x="300.4" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">产线</text><rect class="f-b" x="399.2" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">抽取</text><text class="f-sc" x="480.0" y="212.0">抽检能否稳定过线</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L659.5999999999999 150" marker-end="url(#ah)"/><text class="f-s" x="665.5999999999999" y="136" text-anchor="middle">对齐</text><rect class="f-b" x="578.8" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="659.5999999999999" y="193.0">融合</text><text class="f-sc" x="659.5999999999999" y="212.0">合并是否可回溯</text><text class="f-sc" x="659.5999999999999" y="270">↓</text><path class="f-ar" d="M480 110 L839.1999999999999 150" marker-end="url(#ah)"/><text class="f-s" x="845.1999999999999" y="136" text-anchor="middle">出口</text><rect class="f-b" x="758.4" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="839.1999999999999" y="193.0">服务</text><text class="f-sc" x="839.1999999999999" y="212.0">查询是否真有人在用</text><text class="f-sc" x="839.1999999999999" y="270">↓</text><text class="f-s" x="40" y="316">复盘不追责，只定位：哪一维掉链子，下一轮就优先补那一维。</text>
+</svg><figcaption><b>图 7-36　复盘五个维度，每维一句检查</b>　起点、底料、产线、对齐、出口，哪一维掉链子，下一轮就优先补那一维。</figcaption></figure>
+<p>复盘走五个维度，每维一问：是否真需要图、数据是否可追溯、抽取能否过线、合并是否可回溯、查询是否有人在用。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三道验收</h2>
+<p><strong>能查：</strong>5 条验收查询全部能执行且有结果。空结果要能归因，是数据缺失还是查询写错。</p>
+<p><strong>查准：</strong>从图里随机抽 10 条关系，逐条对照原始表。10 条全对才算过；错 1 条就要查是不是融合阶段合并错了。</p>
+<p><strong>可维护：</strong>6 项 schema 约束全部通过，且每条约束都有对应的检查函数。约束靠人眼看，不算通过。</p>
+<p>三道验收的顺序不能换。先能查，再查准，最后看可维护。前一道不过，后一道的数字没有意义。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>Demo 怎么搭</h2>
+<p>Demo 只用标准库。实体按类型存成字典，关系存成四元组，第四个位置放依据。查询就是遍历加集合运算，约束检查写成独立函数。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d7_6_campus.py（节选）</span></div>
+<pre><code># 实体：类型 -&gt; {id: 属性}
+E = {&quot;学院&quot;: {}, &quot;教师&quot;: {}, &quot;课程&quot;: {}, &quot;实验室&quot;: {}, &quot;学生&quot;: {}}
+# 关系：(主语, 关系, 宾语, 依据)
+R = []
+
+def teach(teacher):
+    return [c for (t, r, c, _) in R if r == &quot;讲授&quot; and t == teacher]
+
+def lab_members(lab):
+    return [s for (s, r, l, _) in R if r == &quot;成员&quot; and l == lab]
+
+def lab_teachers(lab):
+    out = []
+    for (c, r, l, _) in R:
+        if r == &quot;使用&quot; and l == lab:
+            out += teach(c)
+    return sorted(set(out))</code></pre>
+</div>
+<p>lab_teachers 走的是三段：学生进实验室用成员边，实验室关联课程用使用边，课程再沿讲授边找到教师。三段拼起来正好是「学生所在实验室的教师」，也解释了为什么 schema 里使用边要从课程指向实验室。</p>
+<p>约束检查单独成函数，入库前统一跑一遍：课程必须有一条属于边、课程号唯一、工号唯一、先修无环、实验室有房间号、学生最多属一个实验室。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>跑一遍看数</h2>
+<p>下面是一次完整运行的输出：76 个实体、150 条关系、5 条查询，最后是三道验收。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>实体数      : 76
+  学院    5
+  教师    15
+  课程    20
+  实验室  6
+  学生    30
+关系数      : 150
+  开设    20
+  讲授    25
+  属于    45
+  使用    15
+  成员    30
+  先修    15
+
+--- 查询 1：张伟讲授的课程 ---
+结果条数: 3
+  1. 数据结构
+  2. 计算机网络
+  3. 数据库原理
+
+--- 查询 2：智能计算实验室的成员 ---
+结果条数: 5
+  1. 学生01
+  2. 学生02
+  3. 学生03
+
+--- 查询 3：数据库原理的 2 跳先修链 ---
+结果条数: 1
+  1. 操作系统 → 计算机网络 → 数据库原理
+
+--- 查询 4：计算机学院的所有课程 ---
+结果条数: 4
+  1. 数据结构
+  2. 操作系统
+  3. 计算机网络
+
+--- 查询 5：学生01 所在实验室的教师 ---
+结果条数: 3
+  1. 张伟（智能计算实验室）
+  2. 赵磊（智能计算实验室）
+  3. 马超（智能计算实验室）
+
+验收 1 能查  : 5/5 条查询有结果
+验收 2 查准  : 抽查 10 条关系，正确 10 条
+验收 3 可维护: 检查 6 项 schema 约束，通过 6 项，失败 0 项
+结论        : 图谱交付要同时过“能查、查准、可维护”三道验收。</code></pre>
+</div>
+<p>先看规模。76 个实体里学生占 30、课程 20、教师 15，与设计时的 5/15/20/6/30 一致。150 条关系正好等于六类关系之和：20+25+45+15+30+15 = 150。边数对得上，说明没有丢数据。</p>
+<p>再看查询。查询 2 与查询 4 的「结果条数」分别是 5 和 4，终端只列了前 3 条，这是显示截断，不是数据缺失。查询 3 只返回 1 条路径，因为两跳可达的先修链只有这一条，能唯一解释清楚比多返回几条更难造假。</p>
+<p>最后看验收。能查 5/5，说明 5 条查询都能映射到模式；查准 10/10，是随机抽 10 条关系回原始表核对；可维护 6/6，是 6 项约束逐条跑检查函数，失败 0 项。</p>
+<div class="callout callout--warn">
+  <span class="c-label">10/10 不等于全对</span>
+  <p>抽查 10 条只是抽样。全量 150 条要到 100%，得靠入库时的约束拦截，不能靠抽查运气。抽查的作用是验证抽取规则，不是代替校验。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三道卷子复盘</h2>
+<p><strong>任务：</strong>按三道验收给这次实战打分，每项写结论与下一步动作。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>验收</th><th>看什么</th><th>不过时怎么补</th></tr></thead>
+  <tbody>
+    <tr><td>能查</td><td>5 条查询是否都有结果，空结果能否归因</td><td>补边、补数据，或把问题移出范围</td></tr>
+    <tr><td>查准</td><td>抽查 10 条关系与源表是否一致</td><td>查融合别名，回退该批抽取</td></tr>
+    <tr><td>可维护</td><td>6 项约束是否全过，变更能否回滚</td><td>补检查函数，补别名表版本</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果查询 5 返回空，最可能缺哪条边？② 抽查错 1 条，应该整批回滚还是只改那一条？③ 复盘五维里，哪一维最容易被跳过？</p>
+<p><strong>验收：</strong>三项都有结论、都有下一步动作，且能指出对应的图与边。需求怎么筛，见 <a href="../m07-knowledge-graph/k7-6-1-requirements.html">需求分析</a>；接口怎么收口，见 <a href="../m07-knowledge-graph/k7-6-4-serving.html">查询与服务化</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u7-6-enterprise-kg.html">7.6 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-6-4-serving.html"><span class="p-label">← 上一知识点 7.6.4</span><span class="p-title">查询与服务化：API、可视化与权限</span></a><a class="next" href="u7-6-enterprise-kg.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 7.6 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)27 · 综合实战：校园知识图谱</dd>
+    <dt>页面编号 / 路径</dt><dd>7.6.5 ｜ <span class="path">pages/m07-knowledge-graph/k7-6-5-project-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-6-1-requirements.html"><b>7.6.1</b>需求分析：从业务问题到图谱问题</a><a class="xlink" href="k7-6-4-serving.html"><b>7.6.4</b>查询与服务化：API、可视化与权限</a><a class="xlink" href="k7-6-2-schema.html"><b>7.6.2</b>schema 设计：实体、关系、属性与约束</a><a class="xlink" href="u7-6-enterprise-kg.html"><b>7.6</b>企业知识图谱构建与综合项目（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k7-6-5（本页图 7-35）、k7-6-5-b（图 7-36）；Demo d7_6_campus.py；知识库 M07-S5-00（filled）。 ｜ 知识库条目：M07-S5-00《企业知识图谱的构建方法》（filled） ｜ 参考来源：W3C RDF 1.1 规范；W3C OWL 2 规范；Neo4j Cypher 文档；输出为 d7_6_campus.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

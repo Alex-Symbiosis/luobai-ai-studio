@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.2.2 张量：形状、类型与秩 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 shape、dtype、ndim 三个属性各自的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-2-graph-tensor.html">10.2 计算图、张量、会话与变量</a><span class="sep">/</span><span class="here">10.2.2 张量：形状、类型与秩</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.2</span>
+    <span class="tag">知识点 10.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>张量：形状、类型与秩</h1>
+  <p class="lede">TensorFlow 的报错九成可以归成一句话：形状对不上。而形状这件事，只要把「秩」和「每一维的大小」分开看，就不难。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 shape、dtype、ndim 三个属性各自的含义。</li><li>能判断两个张量能否相加，并写出结果形状。</li><li>能解释为什么张量不可变、变量可改。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>为什么总是 shape 不匹配</h2>
+<p>一段看起来没问题的代码：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>形状问题的典型现场</span></div>
+<pre><code>x = tf.constant([[1.0, 2.0], [3.0, 4.0]])   # (2, 2)
+w = tf.constant([[1.0], [2.0]])             # (2, 1)
+print((x @ w).shape)                        # 能乘
+print((x + w).shape)                        # 报错</code></pre>
+</div>
+<p>矩阵乘要求「左列数 = 右行数」，加法要求「形状可广播」。两条规则都围绕同一组数字。</p>
+<p class="ask">为什么框架不自动把 (2,2) 和 (2,1) 补成一样？</p>
+<p>因为自动补齐会掩盖逻辑错误；宁可报错，也不让一个本该是 bug 的广播悄悄算出结果。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>积木的尺寸</h2>
+<p>张量像积木：0 维是一颗珠子，1 维是一根条，2 维是一块板，3 维是一摞板。接口尺寸不对，硬塞只会卡住。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="张量按维数分层">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">张量按维数分层</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">0 维 · 标量</text><text class="f-s" x="430" y="87.0">shape=()　一个数，如损失值</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">1 维 · 向量</text><text class="f-s" x="430" y="151.0">shape=(3,)　一个样本的特征</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">2 维 · 矩阵</text><text class="f-s" x="430" y="215.0">shape=(batch, features)　最常用</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">3 维 · 张量</text><text class="f-s" x="430" y="279.0">shape=(batch, 步长, 通道)　序列与图像</text><text class="f-s" x="120" y="336">报错九成出在 shape：先看维数，再看每一维的大小，最后看 dtype。</text>
+</svg><figcaption><b>图 10-6　张量按维数分层</b>　先看维数，再看每一维大小，最后看 dtype；三步定位大多数形状错误。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p><code>shape=(2, 3)</code> 读作「2 行 3 列」；<code>ndim=2</code> 是维数（秩）；<code>dtype</code> 是每个格子里装什么类型的数。三者缺一不可。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>形状、类型、秩</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>属性</th><th>含义</th><th>读写方式</th></tr></thead>
+  <tbody>
+    <tr><td>shape</td><td>每一维的大小，元组</td><td><code>t.shape</code> → <code>(2, 3)</code></td></tr>
+    <tr><td>ndim</td><td>维数，即 shape 的长度</td><td><code>t.ndim</code> → <code>2</code></td></tr>
+    <tr><td>dtype</td><td>元素类型</td><td><code>t.dtype</code> → <code>float32</code></td></tr>
+    <tr><td>nbytes</td><td>总字节数 = 元素数 × 单元素字节</td><td><code>t.numpy().nbytes</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>广播规则只有一条好记的版本：从最后一维往前比，每一维要么相等，要么其中一个是 <code>1</code>，要么其中一个不存在。<code>(2,3)</code> 与 <code>(3,)</code> 可以相加，结果 <code>(2,3)</code>；<code>(2,2)</code> 与 <code>(2,1)</code> 也可以，把后者沿列方向复制一份。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一次形状、类型与可变性检查</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>tensor_basics.py</span></div>
+<pre><code>import tensorflow as tf
+
+t = tf.constant([[1, 2, 3], [4, 5, 6]], dtype=tf.int32)
+print(&quot;shape:&quot;, t.shape, &quot;dtype:&quot;, t.dtype, &quot;ndim:&quot;, t.ndim)
+print(&quot;t + 1:&quot;, (t + 1).numpy().tolist())
+print(&quot;转置:&quot;, tf.transpose(t).numpy().tolist())
+print(&quot;切片 t[:, 1]:&quot;, t[:, 1].numpy().tolist())
+print(&quot;字节数:&quot;, t.numpy().nbytes)
+
+try:
+    t[0, 0] = 9
+except TypeError as e:
+    print(&quot;不可变:&quot;, type(e).__name__)
+
+v = tf.Variable([[1, 2], [3, 4]])
+v[0, 0].assign(9)
+print(&quot;变量可改:&quot;, v.numpy().tolist())</code></pre>
+</div>
+<p><code>t[0, 0]</code> 的下标赋值走的是 Python 的 <code>__setitem__</code>，张量没有实现可写版本，因此抛 <code>TypeError</code>；变量则把 <code>assign</code> 挂在切片上。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>shape: (2, 3) dtype: &lt;dtype: &#x27;int32&#x27;&gt; ndim: 2
+t + 1: [[2, 3, 4], [5, 6, 7]]
+转置: [[1, 4], [2, 5], [3, 6]]
+切片 t[:, 1]: [2, 5]
+字节数: 24
+不可变: TypeError
+变量可改: [[9, 2], [3, 4]]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>24 字节</h3><p>2×3 个元素，int32 每个 4 字节，共 24；换成 float32 仍是 24，float64 就变 48。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>转置后 (3, 2)</h3><p>行列互换，元素总数不变；切片 <code>t[:, 1]</code> 取第二列，降到 1 维。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>TypeError</h3><p>常量张量不可写；同样是「改一个格子」，变量用 <code>assign</code> 成功。</p></div>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六组张量，判断能否运算</h2>
+<p><strong>任务：</strong>对下面六组各判「能否相加 / 能否矩阵乘」，并写出结果形状。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组</th><th>形状</th><th>看哪一维</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><code>(3,) + (3,)</code></td><td>同形，直接加</td></tr>
+    <tr><td>2</td><td><code>(2,3) + (3,)</code></td><td>末维相等，广播</td></tr>
+    <tr><td>3</td><td><code>(2,3) + (2,)</code></td><td>末维 3 对 2，不成立</td></tr>
+    <tr><td>4</td><td><code>(2,3) @ (3,4)</code></td><td>左列 3 = 右行 3</td></tr>
+    <tr><td>5</td><td><code>(2,3) @ (2,3)</code></td><td>左列 3 ≠ 右行 2</td></tr>
+    <tr><td>6</td><td><code>(4,1,2) + (3,2)</code></td><td>从右往左逐维比</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>t.shape</code> 里会出现 <code>None</code>，它代表什么？② 两个张量 dtype 不同直接相加，会发生什么？</p>
+<p><strong>验收：</strong>六组判断全对，且每组能说出依据的是哪一维。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-2-3-session.html">10.2.3 会话：图执行的入口</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-2-1-graph.html"><span class="p-label">← 上一知识点 10.2.1</span><span class="p-title">计算图：节点与边</span></a><a class="next" href="k10-2-3-session.html"><span class="p-label">下一知识点 10.2.3 →</span><span class="p-title">会话：图执行的入口</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)3 · 张量</dd>
+    <dt>页面编号 / 路径</dt><dd>10.2.2 ｜ <span class="path">pages/m10-tensorflow/k10-2-2-tensor.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-2-1-graph.html"><b>10.2.1</b>计算图：节点与边</a><a class="xlink" href="k10-2-5-var-vs-tensor-demo.html"><b>10.2.5</b>变量与张量的区别</a><a class="xlink" href="k10-1-4-minimal-demo.html"><b>10.1.4</b>最小训练脚本与模型摘要</a><a class="xlink" href="u10-2-graph-tensor.html"><b>10.2</b>计算图、张量、会话与变量（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-2-2（本页图 10-6）；知识库 M10-S3-02、M10-S3-05；输出为本机实测。 ｜ 知识库条目：M10-S3-02《张量》（filled）、M10-S3-05《变量与张量的区别》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S156 tf.Tensor 指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.10.5 奖励设计与 CartPole 训练 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清稀疏奖励与塑形奖励各自的代价。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-10-deep-rl.html">6.10 深度强化学习：Q 学习与 DQN</a><span class="sep">/</span><span class="here">6.10.5 奖励设计与 CartPole 训练</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.10</span>
+    <span class="tag">知识点 6.10.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>奖励设计与 CartPole 训练</h1>
+  <p class="lede">奖励怎么给，决定了智能体会学成什么样。稀疏的「活一步 +1」最干净，也最难起步；这一页把它跑起来，看回报怎么从 10 爬到 118。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清稀疏奖励与塑形奖励各自的代价。</li><li>能读懂 epsilon 衰减与回报曲线的关系。</li><li>能解释为什么前 100 轮看起来「什么都没学会」。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>给分方式决定行为</h2>
+<p>摆杆任务的目标是「别倒」。但「别倒」不是数字，网络没法直接优化它。必须翻译成每一步的奖励。</p>
+<p>最自然的写法是：活一步给 +1，倒下就结束。这样一来，一局的回报就等于活了多少步，封顶 200 步。智能体现在有了明确的目标——让总步数变大。</p>
+<p>另一种写法是把奖励和杆的角度挂钩：越接近竖直给得越多。这样早期就有梯度信号，收敛更快，但智能体可能学会「稳稳地歪着」去刷分，而不是真的立住。</p>
+<p class="ask">两种写法，选哪个？</p>
+<p>本例选前者。信号干净、无塑形偏差，代价是探索早期几乎学不到东西——必须靠 ε 随机试，才能偶尔碰到「活得更久」的轨迹。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>稀疏干净塑形有险</h2>
+<p>奖励设计本质是在「信号密度」与「目标纯度」之间取舍。稀疏奖励信号少但不会误导；塑形奖励信号多但写进了设计者的假设。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="奖励设计决定学到的行为">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">奖励设计决定学到的行为</text><rect class="f-green" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">稀疏奖励：活一步 +1</text><text class="f-s" x="80" y="108">· 只在存活时给正反馈</text><text class="f-s" x="80" y="138">· 倒下立即结束</text><text class="f-s" x="80" y="168">· 信号干净、无需塑形</text><text class="f-s" x="80" y="198">· 探索早期几乎学不到</text><text class="f-s" x="80" y="228">· 本例最终均值约 118</text><rect class="f-amber" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">塑形奖励：角度越小越高</text><text class="f-s" x="530" y="108">· 每步奖励与角度挂钩</text><text class="f-s" x="530" y="138">· 早期就有梯度信号</text><text class="f-s" x="530" y="168">· 收敛更快但可能走偏</text><text class="f-s" x="530" y="198">· 要防止「刷奖励」</text><text class="f-s" x="530" y="228">· 业务里慎用</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 6-57　奖励设计决定学到的行为</b>　稀疏奖励干净但难起步；塑形奖励起步快，却可能被「刷分」带偏。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>能用稀疏奖励解决的，就别急着塑形。塑形等于把你的猜测写进目标函数；猜错了，智能体会非常认真地优化一个错的目标。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>环境与训练参数</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>取值</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>状态</td><td>4 维</td><td>位置、速度、杆角、角速度</td></tr>
+    <tr><td>动作</td><td>2 个</td><td>向左推、向右推</td></tr>
+    <tr><td>奖励</td><td>每步 +1</td><td>倒下即终止，不给负分</td></tr>
+    <tr><td>终止</td><td>|x|&gt;2.4 或 |θ|&gt;12°</td><td>出界或倾斜超限</td></tr>
+    <tr><td>单局上限</td><td>200 步</td><td>回报的最高分</td></tr>
+    <tr><td>ε</td><td>1.0 起，每轮 ×0.98</td><td>下限 0.05，160 轮触底</td></tr>
+    <tr><td>折扣 γ</td><td>0.99</td><td>大约看一百步</td></tr>
+  </tbody>
+</table>
+</div>
+<p>回报就是这一局的总步数：活得越久分越高。ε 从 1 开始意味着第一轮完全随机，随着轮次推进逐步转向利用；下限 0.05 保留一点探索，避免策略过早固化。</p>
+<p>训练配置：网络两层 32 个隐藏单元，输出 2 个 Q 值；回放池 20,000 条，批大小 64；目标网络每 10 轮同步一次；损失用 Huber，比平方误差更抗离群点。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>环境与训练各一半</h2>
+<p>环境按 CartPole 的物理参数手写，不依赖 gym；训练部分就是「采样—存池—抽批—反传」的循环。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d6_10_cartpole.py</span></div>
+<pre><code>class CartPole:
+    gravity, masscart, masspole, length = 9.8, 1.0, 0.1, 0.5
+    force_mag, tau = 10.0, 0.02
+    theta_limit, x_limit = 12 * np.pi / 180, 2.4
+
+    def __init__(self, seed=0):
+        self.rng = np.random.default_rng(seed)
+
+    def reset(self):
+        self.state = self.rng.uniform(-0.05, 0.05, 4)
+        return self.state.copy()
+
+    def step(self, action):
+        x, xd, th, thd = self.state
+        force = self.force_mag if action == 1 else -self.force_mag
+        ct, st = np.cos(th), np.sin(th)
+        total = self.masscart + self.masspole
+        pml = self.masspole * self.length
+        temp = (force + pml * thd ** 2 * st) / total
+        thacc = (self.gravity * st - ct * temp) / (
+            self.length * (4 / 3 - self.masspole * ct ** 2 / total))
+        xacc = temp - pml * thacc * ct / total
+        x += self.tau * xd
+        xd += self.tau * xacc
+        th += self.tau * thd
+        thd += self.tau * thacc
+        self.state = np.array([x, xd, th, thd])
+        done = abs(x) &gt; self.x_limit or abs(th) &gt; self.theta_limit
+        return self.state.copy(), 1.0, done</code></pre>
+</div>
+<p>物理部分照着方程抄即可，真正要盯的是三个学习设置：<code>eps = max(0.05, eps * 0.98)</code> 每轮衰减；<code>target.set_weights(model.get_weights())</code> 每 10 轮同步；<code>tf.stop_gradient(y)</code> 截断目标。少任何一个，曲线都会变形。</p>
+<p>还有一条启动条件：回放池攒到 500 条才开始训练，且每与环境交互一步就做一次梯度更新。回合上限 200，训练总回合 160，这两组数决定了整条曲线的时间尺度。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测回报曲线</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>episode  20  本轮回合  15  近20轮均值 29.8  epsilon 0.668
+episode  40  本轮回合  15  近20轮均值 13.2  epsilon 0.446
+episode  60  本轮回合  12  近20轮均值 11.4  epsilon 0.298
+episode  80  本轮回合   9  近20轮均值 10.7  epsilon 0.199
+episode 100  本轮回合  16  近20轮均值 11.9  epsilon 0.133
+episode 120  本轮回合  93  近20轮均值 61.5  epsilon 0.089
+episode 140  本轮回合  84  近20轮均值 120.7  epsilon 0.059
+episode 160  本轮回合 132  近20轮均值 118.0  epsilon 0.050
+最后20轮平均回报: 118.0
+最高回报: 200</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="CartPole 回报随回合上升">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">CartPole 回报随回合上升</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 285 L220 270 L320 250 L420 225 L520 200 L620 165 L720 135 L820 120 L880 112" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">回报</text><circle class="f-pt" cx="880" cy="112" r="6"/><text class="f-s" x="890" y="104">近 20 轮均值 118</text><text class="f-s" x="880" y="322" text-anchor="end">回合</text><text class="f-s" x="92" y="66" text-anchor="end">回报</text><text class="f-s" x="100" y="340">曲线不光滑是 ε-贪心与回放采样带来的方差；看趋势，不看单点。</text>
+</svg><figcaption><b>图 6-58　CartPole 回报随回合上升</b>　曲线不光滑是 ε-贪心与回放采样带来的方差；看趋势，不看单点。</figcaption></figure>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>先跌后涨</h3><p>20 轮时均值 29.8，到 80 轮反而只有 10.7。早期靠随机探索撞出的高分局，在学得半懂时反而被破坏。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>120 轮是拐点</h3><p>ε 降到 0.089，随机动作明显减少，近 20 轮均值从 11.9 跳到 61.5。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>118.0 与 200</h3><p>末段均值 118，最高一局打满上限 200；还没稳定到每局都满。</p></div>
+</div>
+<p>前 100 轮「看起来没学会」，正是稀疏奖励的典型症状：奖励只在活得久时才有区别，而早期随机策略活不过 15 步，各状态的 Q 值几乎分不出高下。真正的转折发生在 ε 降到 0.1 以下、回放池里攒够了长回合样本之后。</p>
+<div class="callout callout--warn">
+  <span class="c-label">不要读单点</span>
+  <p>40 轮那一行显示「本轮回合 15」，与 20 轮的 15 一样，不能据此说没进步。单局方差极大，判断依据是近 20 轮均值。同样，118.0 也不是「收敛值」——换种子、换衰减速度，末段可能在 80 到 200 之间。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>改三处看变化</h2>
+<p><strong>任务：</strong>不改网络，只改训练设置，先写预测。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>你预计曲线</th><th>依据</th></tr></thead>
+  <tbody>
+    <tr><td>ε 下限从 0.05 提到 0.3</td><td>？</td><td>随机动作持续存在</td></tr>
+    <tr><td>去掉目标网络，直接用当前网络</td><td>？</td><td>目标每步都在动</td></tr>
+    <tr><td>奖励改成「角度越小给得越多」</td><td>？</td><td>信号变密，但可能刷分</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么前 100 轮的均值会先跌后涨？② 单局最高 200 与均值 118 的差距说明什么？③ 若把单局上限从 200 提到 500，末段均值会怎么变？</p>
+<p><strong>验收：</strong>三行预测都指向具体机制，且能说清「稀疏奖励起步慢不是 bug」。三项技巧各治什么病，见 <a href="../m06-neural-nets/k6-10-4-replay-target.html">经验回放与目标网络</a>；Q 值怎么算，见 <a href="../m06-neural-nets/k6-10-2-q-learning.html">Q 学习</a>。</p>
+</section>
+<p class="sidenote">注：本页需 NumPy 辅助计算，运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + NumPy 2.5.5 + Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u6-10-deep-rl.html">6.10 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-10-4-replay-target.html"><span class="p-label">← 上一知识点 6.10.4</span><span class="p-title">经验回放与目标网络</span></a><a class="next" href="u6-10-deep-rl.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 6.10 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)48 · 奖励设计与 CartPole 训练</dd>
+    <dt>页面编号 / 路径</dt><dd>6.10.5 ｜ <span class="path">pages/m06-neural-nets/k6-10-5-cartpole-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-10-4-replay-target.html"><b>6.10.4</b>经验回放与目标网络</a><a class="xlink" href="k6-10-2-q-learning.html"><b>6.10.2</b>Q 学习：给每个动作打分</a><a class="xlink" href="k6-10-1-rl-elements.html"><b>6.10.1</b>强化学习五要素</a><a class="xlink" href="u6-10-deep-rl.html"><b>6.10</b>深度强化学习：Q 学习与 DQN（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k6-10-5（本页图 6-57）、k6-10-5-b（图 6-58）；Demo d6_10_cartpole.py；知识库 M06-S7-04。 ｜ 知识库条目：M06-S7-04《深度 Q 网络（DQN）》（filled） ｜ 参考来源：S105 Mnih 等 2015 Nature；S49 Sutton & Barto 2018；S106 Mnih 等 2013；输出为 d6_10_cartpole.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

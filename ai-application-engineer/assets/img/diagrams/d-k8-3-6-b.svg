@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="箱体是常态，胡须之外才是偏差">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">箱体是常态，胡须之外才是偏差</text><path class="f-ax" d="M100 290 L880 290"/><path class="f-ax" d="M100 62 L100 290"/><path class="f-ax" d="M96 290.0 L104 290.0"/><text class="f-s" x="88" y="294.0" text-anchor="end">0</text><path class="f-ax" d="M96 235.0 L104 235.0"/><text class="f-s" x="88" y="239.0" text-anchor="end">25</text><path class="f-ax" d="M96 180.0 L104 180.0"/><text class="f-s" x="88" y="184.0" text-anchor="end">50</text><path class="f-ax" d="M96 125.0 L104 125.0"/><text class="f-s" x="88" y="129.0" text-anchor="end">75</text><path class="f-ax" d="M96 69.99999999999997 L104 69.99999999999997"/><text class="f-s" x="88" y="73.99999999999997" text-anchor="end">100</text><path class="f-ax" d="M250 257.0 L250 224.0"/><path class="f-ax" d="M232 257.0 L268 257.0"/><path class="f-ax" d="M250 169.0 L250 136.0"/><path class="f-ax" d="M232 136.0 L268 136.0"/><rect x="205" y="169.0" width="90" height="55.0" fill="#eef4ff" stroke="#8fb8ff" stroke-width="1.5" rx="3"/><path d="M205 197.6 L295 197.6" stroke="#2f6fd0" stroke-width="2.4"/><circle cx="250" cy="96.39999999999998" r="4.5" fill="#d9534f"/><text class="f-sc" x="250" y="314">整体客户</text><path class="f-ax" d="M500 191.0 L500 169.0"/><path class="f-ax" d="M482 191.0 L518 191.0"/><path class="f-ax" d="M500 118.39999999999998 L500 91.99999999999997"/><path class="f-ax" d="M482 91.99999999999997 L518 91.99999999999997"/><rect x="455" y="118.39999999999998" width="90" height="50.60000000000002" fill="#eef4ff" stroke="#8fb8ff" stroke-width="1.5" rx="3"/><path d="M455 144.79999999999998 L545 144.79999999999998" stroke="#2f6fd0" stroke-width="2.4"/><text class="f-sc" x="500" y="314">高价值群</text><path class="f-ax" d="M750 285.6 L750 279.0"/><path class="f-ax" d="M732 285.6 L768 285.6"/><path class="f-ax" d="M750 246.0 L750 224.0"/><path class="f-ax" d="M732 224.0 L768 224.0"/><rect x="705" y="246.0" width="90" height="33.0" fill="#eef4ff" stroke="#8fb8ff" stroke-width="1.5" rx="3"/><path d="M705 263.6 L795 263.6" stroke="#2f6fd0" stroke-width="2.4"/><circle cx="750" cy="131.6" r="4.5" fill="#d9534f"/><circle cx="750" cy="102.99999999999997" r="4.5" fill="#d9534f"/><text class="f-sc" x="750" y="314">可疑记录</text><text class="f-s" x="100" y="342">先确认是数据错了，还是业务真变了；两种情况处理方式完全不同。</text>
+</svg>

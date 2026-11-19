@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.2.4 变量：可训练的状态 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能创建一个变量并读出它的 shape、dtype、trainable 与 name。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-2-graph-tensor.html">10.2 计算图、张量、会话与变量</a><span class="sep">/</span><span class="here">10.2.4 变量：可训练的状态</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.2</span>
+    <span class="tag">知识点 10.2.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>变量：可训练的状态</h1>
+  <p class="lede">权重为什么不能用普通张量存？因为训练的本质就是「反复改写同一块内存」——而张量从设计上就不允许被改写。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能创建一个变量并读出它的 shape、dtype、trainable 与 name。</li><li>能用 assign / assign_add 修改变量，并解释与重新赋值的区别。</li><li>能用 GradientTape 取出 d(sum(v²))/dv，并验证等于 2v。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>权重存在哪里</h2>
+<p>训练一个线性层，参数要跨批次、跨 epoch 一直存在：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>用常量存权重的后果</span></div>
+<pre><code>w = tf.constant([1.0, 2.0])      # 想改？
+w = w + 1.0                      # 这是新建了一个张量，不是原地更新
+print(w)                         # 旧对象还在，只是没人引用了</code></pre>
+</div>
+<p>每步都新建对象，优化器就无法「就地更新」，保存与恢复也没有稳定的名字可挂。变量解决的正是这件事：一块有名字、可登记、可原地改写的存储。</p>
+<p class="ask">为什么不让所有张量都可变？</p>
+<p>因为不可变让框架能安全地复用内存、做图优化；把「可变」限制在少数变量上，是性能与安全的折中。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>白板上的数字</h2>
+<p>常量像打印出来的纸：要改只能重印一张。变量像白板：擦掉重写，位置不变，别人也能找到这块板。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="变量的一生：五个动作">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">变量的一生：五个动作</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">创建</text><text class="f-sc" x="117.6" y="154.0">形状、类型、初值</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">初始化</text><text class="f-sc" x="298.79999999999995" y="154.0">赋初值并登记</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">参与前向</text><text class="f-sc" x="480.0" y="154.0">进入计算</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">回传梯度</text><text class="f-sc" x="661.1999999999999" y="154.0">GradientTape 记录</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">更新与保存</text><text class="f-sc" x="842.4" y="154.0">assign / 存档</text><text class="f-s" x="40" y="244">变量的值会被训练反复改写，所以它必须登记在册——这就是 Variable 与常量的分界。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 10-8　变量的一生：五个动作</b>　创建时要定形状与类型；之后由优化器反复改写，并在存档时被保存。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p><code>tf.Variable</code> 是可训练状态的容器；<code>trainable=True</code> 只是「允许优化器看见它」，真正改值仍靠 <code>assign</code>。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>Variable 的四个属性与三个动作</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>含义</th><th>示例</th></tr></thead>
+  <tbody>
+    <tr><td>shape</td><td>形状，创建后一般不变</td><td><code>(2,)</code></td></tr>
+    <tr><td>dtype</td><td>元素类型，默认随初值</td><td><code>float32</code></td></tr>
+    <tr><td>trainable</td><td>是否被优化器收集</td><td><code>True</code></td></tr>
+    <tr><td>name</td><td>图内唯一名</td><td><code>w:0</code></td></tr>
+    <tr><td>assign / assign_add</td><td>整体替换 / 原地累加</td><td><code>v.assign_add([1., 1.])</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p><code>assign</code> 返回的是一个操作句柄，在 Eager 下立即生效；它和 <code>v = v + 1</code> 的区别在于——后者把名字 <code>v</code> 指向了新对象，原来那块存储与登记关系都没了。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>创建、更新、求梯度</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>variable_demo.py</span></div>
+<pre><code>import tensorflow as tf
+
+v = tf.Variable([1.0, 2.0], name=&quot;w&quot;, dtype=tf.float32)
+print(&quot;值:&quot;, v.numpy().tolist(), &quot;shape:&quot;, v.shape, &quot;trainable:&quot;, v.trainable, &quot;name:&quot;, v.name)
+
+v.assign([3.0, 4.0])
+v.assign_add([1.0, 1.0])
+print(&quot;更新后:&quot;, v.numpy().tolist())
+
+with tf.GradientTape() as tape:
+    loss = tf.reduce_sum(v * v)
+print(&quot;d(sum(v^2))/dv:&quot;, tape.gradient(loss, v).numpy().tolist())</code></pre>
+</div>
+<p><code>GradientTape</code> 只记录「被它看着」的运算：<code>with</code> 块内对 <code>v</code> 的读取会被记下，块外再求导就取不到。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>值: [1.0, 2.0] shape: (2,) trainable: True name: w:0
+更新后: [4.0, 5.0]
+d(sum(v^2))/dv: [8.0, 10.0]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>w:0</h3><p><code>:0</code> 是该操作的输出序号，不是版本号；同一个变量名在图中唯一。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>[4.0, 5.0]</h3><p>先 assign 成 [3,4]，再 assign_add [1,1]；两步都是原地改，shape 不变。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>[8.0, 10.0]</h3><p>sum(v²) 对 v 的导数是 2v，代入 [4,5] 正好 [8,10]，说明梯度取的是更新后的值。</p></div>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>3×2 变量的一次梯度更新</h2>
+<p><strong>任务：</strong>创建一个 3×2 变量，初值全 1；计算 <code>sum(v²)</code> 的梯度，再按 <code>v = v - 0.1 * grad</code> 更新一次，打印前后值。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>建变量</td><td>shape 与 dtype</td><td><code>tf.Variable(tf.ones([3, 2]))</code></td></tr>
+    <tr><td>求梯度</td><td>形状是否与变量一致</td><td>应为 <code>(3, 2)</code></td></tr>
+    <tr><td>更新</td><td>值是否真的变了</td><td>用 <code>assign_sub</code> 或 <code>assign</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果忘了写 <code>with tf.GradientTape()</code>，梯度会是什么？② <code>trainable=False</code> 的变量还会被 <code>model.fit</code> 更新吗？</p>
+<p><strong>验收：</strong>更新后每个元素由 1.0 变为 0.8，形状保持 <code>(3, 2)</code>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-2-5-var-vs-tensor-demo.html">10.2.5 变量与张量的区别</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-2-3-session.html"><span class="p-label">← 上一知识点 10.2.3</span><span class="p-title">会话：图执行的入口</span></a><a class="next" href="k10-2-5-var-vs-tensor-demo.html"><span class="p-label">下一知识点 10.2.5 →</span><span class="p-title">变量与张量的区别</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)3 · 创建变量</dd>
+    <dt>页面编号 / 路径</dt><dd>10.2.4 ｜ <span class="path">pages/m10-tensorflow/k10-2-4-variable.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-2-5-var-vs-tensor-demo.html"><b>10.2.5</b>变量与张量的区别</a><a class="xlink" href="k10-2-2-tensor.html"><b>10.2.2</b>张量：形状、类型与秩</a><a class="xlink" href="k10-3-3-train.html"><b>10.3.3</b>训练模型：编译与 fit</a><a class="xlink" href="u10-2-graph-tensor.html"><b>10.2</b>计算图、张量、会话与变量（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-2-4（本页图 10-8）；知识库 M10-S3-04；输出为本机实测。 ｜ 知识库条目：M10-S3-04《创建变量》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S158 tf.Variable 指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

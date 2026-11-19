@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.2.5 抽取评估：准确率、召回率与标注一致性 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 TP/FP/FN 的判定规则，并算准确率、召回率与 F1。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-2-extraction.html">7.2 知识提取：语义、属性与关系抽取</a><span class="sep">/</span><span class="here">7.2.5 抽取评估：准确率、召回率与标注一致性</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.2</span>
+    <span class="tag">知识点 7.2.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>抽取评估：准确率、召回率与标注一致性</h1>
+  <p class="lede">抽了 87 条，对 81 条。这个数字好不好，取决于你先定下的口径。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 TP/FP/FN 的判定规则，并算准确率、召回率与 F1。</li><li>能说清「先定口径再算分」：什么算正确、别名算不算、一句多个三元组怎么计。</li><li>能读懂 P 高 R 低的业务含义，并指出误差集中在哪三类。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>准是多少</h2>
+<p>周五汇报，老板只问一句：「抽得准不准？」答「挺准的」等于没答。准是多少、漏了多少、漏的是哪一类，三个数缺一不可。</p>
+<p>手头的数字是：100 条新闻，人工标出 94 条真实关系，规则抽出 87 条。接下来的问题不是「像不像」，而是「哪条算对」。</p>
+<p class="ask">「蓝海医疗入股汇通金融」抽成「蓝海医疗收购汇通金融」，算对还是算错？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两条曲线</h2>
+<p>精确率与召回率是一对反向指标：判定放宽，召回上去、精确率下来；收紧则相反。选哪个点，看业务更怕漏还是更怕错。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="阈值一动，精确率与召回率反向走">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">阈值一动，精确率与召回率反向走</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 250 L240 228 L360 200 L480 176 L620 136 L760 106 L880 92" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">精确率</text><path d="M110 96 L240 122 L360 152 L480 178 L620 236 L760 276 L880 292" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">召回率</text><circle class="f-pt" cx="480" cy="177" r="6"/><text class="f-s" x="490" y="169">折中点</text><text class="f-s" x="880" y="322" text-anchor="end">判定阈值 →</text><text class="f-s" x="92" y="66" text-anchor="end">指标值</text><text class="f-s" x="100" y="340">选点看业务更怕漏还是更怕错；折中点只是起点，不是终点。</text>
+</svg><figcaption><b>图 7-11　阈值一动，精确率与召回率反向走</b>　选点看业务更怕漏还是更怕错；折中点只是起点，不是终点。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="抽取评估的五个检查点">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">抽取评估的五个检查点</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">定口径</text><text class="f-sc" x="117.6" y="154.0">什么算正确</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">抽样</text><text class="f-sc" x="298.79999999999995" y="154.0">分层抽一批</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">双人标注</text><text class="f-sc" x="480.0" y="154.0">分歧要裁决</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">算 P/R/F1</text><text class="f-sc" x="661.1999999999999" y="154.0">同一套公式</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">错误归因</text><text class="f-sc" x="842.4" y="154.0">按错误类型汇总</text><text class="f-s" x="40" y="244">口径不先定，精确率与召回率就没有意义；分歧样本本身是最好的线索。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 7-12　抽取评估的五个检查点</b>　口径不先定，精确率与召回率就没有意义；分歧样本本身是最好的线索。</figcaption></figure>
+<p>辅图给的是顺序：定口径、抽样、双人标注、算分、归因。很多人从第三步开始做，算完才发现两人对「正确」的理解不同。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个格子</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>情况</th><th>含义</th><th>本页数值</th></tr></thead>
+  <tbody>
+    <tr><td>TP</td><td>抽到了，且正确</td><td>81</td></tr>
+    <tr><td>FP</td><td>抽到了，但错误</td><td>6</td></tr>
+    <tr><td>FN</td><td>该抽，没抽到</td><td>13</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个数算三个指标：<code>P = TP / (TP + FP) = 81 / 87 = 0.931</code>，<code>R = TP / (TP + FN) = 81 / 94 = 0.862</code>，<code>F1 = 2PR / (P + R) = 0.895</code>。</p>
+<p>分母不同是关键：精确率的分母是「抽出来的」，召回率的分母是「金标里的」。所以同一批结果，P 和 R 不能互相替代，也不能只看一个。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先定口径</h2>
+<p>口径要在算分之前写下来，至少四条：</p>
+<ul>
+  <li>主体、关系、客体三者全对才算 TP；方向反了算 FP。</li>
+  <li>主体用别名算对，但必须先归一，否则同一实体换个写法就判错。</li>
+  <li>一条新闻有多个三元组时按条计，不按句计。</li>
+  <li>关系粒度按 schema：收购与入股是两类，不能合并成「资本动作」。</li>
+</ul>
+<p>然后抽样、双人标注。两人各标一遍，分歧逐条裁决；一致率用「一致条数 / 总条数」算，低于 0.9 先改口径，别急着算 P/R——那说明连人都没谈拢，指标算出来也不可信。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>prf.py</span></div>
+<pre><code>def prf(tp, fp, fn):
+    p = tp / (tp + fp) if tp + fp else 0.0
+    r = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * p * r / (p + r) if p + r else 0.0
+    return round(p, 3), round(r, 3), round(f1)</code></pre>
+</div>
+<p><strong>易错点：</strong>先算分、后补口径。口径一改，历史分全部作废；把「口径版本」写进报告，前后两期才有可比性。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>八十一对</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>样本数      : 100
+gold 条数   : 94
+抽取条数    : 87
+TP/FP/FN    : 81 / 6 / 13
+准确率      : 0.931
+召回率      : 0.862
+F1          : 0.895
+错误归因    :
+  句式未覆盖（FN）      10 条
+  触发词误判（FP）      6 条
+  跨句指代（FN）       3 条
+错误样例 1（FP，合作被误抽）
+  原文      : 蓝海医疗与清源环保宣布在云计算领域展开合作。
+  抽到      : (蓝海医疗, 收购, 清源环保)
+错误样例 2（FN，身份句式漏抽）
+  原文      : 蓝海医疗以战略投资者身份入股汇通金融，成为第二大股东。
+  抽到      : 无（漏抽）
+结论        : 规则抽取在模板新闻上 P=0.931 / R=0.862，
+              误差集中在句式覆盖与触发词歧义，需持续补规则并做归因。</code></pre>
+</div>
+<p>三个数连起来读：抽出的 87 条里 81 条对，入库的边大多可信；但金标 94 条只覆盖 81 条，每 100 条真实关系漏掉约 13.8 条。</p>
+<p>漏的 13 条不是随机分布：10 条是句式没覆盖，3 条是跨句指代。标准句式抽得住，长句、跨句、身份句式最容易漏——而复杂并购往往就写成长句。</p>
+<div class="callout callout--warn">
+  <span class="c-label">准确率高，不等于够用</span>
+  <p>P=0.931 意味着给出的边可以直接信；R=0.862 意味着每 100 条真实关系还差 13.8 条。做辅助检索够用，宣称「全部找齐」就不够；做风险监控，漏掉的可能正是要盯的那一笔。</p>
+</div>
+<p><strong>业务含义：</strong>这组数适合「高精度、低覆盖」的场景——查到的能直接用，但要配人工补漏，或者补规则把 10 条句式覆盖补上。只报 93% 会掩盖召回不足，汇报至少给三个数：抽出多少、对多少、漏多少，再附三类错误的数量。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三十条核对</h2>
+<p><strong>任务：</strong>从 100 条新闻里抽「公司—收购—公司」三元组，抽 30 条人工核对，按模板交一份评估表。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>要填的内容</th></tr></thead>
+  <tbody>
+    <tr><td>口径</td><td>什么算对、别名算不算、方向错了怎么计</td></tr>
+    <tr><td>三个数</td><td>TP / FP / FN，以及各自的分母</td></tr>
+    <tr><td>指标</td><td>P、R、F1，保留三位小数</td></tr>
+    <tr><td>错误归因</td><td>至少三类，每类给一条原句</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 把判定阈值放宽一点，P 和 R 各往哪边走？② 口径从「按条计」改成「按句计」，历史分还能直接比吗？</p>
+<p><strong>验收：</strong>指标有分母，错误可归类，能说清这组数适合什么业务、不适合什么。抽取的上游环节见 <a href="../m07-knowledge-graph/k7-2-1-extraction-pipeline.html">知识提取在流水线中的位置</a>；关系三类错误的来源见 <a href="../m07-knowledge-graph/k7-2-4-relation-extraction.html">关系抽取：规则、监督与远程监督</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-3-1-rdf.html">7.3.1 RDF：主谓宾的世界标准</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-2-4-relation-extraction.html"><span class="p-label">← 上一知识点 7.2.4</span><span class="p-title">关系抽取：规则、监督与远程监督</span></a><a class="next" href="k7-3-1-rdf.html"><span class="p-label">下一知识点 7.3.1 →</span><span class="p-title">RDF：主谓宾的世界标准</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)2 · 知识提取（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>7.2.5 ｜ <span class="path">pages/m07-knowledge-graph/k7-2-5-extraction-eval-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-2-1-extraction-pipeline.html"><b>7.2.1</b>知识提取在流水线中的位置</a><a class="xlink" href="k7-2-4-relation-extraction.html"><b>7.2.4</b>关系抽取：规则、监督与远程监督</a><a class="xlink" href="k7-3-1-rdf.html"><b>7.3.1</b>RDF：主谓宾的世界标准</a><a class="xlink" href="u7-2-extraction.html"><b>7.2</b>知识提取：语义、属性与关系抽取（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k7-2-5（本页图 7-11）、k7-2-5-b（图 7-12）；Demo d7_2_extract.py；知识库 M07-S2-01～S2-04（filled）。 ｜ 知识库条目：M07-S2-01《知识提取的概念和应用方法》（filled）、M07-S2-04《关系抽取的概念和应用方法》（filled） ｜ 参考来源：输出为 d7_2_extract.py 本机实测（Python 3.13.14，仅标准库）；精确率/召回率定义见公开信息检索评估教材口径；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

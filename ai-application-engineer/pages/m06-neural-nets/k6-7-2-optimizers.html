@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.7.2 Momentum、RMSProp 与 Adam · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清 Momentum 解决「方向抖」、RMSProp 解决「每维尺度不一」，Adam 是两者叠加。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-7-optimization.html">6.7 优化网络：梯度下降变体、学习率衰减与过拟合抑制</a><span class="sep">/</span><span class="here">6.7.2 Momentum、RMSProp 与 Adam</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.7</span>
+    <span class="tag">知识点 6.7.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>Momentum、RMSProp 与 Adam</h1>
+  <p class="lede">三个优化器不是三代替代关系，而是三个旋钮：管方向、管步长、以及两者都管。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清 Momentum 解决「方向抖」、RMSProp 解决「每维尺度不一」，Adam 是两者叠加。</li><li>能写出动量与自适应步长的更新式，并算出 β=0.9 时等效步长放大 10 倍。</li><li>能解释 Adam 为什么需要偏差修正，以及它的显存约为 SGD 的 3 倍。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一份数据，三条曲线</h2>
+<p>一个二维三分类任务，250 条一类的点云，标签里有 10% 被随机改错。三个模型结构完全相同：2 → 32 → 3，损失也用同一个。唯一不同的，是优化器。</p>
+<p>SGD 取 0.10，Momentum 取 0.05，Adam 取 0.01。三个学习率不是随便写的：动量会把等效步长放大，Adam 会逐维缩放，直接沿用同一个 0.1 反而容易发散。</p>
+<p class="ask">既然 SGD 也能收敛，为什么还要后面两个？</p>
+<p>因为 SGD 在「峡谷」形损失面上会来回横跳，在尺度差异大的方向上只能取折中的步长。Momentum 与 RMSProp 分别修的就是这两个毛病。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>惯性与油门</h2>
+<p>把参数更新想成开车。SGD 是每一秒都按当前坡度重新决定方向，坡面一抖方向盘就抖；Momentum 给车加上惯性，方向噪声被平均掉，下坡方向被累加；RMSProp 则是自动挡，坡度陡的方向收油，坡度缓的方向给油。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三种优化器在同一任务上的收敛速度">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">三种优化器在同一任务上的收敛速度</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M100 90 L200 180 L300 240 L420 270 L560 283 L880 290" fill="none" stroke="#d9534f" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#d9534f" stroke-width="2.6"/><text class="f-s" x="734" y="74">SGD 0.10</text><path d="M100 100 L180 200 L260 255 L360 280 L500 288 L880 291" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">Momentum</text><path d="M100 120 L160 220 L220 270 L300 286 L420 292 L880 292" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="110" x2="726" y2="110" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="114">Adam 0.01</text>
+</svg><figcaption><b>图 6-35　三种优化器在同一任务上的收敛速度</b>　Adam 前期最快，SGD 后期可能更稳；没有哪个优化器在所有任务上通吃。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>Momentum 管「往哪走」，RMSProp 管「每维走多大」，Adam 把两件事同时做，并修掉起步阶段的偏差。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两个矩 + 一个修正</h2>
+<p><strong>Momentum：</strong>把历史梯度做指数加权累加，<code>v ← βv + g</code>，<code>θ ← θ − ηv</code>。若梯度长期稳定为 <code>g</code>，稳态 <code>v = g/(1−β)</code>，等效步长放大 <code>1/(1−β)</code> 倍：β=0.9 时放大 10 倍，β=0.99 时放大 100 倍。</p>
+<p><strong>RMSProp：</strong>把梯度平方做指数加权累加，<code>s ← ρs + (1−ρ)g²</code>，更新时除以 <code>√(s+ε)</code>。每个参数有自己的 <code>s</code>，梯度一直很大的维度步长被压小，梯度很小的维度步长被放大。</p>
+<p><strong>Adam：</strong>同时维护一阶矩 <code>m</code>（方向）与二阶矩 <code>v</code>（尺度），并做偏差修正：</p>
+<p><code>m̂ = m/(1−β₁ᵗ)，v̂ = v/(1−β₂ᵗ)，θ ← θ − η·m̂/(√v̂+ε)</code>。默认 β₁=0.9、β₂=0.999，两个矩初值都是 0，前几步天然偏小，除以 <code>1−βᵗ</code> 才能把估计拉回无偏。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>优化器</th><th>每参数额外存的量</th><th>显存</th><th>典型学习率</th></tr></thead>
+  <tbody>
+    <tr><td>SGD</td><td>无（动量版存 1 份 v）</td><td>1 倍</td><td>0.1 / 0.01</td></tr>
+    <tr><td>Momentum</td><td>v</td><td>2 倍</td><td>0.05</td></tr>
+    <tr><td>Adam</td><td>m 与 v</td><td><strong>约 3 倍</strong></td><td>0.001 / 0.01</td></tr>
+  </tbody>
+</table>
+</div>
+<p>「3 倍」指参数量本身占 1 份，<code>m</code> 与 <code>v</code> 各占 1 份。一个 1,000 万参数的模型，单精度权重约 40 MB，Adam 还要再存 80 MB 的状态；显存吃紧时，这是选 SGD 的现实理由。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>改一个参数就能换</h2>
+<p>Keras 里三个优化器的差别，就是构造时传什么：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>pick_optimizer.py</span></div>
+<pre><code>import tensorflow as tf
+
+sgd = tf.keras.optimizers.SGD(learning_rate=0.10)
+mom = tf.keras.optimizers.SGD(learning_rate=0.05, momentum=0.9)
+rms = tf.keras.optimizers.RMSprop(learning_rate=0.01, rho=0.9)
+adam = tf.keras.optimizers.Adam(learning_rate=0.01, beta_1=0.9, beta_2=0.999)
+
+model.compile(optimizer=adam,
+              loss=&quot;sparse_categorical_crossentropy&quot;,
+              metrics=[&quot;accuracy&quot;])</code></pre>
+</div>
+<p>三处需要留神。第一，<code>momentum=0.9</code> 不是「保留 90% 的旧梯度」这么简单，它还意味着等效步长乘 10，所以开了动量要把学习率调小，否则第一步就冲过头。第二，Adam 的默认 <code>0.001</code> 是给大模型和稀疏梯度用的；在小网络上它常常偏保守，取 0.005–0.01 才跑得开。第三，切换优化器必须重新编译模型，否则 <code>compile</code> 时绑定的还是旧的那个。</p>
+<p>怎么选？图像 CNN 追求最终精度，常用 SGD + 动量 + 学习率衰减；Transformer 与稀疏特征用 Adam/AdamW；没有把握时先用 Adam 把流程跑通，再换 SGD 调精度。这不是「谁更先进」，而是两个不同目标：Adam 更快把训练损失降下去，SGD + 动量常给出更好的泛化。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>差距落在哪一格</h2>
+<p>同一个任务上把三个优化器跑满 40 轮，通常会出现这样的格局：验证准确率几乎打平，差别落在验证损失上。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>配置</th><th>前期收敛</th><th>末段表现</th><th>该看什么</th></tr></thead>
+  <tbody>
+    <tr><td>SGD 0.10</td><td>最慢，曲线毛刺最大</td><td>往往还能再降一点</td><td>训练损失是否仍在缓降</td></tr>
+    <tr><td>Momentum 0.05</td><td>明显加快</td><td>验证损失低于纯 SGD</td><td>是否出现超调震荡</td></tr>
+    <tr><td>Adam 0.01</td><td>最快触顶</td><td>训练损失最低</td><td>验证损失是否跟着降</td></tr>
+  </tbody>
+</table>
+</div>
+<p>准确率打平说明这个任务太容易，优化器选谁都能到顶；损失上的差距才反映收敛质量。换成更深的网络、更难的数据，差距会拉开——也可能反过来，SGD 的最终验证损失更低。两种结局都正常，因为比的不是「谁更先进」。</p>
+<div class="callout callout--warn">
+  <span class="c-label">一个容易讲错的结论</span>
+  <p>「Adam 一定比 SGD 好」是错的。Adam 的优势在前期速度和自适应步长，代价是三倍显存与可能更差的泛化；很多论文里最终精度最高的配置仍是 SGD + 动量。选优化器要连学习率、批大小、训练轮数一起看，单独换一个名字没有意义。完整读数与早停结果见 <a href="../m06-neural-nets/k6-7-5-early-stop-demo.html">早停、正则与训练策略</a>。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算等效步长</h2>
+<p><strong>任务：</strong>只动参数，不动结构，回答下面四个问题。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>设定</th><th>要回答</th></tr></thead>
+  <tbody>
+    <tr><td>Momentum β=0.99，η=0.01</td><td>稳态下等效步长是多少</td></tr>
+    <tr><td>Adam 第 1 步，m=0.1，v=0.01</td><td>偏差修正后的 m̂、v̂ 各是多少</td></tr>
+    <tr><td>参数量 1,000 万，改用 Adam</td><td>优化器状态多占多少单精度显存</td></tr>
+    <tr><td>同一网络 Adam 换成 SGD</td><td>学习率该往上还是往下调</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 β₂ 取 0.999 而不是 0.9？② 偏差修正只在前期重要，训练久了会怎样？③ 三倍显存取不出时，有没有折中方案？</p>
+<p><strong>验证：</strong>四个答案都能写出数字或方向，而不是「看情况」。学习率怎么随时间缩小，见 <a href="../m06-neural-nets/k6-7-3-lr-decay.html">指数衰减学习率</a>；优化器之上的正则与早停，见 <a href="../m06-neural-nets/k6-7-5-early-stop-demo.html">早停、正则与训练策略</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-7-3-lr-decay.html">6.7.3 指数衰减学习率</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-7-1-sgd-loop.html"><span class="p-label">← 上一知识点 6.7.1</span><span class="p-title">基于梯度下降的优化</span></a><a class="next" href="k6-7-3-lr-decay.html"><span class="p-label">下一知识点 6.7.3 →</span><span class="p-title">指数衰减学习率</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)29 · Momentum、RMSProp 与 Adam</dd>
+    <dt>页面编号 / 路径</dt><dd>6.7.2 ｜ <span class="path">pages/m06-neural-nets/k6-7-2-optimizers.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-7-1-sgd-loop.html"><b>6.7.1</b>基于梯度下降的优化</a><a class="xlink" href="k6-7-3-lr-decay.html"><b>6.7.3</b>指数衰减学习率</a><a class="xlink" href="k6-7-5-early-stop-demo.html"><b>6.7.5</b>早停、正则与训练策略</a><a class="xlink" href="k6-4-2-initialization.html"><b>6.4.2</b>初始化：不能全零</a><a class="xlink" href="u6-7-optimization.html"><b>6.7</b>优化网络：梯度下降变体、学习率衰减与过拟合抑制（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-7-2（本页图 6-35）；知识库 M06-S4-01、M06-S1-08；实测读数见 6.7.5 Demo。 ｜ 知识库条目：M06-S4-01《基于梯度下降的优化》（filled）、M06-S1-08《优化和改进方法》（filled） ｜ 参考来源：S52 Kingma & Ba 2015《Adam》；S53《深度学习》第 8 章；S34 scikit-learn SGD 文档。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

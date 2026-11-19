@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.8.4 CNN 一般框架 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出 CNN 的两段式骨架，并说清每段的分工。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-8-cnn.html">6.8 卷积神经网络：卷积、池化与一般框架</a><span class="sep">/</span><span class="here">6.8.4 CNN 一般框架</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.8</span>
+    <span class="tag">知识点 6.8.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>CNN 一般框架</h1>
+  <p class="lede">图像网络看着千变万化，骨架只有两段：前面反复「卷积—激活—池化」，后面把特征图变成分类结论。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出 CNN 的两段式骨架，并说清每段的分工。</li><li>能解释「分辨率下降、通道上升」这条主线为什么成立。</li><li>能用感受野递推判断最后一层是否「看全了整张图」。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两个网络，同一副骨架</h2>
+<p>LeNet-5 是 1998 年的手写数字网络，ResNet 是 2015 年的百层级网络。参数量差了几个数量级，结构却能用同一段话描述：先堆卷积与下采样，把图像压成「通道很多、尺寸很小」的特征图，再用全连接或全局池化出类别。</p>
+<p>中间那几十年加的东西——ReLU、批归一化、残差连接、小核堆叠——都是在改「怎么堆得更深、训得更稳」，没有改骨架。</p>
+<p class="ask">为什么这副骨架能复用？</p>
+<p>因为它把两个先验写进了结构：局部性（相邻像素才相关）与平移不变性（同一模式在哪都该被同一套权重检出）。这两条让网络不必从零学「图像长什么样」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>五段流水线</h2>
+<p>从输入到输出走五段：图像张量进来，卷积加激活提局部特征，池化降分辨率扩感受野，展平或全局池化把特征图变成向量，最后 Softmax 输出概率。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个 CNN 的五段式骨架">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">一个 CNN 的五段式骨架</text><rect class="f-b2" x="120" y="54.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="83.0">输入</text><text class="f-s" x="430" y="83.0">图像张量 H×W×C</text><rect class="f-b" x="120" y="110.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="139.0">卷积 + 激活</text><text class="f-s" x="430" y="139.0">提局部特征，通道逐层变多</text><rect class="f-b" x="120" y="166.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="195.0">池化</text><text class="f-s" x="430" y="195.0">降分辨率，扩感受野</text><rect class="f-b" x="120" y="222.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="251.0">展平 + 全连接</text><text class="f-s" x="430" y="251.0">把特征图变成向量</text><rect class="f-b" x="120" y="278.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="307.0">Softmax</text><text class="f-s" x="430" y="307.0">输出类别概率</text><text class="f-s" x="120" y="360.0">卷积负责「看哪里」，池化负责「看得更广」，全连接负责「下结论」。</text>
+</svg><figcaption><b>图 6-43　一个 CNN 的五段式骨架</b>　卷积负责「看哪里」，池化负责「看得更广」，全连接负责「下结论」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>前半段回答「图里有什么」，后半段回答「所以是哪一类」。中间所有层都在做同一件事：保留「是什么」，逐步丢掉「在哪里」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两段式结构</h2>
+<p><strong>定义：</strong>CNN 由特征提取段与判别段组成。特征提取段是「卷积 → 激活 → 池化」的重复，判别段是展平（或全局池化）加全连接，最后接输出层。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组件</th><th>作用</th><th>关键超参</th><th>输出变化</th></tr></thead>
+  <tbody>
+    <tr><td>卷积层</td><td>局部特征提取</td><td>K、C_out、S、P</td><td>通道变，分辨率可变</td></tr>
+    <tr><td>激活层</td><td>引入非线性</td><td>类型（ReLU 等）</td><td>形状不变</td></tr>
+    <tr><td>池化层</td><td>下采样、扩感受野</td><td>K、S</td><td>通道不变，分辨率降</td></tr>
+    <tr><td>全局池化</td><td>每通道压成 1 个数</td><td>—</td><td>H×W → 1×1</td></tr>
+    <tr><td>全连接层</td><td>特征组合与判别</td><td>单元数</td><td>变向量</td></tr>
+  </tbody>
+</table>
+</div>
+<p>主干的通用节奏是「分辨率减半、通道翻倍」：224 → 112 → 56 → 28 → 14 → 7，通道 3 → 64 → 128 → 256 → 512。这不是审美，是算术：分辨率减半使面积变成 1/4，通道翻倍使计算因子变成 2，单层计算量约减半，网络才堆得深。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四本账一起算</h2>
+<p>骨干设计不是试出来的，四本账都能在写代码前算。以 LeNet-5 的层序为例（输入 32×32×1，C1 六核 5×5，S2 2×2 下采样，C3 十六核 5×5，S4 2×2，C5 一百二十核 5×5）：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>lenet_skeleton.py</span></div>
+<pre><code>import tensorflow as tf
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Input((32, 32, 1)),
+    tf.keras.layers.Conv2D(6, 5, activation=&quot;tanh&quot;),      # 28x28x6
+    tf.keras.layers.AveragePooling2D(2),                  # 14x14x6
+    tf.keras.layers.Conv2D(16, 5, activation=&quot;tanh&quot;),     # 10x10x16
+    tf.keras.layers.AveragePooling2D(2),                  # 5x5x16
+    tf.keras.layers.Conv2D(120, 5, activation=&quot;tanh&quot;),    # 1x1x120
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(84, activation=&quot;tanh&quot;),
+    tf.keras.layers.Dense(10, activation=&quot;softmax&quot;),
+])
+model.summary()</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层</th><th>K</th><th>S</th><th>感受野</th><th>累计步长</th></tr></thead>
+  <tbody>
+    <tr><td>C1</td><td>5</td><td>1</td><td>5</td><td>1</td></tr>
+    <tr><td>S2</td><td>2</td><td>2</td><td>6</td><td>2</td></tr>
+    <tr><td>C3</td><td>5</td><td>1</td><td>14</td><td>2</td></tr>
+    <tr><td>S4</td><td>2</td><td>2</td><td>16</td><td>4</td></tr>
+    <tr><td>C5</td><td>5</td><td>1</td><td><strong>32</strong></td><td>4</td></tr>
+  </tbody>
+</table>
+</div>
+<p>递推式是 <code>RF_l = RF_(l−1) + (K_l−1)·∏S_i</code>。C5 的感受野 32 恰好等于输入边长——所以它输出 1×1 不是巧合，而是按「看全整张图」设计的。</p>
+<p>四个核算问题按顺序问：输出会不会算成 0 或负数（核比特征图还大，网络前向就崩）；参数量落在哪一层（LeNet 的参数大户是那个「全连接式的大卷积层」，现代网络用全局平均池化正是为了削掉它）；感受野是否覆盖目标尺度；计算量是否可承受。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三种形态，同一逻辑</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>形态</th><th>特征提取段</th><th>判别段</th><th>代表</th></tr></thead>
+  <tbody>
+    <tr><td>经典型</td><td>卷积 + 池化交替</td><td>大全连接</td><td>LeNet-5</td></tr>
+    <tr><td>深堆叠型</td><td>连续 3×3 卷积 + 池化</td><td>全连接</td><td>AlexNet、VGG</td></tr>
+    <tr><td>现代型</td><td>卷积块 + BN + 残差 + 全局池化</td><td>单层全连接或直接输出</td><td>ResNet 系</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三者参数量差距巨大，共同点却很清楚：局部提取 → 逐层抽象 → 全局判别。换模型时，换的是「怎么堆、怎么稳定训练」，不是这段逻辑。</p>
+<div class="callout callout--warn">
+  <span class="c-label">一个常被说错的因果</span>
+  <p>「层数越多越好」不成立。深网络能收敛，靠的是小核堆叠、批归一化、残差连接这些配套手段；少了它们，层数加上去只会让梯度传不回来。框架本身不保证精度，它只保证结构合理。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>反推一层结构</h2>
+<p><strong>任务：</strong>输入 64×64×3，要求最终特征图压到 4×4、感受野覆盖整张图。回答四个问题。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>要算的量</th><th>提示</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>需要几次边长减半</td><td>64 → 4</td></tr>
+    <tr><td>B</td><td>用 2×2 池化实现，要几层</td><td>每次面积变 1/4</td></tr>
+    <tr><td>C</td><td>最后一次卷积后能否再卷 5×5</td><td>4×4 上卷 5×5 会怎样</td></tr>
+    <tr><td>D</td><td>三层 3×3 后的感受野</td><td>3 → 5 → 7</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么深层网络常用全局平均池化代替全连接？② 感受野不够时，是加层还是换大核，代价各是什么？③ 「分辨率降、通道升」若不遵守，会出什么问题？</p>
+<p><strong>验收：</strong>四问都有算式或明确结论。单个窗口怎么算，见 <a href="../m06-neural-nets/k6-8-1-convolution.html">卷积运算</a>；通道与参数怎么变，见 <a href="../m06-neural-nets/k6-8-2-conv-layer.html">卷积层</a>；完整跑一遍，见 <a href="../m06-neural-nets/k6-8-5-cnn-demo.html">手写数字 CNN 实战</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-8-5-cnn-demo.html">6.8.5 手写数字 CNN 实战</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-8-3-pooling.html"><span class="p-label">← 上一知识点 6.8.3</span><span class="p-title">池化：降尺寸、留特征</span></a><a class="next" href="k6-8-5-cnn-demo.html"><span class="p-label">下一知识点 6.8.5 →</span><span class="p-title">手写数字 CNN 实战</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)36 · CNN 一般框架</dd>
+    <dt>页面编号 / 路径</dt><dd>6.8.4 ｜ <span class="path">pages/m06-neural-nets/k6-8-4-cnn-framework.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-8-1-convolution.html"><b>6.8.1</b>卷积运算：用小窗口扫全图</a><a class="xlink" href="k6-8-2-conv-layer.html"><b>6.8.2</b>卷积层：参数共享与输出尺寸</a><a class="xlink" href="k6-8-3-pooling.html"><b>6.8.3</b>池化：降尺寸、留特征</a><a class="xlink" href="k6-8-5-cnn-demo.html"><b>6.8.5</b>手写数字 CNN 实战</a><a class="xlink" href="u6-8-cnn.html"><b>6.8</b>卷积神经网络：卷积、池化与一般框架（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-8-4（本页图 6-43）；知识库 M06-S5-04。 ｜ 知识库条目：M06-S5-04《CNN 一般框架》（filled） ｜ 参考来源：S23 LeCun 等 1998 LeNet-5；S27 Krizhevsky 等 2012 AlexNet；S53《深度学习》第 9 章；S94 卷积算术指南。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

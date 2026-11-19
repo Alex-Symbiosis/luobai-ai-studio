@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.1.2 虚拟环境与依赖管理 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能创建、激活虚拟环境，并解释它隔离了什么、没隔离什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-1-env.html">11.1 Python 运行环境与工程规范</a><span class="sep">/</span><span class="here">11.1.2 虚拟环境与依赖管理</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.1</span>
+    <span class="tag">知识点 11.1.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>虚拟环境与依赖管理</h1>
+  <p class="lede">「昨天还能跑，今天升级一个包就崩了」几乎每个项目都遇到过一次。问题不在代码，而在依赖装在了公共抽屉里：谁都能改，谁都说不清版本。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能创建、激活虚拟环境，并解释它隔离了什么、没隔离什么。</li><li>能用 requirements.txt 锁定版本并在另一台机器复现。</li><li>能判断什么时候必须建环境、什么时候可以省。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一次升级，三个项目受影响</h2>
+<p>一台开发机上同时有三个项目，都直接装在系统 Python 里：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">项目 A</span><h3>教学示例</h3><p>依赖 NumPy 2.5，代码里用了新的类型提升规则，运行正常。</p></div>
+  <div class="card mini"><span class="mini-tag">项目 B</span><h3>旧报表脚本</h3><p>依赖旧版接口，升级后数组运算结果类型变了，报表数字对不上。</p></div>
+  <div class="card mini"><span class="mini-tag">项目 C</span><h3>临时试验</h3><p>随手 <code>pip install</code> 了三个包，把公共环境又改了一遍。</p></div>
+</div>
+<p class="ask">三个项目都没有改代码，为什么 B 会突然坏掉？</p>
+<p>因为依赖是共享的：任何一次安装或升级，都会同时改变所有项目看到的包版本。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一个项目，一个工具箱</h2>
+<p>装修时不会把所有工具倒进一个抽屉：水电、木工、油漆各用各的箱子，缺什么补什么，完工后照单清点。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="依赖装在哪里，决定项目能不能复现">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">依赖装在哪里，决定项目能不能复现</text><rect class="f-red" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">全局环境</text><text class="f-s" x="80" y="108">· 所有项目共用一个 site-packages</text><text class="f-s" x="80" y="138">· 升级一个包，可能踩坏另一个项目</text><text class="f-s" x="80" y="168">· 换机器后版本无从查起</text><text class="f-s" x="80" y="198">· 适合：一次性脚本、临时试验</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">项目虚拟环境 .venv</text><text class="f-s" x="530" y="108">· 每个项目独立解释器与包目录</text><text class="f-s" x="530" y="138">· 依赖升级只影响本项目</text><text class="f-s" x="530" y="168">· requirements.txt 锁定版本</text><text class="f-s" x="530" y="198">· 适合：交付、复现、协作</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 11-2　一个项目一个环境，版本才可复现</b>　左边是共享的全局环境，右边是每个项目独立的 .venv；隔离的是包目录，不是操作系统。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>虚拟环境不是「另一台机器」，只是另一套解释器与包目录；它让版本可记录、可回滚、可复现。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>环境、清单与锁定</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>是什么</th><th>解决什么</th></tr></thead>
+  <tbody>
+    <tr><td>虚拟环境</td><td>项目目录下的一套独立解释器与 site-packages</td><td>项目之间互不踩踏</td></tr>
+    <tr><td>依赖清单</td><td><code>requirements.txt</code> 记录包名与版本约束</td><td>换机可复现</td></tr>
+    <tr><td>版本锁定</td><td>把版本写成 <code>==</code> 精确值，而非「最新版」</td><td>避免自动升级引入变化</td></tr>
+  </tbody>
+</table>
+</div>
+<p>隔离的边界要说清：虚拟环境隔离的是 Python 解释器与第三方包，不隔离系统库、显卡驱动与环境变量；数据文件、模型权重也不在其中。所以「我建了 venv」不等于「结果一定可复现」，还要锁定版本、固定随机种子、记录数据版本。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p><code>pip freeze</code> 导出的是「当前装了什么」，不是「项目真正需要什么」。它会把传递依赖一起写进来，适合复现，不适合当人类可读的依赖声明。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四条命令走完一轮</h2>
+<p>Windows 下从零到可复现，只需要下面四步（<code>python</code> 指 3.13 解释器）：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">shell</span><span>PowerShell / CMD</span></div>
+<pre><code>python -m venv .venv
+.venv\Scripts\activate
+python -m pip install &quot;numpy==2.5.4&quot; &quot;matplotlib==3.11.2&quot;
+python -m pip freeze &gt; requirements.txt</code></pre>
+</div>
+<p>换一台机器时，不复制 <code>.venv</code> 目录（它含绝对路径，跨机器不可靠），而是重建并安装清单：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">shell</span><span>复现步骤</span></div>
+<pre><code>python -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements.txt</code></pre>
+</div>
+<p>版本以知识库口径为准：NumPy 2.5 系列、Matplotlib 3.11.2。安装后用一条命令核对，不需要凭记忆：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">shell</span><span>版本核对</span></div>
+<pre><code>python -c &quot;import numpy, matplotlib; print(numpy.__version__, matplotlib.__version__)&quot;</code></pre>
+</div>
+<p>激活失败的常见原因是执行策略或路径：PowerShell 下可改用 <code>.venv\Scripts\Activate.ps1</code>，或直接在命令前写 <code>.venv\Scripts\python.exe</code>，不激活也能运行。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两个项目的依赖冲突</h2>
+<p>把 A、B 两个项目放进各自的 <code>.venv</code> 后，冲突消失，但清单必须分开维护：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项目</th><th>需要 NumPy</th><th>共享环境下的结果</th><th>独立环境下的结果</th></tr></thead>
+  <tbody>
+    <tr><td>A 教学示例</td><td>2.5.4</td><td>被 B 的旧版本覆盖后无法运行</td><td>按清单安装，稳定</td></tr>
+    <tr><td>B 旧报表</td><td>旧接口版本</td><td>被 A 升级后数字变化</td><td>维持原版本，输出不变</td></tr>
+  </tbody>
+</table>
+</div>
+<p>项目 A 的清单可以写成这样，一眼能看出直接依赖：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>requirements.txt（节选）</span></div>
+<pre><code>numpy==2.5.4
+matplotlib==3.11.2</code></pre>
+</div>
+<p>注意清单里没有 <code>pip</code>、<code>setuptools</code> 这类构建工具；<code>pip freeze</code> 会把它们一并导出，交付前建议手工删掉，或改用 <code>pip-tools</code> 只保留直接依赖。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>建环境、装三个包、换目录复现</h2>
+<p><strong>任务：</strong>新建一个目录，完成下面四件事，并把每一步的命令与输出记进实验记录。</p>
+<div class="steps">
+  <div class="step"><b>建环境</b><span>在该目录执行 <code>python -m venv .venv</code>，确认目录里出现 <code>pyvenv.cfg</code>。</span></div>
+  <div class="step"><b>装三个包</b><span>安装 <code>numpy==2.5.4</code>、<code>matplotlib==3.11.2</code> 与任意一个纯 Python 包，记录安装耗时与来源。</span></div>
+  <div class="step"><b>导出清单</b><span><code>pip freeze &gt; requirements.txt</code>，打开文件，标出哪些是直接依赖、哪些是传递依赖。</span></div>
+  <div class="step"><b>换目录复现</b><span>复制清单到新目录，重建环境并安装，用版本核对命令确认两个版本一致。</span></div>
+</div>
+<p><strong>追问：</strong>① 为什么不能直接复制 <code>.venv</code> 到另一台机器？② 如果只写 <code>numpy&gt;=2.5</code>，半年后复现可能遇到什么？</p>
+<p><strong>验收：</strong>新目录里 <code>python -c "import numpy; print(numpy.__version__)"</code> 输出 2.5.4，且清单中每个包都能说出「谁引入的」。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-1-3-modules.html">11.1.3 函数、类与模块：把脚本变成工程</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-1-1-python-model.html"><span class="p-label">← 上一知识点 11.1.1</span><span class="p-title">Python 的定位与执行模型</span></a><a class="next" href="k11-1-3-modules.html"><span class="p-label">下一知识点 11.1.3 →</span><span class="p-title">函数、类与模块：把脚本变成工程</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)1 · Python 的操作规范（环境）</dd>
+    <dt>页面编号 / 路径</dt><dd>11.1.2 ｜ <span class="path">pages/m11-python/k11-1-2-venv.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-1-1-python-model.html"><b>11.1.1</b>Python 的定位与执行模型</a><a class="xlink" href="k11-1-3-modules.html"><b>11.1.3</b>函数、类与模块：把脚本变成工程</a><a class="xlink" href="u11-1-env.html"><b>11.1</b>Python 运行环境与工程规范（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-1-2（本页图 11-2）；知识库 M11-S1-01。 ｜ 知识库条目：M11-S1-01《Python 的概念与操作规范》（filled） ｜ 参考来源：S120《The Python Tutorial》(3.13)；S133 venv 官方文档；S122 PEP 8</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.3.4 语义语法：从结构走向意义 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能复述组合性原则，并说明它要求句法规则与语义规则一一对应。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-3-semantic-grammar.html">9.3 语义分析与扩展语法：转换、系统、格、语义语法</a><span class="sep">/</span><span class="here">9.3.4 语义语法：从结构走向意义</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.3</span>
+    <span class="tag">知识点 9.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>语义语法：从结构走向意义</h1>
+  <p class="lede">「猫追老鼠」和「老鼠追猫」六个字相同，只换了位置，意思就反了；意义到底怎么从结构里长出来？</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能复述组合性原则，并说明它要求句法规则与语义规则一一对应。</li><li>能写出「实体—动作—对象」的谓词-论元表示。</li><li>能用两种切分解释结构歧义为什么可以被显式列出。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>换个位置就反</h2>
+<p>「猫追老鼠」和「老鼠追猫」，六个字完全相同，只换了两个名词的位置，意思正好相反。再换一个否定词：「猫不追老鼠」，意义又翻了一层。</p>
+<p>句法树能说清哪个成分在哪个节点下，却不说「追」到底是谁对谁。结构一变意义就变；结构相同，意义才可能相同。</p>
+<p class="ask">能不能让句法规则每走一步，顺手把对应的意义也拼出来？</p>
+<p>能。前提是把「意义怎么由部分拼成整体」写成规则，并让它与句法规则一一对应。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>结构即意义</h2>
+<p>先看一条原则：整体意义由部分意义加上组合方式决定。这话听着抽象，落到树上很具体：叶子是词义，每合并两个节点做一次运算，根节点的值就是整句意义。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="句法树与语义表示，在同一次分析里对齐">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">句法树与语义表示，在同一次分析里对齐</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">词法</text><text class="f-sc" x="117.6" y="154.0">词与词性</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">句法树</text><text class="f-sc" x="298.79999999999995" y="154.0">成分与依存</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">语义角色</text><text class="f-sc" x="480.0" y="154.0">谁对谁做什么</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">逻辑式</text><text class="f-sc" x="661.1999999999999" y="154.0">可推理的表达式</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">一致性检查</text><text class="f-sc" x="842.4" y="154.0">指代与量词</text><text class="f-s" x="40" y="244">两步分开做会丢信息：句法给结构，语义给角色，节点必须一一对应。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 9-15　句法树与语义表示，在同一次分析里对齐</b>　两步分开做会丢信息：句法给结构，语义给角色，节点必须一一对应。</figcaption></figure>
+<p>图上一条链：词法给出词与词性，句法树给出成分与依存，语义角色标出谁对谁做什么，最后汇成可推理的逻辑式，再做一致性检查。每一步都保留节点对应关系，不能跳步。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>句法给骨架，语义给内容，两棵树必须同构——每个句法节点都要有一个语义值，否则意义会丢在中途。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>组合与配对</h2>
+<p><strong>定义：</strong>语义语法主张句法与语义同步生成：每条句法规则配一条语义规则，句法树每推导一步，语义表达式也跟着组合一步。这条思路来自弗雷格的<strong>组合性原则</strong>——整体意义由部分意义及其组合方式决定。</p>
+<p>工程上常用「实体—动作—对象」的表示：先给每个词一个语义类型，再用谓词-论元结构把动作与参与者连起来。<code>追(猫, 老鼠)</code> 读作「猫追老鼠」，括号里第一个是施事，第二个是受事。</p>
+<p>组合方式决定论元顺序。同样两个实体，<code>追(猫, 老鼠)</code> 与 <code>追(老鼠, 猫)</code> 是两个不同命题；句法上只是主语和宾语互换，语义上主客易位。结构信息必须一路带到根节点，不能只看词袋。</p>
+<p>否定、量词、时态在这一层继续叠加：<code>¬追(猫, 老鼠)</code>。表示越深越像逻辑式，但起点仍是「实体—动作—对象」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>递归组合</h2>
+<p>把组合写成递归函数：每个节点拿到子节点的语义值，按规则拼成自己的值。最小版本只处理「主谓宾」。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>compose.py</span></div>
+<pre><code># 词义：实体与动作分开存
+LEX = {&quot;猫&quot;: (&quot;实体&quot;, &quot;猫&quot;), &quot;老鼠&quot;: (&quot;实体&quot;, &quot;老鼠&quot;), &quot;追&quot;: (&quot;动作&quot;, &quot;追&quot;)}
+
+def compose(subj, verb, obj):
+    &quot;&quot;&quot;S -&gt; NP V NP，同步生成谓词-论元式。&quot;&quot;&quot;
+    s_type, s_val = LEX[subj]
+    v_type, v_val = LEX[verb]
+    o_type, o_val = LEX[obj]
+    if (s_type, o_type) != (&quot;实体&quot;, &quot;实体&quot;):
+        return &quot;类型不匹配&quot;
+    return f&quot;{v_val}({s_val}, {o_val})&quot;
+
+print(compose(&quot;猫&quot;, &quot;追&quot;, &quot;老鼠&quot;))   # 追(猫, 老鼠)
+print(compose(&quot;老鼠&quot;, &quot;追&quot;, &quot;猫&quot;))   # 追(老鼠, 猫)</code></pre>
+</div>
+<p>两个调用只换了参数顺序，输出就主客易位。这说明语义表达式的形状由句法位置决定，词本身没变。类型检查那一行是必要的：「追」需要两个实体，塞进一个动作就报错，这类错误在纯句法分析里看不出来。</p>
+<p>真实系统还要处理修饰语、介词短语与指代，做法不变：每条规则配一个语义动作，让树自底向上算，出错能定位到节点。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三句走一遍</h2>
+<p>用三个句子走一遍组合过程：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>句法结构</th><th>语义表达式</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>猫追老鼠</td><td>S → NP V NP</td><td>追(猫, 老鼠)</td><td>猫是施事</td></tr>
+    <tr><td>老鼠追猫</td><td>S → NP V NP</td><td>追(老鼠, 猫)</td><td>主客易位</td></tr>
+    <tr><td>猫不追老鼠</td><td>S → NP 不 VP</td><td>¬追(猫, 老鼠)</td><td>否定作用于整个命题</td></tr>
+  </tbody>
+</table>
+</div>
+<p>前两句结构完全相同，只有叶子上的词不同，语义表达式却换了论元顺序。第三句多一个否定节点，否定加在 VP 层，作用范围是整个「追老鼠」，不是只否定「追」。</p>
+<p>结构歧义在这一层暴露得最清楚。「咬死了猎人的狗」有两种切分，对应两个语义表达式。机器不必猜，先把两种都列出，再靠上下文选。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>以为词义对了句子意义就对。词袋模型丢掉组合方式，遇到「猫追老鼠」和「老鼠追猫」会给出同一个结果。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写一句表示</h2>
+<p><strong>任务：</strong>给「小明用钥匙开门」写出「实体—动作—对象」表示，标出每个词的类型，用一句谓词-论元式写出整句意义，再写出它的否定式。</p>
+<p>提示：工具「钥匙」不是核心论元，通常处理成附加成分；先写 <code>开(小明, 门)</code>，再想办法把工具挂上去。</p>
+<p><strong>追问：</strong>① 工具做成第三个论元还是修饰成分，代价各是什么？② 「开门」和「门开了」的语义表达式差在哪？③ 若句子是「小明没开门」，否定加在哪一层？</p>
+<p><strong>验收：</strong>词类型标全，核心论元式正确，能说清「结构变、意义变」的对应关系，并给出一种处理工具成分的方案。格角色怎么定，见 <a href="../m09-nlp/k9-3-3-case-grammar.html">格语法</a>；四种语法的整体位置，见 <a href="../m09-nlp/k9-3-5-grammar-compare.html">谱系对比</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-3-5-grammar-compare.html">9.3.5 四种语法的谱系对比</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-3-3-case-grammar.html"><span class="p-label">← 上一知识点 9.3.3</span><span class="p-title">格语法：动词决定角色</span></a><a class="next" href="k9-3-5-grammar-compare.html"><span class="p-label">下一知识点 9.3.5 →</span><span class="p-title">四种语法的谱系对比</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)3 · 语义语法：从结构走向意义</dd>
+    <dt>页面编号 / 路径</dt><dd>9.3.4 ｜ <span class="path">pages/m09-nlp/k9-3-4-semantic-grammar.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-3-3-case-grammar.html"><b>9.3.3</b>格语法：动词决定角色</a><a class="xlink" href="k9-3-5-grammar-compare.html"><b>9.3.5</b>四种语法的谱系对比</a><a class="xlink" href="u9-3-semantic-grammar.html"><b>9.3</b>语义分析与扩展语法：转换、系统、格、语义语法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-3-4（本页图 9-15）；知识库 M09-S3-04《语义语法的概念和特点》（filled）。 ｜ 知识库条目：M09-S3-04《语义语法的概念和特点》（filled） ｜ 参考来源：Frege 组合性原则；Montague 语义学；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

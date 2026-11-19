@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.1.1 神经网络演变史 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按时间顺序说出 MP 神经元、感知器、BP、AlexNet 各自的贡献。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-1-mp-neuron.html">6.1 神经网络的演变与麦卡洛克-皮茨网络</a><span class="sep">/</span><span class="here">6.1.1 神经网络演变史</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.1</span>
+    <span class="tag">知识点 6.1.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>神经网络演变史</h1>
+  <p class="lede">神经网络不是 2012 年突然出现的。两次热潮、一次寒冬，卡住的始终是同一组条件。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按时间顺序说出 MP 神经元、感知器、BP、AlexNet 各自的贡献。</li><li>能用「结构 + 可训练方法 + 算力」解释每一次热潮为什么起、为什么落。</li><li>能指出 1969 年异或之困的真正含义：不是算法不努力，是表达力到了顶。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>邮局的分拣线</h2>
+<p>上世纪九十年代的邮局分拣车间：传送带把信送到摄像头下，系统要认出信封上那六位手写邮编。</p>
+<p>最早的做法是模板匹配——把每个数字存几张标准样本，看哪张最像。笔迹一歪、墨水一淡，就判错。后来换成一个几层的卷积网络，同一批信的错误率明显下降。</p>
+<p>这不是工程师突然变聪明了。卷积结构、可训练的 BP、能跑得动的算力，三件事在同一时期凑齐，识别率才动。</p>
+<p class="ask">同样的想法，1943 年就提出来了，为什么要等七十年才落地？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三件事凑齐</h2>
+<p>把这段历史想成潮汐线：涨潮是「新结构 + 可训练方法 + 算力与数据」同时到位，退潮是其中一件掉了链子。少任何一件，另外两件再漂亮也只能停在论文里。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三段起伏：两次热潮、一次寒冬">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="28">三段起伏：两次热潮、一次寒冬</text><path class="f-ar" d="M60 200 L900 200" marker-end="url(#ah)"/><circle class="f-dot" cx="90.0" cy="200" r="5"/><path class="f-ax" d="M90.0 195 L90.0 160"/><text class="f-t" x="90.0" y="146" text-anchor="middle">MP 神经元</text><text class="f-s" x="90.0" y="130" text-anchor="middle">阈值单元模型</text><text class="f-s" x="90.0" y="220" text-anchor="middle">1943</text><circle class="f-dot" cx="252.0" cy="200" r="5"/><path class="f-ax" d="M252.0 205 L252.0 240"/><text class="f-t" x="252.0" y="258" text-anchor="middle">感知器</text><text class="f-s" x="252.0" y="274" text-anchor="middle">可学习权重</text><text class="f-s" x="252.0" y="194" text-anchor="middle">1958</text><circle class="f-dot" cx="414.0" cy="200" r="5"/><path class="f-ax" d="M414.0 195 L414.0 160"/><text class="f-t" x="414.0" y="146" text-anchor="middle">异或之困</text><text class="f-s" x="414.0" y="130" text-anchor="middle">单层表达受限</text><text class="f-s" x="414.0" y="220" text-anchor="middle">1969</text><circle class="f-dot" cx="576.0" cy="200" r="5"/><path class="f-ax" d="M576.0 205 L576.0 240"/><text class="f-t" x="576.0" y="258" text-anchor="middle">反向传播</text><text class="f-s" x="576.0" y="274" text-anchor="middle">多层可训练</text><text class="f-s" x="576.0" y="194" text-anchor="middle">1986</text><circle class="f-dot" cx="738.0" cy="200" r="5"/><path class="f-ax" d="M738.0 195 L738.0 160"/><text class="f-t" x="738.0" y="146" text-anchor="middle">深度信念网</text><text class="f-s" x="738.0" y="130" text-anchor="middle">逐层预训练</text><text class="f-s" x="738.0" y="220" text-anchor="middle">2006</text><circle class="f-dot" cx="900.0" cy="200" r="5"/><path class="f-ax" d="M900.0 205 L900.0 240"/><text class="f-t" x="900.0" y="258" text-anchor="middle">AlexNet</text><text class="f-s" x="900.0" y="274" text-anchor="middle">算力与数据齐备</text><text class="f-s" x="900.0" y="194" text-anchor="middle">2012</text><text class="f-s" x="60" y="330">每次热潮都由「新结构 + 可训练方法 + 算力」三者同时到位推动。</text>
+</svg><figcaption><b>图 6-1　三段起伏：两次热潮、一次寒冬</b>　每次热潮都由「新结构 + 可训练方法 + 算力」同时到位推动。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>评价一个「新模型」值不值得跟，先问三句：结构新在哪、怎么训、跑得动吗。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>节点与主线</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>年份</th><th>节点</th><th>补上了哪一件</th><th>还缺哪一件</th></tr></thead>
+  <tbody>
+    <tr><td>1943</td><td>MP 神经元</td><td>阈值单元，能算逻辑</td><td>没有学习规则</td></tr>
+    <tr><td>1958</td><td>感知器</td><td>可学习权重</td><td>只有一层，表达受限</td></tr>
+    <tr><td>1969</td><td>异或之困</td><td>—（指出上限）</td><td>多层不会训，进入寒冬</td></tr>
+    <tr><td>1986</td><td>反向传播</td><td>多层可训练</td><td>算力与数据不足</td></tr>
+    <tr><td>2012</td><td>AlexNet</td><td>GPU 与 ImageNet</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+<p>主线只有一句：<strong>网络能表示什么</strong>是一件事，<strong>参数怎么学出来</strong>是另一件事，<strong>算不算得动</strong>是第三件事。三件事分别对应结构、方法、工程。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见的误读</span>
+  <p>「深度学习是 2012 年被发明的」——不对。BP 在 1986 年、卷积网络在 1989 年就已成型，2012 年补上的是算力与数据，不是原理。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>叠加等于白叠</h2>
+<p>为什么单层堆不出能力？先看一段最短的证明：两层的纯线性变换，数学上就是一层。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>depth_without_nonlinearity.py</span></div>
+<pre><code>import numpy as np
+
+rng = np.random.default_rng(0)
+W1 = rng.normal(size=(2, 2))
+W2 = rng.normal(size=(2, 2))
+x = np.array([[1.0, -2.0]])
+
+linear = x @ W2 @ W1          # 两层，中间没有激活
+folded = x @ (W2 @ W1)        # 把两个矩阵先乘起来
+print(&quot;两层连乘:&quot;, linear.round(4).tolist())
+print(&quot;折成一层:&quot;, folded.round(4).tolist())
+
+h = np.tanh(x @ W1)           # 中间夹一次非线性
+print(&quot;加 tanh 后:&quot;, (h @ W2).round(4).tolist())</code></pre>
+</div>
+<p>前两行数字完全相同，说明「两层线性」没有增加任何表达能力。这正是 1958 年单层感知器的天花板：不管叠几层，决策边界还是一条直线。</p>
+<p>1986 年之后，<strong>非线性激活 + 可训练的多层结构</strong>一起出现，深度才开始有意义。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三次热潮的账</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">1958</span><h3>感知器热</h3><p>结构单层、方法有学习规则、算力靠手工。适合线性可分任务，被媒体夸成「会思考的机器」，随后撞上异或。</p></div>
+  <div class="card mini"><span class="mini-tag">1986</span><h3>BP 复苏</h3><p>多层终于能训，学术圈迅速热起来；但当时没有并行算力，也缺少大规模标注数据，工业界只在小任务上试水。</p></div>
+  <div class="card mini"><span class="mini-tag">2012</span><h3>AlexNet 爆发</h3><p>8 层网络、两块消费级 GPU、ImageNet 百万张图。结构与方法早就有了，这一轮补的是算力和数据。</p></div>
+</div>
+<p>把三次放在一起看，会发现「算法突破」几乎都发生在热潮之前，而「产业落地」发生在算力之后。中间那段空档，常被误记成技术停滞。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>补上缺失条件</h2>
+<p><strong>任务：</strong>不看上面的表，给下面三个节点各写一句「缺什么、所以只能怎样」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>节点</th><th>缺的条件</th><th>直接后果</th></tr></thead>
+  <tbody>
+    <tr><td>1943 MP 神经元</td><td>？</td><td>权重只能手填</td></tr>
+    <tr><td>1969 异或之困</td><td>？</td><td>单层表达到顶</td></tr>
+    <tr><td>1986 反向传播</td><td>？</td><td>实验室能用，工业界用不起</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>如果 1986 年就有 GPU，深度学习会不会提前 25 年爆发？请用「三件事」的框架回答，而不是「会/不会」。</p>
+<p><strong>验收：</strong>三句话都说到了具体缺失的那一件，而不是「当时技术不行」。相关背景见 <a href="../m06-neural-nets/k6-1-2-mp-neuron.html">MP 神经元</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-1-2-mp-neuron.html">6.1.2 MP 神经元：加权求和再阈值</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="u6-1-mp-neuron.html"><span class="p-label">← 返回</span><span class="p-title">单元 6.1 目录</span></a><a class="next" href="k6-1-2-mp-neuron.html"><span class="p-label">下一知识点 6.1.2 →</span><span class="p-title">MP 神经元：加权求和再阈值</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)1 · 神经网络的概念与演变</dd>
+    <dt>页面编号 / 路径</dt><dd>6.1.1 ｜ <span class="path">pages/m06-neural-nets/k6-1-1-history.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-1-2-mp-neuron.html"><b>6.1.2</b>MP 神经元：加权求和再阈值</a><a class="xlink" href="k6-1-4-xor-demo.html"><b>6.1.4</b>单层网络的局限：异或</a><a class="xlink" href="k6-2-4-backprop.html"><b>6.2.4</b>反向传播：把误差逐层传回去</a><a class="xlink" href="u6-1-mp-neuron.html"><b>6.1</b>神经网络的演变与麦卡洛克-皮茨网络（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-1-1（本页图 6-1）；知识库 M06-S1-01。 ｜ 知识库条目：M06-S1-01《神经网络的概念》（filled） ｜ 参考来源：S47 McCulloch & Pitts 1943；S48 Rosenblatt 1958；S26 Rumelhart 等 1986；S27 Krizhevsky 等 2012；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

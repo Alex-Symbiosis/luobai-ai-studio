@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3.6 自动驾驶：感知—预测—规划—控制的实时链 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出感知、预测、规划、控制四段，并说出各自的失效后果。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-3-application-layer.html">2.3 应用层：安防、金融、制造、家居、医疗、自动驾驶</a><span class="sep">/</span><span class="here">2.3.6 自动驾驶：感知—预测—规划—控制的实时链</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.3</span>
+    <span class="tag">知识点 2.3.6</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>自动驾驶：感知—预测—规划—控制的实时链</h1>
+  <p class="lede">雨夜前车急刹，人 0.8 秒才踩下刹车；机器 120 毫秒就发出指令，但它得先「看见」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出感知、预测、规划、控制四段，并说出各自的失效后果。</li><li>能按最高车速分配 100 ms 的时延预算，并解释为什么要留余量。</li><li>能按激活状态与 ODD 判断责任归属，写出降级策略。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>雨夜急刹</h2>
+<p>雨夜，前车突然急刹。人看到刹车灯、松油门、踩刹车约 0.8 秒；同一时刻，相机在逆光里丢了目标，毫米波雷达先测到距离骤减，系统在 120 毫秒内发出制动指令。人反应慢但会预判；机器反应快，却依赖它「看见」的东西。</p>
+<p>四段被压进一条毫秒级链路。任何一段慢了，后面只能拿上一拍的结果凑合；任何一段错了，后果由车、人、厂商承担。</p>
+<p class="ask">四段串行，时间预算怎么分，出了事责任怎么划？</p>
+<p>先看预算，再看冗余，最后看谁在什么条件下负责。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>四段链路</h2>
+<p>四段分工固定：感知把图像和点云变成目标框与速度；预测估计目标未来几秒的位置；规划在约束下选本车轨迹；控制把轨迹变成转向、油门、刹车。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四段串行，每段都有各自的失效后果">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">四段串行，每段都有各自的失效后果</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">环节</text><text class="f-t" x="352.0" y="98">输入 → 输出</text><text class="f-t" x="632.0" y="98">失效后果</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">感知</text><text class="f-s" x="352.0" y="139.0">图像、点云 → 目标框</text><text class="f-s" x="632.0" y="139.0">看不见就会撞</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">预测</text><text class="f-s" x="352.0" y="183.0">目标轨迹 → 未来数秒位置</text><text class="f-s" x="632.0" y="183.0">误判就急刹或抢行</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">规划</text><text class="f-s" x="352.0" y="227.0">约束与目标 → 本车轨迹</text><text class="f-s" x="632.0" y="227.0">太保守堵、太激进险</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">控制</text><text class="f-s" x="352.0" y="271.0">轨迹 → 转向、油门、刹车</text><text class="f-s" x="632.0" y="271.0">延迟就画龙</text><text class="f-s" x="60" y="316">任何一段超时，后面只能拿上一拍的结果凑合。</text>
+</svg><figcaption><b>图 2-33　四段串行，每段都有各自的失效后果</b>　任何一段超时，后面只能拿上一拍的结果凑合。</figcaption></figure>
+<p>每段的失效后果：感知漏检会撞，预测误判会急刹或抢行，规划太保守会堵、太激进会险，控制延迟会画龙。评价不能只看识别准不准，要看整条链的时延与降级。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="100 ms 的预算，四段怎么分">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">100 ms 的预算，四段怎么分</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">感知</text><text class="f-sc" x="117.6" y="154.0">30 ms 出目标</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">预测</text><text class="f-sc" x="298.79999999999995" y="154.0">20 ms 出轨迹</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">规划</text><text class="f-sc" x="480.0" y="154.0">30 ms 出路径</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">控制</text><text class="f-sc" x="661.1999999999999" y="154.0">10 ms 出指令</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">余量</text><text class="f-sc" x="842.4" y="154.0">10 ms 抗抖动</text><text class="f-s" x="40" y="244">四段串行，预算就这么多；任何一段超时，车就只用旧结果。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-34　100 ms 的预算，四段怎么分</b>　四段串行，预算就这么多；任何一段超时，车就只用旧结果。</figcaption></figure>
+<p>100 毫秒切成五份：感知 30、预测 20、规划 30、控制 10、余量 10。余量不是浪费，是给抖动留的——最慢的 1% 帧往往比平均值慢两三倍。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>安全不来自某一段特别强，而来自「任何一段失效时，系统知道怎么退」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>ODD 与责任</h2>
+<p><strong>ODD（运行设计域）</strong>是系统可安全运行的条件集合：道路类型、天气、光照、速度、地理围栏。超出 ODD 不是「性能下降」，而是「不该启用」。</p>
+<p><strong>时延预算</strong>是从传感器曝光到执行器动作的时间分配，每段有上限，总和要小于安全所需的反应时间。预算按最高车速定：同样 100 毫秒，60 km/h 走 1.7 米，100 km/h 走 2.8 米。</p>
+<p><strong>四段</strong>串行，但不完全单向：规划把本车意图反馈给预测，控制把执行能力反馈给规划。反馈越多，耦合越紧，调试越难。</p>
+<p><strong>责任</strong>与自动化级别绑定：L2 由驾驶员监控并随时接管；L3 在系统激活且未请求接管时由系统负责；L4 在 ODD 内由系统负责，超出要进入最小风险状态。</p>
+<p><strong>最小风险状态（MRM）</strong>是失效后的兜底：靠边停车、降速、开双闪。它不要求继续完成任务，只要求不造成更大伤害。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>冗余与降级</h2>
+<p>工程上靠三件事撑住这条链：冗余、监控、记录。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>手段</th><th>做法</th><th>解决什么</th></tr></thead>
+  <tbody>
+    <tr><td>传感器冗余</td><td>相机＋毫米波＋激光雷达</td><td>单传感器受天气影响</td></tr>
+    <tr><td>执行冗余</td><td>双制动回路、双转向电机</td><td>单点失效仍可控</td></tr>
+    <tr><td>降级策略</td><td>限速、靠边、请求接管</td><td>超出能力时安全退出</td></tr>
+    <tr><td>数据记录</td><td>事件前后传感器与决策日志</td><td>事故复盘与责任认定</td></tr>
+  </tbody>
+</table>
+</div>
+<p>时延按最坏情况设计。调度常用固定周期加优先级：感知与控制硬实时，预测与规划可稍放松；某段超时就用上一帧并标记「降级」。</p>
+<p>融合有取舍：相机怕逆光，毫米波测距准但角分辨率低，激光雷达点云密但雨雾衰减。要按场景给置信度，并识别「传感器打架」——矛盾时，系统要知道自己不可信。</p>
+<p>接管设计同理：L3 请求要给足时间，用震动、声音、视觉多通道提示；驾驶员没响应，系统要自行进入 MRM。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>130 ms 走多远</h2>
+<p>算一条时延链（假设值）：相机曝光 10 ms、传输 5 ms、感知 30 ms、跟踪 5 ms、预测 20 ms、规划 30 ms、控制 10 ms、执行器建立 20 ms，合计 130 ms。</p>
+<p>100 km/h 时，130 ms 前进 3.6 米；制动从指令到减速建立还需约 300 ms，再走 8.3 米。从「看见」到「真正减速」，车已走了近 12 米。60 km/h 时约 7 米；速度翻倍，距离不止翻倍，因为制动距离随速度平方增长。</p>
+<p>这就是高速场景的感知距离要求高于城区的原因：不是模型看得更准，而是必须更早看见。城区低速则可以把算力分给预测与规划，处理加塞、鬼探头。</p>
+<p>责任划分上，常见误区是「谁的技术谁负责」。实际按激活状态与 ODD 分：未激活驾驶员负责；激活且在 ODD 内厂商负责；超出 ODD 仍被启用，要看谁启用、有无提示。记录设备就是还原这些条件。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「平均时延 80 ms」当成达标。安全要看尾延迟：最慢的 1% 帧可能超过 200 ms，而那 1% 往往正好出现在复杂场景里。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>判定 ODD</h2>
+<p><strong>任务：</strong>给「暴雨」「施工路段」「无标线路口」「隧道出口」四个场景，判断是否超出 ODD，并各写 1 条退出策略。</p>
+<p>提示：依据是感知能力、地图标线与参与者复杂度；退出策略要具体到「降速多少、在哪停」。</p>
+<p><strong>追问：</strong>① 100 km/h 下把感知预算压到 20 ms，代价是什么？② 传感器结果矛盾时该信谁？③ L3 接管请求后驾驶员没反应，车该怎么做？</p>
+<p><strong>验收：</strong>四个结论明确，退出策略可执行，能说清「ODD 内外的责任切换点」。机器人闭环见 <a href="../m02-industry/k2-2-4-robotics.html">机器人</a>；传感器见 <a href="../m02-industry/k2-1-6-sensors.html">传感器</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u2-3-application-layer.html">2.3 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-3-5-healthcare.html"><span class="p-label">← 上一知识点 2.3.5</span><span class="p-title">医疗：高价值、高风险、强证据</span></a><a class="next" href="u2-3-application-layer.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 2.3 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)3 · 人工智能与自动驾驶</dd>
+    <dt>页面编号 / 路径</dt><dd>2.3.6 ｜ <span class="path">pages/m02-industry/k2-3-6-autonomous-driving.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-4-robotics.html"><b>2.2.4</b>机器人：感知—决策—执行的闭环</a><a class="xlink" href="k2-1-6-sensors.html"><b>2.1.6</b>传感器：AI 的数据入口</a><a class="xlink" href="u2-3-application-layer.html"><b>2.3</b>应用层：安防、金融、制造、家居、医疗、自动驾驶（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-3-6（本页图 2-33）、k2-3-6-b（图 2-34）；知识库 M02-S3-06《人工智能与自动驾驶》（filled）。 ｜ 知识库条目：M02-S3-06《人工智能与自动驾驶》（filled） ｜ 参考来源：SAE J3016 驾驶自动化分级；工业和信息化部智能网联汽车标准体系；本页图为自绘，时延数字为课程假设。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

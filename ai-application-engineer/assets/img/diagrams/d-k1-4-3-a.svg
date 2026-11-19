@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三次浪潮，每次换一套技术引擎">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="28">三次浪潮，每次换一套技术引擎</text><path class="f-ar" d="M60 200 L900 200" marker-end="url(#ah)"/><circle class="f-dot" cx="90.0" cy="200" r="5"/><path class="f-ax" d="M90.0 195 L90.0 160"/><text class="f-t" x="90.0" y="146" text-anchor="middle">符号主义浪潮</text><text class="f-s" x="90.0" y="130" text-anchor="middle">逻辑理论家、通用问题求解器</text><text class="f-s" x="90.0" y="220" text-anchor="middle">1956–1974</text><circle class="f-dot" cx="495.0" cy="200" r="5"/><path class="f-ax" d="M495.0 205 L495.0 240"/><text class="f-t" x="495.0" y="258" text-anchor="middle">专家系统浪潮</text><text class="f-s" x="495.0" y="274" text-anchor="middle">MYCIN、XCON 与商用规则系统</text><text class="f-s" x="495.0" y="194" text-anchor="middle">1980–1987</text><circle class="f-dot" cx="900.0" cy="200" r="5"/><path class="f-ax" d="M900.0 195 L900.0 160"/><text class="f-t" x="900.0" y="146" text-anchor="middle">深度学习浪潮</text><text class="f-s" x="900.0" y="130" text-anchor="middle">AlexNet、GPU 与大规模数据</text><text class="f-s" x="900.0" y="220" text-anchor="middle">2012–</text><text class="f-s" x="60" y="330">浪潮的标志不是论文数量，而是出现了可交付、可复用的代表系统。</text>
+</svg>

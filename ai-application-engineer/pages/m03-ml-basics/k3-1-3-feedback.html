@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.1.3 反馈在系统中的位置 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出「输出—评价—更新—再输出」的反馈闭环。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-1-what-is-ml.html">3.1 机器学习的概念、特点与反馈</a><span class="sep">/</span><span class="here">3.1.3 反馈在系统中的位置</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.1</span>
+    <span class="tag">知识点 3.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>反馈在系统中的位置</h1>
+  <p class="lede">一个推荐模型上线三个月，点击率从 8% 掉到 5%。模型没改、代码没动，效果却变差了。问题不在模型本身，而在它与真实世界之间那条回路。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出「输出—评价—更新—再输出」的反馈闭环。</li><li>能区分误差反馈、评价反馈与工程反馈三层。</li><li>能说出反馈回路偏差是怎么产生的，以及它为什么会让模型越训越偏。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>上线之后，模型开始变差</h2>
+<p>推荐系统上线时用的是离线数据训练的模型。三个月后，用户口味变了、新内容大量涌入，点击率持续下滑。团队的第一反应是「模型不行了，换个更大的」。</p>
+<p class="ask">换模型能解决问题吗？如果新模型仍然只用三个月前的那批数据训练，它只是把一个过时的判断做得更精细。</p>
+<p>真正缺的不是模型容量，而是<strong>把线上发生的事送回训练过程</strong>的通路。这条通路叫反馈。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>空调的温控回路</h2>
+<p>空调不会「猜」房间温度。它每隔几十秒测一次实际温度，和目标温度比较，差多少就调多少，然后继续测。整个过程没有一次性的「最优解」，只有不断修正。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="反馈把一次预测变成持续改进">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">反馈把一次预测变成持续改进</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">反馈</text><text class="f-sc" x="480" y="200">闭环</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">输出</text><text class="f-sc" x="480.0" y="92.0">预测 / 动作</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">评价</text><text class="f-sc" x="742.0" y="200.0">误差或回报</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">更新</text><text class="f-sc" x="480.0" y="308.0">调参 / 重训</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">再输出</text><text class="f-sc" x="218.0" y="200.0">新版本上线</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">没有反馈，模型就停在训练那一刻；反馈的时效、覆盖与无偏性决定迭代质量。</text>
+</svg><figcaption><b>图 3-3　反馈闭环的四个环节</b>　输出被评价，评价转成误差或回报，再用于更新参数或策略。缺任何一环，系统就停在训练那一刻。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>反馈是<strong>把「系统输出与目标之间的差距」送回学习过程的信息通路</strong>。它不改变模型结构，只改变模型下一次的输入与参数。</p>
+</div>
+<span class="sidenote">温控是即时反馈，推荐是延迟反馈。延迟越长，归因越难——这就是强化学习里「信用分配」问题的来源。</span>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="反馈闭环的三层回路">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">反馈闭环的三层回路</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">预测</text><text class="f-sc" x="480" y="200">输出结果</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">数据反馈</text><text class="f-sc" x="480.0" y="92.0">新样本回流</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">误差计算</text><text class="f-sc" x="742.0" y="200.0">对比真实结果</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">参数更新</text><text class="f-sc" x="480.0" y="308.0">重新拟合模型</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">业务反馈</text><text class="f-sc" x="218.0" y="200.0">点击 / 成交</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">没有反馈回路的系统，只能停在出厂那一天。</text>
+</svg><figcaption><b>图 3-3b　反馈的三层回路</b>　数据反馈补样本，误差计算定方向，参数更新改模型，业务反馈校正目标。回路缺一层，改进就会停在一个局部。</figcaption></figure>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层反馈，三种时效</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层次</th><th>信号</th><th>更新对象</th><th>典型时延</th></tr></thead>
+  <tbody>
+    <tr><td>误差反馈（监督）</td><td>预测与标签的差，损失 L</td><td>模型参数</td><td>批训练周期</td></tr>
+    <tr><td>评价反馈（强化）</td><td>动作后的奖励 r</td><td>策略或价值函数</td><td>数步到数回合</td></tr>
+    <tr><td>工程反馈（线上）</td><td>日志、点击、转化、客诉</td><td>训练数据与阈值</td><td>天到周</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>反馈是系统输出与目标之间差距的回流；没有它，系统只能执行固定规则，无法根据经验修正参数或策略。</p>
+</div>
+<p>三层反馈不是替代关系。监督模型也需要工程反馈来补充新样本；强化系统同样需要离线日志做回放评估。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>反馈为什么会把模型带偏</h2>
+<p>反馈回路有一个隐蔽缺陷：<strong>系统只能看到被曝光过的样本</strong>。</p>
+<div class="steps">
+  <div class="step"><b>曝光偏差</b><span>模型推荐了 A，用户点了 A；没被推荐的 B 永远没有反馈。训练数据里 B 的样本会越来越少。</span></div>
+  <div class="step"><b>自我强化</b><span>模型越推 A，A 的数据越多，模型越确信 A 好。这不是学习，是回音室。</span></div>
+  <div class="step"><b>分布漂移</b><span>真实世界的分布本来就在变；如果反馈覆盖率低，模型更新会滞后于变化。</span></div>
+</div>
+<p>工程上的对策有三类：探索（主动曝光低概率内容，收集反事实样本）、纠偏（用倾向得分加权）、评估（保留固定的随机流量做对照）。三者都在解决同一件事——<strong>让反馈尽量无偏</strong>。</p>
+<span class="teacher">这里适合让学生举一个「平台越推越窄」的例子，再问：如果只能改一处，你会加探索还是加纠偏？为什么？</span>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>食堂销量预测的反馈设计</h2>
+<p>校园食堂想预测明天各窗口的销量。最初的方案是「用历史销量训练一个回归模型」，上线后每周重训一次。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>反馈层</th><th>本场景的信号</th><th>采集方式</th><th>更新频率</th></tr></thead>
+  <tbody>
+    <tr><td>误差反馈</td><td>预测销量与实际销量的差</td><td>每日收盘对账</td><td>每日</td></tr>
+    <tr><td>工程反馈</td><td>临时加课、天气、考试周</td><td>教务与天气接口</td><td>事件触发</td></tr>
+    <tr><td>业务反馈</td><td>备料浪费率、售罄率</td><td>后厨记录</td><td>每周</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这个例子的价值在于：<strong>反馈不只是「标签」</strong>。浪费率和售罄率不是模型的预测目标，却能告诉你预测偏差在业务上造成了什么后果，进而决定该往哪个方向调。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为一个系统画闭环</h2>
+<p><strong>任务：</strong>为「图书馆座位占用预测」画一个反馈闭环，标出四个环节与每一环的采集方式、更新频率，并指出最可能出现的偏差。</p>
+<div class="steps">
+  <div class="step"><b>输出</b><span>预测各区域未来 2 小时的占用率。</span></div>
+  <div class="step"><b>评价</b><span>与实际刷卡/座位传感器数据比较，算 MAE。</span></div>
+  <div class="step"><b>更新</b><span>每日重训，考试周切换到专项模型。</span></div>
+  <div class="step"><b>再输出</b><span>新模型灰度上线，保留 5% 随机流量做对照。</span></div>
+</div>
+<p><strong>自检三问：</strong>① 反馈信号是「模型能看到的结果」还是「业务真正关心的结果」？② 更新频率和现象变化速度匹配吗？③ 有没有可能只看到被系统影响过的那部分数据？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「有日志就是有反馈」不成立。日志只记录发生了什么，不记录「如果当时做另一个选择会怎样」。没有对照或探索，日志无法纠正选择偏差。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-1-4-ai-ml-dl.html">3.1.4 机器学习与人工智能、深度学习的关系</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-1-2-characteristics.html"><span class="p-label">← 上一知识点 3.1.2</span><span class="p-title">机器学习系统的三个特点</span></a><a class="next" href="k3-1-4-ai-ml-dl.html"><span class="p-label">下一知识点 3.1.4 →</span><span class="p-title">机器学习与人工智能、深度学习的关系</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 机器学习系统中反馈的作用</dd>
+    <dt>页面编号 / 路径</dt><dd>3.1.3 ｜ <span class="path">pages/m03-ml-basics/k3-1-3-feedback.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-1-2-characteristics.html"><b>3.1.2</b>机器学习系统的三个特点</a><a class="xlink" href="k3-2-1-workflow.html"><b>3.2.1</b>六步流程：从问题定义到部署</a><a class="xlink" href="k3-6-4-anomaly-demo.html"><b>3.6.4</b>异常检测：找少数的不一样</a><a class="xlink" href="u3-1-what-is-ml.html"><b>3.1</b>机器学习的概念、特点与反馈（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-1-3-a.svg（本页图 3-3）、d-k3-1-3-b.svg（图 3-3b）。 ｜ 知识库条目：M03-S1-03《机器学习系统中反馈的作用》（filled） ｜ 参考来源：S49 Sutton &amp; Barto《Reinforcement Learning》2nd ed.；S26 Rumelhart et al. 1986；S02 AIMA</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

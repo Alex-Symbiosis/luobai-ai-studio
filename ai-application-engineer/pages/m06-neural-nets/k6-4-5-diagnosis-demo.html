@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.4.5 训练诊断：loss 不降先查什么 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按「数据与标签 → 初始化与学习率 → 容量」的顺序排查训练异常。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-4-params-training.html">6.4 神经网络参数、训练与优化</a><span class="sep">/</span><span class="here">6.4.5 训练诊断：loss 不降先查什么</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.4</span>
+    <span class="tag">知识点 6.4.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>训练诊断：loss 不降先查什么</h1>
+  <p class="lede">loss 不降时，最贵的错误是先加容量。先分清是欠拟合、过拟合，还是数据本身有问题。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按「数据与标签 → 初始化与学习率 → 容量」的顺序排查训练异常。</li><li>能读懂同一网络在两种初始化下的训练/验证损失差异。</li><li>能根据两条曲线的四种形态，给出对应的下一步动作。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>例会上的第一反应</h2>
+<p>周会，有人报：模型训了 40 轮，训练损失 0.66，验证损失 0.97，两条线几乎是平的。会议室里第一个提议是「加两层、加到 256 宽」。</p>
+<p>这个提议可能对，但不该是第一步。两条线都高且接近，说明模型在训练集上都没学明白，加容量只是其中一种可能；更常见的原因是学习率不对、初始化不对，或者标签本身有问题。</p>
+<p class="ask">同样一句「loss 不降」，至少有三种不同的病因。</p>
+<p>分辨它们不需要更多算力，只需要两个对照：换一次初始化、把学习率调一个量级。下面这个 Demo 就是第一个对照。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先分叉，再开药</h2>
+<p>诊断像分诊：先判断病人属于哪一类，再决定挂哪个科。曲线的形状就是那张分诊单——两条线一起高、只差一条、还是反着来，指向完全不同的处理。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="先判断「哪一边」，再决定「加什么」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">先判断「哪一边」，再决定「加什么」</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">损失不降</text><text class="f-sc" x="480.0" y="91.0">先看训练集</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">训练也高</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">欠拟合</text><text class="f-sc" x="180.66666666666666" y="212.0">加容量、换激活、减正则</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">训练低验证高</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">过拟合</text><text class="f-sc" x="480.0" y="212.0">Dropout、早停、加数据</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">两者都高且接近</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">数据问题</text><text class="f-sc" x="779.3333333333333" y="212.0">查标签、查特征、查泄漏</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">先判定类型，再选处理方法；跳过判定直接处理，是清洗里最常见的错误。</text>
+</svg><figcaption><b>图 6-21　先判断「哪一边」，再决定「加什么」</b>　训练也高先想欠拟合与数据；训练低验证高才轮到正则；两者异常接近要查泄漏。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>加容量只能治「训练集都学不会」。如果训练集已经 0.99 而验证 0.72，加容量只会让分叉更大。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三步排查顺序</h2>
+<p>先数据，再优化，最后才是容量。顺序不能反，因为后一步的前提是前一步已经排除。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>查什么</th><th>怎么查</th><th>典型发现</th></tr></thead>
+  <tbody>
+    <tr><td>① 数据与标签</td><td>标签对齐、缺失、泄漏</td><td>抽 20 条人眼看；打乱标签应显著变差</td><td>标签错位、验证集混进训练</td></tr>
+    <tr><td>② 初始化与学习率</td><td>是否全零、步长是否合适</td><td>换 <code>he_normal</code>；学习率上下各试一个量级</td><td>全零退化、步长过大发散</td></tr>
+    <tr><td>③ 容量与正则</td><td>宽度、深度、正则强度</td><td>先在小样本上过拟合，再加正则</td><td>容量不足或正则过强</td></tr>
+  </tbody>
+</table>
+</div>
+<p>还有一个快速判别法：取 20 条样本，关掉所有正则，训练到损失接近 0。做不到，说明是优化或实现问题，不是容量问题；做得到而全量数据做不到，才轮到容量与正则。</p>
+<p>学习率的排查也可以很便宜：把 0.1 分别换成 0.01 与 1.0，各跑五轮。损失变平说明步长偏小，稳定下降说明接近合适，出现 nan 说明步长过大。三个结果对应三种判断，比一次网格搜索省得多。</p>
+<div class="callout callout--warn">
+  <span class="c-label">两种曲线别读反</span>
+  <p>训练高、验证低不是「模型很好」，通常意味着数据泄漏、验证集太简单，或者 Dropout / BN 的模式没切对。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>只换初始化</h2>
+<p>Demo 的设计尽量少变量：同一份数据、同一个种子、同一个优化器与轮数，只有 <code>kernel_initializer</code> 不同。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d6_4_init.py</span></div>
+<pre><code>import os
+os.environ[&quot;TF_CPP_MIN_LOG_LEVEL&quot;] = &quot;3&quot;
+import numpy as np
+import tensorflow as tf
+
+tf.keras.utils.set_random_seed(0)
+rng = np.random.default_rng(0)
+n = 400
+r = np.concatenate([rng.uniform(0.0, 0.6, n // 2),
+                    rng.uniform(0.8, 1.2, n // 2)])
+t = rng.uniform(0, 2 * np.pi, n)
+X = np.c_[r * np.cos(t), r * np.sin(t)].astype(&quot;float32&quot;)
+y = (r &lt; 0.7).astype(&quot;float32&quot;)
+
+def build(init):
+    return tf.keras.Sequential([
+        tf.keras.layers.Input((2,)),
+        tf.keras.layers.Dense(16, activation=&quot;tanh&quot;,
+                              kernel_initializer=init),
+        tf.keras.layers.Dense(1, activation=&quot;sigmoid&quot;,
+                              kernel_initializer=init),
+    ])</code></pre>
+</div>
+<p>数据是一个圆环：内圈半径 0–0.6 记 0 类，外圈 0.8–1.2 记 1 类，中间留一道空带。这个任务需要网络画出一个圆，单层做不到，16 个 tanh 单元够用——前提是这 16 个单元真的各不相同。</p>
+<p>每次训练前都重置一次种子，是为了让两组实验的初始随机性一致，差异只来自初始化方式本身。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>全零     首层不同权重向量  1 个  |w| 均值 0.0000  训练损失 0.6618  验证损失 0.9775
+He 正态  首层不同权重向量 16 个  |w| 均值 0.8165  训练损失 0.3616  验证损失 0.5705
+全零网络对首样本输出: [0.4991999864578247]</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="两种曲线形状，对应两种处方">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">两种曲线形状，对应两种处方</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M100 90 L240 150 L380 205 L520 245 L700 268 L880 276" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">欠拟合：都高</text><path d="M100 100 L200 180 L300 250 L400 282 L520 292 L880 294" fill="none" stroke="#3f9b78" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#3f9b78" stroke-width="2.6"/><text class="f-s" x="734" y="94">正常：都降</text><path d="M100 100 L200 190 L300 255 L400 285 L500 292 L620 260 L880 180" fill="none" stroke="#d9534f" stroke-width="2.4"/><line x1="700" y1="110" x2="726" y2="110" stroke="#d9534f" stroke-width="2.6"/><text class="f-s" x="734" y="114">过拟合：验证回升</text>
+</svg><figcaption><b>图 6-22　两种曲线形状，对应两种处方</b>　训练损失永远下降不代表模型变好；要看验证曲线在哪一轮开始抬头。</figcaption></figure>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>1 个 vs 16 个</h3><p>全零那行只数出 1 个不同的权重向量，16 个隐藏单元被压缩成 1 个；这是损失的根因。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>0.6618 / 0.9775</h3><p>训练都比验证低不了多少，但两者都高——不是过拟合，是容量被初始化废掉了。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>0.3616 / 0.5705</h3><p>同样轮数，He 初始化把训练损失压到一半，验证损失也明显下降，差距立现。</p></div>
+</div>
+<p><strong>正确的结论：</strong>全零那份不是「梯度为零所以完全不学」。梯度不为零，参数一直在动，<code>全零网络对首样本输出 0.4992</code> 也不是 0.5 以外的随机值——只是 16 个单元始终同步，等效宽度为 1，学不出圆环的边界。</p>
+<p>这也说明为什么诊断顺序里「初始化」排在「加容量」之前：这次加宽到 256，仍然是 1 个有效单元，只会更慢，不会更好。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给你三条曲线</h2>
+<p><strong>任务：</strong>下面三种情况，各写出「最可能的原因」与「下一步先做什么」，不要直接写「加容量」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>情况</th><th>训练损失</th><th>验证损失</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>0.69 不降</td><td>0.69 不降</td></tr>
+    <tr><td>B</td><td>0.02</td><td>0.65 且回升</td></tr>
+    <tr><td>C</td><td>0.15</td><td>0.12</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① A 情况里，若把标签整体打乱后损失几乎不变，说明什么？② B 情况该先加 Dropout 还是先加数据？③ C 情况还需要做什么？</p>
+<p><strong>验收：</strong>三问都按「先数据、再优化、后容量」的顺序回答，并能引用本页的两行读数说明「初始化能让有效宽度从 16 掉到 1」。相关背景见 <a href="../m06-neural-nets/k6-4-2-initialization.html">初始化</a> 与 <a href="../m06-neural-nets/k6-4-4-batch-norm.html">批归一化</a>。</p>
+</section>
+<p class="sidenote">注：本页需 NumPy 辅助计算，运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + NumPy 2.5.5 + Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-5-1-deep-learning.html">6.5.1 深度学习：用多层表示学习</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-4-4-batch-norm.html"><span class="p-label">← 上一知识点 6.4.4</span><span class="p-title">标准化与批归一化</span></a><a class="next" href="k6-5-1-deep-learning.html"><span class="p-label">下一知识点 6.5.1 →</span><span class="p-title">深度学习：用多层表示学习</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)18 · 训练诊断：损失不降的排查</dd>
+    <dt>页面编号 / 路径</dt><dd>6.4.5 ｜ <span class="path">pages/m06-neural-nets/k6-4-5-diagnosis-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-4-2-initialization.html"><b>6.4.2</b>初始化：不能全零</a><a class="xlink" href="k6-4-3-dropout.html"><b>6.4.3</b>正则化与丢弃</a><a class="xlink" href="k6-4-4-batch-norm.html"><b>6.4.4</b>标准化与批归一化</a><a class="xlink" href="k6-4-1-parameters.html"><b>6.4.1</b>参数与超参数</a><a class="xlink" href="u6-4-params-training.html"><b>6.4</b>神经网络参数、训练与优化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k6-4-5（本页图 6-21）、k6-4-5-b（图 6-22）；Demo d6_4_init.py；知识库 M06-S1-08、M06-S4-04。 ｜ 知识库条目：M06-S1-08《优化和改进方法》（filled）、M06-S4-04《过拟合与欠拟合》（filled） ｜ 参考来源：S53《深度学习》第 8 章；S51 Hinton 等 2012；S87 LeCun 等 2015；输出为 d6_4_init.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

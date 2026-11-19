@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.4.2 过拟合：模型背答案 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用训练/验证误差裂口判断过拟合程度。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-4-overfitting.html">4.4 欠拟合与过拟合</a><span class="sep">/</span><span class="here">4.4.2 过拟合：模型背答案</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.4</span>
+    <span class="tag">知识点 4.4.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>过拟合：模型背答案</h1>
+  <p class="lede">训练集 99 分、线上 70 分，是最典型的过拟合信号。模型没有学到规律，而是把训练样本连同噪声一起记了下来；样本稍一变，记忆就对不上。判断过拟合，关键不是训练分数多高，而是训练与验证之间的裂口。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用训练/验证误差裂口判断过拟合程度。</li><li>能解释容量过大、样本过少、噪声被拟合三类成因。</li><li>能对三组误差数据按过拟合程度排序。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>上线前，两种看分数的方式</h2>
+<p>同一个模型，两份自查报告：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>只看训练集分数</h3><p>训练集准确率 99.2%，结论「模型很好，可以上线」。上线一周，真实准确率 71%。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>同时看训练与验证</h3><p>训练 99.2%、验证 72%，裂口 27 个百分点；结论「过拟合严重，先处理再上线」。</p></div>
+</div>
+<p class="ask">同一个模型、同一组数字，为什么结论完全相反？</p>
+<p>因为 A 只看「记住了多少」，B 看「记住的东西能不能迁移」。训练分数高不构成证据，裂口才是过拟合的直接证据。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>把练习册答案背下来</h2>
+<p>把练习册答案背熟，做原题能满分；换一道同类型的新题，就无从下手。模型过拟合，就是把「答案」连同「题号」一起记了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="过拟合：每个点都穿过去">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">过拟合：每个点都穿过去</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><circle cx="160" cy="250" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="230" cy="210" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="300" cy="180" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="370" cy="155" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="440" cy="140" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="510" cy="132" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="580" cy="138" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="650" cy="155" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="720" cy="185" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="790" cy="225" r="5.5" fill="#2f6fd0" opacity="0.8"/><path d="M140 240 L240 205 L320 175 L400 150 L480 135 L560 132 L640 148 L720 180 L820 220" fill="none" stroke="#3f9b78" stroke-width="2.6"/><line x1="680" y1="72" x2="706" y2="72" stroke="#3f9b78" stroke-width="2.6"/><text class="f-s" x="714" y="76">合适</text><path d="M140 250 L170 205 L230 210 L270 160 L300 180 L340 130 L370 155 L420 120 L440 140 L490 110 L510 132 L560 118 L580 138 L620 135 L650 155 L700 170 L720 185 L760 205 L790 225 L820 215" fill="none" stroke="#c0504d" stroke-width="2.6"/><line x1="680" y1="94" x2="706" y2="94" stroke="#c0504d" stroke-width="2.6"/><text class="f-s" x="714" y="98">高阶：拟合噪声</text><text class="f-s" x="100" y="340">曲线越「贴合每个点」，验证误差往往越高——它学到的不是规律，是噪声。</text>
+</svg><figcaption><b>图 4-15　过拟合：曲线穿过每个训练点</b>　高阶曲线贴合了每个样本（含噪声），训练误差极低；但在样本之间剧烈摆动，验证误差反而升高。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>过拟合的标志是<strong>训练误差很低、验证误差很高</strong>，且两者差距随模型复杂度增大。这条裂口比任何单个分数都更能说明问题。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>高方差与三条成因</h2>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>过拟合指模型在训练集上表现很好，在未见数据上明显变差。它对应偏差—方差分解中的<strong>高方差</strong>：训练集稍变，模型输出就大幅变化。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>成因</th><th>表现</th><th>判断线索</th><th>动作</th></tr></thead>
+  <tbody>
+    <tr><td>容量过大</td><td>高阶曲线剧烈摆动</td><td>复杂度上升时裂口扩大</td><td>降阶、剪枝、加正则</td></tr>
+    <tr><td>样本过少</td><td>少数点决定曲线</td><td>交叉验证分数方差大</td><td>扩样本、数据增强</td></tr>
+    <tr><td>噪声被拟合</td><td>残差在训练集上接近 0</td><td>残差图过于完美</td><td>清洗、正则、早停</td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意：裂口大小要结合任务看。样本极少时，几个点的差异就能造成很大裂口；样本充足时，同样的裂口说明问题更严重。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>容量、样本与噪声的三角</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">容量↑</span><h3>拟合能力变强</h3><p>能表达更复杂的形状，也更容易把噪声当成规律；方差随之上升。</p></div>
+  <div class="card mini"><span class="mini-tag">样本↓</span><h3>约束变弱</h3><p>可用于「纠正」模型的点少，模型更容易被个别样本带偏。</p></div>
+  <div class="card mini"><span class="mini-tag">噪声↑</span><h3>可记的东西变多</h3><p>标签本身随机性大时，模型会把随机波动也学进去，验证时自然对不上。</p></div>
+</div>
+<p>三者共同决定过拟合程度，所以「加正则」不是唯一解。样本太少时应优先扩样本；噪声太大时应先清洗；只有容量确实过剩时，降容量才是主线。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「验证误差高就是过拟合」不完整。欠拟合也会让验证误差高；区别在于训练误差是否同样高，以及两者裂口是否明显。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三组误差，三种状态</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组</th><th>训练误差</th><th>验证误差</th><th>裂口</th><th>判断</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>0.30</td><td>0.33</td><td>0.03</td><td>合适，略有提升空间</td></tr>
+    <tr><td>B</td><td>0.05</td><td>0.42</td><td>0.37</td><td>过拟合明显</td></tr>
+    <tr><td>C</td><td>0.48</td><td>0.51</td><td>0.03</td><td>欠拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>B 的训练误差最低，却最不可用；C 的两个数都高，但至少一致。按「上线可用性」排序应是 A &gt; C &gt; B——这也说明训练误差不能作为选模型的唯一依据。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>按过拟合程度排序</h2>
+<p><strong>任务：</strong>给出四组「训练 / 验证」误差，按过拟合程度从轻到重排序，并写依据。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组</th><th>训练</th><th>验证</th><th>你的排序</th><th>依据</th></tr></thead>
+  <tbody>
+    <tr><td>甲</td><td>0.12</td><td>0.15</td><td></td><td></td></tr>
+    <tr><td>乙</td><td>0.02</td><td>0.38</td><td></td><td></td></tr>
+    <tr><td>丙</td><td>0.20</td><td>0.26</td><td></td><td></td></tr>
+    <tr><td>丁</td><td>0.04</td><td>0.19</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>排序与裂口一致，并能指出「甲虽然验证误差不算最低，但裂口最小，最稳定」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-4-3-learning-curve.html">4.4.3 用学习曲线诊断</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-4-1-underfitting.html"><span class="p-label">← 上一知识点 4.4.1</span><span class="p-title">欠拟合：模型没学到</span></a><a class="next" href="k4-4-3-learning-curve.html"><span class="p-label">下一知识点 4.4.3 →</span><span class="p-title">用学习曲线诊断</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)4 · 过拟合的概念与特点</dd>
+    <dt>页面编号 / 路径</dt><dd>4.4.2 ｜ <span class="path">pages/m04-stat-models/k4-4-2-overfitting.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-1-4-bias-variance.html"><b>4.1.4</b>偏差、方差与残差图</a><a class="xlink" href="k4-4-1-underfitting.html"><b>4.4.1</b>欠拟合：模型没学到</a><a class="xlink" href="k4-4-4-regularization.html"><b>4.4.4</b>四种抑制过拟合的手段</a><a class="xlink" href="u4-4-overfitting.html"><b>4.4</b>欠拟合与过拟合（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-4-2-a.svg（本页图 4-15）。 ｜ 知识库条目：M04-S4-01《欠拟合与过拟合的概念及特点》（filled） ｜ 参考来源：S54 ESL；S15 Google《Overfitting》；S53 Goodfellow《Deep Learning》；S32 scikit-learn《Metrics and scoring》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

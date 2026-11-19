@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.2.2 token 与 type：词频统计的两个口径 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分 token（词例）与 type（词型），并给出各自的计算方式。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-2-corpus.html">11.2 文本获取与词汇资源</a><span class="sep">/</span><span class="here">11.2.2 token 与 type：词频统计的两个口径</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.2</span>
+    <span class="tag">知识点 11.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>token 与 type：词频统计的两个口径</h1>
+  <p class="lede">「这份语料有一万词」这句话，至少有两种读法：一万次出现，还是一万个不同词形。报告里不写清口径，后面的词表大小、特征维度、覆盖率全都会对不上。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分 token（词例）与 type（词型），并给出各自的计算方式。</li><li>能解释齐夫分布与长尾对特征设计的影响。</li><li>能计算 type/token 比，并说明它为什么不能跨语料直接比较。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个「一万词」</h2>
+<p>周报里同一句「语料规模约一万词」，三个人理解不同：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读法 A</span><h3>一万次出现</h3><p>把全文按词切分后逐个累加，标点不算；这是 token 数。</p></div>
+  <div class="card mini"><span class="mini-tag">读法 B</span><h3>一万个不同词</h3><p>去重后的词形数量；这是 type 数，也就是通常说的「词汇量」。</p></div>
+  <div class="card mini"><span class="mini-tag">读法 C</span><h3>一万个词条</h3><p>词典里的条目数，含未在语料中出现的词；这既不是 token，也不是 type。</p></div>
+</div>
+<p class="ask">三个数字都可能是一万，为什么不能混用？</p>
+<p>因为它们回答不同问题：出现频次、词形丰富度、词典规模；混用会让特征维度与覆盖率互相矛盾。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>总册数，还是书名数</h2>
+<p>图书馆说「藏书十万册」，指的是复本总数；说「三万种书」，指的是不同书名。采购时要看种数，借阅量要看册数。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="齐夫分布：少数词高频，多数词只出现一两次">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">齐夫分布：少数词高频，多数词只出现一两次</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 110.0 L178 172.87923301022596 L246 198.91280524102615 L314 213.79292188737256 L382 223.63927800864082 L450 230.7322104826781 L518 236.13437289303005 L586 240.4142697855525 L654 243.9062386163376 L722 246.82100745764916 L790 249.2986288221216 L858 251.43617241079318" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><text class="f-s" x="130" y="120">前几名：the / is / a</text><text class="f-s" x="560" y="262">长尾：绝大多数 type 只出现一两次</text><circle class="f-pt" cx="246" cy="186" r="6"/><text class="f-s" x="256" y="178">Top10 覆盖大半 token</text><text class="f-s" x="880" y="322" text-anchor="end">词按频率排名 →</text><text class="f-s" x="92" y="66" text-anchor="end">词频</text><text class="f-s" x="100" y="340">token 总数看「量」，type 总数看「种类」；同一份文本，两个数字回答两个问题。</text>
+</svg><figcaption><b>图 11-6　总数与去重数是两个问题</b>　横轴是词按频率的排名，纵轴是频次；头部少数词占据大量出现次数，尾部绝大多数词只出现一两次。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>token 看「量」，type 看「种类」；齐夫分布决定了头部词很少、尾部很长，词表因此总在膨胀。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个指标与一条曲线</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>算法</th><th>回答什么</th></tr></thead>
+  <tbody>
+    <tr><td>token 数</td><td>分词后逐项计数，重复也计</td><td>文本有多长、处理量多大</td></tr>
+    <tr><td>type 数</td><td>对 token 去重后计数</td><td>词表多大、特征维度多高</td></tr>
+    <tr><td>type/token 比</td><td>type 数 ÷ token 数</td><td>词形丰富度，受文本长度强烈影响</td></tr>
+  </tbody>
+</table>
+</div>
+<p>齐夫定律描述的是排名与频次的关系：排名第 r 的词，频次大致与 1/r 成正比。它带来的直接后果是长尾——大量 type 只出现一次（称为 hapax），它们既撑大了词表，又几乎不提供统计证据。工程上的应对是设最小频次阈值，把低频词折叠成 <code>&lt;UNK&gt;</code>。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>type/token 比不能跨语料直接比较：文本越长，新词越少，比值天然下降；它只在长度相近时才有可比性。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>排一次序，看清头部与长尾</h2>
+<p>下面这段用同一份小语料演示三个指标与频率排名，只依赖标准库：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>token_type.py</span></div>
+<pre><code>from collections import Counter
+
+tokens = &quot;the cat sat on the mat the dog sat on the log&quot;.split()
+freq = Counter(tokens)
+ranked = sorted(freq.items(), key=lambda kv: (-kv[1], kv[0]))
+
+print(&quot;词例:&quot;, len(tokens))
+print(&quot;词型:&quot;, len(freq))
+print(&quot;排名:&quot;, ranked[:3])
+print(&quot;只出现一次:&quot;, sum(1 for v in freq.values() if v == 1))</code></pre>
+</div>
+<p>排序键写成 <code>(-频次, 词形)</code>：先按频次降序，频次相同时按字母序，保证每次运行结果一致。若只写 <code>-kv[1]</code>，并列项的顺序依赖字典插入顺序，换一份数据就可能变。</p>
+<p>「只出现一次」的计数就是 hapax 规模。它的比例越高，说明语料越长尾，越需要频次阈值；反过来，短文本里几乎每个词都是 hapax，阈值会把词表砍空。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>运行结果为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>词例: 12
+词型: 7
+排名: [(&#x27;the&#x27;, 4), (&#x27;on&#x27;, 2), (&#x27;sat&#x27;, 2)]
+只出现一次: 4</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>12 与 7</h3><p>12 次出现、7 个词形；the 一个词就占了三分之一，头部集中非常明显。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>并列按字母序</h3><p>on 与 sat 都是 2 次，字母序让 on 排在前面；这不是「更重要」，只是排序规则。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>4 个 hapax</h3><p>cat、mat、dog、log 各出现一次；7 个词型里有 4 个只出现一次，长尾占了一半以上。</p></div>
+</div>
+<p>这就是为什么词袋特征常要做 <code>min_df</code>：低频词维度大、证据少，留着只会增加方差。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>换一段文本，三个数字都变</h2>
+<p><strong>任务：</strong>把 <code>tokens</code> 换成一封 200 字左右的中文邮件（先人工分词，用空格连接），重新计算四项指标。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>观察项</th><th>英文样例</th><th>你的中文样例</th><th>差异原因</th></tr></thead>
+  <tbody>
+    <tr><td>词例</td><td>12</td><td></td><td>文本长度不同</td></tr>
+    <tr><td>词型</td><td>7</td><td></td><td>重复率与分词粒度</td></tr>
+    <tr><td>hapax 占比</td><td>4/7</td><td></td><td>短文本天然偏高</td></tr>
+    <tr><td>Top1 频次占比</td><td>4/12</td><td></td><td>功能词集中度</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果先去掉停用词，三个数字分别怎么变？② 为什么说「短文本的 type/token 比必然偏高」？</p>
+<p><strong>验收：</strong>能用自己的数据说明「词表大小」到底指哪个口径，并给出一句可直接写进报告的表述。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-2-3-preprocess.html">11.2.3 原始文本处理：分词、规范化与停用词</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-2-1-corpus-resources.html"><span class="p-label">← 上一知识点 11.2.1</span><span class="p-title">语料与词汇资源：NLTK 的数据入口</span></a><a class="next" href="k11-2-3-preprocess.html"><span class="p-label">下一知识点 11.2.3 →</span><span class="p-title">原始文本处理：分词、规范化与停用词</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)2① · 词例与词型</dd>
+    <dt>页面编号 / 路径</dt><dd>11.2.2 ｜ <span class="path">pages/m11-python/k11-2-2-token-type.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-2-1-corpus-resources.html"><b>11.2.1</b>语料与词汇资源：NLTK 的数据入口</a><a class="xlink" href="k11-3-2-bag-of-words.html"><b>11.3.2</b>特征提取：词袋与 n-gram</a><a class="xlink" href="u11-2-corpus.html"><b>11.2</b>文本获取与词汇资源（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-2-2（本页图 11-6）；知识库 M11-S2-01；示例输出为本机实测。 ｜ 知识库条目：M11-S2-01《获得文本语料和词汇资源》（filled） ｜ 参考来源：S124 collections；S137 NLTK 教材；S120《The Python Tutorial》(3.13)</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

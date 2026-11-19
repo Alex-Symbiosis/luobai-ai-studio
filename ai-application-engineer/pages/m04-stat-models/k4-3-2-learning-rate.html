@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.3.2 学习率过大与过小的现象 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能根据 loss 曲线判断学习率过大、过小或合适。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-3-gradient-descent.html">4.3 梯度下降：步长、分类与实现</a><span class="sep">/</span><span class="here">4.3.2 学习率过大与过小的现象</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.3</span>
+    <span class="tag">知识点 4.3.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>学习率过大与过小的现象</h1>
+  <p class="lede">训练日志里 loss 不降，第一反应常是「模型不行，换一个」。但在换模型之前，先看 loss 曲线的形状：来回跳是步长太大，几乎不动是步长太小，稳定下降才是模型或数据的问题。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能根据 loss 曲线判断学习率过大、过小或合适。</li><li>能解释震荡与停滞各自的成因。</li><li>能给出与现象对应的下一步动作，而不是笼统调参。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两种处理 loss 不降的方式</h2>
+<p>同一份训练日志，两个人给了不同处理：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>看到不降就换模型</h3><p>loss 在前 50 轮几乎不动，直接判定「线性模型太弱」，换成更复杂的模型，结果只是更慢。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先看曲线再判断</h3><p>发现 loss 平稳得异常，把学习率从 0.001 调到 0.1，同一模型很快开始下降。</p></div>
+</div>
+<p class="ask">同一份日志，为什么一个结论是「模型不行」，另一个是「步长不对」？</p>
+<p>因为两者看的证据不同：A 只看「降没降」，B 看「怎么降」。曲线形态能区分模型问题与优化问题，这是调参前必须做的一步。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>跨山谷与挪小步</h2>
+<p>下山时步子太大会一脚跨到对面山坡，再一脚跨回来；步子太小则每次只挪一点，天黑了还在半路。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三条 loss 曲线，三种步长">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">三条 loss 曲线，三种步长</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 200 L220 140 L320 100 L420 82 L520 74 L620 70 L720 68 L820 67" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">合适：稳定下降</text><path d="M120 190 L220 90 L320 240 L420 80 L520 235 L620 75 L720 230 L820 72" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">过大：来回震荡</text><path d="M120 250 L220 238 L320 228 L420 220 L520 214 L620 209 L720 205 L820 202" fill="none" stroke="#9db9dd" stroke-width="2.4"/><line x1="700" y1="110" x2="726" y2="110" stroke="#9db9dd" stroke-width="2.6"/><text class="f-s" x="734" y="114">过小：几乎不动</text><text class="f-s" x="880" y="322" text-anchor="end">迭代轮数</text><text class="f-s" x="92" y="66" text-anchor="end">loss</text><text class="f-s" x="100" y="340">先看曲线形状再调步长：震荡就减半，停滞就加倍，稳定下降就别动。</text>
+</svg><figcaption><b>图 4-10　三种学习率对应的 loss 曲线</b>　合适：稳定下降后趋平；过大：在高低之间来回震荡；过小：缓慢下降甚至看起来不动。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>先看<strong>形状</strong>，再调<strong>数值</strong>：震荡就减半，停滞就放大，稳定下降就别动。顺序反了，就会在正确的方向上反复试错。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三种现象，三种成因</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>现象</th><th>曲线特征</th><th>成因</th><th>下一步</th></tr></thead>
+  <tbody>
+    <tr><td>震荡</td><td>高低交替，包络不收敛</td><td>步长超过稳定上限</td><td>学习率减半，或加衰减</td></tr>
+    <tr><td>发散</td><td>loss 持续增大甚至溢出</td><td>步长远大于上限</td><td>立即停止，降一个数量级重跑</td></tr>
+    <tr><td>停滞</td><td>几乎水平，下降极慢</td><td>步长过小或特征未标准化</td><td>放大学习率，先做标准化</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">判断口径</span>
+  <p>「合适」不是 loss 最低，而是<strong>在合理轮数内稳定下降并趋平</strong>。只看最后一轮的数值，可能把偶然的低点误判为收敛。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么会这样：一步跨多远</h2>
+<p>更新量 = η × 梯度。梯度大时，同样的 η 会带来更大的位移；因此「学习率是否合适」取决于它与梯度尺度的比值，而不是它的绝对值。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">尺度</span><h3>特征未标准化</h3><p>某个特征取值范围是另一个的千倍，梯度尺度差异大，一个 η 很难同时适配。</p></div>
+  <div class="card mini"><span class="mini-tag">曲率</span><h3>谷底很窄</h3><p>曲率大时稳定上限低，稍大就震荡；此时应先标准化或改用自适应方法。</p></div>
+  <div class="card mini"><span class="mini-tag">调度</span><h3>后期收脚</h3><p>接近最优时梯度变小，但固定 η 仍可能跨过头；衰减学习率能让末期更稳。</p></div>
+</div>
+<p>工程上的常用顺序是：<strong>先标准化 → 再用较小学习率确认能降 → 再逐步放大 → 最后加衰减</strong>。跳过后两步直接上大学习率，是震荡的高发原因。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三条曲线的处置</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>曲线</th><th>观察</th><th>判断</th><th>动作</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>20 轮内从 2.4 降到 0.3，之后缓慢下降</td><td>合适</td><td>保持，补早停或衰减</td></tr>
+    <tr><td>B</td><td>在 0.8 与 2.1 之间来回跳 100 轮</td><td>过大</td><td>η 减半，重跑</td></tr>
+    <tr><td>C</td><td>100 轮只从 2.4 降到 2.2</td><td>过小或未标准化</td><td>先标准化，再把 η 放大 10 倍</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三条曲线来自同一个模型、同一份数据，唯一变量是学习率与预处理。这也说明：在归因之前控制变量，比一次改五个参数更有效。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>从曲线反推问题</h2>
+<p><strong>任务：</strong>给下面三条曲线各写「判断 + 下一步动作 + 预期现象」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>曲线描述</th><th>判断</th><th>动作</th><th>预期</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>loss 在 0.5–1.8 之间周期跳动</td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td>loss 单调但 200 轮只降 5%</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td>loss 先降后升，最后溢出</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>动作必须具体到「减半 / 放大 10 倍 / 先标准化 / 停止重跑」，不能只写「调学习率」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-3-3-gd-variants.html">4.3.3 批量、随机与小批量梯度下降</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-3-1-step-size.html"><span class="p-label">← 上一知识点 4.3.1</span><span class="p-title">步长与学习率</span></a><a class="next" href="k4-3-3-gd-variants.html"><span class="p-label">下一知识点 4.3.3 →</span><span class="p-title">批量、随机与小批量梯度下降</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)3 · 优化步长的方法</dd>
+    <dt>页面编号 / 路径</dt><dd>4.3.2 ｜ <span class="path">pages/m04-stat-models/k4-3-2-learning-rate.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-3-1-step-size.html"><b>4.3.1</b>步长与学习率</a><a class="xlink" href="k4-3-3-gd-variants.html"><b>4.3.3</b>批量、随机与小批量梯度下降</a><a class="xlink" href="k4-3-5-learning-rate-demo.html"><b>4.3.5</b>学习率实验：看见震荡与收敛</a><a class="xlink" href="u4-3-gradient-descent.html"><b>4.3</b>梯度下降：步长、分类与实现（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-3-2-a.svg（本页图 4-10）。 ｜ 知识库条目：M04-S3-01《步长的概念及优化》（filled） ｜ 参考来源：S55 Boyd《Convex Optimization》；S34 scikit-learn《Stochastic Gradient Descent》；S53 Goodfellow《Deep Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

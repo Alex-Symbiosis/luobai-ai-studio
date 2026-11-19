@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.2.2 最小二乘：为什么是平方和 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明残差直接相加为什么会失效。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-2-linear-logistic.html">5.2 线性回归与逻辑回归</a><span class="sep">/</span><span class="here">5.2.2 最小二乘：为什么是平方和</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.2</span>
+    <span class="tag">知识点 5.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>最小二乘：为什么是平方和</h1>
+  <p class="lede">把残差直接相加，正负会互相抵消，一条明显偏掉的直线也能拿满分。最小二乘先平方再求和，才让「偏差」变成不会被抵消的量；而这个选择恰好还能一步解出参数。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明残差直接相加为什么会失效。</li><li>能写出平方损失与正规方程，并解释闭式解的前提。</li><li>能对四个点手算一元线性回归的斜率与截距。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>损失显示为 0，线却明显偏了</h2>
+<p>有人把损失写成「所有残差相加」，用来挑一条回归线。结果挑出来的线肉眼可见地偏低，总损失却显示为 0。</p>
+<p>原因不复杂：一半样本落在线上方，残差是 +40；另一半落在下方，残差是 −40。加起来正好抵消，指标看起来很完美，模型其实一直错。</p>
+<p class="ask">一条明显偏掉的直线，为什么在「残差和」这个指标下能拿满分？</p>
+<p>因为残差带符号，符号本身就是信息，而直接把带符号的量相加，等于把「错得多狠」压成了「朝哪边错」。损失函数必须先去掉符号，再汇总。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>把损失画成一条抛物线</h2>
+<p>固定数据，只改斜率 w，每取一个 w 就得到一个损失值。把这些点连起来，是一条开口向上的抛物线：太低、太高都差，中间只有一个最低点。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="平方损失是一条抛物线">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">平方损失是一条抛物线</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 90 L200 150 L280 205 L360 245 L440 275 L520 292 L600 296 L680 285 L760 258 L840 220" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="590" cy="296" r="6"/><text class="f-s" x="600" y="288">最优 w</text><path class="f-dash" d="M590 296 L590 300"/><text class="f-s" x="598" y="312"></text><text class="f-s" x="880" y="322" text-anchor="end">w</text><text class="f-s" x="92" y="66" text-anchor="end">损失</text><text class="f-s" x="100" y="340">抛物线只有一个最低点，所以解析解能一步算出来；多维时同理，只是变成解方程组。</text>
+</svg><figcaption><b>图 5-6　平方损失是一条抛物线</b>　抛物线只有一个最低点，所以解析解能一步算出来；多维时同理，只是变成解方程组。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>平方损失是凸的，所以「找最低点」这件事有唯一答案。这是最小二乘能写出闭式解的根本原因，而不是数学技巧。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>平方和、正规方程、正交投影</h2>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>平方损失 <span class="term">SSE(w) = Σ (y_i − x_iᵀw)²</span>；对 w 求导置零得正规方程 <span class="term">XᵀXw = Xᵀy</span>；当 XᵀX 满秩时，闭式解 <span class="term">w = (XᵀX)⁻¹Xᵀy</span>。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>工程含义</th></tr></thead>
+  <tbody>
+    <tr><td>残差</td><td>观测值与拟合值之差</td><td>有正负，不能直接相加当损失</td></tr>
+    <tr><td>平方和</td><td>残差平方后求和</td><td>去符号，且重罚大偏差</td></tr>
+    <tr><td>正规方程</td><td>求导置零得到的线性方程组</td><td>一次解出全部参数</td></tr>
+    <tr><td>正交投影</td><td>拟合值落在特征张成的空间上</td><td>残差与该空间垂直</td></tr>
+  </tbody>
+</table>
+</div>
+<p>几何上，最小二乘是把标签向量投影到特征列空间：投影点就是拟合值，残差是投影不到的那部分。特征没提供的信息，模型只能留在残差里，这也解释了为什么「加一个几乎无关的特征」不会让上界变好。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>平方的三重理由与它的代价</h2>
+<p>选平方不只是习惯，它同时满足三件事：去符号且保留「错得多狠」的信息；处处可导，便于求导与迭代；在高斯噪声假设下，最小二乘等价于极大似然估计。三条里任缺一条，最小二乘的地位都不会这么稳。</p>
+<p>代价也很明确：XᵀX 的求逆或分解成本随特征数快速增长；特征接近共线时矩阵接近奇异，解会剧烈跳动；平方会放大离群点。工程上的对策依次是伪逆、岭回归与稳健损失。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>四个点，手算一次闭式解</h2>
+<p>四个点 (1, 2)、(2, 3)、(3, 5)、(4, 6)，用一元线性回归拟合：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>计算</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>均值</td><td>x̄ = 2.5，ȳ = 4</td><td>—</td></tr>
+    <tr><td>协方差项</td><td>Σ(x − x̄)(y − ȳ)</td><td>7</td></tr>
+    <tr><td>方差项</td><td>Σ(x − x̄)²</td><td>5</td></tr>
+    <tr><td>斜率</td><td>w = 7 / 5</td><td>1.4</td></tr>
+    <tr><td>截距</td><td>b = ȳ − w·x̄</td><td>0.5</td></tr>
+  </tbody>
+</table>
+</div>
+<p>拟合值为 1.9、3.3、4.7、6.1，残差为 0.1、−0.3、0.3、−0.1，平方和为 0.2。把其中一个点的 y 加 10，斜率和截距都会明显改变——这就是平方损失对异常值敏感的直观版本。</p>
+<p>手算过一遍，闭式解依赖的几个条件也就清楚了；真要换到新数据上，按这份清单先确认一遍：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>特征数不大，XᵀX 满秩</td><td>特征上万时分解成本高，内存吃紧</td></tr>
+    <tr><td>特征之间不严重共线</td><td>共线使解不稳定，系数无法解释</td></tr>
+    <tr><td>误差近似高斯、方差齐</td><td>重尾或异方差时效率下降，极值主导结果</td></tr>
+    <tr><td>可一次算完、结果需复现</td><td>数据流式到达、需要在线更新时不适用</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>四组点，算斜率与截距</h2>
+<p><strong>任务：</strong>用点 (2, 1)、(4, 3)、(6, 4)、(8, 7) 手算一元线性回归。</p>
+<ol>
+  <li>算出 x̄、ȳ、Σ(x − x̄)(y − ȳ) 与 Σ(x − x̄)²。</li>
+  <li>写出斜率与截距，并给出四个拟合值。</li>
+  <li>算平方和，再把最后一个点的 y 改成 17，重算一遍并比较。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>结果需与最小二乘公式一致；改点后的变化要能用「平方放大大偏差」解释，而不是只说「数变了」。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-2-3-logistic-regression.html">5.2.3 逻辑回归：把得分压成概率</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-2-1-linear-regression.html"><span class="p-label">← 上一知识点 5.2.1</span><span class="p-title">线性回归：用一条直线逼近连续目标</span></a><a class="next" href="k5-2-3-logistic-regression.html"><span class="p-label">下一知识点 5.2.3 →</span><span class="p-title">逻辑回归：把得分压成概率</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 线性回归（求解）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.2.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-2-2-least-squares.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-2-1-linear-regression.html"><b>5.2.1</b>线性回归：用一条直线逼近连续目标</a><a class="xlink" href="k5-2-3-logistic-regression.html"><b>5.2.3</b>逻辑回归：把得分压成概率</a><a class="xlink" href="u5-2-linear-logistic.html"><b>5.2</b>线性回归与逻辑回归（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-2-2（本页图 5-6）；知识库 M05-S1-03。 ｜ 知识库条目：M05-S1-03《线性回归的概念及原理》（filled） ｜ 参考来源：S40 scikit-learn《Linear Models》；S54 ESL；S02 AIMA</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.4.4 两次寒冬：期望、承诺与资源的循环 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出两次寒冬的时间、触发事件与机制差异。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-4-early-history.html">1.4 早期历史：三次浪潮与两次寒冬</a><span class="sep">/</span><span class="here">1.4.4 两次寒冬：期望、承诺与资源的循环</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.4</span>
+    <span class="tag">知识点 1.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>两次寒冬：期望、承诺与资源的循环</h1>
+  <p class="lede">寒冬不是技术突然失效，而是承诺超过交付，资源随预期撤回。看清这条循环，才能把「又冷了」拆成可观测的环节，而不是一句情绪判断。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出两次寒冬的时间、触发事件与机制差异。</li><li>能用「期望—承诺—资源」四环解释一次低谷。</li><li>能区分「技术失败」与「商业失败」。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>技术不行，还是承诺太满</h2>
+<p>复盘第一次寒冬，两个小组给出不同诊断：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>归因于技术不行</h3><p>结论是「那套方法根本不管用」，所以资金撤离、研究停摆。既然是技术失败，后面再火起来只能解释为「换了一套更好的技术」。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>归因于交付缺口</h3><p>先列出当时承诺了什么、实际交付了什么、维护成本由谁承担。结论是承诺超出能力，资源按预期撤回；方法本身还在，只是不再被资助。</p></div>
+</div>
+<p class="ask">如果是技术不行，为什么寒冬过后，同一批方法又能重新起来？</p>
+<p>A 组的解释断了因果：技术若真失效，就不会有下一次。B 组看到的是预期与交付的缺口——低谷是三方（期望、能力、资源）的强制对齐，不是理论的死刑。把「钱为什么走」拆开，比给技术贴「行/不行」的标签有用得多，因为钱走之后，技术还在原地；否则复盘只会停在情绪层面。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>预售吹得越大，摔得越重</h2>
+<p>一个楼盘把效果图吹成现房，交房时只要差一截，退款与投诉就会一起到来。退掉的不是房子，是信任；被砍掉的不是技术，是预算。更准确地说，摔的是「预期」，不是「能力」；能力往往还在长，只是没人再为它付费。寒冬这个词带情绪，机制本身很冷静。循环图的价值在于顺序，不在箭头好不好看。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="期望—承诺—资源：低谷的触发器通常是交付失败">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">期望—承诺—资源：低谷的触发器通常是交付失败</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">预期</text><text class="f-sc" x="480" y="200">媒体与资金</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">承诺</text><text class="f-sc" x="480.0" y="92.0">能力被过度简化</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">交付</text><text class="f-sc" x="742.0" y="200.0">示范系统难以扩展</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">失望</text><text class="f-sc" x="480.0" y="308.0">预期落空</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">撤离</text><text class="f-sc" x="218.0" y="200.0">资金与关注收缩</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">理论没有突然失效；是承诺超过交付，资源随预期撤回。</text>
+</svg><figcaption><b>图 1-17　期望—承诺—资源的循环</b>　期望放大 → 承诺超界 → 交付失败 → 资源撤离 → 能力沉淀，再等待下一次突破。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>低谷的触发器通常是交付失败与资源结构变化，不是某个理论被推翻。技术能力可以继续增长，热度却会先崩。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两次寒冬，两种触发</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>次序</th><th>年代</th><th>触发</th><th>机制</th><th>恢复靠什么</th></tr></thead>
+  <tbody>
+    <tr><td>第一次</td><td>1970s 中期–1980 初</td><td>1969 年《Perceptrons》暴露单层网络局限；1973 年 Lighthill 报告使英国大幅削减资助；算力与数据不足</td><td>组合爆炸、常识缺失、承诺落空</td><td>专家系统商业化与专用硬件</td></tr>
+    <tr><td>第二次</td><td>1987–1993</td><td>专家系统维护成本高、知识获取难；LISP 专用机被通用工作站取代</td><td>产业链成本结构反转，运行成本失去依托</td><td>统计学习、互联网数据与算力</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>设预期为 E、可交付为 D。当 E 持续高于 D、且没有低成本示范系统填补缺口时，资源方就会撤回投入。寒冬是 (E, D, 资源) 三者重新对齐的过程；对齐完成后，下一轮上涨才开始。</p>
+</div>
+<p>两次寒冬的触发并不相同：第一次偏「能力不足 + 政策报告」，第二次偏「成本结构反转」。共同点是，直接触发器都不是「理论被证伪」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四环循环与三个放大器</h2>
+<p>低谷不是一瞬间发生的，它沿着四个环节往下走：</p>
+<div class="steps">
+  <div class="step"><b>承诺放大</b><span>demo 在受限场景里表现惊艳，被解释为「通用能力即将到来」。媒体、资金、政府报告同时放大。</span></div>
+  <div class="step"><b>边界暴露</b><span>真实数据更脏、场景更开放，维护成本远超预算；组合爆炸让大规模问题不可解。</span></div>
+  <div class="step"><b>资源撤离</b><span>项目被砍、实验室关闭、研究者转向其他方向；专用硬件厂商首当其冲。</span></div>
+  <div class="step"><b>能力沉淀</b><span>算法、人才与评测基准并未消失，退到边缘继续积累，等待算力或数据的下一次改善。</span></div>
+</div>
+<p>三个放大器方向一致时，热潮来得快；方向反转时，寒冬也深。媒体放大预期，资金放大规模，政府报告放大合法性——任何一环先转向，都会带动另外两环。反过来，如果三个放大器里有任何一个先转向，另外两个通常撑不了多久，这就是寒冬常常来得比预期快的原因。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>1973 与 1987：两个可核验的触发点</h2>
+<p>1973 年，Lighthill 报告对英国 AI 研究给出负面评估，核心质疑是组合爆炸让大规模问题不可解；报告之后，英国 AI 资助大幅削减（S02）。这是第一次寒冬最直接的制度触发点。</p>
+<p>1987 年，LISP 专用机的价格优势被通用工作站抹平，专家系统的运行成本失去依托，产业链迅速萎缩。专家系统并非当天失效，失效的是「必须买专用硬件才能跑」这套商业结构。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="两次寒冬：触发器与恢复条件">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">两次寒冬：触发器与恢复条件</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">时期</text><text class="f-t" x="352.0" y="98">触发事件</text><text class="f-t" x="632.0" y="98">共同机制</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">第一次（1970s 中后期）</text><text class="f-s" x="352.0" y="139.0">Lighthill 报告与资助收缩</text><text class="f-s" x="632.0" y="139.0">承诺超出交付，资金撤离</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">第二次（1980s 后期）</text><text class="f-s" x="352.0" y="183.0">专家系统维护成本高、硬件市场变化</text><text class="f-s" x="632.0" y="183.0">示范系统难以扩展与复用</text><text class="f-s" x="60" y="228">两次都不是理论被推翻；是「演示能跑」与「规模化可维护」之间的落差。</text>
+</svg><figcaption><b>图 1-17b　把一次寒冬拆成四个可观测环节</b>　以 1973 年报告为触发点，沿承诺、交付、资源、沉淀四环走一遍，年份才变成因果链。</figcaption></figure>
+<p>两次寒冬里，神经网络与统计方法都没有停止研究，只是退到舞台边缘。这解释了为什么下一次突破往往来自「寒冬期没被看见的积累」：能力沉淀一直在发生，只是没有预算与版面。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画一条四环因果链</h2>
+<p><strong>任务：</strong>任选一次寒冬，画一条四环因果链，每环写一个可观测证据。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>我的填写</th><th>可观测证据</th></tr></thead>
+  <tbody>
+    <tr><td>承诺放大</td><td></td><td></td></tr>
+    <tr><td>边界暴露</td><td></td><td></td></tr>
+    <tr><td>资源撤离</td><td></td><td></td></tr>
+    <tr><td>能力沉淀</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>链条里最容易被跳过的是「能力沉淀」，但它决定了下一次上涨从哪来。写「资源撤离」时，要指出撤的是哪一类资源：项目、设备，还是人；三者撤法不同，恢复速度也不同。</p>
+<p><strong>追问：</strong>① 若 1973 年算力提升十倍，第一次寒冬会推迟还是消失？② 截至 2026-11，这一轮最可能的高估点在哪，触发信号会是什么？</p>
+<p><strong>自检：</strong>链条首尾闭合，四个环节都能指到具体事件或数字，且「资源撤离」不写成「大家不感兴趣了」，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-4-5-wave-curve.html">1.4.5 画一条 1943–2026 的浪潮曲线</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-4-3-three-waves.html"><span class="p-label">← 上一知识点 1.4.3</span><span class="p-title">三次浪潮：符号推理、专家系统与深度学习</span></a><a class="next" href="k1-4-5-wave-curve.html"><span class="p-label">下一知识点 1.4.5 →</span><span class="p-title">画一条 1943–2026 的浪潮曲线</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 人工智能的早期历史（寒冬）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.4.4 ｜ <span class="path">pages/m01-ai-overview/k1-4-4-winters.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-4-3-three-waves.html"><b>1.4.3</b>三次浪潮：符号推理、专家系统与深度学习</a><a class="xlink" href="k1-4-5-wave-curve.html"><b>1.4.5</b>画一条 1943–2026 的浪潮曲线</a><a class="xlink" href="u1-4-early-history.html"><b>1.4</b>早期历史：三次浪潮与两次寒冬（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k1-4-4、k1-4-4-b（本页图 1-17、1-17b）；知识库 M01-S2-01。 ｜ 知识库条目：M01-S2-01《人工智能的早期历史》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S02 Russell & Norvig《AIMA》第 4 版（2021）；S03 Dartmouth 1955 提案（1955）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

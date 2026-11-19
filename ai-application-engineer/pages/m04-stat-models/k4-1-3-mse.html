@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.1.3 MSE：公式、量纲与优缺点 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 MSE 与 RMSE 的公式并说明两者的量纲差异。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-1-model-mse.html">4.1 模型、误差与 MSE</a><span class="sep">/</span><span class="here">4.1.3 MSE：公式、量纲与优缺点</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.1</span>
+    <span class="tag">知识点 4.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>MSE：公式、量纲与优缺点</h1>
+  <p class="lede">MSE 几乎出现在每一份回归报告里，但它的数值经常被误读：MSE = 4 不代表「平均差 4」，而是「平均平方差 4」。理解 MSE，要同时抓住它的公式、量纲与它对异常值的态度。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 MSE 与 RMSE 的公式并说明两者的量纲差异。</li><li>能解释 MSE 为什么可微、为什么对异常值敏感。</li><li>能在同一组数据上比较 MSE 与 MAE 的结论差异。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个模型，两种汇总方式</h2>
+<p>一次回归作业，两个小组用不同方式汇总误差：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>把误差直接相加</h3><p>残差 +18、−12、−14、+3、−9 相加得 −14，看上去「整体只差 14」，模型似乎还行。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先平方再平均</h3><p>平方后全部为正，平均得到 150.8；再开方得 RMSE ≈ 12.3，与原始单位一致。</p></div>
+</div>
+<p class="ask">两种做法用的是同一组残差，为什么结论差这么远？</p>
+<p>因为 A 让正负相消，B 把每个偏差都当成「不可抵消的错」。MSE 选的正是后者：宁可把大错放得更大，也不允许它被小错掩盖。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>平方是一把放大镜</h2>
+<p>误差 2 平方后是 4，误差 10 平方后是 100。平方不改变「谁大谁小」，但会把大误差的相对权重拉得极高。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="平方会放大异常值的影响">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">平方会放大异常值的影响</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="152.65" y="283.2" width="89.7" height="16.8" rx="4" fill="#4f83cf" opacity="0.9"/><text class="f-sc" x="197.5" y="275.2">8%</text><text class="f-sc" x="197.5" y="318">MSE 原数据</text><rect x="347.65" y="287.4" width="89.7" height="12.600000000000001" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="392.5" y="279.4">6%</text><text class="f-sc" x="392.5" y="318">MAE 原数据</text><rect x="542.65" y="190.8" width="89.7" height="109.2" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="587.5" y="182.8">52%</text><text class="f-sc" x="587.5" y="318">MSE 加异常</text><rect x="737.65" y="281.1" width="89.7" height="18.900000000000002" rx="4" fill="#e8c79a" opacity="0.9"/><text class="f-sc" x="782.5" y="273.1">9%</text><text class="f-sc" x="782.5" y="318">MAE 加异常</text><text class="f-s" x="100" y="344">同一个异常点，MAE 只从 6 升到 9，MSE 从 8 跳到 52——这就是「对异常值敏感」的含义。</text>
+</svg><figcaption><b>图 4-3　同一异常点对 MSE 与 MAE 的不同影响</b>　加入一个异常点后，MAE 只从 6 升到 9，MSE 从 8 跳到 52；这就是「对异常值敏感」的具体含义。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>MSE 的世界观是「大错不可容忍」。它会把模型往异常点方向拉，因此数据干净时它很灵敏，数据脏时它会被少数点绑架。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>公式与量纲</h2>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p><span class="term">MSE = (1/n) Σ (y<sub>i</sub> − ŷ<sub>i</sub>)²</span>；<span class="term">RMSE = √MSE</span>。MSE 的单位是原单位的平方，RMSE 才与原单位一致。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>公式</th><th>量纲</th><th>解释方式</th></tr></thead>
+  <tbody>
+    <tr><td>MSE</td><td>mean(r²)</td><td>原单位²</td><td>优化目标，不直接对业务解释</td></tr>
+    <tr><td>RMSE</td><td>√MSE</td><td>原单位</td><td>「平均偏离约多少」</td></tr>
+    <tr><td>MAE</td><td>mean(|r|)</td><td>原单位</td><td>「平均绝对偏离」</td></tr>
+    <tr><td>R²</td><td>1 − SSE/SST</td><td>无量纲</td><td>相对均值基线解释了多大比例</td></tr>
+  </tbody>
+</table>
+</div>
+<p>报告里写「MSE = 4」而不写单位，等于说「误差是 2 的平方」，读者无法判断严重程度。规范做法是同时给 RMSE 或直接报告 RMSE。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么它成了默认损失</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">数学</span><h3>处处可导</h3><p>平方函数光滑，梯度好算，梯度下降可以直接用；绝对值在 0 点不可导。</p></div>
+  <div class="card mini"><span class="mini-tag">统计</span><h3>对应高斯噪声</h3><p>若误差服从正态分布，最小化 MSE 等价于极大似然估计，这是它成为默认选项的理论依据。</p></div>
+  <div class="card mini"><span class="mini-tag">优化</span><h3>凸性与闭式解</h3><p>线性回归下 MSE 是凸二次函数，既有唯一最优，也能直接解正规方程。</p></div>
+</div>
+<p>代价也同样明确：<strong>异常值敏感</strong>、<strong>量纲不直观</strong>、<strong>对重尾分布不稳健</strong>。数据里只要有几个录入错误，MSE 就可能被它们主导，模型会为了迁就错误点而牺牲大多数正常点。</p>
+<div class="callout callout--warn">
+  <span class="c-label">使用边界</span>
+  <p>目标变量重尾、或异常值本身有业务意义时，先用 MAE/Huber 做稳健对照；不要只看 MSE 一个数就下结论。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两组残差，MSE 相同结论不同</h2>
+<p>两组残差都来自 5 个样本：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组</th><th>残差</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>问题</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>+4, −4, +4, −4, 0</td><td>3.2</td><td>12.8</td><td>3.6</td><td>普遍小偏差</td></tr>
+    <tr><td>B</td><td>+8, 0, 0, 0, −8</td><td>3.2</td><td>25.6</td><td>5.1</td><td>两个大错被平均掩盖</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两组的 MAE 完全相同，MSE 却差一倍。如果业务上「一次大错」比「多次小错」更不可接受（例如金额、库存），MSE 更合适；如果每个点同等重要，MAE 更贴近直觉。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>加入一个异常值再比较</h2>
+<p><strong>任务：</strong>对 y = [10, 12, 14, 16, 18]，模型预测 ŷ = [11, 12, 13, 17, 20]。</p>
+<ol>
+  <li>计算 MAE 与 MSE。</li>
+  <li>把最后一个点改成 y = 60（预测仍为 20），重算两个指标。</li>
+  <li>写三句话：哪个指标变化更大、为什么、这个数据该用哪个指标。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「MSE 更小就一定更好」不成立。若两个模型在不同数据子集上评估，或一个用 MSE、一个用 MAE，数值不可直接比较。</p>
+</div>
+<p><strong>验收：</strong>能指出 MSE 的增幅远大于 MAE，并把它归因于平方对大误差的放大。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-1-4-bias-variance.html">4.1.4 偏差、方差与残差图</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-1-2-error-residual.html"><span class="p-label">← 上一知识点 4.1.2</span><span class="p-title">误差、残差与损失</span></a><a class="next" href="k4-1-4-bias-variance.html"><span class="p-label">下一知识点 4.1.4 →</span><span class="p-title">偏差、方差与残差图</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)1 · MSE 的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>4.1.3 ｜ <span class="path">pages/m04-stat-models/k4-1-3-mse.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-1-2-error-residual.html"><b>4.1.2</b>误差、残差与损失</a><a class="xlink" href="k4-1-4-bias-variance.html"><b>4.1.4</b>偏差、方差与残差图</a><a class="xlink" href="k4-5-1-confusion-matrix.html"><b>4.5.1</b>混淆矩阵：把「错」拆成四格</a><a class="xlink" href="u4-1-model-mse.html"><b>4.1</b>模型、误差与 MSE（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-1-3-a.svg（本页图 4-3）。 ｜ 知识库条目：M04-S1-02《误差和 MSE 的概念及特点》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S54 ESL；S40 scikit-learn《Linear Models》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

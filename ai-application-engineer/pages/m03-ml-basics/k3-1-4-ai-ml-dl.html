@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.1.4 机器学习与人工智能、深度学习的关系 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用一句话说清 AI、ML、DL 的包含关系。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-1-what-is-ml.html">3.1 机器学习的概念、特点与反馈</a><span class="sep">/</span><span class="here">3.1.4 机器学习与人工智能、深度学习的关系</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.1</span>
+    <span class="tag">知识点 3.1.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>机器学习与人工智能、深度学习的关系</h1>
+  <p class="lede">同一场技术发布会，标题里同时出现「人工智能」「机器学习」「深度学习」。三个词经常被当成同义词轮换使用，但它们描述的是三个不同层级的东西。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用一句话说清 AI、ML、DL 的包含关系。</li><li>能把 6 项具体技术正确归入三个圈层，并说明理由。</li><li>能指出「包含关系不等于替代关系」——符号主义 AI 并未消失。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三个词，三种用法</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">说法 A</span><h3>「我们做的是 AI 产品」</h3><p>可能只是一个规则引擎加语音交互，没有学习成分。</p></div>
+  <div class="card mini"><span class="mini-tag">说法 B</span><h3>「我们用的是机器学习」</h3><p>明确指从数据训练模型，但不一定是深度网络。</p></div>
+  <div class="card mini"><span class="mini-tag">说法 C</span><h3>「我们上了深度学习」</h3><p>特指多层神经网络，通常是端到端训练。</p></div>
+</div>
+<p class="ask">三句话的范围一样大吗？如果不一样，谁说的一定包含谁？</p>
+<p>混用这三个词，最直接的后果是评估标准错位：用「AI 产品」的宽松标准去验收一个「深度学习模型」，或者反过来，用模型指标去要求一个规则系统。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>大圈、中圈、小圈</h2>
+<p>把三个词想成三个同心圆：最外面是人工智能，中间是机器学习，最里面是深度学习。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="包含关系不等于替代关系">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">包含关系不等于替代关系</text><circle cx="300" cy="195" r="150" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.5"/><circle cx="300" cy="195" r="105" fill="#f0f6ff" stroke="#cfe0ff" stroke-width="1.5"/><circle cx="300" cy="195" r="58" fill="#e6efff" stroke="#cfe0ff" stroke-width="1.5"/><text class="f-tc" x="300" y="75">AI</text><text class="f-sc" x="300" y="93">总目标</text><text class="f-tc" x="300" y="124">ML</text><text class="f-sc" x="300" y="142">主要方法论</text><text class="f-tc" x="300" y="171">DL</text><text class="f-sc" x="300" y="189">表示学习</text><path class="f-dash" d="M452 98 L560 98"/><text class="f-t" x="572" y="96">搜索 / 规划 / 知识表示</text><text class="f-s" x="572" y="116">符号主义 AI 仍在用</text><path class="f-dash" d="M452 174 L560 174"/><text class="f-t" x="572" y="172">线性模型 · 树 · SVM · 集成</text><text class="f-s" x="572" y="192">不依赖深度网络</text><path class="f-dash" d="M452 242 L560 242"/><text class="f-t" x="572" y="240">MLP · CNN · RNN · Transformer</text><text class="f-s" x="572" y="260">深度网络是其中一支</text>
+</svg><figcaption><b>图 3-4　AI—ML—DL 的嵌套关系与旁支</b>　圈层表示「主要手段」的包含关系，不表示数学意义上的严格集合；符号主义 AI 仍在圈内，只是不在机器学习这一支。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>AI 是<strong>目标</strong>（让机器表现出智能），ML 是<strong>主要手段</strong>（从数据估计规则），DL 是 ML 里用多层网络做<strong>表示学习</strong>的一个分支。</p>
+</div>
+<span class="sidenote">「深度学习」的「深度」指网络的层数，不是「理解得深」。一个 3 层网络也常被归入深度学习，只要它是端到端训练的多层结构。</span>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三条实现路径</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>路径</th><th>规则从哪来</th><th>代表</th><th>典型局限</th></tr></thead>
+  <tbody>
+    <tr><td>符号主义 / 规则法</td><td>人写逻辑与知识库</td><td>专家系统、规划、知识图谱推理</td><td>难覆盖长尾，维护成本高</td></tr>
+    <tr><td>机器学习</td><td>从样本估计参数</td><td>线性模型、树、SVM、集成</td><td>依赖特征工程与数据质量</td></tr>
+    <tr><td>深度学习</td><td>从样本端到端学习表示</td><td>MLP、CNN、RNN、Transformer</td><td>数据与算力需求高，解释性弱</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>三者是层层包含又不完全等同的关系：人工智能是总目标，机器学习是实现 AI 的主要方法论，深度学习是机器学习中以多层神经网络做表示学习的一个子集。</p>
+</div>
+<p>「不完全等同」体现在两点：AI 还包括搜索、规划、知识表示等非学习方向；ML 也包括不依赖深度网络的经典算法。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么会有「深度」这一层</h2>
+<p>经典机器学习需要人先把原始数据变成特征（边缘、纹理、词频），模型再在这些特征上找规律。深度学习把这一步也交给模型：</p>
+<div class="steps">
+  <div class="step"><b>经典流程</b><span>原始数据 → 人工特征 → 浅层模型 → 输出。特征是瓶颈。</span></div>
+  <div class="step"><b>深度流程</b><span>原始数据 → 多层表示 → 输出。每层学到的表示逐级抽象。</span></div>
+  <div class="step"><b>代价</b><span>需要大量标注数据与算力；中间表示难以逐层解释。</span></div>
+</div>
+<p>所以深度学习不是「更强的机器学习」，而是<strong>把特征工程也纳入学习范围</strong>的一种做法。数据量不足时，它往往不如精心做特征的经典模型。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一个产品里，三者各在哪</h2>
+<p>以手机相册为例：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">AI 层</span><h3>产品目标</h3><p>「帮你快速找到某个人、某个场景的照片」——这是智能行为的目标，不一定由学习实现。</p></div>
+  <div class="card mini"><span class="mini-tag">ML 层</span><h3>分类与聚类</h3><p>人脸聚类、场景标签、去重，多数由传统模型或轻量网络完成。</p></div>
+  <div class="card mini"><span class="mini-tag">DL 层</span><h3>人脸嵌入</h3><p>人脸识别用的 embedding 网络是深度模型；它输出向量，供后面的聚类使用。</p></div>
+</div>
+<p>同一个产品里，三层是协作关系：DL 提供表示，ML 做分组与判定，AI 定义整体要解决什么问题。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给六项技术归圈</h2>
+<p><strong>任务：</strong>把下面 6 项技术归入「AI / ML / DL」，并写一句理由。允许标「跨层」，但必须说明跨在哪。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>技术</th><th>归属</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>专家系统</td><td></td><td></td></tr>
+    <tr><td>支持向量机</td><td></td><td></td></tr>
+    <tr><td>卷积神经网络</td><td></td><td></td></tr>
+    <tr><td>强化学习</td><td></td><td></td></tr>
+    <tr><td>规则引擎</td><td></td><td></td></tr>
+    <tr><td>Transformer</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 我判的是「它属于哪个圈」，还是「它常和哪个词一起出现」？② 它有没有学习成分？③ 它的规则是人写的还是从数据估的？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「深度学习属于人工智能，所以人工智能就是深度学习」是典型的三段论错误。包含关系是单向的：DL ⊂ ML ⊂ AI。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-1-5-ml-dm-da.html">3.1.5 机器学习与数据挖掘、数据分析的边界</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-1-3-feedback.html"><span class="p-label">← 上一知识点 3.1.3</span><span class="p-title">反馈在系统中的位置</span></a><a class="next" href="k3-1-5-ml-dm-da.html"><span class="p-label">下一知识点 3.1.5 →</span><span class="p-title">机器学习与数据挖掘、数据分析的边界</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 机器学习与深度学习、人工智能的关系</dd>
+    <dt>页面编号 / 路径</dt><dd>3.1.4 ｜ <span class="path">pages/m03-ml-basics/k3-1-4-ai-ml-dl.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-1-1-what-is-ml.html"><b>3.1.1</b>机器学习：从数据里归纳规则</a><a class="xlink" href="k3-1-5-ml-dm-da.html"><b>3.1.5</b>机器学习与数据挖掘、数据分析的边界</a><a class="xlink" href="k3-2-2-supervised.html"><b>3.2.2</b>监督学习：答案从标签来</a><a class="xlink" href="u3-1-what-is-ml.html"><b>3.1</b>机器学习的概念、特点与反馈（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-1-4-a.svg（本页图 3-4）。 ｜ 知识库条目：M03-S1-05《机器学习、深度学习与人工智能的关系》（filled） ｜ 参考来源：S02 AIMA 4th ed.；S53 Goodfellow et al.《Deep Learning》；S27 Krizhevsky et al. 2012；S21 Vaswani et al. 2017</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

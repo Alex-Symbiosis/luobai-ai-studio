@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.6.5 结构化输出与任务判定 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分自由文本输出与结构化输出。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-6-task-map.html">3.6 常见任务地图：分类、回归、去噪、转录、机器翻译、异常检测、结构化输出</a><span class="sep">/</span><span class="here">3.6.5 结构化输出与任务判定</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.6</span>
+    <span class="tag">知识点 3.6.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>结构化输出与任务判定</h1>
+  <p class="lede">让模型「写一段发票信息」，它写得通顺但字段时有时无；让它「填一张发票表」，字段缺失会被校验直接拦下。结构化输出要的不是好文笔，而是程序能直接消费的数据。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分自由文本输出与结构化输出。</li><li>能为一个需求写出包含字段、类型、必填项的 schema。</li><li>能用「任务—输出—指标」三列完成需求判定。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>让模型填表，为什么总缺字段</h2>
+<p>财务要自动录入发票。模型返回一段话：「发票金额 1200 元，开票日期 3 月 5 日，销售方为某某公司。」人读得懂，程序没法直接入库。</p>
+<p class="ask">缺的到底是模型能力，还是输出格式？</p>
+<p>是格式。自由文本没有字段边界，程序只能再写一套解析规则，而解析规则本身又会出错。要解决的是「输出必须符合 schema」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>填表 vs 写作文</h2>
+<p>写作文可以自由发挥，填表必须每格都有内容，且类型要对：日期不能填成「大概三月」，金额不能填成「一千多」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="自由文本与结构化对象">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">自由文本与结构化对象</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">自由文本：人能读，程序难用</text><text class="f-s" x="80" y="108">· 「发票金额 1200 元，开票日期 3 月 5 日……」</text><text class="f-s" x="80" y="138">· 字段位置不固定，措辞每次不同</text><text class="f-s" x="80" y="168">· 缺字段时看不出来</text><text class="f-s" x="80" y="198">· 程序要再写一遍解析规则</text><text class="f-s" x="80" y="228">· 无法直接入库或对账</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">结构化对象：程序可直接消费</text><text class="f-s" x="530" y="108">· {amount: 1200, date: "2026-03-05"}</text><text class="f-s" x="530" y="138">· 字段名、类型、必填项都有约束</text><text class="f-s" x="530" y="168">· 缺字段会被 schema 校验拦下</text><text class="f-s" x="530" y="198">· 可直接入库、对账、统计</text><text class="f-s" x="530" y="228">· 评价按字段级准确率计算</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 3-30　自由文本与结构化对象的对比</b>　结构化输出的每个字段都有名字、类型和必填约束，缺字段会被校验拦下，程序可以直接消费。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>结构化输出 = 约定的字段集合 + 明确的类型 + 可执行的校验。三者缺一，输出就退回成「一段话」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>schema 约束的四个要素</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>作用</th><th>示例</th></tr></thead>
+  <tbody>
+    <tr><td>字段名</td><td>程序按名取值</td><td>invoice_no、amount、issue_date</td></tr>
+    <tr><td>类型</td><td>保证可计算</td><td>string、number、date</td></tr>
+    <tr><td>必填</td><td>缺了就报错，不静默通过</td><td>required: [invoice_no, amount]</td></tr>
+    <tr><td>校验</td><td>值域与格式约束</td><td>amount &gt; 0；date 符合 ISO 8601</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>结构化输出是要求模型产出符合预定义 schema 的对象，而非自由文本的任务。评价不看句子是否通顺，而看字段级准确率与校验通过率。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三个环节都要卡住</h2>
+<div class="steps">
+  <div class="step"><b>生成时约束</b><span>把 schema 作为输出格式要求传给模型，减少自由发挥的空间。</span></div>
+  <div class="step"><b>返回后校验</b><span>按类型、必填、值域逐项检查；不通过就重试或转人工，不能默认填默认值。</span></div>
+  <div class="step"><b>缺字段要显式</b><span>原文没有的字段填 <code>null</code> 并标记来源，不能编一个看起来合理的值。</span></div>
+</div>
+<p>第三点最容易被忽略：模型「补全」一个不存在的发票号，比返回 null 危险得多，因为下游无法分辨真假。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>发票字段抽取</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">json</span><span>invoice.schema.json</span></div>
+<pre><code>{
+  "type": "object",
+  "required": ["invoice_no", "amount", "issue_date"],
+  "properties": {
+    "invoice_no": {"type": "string", "pattern": "^[0-9]{8,20}$"},
+    "amount":     {"type": "number", "minimum": 0},
+    "issue_date": {"type": "string", "format": "date"},
+    "seller":     {"type": ["string", "null"]}
+  }
+}</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>输出</th><th>校验结果</th><th>处理</th></tr></thead>
+  <tbody>
+    <tr><td>amount: 1200, date: 2026-03-05</td><td>通过</td><td>直接入库</td></tr>
+    <tr><td>amount: "一千二"</td><td>类型错误</td><td>重试一次，仍失败转人工</td></tr>
+    <tr><td>缺 invoice_no</td><td>必填缺失</td><td>退回，不允许补默认值</td></tr>
+    <tr><td>seller: null</td><td>通过</td><td>入库并标记「原文未提供」</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六个需求的任务判定表</h2>
+<p><strong>任务：</strong>为六个需求完成「任务类型 + 输出 schema + 评价指标」三列表。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>需求</th><th>任务类型</th><th>输出（schema 要点）</th><th>指标</th></tr></thead>
+  <tbody>
+    <tr><td>发票录入</td><td>结构化输出</td><td>单号/金额/日期，必填 3 项</td><td>字段级准确率</td></tr>
+    <tr><td>客服录音转写</td><td>转录</td><td>纯文本 + 时间戳</td><td>CER</td></tr>
+    <tr><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>schema 的每个字段都能被程序校验；指标能落到「字段级」或「样本级」的具体口径，而不是笼统的「准确率」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u3-6-task-map.html">3.6 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-6-4-anomaly-demo.html"><span class="p-label">← 上一知识点 3.6.4</span><span class="p-title">异常检测：找少数的不一样</span></a><a class="next" href="u3-6-task-map.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 3.6 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)4 · 结构化输出（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>3.6.5 ｜ <span class="path">pages/m03-ml-basics/k3-6-5-structured-output.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-6-1-classification-regression.html"><b>3.6.1</b>分类与回归：输出是类别还是数值</a><a class="xlink" href="k3-6-2-denoise-transcribe.html"><b>3.6.2</b>去噪与转录：一个保形，一个换形</a><a class="xlink" href="k3-6-3-machine-translation.html"><b>3.6.3</b>机器翻译：序列到序列的生成</a><a class="xlink" href="u3-6-task-map.html"><b>3.6</b>常见任务地图：分类、回归、去噪、转录、机器翻译、异常检测、结构化输出（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-6-5-a.svg（本页图 3-30）。 ｜ 知识库条目：M03-S4-07《结构化输出》（filled） ｜ 参考来源：JSON Schema 公开规范；S41 scikit-learn《Working with text data》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

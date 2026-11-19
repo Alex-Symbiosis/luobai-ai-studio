@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.10.4 经验回放与目标网络 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出三项技巧各修复了哪一条被破坏的假设。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-10-deep-rl.html">6.10 深度强化学习：Q 学习与 DQN</a><span class="sep">/</span><span class="here">6.10.4 经验回放与目标网络</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.10</span>
+    <span class="tag">知识点 6.10.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>经验回放与目标网络</h1>
+  <p class="lede">三项技巧，治三种病：样本太像、答案在动、奖励量纲不一。少一项，训练都可能崩；多一项，就不在本节范围里了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出三项技巧各修复了哪一条被破坏的假设。</li><li>能写出发放回放池、周期性同步目标网络的代码。</li><li>能指出奖励裁剪的适用边界。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>十帧几乎一模一样</h2>
+<p>一个回合里，连续十帧画面几乎没有变化：球在同一个位置，只是慢了一点点。如果按采集顺序做梯度下降，这十次的梯度方向高度相关，参数会被同一条轨迹连续拽着走。</p>
+<p>更麻烦的是目标。更新式里的 <code>y = r + γ·max Q(s′,a′;θ)</code> 用的是正在训练的那个网络，每改一次参数，「答案」就跟着变一次。预测在追目标，目标也在跑。</p>
+<p class="ask">这两件事，加上奖励尺度不一，会一起把训练搞崩吗？</p>
+<p>会。样本相关让梯度有偏，目标漂移让回归不稳定，奖励量纲不同让学习率无法通用。DQN 的三项技巧，就是分别对着这三处下手。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三个补丁三处裂缝</h2>
+<p>把强化学习数据硬塞进监督学习的框子里，会有三条假设不成立。三项技巧不是「炼丹配方」，而是三个补丁，一个补一条缝。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="DQN 的三项工程技巧">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">DQN 的三项工程技巧</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">经验回放</text><text class="f-s" x="430" y="87.0">打散相关性，重复利用旧样本</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">目标网络</text><text class="f-s" x="430" y="151.0">用旧参数算目标，稳住训练</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">奖励裁剪</text><text class="f-s" x="430" y="215.0">把奖励压到 [−1, 1]，控制目标尺度</text><text class="f-s" x="120" y="272">三项各治一种病：相关性、移动目标、尺度失控；缺一项都可能训崩。</text>
+</svg><figcaption><b>图 6-56　DQN 的三项工程技巧</b>　三项各治一种病：相关性、移动目标、尺度失控；缺一项都可能训崩。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>回放把「连续剧情」打散成「独立样本」，目标网络把「移动靶」短暂钉住，奖励裁剪把不同任务的分数拉平到同一量纲。三者都在用信息换稳定。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三项技巧各做什么</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>技巧</th><th>修复的假设</th><th>做法</th><th>代价</th></tr></thead>
+  <tbody>
+    <tr><td>经验回放</td><td>样本独立同分布</td><td>存池，随机抽小批量</td><td>内存、旧数据过时</td></tr>
+    <tr><td>目标网络</td><td>标签固定</td><td>θ⁻ 每 C 步从 θ 复制</td><td>目标滞后，要调 C</td></tr>
+    <tr><td>奖励裁剪</td><td>损失尺度一致</td><td>r ← sign(r)，取值 −1/0/+1</td><td>丢失奖励幅度</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>回放池</strong>容量约 10⁶ 条转移，每步写入，训练时均匀随机抽 32 条。随机抽样近似打破时间相关性，同一条经验还能反复用，样本效率随之提升。</p>
+<p><strong>目标网络</strong>是另一套参数 θ⁻，只用来算目标：<code>y = r + γ·max Q(s′,a′;θ⁻)</code>。每 C 步（原文 C=10,000）令 θ⁻←θ。在 C 步的窗口内目标视为常数，问题暂时退化成平稳回归。</p>
+<p><strong>奖励裁剪</strong>把正奖励记 +1、负奖励记 −1、零保持 0，让不同游戏的回报与 Q 值落在同一量级，一套学习率可以通用。</p>
+<div class="callout callout--warn">
+  <span class="c-label">边界要说清</span>
+  <p>回放要求算法<strong>离策略</strong>，所以这套做法不能直接套到 SARSA 上。目标网络不是「冻结网络」——它周期同步，不是永不更新。奖励裁剪丢掉「好多少」，需要精细奖励幅度的任务不适用。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三段代码补三处</h2>
+<p>回放池就是三个列表加随机抽样；目标网络是第二套权重加一个同步计数；奖励裁剪只有一个 <code>sign</code>。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>replay_target.py</span></div>
+<pre><code>buf = []                        # 存 (s, a, r, s2, done)
+
+def remember(s, a, r, s2, done):
+    r = float(np.sign(r))       # 奖励裁剪：[−1, 0, 1]
+    buf.append((s, a, r, s2, float(done)))
+    if len(buf) &gt; 20000:        # 环形容量
+        buf.pop(0)
+
+def sample(batch=64):
+    idx = np.random.randint(0, len(buf), batch)
+    return [buf[i] for i in idx]
+
+def sync_target(model, target, step, C=10000):
+    if step % C == 0:
+        target.set_weights(model.get_weights())</code></pre>
+</div>
+<p>抽样用均匀随机，不加优先级——那是后续算法的事，本节不展开。同步计数放在「与环境交互的步数」上，不是梯度步数；两者在跳帧环境下差 4 倍，写错会让目标网络更新得过密或过疏。</p>
+<p>回放池满之后删最旧的一条，容量本身就是超参数：太小仍然相关，太大则池里塞满过时策略的数据，学到的 Q 会落后于当前策略。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>为何要这么大</h2>
+<p>原文的两个数量级不是随手定的。回放池 10⁶ 条，是为了让随机小批量里能抽到足够多样的历史场景；目标网络 10⁴ 步同步一次，是为了在一个窗口内把目标当常数，同时又不至于落后太多。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>配置</th><th>取值</th><th>调错的后果</th></tr></thead>
+  <tbody>
+    <tr><td>回放池</td><td>约 10⁶ 条</td><td>太小：样本仍相关；太大：旧策略数据占比高</td></tr>
+    <tr><td>小批量</td><td>32</td><td>太小：梯度噪声大；太大：显存与单步成本上升</td></tr>
+    <tr><td>同步周期 C</td><td>10,000 步</td><td>太大：学得慢；太小：失去稳定作用</td></tr>
+    <tr><td>奖励</td><td>sign(r)</td><td>精细幅度任务里会丢掉关键信息</td></tr>
+  </tbody>
+</table>
+</div>
+<p>2015 年的结果值得记一遍：同一套算法、同一套网络结构、同一套超参数，跑 49 款 Atari 游戏，达到与人类测试员相当的水平——单款之间差异很大。这说明三项技巧不是针对某款游戏调出来的，而是通用的稳定化手段。</p>
+<p>但稳定不等于万能。连续动作的控制任务用它就不合适：输出层要枚举动作，取 <code>max</code> 也需要有限个动作。这类任务该转向策略梯度或 Actor-Critic。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>关掉一项会怎样</h2>
+<p><strong>任务：</strong>在 CartPole 上逐项关闭，先写预测，再看曲线。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>关闭项</th><th>你预计的曲线</th><th>原因</th></tr></thead>
+  <tbody>
+    <tr><td>经验回放</td><td>？</td><td>梯度被连续轨迹拖走</td></tr>
+    <tr><td>目标网络</td><td>？</td><td>目标每步都变</td></tr>
+    <tr><td>奖励裁剪</td><td>？</td><td>本例奖励恒为 1，裁不裁有区别吗</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 回放池为什么要求算法离策略？② 同步周期 C 调成 100 会怎样？③ 本例奖励恒为 +1，奖励裁剪还有意义吗？</p>
+<p><strong>验收：</strong>三行预测都有机制依据，尤其能说出「本例奖励恒为 1，裁剪近似无操作」这个特例。目标怎么算，见 <a href="../m06-neural-nets/k6-10-3-dqn.html">DQN</a>；完整跑一遍，见 <a href="../m06-neural-nets/k6-10-5-cartpole-demo.html">奖励设计与 CartPole 训练</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-10-5-cartpole-demo.html">6.10.5 奖励设计与 CartPole 训练</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-10-3-dqn.html"><span class="p-label">← 上一知识点 6.10.3</span><span class="p-title">DQN：用神经网络代替 Q 表</span></a><a class="next" href="k6-10-5-cartpole-demo.html"><span class="p-label">下一知识点 6.10.5 →</span><span class="p-title">奖励设计与 CartPole 训练</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)47 · 经验回放与目标网络</dd>
+    <dt>页面编号 / 路径</dt><dd>6.10.4 ｜ <span class="path">pages/m06-neural-nets/k6-10-4-replay-target.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-10-3-dqn.html"><b>6.10.3</b>DQN：用神经网络代替 Q 表</a><a class="xlink" href="k6-10-5-cartpole-demo.html"><b>6.10.5</b>奖励设计与 CartPole 训练</a><a class="xlink" href="k6-10-2-q-learning.html"><b>6.10.2</b>Q 学习：给每个动作打分</a><a class="xlink" href="u6-10-deep-rl.html"><b>6.10</b>深度强化学习：Q 学习与 DQN（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-10-4（本页图 6-56）；知识库 M06-S7-04。 ｜ 知识库条目：M06-S7-04《深度 Q 网络（DQN）》（filled） ｜ 参考来源：S105 Mnih 等 2015 Nature；S106 Mnih 等 2013；S49 Sutton & Barto 2018；S53《深度学习》第 9 章。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

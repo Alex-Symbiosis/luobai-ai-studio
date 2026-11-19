@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.3.1 装载数据：tf.data 管道 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能搭出「读源 → map 解析 → batch」的最小 Dataset。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-3-workflow.html">10.3 TensorFlow 程序主线：装载、探索、训练、评估、优化</a><span class="sep">/</span><span class="here">10.3.1 装载数据：tf.data 管道</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.3</span>
+    <span class="tag">知识点 10.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>装载数据：tf.data 管道</h1>
+  <p class="lede">数据只有几百行，训练却还是很慢——瓶颈常常不在模型，而在「每一步都临时读一次盘」。tf.data 把取数变成一条提前备料的流水线。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能搭出「读源 → map 解析 → batch」的最小 Dataset。</li><li>能读懂 element_spec，知道 (None,) 代表什么。</li><li>能说出 shuffle、batch、prefetch 的正确顺序及原因。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>数据不大，为什么还是慢</h2>
+<p>两种喂数据的方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>每个 step 现读</h3><p>训练循环里 <code>open</code> 文件、解析、转数组；CPU 等 IO，GPU（或 CPU 计算单元）空转，利用率上不去。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>管道预取</h3><p>用 <code>tf.data</code> 声明「怎么取」，框架在训练当前批次时就把下一批准备好，IO 与计算重叠。</p></div>
+</div>
+<p class="ask">为什么不是「一次全读进内存」？</p>
+<p>数据小于内存时可以；一旦大于内存，就必须流式，而流式的性能取决于管道有没有预取。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>传送带提前备料</h2>
+<p>流水线的价值不在单件速度，而在「不停机」。<code>prefetch</code> 就是让备料发生在加工的同时，而不是加工完再去找料。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="tf.data：把取数变成流水线">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">tf.data：把取数变成流水线</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">数据源</text><text class="f-sc" x="117.6" y="154.0">文件名 / 内存</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">map 解析</text><text class="f-sc" x="298.79999999999995" y="154.0">decode_csv</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">shuffle</text><text class="f-sc" x="480.0" y="154.0">打散顺序</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">batch</text><text class="f-sc" x="661.1999999999999" y="154.0">拼成批次</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">prefetch</text><text class="f-sc" x="842.4" y="154.0">提前备下一批</text><text class="f-s" x="40" y="244">顺序有讲究：先 shuffle 再 batch，最后才 prefetch；反过来会把批次内顺序也打乱。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 10-10　tf.data：把取数变成流水线</b>　先 shuffle 再 batch，最后 prefetch；顺序反了，语义就变了。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p><code>Dataset</code> 是「怎么取数」的声明，不是数据本身；它可以是惰性的、无限的，也可以每次遍历都重新打乱。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个算子，各管一段</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>算子</th><th>作用</th><th>典型参数</th></tr></thead>
+  <tbody>
+    <tr><td><code>TextLineDataset</code> / <code>from_tensor_slices</code></td><td>数据源</td><td>文件路径 / 两个数组</td></tr>
+    <tr><td><code>map</code></td><td>逐条转换</td><td><code>decode_csv</code>、自定义函数</td></tr>
+    <tr><td><code>batch</code></td><td>拼成批次</td><td><code>batch_size</code></td></tr>
+    <tr><td><code>shuffle</code></td><td>打乱顺序</td><td><code>buffer_size</code></td></tr>
+    <tr><td><code>prefetch</code></td><td>提前准备下一批</td><td><code>AUTOTUNE</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p><code>shuffle</code> 的 <code>buffer_size</code> 是「在多大的缓冲区里随机」：设成 1 等于不打乱，设成整个数据集才接近全随机。数据流是无限的时，只能给一个有限的缓冲区。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>从 CSV 到批次张量</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>load_data.py</span></div>
+<pre><code>import os
+import tempfile
+import tensorflow as tf
+
+rows = [&quot;x1,x2,y&quot;, &quot;1,2,3&quot;, &quot;2,4,6&quot;, &quot;3,6,9&quot;, &quot;4,8,12&quot;, &quot;5,10,15&quot;, &quot;6,12,18&quot;]
+path = os.path.join(tempfile.mkdtemp(), &quot;toy.csv&quot;)
+with open(path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(&quot;\n&quot;.join(rows) + &quot;\n&quot;)
+
+ds = tf.data.TextLineDataset(path).skip(1)
+ds = ds.map(lambda line: tf.io.decode_csv(line, record_defaults=[[0.0], [0.0], [0.0]]))
+ds = ds.map(lambda x1, x2, y: ({&quot;x1&quot;: x1, &quot;x2&quot;: x2}, y)).batch(2)
+
+print(&quot;element_spec:&quot;, ds.element_spec)
+for step, (features, labels) in enumerate(ds):
+    print(step, features[&quot;x1&quot;].numpy().tolist(), labels.numpy().tolist())
+
+ds2 = tf.data.Dataset.from_tensor_slices(([[1.0], [2.0], [3.0]], [1.0, 2.0, 3.0])).batch(2)
+print(&quot;from_tensor_slices 批次数:&quot;, sum(1 for _ in ds2))</code></pre>
+</div>
+<p><code>skip(1)</code> 去掉表头；<code>decode_csv</code> 的 <code>record_defaults</code> 必须与列数一致，否则解析出的元组长度不对，第二个 <code>map</code> 会报参数个数不匹配。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>element_spec: ({&#x27;x1&#x27;: TensorSpec(shape=(None,), dtype=tf.float32, name=None), &#x27;x2&#x27;: TensorSpec(shape=(None,), dtype=tf.float32, name=None)}, TensorSpec(shape=(None,), dtype=tf.float32, name=None))
+0 [1.0, 2.0] [3.0, 6.0]
+1 [3.0, 4.0] [9.0, 12.0]
+2 [5.0, 6.0] [15.0, 18.0]
+from_tensor_slices 批次数: 2</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>6 行 → 3 批</h3><p>批大小 2，6 条数据正好 3 批；最后一批不足时不会自动丢弃。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>shape=(None,)</h3><p>批内样本数动态：最后一批可能不足 2 条，所以这一维是 <code>None</code>。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>2 批</h3><p><code>from_tensor_slices</code> 把 3 个样本按 2 分批，得 2 批（第二批 1 条）。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">顺序陷阱</span>
+  <p>先 <code>batch</code> 再 <code>shuffle</code>，打乱的是「批次顺序」而不是样本顺序，同一批内的样本始终挨在一起。训练集要先 <code>shuffle</code>。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>搭一条四步管道</h2>
+<p><strong>任务：</strong>用 <code>tf.data</code> 搭「读 CSV → 打乱 → 分批 → 预取」，打印一个批次的形状。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>shuffle(6)</code></td><td>两次遍历顺序是否不同</td><td>缓冲区等于样本数时接近全随机</td></tr>
+    <tr><td><code>batch(4)</code></td><td>最后一批几条</td><td>6 条数据 → 4 + 2</td></tr>
+    <tr><td><code>prefetch(AUTOTUNE)</code></td><td>输出是否变化</td><td>不变，只影响调度</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>shuffle</code> 必须放在 <code>batch</code> 之前？② 训练集打乱、验证集不打乱，理由分别是什么？</p>
+<p><strong>验收：</strong>打印出的批次形状为 <code>(4, 2)</code>（特征）与 <code>(4,)</code>（标签）。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-3-2-explore-data.html">10.3.2 探索数据：统计、缺失与分布</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-2-5-var-vs-tensor-demo.html"><span class="p-label">← 上一知识点 10.2.5</span><span class="p-title">变量与张量的区别</span></a><a class="next" href="k10-3-2-explore-data.html"><span class="p-label">下一知识点 10.3.2 →</span><span class="p-title">探索数据：统计、缺失与分布</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)2 · 装载数据</dd>
+    <dt>页面编号 / 路径</dt><dd>10.3.1 ｜ <span class="path">pages/m10-tensorflow/k10-3-1-load-data.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-3-2-explore-data.html"><b>10.3.2</b>探索数据：统计、缺失与分布</a><a class="xlink" href="k10-3-3-train.html"><b>10.3.3</b>训练模型：编译与 fit</a><a class="xlink" href="k10-1-2-toolkit.html"><b>10.1.2</b>工具包地图：keras、data、TensorBoard</a><a class="xlink" href="u10-3-workflow.html"><b>10.3</b>TensorFlow 程序主线：装载、探索、训练、评估、优化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-3-1（本页图 10-10）；知识库 M10-S2-01；输出为本机实测。 ｜ 知识库条目：M10-S2-01《装载数据》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S152 tf.data 指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

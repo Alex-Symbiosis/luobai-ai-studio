@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.2 图灵测试：把「能否思考」换成「能否骗过评委」 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能复述三方结构与判定规则；能解释它为何替代「机器能否思考」；能指出至少两条局限并举例。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">结构</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#kps">知识点</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><span class="here">1.2 图灵测试：把「能否思考」换成「能否骗过评委」</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.2</span>
+    <span class="tag">2 课时</span>
+    <span class="tag">难度 ★★☆</span>
+    <span class="badge badge--blue">需 Demo</span>
+  </div>
+  <h1>图灵测试：把「能否思考」换成「能否骗过评委」</h1>
+  <p class="lede">1950 年，图灵没有问「机器会不会思考」，而是换了一个可以操作的问题：隔着墙和它聊天，你能分辨出它是机器吗？这个换法，奠定了此后七十年的评估传统。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">生活问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">严格定义</span><span class="arr">→</span>
+    <span class="pl">结构与算法</span><span class="arr">→</span>
+    <span class="pl is-key">真实案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能复述图灵测试的三方结构、通道限制与判定规则。</li><li>能解释它为什么用「可观察行为」替代「机器能否思考」这个不可判定问题。</li><li>能指出至少两条局限，并用中文屋、CAPTCHA 等例子说明。</li></ol>
+</section>
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>隔着屏幕，你怎么证明对面是人</h2>
+<p>网恋对象从不视频，只打字。你怎么判断对面是不是真人？你可能会问几个只有本地人才知道的细节，看回答是否自然，试探它会不会前后矛盾。</p>
+<p class="ask">如果一台机器能通过你所有的试探，你还有理由说它「不 intelligent」吗？还是说，「智能」本来就应该由外部观察者来判定？</p>
+<p>这就是图灵在 1950 年论文《计算机器与智能》里做的事：把「机器能思考吗」这个吵不出结果的问题，换成一场可以打分的游戏。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>把「思考」关进一间小屋</h2>
+<p>想象一场考试：评委坐在屋里，只能通过纸条和两个看不见的对象交流。一个对象是人，另一个是机器。评委的任务不是判断谁更聪明，而是判断<strong>哪一边是机器</strong>。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-label="图灵测试的三方结构">
+  <defs>
+    <marker id="d2ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8fb8ff"/>
+    </marker>
+  </defs>
+  <style>
+    .d2-bx{fill:#ffffff;stroke:#cfe0ff;stroke-width:1.5}
+    .d2-bx-j{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.5}
+    .d2-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d2-c{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80;text-anchor:middle}
+    .d2-l{stroke:#8fb8ff;stroke-width:1.4;stroke-dasharray:6 5;fill:none;marker-end:url(#d2ar)}
+    .d2-wall{stroke:#c8d7ea;stroke-width:1.4;stroke-dasharray:4 6}
+    .d2-lb{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;fill:#5a6b80}
+    .d2-cap{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;fill:#1f5fd0;text-anchor:middle}
+  </style>
+
+  <rect class="d2-bx-j" x="30" y="110" width="190" height="92" rx="14"/>
+  <text class="d2-t" x="125" y="148">评委（人）</text>
+  <text class="d2-c" x="125" y="172">只能读文字</text>
+  <text class="d2-c" x="125" y="190">猜哪边是机器</text>
+
+  <line class="d2-wall" x1="300" y1="60" x2="300" y2="270"/>
+  <text class="d2-lb" x="300" y="50" text-anchor="middle">隔离墙</text>
+
+  <rect class="d2-bx" x="690" y="56" width="230" height="82" rx="14"/>
+  <text class="d2-t" x="805" y="90">被问者 A</text>
+  <text class="d2-c" x="805" y="114">一个人</text>
+
+  <rect class="d2-bx" x="690" y="188" width="230" height="82" rx="14"/>
+  <text class="d2-t" x="805" y="222">被问者 B</text>
+  <text class="d2-c" x="805" y="246">一台机器</text>
+
+  <path class="d2-l" d="M224,132 C340,110 520,96 686,96"/>
+  <path class="d2-l" d="M224,180 C340,202 520,226 686,228"/>
+
+  <text class="d2-lb" x="470" y="78" text-anchor="middle">文字问答</text>
+  <text class="d2-lb" x="470" y="254" text-anchor="middle">文字问答</text>
+
+  <text class="d2-cap" x="480" y="300">判定规则：若评委分辨不出哪边是机器，机器即被认为通过了测试</text>
+</svg><figcaption><b>图 1-2　图灵测试的三方结构与隔离条件</b>　关键是隔离：评委看不到外形、听不到声音，只能读文字。这样就把「像不像人」压缩成了「聊起来像不像人」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉类比</span>
+  <p>这像一场<strong>盲品尝酒</strong>：不告诉你产地和年份，只让你说哪杯更好。图灵把「智能」从一种内在属性，改造成了<strong>外部可观察的判别任务</strong>。</p>
+</div>
+<span class="sidenote">图灵原本把这个游戏叫「模仿游戏」（imitation game），机器要模仿的不是「聪明」，而是「像人」。</span>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>规则、判定与那句被反复引用的话</h2>
+<p>标准版本包含四方：评委（人）、被问者 A（人）、被问者 B（机器）、以及一条只传递文字的通道。若干轮问答后，评委给出判断。</p>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p><strong>图灵测试</strong>：若评委在足够多轮的文字对话后，无法以显著高于随机的准确率分辨出机器，则认为该机器通过了测试，表现出与人类难以区分的智能行为。</p>
+</div>
+<p>图灵在原文中给出了一个具体预测：大约五十年后，存储量约 10 亿比特的计算机，能让评委在五分钟提问后，识别出机器身份的概率不超过 70%。这个数字后来被反复讨论，也成了「AI 里程碑」叙事的源头之一。</p>
+<span class="teacher">注意区分两件事：图灵测试是「评估范式」，不是「技术路线」。它没有规定机器必须用神经网络、规则还是查表——只要行为过关即可。</span>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>判定流程与一个最小实现</h2>
+<p>把测试写成程序，逻辑只有四步：生成两个回答、隐藏来源、让评委选择、统计识破率。下面这段代码故意用了很笨的「关键词策略」，方便观察它是怎么被识破的。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>turing_game.py</span></div>
+<pre><code>import random
+
+HUMAN = ["我今天有点累", "你猜", "别问了，先说说你"]
+BOT = [
+    "我理解你的感受，能多说一点吗？",
+    "这个问题很有意思，你怎么看？",
+    "根据我的分析，答案可能是 42。",
+]
+
+def reply(is_bot):
+    return random.choice(BOT if is_bot else HUMAN)
+
+def judge(rounds=5):
+    hits = 0
+    for _ in range(rounds):
+        a, b = reply(False), reply(True)
+        guess = b if "分析" in b or "理解" in b else a   # 评委的关键词策略
+        hits += (guess == b)
+    return hits == rounds        # True 表示机器被识破
+
+print([judge() for _ in range(10)])</code></pre>
+</div>
+<div class="callout callout--code">
+  <span class="c-label">代码解读</span>
+  <p>机器一方只要反复使用「理解」「分析」这类套话，就会被关键词规则抓住。真实的大模型难被识破，是因为它<strong>不依赖固定套话</strong>，而不是因为它「更懂」对话。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>从 ELIZA 到中文屋，再到验证码</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">1966</span><h3>ELIZA</h3><p>用模式匹配模仿心理治疗师。用户明知它是程序，仍会向它倾诉——第一次暴露「像人」与「是人」的落差。</p></div>
+  <div class="card mini"><span class="mini-tag">1980</span><h3>中文屋</h3><p>塞尔设想一个不懂中文的人在屋里按规则手册回纸条。外面看像懂中文，里面却没有理解。</p></div>
+  <div class="card mini"><span class="mini-tag">今天</span><h3>CAPTCHA</h3><p>验证码是「反向图灵测试」：让人证明自己是人，而不是机器。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">局限</span>
+  <p>① 它测的是<strong>模仿人类</strong>，不是通用智能——计算器算得比人快，却通不过；② 它只覆盖文字通道，绕开感知与行动；③ 它可以被「应试技巧」刷分，正如学生可以只背题型。</p>
+</div>
+<p>所以今天更常见的做法不是「通过/不通过」的二值判断，而是一组细分基准：推理、代码、多模态理解、工具使用。图灵测试的精神保留了下来——<strong>用可观察任务定义智能</strong>，但任务本身已经换了一代。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>动手与自检</h2>
+<p><strong>任务：</strong>把上面的 <code>judge()</code> 改成「评委每轮可以追问一次」，再让机器一方随机延迟不同长度的时间回答。记录识破率变化，并解释原因。</p>
+<p><strong>自检三问：</strong>① 如果机器通过测试，能推出它有意识吗？② 中文屋论证反驳的到底是「智能」还是「理解」？③ 为什么现代评测更愿意用任务集而不是一场对话？</p>
+<span class="sidenote">写作业时不要只写「图灵测试有局限性」这种空话。要写成「它把智能压缩为文字模仿，因此无法覆盖具身行动，例如……」。</span>
+</section>
+<section class="sec" id="kps"><h2><span class="sec-num">07</span>本单元知识点</h2><p>本单元拆成 5 个知识点页，按顺序读最省力；每页都可以单独完成一次练习。</p><div class="table-wrap"><table class="table"><thead><tr><th>编号</th><th>知识点</th><th>大纲条目</th></tr></thead><tbody><tr><td><a class="xlink" href="k1-2-1-imitation-game.html">k1.2.1</a></td><td>从「机器能否思考」到模仿游戏</td><td>三(一)1 · 图灵测试的由来</td></tr><tr><td><a class="xlink" href="k1-2-2-three-party.html">k1.2.2</a></td><td>三方结构与判定规则</td><td>三(一)1 · 图灵测试的概念</td></tr><tr><td><a class="xlink" href="k1-2-3-behaviorism.html">k1.2.3</a></td><td>为什么它成了 AI 的行为主义标尺</td><td>三(一)1 · 图灵测试与人工智能的关系</td></tr><tr><td><a class="xlink" href="k1-2-4-turing-limits.html">k1.2.4</a></td><td>图灵测试的四个局限</td><td>三(一)1 · 图灵测试的概念（局限）</td></tr><tr><td><a class="xlink" href="k1-2-5-imitation-demo.html">k1.2.5</a></td><td>20 行代码实现「模仿游戏」判定器</td><td>三(一)1 · 图灵测试的判定规则（实现）</td></tr></tbody></table></div></section>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页的核心定义，并各写一个反例。</li>
+    <li>完成实操：用 20 行 Python 实现「模仿游戏」判定器，观察关键词策略被识破的过程。</li>
+    <li>进入下一单元 <a href="u1-3-strong-weak.html">1.3 强人工智能与弱人工智能</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="单元翻页"><a class="prev" href="u1-1-concept.html"><span class="p-label">← 上一单元 1.1</span><span class="p-title">人工智能到底是什么：思维、智能与机器智能</span></a><a class="next" href="u1-3-strong-weak.html"><span class="p-label">下一单元 1.3 →</span><span class="p-title">强人工智能与弱人工智能</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ (一)1 · 图灵测试的概念、由来及其与人工智能的关系</dd>
+    <dt>页面编号 / 路径</dt><dd>1.2 ｜ <span class="path">pages/m01-ai-overview/u1-2-turing-test.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="u1-1-concept.html"><b>1.1</b>人工智能到底是什么：思维、智能与机器智能</a><a class="xlink" href="u1-3-strong-weak.html"><b>1.3</b>强人工智能与弱人工智能</a><a class="xlink" href="../m09-nlp/u9-1-nlp-history.html"><b>9.1</b>自然语言处理的概念与发展史</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-turing-test.svg（本页图 1-2）。代码为课程自写示例，不依赖第三方库。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

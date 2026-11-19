@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.1.5 机器学习与数据挖掘、数据分析的边界 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按「目标—产出—风险」区分数据分析、数据挖掘与机器学习。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-1-what-is-ml.html">3.1 机器学习的概念、特点与反馈</a><span class="sep">/</span><span class="here">3.1.5 机器学习与数据挖掘、数据分析的边界</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.1</span>
+    <span class="tag">知识点 3.1.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>机器学习与数据挖掘、数据分析的边界</h1>
+  <p class="lede">同样一份销售数据，有人做了一张看板，有人挖出了「买尿布的人常买啤酒」，有人训了一个下月销量预测模型。三件事都叫「用数据做事」，但产出和风险完全不同。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按「目标—产出—风险」区分数据分析、数据挖掘与机器学习。</li><li>能判断一个具体需求属于哪一类，并说明理由。</li><li>能指出三者工具重叠但评价标准不同的地方。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>报表、洞察、预测</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">任务 A</span><h3>上月销售为什么下滑</h3><p>拆区域、拆品类、拆渠道，给出解释与建议。答案必须能讲给业务听。</p></div>
+  <div class="card mini"><span class="mini-tag">任务 B</span><h3>有没有没注意到的购买组合</h3><p>在海量订单里找频繁项集与关联规则，强调「人没预设过」。</p></div>
+  <div class="card mini"><span class="mini-tag">任务 C</span><h3>下月能卖多少</h3><p>训练一个模型，对新月份做预测，用误差指标验收。</p></div>
+</div>
+<p class="ask">三个任务都能用同一份数据、同一套 Python 工具完成。那它们的区别在哪？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>体检报告、寻宝、造预测机</h2>
+<p>数据分析像体检报告：回答「现在是什么状况、为什么」。数据挖掘像寻宝：在沙子里筛出没人注意过的金粒。机器学习像造一台预测机：给它新输入，它给出新输出。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一份销售数据，三种问法">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">同一份销售数据，三种问法</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">维度</text><text class="f-t" x="282.0" y="98">数据分析</text><text class="f-t" x="492.0" y="98">数据挖掘</text><text class="f-t" x="702.0" y="98">机器学习</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">问法</text><text class="f-s" x="282.0" y="139.0">为什么下降</text><text class="f-s" x="492.0" y="139.0">有什么没想到的模式</text><text class="f-s" x="702.0" y="139.0">下月会卖多少</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">产出</text><text class="f-s" x="282.0" y="183.0">报表与解释</text><text class="f-s" x="492.0" y="183.0">规则与关联</text><text class="f-s" x="702.0" y="183.0">可泛化的预测模型</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">主要风险</text><text class="f-s" x="282.0" y="227.0">问题不清</text><text class="f-s" x="492.0" y="227.0">模式虚假</text><text class="f-s" x="702.0" y="227.0">分布偏移</text><text class="f-s" x="60" y="272">三者工具高度重叠，分界在目标：解释过去、发现未知、预测未见。</text>
+</svg><figcaption><b>图 3-5　同一份数据，三种问法</b>　三者工具高度重叠，分界不在技术栈，而在目标：解释过去、发现未知、预测未见。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>数据分析怕「问题不清」，数据挖掘怕「模式虚假」，机器学习怕「分布偏移」。三种怕，对应三种不同的验收方式。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个目标，三种产出</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>数据分析</th><th>数据挖掘</th><th>机器学习</th></tr></thead>
+  <tbody>
+    <tr><td>目的</td><td>理解与解释数据</td><td>发现未知模式</td><td>估计可泛化的模型</td></tr>
+    <tr><td>产出</td><td>结论、报表、建议</td><td>规则、关联、分组</td><td>可调用的预测函数</td></tr>
+    <tr><td>验收</td><td>业务能否采信</td><td>模式是否新颖且可复现</td><td>独立测试集指标</td></tr>
+    <tr><td>主要风险</td><td>问题定义偏差</td><td>多重比较导致的假模式</td><td>分布偏移、泄漏</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>数据分析以「理解与解释」为目的，数据挖掘以「从大规模数据中发现未知模式」为目的，机器学习提供「从数据估计可泛化模型」的算法；三者目标不同、工具高度重叠。</p>
+</div>
+<p>注意最后半句：工具重叠意味着一个人可以同时做三件事，但<strong>不能用一种任务的验收标准去验收另一种</strong>。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>KDD 流程里，三者各站哪一格</h2>
+<p>数据挖掘的经典 KDD 流程是：数据选择 → 预处理 → 变换 → 挖掘 → 解释与评估。</p>
+<div class="steps">
+  <div class="step"><b>数据分析</b><span>贯穿前后：前期做探索性分析定方向，后期解释结果、判断是否可信。</span></div>
+  <div class="step"><b>数据挖掘</b><span>占据「挖掘」这一格：关联规则、聚类、异常模式。</span></div>
+  <div class="step"><b>机器学习</b><span>是算法供给方：为挖掘提供分类/聚类工具，为预测系统提供模型。</span></div>
+</div>
+<p>这条流程也解释了为什么三者常被混为一谈：它们在同一个项目里交替出现，只是<strong>交付物不同</strong>。分析师交结论，挖掘者交模式，算法工程师交模型。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一笔订单数据的三种做法</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">分析</span><h3>客单价下降 12%</h3><p>按渠道拆分发现新客占比升高，结论是「拉新结构变化」，建议调整投放。不需要模型。</p></div>
+  <div class="card mini"><span class="mini-tag">挖掘</span><h3>「咖啡 + 面包」高频共现</h3><p>用关联规则发现组合，且在不同月份复现。价值在于人没预设过这个组合。</p></div>
+  <div class="card mini"><span class="mini-tag">机器学习</span><h3>下月销量预测</h3><p>用历史特征训练回归模型，在时间切分的测试集上算 MAE，作为备货依据。</p></div>
+</div>
+<p>三个结论的可信度检验方式完全不同：分析看业务是否采信，挖掘看能否复现，模型看测试集误差。混用标准，就会得出「模型准确率 95%，所以这个关联规则一定对」这类错误推论。</p>
+<span class="teacher">本页与模块八 8.2 互为引用：模块八讲业务视角的挖掘流程，本页只划边界，不重复展开 CRISP-DM 的细节。</span>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>八个任务，三类分派</h2>
+<p><strong>任务：</strong>给下面 8 个任务标「分析 / 挖掘 / 机器学习」，并写一句理由；至少找出 2 个边界任务，说明为什么有争议。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>任务</th><th>归类</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>统计各院系四六级通过率</td><td></td><td></td></tr>
+    <tr><td>2</td><td>找出经常一起借阅的书籍组合</td><td></td><td></td></tr>
+    <tr><td>3</td><td>预测下周图书馆座位占用</td><td></td><td></td></tr>
+    <tr><td>4</td><td>解释上学期退课率上升的原因</td><td></td><td></td></tr>
+    <tr><td>5</td><td>把学生按学习行为聚成 5 群</td><td></td><td></td></tr>
+    <tr><td>6</td><td>识别异常的刷卡记录</td><td></td><td></td></tr>
+    <tr><td>7</td><td>给新生推荐选课顺序</td><td></td><td></td></tr>
+    <tr><td>8</td><td>做一张月度经营看板</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 这个任务的产出是「结论、模式」还是「可调用的函数」？② 验收靠人判断还是靠指标？③ 如果换一批新数据，结论还成立吗？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「用了 sklearn 就是机器学习」不成立。用 KMeans 做一次客户分群并人工命名，更接近探索性分析；只有当分群结果被用于对新客户自动打标，才具备机器学习的预测属性。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-2-1-workflow.html">3.2.1 六步流程：从问题定义到部署</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-1-4-ai-ml-dl.html"><span class="p-label">← 上一知识点 3.1.4</span><span class="p-title">机器学习与人工智能、深度学习的关系</span></a><a class="next" href="k3-2-1-workflow.html"><span class="p-label">下一知识点 3.2.1 →</span><span class="p-title">六步流程：从问题定义到部署</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 机器学习、数据挖掘与数据分析的关系</dd>
+    <dt>页面编号 / 路径</dt><dd>3.1.5 ｜ <span class="path">pages/m03-ml-basics/k3-1-5-ml-dm-da.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-1-4-ai-ml-dl.html"><b>3.1.4</b>机器学习与人工智能、深度学习的关系</a><a class="xlink" href="k3-2-1-workflow.html"><b>3.2.1</b>六步流程：从问题定义到部署</a><a class="xlink" href="k3-6-1-classification-regression.html"><b>3.6.1</b>分类与回归：输出是类别还是数值</a><a class="xlink" href="u3-1-what-is-ml.html"><b>3.1</b>机器学习的概念、特点与反馈（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-1-5-a.svg（本页图 3-5）。 ｜ 知识库条目：M03-S1-06《机器学习、数据挖掘与数据分析的关系》（filled） ｜ 参考来源：S63 Fayyad et al. 1996（KDD）；S64 Han, Kamber, Pei《Data Mining》3rd ed.；S58 NIST/SEMATECH e-Handbook</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

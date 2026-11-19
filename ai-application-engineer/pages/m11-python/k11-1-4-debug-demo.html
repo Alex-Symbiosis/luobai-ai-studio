@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.1.4 读报错栈与调试 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按「末行 → 上一行 → 向上找自己的文件」的顺序读完一段 traceback。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-1-env.html">11.1 Python 运行环境与工程规范</a><span class="sep">/</span><span class="here">11.1.4 读报错栈与调试</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.1</span>
+    <span class="tag">知识点 11.1.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>读报错栈与调试</h1>
+  <p class="lede">一屏红字里，真正有用的只有三样：最后一行说了什么错，上一行指向哪个文件，向上哪一帧是自己写的。学会这三步，调试点就不再是「从头再读一遍代码」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按「末行 → 上一行 → 向上找自己的文件」的顺序读完一段 traceback。</li><li>能区分语法错误、类型错误与运行时错误，并判断该看哪一层。</li><li>能把一个报错压缩成十行以内的最小复现。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>红字一屏，从哪看</h2>
+<p>同一个报错，两个人的处理方式完全不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>从第一行读起</h3><p>从上往下逐行看，被库内部的十几层调用绕晕；看到最后一行时已经忘了上下文，只好把整段代码重读一遍。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先看末行，再往上找</h3><p>先确认错误类型与消息，再从下往上找第一个属于自己的文件与行号；库内部的栈帧直接跳过，定位通常不超过半分钟。</p></div>
+</div>
+<p class="ask">traceback 为什么把「最重要的信息」放在最后，而不是最前？</p>
+<p>因为它记录的是调用链：外层先发生，内层后发生；错误在最内层抛出，所以结论在末尾。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>顺着快递单找最后一站</h2>
+<p>包裹延误时，不会从寄件人开始逐个网点问；看物流单的最后一站，就知道卡在哪里，再往回找是哪一段转运出了问题。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="报错栈从下往上读">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">报错栈从下往上读</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">末行：错误类型</text><text class="f-sc" x="117.6" y="154.0">KeyError、TypeError</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">上一行：出错位置</text><text class="f-sc" x="298.79999999999995" y="154.0">文件与行号</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">向上：调用链</text><text class="f-sc" x="480.0" y="154.0">谁调用了谁</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">落到自己的文件</text><text class="f-sc" x="661.1999999999999" y="154.0">改这一行</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">最小复现</text><text class="f-sc" x="842.4" y="154.0">删到只剩触发条件</text><text class="f-s" x="40" y="244">库内部的栈帧可以先跳过；先找自己写的最后一个文件。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 11-4　先看最后一行，再往上找自己的代码</b>　末行是错误类型，上一行是出错位置；向上是调用链，只保留自己写的文件。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>traceback 是「调用链 + 出错点」，不是「代码质量报告」。先取结论，再补上下文。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>异常、栈帧与调用链</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>词</th><th>含义</th><th>在 traceback 里长什么样</th></tr></thead>
+  <tbody>
+    <tr><td>异常类型</td><td>错误的类别，决定修复方向</td><td><code>KeyError</code>、<code>TypeError</code>、<code>IndexError</code></td></tr>
+    <tr><td>栈帧</td><td>一次函数调用的现场：文件、行号、代码</td><td><code>File "...", line 5, in &lt;module&gt;</code></td></tr>
+    <tr><td>调用链</td><td>从入口到出错点的调用顺序</td><td>多个栈帧自上而下排列</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三类错误要分开处理：语法错误（<code>SyntaxError</code>、<code>IndentationError</code>）在编译阶段就失败，代码一行都没跑；类型与键值错误在运行时抛出，说明数据与假设不符；逻辑错误不报错，只能靠断言与对比输出发现。前两类看 traceback，第三类要靠最小复现。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三个最小样例</h2>
+<p>先看三个会稳定复现的错误，每个都不超过三行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>err_key.py</span></div>
+<pre><code>profile = {&quot;name&quot;: &quot;Ada&quot;}
+print(profile[&quot;age&quot;])</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>err_type.py</span></div>
+<pre><code>counts = {&quot;a&quot;: 1}
+print(counts[&quot;a&quot;] + &quot;1&quot;)</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>err_index.py</span></div>
+<pre><code>tokens = &quot;hello world&quot;.split()
+print(tokens[5])</code></pre>
+</div>
+<p>阅读顺序固定为三步：① 末行取错误类型与消息；② 上一行取代码与插入符（<code>^^^^</code> 指向真正出问题的子表达式）；③ 向上找第一个自己写的文件。库内部帧通常只需确认「传进去的参数是什么」。</p>
+<p>定位后不要立刻改代码，先做最小复现：删到只剩触发条件，确认它仍然报错。最小复现跑通，修复才有对照。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三段真实 traceback</h2>
+<p>在 Python 3.13.14 下运行上面三个文件，traceback 的末两行分别为（文件路径随机器不同，已省略）：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>err_key.py · 实测 traceback 尾部</span></div>
+<pre><code>    print(profile[&quot;age&quot;])
+          ~~~~~~~^^^^^^^
+KeyError: &#x27;age&#x27;</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>err_type.py · 实测 traceback 尾部</span></div>
+<pre><code>    print(counts[&quot;a&quot;] + &quot;1&quot;)
+          ~~~~~~~~~~~~^~~~~
+TypeError: unsupported operand type(s) for +: &#x27;int&#x27; and &#x27;str&#x27;</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>err_index.py · 实测 traceback 尾部</span></div>
+<pre><code>    print(tokens[5])
+          ~~~~~~^^^
+IndexError: list index out of range</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>错误</th><th>读法</th><th>修复动作</th></tr></thead>
+  <tbody>
+    <tr><td>KeyError</td><td>键不存在，不是字典坏了</td><td>改用 <code>profile.get("age")</code>，或先校验键</td></tr>
+    <tr><td>TypeError</td><td>两侧类型不兼容，插入符指向 <code>+</code></td><td>统一类型：<code>str(counts["a"]) + "1"</code> 或改做数值加法</td></tr>
+    <tr><td>IndexError</td><td>索引越界，列表只有 2 个元素</td><td>先判断长度，或改用切片 <code>tokens[5:6]</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个例子的共同点：错误消息已经说明了原因，真正花时间的是「确认自己以为的数据是什么」。在报错行前加一行 <code>print(type(x), repr(x))</code>，往往比继续读代码更快。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给三段报错写定位记录</h2>
+<p><strong>任务：</strong>运行下面三段代码，各写一条定位记录，格式固定为「错误类型 / 出错行 / 修复动作 / 最小复现」。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>练习 1</span></div>
+<pre><code>data = {&quot;n&quot;: &quot;3&quot;}
+total = data[&quot;n&quot;] + 2</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>练习 2</span></div>
+<pre><code>words = [&quot;a&quot;, &quot;b&quot;]
+print(words[2])</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>练习 3</span></div>
+<pre><code>def load(path):
+    with open(path) as f:
+        return f.read()
+
+print(load(&quot;no_such_file.txt&quot;))</code></pre>
+</div>
+<p><strong>追问：</strong>① 第三个例子为什么不是 <code>TypeError</code>，而是 <code>FileNotFoundError</code>？② 如果 traceback 里出现了三层库内部帧，先看哪一帧，为什么？</p>
+<p><strong>验收：</strong>每条记录都能指向具体行号，修复动作可以直接执行，最小复现不超过十行。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-2-1-corpus-resources.html">11.2.1 语料与词汇资源：NLTK 的数据入口</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-1-3-modules.html"><span class="p-label">← 上一知识点 11.1.3</span><span class="p-title">函数、类与模块：把脚本变成工程</span></a><a class="next" href="k11-2-1-corpus-resources.html"><span class="p-label">下一知识点 11.2.1 →</span><span class="p-title">语料与词汇资源：NLTK 的数据入口</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)1 · Python 的操作规范（调试）</dd>
+    <dt>页面编号 / 路径</dt><dd>11.1.4 ｜ <span class="path">pages/m11-python/k11-1-4-debug-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-1-3-modules.html"><b>11.1.3</b>函数、类与模块：把脚本变成工程</a><a class="xlink" href="k11-2-3-preprocess.html"><b>11.2.3</b>原始文本处理：分词、规范化与停用词</a><a class="xlink" href="u11-1-env.html"><b>11.1</b>Python 运行环境与工程规范（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-1-4（本页图 11-4）；知识库 M11-S1-01；三段报错为本机实测。 ｜ 知识库条目：M11-S1-01《Python 的概念与操作规范》（filled） ｜ 参考来源：S120《The Python Tutorial》(3.13)；S121《The Python Language Reference》；S140 Python FAQ</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

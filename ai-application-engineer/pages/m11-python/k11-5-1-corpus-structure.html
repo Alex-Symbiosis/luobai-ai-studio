@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.5.1 语料库的结构 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出语料库的四个组成部分，并区分元数据与标注。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-5-corpus-xml.html">11.5 语言数据管理与 XML</a><span class="sep">/</span><span class="here">11.5.1 语料库的结构</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.5</span>
+    <span class="tag">知识点 11.5.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>语料库的结构</h1>
+  <p class="lede">同样叫「语料库」，一个可能只是三千个 txt 文件，另一个却能按体裁、年份、来源随时切片。差别不在文本本身，而在文本之外的那几层。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出语料库的四个组成部分，并区分元数据与标注。</li><li>能设计一套可检索的目录与字段，让分层统计一句话查得出来。</li><li>能在本机安装 Matplotlib，跑出按体裁分组的词数柱状图。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两个都叫语料库</h2>
+<p>同一批文本，两种交付方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">交付 A</span><h3>三千个 txt</h3><p>目录里平铺着 <code>1.txt</code> 到 <code>3000.txt</code>，没有来源、没有体裁、没有标注。想统计「新闻类平均句长」，只能靠人翻。</p></div>
+  <div class="card mini"><span class="mini-tag">交付 B</span><h3>分层目录 + 元数据</h3><p><code>news/</code>、<code>fiction/</code> 分子目录，配 <code>metadata.csv</code> 与 <code>README.md</code>；同样的统计一行循环就出结果。</p></div>
+</div>
+<p class="ask">两份材料的文本内容一模一样，差在哪？</p>
+<p>差在结构：文件之外还有元数据、标注层与说明文档，这三层决定了语料能不能被检索和复现。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三层齐全，才叫语料库</h2>
+<p>把语料库想成一个图书馆：书是文本，卡片目录是元数据，书里的批注是标注，馆藏说明是文档。只有书、没有目录，仍然是一堆书。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三层齐全，才叫语料库">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">三层齐全，才叫语料库</text><circle cx="300" cy="195" r="150" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.5"/><circle cx="300" cy="195" r="105" fill="#f0f6ff" stroke="#cfe0ff" stroke-width="1.5"/><circle cx="300" cy="195" r="58" fill="#e6efff" stroke="#cfe0ff" stroke-width="1.5"/><text class="f-tc" x="300" y="75">原始文本</text><text class="f-sc" x="300" y="93">txt / jsonl</text><text class="f-tc" x="300" y="124">元数据</text><text class="f-sc" x="300" y="142">来源·时间·作者</text><text class="f-tc" x="300" y="171">标注层</text><text class="f-sc" x="300" y="189">词性·实体·标签</text><path class="f-dash" d="M452 98 L560 98"/><text class="f-t" x="572" y="96">可检索</text><text class="f-s" x="572" y="116">按字段筛选</text><path class="f-dash" d="M452 174 L560 174"/><text class="f-t" x="572" y="172">可追溯</text><text class="f-s" x="572" y="192">来源与许可清楚</text><path class="f-dash" d="M452 242 L560 242"/><text class="f-t" x="572" y="240">可训练</text><text class="f-s" x="572" y="260">标注口径一致</text><text class="f-s" x="40" y="340">没有元数据的文本，只是一堆文件；没有标注层的语料，只能做无监督统计。</text>
+</svg><figcaption><b>图 11-18　三层齐全，才叫语料库</b>　原始文本回答「有什么」，元数据回答「从哪来、属于哪类」，标注层回答「语言成分是什么」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>语料库 = 文本 + 元数据 + 标注 + 文档。少任何一层，都会在做分析时付出额外的手工成本。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个组成部分</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组成</th><th>回答的问题</th><th>常见形式</th></tr></thead>
+  <tbody>
+    <tr><td>原始文本</td><td>内容是什么</td><td><code>.txt</code>、<code>.jsonl</code></td></tr>
+    <tr><td>元数据</td><td>从哪来、什么时候、属于哪类</td><td><code>metadata.csv</code> 一行一样本</td></tr>
+    <tr><td>标注层</td><td>词性、实体、句法是什么</td><td>与原文分离的 <code>.pos</code> / <code>.json</code></td></tr>
+    <tr><td>说明文档</td><td>范围、许可、版本、已知问题</td><td><code>README.md</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>元数据描述「关于文本的信息」，标注描述「文本内部的语言成分」，两者常被混为一谈：<code>genre=news</code> 是元数据，<code>cat/NN</code> 是标注。原文与标注分离存放，才能在不改动原文的前提下替换或叠加多套标注。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>用文件名当样本 ID，一旦改名所有引用都断。稳定 ID 应写在元数据里，文件名只是存储路径。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>建目录、做分层统计、画图</h2>
+<p>本页需要第三方库 Matplotlib，运行口径为 Python 3.13.14 + Matplotlib 3.11.2。先装好并核对版本：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">shell</span><span>安装与版本核对</span></div>
+<pre><code>python -m venv .venv
+.venv\Scripts\activate
+python -m pip install &quot;matplotlib==3.11.2&quot;
+python -c &quot;import matplotlib; print(matplotlib.__version__)&quot;</code></pre>
+</div>
+<p>下面这段建三层目录、按体裁统计文件数与词数，并用 Agg 后端出图（无显示器环境也能跑）：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>corpus_structure.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：构建分层语料目录 + 分层统计 + 柱状图（Agg 后端）。&quot;&quot;&quot;
+import re
+import tempfile
+from collections import Counter
+from pathlib import Path
+
+import matplotlib
+matplotlib.use(&quot;Agg&quot;)
+import matplotlib.pyplot as plt
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp) / &quot;corpus&quot;
+    samples = {
+        &quot;news/a.txt&quot;: &quot;market rises as demand grows&quot;,
+        &quot;news/b.txt&quot;: &quot;market falls on supply fears&quot;,
+        &quot;fiction/c.txt&quot;: &quot;the dragon guarded the old market&quot;,
+    }
+    for rel, text in samples.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding=&quot;utf-8&quot;)
+
+    files = Counter()
+    tokens = Counter()
+    for path in sorted(root.rglob(&quot;*.txt&quot;)):
+        genre = path.parent.name
+        words = re.findall(r&quot;[a-z]+&quot;, path.read_text(encoding=&quot;utf-8&quot;))
+        files[genre] += 1
+        tokens[genre] += len(words)
+
+    print(&quot;体裁文件数:&quot;, dict(files))
+    print(&quot;体裁词数:&quot;, dict(tokens))
+
+    fig, ax = plt.subplots(figsize=(4, 3))
+    ax.bar(list(tokens), list(tokens.values()), color=&quot;#4C78A8&quot;)
+    ax.set_title(&quot;Tokens per genre&quot;)
+    ax.set_ylabel(&quot;tokens&quot;)
+    out = Path(tmp) / &quot;chart.png&quot;
+    fig.tight_layout()
+    fig.savefig(out, dpi=100)
+    plt.close(fig)
+    print(&quot;图表已生成:&quot;, out.stat().st_size &gt; 0)
+    assert tokens[&quot;news&quot;] == 10 and tokens[&quot;fiction&quot;] == 6</code></pre>
+</div>
+<p>三个写法值得记住：<code>rglob("*.txt")</code> 递归取文件，<code>path.parent.name</code> 就是体裁；<code>matplotlib.use("Agg")</code> 必须写在 <code>import pyplot</code> 之前；<code>plt.close(fig)</code> 防止批量出图时内存累积。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>在 Python 3.13.14 + Matplotlib 3.11.2 下运行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>体裁文件数: {&#x27;fiction&#x27;: 1, &#x27;news&#x27;: 2}
+体裁词数: {&#x27;fiction&#x27;: 6, &#x27;news&#x27;: 10}
+图表已生成: True</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>文件数 1 : 2</h3><p>新闻两篇、小说一篇；如果只看总词数，会误以为两个体裁规模相近。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>词数 6 : 10</h3><p>按体裁分开统计，才能看出每篇平均长度差多少，这是配比与采样的依据。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>图表已生成 True</h3><p>断言检查的是文件大小非零，说明 <code>savefig</code> 真的落盘了，而不只是调用没报错。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">中文标签会变方框</span>
+  <p>示例刻意用英文文本与英文轴标题，避免本机缺中文字体导致乱码；生产环境需显式配置 <code>rcParams["font.sans-serif"]</code>。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给语料加一层元数据</h2>
+<p><strong>任务：</strong>新增 <code>metadata.csv</code>，字段为 <code>id,genre,source,year,tokens</code>，三行对应三个样本；再写五行动统计各年份样本数。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>加 <code>news/2024/</code> 子目录</td><td><code>path.parent.name</code> 取到的是谁</td><td></td></tr>
+    <tr><td>把样本 ID 写进元数据</td><td>改名后统计是否仍成立</td><td></td></tr>
+    <tr><td>统计平均词数</td><td>哪个体裁更长</td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么按体裁分目录比在文件名里写前缀更稳？② 标注层为什么不应该直接写回原文？</p>
+<p><strong>验收：</strong>元数据能被脚本读取并参与筛选；能说清四层组成各自缺失时的后果。</p>
+</section>
+<p class="sidenote">注：本页需第三方库，运行口径为 Python 3.13.14 + Matplotlib 3.11.2（Agg 后端）；输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-5-2-lifecycle.html">11.5.2 语料库的生命周期</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-4-4-similarity-demo.html"><span class="p-label">← 上一知识点 11.4.4</span><span class="p-title">语句含义与词义相似度</span></a><a class="next" href="k11-5-2-lifecycle.html"><span class="p-label">下一知识点 11.5.2 →</span><span class="p-title">语料库的生命周期</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)5① · 语料库的结构</dd>
+    <dt>页面编号 / 路径</dt><dd>11.5.1 ｜ <span class="path">pages/m11-python/k11-5-1-corpus-structure.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-2-1-corpus-resources.html"><b>11.2.1</b>语料与词汇资源：NLTK 的数据入口</a><a class="xlink" href="k11-5-2-lifecycle.html"><b>11.5.2</b>语料库的生命周期</a><a class="xlink" href="k11-5-5-toolbox-demo.html"><b>11.5.5</b>Toolbox 数据的特点及使用方法</a><a class="xlink" href="u11-5-corpus-xml.html"><b>11.5</b>语言数据管理与 XML（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-5-1（本页图 11-18）；知识库 M11-S5-01；输出为本机实测，依赖 Matplotlib 3.11.2。 ｜ 知识库条目：M11-S5-01《语料库的结构》（filled） ｜ 参考来源：S129 pathlib；S136 Matplotlib (3.11.2)；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.1.5 TPU：为张量运算定制的脉动阵列 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清脉动阵列里权重驻留、激活流动、部分和下传三件事。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-1-infrastructure.html">2.1 基础层：芯片与传感器</a><span class="sep">/</span><span class="here">2.1.5 TPU：为张量运算定制的脉动阵列</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.1</span>
+    <span class="tag">知识点 2.1.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>TPU：为张量运算定制的脉动阵列</h1>
+  <p class="lede">权重停在原地，激活一拍一拍走过；省下的是搬运，不是乘法。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清脉动阵列里权重驻留、激活流动、部分和下传三件事。</li><li>能用阵列尺寸算出一次矩阵乘要多少拍，以及形状失配的浪费在哪。</li><li>能按形状是否规整、批量是否够大、算子是否集中三个条件判断适不适合 TPU。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>九成时间在矩阵乘</h2>
+<p>翻译服务上线后，性能分析给出一个结论：推理过程中九成以上的时间花在矩阵乘上。形状还很规整——每一层都是几千乘几千的矩阵，乘完再乘下一个。</p>
+<p>用 GPU 也能跑，但要照顾各种算子：卷积、归一化、注意力、逐元素运算，都在同一批计算单元上排队。为通用性保留的指令调度、寄存器堆、缓存层级，在只有矩阵乘的负载上全是开销。</p>
+<p>TPU 的思路很直接：既然只有一种运算占大头，就为它铺一条专用通路，其余交出去。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>省的是搬运</h2>
+<p>矩阵乘的本质是「每个输出元素做一长串乘加」。通用处理器每做一次乘加，都要把两个数从缓存读到寄存器，算完写回；搬的次数比算的次数还多。</p>
+<p>脉动阵列换了个做法：把权重预先装进阵列里每个单元的寄存器，让它停在那儿不动；激活值从左边一拍一拍推进来，部分和从上往下一拍一拍传下去。数据像脉搏一样流动，所以叫「脉动」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="脉动阵列省下的是搬运，不是乘法">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">脉动阵列省下的是搬运，不是乘法</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">问题</text><text class="f-t" x="352.0" y="98">通用处理器</text><text class="f-t" x="632.0" y="98">脉动阵列</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">权重读取</text><text class="f-s" x="352.0" y="135.8">每算一次取一次</text><text class="f-s" x="632.0" y="135.8">一次载入，反复使用</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">激活搬运</text><text class="f-s" x="352.0" y="173.4">缓存反复读写</text><text class="f-s" x="632.0" y="173.4">每拍传给相邻单元</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">部分和</text><text class="f-s" x="352.0" y="211.0">写回内存再累加</text><text class="f-s" x="632.0" y="211.0">留在阵列内向下传</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">擅长形状</text><text class="f-s" x="352.0" y="248.60000000000002">通用计算</text><text class="f-s" x="632.0" y="248.60000000000002">矩阵乘、卷积</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">换算法</text><text class="f-s" x="352.0" y="286.2">改软件</text><text class="f-s" x="632.0" y="286.2">要重新设计电路</text><text class="f-s" x="60" y="328.0">算力密集、形状规整的矩阵乘，才值得为它定制一条数据通路。</text>
+</svg><figcaption><b>图 2-9　脉动阵列省下的是搬运，不是乘法</b>　算力密集、形状规整的矩阵乘，才值得为它定制一条数据通路。</figcaption></figure>
+<p>乘法的次数一次没少，少的是「每次都去内存取权重」这件事。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>脉动阵列的收益来自数据复用：一个权重装进来，被几百次乘加反复使用。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>阵列与编译器</h2>
+<p>TPU 是谷歌为张量运算设计的专用芯片，核心是一个矩阵乘法单元（MXU），典型规模是 256×256 的乘加阵列：一拍之内，256 个激活与 256 个权重做外积，累加到 256×256 个部分和上。</p>
+<p><strong>权重驻留</strong>是它的关键设计：一块权重载入阵列后停留多个时钟周期，被同一批激活反复使用；激活只在阵列里走一趟，不回头。为了把矩阵喂进这个形状，编译器（XLA）负责切块、排流水、插入搬运——阵列固定，矩阵不固定，中间这层转换由编译器完成。</p>
+<p>数值精度也要匹配：推理常用 int8 或 bfloat16，同样面积下低位宽换来更高吞吐、更低带宽压力，代价是精度损失要在模型侧补偿。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>失配时会怎样</th></tr></thead>
+  <tbody>
+    <tr><td>MXU</td><td>256×256 乘加阵列</td><td>矩阵太小，阵列空转</td></tr>
+    <tr><td>权重驻留</td><td>权重装一次用多次</td><td>权重频繁换，复用收益消失</td></tr>
+    <tr><td>脉动</td><td>数据逐拍推进</td><td>形状不规整，流水断流</td></tr>
+    <tr><td>XLA</td><td>切块、排流水、插入搬运</td><td>算子不支持，回退到通用单元</td></tr>
+    <tr><td>量化</td><td>低位宽换吞吐</td><td>精度下降，需校准补偿</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>利用率取决于形状</h2>
+<p>脉动阵列的效率有一个硬约束：矩阵维度要能被阵列尺寸整除，或者至少接近。</p>
+<p>一个 256×256 的阵列，处理 1024×4096 乘 4096×1024 的矩阵乘：输出被切成 4×4=16 块，每一块在阵列上算，K 方向 4096 要分 16 拍累加。整块算完是 16×16=256 拍，这个形状几乎是满的。</p>
+<p>换成 100×100 的矩阵：阵列里大部分单元闲着，利用率不到两成。再换成形状每层都变的动态网络，编译器要反复切块、补零，开销全落在搬运上。</p>
+<p>存储层级同样关键：权重驻留要求权重能一次装进来，装不下就要分多次，复用次数下降，省下的搬运又还回去了。</p>
+<p>所以 TPU 的适用条件可以写成三个词：形状规整、批量够大、算子集中。三条都满足时，它比通用处理器省电得多；缺一条，优势就打折。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把 TPU 当成「更快的 GPU」。它没有通用编程模型，算子不支持就只能回退，性能断崖式下跌。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个选型场景</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>负载特征</th><th>选择</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>翻译与推荐的在线推理</td><td>批量大、每层都是大矩阵、算子种类少</td><td>TPU</td><td>阵列喂得满，单位功耗吞吐高</td></tr>
+    <tr><td>多模态模型，形状动态、算子每周新增</td><td>形状不稳、算子杂、迭代快</td><td>GPU</td><td>生态与算子覆盖广，改模型不用等硬件</td></tr>
+    <tr><td>耳机里的唤醒词检测</td><td>固定小网络、毫瓦级功耗</td><td>端侧 NPU 或 ASIC</td><td>网络固定，专用电路最省电</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="权重停着，激活走；一拍一格">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">权重停着，激活走；一拍一格</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">激活进入</text><text class="f-sc" x="117.6" y="154.0">每拍送一个数</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">按拍右移</text><text class="f-sc" x="298.79999999999995" y="154.0">邻居直接取用</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">与驻留权重相乘</text><text class="f-sc" x="480.0" y="154.0">权重不动、反复用</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">部分和向下累加</text><text class="f-sc" x="661.1999999999999" y="154.0">省掉写回内存</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">结果送出</text><text class="f-sc" x="842.4" y="154.0">算完即输出</text><text class="f-s" x="40" y="244">权重停在原地反复用，激活每拍挪一格；省下的是搬运，不是乘法。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-10　权重停着、激活走，一拍一格</b>　权重停在原地反复用，激活每拍挪一格；省下的是搬运，不是乘法。</figcaption></figure>
+<p>三个场景的分界不是「模型大不大」，而是「形状稳不稳、算子杂不杂」。同一个团队，训练可能用 GPU（要试新算子），推理切到 TPU（形状固定、量大），这是常见组合。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算一次需要多少拍</h2>
+<p><strong>任务：</strong>一个 512×2048 的激活矩阵乘 2048×512 的权重矩阵，阵列是 256×256。请算：① 输出要切成几块；② K 方向要累加几拍；③ 总共多少拍；④ 若维度换成 300×300，利用率大约是多少。</p>
+<p><strong>参考：</strong>① (512÷256)×(512÷256)=2×2=4 块；② 2048÷256=8 拍；③ 4×8=32 拍；④ 300 不能整除 256，要补到 512，利用率约 (300÷512)²≈34%。</p>
+<p><strong>验收：</strong>能说出补零的浪费同时落在拍数与带宽上：拍数变多，搬运的有效数据比例下降。</p>
+<p>接着看 AI 的数据从哪来：<a href="../m02-industry/k2-1-6-sensors.html">传感器：AI 的数据入口</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-1-6-sensors.html">2.1.6 传感器：AI 的数据入口</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-1-4-asic-custom.html"><span class="p-label">← 上一知识点 2.1.4</span><span class="p-title">ASIC：把算法焊成电路</span></a><a class="next" href="k2-1-6-sensors.html"><span class="p-label">下一知识点 2.1.6 →</span><span class="p-title">传感器：AI 的数据入口</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)1 · 芯片产业发展概况（TPU）</dd>
+    <dt>页面编号 / 路径</dt><dd>2.1.5 ｜ <span class="path">pages/m02-industry/k2-1-5-tpu-systolic.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-1-2-gpu-parallel.html"><b>2.1.2</b>GPU：用并行吞吐换时间</a><a class="xlink" href="k2-1-4-asic-custom.html"><b>2.1.4</b>ASIC：把算法焊成电路</a><a class="xlink" href="k2-2-2-deep-learning.html"><b>2.2.2</b>深度学习：用多层表示替代手工特征</a><a class="xlink" href="u2-1-infrastructure.html"><b>2.1</b>基础层：芯片与传感器（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-1-5（本页图 2-9）、k2-1-5-b（图 2-10）；知识库 M02-S1-01《芯片产业发展概况（GPU、FPGA、ASIC、TPU）》（filled）。 ｜ 知识库条目：M02-S1-01《芯片产业发展概况（GPU、FPGA、ASIC、TPU）》（filled） ｜ 参考来源：Jouppi 等《In-Datacenter Performance Analysis of a Tensor Processing Unit》ISCA 2017；Google Cloud TPU 文档；XLA 文档；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.3 强人工智能与弱人工智能 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按「能力范围」而非「聪明程度」划分强弱 AI；能举例说明当前商用系统均为弱 AI；能辨析「大模型什么都会」的误解。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">结构</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#kps">知识点</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><span class="here">1.3 强人工智能与弱人工智能</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.3</span>
+    <span class="tag">2 课时</span>
+    <span class="tag">难度 ★☆☆</span>
+    <span class="badge badge--todo">讲授为主</span>
+  </div>
+  <h1>强人工智能与弱人工智能</h1>
+  <p class="lede">扫地机器人能把一个家打扫干净，聊天助手能写诗、编代码，还能陪你讨论哲学。两者都能「干活」，但其中一个换个房间就要重新调试，另一个却能跨任务迁移。强弱人工智能的分界，就在这里。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">生活问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">严格定义</span><span class="arr">→</span>
+    <span class="pl">结构与算法</span><span class="arr">→</span>
+    <span class="pl is-key">真实案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按「能力范围」而非「聪明程度」划分弱 AI、强 AI 与超级智能。</li><li>能举例说明当前所有商用系统都属于弱 AI，并给出迁移失败的反例。</li><li>能辨析「大模型什么都会，所以是通用人工智能」这一误解。</li></ol>
+</section>
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两台机器，两种「会」</h2>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">机器 A</span><h3>扫地机器人</h3><p>在客厅里规划路径很在行。把它放进堆满杂物的储藏室，它会反复卡住；换成地毯材质，它可能需要重新标定。</p></div>
+  <div class="card mini"><span class="mini-tag">机器 B</span><h3>通用聊天助手</h3><p>能写周报、改代码、解释概念，还能根据你的反馈调整语气。看起来「什么都会」。</p></div>
+</div>
+<p class="ask">如果「什么都会」就等于强人工智能，那机器 B 是不是已经达到了？它换一个从未见过的任务——比如现场修好一台漏水的水泵——还能行吗？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>专科医生、全科医生与「神医」</h2>
+<p>用医院来类比最直观：专科医生在某个领域极强，但跨科就不灵；全科医生能处理大多数常见问题，并知道何时转诊；而「什么病都能治、还能自己发明疗法」的神医，目前只存在于想象里。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="弱人工智能、强人工智能与超级智能的能力范围">
+  <style>
+    .d3-ring{fill:none;stroke-width:1.5}
+    .d3-in{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.5}
+    .d3-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d3-c{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80}
+    .d3-lead{stroke:#c8d7ea;stroke-width:1.2;stroke-dasharray:4 4}
+    .d3-lb{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:13px;fill:#123a78;font-weight:600}
+    .d3-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80}
+  </style>
+
+  <circle cx="300" cy="180" r="150" fill="#f7faff" stroke="#dbe5f2" stroke-width="1.5"/>
+  <circle cx="300" cy="180" r="98" fill="#f0f6ff" stroke="#cfe0ff" stroke-width="1.5"/>
+  <circle cx="300" cy="180" r="50" class="d3-in"/>
+
+  <text class="d3-t" x="300" y="176">弱 AI</text>
+  <text class="d3-t" x="300" y="194" style="font-size:10.5px;font-weight:400;fill:#5a6b80">今天全部商用系统</text>
+
+  <text class="d3-t" x="300" y="92">强 AI（AGI）</text>
+  <text class="d3-t" x="300" y="298">超级智能（ASI）</text>
+
+  <line class="d3-lead" x1="460" y1="180" x2="560" y2="120"/>
+  <line class="d3-lead" x1="410" y1="110" x2="560" y2="120"/>
+  <line class="d3-lead" x1="360" y1="292" x2="560" y2="272"/>
+
+  <text class="d3-lb" x="570" y="112">专用：一项任务一个模型</text>
+  <text class="d3-s" x="570" y="132">翻译、推荐、人脸识别、下棋</text>
+  <text class="d3-s" x="570" y="150">换个任务就要重做</text>
+
+  <text class="d3-lb" x="570" y="208">通用：一个系统跨任务迁移</text>
+  <text class="d3-s" x="570" y="228">能自主学习新任务、设定子目标</text>
+  <text class="d3-s" x="570" y="246">目前尚未实现</text>
+
+  <text class="d3-lb" x="570" y="286">全面超越人类</text>
+  <text class="d3-s" x="570" y="306">仍属思想实验与长期议题</text>
+</svg><figcaption><b>图 1-3　按能力范围划分的三个圈层</b>　注意：三个圈是包含关系，不是难度等级。弱 AI 不是「笨」，而是在窄范围内非常强。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>强弱之分看的是<strong>能力覆盖的范围</strong>以及<strong>能否自主迁移到新任务</strong>，不是看它在单项任务上有多强。AlphaGo 在围棋上超越所有人类，仍然是弱 AI。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个层级与一条判据</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">弱 AI</span><h3>专用人工智能</h3><p>面向特定任务，任务边界由人设定。今天的翻译、推荐、识别、自动驾驶都属于这一类。</p></div>
+  <div class="card mini"><span class="mini-tag">强 AI</span><h3>通用人工智能（AGI）</h3><p>能像人一样跨领域学习、迁移，并自主设定子目标。目前尚未实现。</p></div>
+  <div class="card mini"><span class="mini-tag">超级智能</span><h3>ASI</h3><p>在几乎所有领域全面超越人类，属于长期思想实验与治理议题。</p></div>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">判定判据</span>
+  <p>一个系统若<strong>只能完成预先定义的任务族</strong>，换任务需要人来重新收集数据、重新训练、重新设计接口，它就是弱 AI——无论它在这族任务上表现多好。</p>
+</div>
+<span class="sidenote">「专用」不等于「简单」。自动驾驶是一个庞大的专用系统，复杂度远超很多通用工具。</span>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四个维度看清差别</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>弱 AI（专用）</th><th>强 AI（通用）</th></tr></thead>
+  <tbody>
+    <tr><td>任务范围</td><td>单一任务族</td><td>开放任务集合</td></tr>
+    <tr><td>迁移方式</td><td>换任务需重新训练</td><td>少量样本即可迁移</td></tr>
+    <tr><td>目标来源</td><td>人设定目标与奖励</td><td>能自主拆解、设定子目标</td></tr>
+    <tr><td>典型代表</td><td>人脸识别、推荐、语音转写</td><td>尚无公认实例</td></tr>
+  </tbody>
+</table>
+</div>
+<p>把这张表当成一把尺子：遇到「某模型是不是 AGI」的争论，先问它在新任务上需要多少人工介入。需要重新标注、重新微调、重新写提示词工程，就仍在弱 AI 的范畴内。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>为什么大模型仍然不是 AGI</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">证据一</span><h3>分布外就失灵</h3><p>训练分布之外的输入，错误率会突然升高；它没有「知道自己不知道」的稳定机制。</p></div>
+  <div class="card mini"><span class="mini-tag">证据二</span><h3>不会持续学习</h3><p>一次对话里学到的东西，默认不会写回参数。所谓「记忆」多数是外部检索或上下文拼接。</p></div>
+  <div class="card mini"><span class="mini-tag">证据三</span><h3>依赖工具与提示</h3><p>算数、检索、执行动作都要外挂工具；任务拆解仍高度依赖人给出的提示结构。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>「参数量大、能聊很多话题」不等于通用智能。通用性要看<strong>新任务上的学习效率</strong>，而不是<strong>已有任务上的覆盖广度</strong>。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>动手与自检</h2>
+<p><strong>任务：</strong>给 6 个产品标注「专用/通用」，并为每个产品写一个「迁移失败」的具体场景。例如：人脸闸机 → 换成戴口罩且逆光的人群，识别率下降。</p>
+<p><strong>自检三问：</strong>① 我判断的是能力范围，还是它在单项任务上的分数？② 我能说清「换任务时需要人做什么」吗？③ 如果把「强 AI」换成「通用」，我的结论会变吗？</p>
+<span class="teacher">这一节最容易滑向科幻讨论。把课堂拉回判据：谁设定目标、换任务需要多少人工、能否自主拆解子目标。</span>
+</section>
+<section class="sec" id="kps"><h2><span class="sec-num">07</span>本单元知识点</h2><p>本单元拆成 4 个知识点页，按顺序读最省力；每页都可以单独完成一次练习。</p><div class="table-wrap"><table class="table"><thead><tr><th>编号</th><th>知识点</th><th>大纲条目</th></tr></thead><tbody><tr><td><a class="xlink" href="k1-3-1-strong-weak-criteria.html">k1.3.1</a></td><td>强弱 AI 的划分标准：能力范围不是聪明程度</td><td>三(一)1 · 强人工智能与弱人工智能的区别</td></tr><tr><td><a class="xlink" href="k1-3-2-product-spectrum.html">k1.3.2</a></td><td>专用 AI 与通用 AI 的产品谱系</td><td>三(一)1 · 强人工智能与弱人工智能的区别（产品层）</td></tr><tr><td><a class="xlink" href="k1-3-3-llm-misconceptions.html">k1.3.3</a></td><td>「大模型什么都会」的三种误解</td><td>三(一)1 · 强人工智能与弱人工智能的区别（辨析）</td></tr><tr><td><a class="xlink" href="k1-3-4-transfer-failure.html">k1.3.4</a></td><td>迁移失败案例：为什么专用系统换场景就崩</td><td>三(一)1 · 强人工智能与弱人工智能的区别（证据）</td></tr></tbody></table></div></section>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页的核心定义，并各写一个反例。</li>
+    <li>完成实操：为 6 个产品标注「专用/通用」，并各写一个迁移失败的反例。</li>
+    <li>进入下一单元 <a href="u1-4-early-history.html">1.4 早期历史：三次浪潮与两次寒冬</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="单元翻页"><a class="prev" href="u1-2-turing-test.html"><span class="p-label">← 上一单元 1.2</span><span class="p-title">图灵测试：把「能否思考」换成「能否骗过评委」</span></a><a class="next" href="u1-4-early-history.html"><span class="p-label">下一单元 1.4 →</span><span class="p-title">早期历史：三次浪潮与两次寒冬</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ (一)1 · 强人工智能与弱人工智能的区别</dd>
+    <dt>页面编号 / 路径</dt><dd>1.3 ｜ <span class="path">pages/m01-ai-overview/u1-3-strong-weak.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="u1-1-concept.html"><b>1.1</b>人工智能到底是什么：思维、智能与机器智能</a><a class="xlink" href="u1-2-turing-test.html"><b>1.2</b>图灵测试：把「能否思考」换成「能否骗过评委」</a><a class="xlink" href="../m03-ml-basics/u3-2-workflow.html"><b>3.2</b>任务流程与三类学习范式</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-strong-weak.svg（本页图 1-3）。无外部素材。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

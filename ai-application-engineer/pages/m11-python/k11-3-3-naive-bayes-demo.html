@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.3.3 训练朴素贝叶斯分类器 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出先验、似然、对数打分与 argmax 四步。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-3-classification.html">11.3 文本分类与信息提取</a><span class="sep">/</span><span class="here">11.3.3 训练朴素贝叶斯分类器</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.3</span>
+    <span class="tag">知识点 11.3.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>训练朴素贝叶斯分类器</h1>
+  <p class="lede">朴素贝叶斯常被当成「太简单、不用学」的模型，但它至今仍是文本分类的第一条基线：训练只需计数，预测只需加法，小数据下很难被大幅超过。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出先验、似然、对数打分与 argmax 四步。</li><li>能解释拉普拉斯平滑与对数变换各自解决什么问题。</li><li>能在本机安装 NumPy 并运行一个手写分类器。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>先跑基线，还是先上大模型</h2>
+<p>一个垃圾短信识别需求，两种起手方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>直接上预训练模型</h3><p>环境配了两天，推理一次几百毫秒；数据只有八百条，微调后指标与基线相差不到两个点，却说不出错在哪。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先跑朴素贝叶斯基线</h3><p>半小时拿到准确率与混淆矩阵，知道哪类词最有区分度；再决定是否值得为两个点换模型。</p></div>
+</div>
+<p class="ask">为什么「更简单的模型」反而更适合做第一步？</p>
+<p>因为它把问题拆成了可检查的计数：先验、似然、错例，每一项都能单独看。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>按证据投票</h2>
+<p>判断一封邮件是不是广告，可以看几个线索：出现「中奖」加一分，出现「退订」加一分，出现收件人姓名减一分；最后看哪边分数高。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="朴素贝叶斯：按证据打分">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">朴素贝叶斯：按证据打分</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">类先验 P(c)</text><text class="f-sc" x="140.25" y="154.0">各类样本占比</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">词似然 P(w|c)</text><text class="f-sc" x="366.75" y="154.0">带拉普拉斯平滑</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">对数相加</text><text class="f-sc" x="593.25" y="154.0">避免连乘下溢</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">取最大者</text><text class="f-sc" x="819.75" y="154.0">argmax 即预测</text><text class="f-s" x="40" y="244">条件独立假设让似然可以逐词相乘；假设不成立时，它仍常是一个难打败的基线。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 11-11　按词的概率投票，假设词与词独立</b>　先验给出各类的基础分，似然按词累加证据，对数域里乘法变加法，最后取最高分。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>朴素贝叶斯不是「理解」文本，而是把每个词当成一条独立证据来累加；独立性假设不成立时，它仍常是一个强基线。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四步公式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>公式</th><th>代码里的样子</th></tr></thead>
+  <tbody>
+    <tr><td>先验</td><td>P(c) = N_c / N</td><td>类别计数除以总数</td></tr>
+    <tr><td>似然</td><td>P(w|c) = (count(w,c)+α) / (Σcount+α|V|)</td><td>拉普拉斯平滑后的词频</td></tr>
+    <tr><td>打分</td><td>log P(c) + Σ log P(w|c)</td><td>对数相加，避免下溢</td></tr>
+    <tr><td>决策</td><td>argmax_c score(c)</td><td>取分数最高的类别</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个工程细节必须写进代码：平滑系数 α 防止未见词把概率打成 0；对数变换把连乘变成连加，避免几十个小于 1 的数相乘后直接下溢为 0。模型原理的推导见<a href="../m05-ml-algorithms/index.html">模块五 · 朴素贝叶斯</a>，本页只做可运行实现。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>装 NumPy，跑一遍手写实现</h2>
+<p>本页需要第三方库。版本口径与知识库一致：NumPy 2.5 系列（本机为 2.5.4）。先建环境并安装：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">shell</span><span>安装与版本核对</span></div>
+<pre><code>python -m venv .venv
+.venv\Scripts\activate
+python -m pip install &quot;numpy==2.5.4&quot;
+python -c &quot;import numpy; print(numpy.__version__)&quot;</code></pre>
+</div>
+<p>下面这段把训练、平滑、预测写全，保存为 <code>nb_demo.py</code>：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>nb_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：NumPy 手写多项式朴素贝叶斯（含拉普拉斯平滑）。&quot;&quot;&quot;
+import numpy as np
+
+train = [
+    (&quot;good great excellent&quot;, &quot;pos&quot;),
+    (&quot;bad terrible awful&quot;, &quot;neg&quot;),
+    (&quot;great wonderful good&quot;, &quot;pos&quot;),
+    (&quot;awful bad horrible&quot;, &quot;neg&quot;),
+]
+test = [(&quot;good great&quot;, &quot;pos&quot;), (&quot;bad horrible&quot;, &quot;neg&quot;)]
+
+vocab = sorted({w for text, _ in train for w in text.split()})
+index = {w: i for i, w in enumerate(vocab)}
+classes = sorted({c for _, c in train})
+
+counts = {c: np.ones(len(vocab)) for c in classes}   # 拉普拉斯平滑 α=1
+priors = {c: 1.0 for c in classes}
+for text, c in train:
+    priors[c] += 1
+    for w in text.split():
+        counts[c][index[w]] += 1
+
+log_prior = {c: np.log(priors[c] / sum(priors.values())) for c in classes}
+log_lik = {c: np.log(counts[c] / counts[c].sum()) for c in classes}
+
+
+def predict(text: str) -&gt; str:
+    scores = {
+        c: log_prior[c] + sum(log_lik[c][index[w]] for w in text.split() if w in index)
+        for c in classes
+    }
+    return max(scores, key=scores.get)
+
+
+preds = [predict(text) for text, _ in test]
+print(&quot;词表:&quot;, vocab)
+print(&quot;预测:&quot;, preds)
+print(&quot;准确率:&quot;, sum(p == y for p, (_, y) in zip(preds, test)) / len(test))
+assert preds == [&quot;pos&quot;, &quot;neg&quot;]</code></pre>
+</div>
+<p>注意三个写法：<code>np.ones</code> 让每个词一开始就有 1 次虚拟计数；<code>counts[c].sum()</code> 是分母里的总词数（含平滑项）；预测时跳过词表外的词，而不是报错。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>在 Python 3.13.14 + NumPy 2.5.4 下运行：</p><div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>词表: [&#x27;awful&#x27;, &#x27;bad&#x27;, &#x27;excellent&#x27;, &#x27;good&#x27;, &#x27;great&#x27;, &#x27;horrible&#x27;, &#x27;terrible&#x27;, &#x27;wonderful&#x27;]
+预测: [&#x27;pos&#x27;, &#x27;neg&#x27;]
+准确率: 1.0</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>词表 8 维</h3><p>四句训练文本共 8 个不同词；词表按字母序排列，索引与向量位置一一对应。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>准确率 1.0</h3><p>测试句里的词都在训练集出现过，且情感词区分明显；这个满分只说明流程正确，不是性能结论。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>先验被平滑成 3:3</h3><p><code>priors</code> 从 1 开始累加，两类各 3，先验相同；换一批不平衡数据，先验才会起作用。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">不要把教学分数当结论</span>
+  <p>训练集只有四句、测试集两句，任何模型都可能满分。真实评估至少要有独立测试集、类别分布说明与错例分析。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>改平滑、加未知词、看分数</h2>
+<p><strong>任务：</strong>完成三组改动，每次先预测再运行。</p>
+<div class="steps">
+  <div class="step"><b>改平滑</b><span>把 <code>np.ones</code> 改成 <code>np.full(len(vocab), 0.1)</code>，观察预测是否变化。</span></div>
+  <div class="step"><b>加未知词</b><span>把测试句改成 <code>"good fantastic"</code>，解释为什么 <code>fantastic</code> 没有让程序报错。</span></div>
+  <div class="step"><b>打印分数</b><span>在 <code>predict</code> 里返回完整分数字典，比较两个类别的差值有多大。</span></div>
+</div>
+<p><strong>追问：</strong>① 为什么 α 不能设为 0？② 如果两类样本数是 90:10，先验会把决策推向哪边，什么时候这是错的？</p>
+<p><strong>验收：</strong>三组改动都能运行，且能解释每个数字来自哪一步计数。</p>
+</section>
+<p class="sidenote">注：本页需第三方库，运行口径为 Python 3.13.14 + NumPy 2.5.4；输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-3-4-error-analysis.html">11.3.4 准确率、混淆矩阵与误差分析</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-3-2-bag-of-words.html"><span class="p-label">← 上一知识点 11.3.2</span><span class="p-title">特征提取：词袋与 n-gram</span></a><a class="next" href="k11-3-4-error-analysis.html"><span class="p-label">下一知识点 11.3.4 →</span><span class="p-title">准确率、混淆矩阵与误差分析</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)3② · 学习分类文本</dd>
+    <dt>页面编号 / 路径</dt><dd>11.3.3 ｜ <span class="path">pages/m11-python/k11-3-3-naive-bayes-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-3-2-bag-of-words.html"><b>11.3.2</b>特征提取：词袋与 n-gram</a><a class="xlink" href="k11-3-4-error-analysis.html"><b>11.3.4</b>准确率、混淆矩阵与误差分析</a><a class="xlink" href="k11-1-2-venv.html"><b>11.1.2</b>虚拟环境与依赖管理</a><a class="xlink" href="u11-3-classification.html"><b>11.3</b>文本分类与信息提取（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-3-3（本页图 11-11）；知识库 M11-S3-02；依赖 NumPy 2.5.4。 ｜ 知识库条目：M11-S3-02《学习分类文本》（filled） ｜ 参考来源：S118 Jurafsky & Martin；S134 NumPy User Guide (v2.5)；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

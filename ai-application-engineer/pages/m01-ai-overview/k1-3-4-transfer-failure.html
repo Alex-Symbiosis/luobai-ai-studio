@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.3.4 迁移失败案例：为什么专用系统换场景就崩 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「训练分布与部署分布不一致」解释迁移失败。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-3-strong-weak.html">1.3 强人工智能与弱人工智能</a><span class="sep">/</span><span class="here">1.3.4 迁移失败案例：为什么专用系统换场景就崩</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.3</span>
+    <span class="tag">知识点 1.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>迁移失败案例：为什么专用系统换场景就崩</h1>
+  <p class="lede">实验室里 99% 的模型，换一家医院、换一种口音、换一批设备就可能掉到不可用。原因不是代码写错了，而是训练时的数据分布与部署时的数据分布不是同一个。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「训练分布与部署分布不一致」解释迁移失败。</li><li>能区分数据、标注、传感器、业务流程四类偏移。</li><li>能为一个产品设计可执行的迁移失败测试。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个模型，两种上线方式</h2>
+<p>同一个影像模型交给两个团队上线，一周后结果截然不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>看总榜就上线</h3><p>测试集准确率 99%，直接全量推开。上线一周，投诉集中在夜间、逆光和老年用户，团队却只能反复重跑测试集，数字依旧漂亮。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先比对再灰度</h3><p>先列出训练集与部署环境的差异：设备型号、采集时段、人群构成、业务流程。再按场景切片做小流量复测，确认落差可接受后才扩大范围。</p></div>
+</div>
+<p class="ask">同一份权重，为什么一个在总榜上完美，一个上线就崩？</p>
+<p>因为测试集与训练集同分布，部署环境不是。总榜平均掉了多少，取决于被平均掉的切片有多重要；不切片的验收，等于没验收。这也解释了为什么「换个数据集再测一遍」常常没用：换的数据集仍可能来自同一个分布，验收口径不改，换多少数据都只是在同一个分布里反复打转。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>换间厨房，刀工还在，手感没了</h2>
+<p>在自家厨房练熟的刀工，换了灶台高度、刀具重量、火力大小，动作还记得，手感要重新找。模型也一样：参数没变，输入的「手感」变了。更麻烦的是，你不会立刻知道自己手感变了，直到切到手；模型也不会主动报告「这个输入我没见过」，落差往往在上线后才被用户发现。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="换场景就是换数据分布">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">换场景就是换数据分布</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">训练域</text><text class="f-sc" x="140.25" y="154.0">医院 A 的影像</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">部署域</text><text class="f-sc" x="366.75" y="154.0">医院 B 的设备与人群</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">分布偏移</text><text class="f-sc" x="593.25" y="154.0">数据、标注、传感器、流程</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">性能下降</text><text class="f-sc" x="819.75" y="154.0">实验室分数不可直接外推</text><text class="f-s" x="40" y="244">专用系统的能力由训练分布决定；上线前要测的是「换什么条件会失败」，而不是再跑一遍同分布测试。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-13　训练域与部署域不完全重叠</b>　两个椭圆分别代表训练分布与部署分布；不重叠的区域，就是上线后错误集中的地方。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>专用系统的能力边界由训练分布画出来。换场景就是换分布；分布之外的样本，模型没有学过，也就没有理由表现好。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四类偏移，四种掉点方式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>偏移类型</th><th>变的是什么</th><th>典型表现</th></tr></thead>
+  <tbody>
+    <tr><td>数据偏移</td><td>输入分布变了：光照、口音、人群、设备</td><td>同一置信度下错误率上升，且集中在某些切片</td></tr>
+    <tr><td>标注偏移</td><td>标签口径变了：两家医院分级标准不同</td><td>模型学到的边界与业务标准不一致，离线指标好看但不可用</td></tr>
+    <tr><td>传感器偏移</td><td>采集链路变了：摄像头型号、麦克风阵列</td><td>特征尺度漂移，阈值失效</td></tr>
+    <tr><td>流程偏移</td><td>输入来的时机与顺序变了</td><td>输出没人接，或接错环节，模型正确但流程失效</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>设训练分布为 P、部署分布为 Q。模型在 Q 上的风险等于它在 P 上的风险，加上两个分布差异带来的额外项。差异不可测时，P 上的高分不能被外推成 Q 上的高分。</p>
+</div>
+<p>四类偏移常同时出现，但修法不同：数据偏移靠补采与重加权，标注偏移靠统一口径，传感器偏移靠标定，流程偏移靠接口改造。把它们混成一句「再训练一下」，就会反复返工。四类里，标注偏移最隐蔽。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么换场景就崩，怎么查</h2>
+<p>崩溃的链条很短：训练时模型只见过 P，部署时输入来自 Q，模型仍按 P 的边界切分，切错的部分就以错误形式输出。要定位，按四步走：</p>
+<div class="steps">
+  <div class="step"><b>画部署路径</b><span>输入从哪来、经过哪些设备与人员、输出交给谁。路径上每一站都可能引入偏移。</span></div>
+  <div class="step"><b>对齐口径</b><span>核对标签定义、采样方式、设备型号。口径不一致时，先修数据，不要先调模型。</span></div>
+  <div class="step"><b>分层复测</b><span>按夜间、逆光、口音、科室等切片分别算指标，找出落差最大的那一格。</span></div>
+  <div class="step"><b>监控与回退</b><span>上线后按切片监控，设定人工兜底与回滚条件，把「未知分布」纳入运维。</span></div>
+</div>
+<p>通用系统要自己处理这些差异，这正是它难的地方；专用系统把差异写进边界，虽然能力窄，但可以被监控、被维护。窄不是缺点，失控才是。把边界写下来不是认输，而是把「未知」变成可以监控的对象。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两次落在训练覆盖之外的失败</h2>
+<p>2015 年，一家主流相册服务把黑人用户的照片自动归类为「大猩猩」。事后复盘指向训练数据的人脸分布与标签体系：模型按多数分布做了错误切分，算法当天没有失灵，是数据从未覆盖到这些人。</p>
+<p>2018 年，美国亚利桑那州一辆自动驾驶测试车在夜间撞上推着自行车横穿马路的行人，系统与安全员均未及时制动。两起事件的共同点不是「模型太笨」，而是部署输入落在训练分布之外。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四类偏移与对应症状">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">四类偏移与对应症状</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">偏移类型</text><text class="f-t" x="352.0" y="98">典型变化</text><text class="f-t" x="632.0" y="98">症状</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">数据偏移</text><text class="f-s" x="352.0" y="139.0">人群、季节、地区变化</text><text class="f-s" x="632.0" y="139.0">整体精度下滑</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">标注偏移</text><text class="f-s" x="352.0" y="183.0">标注口径改变</text><text class="f-s" x="632.0" y="183.0">同一输出被判对/错不一致</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">传感器偏移</text><text class="f-s" x="352.0" y="227.0">设备型号、安装位置变化</text><text class="f-s" x="632.0" y="227.0">输入分布改变，模型失配</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">流程偏移</text><text class="f-s" x="352.0" y="271.0">业务步骤或接口调整</text><text class="f-s" x="632.0" y="271.0">特征缺失、时序错位</text><text class="f-s" x="60" y="316">先定位偏移类型，再谈域适应；把四类混在一起，调参只会碰运气。</text>
+</svg><figcaption><b>图 1-13b　四类偏移落在流程的哪一环</b>　同一套模型，偏移可能发生在数据、标注、传感器或业务流程；定位要先落在具体环节。</figcaption></figure>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>部署分布可观测，切片可定义</td><td>用总平均掩盖切片落差，问题被数字粉饰</td></tr>
+    <tr><td>有独立的部署侧复测数据</td><td>用训练集切出的验证集当部署证据</td></tr>
+    <tr><td>把复测当持续动作</td><td>一次复测通过就永久放行</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三个产品设计迁移测试</h2>
+<p><strong>任务：</strong>为下列产品各设计一个「换什么条件会失败」的测试方案，写明观测指标。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>产品</th><th>换什么条件</th><th>预期怎么失败</th><th>怎么观测</th></tr></thead>
+  <tbody>
+    <tr><td>小区人脸门禁</td><td></td><td></td><td></td></tr>
+    <tr><td>车载语音助手</td><td></td><td></td><td></td></tr>
+    <tr><td>影像辅助诊断</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>每行的「预期怎么失败」要能对应到四类偏移中的一类，否则只是猜测；写完后与同伴交换，互相指出对方方案里没有被观测到的环节。</p>
+<p><strong>追问：</strong>① 为什么「再多采一点数据」不能自动解决标注偏移？② 灰度上线时，应该先看总指标还是切片指标，为什么？</p>
+<p><strong>自检：</strong>三行都能写出一个可操作的切换条件（如「换一家医院、换一套麦克风」）和一条切片指标，且预期失败有分布层面的解释，才算达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-4-1-prehistory.html">1.4.1 前史：控制论、逻辑与神经计算的三条源头</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-3-3-llm-misconceptions.html"><span class="p-label">← 上一知识点 1.3.3</span><span class="p-title">「大模型什么都会」的三种误解</span></a><a class="next" href="k1-4-1-prehistory.html"><span class="p-label">下一知识点 1.4.1 →</span><span class="p-title">前史：控制论、逻辑与神经计算的三条源头</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)1 · 强人工智能与弱人工智能的区别（证据）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.3.4 ｜ <span class="path">pages/m01-ai-overview/k1-3-4-transfer-failure.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-3-3-llm-misconceptions.html"><b>1.3.3</b>「大模型什么都会」的三种误解</a><a class="xlink" href="k1-4-1-prehistory.html"><b>1.4.1</b>前史：控制论、逻辑与神经计算的三条源头</a><a class="xlink" href="u1-3-strong-weak.html"><b>1.3</b>强人工智能与弱人工智能（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k1-3-4、k1-3-4-b（本页图 1-13、1-13b）；知识库 M01-S1-04。 ｜ 知识库条目：M01-S1-04《强人工智能与弱人工智能的区别》（filled） ｜ 参考来源：S12 Searle《Minds, Brains, and Programs》（1980）；S22 Stanford Encyclopedia of Philosophy《Artificial Intelligence》（2026）；S02 Russell & Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

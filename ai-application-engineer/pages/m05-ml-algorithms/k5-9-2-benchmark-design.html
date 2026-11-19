@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.9.2 公平对比：四个固定项 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能列出公平对比必须固定的四项条件。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-9-selection.html">5.9 算法评价原则与选型</a><span class="sep">/</span><span class="here">5.9.2 公平对比：四个固定项</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.9</span>
+    <span class="tag">知识点 5.9.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>公平对比：四个固定项</h1>
+  <p class="lede">「A 比 B 高两个点」这句话，在不知道数据怎么分、指标是什么、调参花了多少预算、种子换过没有的情况下，几乎不构成结论。对比实验的价值不在于跑出分数，而在于让分数之间的差异可以被归因到算法本身。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能列出公平对比必须固定的四项条件。</li><li>能指出一次「不公平对比」中的具体漏洞。</li><li>能说明为什么应报告均值与标准差，而不是单次最高分。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>高两个点，能说明什么</h2>
+<p>一次内部评审，结论写着「A 比 B 高 2%，建议采用 A」。复盘时翻出实验记录：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>做法 A</th><th>做法 B</th></tr></thead>
+  <tbody>
+    <tr><td>数据划分</td><td>随机划分，种子 42</td><td>随机划分，种子 7</td></tr>
+    <tr><td>预处理</td><td>先全量标准化，再划分</td><td>先划分，再在训练集内标准化</td></tr>
+    <tr><td>调参</td><td>网格搜索 60 组</td><td>默认参数</td></tr>
+    <tr><td>报告</td><td>三次里最好的一次</td><td>只跑了一次</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">这 2% 的差距，有多少来自算法，有多少来自实验条件？</p>
+<p>无法判断。四项条件全不相同，差距里混着数据难度、信息泄漏、调参预算与挑选偏差。这样的对比，谁赢都说明不了谁更好。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>同一张考卷、同一时间、同一评分标准</h2>
+<p>比较两个学生的水平，至少要让他们做同一张卷子、用同样的时间、按同一套标准批改。少任何一项，分数差都不能归因到「谁更强」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="公平对比的四个固定项">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">公平对比的四个固定项</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">固定数据划分</text><text class="f-sc" x="140.25" y="154.0">同一训练/验证/测试</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">固定评价指标</text><text class="f-sc" x="366.75" y="154.0">同一指标与阈值</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">固定调参预算</text><text class="f-sc" x="593.25" y="154.0">同等搜索次数</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">固定随机种子</text><text class="f-sc" x="819.75" y="154.0">结果可复现</text><text class="f-s" x="40" y="244">四项只要有一项不同，比较的就不是算法，而是实验条件。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 5-38　公平对比的四个固定项</b>　四项只要有一项不同，比较的就不是算法，而是实验条件。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>固定数据划分、固定评价指标与阈值、固定调参预算、固定随机种子。四项固定之后，剩下的差异才有资格叫「算法差异」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四项固定与两条报告要求</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>固定项</th><th>具体做法</th><th>不固定会怎样</th></tr></thead>
+  <tbody>
+    <tr><td>数据划分</td><td>同一训练 / 验证 / 测试，同一折号</td><td>换折就让难度变化，算法差异被数据差异淹没</td></tr>
+    <tr><td>评价指标</td><td>同一指标、同一阈值、同一平均方式</td><td>宏平均与微平均混用，结论直接反转</td></tr>
+    <tr><td>调参预算</td><td>同等搜索次数或同等时间</td><td>一方精调一方默认，比的是人力不是算法</td></tr>
+    <tr><td>随机种子</td><td>固定种子，并报告多次运行</td><td>结果不可复现，也无法估计波动</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两条报告要求同样重要：一是报告<strong>均值与标准差</strong>，二是必要时做<strong>显著性检验</strong>。均值差 1%、标准差 3% 时，这个差距完全在噪声范围内，不该写进结论。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>泄漏、嵌套与检验</h2>
+<div class="steps">
+  <div class="step"><b>把预处理放进管道</b><span>标准化、缺失填补、特征选择都只能在训练折内拟合；先全量处理再划分，等于把测试集信息提前用了。</span></div>
+  <div class="step"><b>在训练集内调参</b><span>用嵌套交叉验证：内层选参数，外层估性能。用同一折既调参又评分，分数会系统性偏高。</span></div>
+  <div class="step"><b>测一次测试集</b><span>测试集只用于最终报告。反复用它比较模型，测试集就变成了第二个训练集。</span></div>
+  <div class="step"><b>做配对检验</b><span>重复交叉验证后，用配对 t 检验或 Wilcoxon 判断差异是否稳定；样本少时尤其必要。</span></div>
+</div>
+<p>还有一个常被忽略的细节：同一份数据上的多次比较会累积「碰巧赢一次」的概率。比较的模型越多，越需要更严格的显著性门槛，否则总会有一个模型「显著更好」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一次不公平对比的复盘</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>原做法</th><th>修正做法</th><th>修正后差距</th></tr></thead>
+  <tbody>
+    <tr><td>划分不同</td><td>A 用种子 42，B 用种子 7</td><td>同折同种子，重复五次</td><td>2.0% 降到 0.6%</td></tr>
+    <tr><td>信息泄漏</td><td>A 先全量标准化</td><td>标准化放进管道内</td><td>A 的优势再减 0.4%</td></tr>
+    <tr><td>预算不等</td><td>A 搜 60 组，B 用默认</td><td>两者同搜 60 组</td><td>差距基本消失</td></tr>
+    <tr><td>只报最好一次</td><td>三次取最大</td><td>报告均值与标准差</td><td>均值差 0.2%，标准差 0.9%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>修正后，两者的差距小于一个标准差。正确的结论是「在当前数据与预算下，两者没有可分辨的差异」，并按约束（解释、延迟、维护成本）来选——这才是 5.9.1 那四个维度该出场的地方。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>设计一张对比表</h2>
+<p><strong>任务：</strong>为四个算法设计一次公平对比，填完整张表再动手。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>固定项</th><th>你的设置</th><th>如何检查</th></tr></thead>
+  <tbody>
+    <tr><td>数据划分</td><td></td><td>四个算法是否用同一批折号</td></tr>
+    <tr><td>评价指标</td><td></td><td>指标、阈值、平均方式是否一致</td></tr>
+    <tr><td>调参预算</td><td></td><td>搜索组数或时间是否相同</td></tr>
+    <tr><td>随机种子</td><td></td><td>换种子重跑能否复现</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果 A 的均值高但标准差很大，该怎么报？② 为什么测试集只能用一次？③ 四个模型两两比较需要做几次检验，会带来什么问题？</p>
+<p><strong>验收：</strong>四项固定齐全，且报告方式包含均值、标准差与运行次数。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-9-3-interpretability.html">5.9.3 可解释性与准确率的取舍</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-9-1-evaluation-principles.html"><span class="p-label">← 上一知识点 5.9.1</span><span class="p-title">评价四维：任务、数据、代价、解释</span></a><a class="next" href="k5-9-3-interpretability.html"><span class="p-label">下一知识点 5.9.3 →</span><span class="p-title">可解释性与准确率的取舍</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)4 · 算法评价方法</dd>
+    <dt>页面编号 / 路径</dt><dd>5.9.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-9-2-benchmark-design.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-9-1-evaluation-principles.html"><b>5.9.1</b>评价四维：任务、数据、代价、解释</a><a class="xlink" href="k5-9-4-selection-demo.html"><b>5.9.4</b>选型实验：四算法对比报告</a><a class="xlink" href="u5-9-selection.html"><b>5.9</b>算法评价原则与选型（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-9-2（本页图 5-38）；知识库 M05-S2-06。 ｜ 知识库条目：M05-S2-06《算法评价原则及方法》（filled） ｜ 参考来源：S13 scikit-learn《Cross-validation》；S35 scikit-learn《Tuning the hyper-parameters》；S32 scikit-learn《Metrics and scoring》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

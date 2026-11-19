@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.8.4 层次与密度：两种不同的簇 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明层次聚类如何用一棵树表示分组，以及怎么切树得到簇。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-8-clustering.html">5.8 聚类算法</a><span class="sep">/</span><span class="here">5.8.4 层次与密度：两种不同的簇</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.8</span>
+    <span class="tag">知识点 5.8.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>层次与密度：两种不同的簇</h1>
+  <p class="lede">K-Means 有一个隐含前提：簇是球形的、大小相近的。遇到两个月牙互相咬合，或者一圈套一圈的数据，它会忠实地把每个形状切成两半。层次聚类与密度聚类换的不是参数，而是对「簇是什么」的定义。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明层次聚类如何用一棵树表示分组，以及怎么切树得到簇。</li><li>能写出 DBSCAN 的核心点、密度可达与噪声三个概念。</li><li>能按簇形状假设为具体数据选择算法。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两个月牙，被切成了四块</h2>
+<p>一份二维数据，两类各呈月牙形，互相咬合。K-Means 取 K=2 的结果是这样：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>算法</th><th>结果</th><th>原因</th></tr></thead>
+  <tbody>
+    <tr><td>K-Means（K=2）</td><td>每个月牙各被切一半，两个簇各含两段</td><td>它按到中心的距离划分，球形假设与月牙形状冲突</td></tr>
+    <tr><td>K-Means（K=4）</td><td>四段分开了，但多了两个不该有的簇</td><td>用簇数去凑形状，代价是引入了不存在的类别</td></tr>
+    <tr><td>DBSCAN</td><td>两个月牙各自完整，边界处少量点标为噪声</td><td>它按密度连通性连簇，不假设形状</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">同一份数据，为什么加簇数补不回来，换个算法就对了？</p>
+<p>因为问题不在 K，而在「簇应该长什么样」。K-Means 的假设是球形，月牙不满足；密度聚类的假设只是「连成一片」，与形状无关。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>家谱与人群聚集</h2>
+<p>层次聚类像整理家谱：先把最像的两个人合并成一支，再把相邻的支合并成族，最后得到一棵完整的树；想要几类，就在某个高度横着切一刀。</p>
+<p>密度聚类像看广场上的人群：几个人挤在一起算一小群，小群之间只要有人连着就能并成一大群；孤零零站在边上的，不算任何一群。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="层次聚类 vs 密度聚类">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">层次聚类 vs 密度聚类</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">层次聚类</text><text class="f-s" x="80" y="108">· 输出一棵树状图</text><text class="f-s" x="80" y="138">· 可事后决定切几簇</text><text class="f-s" x="80" y="168">· 复杂度较高</text><text class="f-s" x="80" y="198">· 适合小数据、需层级解释</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">密度聚类 DBSCAN</text><text class="f-s" x="530" y="108">· 按密度可达连成簇</text><text class="f-s" x="530" y="138">· 能识别任意形状</text><text class="f-s" x="530" y="168">· 自动标出噪声点</text><text class="f-s" x="530" y="198">· 对 eps 与 min_samples 敏感</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-35　层次聚类与密度聚类的分工</b>　层次给树、可事后切任意层数；密度按可达性连簇，能识别任意形状并标出噪声。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>层次聚类的产物是一棵树，簇数可以事后决定；密度聚类的产物是一组连通区域加一份噪声名单。前者适合需要层级解释的小数据，后者适合形状不规则、含噪声的数据。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>树、linkage 与三个密度概念</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>凝聚式层次聚类</td><td>自底向上，每次合并最近的两簇</td><td>最常用；分裂式方向相反</td></tr>
+    <tr><td>linkage</td><td>定义「两簇之间的距离」</td><td>单链取最近点对，全链取最远点对，平均取均值，Ward 取方差增量</td></tr>
+    <tr><td>树状图</td><td>记录每次合并的高度</td><td>在某一高度横切，切口穿过几条竖线就是几簇</td></tr>
+    <tr><td>核心点</td><td>邻域半径内样本数不少于阈值</td><td>由 eps 与 min_samples 共同决定</td></tr>
+    <tr><td>密度可达</td><td>从一个核心点出发，经邻域可以走到另一个点</td><td>连成一片的点属于同一簇</td></tr>
+    <tr><td>噪声点</td><td>既不是核心点，也不属于任何核心点邻域</td><td>被单独标出，不强行归类</td></tr>
+  </tbody>
+</table>
+</div>
+<p>linkage 的选择直接改变结果：单链容易把两个簇用一条细线连起来（长链效应），全链偏好紧凑的簇，Ward 让每次合并的方差增量最小，通常最稳。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>切树与扩展</h2>
+<div class="steps">
+  <div class="step"><b>层次：算距离</b><span>先算 n × n 的距离矩阵，复杂度 O(n²) 起，样本上万就很难承受。</span></div>
+  <div class="step"><b>层次：逐步合并</b><span>每次找最近的两簇合并，把高度记进树；合并 n−1 次后得到整棵树。</span></div>
+  <div class="step"><b>层次：切树</b><span>在目标簇数对应的高度横切；高度差大的位置通常是自然的切点。</span></div>
+  <div class="step"><b>密度：找核心点</b><span>统计每个点 eps 邻域内的样本数，达到 min_samples 的标为核心点。</span></div>
+  <div class="step"><b>密度：连簇与标噪</b><span>从核心点出发按密度可达扩展成簇；剩下的点标为噪声。</span></div>
+</div>
+<p>DBSCAN 对参数很敏感：eps 太小，几乎所有点都成了噪声；eps 太大，所有点并成一簇。min_samples 越大，要求越密。这两个参数没有通用的默认值，必须按数据的尺度来定。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三种形态，三种选择</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>数据形态</th><th>推荐算法</th><th>结果特征</th></tr></thead>
+  <tbody>
+    <tr><td>两个互相咬合的月牙</td><td>DBSCAN</td><td>两条月牙各自完整，拐角处少数点成噪声</td></tr>
+    <tr><td>同心圆环</td><td>DBSCAN</td><td>内外环分开，不会把环切断</td></tr>
+    <tr><td>大小相近的球形团，需要层级</td><td>层次聚类</td><td>树状图可看出先合并谁，再切出目标层数</td></tr>
+    <tr><td>球形团，样本量大</td><td>K-Means</td><td>最快，形状假设满足时结果稳定</td></tr>
+  </tbody>
+</table>
+</div>
+<p>值得注意的是：DBSCAN 的噪声标签本身就有价值。在异常检测场景里，被标为噪声的点往往就是需要人工核查的对象，这是 K-Means 给不出的输出。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>簇形状不规则、含噪声</td><td>各簇密度差异大时，单一 eps 无法同时适配疏密两部分</td></tr>
+    <tr><td>样本量不大（层次）</td><td>距离矩阵 O(n²) 内存，上万样本基本不可行</td></tr>
+    <tr><td>能按数据尺度设定 eps</td><td>高维下密度估计失效，参数几乎无法调</td></tr>
+    <tr><td>需要事后调整簇数（层次）</td><td>合并不可撤销，早期一次错误合并无法修复</td></tr>
+    <tr><td>允许出现噪声标签</td><td>下游要求每个样本必须归类时，噪声点需要额外处理</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三种形态选算法</h2>
+<p><strong>任务：</strong>下面三种数据，各选一种算法并写理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>数据形态</th><th>算法</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>三千个点，两个互相缠绕的螺旋</td><td></td><td></td></tr>
+    <tr><td>2</td><td>两百个样本，需要向业务展示分组层级</td><td></td><td></td></tr>
+    <tr><td>3</td><td>五万个样本，八个大小相近的团</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 单链 linkage 为什么容易产生长链效应？② DBSCAN 的 eps 放大一倍，簇数与噪声数会怎么变？③ 层次聚类能不能中途撤销一次合并？</p>
+<p><strong>验收：</strong>理由指向簇形状假设或计算代价，而不是「这个算法更常用」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-8-5-cluster-eval-demo.html">5.8.5 聚类实验：K 扫描与轮廓系数</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-8-3-k-selection.html"><span class="p-label">← 上一知识点 5.8.3</span><span class="p-title">K 怎么选：肘部与轮廓</span></a><a class="next" href="k5-8-5-cluster-eval-demo.html"><span class="p-label">下一知识点 5.8.5 →</span><span class="p-title">聚类实验：K 扫描与轮廓系数</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)3 · 聚类算法（层次/密度）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.8.4 ｜ <span class="path">pages/m05-ml-algorithms/k5-8-4-hierarchical-dbscan.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-8-1-clustering.html"><b>5.8.1</b>聚类：没有标签怎么分组</a><a class="xlink" href="k5-8-3-k-selection.html"><b>5.8.3</b>K 怎么选：肘部与轮廓</a><a class="xlink" href="u5-8-clustering.html"><b>5.8</b>聚类算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-8-4（本页图 5-35）；知识库 M05-S2-05。 ｜ 知识库条目：M05-S2-05《聚类算法的概念、特点、不同分类及操作原理》（filled） ｜ 参考来源：S38 scikit-learn《Clustering》；S54 ESL；S80 Lloyd《Least Squares Quantization in PCM》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

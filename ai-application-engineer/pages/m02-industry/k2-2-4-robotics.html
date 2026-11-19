@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2.4 机器人：感知—决策—执行的闭环 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出感知—决策—执行—反馈的闭环，并标出每段的周期量级。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-2-technology-layer.html">2.2 技术层：五类使能技术</a><span class="sep">/</span><span class="here">2.2.4 机器人：感知—决策—执行的闭环</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.2</span>
+    <span class="tag">知识点 2.2.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>机器人：感知—决策—执行的闭环</h1>
+  <p class="lede">焊枪每 3 秒走完一个焊点，送餐车每秒看一次路。同一套闭环，频率差三个数量级。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出感知—决策—执行—反馈的闭环，并标出每段的周期量级。</li><li>能对照工业机械臂、移动机器人、服务机器人的感知与执行差异。</li><li>能说清实时性为什么看最坏情况，以及瓶颈段如何决定整机节拍。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三秒一个焊点</h2>
+<p>汽车焊装线上，六台机械臂围着一个车身工作。每一台每个焊点都要在 3 秒内完成：看位置、算轨迹、驱动关节、确认到位。慢 50 毫秒，整线节拍就掉。</p>
+<p>仓库里的搬运机器人是另一套节奏：每秒看一次激光雷达，十赫兹更新路径，遇到人要在半米内停住。同样是「感知—决策—执行」，频率差两个数量级。</p>
+<p class="ask">闭环里哪一段最慢，为什么它决定了机器人能干什么？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>转一圈修一次</h2>
+<p>机器人技术可以压成一个循环：<strong>感知</strong>读环境，<strong>决策</strong>选动作，<strong>执行</strong>驱动机构，<strong>反馈</strong>把实际结果带回来，下一圈再修。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三类机器人，闭环的节点相同、频率不同">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三类机器人，闭环的节点相同、频率不同</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">类型</text><text class="f-t" x="282.0" y="98">感知什么</text><text class="f-t" x="492.0" y="98">怎么决策</text><text class="f-t" x="702.0" y="98">执行什么</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">工业机械臂</text><text class="f-s" x="282.0" y="139.0">位置、力矩、视觉</text><text class="f-s" x="492.0" y="139.0">示教轨迹或规划</text><text class="f-s" x="702.0" y="139.0">关节伺服</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">移动机器人</text><text class="f-s" x="282.0" y="183.0">激光雷达、里程计、相机</text><text class="f-s" x="492.0" y="183.0">定位、建图、路径规划</text><text class="f-s" x="702.0" y="183.0">轮速与转向</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">服务机器人</text><text class="f-s" x="282.0" y="227.0">视觉、语音、触觉</text><text class="f-s" x="492.0" y="227.0">规则与模型混合</text><text class="f-s" x="702.0" y="227.0">交互与移动</text><text class="f-s" x="60" y="272">闭环频率从几十赫兹到几赫兹不等；感知、决策、执行缺一环，机器人就动不了。</text>
+</svg><figcaption><b>图 2-19　三类机器人，闭环的节点相同、频率不同</b>　闭环频率从几十赫兹到几赫兹不等；感知、决策、执行缺一环，机器人就动不了。</figcaption></figure>
+<p>三类机器人节点相同，频率与精度要求不同。工业机械臂追求重复定位精度，常在 0.02 毫米级；移动机器人追求定位与避障，误差按厘米算；服务机器人追求交互自然，允许更慢，但要求不吓人。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四个节点，转一圈修一次误差">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">四个节点，转一圈修一次误差</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">闭环</text><text class="f-sc" x="480" y="200">每圈都要收敛</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">感知</text><text class="f-sc" x="480.0" y="92.0">读传感器</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">决策</text><text class="f-sc" x="742.0" y="200.0">选下一个动作</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">执行</text><text class="f-sc" x="480.0" y="308.0">驱动关节</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">反馈</text><text class="f-sc" x="218.0" y="200.0">比对实际结果</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">闭环的意义是纠错：每圈拿结果和预期比，误差下一圈再修。</text>
+</svg><figcaption><b>图 2-20　四个节点，转一圈修一次误差</b>　闭环的意义是纠错：每圈拿结果和预期比，误差下一圈再修。</figcaption></figure>
+<p>闭环的意义是纠错，不是走流程。每圈拿实际位置和期望位置比，差值进入下一圈的决策；没有反馈，机械臂只是在播一段录音。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>本体与零件</h2>
+<p>机器人技术指用机械结构、传感器与控制器替代或辅助人的动作，在真实环境里完成搬运、加工、检测、服务等任务。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组成</th><th>作用</th><th>产业环节</th></tr></thead>
+  <tbody>
+    <tr><td>本体</td><td>机械结构与关节</td><td>本体厂商</td></tr>
+    <tr><td>核心零部件</td><td>减速器、伺服电机、控制器、传感器</td><td>零部件厂商</td></tr>
+    <tr><td>感知系统</td><td>视觉、力觉、激光雷达</td><td>传感器与算法厂商</td></tr>
+    <tr><td>决策与控制</td><td>规划、伺服、安全逻辑</td><td>控制器与集成商</td></tr>
+  </tbody>
+</table>
+</div>
+<p>按场景分，工业机械臂成熟度最高，汽车与 3C 的焊接、喷涂、搬运已标准化；AMR/AGV 在仓储物流大规模铺开；服务机器人在清洁、配送上跑通；人形机器人仍处早期，成本与可靠性都没过关。</p>
+<p>产业分工很清楚：本体拼结构件与成本，零部件拼精度与寿命，集成商拼工艺理解。一台机器人能不能用，往往不取决于本体，而取决于集成商懂不懂这道工序。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>实时性分层</h2>
+<p>实时性是硬约束，而且要分层。</p>
+<p>伺服环跑在控制器里，周期常为 1 毫秒，抖动要控制在微秒级；视觉通常 30 帧每秒，即 33 毫秒一帧；路径规划 1 到 10 赫兹，允许几百毫秒。三层频率不同，不能塞进一个循环。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>control_loop.py</span></div>
+<pre><code>while running:
+    frame = camera.read()
+    pose = detect(frame)            # 视觉：约 30 Hz
+    trajectory = plan(pose)         # 规划：约 10 Hz
+    for tick in range(33):          # 伺服：1 kHz
+        servo.write(trajectory[tick], dt=0.001)</code></pre>
+</div>
+<p>延迟比速度更致命。视觉晚 100 毫秒，工件已经移了 5 毫米，抓取就偏。工程上要么提高帧率，要么用预测补偿，把延迟算进去。</p>
+<p>安全是另一条线：急停、安全围栏、力矩限制、协作机器人的碰撞检测，都要独立于主控。标准把安全回路和业务回路分开，就是为了主控死机时还能停住。</p>
+<p><strong>易错点：</strong>把「平均周期」当实时性。偶尔一次 50 毫秒的抖动，足以让焊点偏移；实时性看最坏情况，不看平均值。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>节拍账</h2>
+<p>一条装配线的节拍账，能把瓶颈说清楚。</p>
+<p>抓取周期 3.2 秒：视觉定位 180 毫秒，轨迹规划 40 毫秒，运动执行 2.6 秒，余量 380 毫秒。想把节拍压到 3 秒，先看哪段最长——运动占了八成，换更高帧率的相机只省 90 毫秒，于事无补；要么提高伺服增益，要么改机构。</p>
+<p>力控装配是另一个例子。插轴入孔，位置控制差 0.1 毫米就卡住；换成力传感器做 1 千赫兹闭环，靠接触力搜索孔位，成功率从 70% 升到 98%。这里提的频不是视觉，是力觉，闭环频率必须跟接触过程匹配。</p>
+<p>服务机器人则相反：送餐机器人不需要 1 毫秒，它需要「遇到人一定停」。感知延迟 200 毫秒可以接受，但安全距离要留够，宁可慢。</p>
+<p><strong>易错点：</strong>只算平均节拍，不算换型与故障。产线换产品要重新示教，停机两小时；这段损失不进节拍表，却真实发生。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>闭环填表</h2>
+<p><strong>任务：</strong>为三个任务填闭环表，标出最慢的一段与失效后果。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>感知</th><th>决策</th><th>执行</th><th>周期</th><th>最慢环节</th></tr></thead>
+  <tbody>
+    <tr><td>仓库搬箱</td><td>？</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>螺丝锁付</td><td>？</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>楼宇送餐</td><td>？</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 视觉提帧能解决抓取偏移吗？② 力控为什么必须独立于位置环？③ 人形机器人先落地哪个场景，卡点在成本还是可靠性？</p>
+<p><strong>验收：</strong>三行都能给出周期量级与瓶颈段，并说清「实时性看最坏情况」。决策部分怎么学，见 <a href="../m06-neural-nets/k6-10-1-rl-elements.html">强化学习的基本要素</a>。下一节处理另一种输入：语言，见 <a href="../m02-industry/k2-2-5-nlp.html">自然语言处理</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-2-5-nlp.html">2.2.5 NLP：让机器处理人类语言</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-2-3-biometrics.html"><span class="p-label">← 上一知识点 2.2.3</span><span class="p-title">生物特征识别：用「你是谁」做钥匙</span></a><a class="next" href="k2-2-5-nlp.html"><span class="p-label">下一知识点 2.2.5 →</span><span class="p-title">NLP：让机器处理人类语言</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)2 · 机器人技术的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>2.2.4 ｜ <span class="path">pages/m02-industry/k2-2-4-robotics.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-3-biometrics.html"><b>2.2.3</b>生物特征识别：用「你是谁」做钥匙</a><a class="xlink" href="k2-3-3-manufacturing.html"><b>2.3.3</b>制造：把经验变成可复现的参数</a><a class="xlink" href="k2-2-2-deep-learning.html"><b>2.2.2</b>深度学习：用多层表示替代手工特征</a><a class="xlink" href="u2-2-technology-layer.html"><b>2.2</b>技术层：五类使能技术（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-2-4（本页图 2-19）、k2-2-4-b（图 2-20）；知识库 M02-S2-04《机器人技术的概念及特点》（filled）。 ｜ 知识库条目：M02-S2-04《机器人技术的概念及特点》（filled） ｜ 参考来源：ISO 10218 工业机器人安全要求；ISO/TS 15066 协作机器人补充要求；公开工业机器人与 AMR 产品规格；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

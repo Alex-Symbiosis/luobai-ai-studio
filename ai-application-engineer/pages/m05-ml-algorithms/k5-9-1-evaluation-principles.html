@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.9.1 评价四维：任务、数据、代价、解释 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按四个维度为一个选型任务列出硬约束。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-9-selection.html">5.9 算法评价原则与选型</a><span class="sep">/</span><span class="here">5.9.1 评价四维：任务、数据、代价、解释</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.9</span>
+    <span class="tag">知识点 5.9.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>评价四维：任务、数据、代价、解释</h1>
+  <p class="lede">公开榜单上的第一名，搬到自己的业务数据上可能直接掉十几个点。这不是模型变差了，而是评价的坐标换了：榜单只在一个固定任务、固定数据、固定指标下排名，而真实选型要同时面对任务、数据、代价、解释四个维度。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按四个维度为一个选型任务列出硬约束。</li><li>能说明为什么分数高不等于适合，约束先于排名。</li><li>能为同一算法在两个场景下的不同胜负给出解释。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>榜单第一，落地掉十二个点</h2>
+<p>一个团队照着公开榜单选了第一名模型，上线前在自己的数据上复测：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>结果</th><th>差异来源</th></tr></thead>
+  <tbody>
+    <tr><td>榜单报告</td><td>准确率 0.94</td><td>大规模、类别均衡、清洗充分</td></tr>
+    <tr><td>本地复测</td><td>准确率 0.82</td><td>样本仅八千条，正类占比 4%</td></tr>
+    <tr><td>上线首周</td><td>业务方判定「不可用」</td><td>漏判代价高，但模型只优化了总体准确率</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">同一个模型、同一份代码，为什么榜单上的优势在本地全部消失？</p>
+<p>因为榜单只回答了「在这个任务、这批数据、这个指标下谁分高」。它没有回答「你的任务是不是这个任务」「你的数据像不像这批数据」「你的代价是不是这个代价」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>鞋合不合脚，看脚不看榜单</h2>
+<p>买鞋没人看「全网销量第一」就下单，先量自己的脚长、脚宽，再决定要不要买那双跑鞋。算法选型是同一件事：先量自己的约束，再去看分数。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四维评价：先列约束">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">四维评价：先列约束</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">维度</text><text class="f-t" x="352.0" y="98">要问的问题</text><text class="f-t" x="632.0" y="98">硬约束示例</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">任务</text><text class="f-s" x="352.0" y="139.0">回归、分类还是聚类</text><text class="f-s" x="632.0" y="139.0">输出类型决定候选集</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">数据</text><text class="f-s" x="352.0" y="183.0">样本量、维度、缺失与噪声</text><text class="f-s" x="632.0" y="183.0">小样本排除高容量模型</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">代价</text><text class="f-s" x="352.0" y="227.0">错判成本是否对称</text><text class="f-s" x="632.0" y="227.0">漏诊代价高则保召回</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">解释</text><text class="f-s" x="352.0" y="271.0">是否需给出理由</text><text class="f-s" x="632.0" y="271.0">强监管场景排除黑箱</text><text class="f-s" x="60" y="316">四维里任何一维不合格，分数再高也不能选；约束先于排名。</text>
+</svg><figcaption><b>图 5-37　四维评价与硬约束</b>　任务、数据、代价、解释，任何一维不合格，分数再高也不能选；约束先于排名。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>没有「最好的算法」，只有在给定约束下最合适的算法。四维的作用不是打分，而是先把不合法的候选<strong>排除</strong>掉，剩下的再比分数。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个维度与它们的硬约束</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>要问的问题</th><th>硬约束示例</th><th>不满足的后果</th></tr></thead>
+  <tbody>
+    <tr><td>任务</td><td>回归、分类还是聚类？输出是数值、类别还是分组？</td><td>输出类型决定候选集与指标</td><td>指标与任务错配，优化方向全错</td></tr>
+    <tr><td>数据</td><td>样本量、维度、缺失与噪声如何？</td><td>小样本排除高容量模型</td><td>模型记不住规律，只记住了噪声</td></tr>
+    <tr><td>代价</td><td>漏判与误判的成本是否对称？</td><td>漏诊代价高则保召回</td><td>总体指标好看，关键错误频发</td></tr>
+    <tr><td>解释</td><td>是否需要给出理由、接受审计？</td><td>强监管场景排除黑箱</td><td>模型上线但过不了合规评审</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四维之外还有三条通用要求：指标要匹配任务，测试数据必须独立，比较协议必须一致。前两条属于「怎么量」，第三条属于「怎么比」，后者在 5.9.2 展开。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先排除，再比较</h2>
+<div class="steps">
+  <div class="step"><b>写任务</b><span>确定输出类型，据此圈定指标族：回归看 MSE、MAE、R²，分类看准确率、F1、AUC，聚类看内部指标。</span></div>
+  <div class="step"><b>写数据画像</b><span>样本量、维度、类别比例、缺失率各写一个数；这些数会直接排除掉一批算法。</span></div>
+  <div class="step"><b>写代价</b><span>把漏判与误判的代价写成倍数关系，决定阈值与主指标，而不是沿用默认的 0.5。</span></div>
+  <div class="step"><b>写工程约束</b><span>是否需要解释、延迟上限、内存上限、可维护性；这一维经常一票否决。</span></div>
+  <div class="step"><b>筛完再排名</b><span>用约束删掉不合法候选，剩下的才进入横向对比。被约束排除的模型，分数再高也不回到候选池。</span></div>
+</div>
+<p>顺序不能反。先看分数再找理由，人会不自觉地替高分模型修改约束——这不是选型，是给结论找证据。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一个模型，两个场景两种命运</h2>
+<p>随机森林在两个项目里的表现，恰好说明四维的作用：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>四维约束</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>商品推荐排序</td><td>十万级样本、类别较均衡、容错高、无需逐条解释</td><td>分数领先，顺利上线</td></tr>
+    <tr><td>信贷审批</td><td>八千条样本、拒绝率极低、误放代价高、必须逐条给出理由</td><td>分数不差，但过不了解释与代价两关，改选逻辑回归</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第二个场景里，随机森林不是「更差」，而是<strong>不合法</strong>：它给不出一条能对上监管条款的理由，也无法把误放率压到业务要求的水平。约束在这里直接终止了比较。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「先跑一遍所有模型，谁高选谁」看似客观，实际上默认了四维都合格。多数项目栽在第二维和第四维：数据量撑不起复杂模型，或者解释要求排除了一半候选。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三个场景写硬约束</h2>
+<p><strong>任务：</strong>下面三个场景，各写两条可检验的硬约束。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>场景</th><th>硬约束 1</th><th>硬约束 2</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>医院影像辅助筛查，漏诊代价极高</td><td></td><td></td></tr>
+    <tr><td>2</td><td>App 内实时推荐，要求 50 毫秒内返回</td><td></td><td></td></tr>
+    <tr><td>3</td><td>两万条样本的设备故障预警，需给维修工看理由</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 哪条约束属于「一票否决」？② 如果两条约束互相冲突，按什么顺序让步？③ 为什么约束要写成可检验的形式，而不是「效果要好」？</p>
+<p><strong>验收：</strong>约束可检验（有阈值、有单位、有判断方式），且能指出它排除了哪类算法。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-9-2-benchmark-design.html">5.9.2 公平对比：四个固定项</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-8-5-cluster-eval-demo.html"><span class="p-label">← 上一知识点 5.8.5</span><span class="p-title">聚类实验：K 扫描与轮廓系数</span></a><a class="next" href="k5-9-2-benchmark-design.html"><span class="p-label">下一知识点 5.9.2 →</span><span class="p-title">公平对比：四个固定项</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)4 · 算法评价原则</dd>
+    <dt>页面编号 / 路径</dt><dd>5.9.1 ｜ <span class="path">pages/m05-ml-algorithms/k5-9-1-evaluation-principles.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-9-2-benchmark-design.html"><b>5.9.2</b>公平对比：四个固定项</a><a class="xlink" href="k5-9-3-interpretability.html"><b>5.9.3</b>可解释性与准确率的取舍</a><a class="xlink" href="u5-9-selection.html"><b>5.9</b>算法评价原则与选型（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-9-1（本页图 5-37）；知识库 M05-S2-06。 ｜ 知识库条目：M05-S2-06《算法评价原则及方法》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S13 scikit-learn《Cross-validation》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

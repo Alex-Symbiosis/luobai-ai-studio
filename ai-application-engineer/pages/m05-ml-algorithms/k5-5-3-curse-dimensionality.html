@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.5.3 维度灾难：距离为什么失效 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明维度升高时最近邻与最远邻的距离为何趋于相同。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-5-knn-lvq.html">5.5 K 近邻与学习矢量量化</a><span class="sep">/</span><span class="here">5.5.3 维度灾难：距离为什么失效</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.5</span>
+    <span class="tag">知识点 5.5.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>维度灾难：距离为什么失效</h1>
+  <p class="lede">KNN 的全部逻辑建立在「近的样本更像我」上。维度一高，这句话就悄悄失效了：任意两个随机点之间的距离几乎一样，「最近邻」与「最远邻」的差距趋近于零，投票等于随机。维度灾难不是计算变慢，而是距离这个概念本身失去了区分度。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明维度升高时最近邻与最远邻的距离为何趋于相同。</li><li>能解释有效样本需求为何随维度指数增长，并据此判断 KNN 是否适用。</li><li>能按数据形态选择欧氏、曼哈顿或余弦距离。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>特征越多，反而越差</h2>
+<p>一个文本相似度任务，两组做法：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>把 2000 维全塞进去</h3>
+    <ul><li>所有词频特征直接算欧氏距离</li><li>认为特征越全信息越完整</li><li>验证准确率只有 0.68</li><li>每次预测还要多花几倍时间</li></ul>
+  </div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先降维或换度量</h3>
+    <ul><li>先做特征选择或降到 50 维</li><li>长文本改用余弦相似度</li><li>验证准确率回到 0.86</li><li>预测速度同时变快</li></ul>
+  </div>
+</div>
+<p class="ask">多给 2000 个特征，信息只多不少，为什么准确率反而掉了 18 个点？</p>
+<p>因为多出来的维度并没有让邻居更近，反而把「近」这个判断稀释了。维度灾难的症状不在数据量，而在<strong>距离的对比度</strong>。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>在一个巨大的空房间里找邻居</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="维度越高，距离越趋同">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">维度越高，距离越趋同</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 250 L220 215 L320 190 L420 172 L520 160 L620 152 L720 147 L820 144" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">最近距离</text><path d="M120 120 L220 150 L320 170 L420 184 L520 193 L620 200 L720 205 L820 208" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">最远距离</text><text class="f-s" x="700" y="110">两者比值趋近 1</text><text class="f-s" x="880" y="322" text-anchor="end">维度</text><text class="f-s" x="92" y="66" text-anchor="end">距离</text><text class="f-s" x="100" y="340">维度一高，最近与最远几乎一样远，距离失去区分度——这就是维度灾难。</text>
+</svg><figcaption><b>图 5-21　维度越高，距离越趋同</b>　最近距离与最远距离随维度升高而靠拢，比值趋近 1，邻居不再「更近」。</figcaption></figure>
+<p>二维平面上，身边的人和天边的人差得很远，「最近」很有力。到了 100 维，每一维差一点，累加起来总距离几乎一样，「最近」失去意义。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>维度灾难的本质是<strong>距离集中</strong>：所有点对的距离挤到同一个值附近，最近与最远的差别被抹平，邻居投票退化为随机抽样。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个量化说法与三种度量</h2>
+<p>在 d 维单位超立方体里均匀撒点，两个随机点的欧氏距离大致在 √(d ÷ 6) 附近；d 越大，相对波动按 1 ÷ √d 缩小：绝对距离越大，相对差异越小。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>说法</th><th>含义</th><th>后果</th></tr></thead>
+  <tbody>
+    <tr><td>距离集中</td><td>最近与最远距离之比趋向 1</td><td>邻域不再有区分度</td></tr>
+    <tr><td>样本需求指数增长</td><td>覆盖同样密度所需样本随 d 指数上升</td><td>固定样本量下数据变「稀」</td></tr>
+    <tr><td>边界效应</td><td>超球体积集中在表面附近</td><td>多数点都在边缘，内插失效</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>度量</th><th>适用形态</th><th>不适用</th></tr></thead>
+  <tbody>
+    <tr><td>欧氏</td><td>连续、同量纲、各向同性</td><td>高维稀疏、量纲不齐</td></tr>
+    <tr><td>曼哈顿</td><td>坐标轴有独立含义、存在离群值</td><td>需要旋转不变性时</td></tr>
+    <tr><td>余弦</td><td>文本、向量方向比长度更重要</td><td>长度本身携带信息的场景</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>距离失效之后还剩什么办法</h2>
+<div class="steps">
+  <div class="step"><b>先降维</b><span>PCA、特征选择把维度压到几十以内，让邻居重新「近」起来。</span></div>
+  <div class="step"><b>换度量</b><span>文本用余弦，方向比长度更接近语义；坐标轴有含义时用曼哈顿。</span></div>
+  <div class="step"><b>学度量</b><span>用成对约束学一个投影，让同类靠近、异类远离，把「相似」交给数据定义。</span></div>
+  <div class="step"><b>换模型</b><span>高维稀疏时树模型、线性模型或带正则的方法往往比 KNN 稳。</span></div>
+</div>
+<p>还有一个工程后果：KD 树在低维有效，维度一高便退化为暴力搜索，近似最近邻（如 HNSW）成为大规模检索的默认选择。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一份数据，四个维度</h2>
+<p>把同一批样本投影到不同维度，记录最近与最远距离之比，以及 KNN 的验证准确率：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度 d</th><th>最近 ÷ 最远</th><th>欧氏 + KNN</th><th>余弦 + KNN</th></tr></thead>
+  <tbody>
+    <tr><td>2</td><td>0.62</td><td>0.94</td><td>0.93</td></tr>
+    <tr><td>10</td><td>0.85</td><td>0.90</td><td>0.90</td></tr>
+    <tr><td>50</td><td>0.95</td><td>0.78</td><td>0.85</td></tr>
+    <tr><td>200</td><td>0.99</td><td>0.62</td><td>0.86</td></tr>
+  </tbody>
+</table>
+</div>
+<p>比值从 0.62 爬到 0.99，欧氏距离下的准确率同步从 0.94 掉到 0.62。到 200 维，邻居已经近似随机，投票几乎没有信息量。</p>
+<p>余弦却守住 0.86：文本与高维稀疏向量的信息主要在方向上，长度只是文档长短的副产品，余弦只比方向，天然规避了维度对绝对距离的放大。</p>
+<p>降维与换度量都只是补救，真正要问的是这份数据还满不满足距离可用的前提；逐条核对更稳妥：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>维度在几十以内、样本充足</td><td>维度上百后准确率断崖式下降</td></tr>
+    <tr><td>度量与数据形态匹配</td><td>文本用欧氏距离会忽略方向，效果明显变差</td></tr>
+    <tr><td>降维后仍保留主要结构</td><td>降维过度会丢信息，需要与准确率一起验证</td></tr>
+    <tr><td>可接受近似检索</td><td>精确近邻在高维全扫，延迟随样本线性增长</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>换三种度量，再降一次维</h2>
+<p><strong>任务：</strong>在同一份高维数据上做两组对照实验。</p>
+<ol>
+  <li>固定 K = 7，分别用欧氏、曼哈顿、余弦三种距离训练 KNN，记录准确率与预测耗时。</li>
+  <li>用 PCA 把维度降到 10，再用欧氏距离重跑一次。</li>
+  <li>为三种距离各写一句适用场景，必须指向数据形态而不是「效果好」。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组别</th><th>准确率</th><th>耗时</th><th>解释</th></tr></thead>
+  <tbody>
+    <tr><td>欧氏 · 原始维度</td><td></td><td></td><td>是否出现距离集中</td></tr>
+    <tr><td>余弦 · 原始维度</td><td></td><td></td><td>方向是否比长度更有效</td></tr>
+    <tr><td>欧氏 · 降到 10 维</td><td></td><td></td><td>降维是否恢复了区分度</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检：</strong>能用「最近 ÷ 最远」这个比值解释准确率变化，而不是只说「维度高不好」，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-5-4-lvq-demo.html">5.5.4 LVQ：用原型压缩训练集</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-5-2-k-value.html"><span class="p-label">← 上一知识点 5.5.2</span><span class="p-title">K 值：偏差与方差的旋钮</span></a><a class="next" href="k5-5-4-lvq-demo.html"><span class="p-label">下一知识点 5.5.4 →</span><span class="p-title">LVQ：用原型压缩训练集</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · K 近邻算法（距离）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.5.3 ｜ <span class="path">pages/m05-ml-algorithms/k5-5-3-curse-dimensionality.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-5-2-k-value.html"><b>5.5.2</b>K 值：偏差与方差的旋钮</a><a class="xlink" href="k5-5-4-lvq-demo.html"><b>5.5.4</b>LVQ：用原型压缩训练集</a><a class="xlink" href="u5-5-knn-lvq.html"><b>5.5</b>K 近邻与学习矢量量化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张（k5-5-3）+ 知识库 M05-S1-08（K 近邻）、M05-S2-03（KNN 操作）。 ｜ 知识库条目：M05-S1-08《K 近邻算法的概念及原理》（filled）、M05-S2-03《KNN 算法的概念、特点及操作原理》（filled） ｜ 参考来源：S73 scikit-learn《Nearest Neighbors》；S54 ESL；S72 Cover &amp; Hart 1967；S32 scikit-learn《Metrics and scoring》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

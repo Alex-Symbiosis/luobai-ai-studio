@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.4.3 正则化与丢弃 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 inverted dropout 的公式，并说明除以 1−p 的作用。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-4-params-training.html">6.4 神经网络参数、训练与优化</a><span class="sep">/</span><span class="here">6.4.3 正则化与丢弃</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.4</span>
+    <span class="tag">知识点 6.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>正则化与丢弃</h1>
+  <p class="lede">训练时每个单元都可能被临时关掉，推理时全员到齐。除以 1−p，就是为了让两边的期望对得上。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 inverted dropout 的公式，并说明除以 1−p 的作用。</li><li>能说清训练与推理两个阶段的差别，以及忘记切换会出什么现象。</li><li>能判断什么情况下该用 Dropout、什么情况下该换别的正则手段。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两条曲线分叉</h2>
+<p>一个分类模型，最后接了两层 512 的全连接。训练到第 30 轮，训练准确率 0.99，验证准确率停在 0.72，两条曲线从第 8 轮起越分越开。</p>
+<p>这是典型的过拟合：模型把训练集里每一条样本的细节都记了下来，包括噪声。全连接层参数最多、最容易记住样本，通常也从这里开始出问题。</p>
+<p class="ask">不加数据、不换模型，能不能让它别记得那么死？</p>
+<p>能。最简单的一招是在训练时随机关掉一部分单元，让网络没法依赖某几个固定的神经元。这一招叫 Dropout，代价是训练变慢，收益是验证集不再掉。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>训练时有人请假</h2>
+<p>训练阶段，每个单元按概率被临时关掉，剩下的单元还得把活干完；推理阶段所有人到齐，按训练时的平均强度输出。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="Dropout 只在训练时开门">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">Dropout 只在训练时开门</text><rect class="f-amber" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">训练：按比率随机置零</text><text class="f-s" x="80" y="108">· 每批重新抽掩码</text><text class="f-s" x="80" y="138">· 保留的单元除以 (1−p)</text><text class="f-s" x="80" y="168">· 输出期望保持不变</text><text class="f-s" x="80" y="198">· 相当于集成许多子网</text><text class="f-s" x="80" y="228">· p 常取 0.2–0.5</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">推理：全部单元参与</text><text class="f-s" x="530" y="108">· 不再随机置零</text><text class="f-s" x="530" y="138">· 也不做缩放</text><text class="f-s" x="530" y="168">· Keras 自动切换</text><text class="f-s" x="530" y="198">· model(x, training=False)</text><text class="f-s" x="530" y="228">· 预测结果才可复现</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 6-19　Dropout 只在训练时开门</b>　训练随机置零并用 1−p 放大；推理不置零也不缩放，两边期望一致。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>每个单元都不能假设「我的搭档一定在」，于是被迫学成独立有用的特征。这就是「抑制共适应」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>掩码与缩放</h2>
+<p>对某一层激活 <code>a</code>，训练时：</p>
+<p><code>m ~ Bernoulli(1−p)，　ã = m ⊙ a / (1−p)</code></p>
+<p><code>p</code> 是丢弃率，<code>1−p</code> 是保留率。除以 <code>1−p</code> 让输出期望保持不变：<code>E[ã] = a</code>。推理时不置零、也不再缩放，直接用完整网络。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶段</th><th>掩码</th><th>缩放</th><th>输出</th></tr></thead>
+  <tbody>
+    <tr><td>训练</td><td>随机 0/1</td><td>除以 1−p</td><td>随机子网络</td></tr>
+    <tr><td>推理</td><td>全 1</td><td>不缩放</td><td>完整网络</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这个写法叫 inverted dropout。老版本是「训练不缩放、推理乘 1−p」，数学等价，但推理时要多一步；现代框架都用前者，推理零开销。</p>
+<div class="callout callout--warn">
+  <span class="c-label">p 是丢弃率</span>
+  <p>说「p = 0.5」是关掉一半，不是保留一半。写代码时 <code>rate=0.5</code> 与 <code>keep_prob=0.5</code> 含义相反，看文档比凭印象快。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>手写一遍掩码</h2>
+<p>这段代码把训练与推理两条路并排放，方便对照「置零」与「缩放」各自发生在哪一步。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>dropout_mask.py</span></div>
+<pre><code>import numpy as np
+
+rng = np.random.default_rng(0)
+a = np.array([0.8, -0.3, 1.2, 0.5])
+p = 0.5
+
+mask = (rng.random(a.shape) &gt;= p).astype(float)
+a_train = mask * a / (1 - p)     # 训练：置零并除以 1-p
+a_infer = a                      # 推理：原样通过
+
+print(&quot;掩码:&quot;, mask)
+print(&quot;训练:&quot;, a_train)
+print(&quot;推理:&quot;, a_infer)</code></pre>
+</div>
+<p>注意 <code>a_train</code> 里被保留下来的位置是原值的 2 倍（p=0.5），被置零的位置是 0。两者一平均，期望回到原值——这就是「期望不变」的字面含义。</p>
+<p>在 Keras 里，<code>Dropout</code> 层靠 <code>training</code> 标志自动切换；如果用自定义训练循环，必须显式传 <code>training=True</code>，否则推理时也在随机丢，预测会抖。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两处容易翻车</h2>
+<p><strong>第一处：推理忘了关。</strong>同一张图连测五次，输出五个不同结果，概率忽高忽低。这不是模型不稳定，是 Dropout 还开着。判断方法很简单：连续两次 <code>predict</code> 结果不一致，就要查模式切换。</p>
+<p><strong>第二处：与 BN 同用。</strong>BN 在训练时用当前批的均值方差，Dropout 又让这一批的激活随机置零，两者的方差估计互相干扰。常见做法是「BN 之后不再接 Dropout」，改用权重衰减或早停；也可以把 Dropout 只放在最后几层全连接上。</p>
+<p>还有一条经验：<code>p</code> 不是越大越好。0.5 已经很强，小网络用 0.1–0.2 就够；卷积层通常低于全连接层，甚至不用。正则过强会从过拟合直接翻到欠拟合，两条曲线一起变高。</p>
+<p>最后要记住 Dropout 改的是「前向图」，不改损失函数。它和 L2 是两套机制，可以叠加：L2 压权重幅度，Dropout 打断单元依赖。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算期望、做对照</h2>
+<p><strong>任务：</strong>取 <code>a = [1.0, 2.0, 3.0, 4.0]</code>、<code>p = 0.5</code>，手工抽三次掩码，各算一遍 <code>ã</code> 的均值，观察它在什么附近波动。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>掩码</th><th>ã</th><th>均值</th></tr></thead>
+  <tbody>
+    <tr><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 把 <code>p</code> 改成 0.2，缩放系数变成多少？② 如果在推理时也除以 <code>1−p</code>，输出整体会偏大还是偏小？③ 训练轮数需要增加还是减少？</p>
+<p><strong>验收：</strong>三次均值都在原均值 2.5 附近，能解释偏差来自抽样。下一步看另一种「改数值不改表达力」的手段，见 <a href="../m06-neural-nets/k6-4-4-batch-norm.html">标准化与批归一化</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-4-4-batch-norm.html">6.4.4 标准化与批归一化</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-4-2-initialization.html"><span class="p-label">← 上一知识点 6.4.2</span><span class="p-title">初始化：不能全零</span></a><a class="next" href="k6-4-4-batch-norm.html"><span class="p-label">下一知识点 6.4.4 →</span><span class="p-title">标准化与批归一化</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)16 · 丢弃正则化</dd>
+    <dt>页面编号 / 路径</dt><dd>6.4.3 ｜ <span class="path">pages/m06-neural-nets/k6-4-3-dropout.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-4-2-initialization.html"><b>6.4.2</b>初始化：不能全零</a><a class="xlink" href="k6-4-4-batch-norm.html"><b>6.4.4</b>标准化与批归一化</a><a class="xlink" href="k6-4-5-diagnosis-demo.html"><b>6.4.5</b>训练诊断：loss 不降先查什么</a><a class="xlink" href="k6-2-5-backprop-demo.html"><b>6.2.5</b>2-2-1 网络一轮更新</a><a class="xlink" href="u6-4-params-training.html"><b>6.4</b>神经网络参数、训练与优化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-4-3（本页图 6-19）；知识库 M06-S1-05。 ｜ 知识库条目：M06-S1-05《丢弃正则化》（filled） ｜ 参考来源：S51 Hinton 等 2012；S53《深度学习》第 7 章；S36 scikit-learn 神经网络文档；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

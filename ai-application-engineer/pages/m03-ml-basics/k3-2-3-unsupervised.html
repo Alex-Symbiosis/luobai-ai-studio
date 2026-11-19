@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2.3 无监督学习：没有答案时看结构 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出聚类、降维、密度估计三类无监督任务各自解决什么问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-2-workflow.html">3.2 任务流程与三类学习范式</a><span class="sep">/</span><span class="here">3.2.3 无监督学习：没有答案时看结构</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.2</span>
+    <span class="tag">知识点 3.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>无监督学习：没有答案时看结构</h1>
+  <p class="lede">手里有 30 万条用户行为记录，没人告诉你谁和谁是一类。这时候能依赖的只有一件事：数据自身的相似性与密度。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出聚类、降维、密度估计三类无监督任务各自解决什么问题。</li><li>能解释「相似度怎么定义，分组就长什么样」。</li><li>能说明无监督结果为什么必须由领域知识解释，而不能只看算法输出。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>没有标签，也得给出结论</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">场景 A</span><h3>用户分群</h3><p>运营想给 30 万用户分几类做差异化触达，但没有「类型」这个字段。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 B</span><h3>高维可视化</h3><p>200 维的特征画不出来。需要压到 2 维，先看看有没有明显的结构。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 C</span><h3>异常发现</h3><p>没有「异常」的标注，但想知道哪些记录与大多数明显不同。</p></div>
+</div>
+<p class="ask">三类任务都没有 y。没有标准答案，怎么判断结果好不好？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>物以类聚，但「类」由你定义</h2>
+<p>把一堆书按主题上架，你会先定义「什么叫相似」：同一作者？同一学科？同一开本？定义不同，书架的样子就完全不同。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="没有答案时，只能从结构入手">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">没有答案时，只能从结构入手</text><rect class="f-b3" x="60" y="50" width="840" height="256" rx="10"/><path class="f-ax" d="M90 288 L880 288"/><path class="f-ax" d="M90 70 L90 288"/><circle cx="180" cy="120" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="205" cy="140" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="160" cy="150" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="195" cy="105" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="220" cy="165" r="6" fill="#2f6fd0" opacity="0.85"/><ellipse class="f-dash" cx="190" cy="136" rx="78" ry="62"/><circle cx="400" cy="230" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="430" cy="215" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="455" cy="245" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="415" cy="258" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="385" cy="240" r="6" fill="#d98b3a" opacity="0.85"/><ellipse class="f-dash" cx="420" cy="238" rx="76" ry="56"/><circle cx="690" cy="130" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="720" cy="115" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="745" cy="140" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="700" cy="155" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="730" cy="165" r="6" fill="#3f9b78" opacity="0.85"/><ellipse class="f-dash" cx="718" cy="140" rx="74" ry="58"/><text class="f-s" x="60" y="336">相似度怎么定义，分组就长什么样；没有标签，结果必须由领域知识解释。</text>
+</svg><figcaption><b>图 3-8　无监督学习：从数据自身的结构分组</b>　点之间没有标签，只有距离。算法做的事是把距离近的归到一起，但「距离」用哪几个维度算，是人决定的。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>无监督学习<strong>不告诉你「应该分几类」</strong>。它只按给定的相似度，把数据组织成某种结构；这个结构有没有意义，要靠领域知识判断。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三类任务，三种输出</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>输出</th><th>典型方法</th><th>怎么判断好坏</th></tr></thead>
+  <tbody>
+    <tr><td>聚类</td><td>每个样本的组号</td><td>K-means、层次聚类、DBSCAN</td><td>组内紧、组间远；业务是否可解释</td></tr>
+    <tr><td>降维</td><td>低维表示</td><td>PCA、t-SNE、自编码器</td><td>保留多少方差 / 邻域结构</td></tr>
+    <tr><td>密度估计</td><td>样本出现的概率</td><td>核密度、高斯混合、孤立森林</td><td>低概率样本是否符合「异常」的业务定义</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>无监督学习在没有标签的数据上，依据样本间的相似性、密度或低维结构来发现组织方式；目标是描述结构，而不是预测已知答案。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>相似度是一切的起点</h2>
+<p>聚类算法千差万别，但都在做同一件事：<strong>先定义距离，再按距离组织样本</strong>。</p>
+<div class="steps">
+  <div class="step"><b>选维度</b><span>把「消费金额」和「消费次数」直接算欧氏距离，金额会因量纲大而主导结果。先标准化，几乎是必须的。</span></div>
+  <div class="step"><b>选度量</b><span>连续值用欧氏/余弦；类别值用杰卡德；序列用编辑距离。度量选错，分组一定错。</span></div>
+  <div class="step"><b>定类数</b><span>K-means 要人指定 K。肘部法、轮廓系数只是参考，最终仍要回答「这几类对业务有没有用」。</span></div>
+</div>
+<p>所以无监督结果最常见的失败不是「算法不收敛」，而是<strong>分出来的组没法命名</strong>。不能命名的组，运营没法用。</p>
+<span class="sidenote">降维还有一个隐蔽风险：t-SNE 的簇间距离不可解释。图上看着分得开，不代表在原始空间里也分得开。</span>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>校园卡消费分群</h2>
+<p>取一学期刷卡记录，按「月均消费、消费频次、消费时段熵、充值频率」四个特征聚类。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">第 1 组</span><h3>高频低额</h3><p>几乎每餐都在食堂，单次金额低。对应「基本在食堂吃」的学生。</p></div>
+  <div class="card mini"><span class="mini-tag">第 2 组</span><h3>低频高额</h3><p>一周来几次，一次充很多。可能是走读或常在外就餐。</p></div>
+  <div class="card mini"><span class="mini-tag">第 3 组</span><h3>时段集中</h3><p>只在固定时段消费，充值频率低。可能是作息规律、依赖补助的学生。</p></div>
+</div>
+<p>注意：这三组的名字是<strong>人根据特征给的</strong>，不是算法输出的。换一组特征（比如加入超市消费），分组可能完全变样。</p>
+<span class="teacher">可以追问：如果第 3 组被命名为「贫困生」，直接用于发放补助，风险在哪？——引出「无监督结果不能直接承担个体决策」。</span>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>先定义相似度，再谈分组</h2>
+<p><strong>任务：</strong>为「校园二手交易平台的商品分群」设计一次无监督分析。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要写清的项</th><th>你的答案</th></tr></thead>
+  <tbody>
+    <tr><td>用哪些特征</td><td></td></tr>
+    <tr><td>相似度怎么算（含是否需要标准化）</td><td></td></tr>
+    <tr><td>选几类，依据是什么</td><td></td></tr>
+    <tr><td>每组怎么命名，命名依据是哪个特征</td><td></td></tr>
+    <tr><td>这个结果不能用来做什么</td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 我的距离度量对量纲敏感吗？② 我能用一句话说清每一组的业务含义吗？③ 如果把 K 改成 K+1，结论会推翻吗？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「聚类算法会自动找出最优分组」不成立。算法只优化给定的目标函数，K 的选择、特征的选择、度量的选择都由人负责。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-2-4-semi-rl.html">3.2.4 半监督与强化：两种「答案不完整」的学习</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-2-2-supervised.html"><span class="p-label">← 上一知识点 3.2.2</span><span class="p-title">监督学习：答案从标签来</span></a><a class="next" href="k3-2-4-semi-rl.html"><span class="p-label">下一知识点 3.2.4 →</span><span class="p-title">半监督与强化：两种「答案不完整」的学习</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 非监督式学习</dd>
+    <dt>页面编号 / 路径</dt><dd>3.2.3 ｜ <span class="path">pages/m03-ml-basics/k3-2-3-unsupervised.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-2-2-supervised.html"><b>3.2.2</b>监督学习：答案从标签来</a><a class="xlink" href="k3-2-4-semi-rl.html"><b>3.2.4</b>半监督与强化：两种「答案不完整」的学习</a><a class="xlink" href="k3-6-2-denoise-transcribe.html"><b>3.6.2</b>去噪与转录：一个保形，一个换形</a><a class="xlink" href="u3-2-workflow.html"><b>3.2</b>任务流程与三类学习范式（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-2-3-a.svg（本页图 3-8）。 ｜ 知识库条目：M03-S1-08《监督式学习与非监督式学习》（filled） ｜ 参考来源：S41 scikit-learn《Clustering》；S33 Hastie et al.《ESL》；S64 Han et al.《Data Mining》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

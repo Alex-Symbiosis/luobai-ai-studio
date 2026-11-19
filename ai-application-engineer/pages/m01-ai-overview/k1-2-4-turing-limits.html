@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.2.4 图灵测试的四个局限 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出模仿不等于理解、语言偏向、评委偏差、规则可被利用四条局限。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-2-turing-test.html">1.2 图灵测试：把「能否思考」换成「能否骗过评委」</a><span class="sep">/</span><span class="here">1.2.4 图灵测试的四个局限</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.2</span>
+    <span class="tag">知识点 1.2.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>图灵测试的四个局限</h1>
+  <p class="lede">会聊天的机器一定智能吗？演员背熟台词，也能骗过台下观众。图灵测试测的是「像人」，不是「真懂」；四条局限里，每一条都能被一个具体反例击中。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出模仿不等于理解、语言偏向、评委偏差、规则可被利用四条局限。</li><li>能为每条局限设计一个具体反例，而不是重复「它不真的懂」。</li><li>能判断一次「通过测试」的结论最多能说明什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>认证，还是证据</h2>
+<p>面对「某系统通过了图灵测试」这条消息，两种处理：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>当作智能认证书</h3><p>既然骗过了评委，就认定它已经具备人类水平的理解，甚至开始讨论它是否有意识。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>当作一条行为证据</h3><p>先问测试怎么设计、评委是谁、允许哪些策略；再判断这条证据能支持到哪一步，哪些结论它根本管不到。</p></div>
+</div>
+<p class="ask">同一份测试结果，为什么 A 与 B 的结论差这么远？</p>
+<p>因为测试只对「在规定对话中不被识破」负责。它不检查理解、不检查常识、也不检查意识。把行为证据升级成能力认证，正是四条局限共同的入口。先问「这份结果能证明到哪一步」，再决定要不要改口。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>背台词的演员</h2>
+<p>一个演员把台词背得滚瓜烂熟，台上对答如流，观众看不出破绽。可这只能说明他演得像，不能说明他真的经历过角色的处境。机器骗过评委，逻辑与此相同。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四条局限与对应反例">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">四条局限与对应反例</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">局限</text><text class="f-t" x="352.0" y="98">问题</text><text class="f-t" x="632.0" y="98">反例</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">模仿不等于理解</text><text class="f-s" x="352.0" y="135.8">会答不等于懂</text><text class="f-s" x="632.0" y="135.8">模板回复也能过关</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">语言能力偏向</text><text class="f-s" x="352.0" y="173.4">只测文字技巧</text><text class="f-s" x="632.0" y="173.4">擅长话术的系统占优</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">评委有预期</text><text class="f-s" x="352.0" y="211.0">人会主动补全</text><text class="f-s" x="632.0" y="211.0">模糊回答被读成幽默</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">规则可被利用</text><text class="f-s" x="352.0" y="248.60000000000002">针对测试优化</text><text class="f-s" x="632.0" y="248.60000000000002">关键词命中策略</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">文化与时序偏差</text><text class="f-s" x="352.0" y="286.2">测试场景有限</text><text class="f-s" x="632.0" y="286.2">换语言或换话题即失效</text><text class="f-s" x="60" y="328.0">通过测试只能说明「在该测试下表现像人」，不能推出具备理解或意识。</text>
+</svg><figcaption><b>图 1-8　通过测试不等于具备理解</b>　四条局限各有对应反例；测试能证明「表现像人」，不能证明「内部懂人」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>「像」是外部可观察的，「懂」是内部机制的判断。测试只覆盖前者，把它当成后者，就会高估系统。反过来，一个真正理解语义的系统，也未必能在短对话里稳定装人——能否通过，还取决于策略与运气。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四条局限，四个反例</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>局限</th><th>问题所在</th><th>反例</th></tr></thead>
+  <tbody>
+    <tr><td>模仿不等于理解</td><td>会答不等于懂语义</td><td>按模板拼出的回答也能过关</td></tr>
+    <tr><td>语言能力偏向</td><td>只测文字技巧，不测感知与行动</td><td>擅长话术的系统比会干活的系统占优</td></tr>
+    <tr><td>评委有预期</td><td>人会主动补全模糊回答</td><td>含糊其辞被读成幽默或深沉</td></tr>
+    <tr><td>规则可被利用</td><td>可以针对测试本身优化</td><td>堆关键词、回避敏感话题即可拖过轮次</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>测试判据是 <span class="term">行为不可区分</span>，而「理解」要求 <span class="term">语义与指称正确</span>。前者是后者的必要不充分条件：<span class="term">B 等价 ⇏ 语义等价</span>。四条局限，都是这条不等号的具体表现。</p>
+</div>
+<p>四条不是并列的四个批评，而是从不同角度戳同一个缺口：测试协议越适合打分，就越容易被「为打分而优化」的策略绕过。把四条分开写，才能对应到不同的改进方向。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>每条局限怎样被反例击中</h2>
+<p>把四条局限翻成可操作的反例设计，问题会立刻具体起来：</p>
+<div class="steps">
+  <div class="step"><b>模板回复</b><span>准备一批万能句式，遇到任何问题都先接住再反问；评委很难在几轮内证伪，模仿与理解的区别被抹平。</span></div>
+  <div class="step"><b>关键词命中</b><span>只识别题面里的关键词并套用固定答案；命中率够高就能撑过短对话，规则被测试本身利用。</span></div>
+  <div class="step"><b>示弱与幽默</b><span>用「这问题有点难」「你猜」之类回答制造人类感；评委的补全倾向会把模糊读成自然。</span></div>
+  <div class="step"><b>针对测试优化</b><span>知道题面风格后专门调对话策略；测的是「应付这场测试」的能力，不是通用能力。</span></div>
+</div>
+<p>四个反例的共同点是：它们都不需要真正理解，只需要让评委在有限轮次内无法证伪。这也说明测试的判定逻辑是「无法证伪其智能」，而不是「证明了智能」。反例越具体，局限越难被一句「它只是不够强」糊弄过去。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>ELIZA 与中文屋</h2>
+<p>1966 年，Weizenbaum 的 ELIZA 用模式匹配模仿心理治疗师，许多人明知对面是程序仍愿意倾诉，即「ELIZA 效应」。它没有理解任何一句话，却足以让人产生被理解的错觉，这正是「模仿不等于理解」的实证。</p>
+<p>1980 年，Searle 提出「中文屋」：一个不懂中文的人被关在屋内，按规则手册处理中文符号并输出回答，屋外人看来他「懂中文」，但他并不理解任何中文。结论是符号操作（句法）不等于语义理解。这个论证直接挑战「通过图灵测试即具有智能」的推论。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>作为「行为是否像人」的入门判据</td><td>被当成「是否理解」的证明</td></tr>
+    <tr><td>用于讨论拟人化与信任风险</td><td>被用来给产品做能力背书</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个案例指向同一件事：对话流畅是表面证据，语义理解要另找证据；测试本身没错，只是被要求了超出职责的结论。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为每条局限写一个反例</h2>
+<p><strong>任务：</strong>四条局限各写一个一句话反例，并说明测试为什么挡不住它。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>局限</th><th>你的反例</th><th>测试为何挡不住</th></tr></thead>
+  <tbody>
+    <tr><td>模仿不等于理解</td><td></td><td></td></tr>
+    <tr><td>语言能力偏向</td><td></td><td></td></tr>
+    <tr><td>评委有预期</td><td></td><td></td></tr>
+    <tr><td>规则可被利用</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果测试改为多轮、允许评委追问细节，四条局限会减少还是转移？② 「通过测试不等于理解」是否意味着测试没有价值？请分别从「排序」与「证明」两种用途回答。</p>
+<p><strong>自检：</strong>四个反例都具体到可复述的对话策略或系统行为，且能指出测试协议的哪一处限制被利用，即达标。四条都写「它其实不懂」，视为未完成。四条反例若指向同一个策略，说明还没有真正区分四条局限。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-2-5-imitation-demo.html">1.2.5 20 行代码实现「模仿游戏」判定器</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-2-3-behaviorism.html"><span class="p-label">← 上一知识点 1.2.3</span><span class="p-title">为什么它成了 AI 的行为主义标尺</span></a><a class="next" href="k1-2-5-imitation-demo.html"><span class="p-label">下一知识点 1.2.5 →</span><span class="p-title">20 行代码实现「模仿游戏」判定器</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)1 · 图灵测试的概念（局限）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.2.4 ｜ <span class="path">pages/m01-ai-overview/k1-2-4-turing-limits.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-2-3-behaviorism.html"><b>1.2.3</b>为什么它成了 AI 的行为主义标尺</a><a class="xlink" href="k1-2-5-imitation-demo.html"><b>1.2.5</b>20 行代码实现「模仿游戏」判定器</a><a class="xlink" href="u1-2-turing-test.html"><b>1.2</b>图灵测试：把「能否思考」换成「能否骗过评委」（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-2-4（本页图 1-8）；知识库 M01-S1-03。 ｜ 知识库条目：M01-S1-03《图灵测试》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S11 SEP《The Turing Test》；S12 Searle《Minds, Brains, and Programs》（1980）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

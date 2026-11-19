@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" role="img" aria-label="课程知识网络示意">
+  <style>
+    .h-l{stroke:rgba(31,95,208,.28);stroke-width:1.2}
+    .h-n{fill:#ffffff;stroke:rgba(31,95,208,.35);stroke-width:1.4}
+    .h-n2{fill:rgba(31,95,208,.10);stroke:rgba(31,95,208,.45);stroke-width:1.4}
+    .h-d{fill:#1f5fd0}
+  </style>
+  <line class="h-l" x1="120" y1="90" x2="270" y2="200"/>
+  <line class="h-l" x1="400" y1="70" x2="300" y2="180"/>
+  <line class="h-l" x1="80" y1="260" x2="250" y2="230"/>
+  <line class="h-l" x1="430" y1="280" x2="330" y2="240"/>
+  <line class="h-l" x1="160" y1="360" x2="260" y2="270"/>
+  <line class="h-l" x1="380" y1="380" x2="310" y2="280"/>
+  <line class="h-l" x1="120" y1="90" x2="400" y2="70"/>
+  <line class="h-l" x1="80" y1="260" x2="270" y2="200"/>
+
+  <circle class="h-n2" cx="270" cy="210" r="52"/>
+  <circle class="h-d" cx="270" cy="210" r="6"/>
+  <circle class="h-n" cx="120" cy="90" r="22"/>
+  <circle class="h-n" cx="400" cy="70" r="16"/>
+  <circle class="h-n" cx="80" cy="260" r="18"/>
+  <circle class="h-n" cx="430" cy="280" r="24"/>
+  <circle class="h-n" cx="160" cy="360" r="14"/>
+  <circle class="h-n" cx="380" cy="380" r="19"/>
+  <circle class="h-n" cx="270" cy="210" r="52" fill="none" stroke="rgba(31,95,208,.22)"/>
+  <circle class="h-n" cx="270" cy="210" r="80" fill="none" stroke="rgba(31,95,208,.12)"/>
+</svg>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.3.2 分类与回归：有标签时的两种输出 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按输出形态区分分类与回归，并为各选一组评价指标。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-3-dm-techniques.html">8.3 数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析</a><span class="sep">/</span><span class="here">8.3.2 分类与回归：有标签时的两种输出</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.3</span>
+    <span class="tag">知识点 8.3.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>分类与回归：有标签时的两种输出</h1>
+  <p class="lede">同一批特征、同一个问题域，答案是要不要，还是一个数——这一步定错，指标全错。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按输出形态区分分类与回归，并为各选一组评价指标。</li><li>能写出标签质量的四条检查，并指出哪一条最容易在取数时被破坏。</li><li>能设计训练、验证、测试的划分方案，识别时间泄漏与分层缺失。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两个问题，一张表</h2>
+<p>一家在线课程平台有 5000 名学员。运营提了两个问题：下月会不会续费；下月会花多少钱。用的是同一张宽表，同一批特征：登录次数、完课率、历史客单价、最近活跃天数。</p>
+<p>第一版把两个问题都写成回归：用金额预测续费。模型算出「下月消费 0 元」，被当成不续费；可有人只是这个月没买课，下个月又回来了。阈值一定，误判一片。</p>
+<p>问题不在模型，在输出形态：会不会续费是二选一，会花多少钱是数轴上的一个点，两种答案不能同法计算。</p>
+<p class="ask">同样是有标签，凭什么一个看对错，一个看距离？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>标签还是刻度</h2>
+<p>有标签时，先看答案长什么样。答案落在几个固定类别里，是分类；答案是一段可比较的数值，是回归。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="分类与回归，差别在输出">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">分类与回归，差别在输出</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">维度</text><text class="f-t" x="352.0" y="98">分类</text><text class="f-t" x="632.0" y="98">回归</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">要预测什么</text><text class="f-s" x="352.0" y="135.8">这一条属于哪类</text><text class="f-s" x="632.0" y="135.8">这个数值是多少</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">输出形态</text><text class="f-s" x="352.0" y="173.4">离散标签</text><text class="f-s" x="632.0" y="173.4">连续数值</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">常用评价</text><text class="f-s" x="352.0" y="211.0">准确率、召回率</text><text class="f-s" x="632.0" y="211.0">平均误差、R²</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">典型问题</text><text class="f-s" x="352.0" y="248.60000000000002">会不会流失</text><text class="f-s" x="632.0" y="248.60000000000002">会花多少钱</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">常见坑</text><text class="f-s" x="352.0" y="286.2">类别不平衡</text><text class="f-s" x="632.0" y="286.2">极端值拉偏</text><text class="f-s" x="60" y="328.0">输出是标签就用分类的指标，输出是数值就用回归的指标；用错指标，好模型也会被误判。</text>
+</svg><figcaption><b>图 8-19　分类与回归，差别在输出</b>　输出是标签就用分类的指标，输出是数值就用回归的指标；用错指标，好模型也会被误判。</figcaption></figure>
+<p>图里五行对照，最该记住的是第三行：评价方式不同。分类算「判对了几条」，回归算「平均差了多少」。把回归的误差拿去评价分类，等于拿尺子量颜色。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个给标签，一个给刻度">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">一个给标签，一个给刻度</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">分类：输出离散标签</text><text class="f-s" x="80" y="108">· 判定邮件是否为垃圾</text><text class="f-s" x="80" y="138">· 客户会不会流失</text><text class="f-s" x="80" y="168">· 结果只落在几个类里</text><text class="f-s" x="80" y="198">· 评价看混淆矩阵</text><text class="f-s" x="80" y="228">· 类别不平衡要单独处理</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">回归：输出连续数值</text><text class="f-s" x="530" y="108">· 预测下个月的销量</text><text class="f-s" x="530" y="138">· 估计一套房的成交价</text><text class="f-s" x="530" y="168">· 结果是数轴上的一个点</text><text class="f-s" x="530" y="198">· 评价看平均误差</text><text class="f-s" x="530" y="228">· 极端值会明显拉偏</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 8-20　一个给标签，一个给刻度</b>　左边只落在几个类里，右边落在数轴任意位置；输出形态决定评价与用法。</figcaption></figure>
+<p>还有一层：分类可以输出概率。判「流失概率 0.72」，阈值取 0.5 就判流失，取 0.8 就放过。阈值是业务旋钮，不是模型的一部分。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>输出、标签、概率</h2>
+<p><strong>分类</strong>学一个函数，把特征向量映射到 K 个类别之一；训练时每条样本都有类别标签。<strong>回归</strong>学一个函数，把特征向量映射到实数；训练时标签是数值。两者都属于监督学习，区别只在标签的类型。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>看什么</th><th>分类</th><th>回归</th></tr></thead>
+  <tbody>
+    <tr><td>标签</td><td>类别，如续费/不续费</td><td>数值，如 128.4 元</td></tr>
+    <tr><td>输出</td><td>类别或各类概率</td><td>一个实数</td></tr>
+    <tr><td>指标</td><td>准确率、召回率、F1</td><td>MAE、RMSE、R²</td></tr>
+    <tr><td>典型毛病</td><td>类别不平衡</td><td>极端值拉偏</td></tr>
+  </tbody>
+</table>
+</div>
+<p>标签质量有四条检查，缺一条都会让指标失真。<strong>定义</strong>：流失是 30 天未登录，还是主动退订？<strong>口径</strong>：跨渠道的续费算不算？<strong>时点</strong>：标签必须晚于特征，不能把结果混进输入。<strong>噪声</strong>：人工标注的错标率有多高。</p>
+<p>最容易被破坏的是时点。取数时顺手把「退订时间」拉进宽表，模型立刻变得极准，上线后却一文不值，因为这个字段在预测当天根本不存在。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>划分与指标</h2>
+<p>有标签的方法，一半功夫在划分。三个集合各司其职：训练集拟合参数，验证集选模型与阈值，测试集只在最后用一次。</p>
+<p>划分方式跟着业务走。学员按月进来，就按时间切：1 到 8 月训练，9 月验证，10 月测试。随机切会把未来信息漏进训练，指标虚高。分类还要分层抽样，保证每个集合里流失比例都接近 6%。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>time_split.py</span></div>
+<pre><code>def time_split(df, col, train_end, valid_end):
+    train = df[df[col] &lt;= train_end]
+    valid = df[(df[col] &gt; train_end) &amp; (df[col] &lt;= valid_end)]
+    test = df[df[col] &gt; valid_end]
+    return train, valid, test</code></pre>
+</div>
+<p>指标按输出形态选。分类先看混淆矩阵，再算 <code>召回 = TP / (TP + FN)</code> 与 <code>精确 = TP / (TP + FP)</code>；类别不平衡时，准确率会骗人，要补看召回与 PR 曲线。回归看 <code>MAE = 平均(|预测 − 实际|)</code>，它的单位和业务一致，好解释；RMSE 会放大极端值，R² 只说明解释了多大比例的波动。</p>
+<p><strong>易错点：</strong>标准化、填补缺失值在划分之前对全表做。均值里已经含了测试集的信息，这叫泄漏，指标会好看得不像真的。正确顺序是先切分，再在训练集上拟合变换。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>94% 的准确率没用</h2>
+<p>5000 名学员里，下月流失 300 人，占 6%。有个「聪明」的模型：全部判不流失。准确率 94%，但它一个该挽留的人都没找出来。</p>
+<p>换成一张小混淆矩阵（手算示例）：模型判 400 人流失，其中 180 人真流失，220 人误报；另外 120 个真流失被漏掉。<code>精确 = 180 / 400 = 0.45</code>，<code>召回 = 180 / 300 = 0.60</code>。每找回 10 个要走的人，会打扰 12 个不会走的人，这个代价运营能接受，模型才有意义。</p>
+<p>回归那边看另一组数（手算示例）：直接拿历史均值当预测，MAE 是 32 元；模型把 MAE 降到 18 元。但分客单价段看，低额段误差 9 元，高额段误差 47 元——整体指标变好，最该看准的高价值客户反而更差。</p>
+<p>两个例子指向同一件事：指标要跟业务动作对齐——名单看对的人够不够多，预算数看大额客户有没有被系统性低估。</p>
+<p><strong>易错点：</strong>只报一个总体指标。分类至少给混淆矩阵，回归至少给分段误差，否则「变好了」可能只发生在不重要的那一段。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>两题两套指标</h2>
+<p><strong>任务：</strong>为下面两个问题各写输出类型、标签定义、划分方式、主指标与一个必须补看的指标。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>输出</th><th>标签怎么定</th><th>怎么划分</th><th>指标</th></tr></thead>
+  <tbody>
+    <tr><td>这单会不会退货</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这个用户下月消费多少</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 退货率只有 2%，准确率 98% 说明什么？② 用随机划分代替时间划分，指标会偏高还是偏低，为什么？</p>
+<p><strong>验收：</strong>两题输出不混，标签有时点，划分有依据。下一步看没有标签时怎么分组，见 <a href="../m08-data-mining/k8-3-3-clustering.html">聚类：没有标签时按「相似」分组</a>；泄漏的完整清单见 <a href="../m03-ml-basics/u3-3-datasets.html">数据集、特征、标签与三个划分</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-3-3-clustering.html">8.3.3 聚类：没有标签时按「相似」分组</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-3-1-technique-map.html"><span class="p-label">← 上一知识点 8.3.1</span><span class="p-title">技术地图：先问「有没有标签」，再问「要找什么」</span></a><a class="next" href="k8-3-3-clustering.html"><span class="p-label">下一知识点 8.3.3 →</span><span class="p-title">聚类：没有标签时按「相似」分组</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)3 · 分类/回归</dd>
+    <dt>页面编号 / 路径</dt><dd>8.3.2 ｜ <span class="path">pages/m08-data-mining/k8-3-2-classification-regression.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-3-1-technique-map.html"><b>8.3.1</b>技术地图：先问「有没有标签」，再问「要找什么」</a><a class="xlink" href="k8-3-3-clustering.html"><b>8.3.3</b>聚类：没有标签时按「相似」分组</a><a class="xlink" href="k8-3-4-association-rules.html"><b>8.3.4</b>关联规则：从购物篮里找「一起出现」</a><a class="xlink" href="u8-3-dm-techniques.html"><b>8.3</b>数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-3-2（本页图 8-19）、k8-3-2-b（图 8-20）；知识库 M08-S2-01《分类的概念及操作方法》、M08-S2-03《回归分析的概念及操作方法》（filled）。 ｜ 知识库条目：M08-S2-01《分类的概念及操作方法》（filled）、M08-S2-03《回归分析的概念及操作方法》（filled） ｜ 参考来源：混淆矩阵与 P/R/F1 定义见公开评估教材口径；训练/验证/测试划分见模块三 3.3；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

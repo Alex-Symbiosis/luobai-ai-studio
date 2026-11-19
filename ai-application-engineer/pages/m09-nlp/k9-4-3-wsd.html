@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.4.3 词义消歧：一个词，多个意思 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分词项与义项，说明同形异义与多义的差别。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-4-statistical-methods.html">9.4 统计方法：统计解析、机器翻译与词义消歧</a><span class="sep">/</span><span class="here">9.4.3 词义消歧：一个词，多个意思</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.4</span>
+    <span class="tag">知识点 9.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>词义消歧：一个词，多个意思</h1>
+  <p class="lede">同一个「打」，可以是击打、编织、买：词义消歧就是让上下文替它选一个，而不是让词典选。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分词项与义项，说明同形异义与多义的差别。</li><li>能说出上下文窗口的作用与窗口大小的取舍。</li><li>能用词典匹配、监督分类、无监督聚类三条路线各举一例。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一个字的三种命</h2>
+<p>检索系统里搜「打毛衣」，返回一堆「打篮球」的页面。翻译系统把「打毛衣」译成 hit a sweater。语音助手听到「打瓶酱油」，理解成砸瓶子。</p>
+<p>词没有变，变的是它周围那几个词。词典给「打」列了十几个义项，单看这个词，任何一本词典都给不出唯一答案。</p>
+<p class="ask">上下文到底提供了什么？</p>
+<p>提供的是筛选条件：搭配、词性、领域。义项之间的差别，几乎都能在前后几个词里找到线索。「毛衣」一出现，「击打」这个义项基本可以排除。</p>
+<p>这类工作在流水线里不显眼，却卡着两头：词性标注要靠它定介词还是动词，机器翻译要靠它选词，检索要靠它扩同义。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>线索在左右</h2>
+<p>把「打」的三个义项摊开，每个义项都有自己的一套搭档词。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个「打」，三个义项靠上下文定">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">一个「打」，三个义项靠上下文定</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">词</text><text class="f-t" x="282.0" y="98">义项</text><text class="f-t" x="492.0" y="98">上下文线索</text><text class="f-t" x="702.0" y="98">例子</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">打</text><text class="f-s" x="282.0" y="139.0">击打</text><text class="f-s" x="492.0" y="139.0">手 + 身体部位</text><text class="f-s" x="702.0" y="139.0">打 了他一拳</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">打</text><text class="f-s" x="282.0" y="183.0">球类运动</text><text class="f-s" x="492.0" y="183.0">场地 + 比分</text><text class="f-s" x="702.0" y="183.0">打 了一场球</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">打</text><text class="f-s" x="282.0" y="227.0">乘坐</text><text class="f-s" x="492.0" y="227.0">交通工具</text><text class="f-s" x="702.0" y="227.0">打 车 回家</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">打</text><text class="f-s" x="282.0" y="271.0">编织</text><text class="f-s" x="492.0" y="271.0">毛线 + 衣物</text><text class="f-s" x="702.0" y="271.0">打 了件毛衣</text><text class="f-s" x="60" y="316">义项由搭配和语境筛出来；单看这个词，任何词典都给不出唯一答案。</text>
+</svg><figcaption><b>图 9-20　一个「打」，三个义项靠上下文定</b>　义项由搭配和语境筛出来；单看这个词，任何词典都给不出唯一答案。</figcaption></figure>
+<p>图里三行：击打配有「手、身体部位」，编织配有「毛线、衣物」，购买配有「瓶、酱油」。线索词出现，义项范围就缩到一行。</p>
+<p>上下文窗口就是往两边看多远。窗口太小，只看前后各一个词，抓不到「打」和「毛衣」之间隔着的量词；窗口太大，把整段都算进来，无关话题的词会干扰判断。前后各 5 个词是常见起点。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>消歧不是查词典，是用上下文做筛选。词汇知识提供候选，语境负责排除；两者缺一，剩下的就是猜。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>词项与义项</h2>
+<p><strong>词项</strong>是拼写形式，<code>打</code> 就是一个词项；<strong>义项</strong>是它的一种意思，编号后进词典或词网。一个词项对应多个义项，叫多义；拼写相同而来源无关的，叫同形异义，例如 bank 的「河岸」与「银行」。</p>
+<p><strong>词义消歧（WSD）：</strong>给定句子中的词 w 与一个义项清单，输出 w 在该上下文中的义项编号。输入是词、句子、义项清单，输出是一个编号。</p>
+<p>三类做法，区别在知识从哪来：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>路线</th><th>依据</th><th>要什么</th><th>短板</th></tr></thead>
+  <tbody>
+    <tr><td>词典匹配</td><td>上下文与释义的词重叠</td><td>词典释义，无需标注</td><td>释义短，重叠稀疏</td></tr>
+    <tr><td>监督分类</td><td>搭配词、词性、位置等特征</td><td>每个义项的标注样本</td><td>标注贵，义项多则不足</td></tr>
+    <tr><td>无监督聚类</td><td>上下文向量的相似度</td><td>生语料</td><td>簇义要人工命名</td></tr>
+  </tbody>
+</table>
+</div>
+<p>还有一个上限要记住：人工标注者彼此的一致率本身只有 0.8 上下，系统做到 0.7 已经接近可用。追求 0.95 的目标本身就不成立。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先重叠，再分类</h2>
+<p>最省事的路线是词典匹配，也叫 Lesk：把上下文里的词与每个义项释义里的词求交集，谁重叠得多选谁。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>lesk.py</span></div>
+<pre><code>def lesk(context, glosses):
+    &quot;&quot;&quot;glosses: 义项 -&gt; 释义关键词集合&quot;&quot;&quot;
+    ctx = set(context)
+    best, best_n = None, 0
+    for sense, gloss in glosses.items():
+        n = len(ctx &amp; set(gloss))
+        if n &gt; best_n:                 # 严格大于：平局保留先出现的义项
+            best, best_n = sense, n
+    return best, best_n</code></pre>
+</div>
+<p>三行就写完了。它的毛病也来自简单：释义通常只有五六个词，上下文里能对上的更少，多数句子是「零重叠」；这时只能退回词频最高的义项，等于没消歧。</p>
+<p>监督分类把这个问题变成标准的文本分类。特征三组：搭配词（「毛衣」在窗口里）、词性（前面是量词还是副词）、句法位置（宾语还是谓语）。每个义项当一类，训练一个分类器，输出概率最高的义项。</p>
+<p>无监督聚类不要标注：把每个出现的「打」表示成一个上下文向量，聚成几簇，再人工给簇贴义项名。它省了标注，代价是簇的边界不稳，换一批语料簇就变。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>数重叠词</h2>
+<p>把释义简化成关键词集合：击打 {手, 拳, 球, 门}，编织 {毛线, 毛衣, 针, 件}，购买 {买, 瓶, 酱油, 超市}。</p>
+<p>句子「他 打 了 一件 毛衣」，窗口内除「打」以外的词是 {他, 了, 一件, 毛衣}。与三个释义的交集大小分别是 0、1、0，选编织，重叠数是 1。</p>
+<p>换成「他 打 了 一瓶 酱油」，交集大小变成 0、0、2，选购买。两次判断都只靠一两个词，这就是窗口的价值，也是它的脆弱。</p>
+<p>把句子换成「他 打 折 买 了 一件 毛衣」，窗口里同时出现「买」和「毛衣」，购买与编织各得 1 分。平局时 Lesk 按遍历顺序取第一个，结果取决于词典怎么排——这不是语言判断，是实现细节。</p>
+<div class="callout callout--warn">
+  <span class="c-label">最常见的误读</span>
+  <p>以为消歧结果可以脱离义项清单。同一个词在不同词典里义项划得不一样，颗粒度一变，标注和评测就全变。换清单等于换任务，指标不能直接比。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给六个「打」定案</h2>
+<p><strong>任务：</strong>写 6 句含「打」的句子，覆盖至少三个义项，按上面的三步手工跑一遍 Lesk，记下每句的重叠数与判定；再标出哪几句零重叠。</p>
+<p><strong>追问：</strong>① 窗口取前后 1 个词和取 5 个词，判定会差在哪句？② 零重叠时该退回什么策略，风险是什么？③ 监督分类的特征里，为什么词性比词本身更稳？</p>
+<p><strong>验收：</strong>能说清词项与义项的区别；能写出一次重叠计数并说明平局怎么处理；能说出三条路线各自需要什么资源。语义关系怎么组织，见 <a href="../m09-nlp/k9-6-2-wordnet.html">WordNet：同义集与语义网络</a>；翻译里怎么用上义项，见 <a href="../m09-nlp/k9-4-2-smt.html">统计机器翻译</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-4-4-metrics.html">9.4.4 评价指标：BLEU 与解析准确率</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-4-2-smt.html"><span class="p-label">← 上一知识点 9.4.2</span><span class="p-title">统计机器翻译：从词对齐到解码</span></a><a class="next" href="k9-4-4-metrics.html"><span class="p-label">下一知识点 9.4.4 →</span><span class="p-title">评价指标：BLEU 与解析准确率</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)4 · 词义消歧的概念及操作方法</dd>
+    <dt>页面编号 / 路径</dt><dd>9.4.3 ｜ <span class="path">pages/m09-nlp/k9-4-3-wsd.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-4-4-metrics.html"><b>9.4.4</b>评价指标：BLEU 与解析准确率</a><a class="xlink" href="k9-4-2-smt.html"><b>9.4.2</b>统计机器翻译：从词对齐到解码</a><a class="xlink" href="u9-4-statistical-methods.html"><b>9.4</b>统计方法：统计解析、机器翻译与词义消歧（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-4-3（本页图 9-20）；知识库 M09-S4-03《词义消歧的概念及操作方法》（filled）。 ｜ 知识库条目：M09-S4-03《词义消歧的概念及操作方法》（filled） ｜ 参考来源：Jurafsky & Martin《Speech and Language Processing》第 18 章；Lesk《Automatic Sense Disambiguation Using Machine Readable Dictionaries》（1986）；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

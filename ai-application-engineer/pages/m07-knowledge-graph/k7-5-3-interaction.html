@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.5.3 语义搜索的交互范式：从链接列表到答案加依据 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出三代搜索交互各自返回什么、用户要做什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-5-semantic-qa.html">7.5 语义搜索与知识问答</a><span class="sep">/</span><span class="here">7.5.3 语义搜索的交互范式：从链接列表到答案加依据</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.5</span>
+    <span class="tag">知识点 7.5.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>语义搜索的交互范式：从链接列表到答案加依据</h1>
+  <p class="lede">搜索界面变了三代：给链接、给卡片、给答案。第三代真正的新东西不是答案，是答案旁边那行依据。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出三代搜索交互各自返回什么、用户要做什么。</li><li>能列出答案型交互必须带的四类依据信息。</li><li>能判断一个问答界面缺了哪一环，并补出依据字段。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>从搜到问</h2>
+<p>同一个需求，用户在两代界面里的动作完全不同。</p>
+<p>第一代：输入「星海科技 收购」，得到十条蓝色链接，逐条点开，自己判断哪条在说收购方。第二代：得到一张公司卡，卡片上列着「收购 3 家」「投资 1 家」，点开还能看关系列表。第三代：直接看到一句「星海科技收购了云图数据」，下面一行小字写着依据，点开能看到这条关系来自哪份公告。</p>
+<p>动作从「找」变成「核」。这个转变要求系统把自己怎么得出结论的，一并交出来。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>交互三代</h2>
+<p>三代不是替代关系，今天三种界面同时存在，只是适用的问句不同。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="搜索交互的三代变化">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="28">搜索交互的三代变化</text><path class="f-ar" d="M60 200 L900 200" marker-end="url(#ah)"/><circle class="f-dot" cx="90.0" cy="200" r="5"/><path class="f-ax" d="M90.0 195 L90.0 160"/><text class="f-t" x="90.0" y="146" text-anchor="middle">链接列表</text><text class="f-s" x="90.0" y="130" text-anchor="middle">关键词 → 十条链接</text><text class="f-s" x="90.0" y="220" text-anchor="middle">第一代</text><circle class="f-dot" cx="495.0" cy="200" r="5"/><path class="f-ax" d="M495.0 205 L495.0 240"/><text class="f-t" x="495.0" y="258" text-anchor="middle">结果卡</text><text class="f-s" x="495.0" y="274" text-anchor="middle">实体卡与图谱卡</text><text class="f-s" x="495.0" y="194" text-anchor="middle">第二代</text><circle class="f-dot" cx="900.0" cy="200" r="5"/><path class="f-ax" d="M900.0 195 L900.0 160"/><text class="f-t" x="900.0" y="146" text-anchor="middle">答案 + 依据</text><text class="f-s" x="900.0" y="130" text-anchor="middle">结论、来源、追问</text><text class="f-s" x="900.0" y="220" text-anchor="middle">第三代</text><text class="f-s" x="60" y="330">交互在往「少让人找、多给人依据」的方向走，但依据永远不能省。</text>
+</svg><figcaption><b>图 7-26　搜索交互的三代变化</b>　链接列表、结果卡、答案加依据，用户动作从筛选变成核对。</figcaption></figure>
+<p>读这张时间线，注意每一代新增的东西：第一代新增的是排序，第二代新增的是结构，第三代新增的是<strong>依据与追问</strong>。排序和结构都能靠工程堆出来，依据不能——它要求底层每条事实都可追溯。</p>
+<div class="callout callout--def">
+  <span class="c-label">范式变化的实质</span>
+  <p>从「把候选交给用户」变成「把结论和证据一起交给用户」。省下的是筛选时间，付出的是系统自证的成本。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>什么叫依据</h2>
+<p><strong>链接列表：</strong>关键词匹配后按相关度排序，返回十条链接与摘要，正确性由用户判断。</p>
+<p><strong>结果卡：</strong>识别出实体后，把结构化字段摊开——名称、行业、所在地、关联公司，配一个关系列表。用户仍在读，但读的是字段而不是整篇文档。</p>
+<p><strong>答案加依据：</strong>给出一句结论，同时给出四类信息：<strong>来源</strong>（哪条边、哪段文档、哪张表）、<strong>路径</strong>（几跳、经过谁）、<strong>时间</strong>（事实有效期与版本）、<strong>口径</strong>（这条边在 schema 里的定义）。缺一类，答案就只能信一半。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>依据四件套</h2>
+<p>四类依据各有用途，不能互相替代。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>依据</th><th>回答的疑问</th><th>缺失后果</th></tr></thead>
+  <tbody>
+    <tr><td>来源</td><td>这条事实从哪来</td><td>无法核对，只能信</td></tr>
+    <tr><td>路径</td><td>结论怎么推出来的</td><td>多跳答案像凭空出现</td></tr>
+    <tr><td>时间</td><td>什么时候成立</td><td>旧结论被当成现状</td></tr>
+    <tr><td>口径</td><td>「收购」算不算控股</td><td>统计口径对不上</td></tr>
+  </tbody>
+</table>
+</div>
+<p>追问是第三代界面的另一半。用户问「那它在上海的呢」，系统要保留上一轮的实体锚点，把「它」解析到刚查的公司，再把新约束加到原查询上。锚点一丢，追问就退化成重新搜索。</p>
+<p>一条经验值：答案区最多放一句结论加三条依据，再多就退回结果卡。依据不是越多越好，是要让人能在几秒内核对完。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一次追问</h2>
+<p>三代界面对同一需求的实际呈现：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>代际</th><th>用户看到</th><th>下一步动作</th></tr></thead>
+  <tbody>
+    <tr><td>链接列表</td><td>10 条链接与摘要</td><td>逐条点开，读三段以上</td></tr>
+    <tr><td>结果卡</td><td>1 张公司卡，6 个字段</td><td>看关系列表，再点其中一条</td></tr>
+    <tr><td>答案加依据</td><td>1 句答案 + 2 条依据</td><td>核对来源，或直接追问</td></tr>
+  </tbody>
+</table>
+</div>
+<p>信任成本在往下走，但责任在上移。链接列表里判断错了是用户的事；答案型界面里给错了是系统的事，所以依据必须默认展示，而不是藏在「更多」里。</p>
+<div class="callout callout--warn">
+  <span class="c-label">三种常见缺陷</span>
+  <p>只给答案不给依据；依据只写文档名不写段落；置信度写成 0.87 却不说这个数怎么算的。前两种让用户无法核对，第三种让用户误以为它是概率。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>补上依据</h2>
+<p><strong>任务：</strong>下面三个界面描述，判断属于第几代，并指出缺的那一环。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>界面描述</th><th>代际</th><th>缺什么</th></tr></thead>
+  <tbody>
+    <tr><td>输入公司名，返回十条新闻标题</td><td>？</td><td>？</td></tr>
+    <tr><td>返回一张卡，列出收购方与被收购方</td><td>？</td><td>？</td></tr>
+    <tr><td>返回一句结论，标注「来自 2024 年公告」</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 第三例还缺哪三类依据？② 追问「那北京的呢」需要保留什么？③ 为什么依据不能折叠到二级菜单？</p>
+<p><strong>验收：</strong>每题都能补出至少两个依据字段。答案怎么生成，见 <a href="../m07-knowledge-graph/k7-5-4-qa-elements.html">知识问答的基本要素</a>；语义匹配的前提，见 <a href="../m07-knowledge-graph/k7-5-1-semantic-vs-keyword.html">语义搜索与关键词搜索</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-5-4-qa-elements.html">7.5.4 知识问答的基本要素与分类体系</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-5-2-query-languages.html"><span class="p-label">← 上一知识点 7.5.2</span><span class="p-title">结构化查询语言：SPARQL、Cypher 与 SQL</span></a><a class="next" href="k7-5-4-qa-elements.html"><span class="p-label">下一知识点 7.5.4 →</span><span class="p-title">知识问答的基本要素与分类体系</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)23 · 语义搜索的交互范式</dd>
+    <dt>页面编号 / 路径</dt><dd>7.5.3 ｜ <span class="path">pages/m07-knowledge-graph/k7-5-3-interaction.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-5-1-semantic-vs-keyword.html"><b>7.5.1</b>语义搜索 vs 关键词搜索：从字面命中到意思对齐</a><a class="xlink" href="k7-5-4-qa-elements.html"><b>7.5.4</b>知识问答的基本要素与分类体系</a><a class="xlink" href="u7-5-semantic-qa.html"><b>7.5</b>语义搜索与知识问答（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-5-3（本页图 7-26）；知识库 M09-S7-03（跨模块复用，filled）。 ｜ 知识库条目：M09-S7-03《语义搜索的交互范式》（filled） ｜ 参考来源：W3C RDF 1.1 规范；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.3.5 神经网络与 Web 挖掘：两类「非表格」方法 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清神经网络的输入张量形状，以及 Web 挖掘里节点与边分别是什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-3-dm-techniques.html">8.3 数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析</a><span class="sep">/</span><span class="here">8.3.5 神经网络与 Web 挖掘：两类「非表格」方法</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.3</span>
+    <span class="tag">知识点 8.3.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>神经网络与 Web 挖掘：两类「非表格」方法</h1>
+  <p class="lede">一边是定长张量，一边是不定形的链接图。输入形状不同，代价也不同：一个要样本与算力，一个要抓取与解析。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清神经网络的输入张量形状，以及 Web 挖掘里节点与边分别是什么。</li><li>能列出特征自动化的四项代价，并解释小样本下指标为何不稳。</li><li>能为一个非表格任务写出输入定义、评价指标与一条质量控制动作。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两件放不进表格的事</h2>
+<p>同一天进来两个需求。质检部门要在产线上加摄像头，用照片判断产品有没有划痕；市场部要盯 200 个竞品站点，看它们最近在推什么、哪些页面被大量引用。</p>
+<p>两件事都塞不进一张宽表。照片的一行是 1280 × 1024 个像素，网页的一行是长度不定的正文加一串超链接；硬摊平也能算，但位置与链接关系全丢了。</p>
+<p>表格假设「每列一个含义、每行一个样本」；图片没有列，网页之间还有指向关系。输入形状变了，方法就得换。</p>
+<p class="ask">同样是「非表格」，为什么一个用神经网络，一个用图上的方法？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>张量还是图</h2>
+<p>先看输入长什么样，方法跟着输入走。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="两类非表格方法，输入先不同">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">两类非表格方法，输入先不同</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">神经网络</text><text class="f-s" x="80" y="108">· 输入是张量：定长、有序</text><text class="f-s" x="80" y="138">· 擅长从原始信号里学特征</text><text class="f-s" x="80" y="168">· 需要较多样本与算力</text><text class="f-s" x="80" y="198">· 输出可分类也可回归</text><text class="f-s" x="80" y="228">· 可解释性偏弱</text><rect class="f-amber" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">Web 挖掘</text><text class="f-s" x="530" y="108">· 输入是网页与链接图</text><text class="f-s" x="530" y="138">· 结构由超链接天然给出</text><text class="f-s" x="530" y="168">· 依赖抓取与解析的质量</text><text class="f-s" x="530" y="198">· 输出网页、社区与路径模式</text><text class="f-s" x="530" y="228">· 要处理噪声与页面变化</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 8-25　两类非表格方法，输入先不同</b>　神经网络吃定长张量，Web 挖掘吃网页与链接图；输入形态决定预处理与评价方式。</figcaption></figure>
+<p>神经网络那一栏，输入是一摞排好的数字，形状固定：批大小 × 高 × 宽 × 通道。换一张图片，形状不变，只是数字变了，所以能批量送进同一组参数里算。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同样是「非表格」，一个拼张量，一个走图">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="26">同样是「非表格」，一个拼张量，一个走图</text><rect class="f-b" x="60" y="46" width="400" height="248" rx="12"/><text class="f-t" x="80" y="74">神经网络：输入是定长张量</text><rect class="f-b3" x="96" y="92" width="52" height="30" rx="4"/><text class="f-sc" x="122" y="112">3</text><rect class="f-b3" x="158" y="92" width="52" height="30" rx="4"/><text class="f-sc" x="184" y="112">7</text><rect class="f-b3" x="220" y="92" width="52" height="30" rx="4"/><text class="f-sc" x="246" y="112">1</text><rect class="f-b3" x="282" y="92" width="52" height="30" rx="4"/><text class="f-sc" x="308" y="112">9</text><rect class="f-b3" x="96" y="132" width="52" height="30" rx="4"/><text class="f-sc" x="122" y="152">2</text><rect class="f-b3" x="158" y="132" width="52" height="30" rx="4"/><text class="f-sc" x="184" y="152">8</text><rect class="f-b3" x="220" y="132" width="52" height="30" rx="4"/><text class="f-sc" x="246" y="152">5</text><rect class="f-b3" x="282" y="132" width="52" height="30" rx="4"/><text class="f-sc" x="308" y="152">4</text><rect class="f-b3" x="96" y="172" width="52" height="30" rx="4"/><text class="f-sc" x="122" y="192">6</text><rect class="f-b3" x="158" y="172" width="52" height="30" rx="4"/><text class="f-sc" x="184" y="192">0</text><rect class="f-b3" x="220" y="172" width="52" height="30" rx="4"/><text class="f-sc" x="246" y="192">3</text><rect class="f-b3" x="282" y="172" width="52" height="30" rx="4"/><text class="f-sc" x="308" y="192">7</text><text class="f-s" x="80" y="234">行列位置固定：换一张图，形状不变</text><text class="f-s" x="80" y="258">适合把信号摊平成向量再学</text><text class="f-s" x="80" y="282">样本不足时容易过拟合</text><path class="f-dash" d="M480 66 L480 282"/><rect class="f-b2" x="500" y="46" width="400" height="248" rx="12"/><text class="f-t" x="520" y="74">Web 挖掘：输入是图</text><path class="f-ar" d="M560 120 L635 96"/><path class="f-ar" d="M560 120 L600 190"/><path class="f-ar" d="M635 96 L668 156"/><path class="f-ar" d="M668 156 L600 190"/><path class="f-ar" d="M668 156 L762 168"/><path class="f-ar" d="M600 190 L700 216"/><path class="f-ar" d="M700 216 L762 168"/><path class="f-ar" d="M762 168 L800 110"/><circle cx="560" cy="120" r="10" fill="#2f6fd0" opacity="0.8"/><circle cx="635" cy="96" r="10" fill="#2f6fd0" opacity="0.8"/><circle cx="668" cy="156" r="10" fill="#2f6fd0" opacity="0.8"/><circle cx="600" cy="190" r="10" fill="#2f6fd0" opacity="0.8"/><circle cx="700" cy="216" r="10" fill="#2f6fd0" opacity="0.8"/><circle cx="762" cy="168" r="10" fill="#2f6fd0" opacity="0.8"/><circle cx="800" cy="110" r="10" fill="#2f6fd0" opacity="0.8"/><text class="f-s" x="520" y="254">节点数不固定：每个网页是一个节点</text><text class="f-s" x="520" y="278">边就是超链接，结构本身就是信息</text><text class="f-s" x="40" y="330">先看输入长什么样：定长的摊成张量，连着的按图处理。</text>
+</svg><figcaption><b>图 8-26　同样是「非表格」，一个拼张量，一个走图</b>　定长的摊成张量，连着的按图处理；图的结构本身就是可用特征。</figcaption></figure>
+<p>Web 挖掘那一栏，输入是节点和边：一个网页一个节点，一条超链接一条边。节点数每个站点都不同，还可能随时间增减，所以不能拼成固定形状的矩阵，只能用邻接表这类结构来存。</p>
+<div class="callout callout--def">
+  <span class="c-label">一句记住</span>
+  <p>张量保留「位置」，图保留「关系」。哪个信息对任务有用，就选哪种输入。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>张量、层与链接图</h2>
+<p><strong>神经网络</strong>由层堆成。每层做一次加权求和加非线性变换，参数在训练中通过反向传播更新。输入张量的形状写成 <code>(N, H, W, C)</code>：N 是批大小，H、W 是高宽，C 是通道数。</p>
+<p><strong>特征自动化</strong>指网络自己从原始信号里学出中间表示，不必由人先定义「边缘」「角点」。这不是免费：它把人工特征工程的工作，换成了样本、算力与调参。</p>
+<p><strong>Web 挖掘</strong>处理网页集合与链接关系，通常分三类：内容挖掘看正文与主题，结构挖掘看链接图与社区，使用挖掘看点击流与访问日志。它最常用的「特征」不是某一列数值，而是节点在图里的位置：入度、出度、中心性、所属社区。</p>
+<p>两者按输入形态单列，标签可有可无。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>自动化与抓取的代价</h2>
+<p>神经网络的流程：定输入形状 → 归一化 → 搭层 → 选损失 → 优化 → 验证 → 部署监控。每一步都有代价。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>代价</th><th>具体表现</th><th>缓解办法</th></tr></thead>
+  <tbody>
+    <tr><td>样本</td><td>缺陷样本稀少，几轮就学完</td><td>数据增广、迁移学习</td></tr>
+    <tr><td>算力</td><td>每轮前向反向都要过全部参数</td><td>缩小输入、冻结底层</td></tr>
+    <tr><td>调参</td><td>学习率、正则、增广互相牵制</td><td>固定验证集、小步试验</td></tr>
+    <tr><td>可解释</td><td>热力图只是线索，不是证据</td><td>与规则并行、人工复核</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Web 挖掘的流程：抓取 → 解析 → 去重 → 建图 → 算指标 → 抽样核查。抓取要守 robots 与频次；解析要跟模板变化；建图后算入度、中心性或社区；最后一定抽样人工看，因为改版会让解析静默失败。</p>
+<p><strong>易错点：</strong>把「自动学到特征」当成「不用管特征」。输入归一化、尺寸裁剪、通道顺序，任何一项不一致，训练和推理的结果就对不上。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>六十张缺陷图的账</h2>
+<p>先算一笔样本账（算术推演，不是运行结果）。产线一年能收集 2000 张质检图，缺陷率 3%，正样本只有 60 张。按 8:1:1 划分，验证集 200 张里只有 6 张缺陷。</p>
+<p>6 张的验证集意味着：一次误判就让召回率跳动约 16.7 个百分点。指标不是「不稳定」，是根本没法定量。这时先做的不是换更大的网络，而是补样本、做增广，或者把任务改成「先筛可疑，再人工判」。</p>
+<p>Web 这边也是一笔账。200 个站点、平均 80 页，约 16000 个页面；去重后剩 12000，重复率 25%；其中约 3000 页没有正文（列表页、登录墙），可用率不到六成。分母不清楚，谈「覆盖了 90% 的竞品动态」就没有依据。</p>
+<p>再往下一层，图指标也有陷阱。PageRank 依赖全图，增量抓取只更新部分节点时排名会漂移。做法是固定快照、整图重算，再对比两次快照的名次，而不是拿今天的分数和上个月直接比。</p>
+<p>两件事的共同点：先把输入质量说清楚，再谈模型分数。张量那边看类别够不够，图那边看节点全不全。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写清输入与分母</h2>
+<p><strong>任务：</strong>为两个任务各写输入定义、输出、主指标与一条质量控制动作。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>输入</th><th>输出</th><th>主指标</th><th>质控动作</th></tr></thead>
+  <tbody>
+    <tr><td>焊缝缺陷检测</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>竞品专题聚合</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 焊缝任务里正样本只有 60 张，先补数据还是先换模型？② 竞品聚合的「覆盖率」分母该是站点数还是页面数？</p>
+<p><strong>验收：</strong>输入写到形状或节点边，指标有分母，质控动作可执行。下一步看先画像再找偏差，见 <a href="../m08-data-mining/k8-3-6-profiling-deviation.html">特征分析与偏差分析：先看「长什么样」，再找「哪里不对」</a>；卷积与池化的推导见 <a href="../m06-neural-nets/u6-8-cnn.html">卷积神经网络</a>，张量形状与计算图见 <a href="../m10-tensorflow/u10-2-graph-tensor.html">计算图、张量、会话与变量</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-3-6-profiling-deviation.html">8.3.6 特征分析与偏差分析：先看「长什么样」，再找「哪里不对」</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-3-4-association-rules.html"><span class="p-label">← 上一知识点 8.3.4</span><span class="p-title">关联规则：从购物篮里找「一起出现」</span></a><a class="next" href="k8-3-6-profiling-deviation.html"><span class="p-label">下一知识点 8.3.6 →</span><span class="p-title">特征分析与偏差分析：先看「长什么样」，再找「哪里不对」</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)3 · 神经网络/Web 挖掘</dd>
+    <dt>页面编号 / 路径</dt><dd>8.3.5 ｜ <span class="path">pages/m08-data-mining/k8-3-5-nn-web-mining.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-3-4-association-rules.html"><b>8.3.4</b>关联规则：从购物篮里找「一起出现」</a><a class="xlink" href="k8-3-6-profiling-deviation.html"><b>8.3.6</b>特征分析与偏差分析：先看「长什么样」，再找「哪里不对」</a><a class="xlink" href="k8-3-1-technique-map.html"><b>8.3.1</b>技术地图：先问「有没有标签」，再问「要找什么」</a><a class="xlink" href="u8-3-dm-techniques.html"><b>8.3</b>数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-3-5（本页图 8-25）、k8-3-5-b（图 8-26）；知识库 M08-S2-05《神经网络的操作方法》、M08-S2-06《Web 数据挖掘的操作方法》（filled）。 ｜ 知识库条目：M08-S2-05《神经网络的操作方法》（filled）、M08-S2-06《Web 数据挖掘的操作方法》（filled） ｜ 参考来源：CNN 输入张量约定见模块六 6.8；PageRank 原始文献 Page et al.（1998）；样本账为算术推演；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

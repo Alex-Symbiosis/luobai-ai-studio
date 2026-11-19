@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.3.2 特征提取：词袋与 n-gram · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把文档转成词袋向量，并说出维度由什么决定。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-3-classification.html">11.3 文本分类与信息提取</a><span class="sep">/</span><span class="here">11.3.2 特征提取：词袋与 n-gram</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.3</span>
+    <span class="tag">知识点 11.3.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>特征提取：词袋与 n-gram</h1>
+  <p class="lede">模型只认数字，不认句子。把文本变成向量这一步，决定了模型能看见什么：词袋看见词频，看不见语序；n-gram 补回一点局部顺序，代价是维度迅速膨胀。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把文档转成词袋向量，并说出维度由什么决定。</li><li>能解释 unigram 与 bigram 在否定句上的差异。</li><li>能判断什么时候该加 n-gram、什么时候该做特征筛选。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同样两个词，顺序相反</h2>
+<p>两句话词完全相同，只是顺序不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">句子 A</span><h3>not bad</h3><p>词袋里是 <code>not:1, bad:1</code>；模型看到两个词都出现。</p></div>
+  <div class="card mini"><span class="mini-tag">句子 B</span><h3>bad not</h3><p>词袋向量与 A 完全一样；但语义已经不通，情感也可能相反。</p></div>
+</div>
+<p class="ask">如果向量一样，模型凭什么区分这两句？</p>
+<p>凭不了。词袋主动丢掉了顺序，要补回来，只能把相邻词也当成特征。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>购物清单与购物顺序</h2>
+<p>超市小票只统计「买了什么、各几个」，不记录先拿牛奶还是先拿面包；想知道「牛奶配面包」这种搭配，得看相邻项。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="词袋丢顺序，n-gram 补一点">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">词袋丢顺序，n-gram 补一点</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">词袋（unigram）</text><text class="f-s" x="80" y="108">· 每个词一个维度，出现即计数</text><text class="f-s" x="80" y="138">· 维度 = 词表大小</text><text class="f-s" x="80" y="168">· 「不 是 垃圾」与「是 垃圾」难分</text><text class="f-s" x="80" y="198">· 优点：稀疏、快、可解释</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">词袋 + bigram</text><text class="f-s" x="530" y="108">· 相邻两词也作为一个维度</text><text class="f-s" x="530" y="138">· 维度增长快，需设最小频次</text><text class="f-s" x="530" y="168">· 能区分否定与固定搭配</text><text class="f-s" x="530" y="198">· 优点：补回局部顺序</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 11-10　词袋丢顺序，n-gram 补一点</b>　左边每篇文档是一行词频，右边把相邻两词也作为一个维度；维度增长但局部顺序被保留。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>词袋回答「出现了什么」，n-gram 回答「谁跟在谁后面」；两者都是计数，不是理解。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三种表示，三个维度</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>表示</th><th>每个维度</th><th>维度规模</th><th>保留的信息</th></tr></thead>
+  <tbody>
+    <tr><td>词袋（unigram）</td><td>一个词的出现次数</td><td>词表大小</td><td>词频，不含顺序</td></tr>
+    <tr><td>bigram</td><td>一个相邻词对的次数</td><td>可达词表的平方级</td><td>局部顺序与搭配</td></tr>
+    <tr><td>TF-IDF</td><td>词频 × 逆文档频率</td><td>同词袋</td><td>词对文档的区分度</td></tr>
+  </tbody>
+</table>
+</div>
+<p>维度不是免费的：词表一万维时，bigram 的理论空间是一亿；实际靠最小频次与停用词过滤，才能压到可用规模。文本分类里，特征选择（卡方、互信息）常比换分类器更影响结果。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>先划分训练/测试，再在训练集上建词表。用全量数据建词表，测试集的词会泄漏进特征空间，指标虚高。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两种向量并排算</h2>
+<p>下面这段只依赖标准库，把两篇短文档同时表示成 unigram 与 bigram：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>features.py</span></div>
+<pre><code>import re
+from collections import Counter
+
+docs = {&quot;d1&quot;: &quot;good great great&quot;, &quot;d2&quot;: &quot;great bad&quot;}
+
+
+def feats(text: str):
+    words = re.findall(r&quot;[a-z]+&quot;, text.lower())
+    uni = Counter(words)
+    bi = Counter(zip(words, words[1:]))
+    return dict(uni), {&quot; &quot;.join(k): v for k, v in bi.items()}
+
+
+for name, text in docs.items():
+    u, b = feats(text)
+    print(name, &quot;unigram:&quot;, u)
+    print(name, &quot;bigram:&quot;, b)
+print(&quot;词表:&quot;, sorted({w for t in docs.values() for w in re.findall(r&quot;[a-z]+&quot;, t)}))</code></pre>
+</div>
+<p><code>zip(words, words[1:])</code> 是生成相邻词对的惯用写法：两个序列错一位对齐，长度自动变成 <code>n-1</code>。词对用空格连接成字符串，才能作为字典键与列名。</p>
+<p>真实工程里不会手写这一层：scikit-learn 的 <code>CountVectorizer</code> 与 <code>TfidfVectorizer</code> 已封装词表、切分与稀疏矩阵，见<a href="../m04-stat-models/index.html">模块四 · scikit-learn</a>。这里手写一次，是为了看清向量到底由什么构成。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>运行结果为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>d1 unigram: {&#x27;good&#x27;: 1, &#x27;great&#x27;: 2}
+d1 bigram: {&#x27;good great&#x27;: 1, &#x27;great great&#x27;: 1}
+d2 unigram: {&#x27;great&#x27;: 1, &#x27;bad&#x27;: 1}
+d2 bigram: {&#x27;great bad&#x27;: 1}
+词表: [&#x27;bad&#x27;, &#x27;good&#x27;, &#x27;great&#x27;]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>词表只有 3 维</h3><p>两篇文档合起来三个词型；若按词表对齐，每篇都是一个 3 维向量。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>bigram 多出一维</h3><p>d1 有 3 个词，产生 2 个词对；其中 <code>great great</code> 是重复出现的搭配。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>d1 的 great 计 2 次</h3><p>词袋保留频次；如果只做 0/1 表示，就变成「出现与否」，这是另一种口径。</p></div>
+</div>
+<p>注意 d2 的 <code>great bad</code> 与 d1 的 <code>good great</code> 是两个不同维度；文档一多，bigram 维度会迅速超过 unigram。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>加一篇文档，先算维度</h2>
+<p><strong>任务：</strong>加入 <code>"d3": "bad bad good"</code>，回答下面四问后再运行核对。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>你的答案</th><th>核对点</th></tr></thead>
+  <tbody>
+    <tr><td>unigram 词表几维</td><td></td><td>是否仍为 3</td></tr>
+    <tr><td>bigram 共有几个不同词对</td><td></td><td>跨文档去重后计数</td></tr>
+    <tr><td>d3 的 bigram</td><td></td><td>是否含 <code>bad bad</code></td></tr>
+    <tr><td>哪个词对只出现一次</td><td></td><td>区分频次与种类</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果把文本换成中文且不先分词，<code>[a-z]+</code> 会得到什么？② 为什么 bigram 常要配最小频次阈值？</p>
+<p><strong>验收：</strong>能算出维度变化，并说明「顺序信息是用维度换来的」。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-3-3-naive-bayes-demo.html">11.3.3 训练朴素贝叶斯分类器</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-3-1-classification-task.html"><span class="p-label">← 上一知识点 11.3.1</span><span class="p-title">分类任务与标注词汇</span></a><a class="next" href="k11-3-3-naive-bayes-demo.html"><span class="p-label">下一知识点 11.3.3 →</span><span class="p-title">训练朴素贝叶斯分类器</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)3① · 特征表示</dd>
+    <dt>页面编号 / 路径</dt><dd>11.3.2 ｜ <span class="path">pages/m11-python/k11-3-2-bag-of-words.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-2-2-token-type.html"><b>11.2.2</b>token 与 type：词频统计的两个口径</a><a class="xlink" href="k11-3-3-naive-bayes-demo.html"><b>11.3.3</b>训练朴素贝叶斯分类器</a><a class="xlink" href="k11-3-4-error-analysis.html"><b>11.3.4</b>准确率、混淆矩阵与误差分析</a><a class="xlink" href="u11-3-classification.html"><b>11.3</b>文本分类与信息提取（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-3-2（本页图 11-10）；知识库 M11-S3-01、M11-S3-02；输出为本机实测。 ｜ 知识库条目：M11-S3-01《分类和标注词汇》（filled）、M11-S3-02《学习分类文本》（filled） ｜ 参考来源：S137 NLTK 教材；S118 Jurafsky & Martin；S120《The Python Tutorial》(3.13)</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

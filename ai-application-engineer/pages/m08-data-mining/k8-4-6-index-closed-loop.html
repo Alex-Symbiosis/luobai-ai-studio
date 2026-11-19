@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.4.6 指数化与闭环：让比较公平，让行动可回收 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按目的选基期，写出指数化公式并标注基期。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-4-big-data-thinking.html">8.4 大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环</a><span class="sep">/</span><span class="here">8.4.6 指数化与闭环：让比较公平，让行动可回收</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.4</span>
+    <span class="tag">知识点 8.4.6</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>指数化与闭环：让比较公平，让行动可回收</h1>
+  <p class="lede">绝对额大的区域不一定干得好；指数让比较回到同一条起跑线，闭环让每个动作都有回收。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按目的选基期，写出指数化公式并标注基期。</li><li>能识别含税口径与结构差异两类不可比，并做修正。</li><li>能为一个行动写出闭环卡：假设、主指标、窗口、判定线、护栏。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>谁干得好，换个算法就反了</h2>
+<p>两家区域公司汇报：A 区年销 1,200 万，B 区 800 万。按绝对额排，A 第一。</p>
+<p>可 A 的基期是 1,150 万，B 的基期是 620 万：A 增长 4.3%，B 增长 29%。换一个算法，排名就反了，而且后者更接近「谁在增长」这个问题。</p>
+<p>另一件事同时发生：上季度定了「B 区新客增长 15%」，做了投放，季度末没人说清到底达没达到——当初没定口径、没定观察窗口，也就无从回收。</p>
+<p class="ask">同一个「谁干得好」，凭什么换个算法结论就反了？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两条腿：可比与可回收</h2>
+<p>指数化解决「不可比」：把不同基数、不同口径的数折算到同一个基期上，变成相对数。闭环解决「做完就忘」：每个动作都挂一个指标、一个窗口、一条判定线，到期必须回收。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三种对比，先选对基期">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三种对比，先选对基期</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">方式</text><text class="f-t" x="282.0" y="98">基期</text><text class="f-t" x="492.0" y="98">回答什么</text><text class="f-t" x="702.0" y="98">注意</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">同比</text><text class="f-s" x="282.0" y="139.0">去年同月</text><text class="f-s" x="492.0" y="139.0">去掉季节后变了多少</text><text class="f-s" x="702.0" y="139.0">适合有季节的业务</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">环比</text><text class="f-s" x="282.0" y="183.0">上一个月</text><text class="f-s" x="492.0" y="183.0">最近一月的变化</text><text class="f-s" x="702.0" y="183.0">受单月波动影响大</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">定基</text><text class="f-s" x="282.0" y="227.0">固定基准期</text><text class="f-s" x="492.0" y="227.0">累计涨了多少</text><text class="f-s" x="702.0" y="227.0">基期要有代表性</text><text class="f-s" x="60" y="272">基期一换，结论就换；写指数必须同时写清基期，否则数字没法比。</text>
+</svg><figcaption><b>图 8-39　三种对比，先选对基期</b>　同比、环比、定基各有各的基期；基期一换，结论就换。</figcaption></figure>
+<p>三种对比各有各的基期：同比对去年同月，环比对上一个月，定基对一个固定基准期。写指数必须同时写基期，否则数字没法比。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="指数让比较公平，闭环让行动有效">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">指数让比较公平，闭环让行动有效</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">闭环</text><text class="f-sc" x="480" y="200">每一轮都要能回收</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">定基期</text><text class="f-sc" x="480.0" y="92.0">选有代表性的一期</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">算指数</text><text class="f-sc" x="742.0" y="200.0">按基期折算成 100</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">行动</text><text class="f-sc" x="480.0" y="308.0">针对缺口改动作</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">回收</text><text class="f-sc" x="218.0" y="200.0">看指标有没有回来</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">指数只负责让比较公平，闭环才让行动有效；没有回收指标的动作，等于没做。</text>
+</svg><figcaption><b>图 8-40　指数让比较公平，闭环让行动有效</b>　定基期、算指数、做行动、看回收；缺了回收，前面三步就只是报表。</figcaption></figure>
+<p>闭环四步是一个圈。缺了最后一步，前面三步就只是报表，谁也不用对结果负责。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>公式与四步</h2>
+<p><strong>指数化：</strong>选定基期 b，把观测值 X<sub>t</sub> 折算成 I<sub>t</sub> = (X<sub>t</sub> ÷ X<sub>b</sub>) × 100。基期为 100，高于 100 是增长，低于 100 是下降。</p>
+<p>基期选择三条：①有代表性——避开异常月、大促月、系统切换月；②与目的匹配——看长期趋势用定基，看近期变化用环比，看年度增长用同比；③口径一致——含税/不含税、人数/单量、自然月/账期必须统一。</p>
+<p><strong>闭环：</strong>目标指标 → 行动 → 观察窗口 → 回收判定。判定只有三种结果：达到、未达到、无法判断（口径变了或数据缺失）。第三种也必须写出来，不能当成达到。</p>
+<div class="callout callout--warn">
+  <span class="c-label">口径说明</span>
+  <p>方法论，非学术共识。指数是统计工具，闭环是管理方法，两者都没有唯一的学术定义；本页取的是「可比 + 可回收」这层工程含义。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>先换算，再挂卡</h2>
+<p>指数化四步：①明确比较对象（区域、渠道、门店）；②统一口径，先做换算再比较；③选基期并写进标题；④输出指数与原始值两列，避免只看指数忘了规模。</p>
+<p>闭环四步：①写假设——「给 B 区加 20% 投放，新客首单数 8 周内提升 12%」；②定主指标——一个动作只挂一个主指标，其余做护栏指标；③定窗口——短于业务周期看不到效果，长于一个季度会被其他因素污染；④到期回收——达到就固化，未达到就拆原因，无法判断就补数据。</p>
+<p>两个容易漏的地方：护栏指标（加投放不能把获客成本抬过线）、对照（同期没做动作的区域，用来排除大盘影响）。缺了这两样，涨了也不一定是动作的功劳。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两处不可比，一张闭环卡</h2>
+<p><strong>修正一：含税口径。</strong>A 区报 1,200 万含税，B 区报 800 万不含税，税率 13%。直接比 A 高 50%；换算后 A 为 1,200 ÷ 1.13 ≈ 1,062 万，只高 32.7%。</p>
+<p><strong>修正二：结构差异。</strong>A 区总体客单价 100 元、B 区 80 元，差 25%。分层后新客都是 70 元，老客 A 108 元、B 103 元。A ≈ 0.2×70 + 0.8×108 = 100.4；B ≈ 0.7×70 + 0.3×103 = 79.9。差异几乎全来自新客占比（A 20%、B 70%），不是运营水平。拿总体客单价考核，B 会永远垫底。</p>
+<p><strong>闭环卡：</strong>B 区定基期 620 万，目标指数 115（即 713 万）。动作是加投 20%，主指标「新客首单数」，窗口 8 周，判定线 +12%，护栏「获客成本 ≤ 45 元」。8 周后新客首单 +5%，未达标；拆开看是投放量够了、落地页转化率没动，下一轮改落地页，而不是继续加预算。</p>
+<p>以上为手算示例，数字为讲解构造；713 = 620 × 1.15。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>一次公平比较 + 一张卡</h2>
+<p><strong>任务：</strong>给两个区域（或两个渠道）做一次公平比较：统一口径、选基期、算指数，写出「谁增长更快」的结论，并附原始值。</p>
+<p><strong>再写一张闭环卡：</strong>假设、主指标、观察窗口、判定线、护栏指标、到期结论（达到 / 未达到 / 无法判断）。</p>
+<p><strong>追问：</strong>① 基期选在大促月会带来什么偏差？② 指数涨了但绝对额没涨，可能是什么原因？③ 「无法判断」为什么不能省略？</p>
+<p><strong>验收：</strong>原始值与指数两列齐全，基期写在结论里；闭环卡六项不缺，判定结果能落到下一步动作。回到本单元开头，见 <a href="../m08-data-mining/k8-4-1-reliability-validity.html">信度与效度：数据可靠吗，结论算数吗</a>；数据分析、机器学习与数据挖掘的分工，见 <a href="../m08-data-mining/k8-2-3-data-mining.html">数据挖掘：在数据里找「没人告诉过你」的模式</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u8-4-big-data-thinking.html">8.4 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-4-5-time-series-thinking.html"><span class="p-label">← 上一知识点 8.4.5</span><span class="p-title">时间序列思维：把「现在」放回「趋势」</span></a><a class="next" href="u8-4-big-data-thinking.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 8.4 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)4 · 指数化与闭环</dd>
+    <dt>页面编号 / 路径</dt><dd>8.4.6 ｜ <span class="path">pages/m08-data-mining/k8-4-6-index-closed-loop.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-4-1-reliability-validity.html"><b>8.4.1</b>信度与效度：数据可靠吗，结论算数吗</a><a class="xlink" href="k8-4-5-time-series-thinking.html"><b>8.4.5</b>时间序列思维：把「现在」放回「趋势」</a><a class="xlink" href="k8-2-3-data-mining.html"><b>8.2.3</b>数据挖掘：在数据里找「没人告诉过你」的模式</a><a class="xlink" href="u8-4-big-data-thinking.html"><b>8.4</b>大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-4-6（本页图 8-39）、k8-4-6-b（图 8-40）；知识库 M08-S3-06《指数化思维的概念及特点》、M08-S3-07《循环/闭环思维的概念及特点》（均 filled）。 ｜ 知识库条目：M08-S3-06《指数化思维的概念及特点》（filled）、M08-S3-07《循环/闭环思维的概念及特点》（filled） ｜ 参考来源：指数编制口径参考国家统计局居民消费价格指数编制说明；基期选择与闭环管理为本页整理；本页图为自绘，案例数字为讲解构造。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

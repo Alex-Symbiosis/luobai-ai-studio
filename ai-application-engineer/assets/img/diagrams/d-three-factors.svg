@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" role="img" aria-label="数据、算力、算法三要素与工程底座">
+  <style>
+    .d6-p{fill:#ffffff;stroke:#cfe0ff;stroke-width:1.5}
+    .d6-top{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.5}
+    .d6-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d6-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80;text-anchor:middle}
+    .d6-base{fill:#123a78}
+    .d6-bt{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:13px;fill:#ffffff;text-anchor:middle;letter-spacing:1px}
+    .d6-note{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;fill:#5a6b80}
+  </style>
+
+  <text class="d6-note" x="30" y="36">三根支柱缺一不可，工程与开源生态是它们共同的地面</text>
+
+  <rect class="d6-top" x="70" y="64" width="240" height="40" rx="10"/>
+  <text class="d6-t" x="190" y="90">数据</text>
+  <rect class="d6-p" x="70" y="104" width="240" height="116" rx="10"/>
+  <text class="d6-s" x="190" y="136">规模：百万到万亿级样本</text>
+  <text class="d6-s" x="190" y="160">质量：标注、去噪、去重</text>
+  <text class="d6-s" x="190" y="184">版权与隐私约束</text>
+
+  <rect class="d6-top" x="360" y="64" width="240" height="40" rx="10"/>
+  <text class="d6-t" x="480" y="90">算力</text>
+  <rect class="d6-p" x="360" y="104" width="240" height="116" rx="10"/>
+  <text class="d6-s" x="480" y="136">GPU / TPU 集群</text>
+  <text class="d6-s" x="480" y="160">显存、带宽、互联</text>
+  <text class="d6-s" x="480" y="184">训练成本与能耗</text>
+
+  <rect class="d6-top" x="650" y="64" width="240" height="40" rx="10"/>
+  <text class="d6-t" x="770" y="90">算法</text>
+  <rect class="d6-p" x="650" y="104" width="240" height="116" rx="10"/>
+  <text class="d6-s" x="770" y="136">表示学习替代手工特征</text>
+  <text class="d6-s" x="770" y="160">预训练 + 微调范式</text>
+  <text class="d6-s" x="770" y="184">缩放定律与架构创新</text>
+
+  <rect class="d6-base" x="70" y="248" width="820" height="46" rx="10"/>
+  <text class="d6-bt" x="480" y="277">工程与开源生态：框架、工具链、社区、部署与运维</text>
+</svg>

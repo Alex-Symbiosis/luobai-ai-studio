@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.1.2 MP 神经元：加权求和再阈值 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 MP 单元的判别式，并说清权重与阈值各自决定什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-1-mp-neuron.html">6.1 神经网络的演变与麦卡洛克-皮茨网络</a><span class="sep">/</span><span class="here">6.1.2 MP 神经元：加权求和再阈值</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.1</span>
+    <span class="tag">知识点 6.1.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>MP 神经元：加权求和再阈值</h1>
+  <p class="lede">整个深度学习的计算，可以压缩成一行：把输入乘上权重加总，再和阈值比一次。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 MP 单元的判别式，并说清权重与阈值各自决定什么。</li><li>能解释偏置 b 与阈值 θ 是同一件事的两种写法，符号相反。</li><li>能用一组权重和阈值复现人工评分卡的判决。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>评分卡与阈值</h2>
+<p>一家小贷公司的风控规则表贴在墙上：收入低于 4000 记 10 分，近半年每逾期一次记 5 分，近三个月每查一次征信记 8 分；总分到 30 就拒贷。</p>
+<p>审核员每天照着表手工算。后来系统上线，工程师发现这张表可以原样写成一行公式：三个特征各乘一个系数，加起来和 30 比一次。</p>
+<p class="ask">这条规则里，哪个数字决定「看什么」，哪个数字决定「多严」？</p>
+<p>审核员从不追问「为什么是 30 分」。他们只关心这条线画得合不合业务——而这恰恰说明，表里的每一个数字都是人定的，模型没有参与。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>投票箱与开箱线</h2>
+<p>把 MP 单元想成一个投票箱：每个输入是一张票，权重是这张票的分量；把所有票的分量加起来，超过开箱线就输出 1，否则输出 0。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="MP 神经元：加权、求和、过阈值">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">MP 神经元：加权、求和、过阈值</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">输入 x</text><text class="f-sc" x="117.6" y="154.0">n 个特征</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">加权 Σwx</text><text class="f-sc" x="298.79999999999995" y="154.0">每个权重一条边</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">减阈值 θ</text><text class="f-sc" x="480.0" y="154.0">偏置的另一种写法</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">阶跃函数</text><text class="f-sc" x="661.1999999999999" y="154.0">z≥0 则 1</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">输出 0/1</text><text class="f-sc" x="842.4" y="154.0">只有两种状态</text><text class="f-s" x="40" y="244">权重决定「哪些输入重要」，阈值决定「多重要才点火」。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-2　MP 神经元：加权、求和、过阈值</b>　权重决定「哪些输入重要」，阈值决定「多重要才点火」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>权重调的是「谁更算数」，阈值调的是「态度松还是紧」。两者分工，不能互相替代。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一行公式</h2>
+<p>对输入 <code>x = (x1, …, xn)</code>、权重 <code>w</code>、阈值 <code>θ</code>：</p>
+<p><code>a = 1，若 Σ wᵢxᵢ ≥ θ；否则 a = 0</code></p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>符号</th><th>名称</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>xᵢ</code></td><td>输入特征</td><td>可以是 0/1，也可以是连续值</td></tr>
+    <tr><td><code>wᵢ</code></td><td>权重</td><td>该特征的分量，正负都可</td></tr>
+    <tr><td><code>θ</code></td><td>阈值</td><td>点火所需的票数</td></tr>
+    <tr><td><code>a</code></td><td>输出</td><td>只有 0 和 1，不是概率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>工程代码里更常写偏置：<code>b = −θ</code>，判别式变成 <code>w·x + b ≥ 0</code>。两者等价，只是把「减多少」换成了「加多少」。按拓扑归类，这个单元是最早的单层前馈网络，见 <a href="../m06-neural-nets/k6-1-1-history.html">演变史</a>。</p>
+<p>还有一个性质值得记住：把所有权重和阈值同时乘 2，判决完全不变，因为比较的只是相对大小。真正起作用的不是绝对数值，而是方向与相对位置。后面的标准化，动的就是这个相对尺度。</p>
+<div class="callout callout--warn">
+  <span class="c-label">最容易错的一处</span>
+  <p>θ 与 b 符号相反。看到「b = 0.1」就说「阈值是 0.1」是错的，阈值是 −0.1。代入一个样本算一遍就能发现。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>换阈值看结果</h2>
+<p>同一组输入与权重，只动阈值，判决就会翻转。这正是「阈值决定多严」的具体含义。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>mp_unit.py</span></div>
+<pre><code>import numpy as np
+
+def mp(x, w, theta):
+    return int(np.dot(w, x) &gt;= theta)
+
+x = np.array([1, 0, 2])        # 收入不达标、无逾期、查询两次
+w = np.array([10.0, 5.0, 8.0])  # 对应三项的记分
+
+print(mp(x, w, 30))            # 10 + 0 + 16 = 26 &lt; 30
+print(mp(x, w, 20))            # 同一组数，放宽到 20</code></pre>
+</div>
+<p>第一行输出 0，第二行输出 1。注意函数返回的是整数 0/1，不是「拒贷概率」。这个区别在后面的交叉熵与多分类页里会反复出现。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一张评分卡</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>特征</th><th>取值</th><th>权重</th><th>贡献</th></tr></thead>
+  <tbody>
+    <tr><td>收入低于 4000</td><td>1</td><td>10</td><td>10</td></tr>
+    <tr><td>近半年逾期次数</td><td>0</td><td>5</td><td>0</td></tr>
+    <tr><td>近三月查询次数</td><td>2</td><td>8</td><td>16</td></tr>
+    <tr><td>合计</td><td>—</td><td>—</td><td><strong>26</strong></td></tr>
+  </tbody>
+</table>
+</div>
+<p>阈值定 30，结论是「通过」；定 20，结论是「拒绝」。<strong>同一份数据、同一个模型，只因为一条线画在不同位置，业务结果完全相反。</strong></p>
+<p>这也暴露了 MP 单元的真实处境：它的全部表达能力都靠人把权重和阈值填进去。它不会从数据里学，写成代码只是把手工表搬进了系统。</p>
+<p>顺带说清一件事：这类系统里最贵的不是计算，而是那张表怎么定。权重调多少、阈值卡在哪，全靠业务经验与历史坏账回测。MP 单元负责执行，不负责发现规则。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>调阈值做或门</h2>
+<p><strong>任务：</strong>三张票的权重分别是 1、1、1。要让它变成「任意一项超限就通过」，阈值该设多少？要变成「三项全超才通过」，又该设多少？</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>想要的规则</th><th>阈值 θ</th><th>用 (1,0,0) 验证</th></tr></thead>
+  <tbody>
+    <tr><td>至少一项</td><td>？</td><td>1 ≥ θ 应为 1</td></tr>
+    <tr><td>全部三项</td><td>？</td><td>1 ≥ θ 应为 0</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>如果把某一项权重设成 0，在物理上意味着什么？如果设成负数呢？</p>
+<p><strong>验收：</strong>两行阈值都填对，并且能解释「权重 0 = 这根线不接」。<a href="../m06-neural-nets/k6-1-3-logic-gates.html">下一节</a>会把这套做法用到逻辑门上。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-1-3-logic-gates.html">6.1.3 从神经元到逻辑门</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-1-1-history.html"><span class="p-label">← 上一知识点 6.1.1</span><span class="p-title">神经网络演变史</span></a><a class="next" href="k6-1-3-logic-gates.html"><span class="p-label">下一知识点 6.1.3 →</span><span class="p-title">从神经元到逻辑门</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)1 · 神经网络的概念（神经元模型）</dd>
+    <dt>页面编号 / 路径</dt><dd>6.1.2 ｜ <span class="path">pages/m06-neural-nets/k6-1-2-mp-neuron.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-1-1-history.html"><b>6.1.1</b>神经网络演变史</a><a class="xlink" href="k6-1-3-logic-gates.html"><b>6.1.3</b>从神经元到逻辑门</a><a class="xlink" href="k6-2-1-perceptron.html"><b>6.2.1</b>感知器与线性可分</a><a class="xlink" href="u6-1-mp-neuron.html"><b>6.1</b>神经网络的演变与麦卡洛克-皮茨网络（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-1-2（本页图 6-2）；知识库 M06-S1-02。 ｜ 知识库条目：M06-S1-02《神经网络的分类》（filled） ｜ 参考来源：S47 McCulloch & Pitts 1943；S53《深度学习》第 6 章；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

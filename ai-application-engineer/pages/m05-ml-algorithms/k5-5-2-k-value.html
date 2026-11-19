@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.5.2 K 值：偏差与方差的旋钮 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明 K 从小到大时偏差与方差各自怎么变。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-5-knn-lvq.html">5.5 K 近邻与学习矢量量化</a><span class="sep">/</span><span class="here">5.5.2 K 值：偏差与方差的旋钮</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.5</span>
+    <span class="tag">知识点 5.5.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>K 值：偏差与方差的旋钮</h1>
+  <p class="lede">K 是 KNN 唯一的核心超参数，也是少数能让人亲眼看到偏差与方差此消彼长的旋钮。K = 1 时训练误差可以做到零，验证误差却可能高得离谱；K 一路调大，边界越来越平，最后退化成「全判多数类」。选 K 不是找最优算法，而是找这条曲线的最低点。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明 K 从小到大时偏差与方差各自怎么变。</li><li>能解释为什么 K = 1 的训练误差必然是 0，以及这为什么不能当成模型好。</li><li>能用验证曲线选 K，并指出类别不平衡时选大 K 的具体风险。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>训练集满分，验证集不及格</h2>
+<p>同一份两维数据、同一套代码，只改 K，得到两组互相矛盾的分数：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>K</th><th>训练集准确率</th><th>验证集准确率</th><th>现象</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>1.00</td><td>0.71</td><td>训练集全对，换数据就崩</td></tr>
+    <tr><td>50</td><td>0.76</td><td>0.76</td><td>两边一致，但都偏低</td></tr>
+  </tbody>
+</table>
+</div>
+<p>K = 1 时训练集 100%，很多人以为「学得很好」；可它在没见过的数据上只有 71%。</p>
+<p class="ask">一个能把训练集做到满分的模型，为什么在验证集上反而不如一个「什么都没记住」的模型？</p>
+<p>因为满分是抄出来的：每个训练点离自己最近，总投自己一票，无法迁移到新样本。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>K 越大，边界越平</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三个 K 的边界与错分">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三个 K 的边界与错分</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">K</text><text class="f-t" x="240.0" y="98">边界形状</text><text class="f-t" x="408.0" y="98">偏差</text><text class="f-t" x="576.0" y="98">方差</text><text class="f-t" x="744.0" y="98">典型问题</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">1</text><text class="f-s" x="240.0" y="139.0">锯齿状，贴着每个点</text><text class="f-s" x="408.0" y="139.0">低</text><text class="f-s" x="576.0" y="139.0">高</text><text class="f-s" x="744.0" y="139.0">被噪声带偏</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">5</text><text class="f-s" x="240.0" y="183.0">较平滑，局部弯曲</text><text class="f-s" x="408.0" y="183.0">中</text><text class="f-s" x="576.0" y="183.0">中</text><text class="f-s" x="744.0" y="183.0">常用起点</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">50</text><text class="f-s" x="240.0" y="227.0">接近直线，过度平滑</text><text class="f-s" x="408.0" y="227.0">高</text><text class="f-s" x="576.0" y="227.0">低</text><text class="f-s" x="744.0" y="227.0">少数类被淹没</text><text class="f-s" x="60" y="272">K 是平滑旋钮：调小更敏感，调大更稳但更钝；用验证曲线选，不靠直觉。</text>
+</svg><figcaption><b>图 5-20　三个 K 的边界与错分</b>　K = 1 的边界贴着每个点走；K = 5 平滑；K = 50 接近直线，少数类被整片吞掉。</figcaption></figure>
+<p>把 K 想成「咨询多少人」：K = 1 只问最像的那一个，对方是异常值就跟着错；K = 50 问遍半栋楼，个别人的特殊意见被稀释，楼里固有的结构差异也被一起抹平。</p>
+<p>边界因此变化：K 小呈锯齿状，绕着噪声点拐弯；K 大接近直线，只反映全局多数。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>K 是一个<strong>平滑旋钮</strong>：调小更敏锐、更易被噪声带偏；调大更稳、更钝。它不同时改善两头，只在这条曲线上移动位置。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两个方向，一张表</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>K</th><th>偏差</th><th>方差</th><th>表现</th></tr></thead>
+  <tbody>
+    <tr><td>很小（如 1）</td><td>低</td><td>高</td><td>边界复杂，被噪声牵着走</td></tr>
+    <tr><td>中等</td><td>中</td><td>中</td><td>通常的可用区间</td></tr>
+    <tr><td>很大（接近 n）</td><td>高</td><td>低</td><td>退化：几乎全判多数类</td></tr>
+  </tbody>
+</table>
+</div>
+<p>选择协议是固定的：在训练集内部做交叉验证，扫 K 的候选值，取平均验证分数最高者。不能用测试集选 K，否则测试分数不再是泛化估计。</p>
+<p>「K 取奇数」是常见误传：它只在二分类、等权投票时为避免平票成立；多分类或距离加权投票的平票规则完全不同。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么 K = 1 必然满分</h2>
+<p>训练时每个样本都是自己最近的邻居，距离为 0，投票结果必然是自己那一类。所以 1-NN 的训练误差恒为 0，这个数字不携带任何关于泛化的信息。</p>
+<p>K 增大带来的是<strong>邻域平均</strong>：预测值从「最近一个点的答案」变成「一片区域内的多数意见」。区域越大，估计的方差越小，但对真实边界的刻画越粗。这就是平滑的本质。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>扫一遍 K，读出三件事</h2>
+<p>K 从 1 扫到 50，记录训练与验证分数：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>K</th><th>训练</th><th>验证</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>1.00</td><td>0.71</td><td>记住样本，方差最大</td></tr>
+    <tr><td>5</td><td>0.88</td><td>0.83</td><td>已接近峰值</td></tr>
+    <tr><td>7</td><td>0.86</td><td>0.85</td><td>峰值，选它</td></tr>
+    <tr><td>20</td><td>0.81</td><td>0.80</td><td>开始偏钝</td></tr>
+    <tr><td>50</td><td>0.76</td><td>0.76</td><td>偏差主导</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三条读法：训练与验证的差距随 K 增大而收窄，说明方差在降；验证分数先升后降，低谷位置就是 K；K 超过 20 后两条曲线贴在一起同时下滑，说明已经不是方差问题，而是模型太钝。</p>
+<p>若这份数据的少数类只占 5%，K = 50 的预测会几乎全判多数类，准确率看起来仍有 0.95，但少数类召回接近 0。这时候准确率本身就成了误导指标，应改看 F1 或召回。</p>
+<p>K 选到一个数，还要确认数据有没有踩到它的限制；四条边界值得逐项对照。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>K 经交叉验证选定（如 5–15）</td><td>固定用 K = 3 或 5 是惯例，不是依据</td></tr>
+    <tr><td>类别大致均衡</td><td>少数类占 5% 时，K = 50 的邻域里期望只有 2.5 个少数类样本，必被淹没</td></tr>
+    <tr><td>样本密集、局部结构有意义</td><td>K 过大时局部结构被抹平，边界退化为线性</td></tr>
+    <tr><td>验证曲线有明确低谷</td><td>曲线平坦时说明 K 不是瓶颈，应回头查特征与度量</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画验证曲线，再换一份不平衡数据</h2>
+<p><strong>任务：</strong>扫描 K = 1 到 20，画验证分数曲线并选出 K。</p>
+<ol>
+  <li>记录每个 K 的训练分数与验证分数，两条曲线画在同一张图上。</li>
+  <li>标出验证峰值，并说出峰值两侧各是什么问题。</li>
+  <li>把数据改成 9 : 1 的不平衡版本，再取 K = 1 与 K = 15 比较准确率与少数类召回。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>观察</th><th>要写出的结论</th></tr></thead>
+  <tbody>
+    <tr><td>训练曲线单调下降</td><td>K 增大即平滑增强</td></tr>
+    <tr><td>验证曲线先升后降</td><td>存在最优 K，不能凭直觉取</td></tr>
+    <tr><td>不平衡数据上准确率高、召回低</td><td>指标要跟着任务换</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>如果把投票改成距离加权，最优 K 会往哪个方向移动？为什么？</p>
+<p><strong>自检：</strong>选择能指回曲线的具体位置，并能解释「K = 1 训练满分不代表模型好」，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-5-3-curse-dimensionality.html">5.5.3 维度灾难：距离为什么失效</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-5-1-knn.html"><span class="p-label">← 上一知识点 5.5.1</span><span class="p-title">KNN：把训练集当模型</span></a><a class="next" href="k5-5-3-curse-dimensionality.html"><span class="p-label">下一知识点 5.5.3 →</span><span class="p-title">维度灾难：距离为什么失效</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · K 近邻算法（K 值）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.5.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-5-2-k-value.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-5-1-knn.html"><b>5.5.1</b>KNN：把训练集当模型</a><a class="xlink" href="k5-5-3-curse-dimensionality.html"><b>5.5.3</b>维度灾难：距离为什么失效</a><a class="xlink" href="u5-5-knn-lvq.html"><b>5.5</b>K 近邻与学习矢量量化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张（k5-5-2）+ 知识库 M05-S1-08（K 近邻）、M05-S2-03（KNN 操作）。 ｜ 知识库条目：M05-S1-08《K 近邻算法的概念及原理》（filled）、M05-S2-03《KNN 算法的概念、特点及操作原理》（filled） ｜ 参考来源：S73 scikit-learn《Nearest Neighbors》；S54 ESL；S72 Cover &amp; Hart 1967；S32 scikit-learn《Metrics and scoring》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

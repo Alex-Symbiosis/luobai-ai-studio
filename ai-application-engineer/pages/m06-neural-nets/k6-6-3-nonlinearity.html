@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.6.3 去线性化：多层为什么不再是直线 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 W2(W1x + b1) + b2 的合并结果，说明多层线性等于一层。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-6-feedforward.html">6.6 深度前馈网络：激活、去线性化与损失函数</a><span class="sep">/</span><span class="here">6.6.3 去线性化：多层为什么不再是直线</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.6</span>
+    <span class="tag">知识点 6.6.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>去线性化：多层为什么不再是直线</h1>
+  <p class="lede">十层网络如果都不带激活，它在异或上的准确率和逻辑回归一模一样：0.50。深度白加了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 W2(W1x + b1) + b2 的合并结果，说明多层线性等于一层。</li><li>能解释激活函数如何让相邻层无法合并，以及为什么区域数随深度增长。</li><li>能判断哪些手段属于去线性化，并说清为什么 BN 不算。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>十层和一层打平</h2>
+<p>有人想验证「深一点总不会差」。搭了一个十层、每层 64 个单元的网络，跑异或，训练 200 轮，准确率 0.50——和逻辑回归完全一样。</p>
+<p>代码没写错，数据没读错，优化器也在动。问题出在每一层后面都忘了加激活：十个线性层摞在一起，在数学上就是一个线性层。</p>
+<p class="ask">那为什么还要写十层？</p>
+<p>不为什么。没有非线性，深度不产生任何新的表达能力，只是把一次矩阵乘拆成十次，慢十倍，还多占显存。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>折纸</h2>
+<p>线性变换只会做三件事：缩放、旋转、平移。反复做，纸还是那张平的纸，只是换了个角度和位置。激活函数做的是「折」：把纸折出一道痕，痕的两侧开始走向不同方向。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="没有激活，十层等于一层">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">没有激活，十层等于一层</text><rect class="f-red" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">线性堆叠</text><text class="f-s" x="80" y="108">· W2(W1x) = (W2W1)x</text><text class="f-s" x="80" y="138">· 合并后仍是一个矩阵</text><text class="f-s" x="80" y="168">· 只能画直线边界</text><text class="f-s" x="80" y="198">· 层数不增加表达力</text><text class="f-s" x="80" y="228">· 异或依然分不开</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">加非线性激活</text><text class="f-s" x="530" y="108">· f(W1x) 不能合并</text><text class="f-s" x="530" y="138">· 每层都能「弯折」空间</text><text class="f-s" x="530" y="168">· 可逼近连续函数</text><text class="f-s" x="530" y="198">· 深度才有意义</text><text class="f-s" x="530" y="228">· 异或两层即可解</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 6-30　没有激活，十层等于一层</b>　W2(W1x) 可以合并成一个矩阵；加上非线性 f 之后才无法合并。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>折一次，纸上多一道痕；折十次，痕可以互相交叉。表达力来自「痕的数量」，而痕只能由非线性产生。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>把两层合成一层</h2>
+<p>设两层都不带激活：</p>
+<p><code>y = W2(W1x + b1) + b2 = (W2W1)x + (W2b1 + b2)</code></p>
+<p>右边仍然是一个「矩阵乘 + 偏置」的形式，记 <code>W' = W2W1</code>、<code>b' = W2b1 + b2</code>，就是一个单层线性模型。推广到 L 层：<code>y = (∏ W_l)x + 常数</code>，乘积还是矩阵。</p>
+<p>加了激活之后这条路断了：<code>y = W2·f(W1x + b1) + b2</code>，f 是非线性的，<code>W2·f(·)</code> 无法再化简成一个矩阵。这就是「不可合并」，也是深度的意义所在。</p>
+<p>区域数量可以直观理解：一个 ReLU 把空间按一张超平面切成两半，n 个单元给出 n 张切面；堆到 L 层，切面可以组合，线性区域的数量随层数增长得很快。这正是深层能用较少参数表达复杂边界的原因。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>用一行代码验证</h2>
+<p>「等价」不是比喻，可以直接算出来：把两层的矩阵乘起来，和先过第一层再过第二层，结果应当一致到浮点误差。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>delinear_check.py</span></div>
+<pre><code>import numpy as np
+
+rng = np.random.default_rng(0)
+W1 = rng.normal(size=(4, 3))
+b1 = rng.normal(size=(4, 1))
+W2 = rng.normal(size=(2, 4))
+b2 = rng.normal(size=(2, 1))
+x = rng.normal(size=(3, 8))            # 8 个样本
+
+# 两层线性
+two = W2 @ (W1 @ x + b1) + b2
+
+# 合并成一层
+W = W2 @ W1
+b = W2 @ b1 + b2
+one = W @ x + b
+
+print(&quot;形状:&quot;, W.shape, &quot;等价:&quot;, np.allclose(two, one))
+
+# 插入激活后不再等价
+relu = lambda z: np.maximum(0.0, z)
+print(&quot;加激活后等价:&quot;, np.allclose(W2 @ relu(W1 @ x + b1) + b2, one))</code></pre>
+</div>
+<p>合并后的 W 形状是 <code>(2, 3)</code>，由「输入维 × 输出维」决定，与中间层多宽无关。第二个判断必然为 <code>False</code>——加了 ReLU，两层就合并不了了。</p>
+<p>这段代码还说明一件事：合并不会改变结果的性质。「多层线性」不是「近似等于一层」，而是严格等于一层，数值上的差别只在浮点误差量级——所以 <code>allclose</code> 才会为真。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>哪些算，哪些不算</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>手段</th><th>非线性来源</th><th>算不算去线性化</th></tr></thead>
+  <tbody>
+    <tr><td>ReLU / sigmoid / tanh</td><td>逐元素折弯</td><td>算，主力手段</td></tr>
+    <tr><td>多层堆叠</td><td>复合折弯，区域数增长</td><td>算，但前提是每层有激活</td></tr>
+    <tr><td>池化（max / avg）</td><td>取最大/平均本身非线性</td><td>算，附带不变性</td></tr>
+    <tr><td>门控、注意力</td><td>权重随输入变化</td><td>算</td></tr>
+    <tr><td>核方法 / 显式升维</td><td>映射到高维再线性</td><td>算，是另一条技术路线</td></tr>
+    <tr><td>批归一化 BN</td><td>标准化 + 可学习的 γ、β</td><td><strong>不算</strong></td></tr>
+  </tbody>
+</table>
+</div>
+<p>最后一行要单独说明。BN 确实是「减去均值、除以标准差」再乘 γ 加 β，中间有除法与开方，看起来不像线性；但对固定的批统计量来说，这一整套仍是逐特征的仿射变换，γ 与 β 也是线性参数。它的作用是稳住每层输入的分布，让优化更顺，<strong>并不增加网络能表达的函数类别</strong>。所以 BN 可以缓解梯度问题，但不能替代激活函数——只有 BN 没有激活的深网，仍然等价于一层线性模型。</p>
+<p>三个常见误区：以为「多堆几层」就能去线性化（不带激活仍是线性）；以为「有激活就万事大吉」（饱和的激活等于把梯度掐断）；以为「归一化也是非线性」（见上）。</p>
+<div class="callout callout--warn">
+  <span class="c-label">诊断线索</span>
+  <p>如果深网的表现和线性模型几乎一样，第一个要查的不是学习率，而是激活有没有真正生效——比如被全零初始化压平，或被错误的实现绕过去了。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>四个改动，判一判</h2>
+<p><strong>任务：</strong>下面的改动，哪些真正增加了网络的表达能力？写出判断与一句话理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>算不算去线性化</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>两层线性之间插入 ReLU</td><td>？</td><td>两层是否还能合并</td></tr>
+    <tr><td>两层之间插入 BN</td><td>？</td><td>标准化与 γ、β 是什么运算</td></tr>
+    <tr><td>两层之间插入 2×2 最大池化</td><td>？</td><td>max 是不是线性</td></tr>
+    <tr><td>把层数从 2 加到 12，仍不带激活</td><td>？</td><td>乘积仍是什么</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 一个十层全线性网络的输出，能写成 <code>Wx + b</code> 吗？W 的维度由什么决定？② 如果激活全是 sigmoid 且已饱和，去线性化还算生效吗？</p>
+<p><strong>验收：</strong>四行判断为「算、不算、算、不算」，并能用 <code>W2W1</code> 的合并式子解释前两行。激活怎么选，见 <a href="../m06-neural-nets/k6-6-2-activation.html">激活函数</a>；输出端怎么定目标，见 <a href="../m06-neural-nets/k6-6-4-loss.html">损失函数</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-6-4-loss.html">6.6.4 损失函数：任务决定目标</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-6-2-activation.html"><span class="p-label">← 上一知识点 6.6.2</span><span class="p-title">激活函数：给网络加弯折</span></a><a class="next" href="k6-6-4-loss.html"><span class="p-label">下一知识点 6.6.4 →</span><span class="p-title">损失函数：任务决定目标</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)25 · 去线性化：多层为什么不再是直线</dd>
+    <dt>页面编号 / 路径</dt><dd>6.6.3 ｜ <span class="path">pages/m06-neural-nets/k6-6-3-nonlinearity.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-6-2-activation.html"><b>6.6.2</b>激活函数：给网络加弯折</a><a class="xlink" href="k6-6-1-feedforward.html"><b>6.6.1</b>前馈与全连接</a><a class="xlink" href="k6-5-4-why-deep-demo.html"><b>6.5.4</b>深度学习为什么有效</a><a class="xlink" href="k6-6-4-loss.html"><b>6.6.4</b>损失函数：任务决定目标</a><a class="xlink" href="u6-6-feedforward.html"><b>6.6</b>深度前馈网络：激活、去线性化与损失函数（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-6-3（本页图 6-30）；知识库 M06-S2-04、M06-S3-04。 ｜ 知识库条目：M06-S2-04《激活函数的概念》（filled）、M06-S3-04《去线性化的方法》（filled） ｜ 参考来源：S53《深度学习》第 6 章；S86 Nair & Hinton 2010；S89 Hornik 等 1989；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

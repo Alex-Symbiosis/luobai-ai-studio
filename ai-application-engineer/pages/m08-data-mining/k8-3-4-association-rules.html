@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.3.4 关联规则：从购物篮里找「一起出现」 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出支持度、置信度、提升度的公式，并用 12 条交易手算一遍。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-3-dm-techniques.html">8.3 数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析</a><span class="sep">/</span><span class="here">8.3.4 关联规则：从购物篮里找「一起出现」</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.3</span>
+    <span class="tag">知识点 8.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>关联规则：从购物篮里找「一起出现」</h1>
+  <p class="lede">支持度说常不常见，置信度说准不准，提升度才回答「是不是真的有关」。三个数缺一个，规则就可能骗人。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出支持度、置信度、提升度的公式，并用 12 条交易手算一遍。</li><li>能解释 Apriori 逐层筛的思路，说清阈值抬高后规则数量为何骤减。</li><li>能读懂提升度接近 1 的规则为什么不能直接拿去做推荐。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>十二张小票</h2>
+<p>便利店店长拿来一叠小票：12 笔交易，商品只有四种——啤酒、尿布、牛奶、面包，他想知道哪些该摆在一起，好调一次陈列。</p>
+<p>店员说「啤酒和尿布总一起出现」，可这是感觉。要能复核，得回答三个问题：一起出现占多少、买了 A 的人里有多少也买 B、比 B 本来的销量高多少倍。</p>
+<p>这三个问题对应三个数：支持度、置信度、提升度。少一个就会误判：只看出现次数，高频商品霸榜；只看条件比例，好卖的商品配什么都高。</p>
+<p class="ask">12 笔交易，凭什么说一条搭配值得调陈列？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先筛频繁，再筛可信</h2>
+<p>关联规则分两段：先筛出现次数够多的组合，叫频繁项集；再从项集里生成规则，按置信度筛。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三个指标，判断一张规则值不值">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三个指标，判断一张规则值不值</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">指标</text><text class="f-t" x="282.0" y="98">算的是什么</text><text class="f-t" x="492.0" y="98">手算结果</text><text class="f-t" x="702.0" y="98">怎么读</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">支持度</text><text class="f-s" x="282.0" y="139.0">同时出现的交易占比</text><text class="f-s" x="492.0" y="139.0">3/12 = 0.25</text><text class="f-s" x="702.0" y="139.0">低于阈值就不算频繁</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">置信度</text><text class="f-s" x="282.0" y="183.0">买了 A 又买 B 的比例</text><text class="f-s" x="492.0" y="183.0">3/3 = 1.00</text><text class="f-s" x="702.0" y="183.0">很高也可能只是巧合</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">提升度</text><text class="f-s" x="282.0" y="227.0">比单独购买高多少倍</text><text class="f-s" x="492.0" y="227.0">3.000 与 1.286</text><text class="f-s" x="702.0" y="227.0">大于 1 才是正向关联</text><text class="f-s" x="60" y="272">手算示例：12 条交易里，牛奶 3 条、面包 4 条、同时出现 3 条；提升度 1.00 ÷ 0.33 = 3.000。</text>
+</svg><figcaption><b>图 8-23　三个指标，判断一张规则值不值</b>　支持度看常见程度，置信度看准确程度，提升度看是否真的相关；三个都要过线。</figcaption></figure>
+<p>三个指标各答一句：支持度答「常见不常见」，置信度答「准不准」，提升度答「是不是真的有关」。提升度等于 1，说明两件商品各买各的，只是碰巧同框。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="Apriori：一层一层筛，越筛越少">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="28">Apriori：一层一层筛，越筛越少</text><text class="f-s" x="40" y="52">示例数据：12 条交易，最小支持度 0.25；频繁项集共 6 个（4 + 2）</text><rect class="f-b" x="60" y="80" width="240" height="180" rx="10"/><text class="f-tc" x="180" y="112">1-项集：4 个</text><text class="f-sc" x="180" y="152">尿布、啤酒、牛奶、面包</text><text class="f-sc" x="180" y="180">支撑度都不低于 0.25</text><text class="f-sc" x="180" y="208">共 4 个频繁单项</text><path class="f-ar" d="M304 170 L356 170" marker-end="url(#ah)"/><rect class="f-b" x="360" y="80" width="240" height="180" rx="10"/><text class="f-tc" x="480" y="112">2-项集：2 个</text><text class="f-sc" x="480" y="152">{尿布, 啤酒} 0.50</text><text class="f-sc" x="480" y="180">{牛奶, 面包} 0.25</text><text class="f-sc" x="480" y="208">由频繁单项两两组合</text><path class="f-ar" d="M604 170 L656 170" marker-end="url(#ah)"/><rect class="f-b2" x="660" y="80" width="240" height="180" rx="10"/><text class="f-tc" x="780" y="112">规则：按置信度筛</text><text class="f-sc" x="780" y="152">≥ 0.50 → 4 条</text><text class="f-sc" x="780" y="180">≥ 0.80 → 2 条</text><text class="f-sc" x="780" y="208">≥ 1.00 → 1 条</text><text class="f-s" x="40" y="300">门槛每抬一档，规则就少一批：0.50 留 4 条，0.80 留 2 条，1.00 只剩 1 条。</text>
+</svg><figcaption><b>图 8-24　Apriori：一层一层筛，越筛越少</b>　1-项集先过支持度，两两组合成 2-项集，再按置信度从项集里生成规则。</figcaption></figure>
+<p>逐层筛靠一条性质：不频繁项集的超集也不频繁，所以 2-项集只从留下来的 1-项集里组合，计算量才压得住。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>项集与规则</h2>
+<p>一笔交易是一个商品集合，例如 <code>{啤酒, 尿布, 牛奶}</code>。若干笔交易的集合叫事务集，事务总数记作 N。项集是若干商品的组合，含 k 个商品就叫 k-项集。</p>
+<p><strong>支持度</strong>是项集出现的交易占全部交易的比例。支持度不低于阈值的项集叫频繁项集。<strong>规则</strong>写成 A → B，A 与 B 不相交，含义是「买了 A 的人也会买 B」。</p>
+<p><strong>置信度</strong>是条件比例：在含 A 的交易里，同时含 B 的比例。<strong>提升度</strong>把置信度除以 B 本身的支持度，回答「比单独买 B 高多少倍」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>写法</th><th>读法</th></tr></thead>
+  <tbody>
+    <tr><td>支持度</td><td>sup(A ∪ B) = |A ∪ B| / N</td><td>同时出现占全部交易的比例</td></tr>
+    <tr><td>置信度</td><td>conf(A → B) = sup(A ∪ B) / sup(A)</td><td>买了 A 的人里也买 B 的比例</td></tr>
+    <tr><td>提升度</td><td>lift(A → B) = conf(A → B) / sup(B)</td><td>比 B 的自然购买率高多少倍</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个阈值一起用：最小支持度管「够不够常见」，最小置信度管「够不够可信」。阈值是筛选成本与规则数的折中，必须写进报告。</p></section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三个数手算</h2>
+<p>拿这 12 笔交易手算两对搭配，所有数字都可复核（手算示例）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>啤酒 → 尿布</th><th>牛奶 → 面包</th></tr></thead>
+  <tbody>
+    <tr><td>单品出现次数</td><td>7</td><td>3</td></tr>
+    <tr><td>后件出现次数</td><td>8</td><td>4</td></tr>
+    <tr><td>同时出现次数</td><td>6</td><td>3</td></tr>
+    <tr><td>支持度</td><td>6 / 12 = 0.500</td><td>3 / 12 = 0.250</td></tr>
+    <tr><td>置信度</td><td>6 / 7 = 0.857</td><td>3 / 3 = 1.000</td></tr>
+    <tr><td>提升度</td><td>0.857 ÷ 0.667 = 1.286</td><td>1.000 ÷ 0.333 = 3.000</td></tr>
+  </tbody>
+</table>
+</div>
+<p>读法要连着看。牛奶 → 面包的置信度是 1.000，但牛奶只出现 3 次，样本极小；提升度 3.000 说明买牛奶的人买面包的概率是普通顾客的 3 倍。</p>
+<p>啤酒 → 尿布的置信度 0.857 更高，提升度却只有 1.286：尿布本身就出现在 8 笔交易里，买了啤酒再买尿布，只比随便一个顾客高 28.6%。这就是「同现」与「关联」的差别。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>rules.py</span></div>
+<pre><code>def support(itemset, trans):
+    return sum(1 for t in trans if itemset &lt;= t) / len(trans)
+
+def confidence(a, b, trans):
+    return support(a | b, trans) / support(a, trans)
+
+def lift(a, b, trans):
+    return confidence(a, b, trans) / support(b, trans)</code></pre>
+</div>
+<p>操作要点：阈值要扫描，看规则数怎么变；双向规则去冗余，只留业务上说得通的方向；按门店、时段分层，全局规则常掩盖局部差异；支持度对应的交易数最好不少于 30 笔。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>阈值一动，规则就变</h2>
+<p>把 12 笔交易跑一遍，最小支持度固定 0.25，只动最小置信度。下面是本机实测输出（Python 3.13.14，仅标准库，脚本 d8_3_apriori.py）。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>事务数：12　最小支持度：0.25（出现至少 3 次）
+频繁项集：6 个
+  1-项集（4）：{啤酒}、{尿布}、{牛奶}、{面包}
+  2-项集（2）：{啤酒,尿布}、{牛奶,面包}
+
+最小置信度 0.50 → 规则 4 条
+  {牛奶} → {面包}　sup=0.250 conf=1.000 lift=3.000
+  {面包} → {牛奶}　sup=0.250 conf=0.750 lift=3.000
+  {啤酒} → {尿布}　sup=0.500 conf=0.857 lift=1.286
+  {尿布} → {啤酒}　sup=0.500 conf=0.750 lift=1.286
+
+最小置信度 0.80 → 规则 2 条
+  {牛奶} → {面包}　sup=0.250 conf=1.000 lift=3.000
+  {啤酒} → {尿布}　sup=0.500 conf=0.857 lift=1.286
+
+最小置信度 1.00 → 规则 1 条
+  {牛奶} → {面包}　sup=0.250 conf=1.000 lift=3.000
+
+解读：阈值抬高，规则变少但每条更强；lift 大于 1 才说明「一起买」超出单品本身的概率，
+      接近 1 的规则只是同现，不能直接拿去做推荐。</code></pre>
+</div>
+<p>输出分三段读。第一段是频繁项集：12 条交易、最小支持度 0.25（至少出现 3 次），筛出 6 个频繁项集，其中 1-项集 4 个、2-项集 2 个。第二段是规则：置信度阈值 0.50 / 0.80 / 1.00 对应规则 4 条 / 2 条 / 1 条。</p>
+<p>第三段看提升度：牛奶 → 面包的 lift 是 3.000，啤酒 → 尿布的 lift 是 1.286。提升度 3.000 是明显关联，1.286 只高 28.6%，接近同现。</p>
+<p>但样本只有 12 条，支持度 0.25 等于 3 笔交易。三条交易撑起的规则不能直接上线，它的价值是把阈值扫描的过程摆出来。「啤酒与尿布」的故事最容易被跳过的正是这一步：先看数据量，再看指标。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六笔交易手算</h2>
+<p><strong>任务：</strong>六笔交易：{面包, 牛奶}、{面包, 牛奶}、{面包, 啤酒}、{牛奶, 啤酒}、{面包}、{牛奶}。最小支持度取 0.3，求频繁 1-项集与 2-项集，再算规则「面包 → 牛奶」的三个指标。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>你的计算</th><th>参考值</th></tr></thead>
+  <tbody>
+    <tr><td>sup(面包)</td><td>？</td><td>4 / 6 = 0.667</td></tr>
+    <tr><td>sup(牛奶)</td><td>？</td><td>4 / 6 = 0.667</td></tr>
+    <tr><td>sup(面包, 牛奶)</td><td>？</td><td>2 / 6 = 0.333</td></tr>
+    <tr><td>conf(面包 → 牛奶)</td><td>？</td><td>2 / 4 = 0.500</td></tr>
+    <tr><td>lift(面包 → 牛奶)</td><td>？</td><td>0.500 ÷ 0.667 = 0.750</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 提升度 0.750 小于 1，说明什么？② 把最小支持度抬到 0.5，2-项集还剩几个？</p>
+<p><strong>验收：</strong>三个指标都能手算，且能解释「提升度小于 1，说明两件商品同现的概率低于各自独立时的乘积，在这批数据里互相排斥」。下一步见 <a href="../m08-data-mining/k8-3-5-nn-web-mining.html">神经网络与 Web 挖掘</a>；数据清洗见 <a href="../m03-ml-basics/u3-4-eda-cleaning.html">探索性分析与数据清洗</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-3-5-nn-web-mining.html">8.3.5 神经网络与 Web 挖掘：两类「非表格」方法</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-3-3-clustering.html"><span class="p-label">← 上一知识点 8.3.3</span><span class="p-title">聚类：没有标签时按「相似」分组</span></a><a class="next" href="k8-3-5-nn-web-mining.html"><span class="p-label">下一知识点 8.3.5 →</span><span class="p-title">神经网络与 Web 挖掘：两类「非表格」方法</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)3 · 关联规则</dd>
+    <dt>页面编号 / 路径</dt><dd>8.3.4 ｜ <span class="path">pages/m08-data-mining/k8-3-4-association-rules.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-3-3-clustering.html"><b>8.3.3</b>聚类：没有标签时按「相似」分组</a><a class="xlink" href="k8-3-5-nn-web-mining.html"><b>8.3.5</b>神经网络与 Web 挖掘：两类「非表格」方法</a><a class="xlink" href="k8-1-3-four-tasks.html"><b>8.1.3</b>四类典型应用：找关联、分群、预测、异常</a><a class="xlink" href="u8-3-dm-techniques.html"><b>8.3</b>数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-3-4（本页图 8-23）、k8-3-4-b（图 8-24）；Demo d8_3_apriori.py（本机实测，输出见 s5）；知识库 M08-S2-04《关联规则的概念及操作方法》（filled）。 ｜ 知识库条目：M08-S2-04《关联规则的概念及操作方法》（filled） ｜ 参考来源：Agrawal & Srikant, Fast Algorithms for Mining Association Rules（1994）；输出为 d8_3_apriori.py 本机实测（Python 3.13.14，仅标准库）；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.2.1 感知器与线性可分 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出感知器的判别式与更新式，并说清 e 的三种取值。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-2-perceptron-backprop.html">6.2 感知器、增量规则与反向传播</a><span class="sep">/</span><span class="here">6.2.1 感知器与线性可分</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.2</span>
+    <span class="tag">知识点 6.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>感知器与线性可分</h1>
+  <p class="lede">感知器只做一件事：分错了就把边界往那个点推。它能不能收敛，取决于数据长什么样。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出感知器的判别式与更新式，并说清 e 的三种取值。</li><li>能说明「线性可分」是收敛的前提，而不是效果好坏的程度。</li><li>能判断一条业务规则失败是因为特征不够，还是因为规则形状不对。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>被点名的误判</h2>
+<p>一个内容平台用规则过滤垃圾评论：感叹号密度乘 0.4，外链数量乘 0.8，加权和超过 1 就判垃圾。上线第一周，运营转来一条误判——一位用户写了很长一段感谢，用了六个感叹号，但没有任何链接。</p>
+<p>规则判它是垃圾，因为 <code>0.4 × 6 = 2.4</code>，远超阈值。人工看，这是热情的正常用户。</p>
+<p class="ask">该改权重，还是该换特征？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>错了才推边界</h2>
+<p>感知器的学习像纠错式教学：只在自己判错时才改。判对了，一个参数都不动；判错了，把决策边界朝那个样本推一点，推到它不再被分错为止。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="感知器学习：错了才动，对了不动">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">感知器学习：错了才动，对了不动</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">取一个样本</text><text class="f-sc" x="117.6" y="154.0">顺序或随机</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">算加权和</text><text class="f-sc" x="298.79999999999995" y="154.0">w·x + b</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">判错？</text><text class="f-sc" x="480.0" y="154.0">与标签比较</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">按 e·x 调权重</text><text class="f-sc" x="661.1999999999999" y="154.0">e = y − ŷ</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">全对则停</text><text class="f-sc" x="842.4" y="154.0">线性可分才保证</text><text class="f-s" x="40" y="244">每次更新都把决策边界朝「分错的那个点」推一点，直到没有点可分错。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-6　感知器学习：错了才动，对了不动</b>　每次更新都把决策边界朝「分错的那个点」推一点，直到没有点可分错。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>它不估计概率，也不最小化损失，只在「分对/分错」这个二值信号上工作。</p>
+</div>
+<p>这也决定了它的适用边界：数据像「两堆可以一刀切开」的时候，它又快又稳；数据像「两堆互相咬合」的时候，它会一直修，修不完。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一条线加一条式</h2>
+<p>判别：<code>ŷ = 1[w·x + b &gt; 0]</code>。更新：</p>
+<p><code>w ← w + η(y − ŷ)x，　b ← b + η(y − ŷ)</code></p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>真实 y</th><th>预测 ŷ</th><th>e = y − ŷ</th><th>动作</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>1</td><td>0</td><td>不动</td></tr>
+    <tr><td>1</td><td>0</td><td>+1</td><td>w 加上 ηx（抬高得分）</td></tr>
+    <tr><td>0</td><td>1</td><td>−1</td><td>w 减去 ηx（压低得分）</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>收敛定理：</strong>若数据线性可分、样本半径不超过 R、间隔不小于 γ，则更新次数不超过 <code>(R/γ)²</code>，有限步必然停止。若不可分，定理不成立，更新可能永远循环。</p>
+<div class="callout callout--warn">
+  <span class="c-label">两个常见误解</span>
+  <p>一是把 <code>ŷ</code> 当成概率——它只有 0 和 1，没有置信度。二是以为学习率影响能否收敛——可分时它只影响步数，不影响结局。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>可分才收敛</h2>
+<p>下面这段代码在一个人为构造的可分数据上训练，重点看退出条件：只有当一轮里一个都没分错时才停。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>perceptron.py</span></div>
+<pre><code>import numpy as np
+
+X = np.array([[1, 1], [2, 2], [3, 3], [2, 1]], dtype=float)
+y = np.array([1, 1, 1, 0], dtype=float)
+
+w, b, lr = np.zeros(2), 0.0, 0.1
+for epoch in range(20):
+    wrong = 0
+    for xi, yi in zip(X, y):
+        pred = 1.0 if xi @ w + b &gt; 0 else 0.0
+        err = yi - pred
+        w += lr * err * xi
+        b += lr * err
+        wrong += int(err != 0)
+    if wrong == 0:
+        break
+
+print(&quot;轮数:&quot;, epoch + 1, &quot;权重:&quot;, w.round(3).tolist(), &quot;偏置:&quot;, round(b, 3))</code></pre>
+</div>
+<p>可分数据保证 <code>wrong == 0</code> 这一天会到来；不可分数据则永远不会，循环只能靠轮数上限截断。这就是为什么上一节的异或训练「跑完了但没学会」。</p>
+<p>把 <code>break</code> 去掉、只看 20 轮后的结果，也能得到一组能分开数据的权重——收敛定理保证的不是「必须靠 break 才算学会」，而是「存在某一轮之后再也不出错」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>误报与漏报</h2>
+<p>回到垃圾评论。规则失败的地方不是权重，而是形状：它只允许「一边重就判垃圾」，不区分「重在哪」。</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">误报</span><h3>热情的正常用户</h3><p>感叹号多、没有链接。线性规则把「感叹号多」直接当成垃圾信号，无论权重怎么调，都会连带误伤。</p></div>
+  <div class="card mini"><span class="mini-tag">漏报</span><h3>温和的广告</h3><p>语气平缓、只放一个短链。外链权重调高会误伤正常分享，调低就放过广告。</p></div>
+</div>
+<p>真正需要的是「多个条件同时成立」这类组合判断，也就是与、或的结构。线性规则给不出这种形状，加特征或加层才有解。</p>
+<p>感知器本身没问题：给它一份真正线性可分的数据，它会几轮内收敛；给它一份交错的数据，它只会停在折中点。<strong>先判断数据形状，再谈调参。</strong></p>
+<p>工程上的处理顺序因此很固定：先看混淆矩阵，确认错的是哪一类；再看错例的特征，判断缺的是新特征还是组合关系；最后才决定加特征、加层，还是换模型。跳过前两步直接调学习率，等于在错的形状上找更好的位置。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手造可分与不可分</h2>
+<p><strong>任务：</strong>在二维平面上各造一组四个点，一组线性可分、一组不可分，然后用本页代码各跑一次。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>数据组</th><th>构造方式</th><th>预期现象</th></tr></thead>
+  <tbody>
+    <tr><td>可分</td><td>正类全在 x1 &gt; x2 一侧</td><td>有限轮后 wrong = 0</td></tr>
+    <tr><td>不可分</td><td>正类放在对角，负类放另一对角</td><td>wrong 始终大于 0</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>把 η 从 0.1 改成 10，可分那组的轮数会变多还是变少？不可分那组会变对吗？</p>
+<p><strong>验收：</strong>两组现象都复现，并能用「间隔 γ 与半径 R」解释轮数差异。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-2-2-xor-mlp.html">6.2.2 异或与多层网络</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-1-4-xor-demo.html"><span class="p-label">← 上一知识点 6.1.4</span><span class="p-title">单层网络的局限：异或</span></a><a class="next" href="k6-2-2-xor-mlp.html"><span class="p-label">下一知识点 6.2.2 →</span><span class="p-title">异或与多层网络</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)2 · 感知器与线性可分</dd>
+    <dt>页面编号 / 路径</dt><dd>6.2.1 ｜ <span class="path">pages/m06-neural-nets/k6-2-1-perceptron.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-1-3-logic-gates.html"><b>6.1.3</b>从神经元到逻辑门</a><a class="xlink" href="k6-1-4-xor-demo.html"><b>6.1.4</b>单层网络的局限：异或</a><a class="xlink" href="k6-2-3-delta-rule.html"><b>6.2.3</b>增量规则：用误差修正权重</a><a class="xlink" href="u6-2-perceptron-backprop.html"><b>6.2</b>感知器、增量规则与反向传播（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-2-1（本页图 6-6）；知识库 M06-S1-03。 ｜ 知识库条目：M06-S1-03《训练神经网络的方法》（filled） ｜ 参考来源：S48 Rosenblatt 1958；S53《深度学习》第 6 章；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3.3 制造：把经验变成可复现的参数 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分视觉质检、预测性维护、工艺优化三类任务及各自指标。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-3-application-layer.html">2.3 应用层：安防、金融、制造、家居、医疗、自动驾驶</a><span class="sep">/</span><span class="here">2.3.3 制造：把经验变成可复现的参数</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.3</span>
+    <span class="tag">知识点 2.3.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>制造：把经验变成可复现的参数</h1>
+  <p class="lede">老师傅听十分钟声音就知道轴承还能撑多久；他一退休，这条判断就没了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分视觉质检、预测性维护、工艺优化三类任务及各自指标。</li><li>能说明参数固化要做什么，追溯链缺一环会怎样。</li><li>能用给定假设计算回收期，并写出一条可验收的上线前提。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>听声辨损</h2>
+<p>老师傅听十分钟声音，就能判断主轴轴承还能撑多久；教给新人，新人三个月还分不清「正常磨损」和「缺油」。经验留在人身上，人一走，判断就断了。</p>
+<p>质检更直接：同一批外壳的划痕，白班判合格、夜班判返工。客户投诉时翻记录，只有「合格」两个字，没有图像、参数和判定人。</p>
+<p class="ask">怎么把「老师傅的耳朵」变成产线上可复现的判断？</p>
+<p>先把经验拆成可测的量，再把量固化成参数，最后让参数随工单留痕。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>五步落地</h2>
+<p>落地路径基本一致：定参数、采集、建模找关键变量、小批试跑寻优、写进作业标准。最难的是最后一步，模型只是建议。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="老师傅的经验，要落成可复现的参数">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">老师傅的经验，要落成可复现的参数</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">工艺参数</text><text class="f-sc" x="117.6" y="154.0">温度、压力、速度</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">产线采集</text><text class="f-sc" x="298.79999999999995" y="154.0">传感器与 PLC</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">建模</text><text class="f-sc" x="480.0" y="154.0">找关键变量</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">参数寻优</text><text class="f-sc" x="661.1999999999999" y="154.0">小批试跑验证</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">固化上线</text><text class="f-sc" x="842.4" y="154.0">写进作业标准</text><text class="f-s" x="40" y="244">把经验变成参数才算落地；参数不稳，良率就不可控。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-27　老师傅的经验，要落成可复现的参数</b>　把经验变成参数才算落地；参数不稳，良率就不可控。</figcaption></figure>
+<p>采集定上限：传感器位置错、采样率不够、时钟不同步，数据看着完整，实际对不上工况。建模定解释力：只说「良率 96.3%」，工程师不会改参数；能指出「模温升 2℃ 缺陷率翻倍」，才有下一步。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="来料、加工、检测、追溯，一环都不能断">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">来料、加工、检测、追溯，一环都不能断</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">来料</text><text class="f-sc" x="117.6" y="154.0">批次与参数</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">加工</text><text class="f-sc" x="298.79999999999995" y="154.0">设备与工艺</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">检测</text><text class="f-sc" x="480.0" y="154.0">视觉或尺寸</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">判定</text><text class="f-sc" x="661.1999999999999" y="154.0">合格或返工</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">追溯</text><text class="f-sc" x="842.4" y="154.0">批次与工单</text><text class="f-s" x="40" y="244">每一环都要留数据；追溯断了，出了问题就只能整批召回。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-28　来料、加工、检测、追溯，一环都不能断</b>　追溯断了，出问题就只能整批召回。</figcaption></figure>
+<p>关键在每环都留数据：来料批次、设备与工艺参数、检测图像与结果、判定人与时间。缺一环，追溯就断在那一步。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>制造 AI 的产出不是一份报告，而是能写进作业标准、能被下一班照着执行的参数。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三类任务</h2>
+<p><strong>视觉质检</strong>要先把「缺陷」定义清楚：划痕的长度、深度、位置、是否影响装配。指标是漏检率与过杀率（良品判成不良）。只降漏检，过杀会上升，复检人力跟着涨；两个必须一起考核。</p>
+<p><strong>预测性维护</strong>用振动、温度、电流、声学信号估计健康度与寿命。核心指标不是「预测准不准」，而是「提前多久报警」与「误停机次数」：提前 3 天能备件，提前 3 小时只能停产抢修。</p>
+<p><strong>工艺参数优化</strong>是在可行域内找一组参数，使良率或能耗最优。输出必须带约束：温度不能超材料上限，节拍不能低于产能要求。</p>
+<p><strong>参数固化</strong>分三步：写进作业标准（含波动范围）、在设备上锁定、把快照与工单绑定。标志是「换一个人、换一个班次，做出来一样」。</p>
+<p><strong>追溯</strong>不是存日志，而是能回答三件事：这批用了什么料、哪台设备、什么参数；谁判的、依据什么图像；同参数批次有没有同样问题。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>从传感器到工单</h2>
+<p>数据从传感器到工单，要经过采集、边缘处理、上传、建模、下发五段，每段都有工程约束。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>关键点</th><th>常见错误</th></tr></thead>
+  <tbody>
+    <tr><td>采集</td><td>采样率、位置、量程</td><td>采样不足，频谱混叠</td></tr>
+    <tr><td>边缘</td><td>滤波、特征提取、断网缓存</td><td>全量上传，带宽打满</td></tr>
+    <tr><td>上传</td><td>时间同步、批次对齐</td><td>时钟漂移，工况错配</td></tr>
+    <tr><td>建模</td><td>标签来自质检与维修</td><td>标签口径不一，模型学错</td></tr>
+    <tr><td>下发</td><td>版本、权限与回滚</td><td>直接改设备，无法回退</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个长期问题。一是<strong>数据漂移</strong>：换料、换模、换季，分数整体偏移，要定期用新样本重训。二是<strong>样本不平衡</strong>：缺陷只占千分之几，模型容易学会「全部判合格」。</p>
+<p>上线顺序是先「辅助判读」：模型给疑似，人定案；积累标注后再提高自动化。直接全自动，一次批量误判可能报废整批。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两笔账</h2>
+<p>先算预测性维护的账（假设值）：非计划停机损失 2 万元/小时，去年停机 120 小时；采集改造一次性投入 30 万元，年维护 5 万元；上线后预计减少 30% 停机。</p>
+<p>年节省 72 万元，年净收益 67 万元，静态回收期 30÷67 ≈ 0.45 年，约 5.4 个月。</p>
+<p>这笔账取决于三个前提：停机损失是否按小时计、减少 30% 有无依据、误报检修是否计入。把 30% 换成 10%，回收期约 16 个月；再计入每年 20 次误停机的检修费，又要减 4 万元。</p>
+<p>质检的例子更说明单指标的陷阱：漏检率从 2% 降到 0.5%，过杀率却从 1% 升到 4%；按日产能 5000 件算，每天多出 150 件复检，要加 1 名复检员。只看漏检率很成功，算上人力收益可能归零。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>只报「准确率 99%」。缺陷率 0.5% 时，99% 的准确率仍可能漏掉大量缺陷，或把大量良品判成不良；验收要分别写漏检率与过杀率。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算回收期</h2>
+<p><strong>任务：</strong>用上面三组假设（停机损失、传感器成本、误检成本）重算回收期，并写 1 条上线前提。</p>
+<p>提示：单位统一到「元/年」，再算净收益；前提要可验收，例如「连续采集 3 个月」「缺陷样本 300 张以上」。</p>
+<p><strong>追问：</strong>① 把参数写进作业标准，和把参数锁进设备，哪个更容易回滚？② 换料后模型分数整体偏移，先重训还是先调阈值？③ 追溯链里缺了检测图像，出问题时还能定位到哪一步？</p>
+<p><strong>验收：</strong>单位统一、假设写明、回收期算对，前提可验收。传感器与采集的基础见 <a href="../m02-industry/k2-1-6-sensors.html">传感器</a>；执行侧的闭环见 <a href="../m02-industry/k2-2-4-robotics.html">机器人</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-3-4-smart-home.html">2.3.4 家居：低功耗、离线、可接受的误触发</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-3-2-finance.html"><span class="p-label">← 上一知识点 2.3.2</span><span class="p-title">金融：高频决策与强监管</span></a><a class="next" href="k2-3-4-smart-home.html"><span class="p-label">下一知识点 2.3.4 →</span><span class="p-title">家居：低功耗、离线、可接受的误触发</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)3 · 人工智能与制造业</dd>
+    <dt>页面编号 / 路径</dt><dd>2.3.3 ｜ <span class="path">pages/m02-industry/k2-3-3-manufacturing.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-1-6-sensors.html"><b>2.1.6</b>传感器：AI 的数据入口</a><a class="xlink" href="k2-3-4-smart-home.html"><b>2.3.4</b>家居：低功耗、离线、可接受的误触发</a><a class="xlink" href="u2-3-application-layer.html"><b>2.3</b>应用层：安防、金融、制造、家居、医疗、自动驾驶（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-3-3（本页图 2-27）、k2-3-3-b（图 2-28）；知识库 M02-S3-03《人工智能与制造业》（filled）。 ｜ 知识库条目：M02-S3-03《人工智能与制造业》（filled） ｜ 参考来源：工业和信息化部智能制造相关指南；中国信息通信研究院工业互联网白皮书；本页图为自绘，ROI 参数为课程假设。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

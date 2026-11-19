@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个「打」，三个义项靠上下文定">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">一个「打」，三个义项靠上下文定</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">词</text><text class="f-t" x="282.0" y="98">义项</text><text class="f-t" x="492.0" y="98">上下文线索</text><text class="f-t" x="702.0" y="98">例子</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">打</text><text class="f-s" x="282.0" y="139.0">击打</text><text class="f-s" x="492.0" y="139.0">手 + 身体部位</text><text class="f-s" x="702.0" y="139.0">打 了他一拳</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">打</text><text class="f-s" x="282.0" y="183.0">球类运动</text><text class="f-s" x="492.0" y="183.0">场地 + 比分</text><text class="f-s" x="702.0" y="183.0">打 了一场球</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">打</text><text class="f-s" x="282.0" y="227.0">乘坐</text><text class="f-s" x="492.0" y="227.0">交通工具</text><text class="f-s" x="702.0" y="227.0">打 车 回家</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">打</text><text class="f-s" x="282.0" y="271.0">编织</text><text class="f-s" x="492.0" y="271.0">毛线 + 衣物</text><text class="f-s" x="702.0" y="271.0">打 了件毛衣</text><text class="f-s" x="60" y="316">义项由搭配和语境筛出来；单看这个词，任何词典都给不出唯一答案。</text>
+</svg>

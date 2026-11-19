@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.3.1 技术地图：先问「有没有标签」，再问「要找什么」 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「有没有标签」把八种方法分成两枝，并说出每枝各管什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-3-dm-techniques.html">8.3 数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析</a><span class="sep">/</span><span class="here">8.3.1 技术地图：先问「有没有标签」，再问「要找什么」</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.3</span>
+    <span class="tag">知识点 8.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>技术地图：先问「有没有标签」，再问「要找什么」</h1>
+  <p class="lede">八种方法听着散，其实只过两道门：数据里有没有标准答案，你要找的是分组、搭配还是偏离。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「有没有标签」把八种方法分成两枝，并说出每枝各管什么。</li><li>能为一个业务问题走完两道门，写出候选方法与验收产物。</li><li>能识别「无标签硬套分类」这类错配，并说清返工发生在哪一步。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一张表，四件事</h2>
+<p>运营部给来一张订单宽表：120 万行、36 列。周会上提了四件事：预测哪些客户会流失、把客户分成几群、看哪些商品常被一起买、挑出不像正常单的订单。</p>
+<p>两位同事各领一件，回去就挑算法。一位把「客户分群」交给分类模型，可数据里没有「群」这个答案，跑了三天交不出结果；另一位拿聚类去做「会不会流失」，分出的四群很整齐，却没人说得清哪群该挽留。</p>
+<p class="ask">同一张表，四件事，凭什么交给四种方法？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两道门</h2>
+<p>技术地图只有两道门，顺序不能换。第一道问「有没有标签」，第二道问「要找什么」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="八种方法，先按标签有无分家">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">八种方法，先按标签有无分家</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">方法</text><text class="f-t" x="282.0" y="98">标签</text><text class="f-t" x="492.0" y="98">找什么</text><text class="f-t" x="702.0" y="98">典型输出</text><rect class="f-b3" x="60" y="112.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="128.75">分类</text><text class="f-s" x="282.0" y="128.75">有</text><text class="f-s" x="492.0" y="128.75">离散类别</text><text class="f-s" x="702.0" y="128.75">类别标签</text><rect class="f-b3" x="60" y="135.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="152.25">回归</text><text class="f-s" x="282.0" y="152.25">有</text><text class="f-s" x="492.0" y="152.25">连续数值</text><text class="f-s" x="702.0" y="152.25">预测值</text><rect class="f-b3" x="60" y="159.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="175.75">聚类</text><text class="f-s" x="282.0" y="175.75">无</text><text class="f-s" x="492.0" y="175.75">相似分组</text><text class="f-s" x="702.0" y="175.75">簇与簇心</text><rect class="f-b3" x="60" y="182.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="199.25">关联规则</text><text class="f-s" x="282.0" y="199.25">无</text><text class="f-s" x="492.0" y="199.25">共现搭配</text><text class="f-s" x="702.0" y="199.25">规则与提升度</text><rect class="f-b3" x="60" y="206.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="222.75">神经网络</text><text class="f-s" x="282.0" y="222.75">有或无</text><text class="f-s" x="492.0" y="222.75">复杂非线性关系</text><text class="f-s" x="702.0" y="222.75">模型输出</text><rect class="f-b3" x="60" y="229.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="246.25">Web 挖掘</text><text class="f-s" x="282.0" y="246.25">无</text><text class="f-s" x="492.0" y="246.25">链接与文本结构</text><text class="f-s" x="702.0" y="246.25">网页与社区模式</text><rect class="f-b3" x="60" y="253.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="269.75">特征分析</text><text class="f-s" x="282.0" y="269.75">无</text><text class="f-s" x="492.0" y="269.75">群体画像</text><text class="f-s" x="702.0" y="269.75">特征画像</text><rect class="f-b3" x="60" y="276.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="293.25">偏差分析</text><text class="f-s" x="282.0" y="293.25">无</text><text class="f-s" x="492.0" y="293.25">与常态的偏离</text><text class="f-s" x="702.0" y="293.25">异常清单</text><text class="f-s" x="60" y="328.0">先问有没有标签，再问要找什么；两步定完，候选方法就剩一两个。</text>
+</svg><figcaption><b>图 8-17　八种方法，先按标签有无分家</b>　两道门问完，候选方法只剩一两个；判定顺序反了，后面全是返工。</figcaption></figure>
+<p>标签就是每条记录的标准答案：这个客户已经流失，还是仍在用。有答案，方法学的是「输入到答案的映射」；没答案，方法只能在输入里找结构。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="技术地图：先问标签，再问任务">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">技术地图：先问标签，再问任务</text><rect class="f-b2" x="390" y="42" width="180" height="54" rx="9"/><text class="f-tc" x="480" y="66">输入数据</text><text class="f-sc" x="480" y="84">先问：有没有标签</text><path class="f-ar" d="M440 96 L310 128" marker-end="url(#ah)"/><path class="f-ar" d="M520 96 L650 128" marker-end="url(#ah)"/><rect class="f-b" x="150" y="130" width="300" height="56" rx="9"/><text class="f-tc" x="300.0" y="154">有标签</text><text class="f-sc" x="300.0" y="172">答案已知，学映射</text><path class="f-ar" d="M260 188 L180.0 222" marker-end="url(#ah)"/><rect class="f-b3" x="80" y="226" width="200" height="56" rx="9"/><text class="f-tc" x="180.0" y="250">分类</text><text class="f-sc" x="180.0" y="268">离散标签</text><path class="f-ar" d="M340 188 L420.0 222" marker-end="url(#ah)"/><rect class="f-b3" x="320" y="226" width="200" height="56" rx="9"/><text class="f-tc" x="420.0" y="250">回归</text><text class="f-sc" x="420.0" y="268">连续数值</text><rect class="f-b" x="510" y="130" width="300" height="56" rx="9"/><text class="f-tc" x="660.0" y="154">无标签</text><text class="f-sc" x="660.0" y="172">只看到输入</text><path class="f-ar" d="M540 188 L595.0 222" marker-end="url(#ah)"/><rect class="f-b3" x="540" y="226" width="110" height="56" rx="9"/><text class="f-tc" x="595.0" y="250">聚类</text><text class="f-sc" x="595.0" y="268">找相似</text><path class="f-ar" d="M600 188 L715.0 222" marker-end="url(#ah)"/><rect class="f-b3" x="660" y="226" width="110" height="56" rx="9"/><text class="f-tc" x="715.0" y="250">关联</text><text class="f-sc" x="715.0" y="268">找共现</text><path class="f-ar" d="M660 188 L835.0 222" marker-end="url(#ah)"/><rect class="f-b3" x="780" y="226" width="110" height="56" rx="9"/><text class="f-tc" x="835.0" y="250">偏差</text><text class="f-sc" x="835.0" y="268">找偏离</text><text class="f-s" x="40" y="330">非表格输入（文本、网页）仍走这两条线，换的是算法，不是判定顺序。</text>
+</svg><figcaption><b>图 8-18　技术地图：先问标签，再问任务</b>　先分两枝，再长叶子；非表格输入也走这两枝，换的是算法，不是判定顺序。</figcaption></figure>
+<p>第二道门分叉。有标签时，答案是几个类别还是一段数值，分出分类与回归；无标签时，要找相似分组、共现搭配，还是与常态的偏离，分出聚类、关联与偏差分析。</p>
+<div class="callout callout--def">
+  <span class="c-label">一句记住</span>
+  <p>没有标签却硬套分类，等于让学生做一道没有标准答案的题，再用「答得对不对」打分。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>八种方法</h2>
+<p>八个方法名听着散，按两道门一排就整齐了。</p><div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方法</th><th>标签</th><th>找什么</th><th>典型输出</th><th>常用评价</th></tr></thead>
+  <tbody>
+    <tr><td>分类</td><td>有</td><td>属于哪一类</td><td>类别标签</td><td>准确率、召回率</td></tr>
+    <tr><td>回归</td><td>有</td><td>数值是多少</td><td>一个预测值</td><td>平均绝对误差、R²</td></tr>
+    <tr><td>聚类</td><td>无</td><td>谁和谁相似</td><td>簇与簇心</td><td>轮廓系数、稳定性</td></tr>
+    <tr><td>关联规则</td><td>无</td><td>什么常一起出现</td><td>规则与提升度</td><td>支持度、置信度、提升度</td></tr>
+    <tr><td>神经网络</td><td>有或无</td><td>复杂非线性关系</td><td>模型输出</td><td>按任务定指标</td></tr>
+    <tr><td>Web 挖掘</td><td>无</td><td>链接与文本里的结构</td><td>网页模式、社区</td><td>抽取准确率、覆盖率</td></tr>
+    <tr><td>特征分析</td><td>无</td><td>群体长什么样</td><td>特征画像</td><td>分布是否可解释</td></tr>
+    <tr><td>偏差分析</td><td>无</td><td>哪里偏离常态</td><td>按偏离排序的名单</td><td>核查命中率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这张表就是本单元的地图。分类、回归、聚类、关联规则四条是主线；神经网络与 Web 挖掘是两类「非表格」输入；特征分析与偏差分析是描述性的一组。</p>
+<p>要提醒一句：神经网络可以拿去做分类或回归，单列它是因为输入形态与训练方式差别最大。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四问定方法</h2>
+<p>落到操作，问四句：有没有标签；输出是类别还是数值；输入是不是表格；结果要不要解释到个人。定完，候选方法只剩一两个。</p>
+<p>流程位置也要说清。这四问发生在 KDD 第四步之前：前三步决定输入长什么样，第五步决定结果能不能用。方法选错，前后两步都救不回来。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>route.py</span></div>
+<pre><code>def route(has_label, output_kind, input_kind=&quot;table&quot;):
+    if input_kind == &quot;tensor&quot;:
+        return &quot;神经网络&quot;
+    if input_kind == &quot;graph&quot;:
+        return &quot;Web 挖掘&quot;
+    if has_label:
+        return &quot;分类&quot; if output_kind == &quot;label&quot; else &quot;回归&quot;
+    return {&quot;group&quot;: &quot;聚类&quot;, &quot;cooccur&quot;: &quot;关联规则&quot;,
+            &quot;profile&quot;: &quot;特征分析&quot;, &quot;outlier&quot;: &quot;偏差分析&quot;}[output_kind]</code></pre>
+</div>
+<p>这段函数只回答「该往哪边走」，不回答「效果好不好」。效果要等模型跑完，再用对应指标验收：分类看混淆矩阵与召回，回归看平均绝对误差，聚类看轮廓系数与稳定性，关联看提升度与支持度。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「有没有标签」误当成「有没有目标列」。目标列若是事后才有的字段，比如退订时间，它只能当结果，不能当输入。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>四件事分派</h2>
+<p>回到那张宽表，四件事各归其位。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>标签</th><th>要找什么</th><th>交给</th><th>验收产物</th></tr></thead>
+  <tbody>
+    <tr><td>哪些客户会流失</td><td>有</td><td>二选一</td><td>分类</td><td>召回率与名单</td></tr>
+    <tr><td>客户自然分成几群</td><td>无</td><td>相似</td><td>聚类</td><td>簇规模与画像</td></tr>
+    <tr><td>哪些商品常一起买</td><td>无</td><td>共现</td><td>关联规则</td><td>规则表与提升度</td></tr>
+    <tr><td>哪些订单不像正常单</td><td>无</td><td>偏离</td><td>偏差分析</td><td>按偏离排序的清单</td></tr>
+  </tbody>
+</table>
+</div>
+<p>分派完，工作量也清楚了：分类要标注、要划分；聚类与关联不用标注，但要人命名；偏差分析最依赖基线口径。</p>
+<p>业务方验收看的是「给我一张什么表」，不是算法名；先把产物写进需求，再倒推方法。</p>
+<p>另一个坑是把无监督结果当结论：换组特征，群就变了。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六张卡过两道门</h2>
+<p><strong>任务：</strong>给六张任务卡各写出标签有无、要找什么、候选方法与验收产物。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务卡</th><th>标签</th><th>要找什么</th><th>交给</th></tr></thead>
+  <tbody>
+    <tr><td>下季度销售额是多少</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这篇评论是好评还是差评</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这批会员能分成几类</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>哪些配件常被一起下单</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>哪几家门店的流水异常</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这个客户明年会花多少钱</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 第 2 张卡如果没有人工标注，还能做吗，代价是什么？② 第 3 张卡的结果，凭什么说它「对」？</p>
+<p><strong>验收：</strong>六张卡都过完两道门，每张写出一个可交付的产物名。下一节把有标签的一枝拆开，见 <a href="../m08-data-mining/k8-3-2-classification-regression.html">分类与回归：有标签时的两种输出</a>；输入怎么准备，见 <a href="../m03-ml-basics/u3-3-datasets.html">数据集、特征、标签与三个划分</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-3-2-classification-regression.html">8.3.2 分类与回归：有标签时的两种输出</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-2-4-task-routing.html"><span class="p-label">← 上一知识点 8.2.4</span><span class="p-title">任务分派：八张任务卡该交给谁</span></a><a class="next" href="k8-3-2-classification-regression.html"><span class="p-label">下一知识点 8.3.2 →</span><span class="p-title">分类与回归：有标签时的两种输出</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)3 · 数据挖掘技术（总览）</dd>
+    <dt>页面编号 / 路径</dt><dd>8.3.1 ｜ <span class="path">pages/m08-data-mining/k8-3-1-technique-map.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-3-2-classification-regression.html"><b>8.3.2</b>分类与回归：有标签时的两种输出</a><a class="xlink" href="k8-3-3-clustering.html"><b>8.3.3</b>聚类：没有标签时按「相似」分组</a><a class="xlink" href="k8-2-3-data-mining.html"><b>8.2.3</b>数据挖掘：在数据里找「没人告诉过你」的模式</a><a class="xlink" href="u8-3-dm-techniques.html"><b>8.3</b>数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-3-1（本页图 8-17）、k8-3-1-b（图 8-18）；知识库 M08-S2-01～S2-08 八条（filled）。 ｜ 知识库条目：M08-S2-01《分类的概念及操作方法》（filled）、M08-S2-02《聚类的概念及操作方法》（filled）、M08-S2-03《回归分析的概念及操作方法》（filled）、M08-S2-04《关联规则的概念及操作方法》（filled）、M08-S2-05《神经网络的操作方法》（filled）、M08-S2-06《Web 数据挖掘的操作方法》（filled）、M08-S2-07《特征分析法的概念及操作方法》（filled）、M08-S2-08《偏差分析法的概念及操作方法》（filled） ｜ 参考来源：Han, Kamber & Pei《Data Mining: Concepts and Techniques》任务分类口径；KDD 流程见 8.2.3；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

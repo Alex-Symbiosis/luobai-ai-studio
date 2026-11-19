@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.5.3 神经计算：从 MP 到深度学习 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用一个神经元的结构解释「权重、偏置、激活」各管什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-5-milestones.html">1.5 六大里程碑：博弈、专家系统、神经计算、进化计算、NLP、生物信息学</a><span class="sep">/</span><span class="here">1.5.3 神经计算：从 MP 到深度学习</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.5</span>
+    <span class="tag">知识点 1.5.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>神经计算：从 MP 到深度学习</h1>
+  <p class="lede">规则写不完时，另一条路是把判断力放进参数里，让数据来调。这条路从 1943 年的一个阈值单元起步，中途被质疑、被冷落，直到反向传播与算力把它重新推回台前。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用一个神经元的结构解释「权重、偏置、激活」各管什么。</li><li>能说清前向计算、反向传播、参数更新三步的关系。</li><li>能指出神经计算擅长与不擅长的任务类型。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>写特征，还是学特征</h2>
+<p>同一个手写数字识别任务，两条技术路线：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>把特征写成规则</h3><p>先找闭合环，再数端点，再判断笔画方向；规则写到第三个人的手写体就崩了，因为总有人把 7 写成带横杠的样子。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>给样本，让网络自己调</h3><p>把几千张图连同标签喂进去，用误差回头改每个连接的权重；没人告诉它「什么是环」，它自己学出一组能分开数字的特征。</p></div>
+</div>
+<p class="ask">同一个识别任务，为什么规则在第三种写法上就崩，调参数却能一直做下去？</p>
+<p>因为手写差异是长尾，规则只能覆盖想得到的那些；参数从样本里吸收的是没想到的差异。这不是谁更聪明，而是知识来源换了。两条路的分界不在难度，而在知识形态：一个要被写出来，一个要被喂进去。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>教小孩认猫，不靠下定义</h2>
+<p>没人给小孩讲「猫是哺乳纲食肉目猫科动物」，而是指很多只猫，认错了就纠正。次数够多，他自然分得清猫和狗——权重就是被纠正出来的。所以网络的设计只做了一半，另一半是把数据准备好、把错误信号定义清楚。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="从阈值单元到可学习连接">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">从阈值单元到可学习连接</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">MP 神经元</text><text class="f-sc" x="140.25" y="154.0">固定阈值</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">感知机</text><text class="f-sc" x="366.75" y="154.0">权重可学</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">多层网络</text><text class="f-sc" x="593.25" y="154.0">误差反传</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">深度学习</text><text class="f-sc" x="819.75" y="154.0">深层表示与大数据</text><text class="f-s" x="40" y="244">神经计算的核心不是「像大脑」，而是用可调参数从数据中拟合映射。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-21　从阈值单元到可学习连接</b>　左端是 1943 年的阈值单元，中间是多层前向网络，右端是带卷积与深度的现代结构；变的是层数与连接方式，不变的是「加权求和再激活」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>神经计算把知识存进连接权重：结构由人设计，判断内容由数据填。学习就是按误差改权重，而不是由人补规则。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一个单元，四层意思</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>在本页的作用</th></tr></thead>
+  <tbody>
+    <tr><td>神经元</td><td>加权求和后过激活函数</td><td>最小的判断单元</td></tr>
+    <tr><td>权重与偏置</td><td>每个输入的重要性与触发阈值</td><td>要被学习的东西</td></tr>
+    <tr><td>层</td><td>多个单元并联，再串联成多层</td><td>从简单特征组合出复杂特征</td></tr>
+    <tr><td>损失</td><td>预测与目标的差距</td><td>给「往哪改」一个方向</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>单个单元写成 <span class="term">y = f(w·x + b)</span>，多层堆叠为 <span class="term">y = f<sub>L</sub>(…f<sub>1</sub>(x))</span>。训练是在参数空间里最小化损失 L(y, t)，反向传播给出每个参数对损失的偏导。</p>
+</div>
+<p>四个概念对应四种可替换的设计：换激活函数改变单元的表达能力，加层改变组合深度，换损失改变「什么算错」。但它们都指向同一件事——参数由数据决定，而不是由人写死。这四件事任何一件改动，都会改变网络能表达什么；主线却不变。把结构、数据、目标分开看，才知道一次调参该动哪一处。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>前向、反传、更新</h2>
+<p>训练一个网络，循环的就是三步：</p>
+<div class="steps">
+  <div class="step"><b>前向计算</b><span>输入逐层变换得到预测值；这一遍只做加乘与激活，不改变任何参数。</span></div>
+  <div class="step"><b>计算损失</b><span>把预测与标签比较，压成一个标量。损失定义错，梯度就会朝错的方向走。</span></div>
+  <div class="step"><b>反向传播</b><span>从输出往回逐层求偏导，得到每个参数该为误差负多少责任。</span></div>
+  <div class="step"><b>更新参数</b><span>沿负梯度方向改一小步，再回到前向；重复到损失不再下降或达到预算。</span></div>
+</div>
+<p>1986 年，反向传播让多层网络真正可训练；1998 年，LeNet-5 把手写数字识别做成端到端流水线；2012 年，AlexNet 在 ImageNet 上大幅领先，证明「更大网络 + 更多数据 + GPU」这条路走得通。三次推进，靠的都是同一套三步循环。它的代价也很明确：每一步必须可导，网络里一旦出现不可导的离散决策，梯度就断了。三步循环之所以能扩展到很深的网络，是因为每一层只需向上一层报告误差，不必知道全局发生了什么。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>从邮政编码到 ImageNet</h2>
+<p>1998 年，LeCun 等把卷积网络与梯度学习组合成完整流水线，用于手写数字与文档识别（LeNet-5）。它第一次说明：特征不必全靠人设计，卷积核可以从数据里学。</p>
+<p>2012 年，AlexNet 在 ImageNet 分类任务上大幅领先，把「更深网络 + 更多数据 + GPU」变成共识。此后神经计算从一条支线变成主线，但它擅长的任务类型并没有变：仍然是感知与模式。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>有大量带标签样本</td><td>样本很少，网络只记住而不学会</td></tr>
+    <tr><td>任务是感知与模式识别</td><td>要求逐条因果解释的场景，如事故定责</td></tr>
+    <tr><td>可以容忍分布外的失败</td><td>输入分布一变，精度可能整体塌陷</td></tr>
+  </tbody>
+</table>
+</div>
+<p>反例早就出现过：单层感知器连异或都表示不了，1969 年的批评直接把这个方向推入低谷。多层网络解决的是表达能力，没有解决解释能力——这一点到今天仍然成立。它不是技术细节的胜利，而是「特征由数据学」这一范式的胜利。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画一个 3-4-2 网络并数参数</h2>
+<p><strong>任务：</strong>画一个输入 3 个、隐藏 4 个、输出 2 个的全连接网络，算出权重与偏置总数，再指出哪一层参数最多。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>连接</th><th>权重数</th><th>偏置数</th><th>小计</th></tr></thead>
+  <tbody>
+    <tr><td>输入层 → 隐藏层</td><td></td><td></td><td></td></tr>
+    <tr><td>隐藏层 → 输出层</td><td></td><td></td><td></td></tr>
+    <tr><td>合计</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 把隐藏层从 4 加到 8，参数总量大约变成几倍？② 如果把激活函数全部去掉，多层网络会退化成什么？③ 参数越多，是否一定越容易过拟合？</p>
+<p><strong>自检：</strong>两条连接的权重与偏置数都能写出算式（3×4 与 4×2，偏置按每层单元数计），合计正确，并说清「参数集中在输入到隐藏这一段」，即达标。只写总数不给算式，视为未完成。画图时把偏置画成每个单元的独立入边，计数才不会漏。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-5-4-evolutionary-demo.html">1.5.4 进化计算：用选择代替梯度</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-5-2-expert-system.html"><span class="p-label">← 上一知识点 1.5.2</span><span class="p-title">专家系统：把知识写成规则</span></a><a class="next" href="k1-5-4-evolutionary-demo.html"><span class="p-label">下一知识点 1.5.4 →</span><span class="p-title">进化计算：用选择代替梯度</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 神经计算的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>1.5.3 ｜ <span class="path">pages/m01-ai-overview/k1-5-3-neural-computing.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-5-2-expert-system.html"><b>1.5.2</b>专家系统：把知识写成规则</a><a class="xlink" href="k1-5-4-evolutionary-demo.html"><b>1.5.4</b>进化计算：用选择代替梯度</a><a class="xlink" href="u1-5-milestones.html"><b>1.5</b>六大里程碑：博弈、专家系统、神经计算、进化计算、NLP、生物信息学（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-5-3（本页图 1-21）；知识库 M01-S2-02。 ｜ 知识库条目：M01-S2-02《人工智能发展的里程碑》（filled） ｜ 参考来源：S02 Russell &amp; Norvig《AIMA》第 4 版（2021）；S26 Rumelhart、Hinton、Williams《Learning representations by back-propagating errors》（1986）；S23 LeCun 等《Gradient-based learning applied to document recognition》（1998）；S27 Krizhevsky 等《ImageNet Classification with Deep Convolutional Neural Networks》（2012）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

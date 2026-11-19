@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.1.4 最小训练脚本与模型摘要 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能独立写出四步最小训练脚本，并在纯 CPU 上跑完。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-1-tf-basics.html">10.1 TensorFlow 的概念、特点与工具包</a><span class="sep">/</span><span class="here">10.1.4 最小训练脚本与模型摘要</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.1</span>
+    <span class="tag">知识点 10.1.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>最小训练脚本与模型摘要</h1>
+  <p class="lede">装完 TensorFlow 不算数，跑通一个「建模型—编译—fit—summary」的闭环才算。这四步的产物只有两样：一条下降的损失曲线，和一份能对上账的参数表。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能独立写出四步最小训练脚本，并在纯 CPU 上跑完。</li><li>能读懂 model.summary()，手算出每层参数量。</li><li>能解释输入形状与输出形状如何对齐。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>装完了，然后呢</h2>
+<p>两种「装好了」：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">假装好</span><h3>import 不报错</h3><p><code>import tensorflow</code> 成功，但一跑 fit 就卡在形状不匹配、标签维度不对、损失函数选错。</p></div>
+  <div class="card mini"><span class="mini-tag">真装好</span><h3>闭环跑通</h3><p>三分类小网络在 CPU 上 30 轮收敛到九成以上，<code>summary()</code> 的参数量能逐层手算对上。</p></div>
+</div>
+<p class="ask">为什么用「三分类加两个特征」这么小的数据？</p>
+<p>因为这一步要验证的是链路，不是精度：数据小，出错时能一眼定位到形状还是损失。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先跑通，再调优</h2>
+<p>最小闭环像新车的磨合：不上高速，先在空地绕两圈，确认油门、刹车、方向盘都连着。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="最小闭环：四步、两样产物">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">最小闭环：四步、两样产物</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">造/载数据</text><text class="f-sc" x="117.6" y="154.0">形状与标签对齐</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">搭模型</text><text class="f-sc" x="298.79999999999995" y="154.0">Input + Dense</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">compile</text><text class="f-sc" x="480.0" y="154.0">优化器、损失、指标</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">fit</text><text class="f-sc" x="661.1999999999999" y="154.0">按批迭代</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">summary 核对</text><text class="f-sc" x="842.4" y="154.0">参数量对得上</text><text class="f-s" x="40" y="244">跑通这四步，环境才算真的可用；summary 的参数量是最便宜的体检。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 10-4　最小闭环：四步、两样产物</b>　四步跑通、两样产物对得上，才有资格谈调参。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>四步的顺序不能换：先有数据形状，才能定 <code>Input</code>；先 <code>compile</code>，<code>fit</code> 才知道用什么损失和优化器。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个动作各自的输入输出</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>动作</th><th>输入</th><th>输出</th></tr></thead>
+  <tbody>
+    <tr><td>搭模型</td><td>每层的单元数与激活函数</td><td>一个未训练的 <code>Sequential</code></td></tr>
+    <tr><td><code>compile</code></td><td>优化器、损失、指标</td><td>绑定好训练配置的模型</td></tr>
+    <tr><td><code>fit</code></td><td>特征、标签、轮数、批大小</td><td><code>History</code>（逐轮损失与指标）</td></tr>
+    <tr><td><code>summary</code></td><td>—</td><td>逐层输出形状与参数量</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三分类用 <code>sparse_categorical_crossentropy</code>：标签是整数 <code>0/1/2</code>，不需要先做独热编码；如果标签已经是独热向量，才换成 <code>categorical_crossentropy</code>。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>完整脚本</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>minimal_train.py</span></div>
+<pre><code>import numpy as np
+import tensorflow as tf
+
+tf.keras.utils.set_random_seed(42)
+
+centers = np.array([[0.0, 0.0], [3.0, 0.0], [0.0, 3.0]], dtype=&quot;float32&quot;)
+X = np.concatenate([c + np.random.randn(60, 2).astype(&quot;float32&quot;) * 0.4 for c in centers])
+y = np.repeat([0, 1, 2], 60)
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Input(shape=(2,)),
+    tf.keras.layers.Dense(8, activation=&quot;relu&quot;),
+    tf.keras.layers.Dense(3, activation=&quot;softmax&quot;),
+])
+model.compile(optimizer=&quot;adam&quot;, loss=&quot;sparse_categorical_crossentropy&quot;, metrics=[&quot;accuracy&quot;])
+model.summary()
+h = model.fit(X, y, epochs=30, batch_size=16, verbose=0)
+print(&quot;末轮 loss/acc:&quot;, round(h.history[&quot;loss&quot;][-1], 4), round(h.history[&quot;accuracy&quot;][-1], 4))</code></pre>
+</div>
+<p><code>set_random_seed(42)</code> 同时固定 Python、NumPy 与 TF 的随机源，这是让「末轮数字」可复现的前提；换机器仍可能有末位差异。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测摘要与读数</h2>
+<p>在 tensorflow-cpu 2.21.0 + Python 3.13.14 下运行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>Model: &quot;sequential&quot;
+┌─────────────────────────────────┬────────────────────────┬───────────────┐
+│ Layer (type)                    │ Output Shape           │       Param # │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 8)              │            24 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 3)              │            27 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 51 (204.00 B)
+ Trainable params: 51 (204.00 B)
+ Non-trainable params: 0 (0.00 B)
+末轮 loss/acc: 0.2839 0.9444</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>24 = 2×8 + 8</h3><p>第一层每个输出单元有 2 个权重加 1 个偏置，8 个单元共 24 个参数。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>27 = 8×3 + 3</h3><p>第二层输入 8 维、输出 3 类，权重 24 加偏置 3，正好 27；总计 51。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>0.2839 / 0.9444</h3><p>末轮损失与准确率来自 <code>History</code>，是训练集口径，不代表泛化能力。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">形状是第一个坑</span>
+  <p><code>Input(shape=(2,))</code> 不含批大小；写成 <code>(60, 2)</code> 会把样本数当特征数，报错或静默训错。摘要里的 <code>None</code> 就是这一维。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把摘要算明白</h2>
+<p><strong>任务：</strong>把第一层改成 16 个单元，先手算总参数量，再跑脚本核对。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>Dense(16)</td><td>总参数量变成多少</td><td>2×16+16 与 16×3+3</td></tr>
+    <tr><td>标签改成独热</td><td>损失函数该换成什么</td><td><code>categorical_crossentropy</code></td></tr>
+    <tr><td>epochs 改 5</td><td>acc 掉到多少</td><td>欠拟合的表现</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>Non-trainable params</code> 是 0，什么层会让它非零？② 训练集准确率 0.94 能说明模型好吗？还需要什么？</p>
+<p><strong>验收：</strong>手算的参数量与 <code>summary()</code> 一致；能说出准确率的口径。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-2-1-graph.html">10.2.1 计算图：节点与边</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-1-3-tf1-vs-tf2.html"><span class="p-label">← 上一知识点 10.1.3</span><span class="p-title">1.x 与 2.x：计算图、会话与 Eager</span></a><a class="next" href="k10-2-1-graph.html"><span class="p-label">下一知识点 10.2.1 →</span><span class="p-title">计算图：节点与边</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)1 · TF 的概念及特点（实践）</dd>
+    <dt>页面编号 / 路径</dt><dd>10.1.4 ｜ <span class="path">pages/m10-tensorflow/k10-1-4-minimal-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-1-1-what-is-tf.html"><b>10.1.1</b>TensorFlow 的定位与特点</a><a class="xlink" href="k10-1-2-toolkit.html"><b>10.1.2</b>工具包地图：keras、data、TensorBoard</a><a class="xlink" href="k10-3-3-train.html"><b>10.3.3</b>训练模型：编译与 fit</a><a class="xlink" href="u10-1-tf-basics.html"><b>10.1</b>TensorFlow 的概念、特点与工具包（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-1-4（本页图 10-4）；课程自编最小脚本；输出为本机实测。 ｜ 知识库条目：M10-S1-01《TF 的概念及特点》（filled）、M10-S1-02《工具包的主要内容》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S154 tf.keras Sequential 指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

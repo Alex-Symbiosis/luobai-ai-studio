@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.6.2 schema 设计：实体、关系、属性与约束 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能为校园场景列出 5 类实体、6 类关系，并标出方向与基数。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-6-enterprise-kg.html">7.6 企业知识图谱构建与综合项目</a><span class="sep">/</span><span class="here">7.6.2 schema 设计：实体、关系、属性与约束</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.6</span>
+    <span class="tag">知识点 7.6.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>schema 设计：实体、关系、属性与约束</h1>
+  <p class="lede">同一个学院在三份表里有三个名字。schema 要做的，就是在导入前把这些名字钉成一个。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能为校园场景列出 5 类实体、6 类关系，并标出方向与基数。</li><li>能区分什么该做实体、什么该做属性、什么该做约束。</li><li>能写出一条可被脚本检查的约束。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三个名字一个学院</h2>
+<p>三份数据源摆在一起，字段先打架。培养方案叫「课程代码」，选课系统叫「课程号」；教务系统写「计算机系」，科研系统写「计算机学院」；一位教师同时挂在两个学院，工号却是同一个。</p>
+<p>如果直接把三份表导进图库，同一个学院会出现三个节点，同一门课会出现两个节点。查询「计算机学院有哪些课程」时，只会命中其中一个，结果少一半。</p>
+<p>schema 就是导入前签的那份契约：有哪些类型，类型之间怎么连，哪些规则必须成立。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先画主干</h2>
+<p>画 schema 的顺序是「实体—关系—属性—约束」，不是一次画全，而是先画能被查询用到的主干。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="校园图谱的最小可用模式">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">校园图谱的最小可用模式</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">校园图谱</text><text class="f-sc" x="480.0" y="91.0">五类实体与关系</text><path class="f-ar" d="M480 110 L120.8 150" marker-end="url(#ah)"/><text class="f-s" x="126.8" y="136" text-anchor="middle">开设</text><rect class="f-b" x="40.0" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="120.8" y="193.0">学院</text><text class="f-sc" x="120.8" y="212.0">学院 → 课程</text><text class="f-sc" x="120.8" y="270">↓</text><path class="f-ar" d="M480 110 L300.4 150" marker-end="url(#ah)"/><text class="f-s" x="306.4" y="136" text-anchor="middle">隶属</text><rect class="f-b" x="219.6" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="300.4" y="193.0">教师</text><text class="f-sc" x="300.4" y="212.0">教师 → 学院</text><text class="f-sc" x="300.4" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">讲授</text><rect class="f-b" x="399.2" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">课程</text><text class="f-sc" x="480.0" y="212.0">教师 → 课程</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L659.5999999999999 150" marker-end="url(#ah)"/><text class="f-s" x="665.5999999999999" y="136" text-anchor="middle">使用</text><rect class="f-b" x="578.8" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="659.5999999999999" y="193.0">实验室</text><text class="f-sc" x="659.5999999999999" y="212.0">课程 → 实验室</text><text class="f-sc" x="659.5999999999999" y="270">↓</text><path class="f-ar" d="M480 110 L839.1999999999999 150" marker-end="url(#ah)"/><text class="f-s" x="845.1999999999999" y="136" text-anchor="middle">选修</text><rect class="f-b" x="758.4" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="839.1999999999999" y="193.0">学生</text><text class="f-sc" x="839.1999999999999" y="212.0">学生 → 课程</text><text class="f-sc" x="839.1999999999999" y="270">↓</text><text class="f-s" x="40" y="316">箭头方向就是查询方向；写反了，路径就查不到。</text>
+</svg><figcaption><b>图 7-32　校园图谱的最小可用模式</b>　五类实体各有位置，箭头从主语指向宾语；图上的边名以正文的关系表为准。</figcaption></figure>
+<p>图只画主干：学院怎么连课程，教师怎么连课程与学院。学生与实验室、课程与课程这两组边，在正文的关系表里补齐。先画主干的好处是能立刻回答「这样设计能不能支撑那 5 条查询」。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四件东西</h2>
+<p><strong>实体：</strong>一类对象，必须有唯一键。学院用学院代码，教师用工号，课程用课程号，实验室用房间号，学生用学号。</p>
+<p><strong>关系：</strong>两个实体类型之间的有向连接，要标基数。方向决定查询方向：从学院指向课程，才能问「学院开了哪些课」。</p>
+<p><strong>属性：</strong>挂在实体或边上的键值。课程有学分与开课学期，教师有职称，边可以带来源与生效年份。</p>
+<p><strong>约束：</strong>必须成立的规则，写成可执行检查。约束不是注释，注释不会在导入时报错。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>五实体六关系</h2>
+<p>实体 5 类，规模按 5 个学院、15 位教师、20 门课程、6 个实验室、30 名学生设计。关系 6 类，方向与基数如下。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>关系</th><th>方向</th><th>基数</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td>开设</td><td>学院 → 课程</td><td>1 : N</td><td>按学院查课程</td></tr>
+    <tr><td>讲授</td><td>教师 → 课程</td><td>M : N</td><td>按教师查课程</td></tr>
+    <tr><td>属于</td><td>教师 → 学院</td><td>M : N</td><td>按学院查教师</td></tr>
+    <tr><td>使用</td><td>课程 → 实验室</td><td>N : 1</td><td>实验室关联课程</td></tr>
+    <tr><td>成员</td><td>学生 → 实验室</td><td>N : 1</td><td>查实验室成员</td></tr>
+    <tr><td>先修</td><td>课程 → 课程</td><td>M : N</td><td>查先修链</td></tr>
+  </tbody>
+</table>
+</div>
+<p>边的总量可以预估：开设 20 条、讲授 25 条、属于 45 条、使用 15 条、成员 30 条、先修 15 条，合计 20+25+45+15+30+15 = 150 条。设计阶段先算一遍，导入后对不上就说明丢了数据。</p>
+<p>至少 6 条约束要写成检查函数：课程必须有一条属于边；课程号唯一；工号唯一；先修关系无环；实验室必须有房间号；每名学生最多属于 1 个实验室。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>归并与取舍</h2>
+<p>三处冲突各有处理方式。<strong>课程号与课程代码</strong>：选课程号做主键，课程代码进别名表，查询时两个都能命中。<strong>系与学院</strong>：建学院实体，7 种写法收进别名表，归并成 5 个学院。<strong>教师双聘</strong>：属于边允许 2 条，约束只要求至少 1 条。</p>
+<p>取舍的标准是「会不会被查询用到」。某个字段如果只在一张详情页展示、从不参与筛选，就做属性；如果它要被别的实体指过来，就升成实体。学院名被课程、教师、实验室同时引用，所以必须是实体，不能是字符串属性。</p>
+<div class="callout callout--warn">
+  <span class="c-label">两种常见压扁</span>
+  <p>把「授课教师=张伟;李四」写成课程的一个字段，多值属性就没法按教师反查；把学院压成字符串，就没法问「学院开了哪些课」。压扁省一次建模，代价是整类查询做不了。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>加需求改模式</h2>
+<p><strong>任务：</strong>下面三条新需求，判断该加实体、加关系还是加属性，并补一条约束。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>需求</th><th>加什么</th><th>要补的约束</th></tr></thead>
+  <tbody>
+    <tr><td>双学位学生归属两个学院</td><td>？</td><td>？</td></tr>
+    <tr><td>跨学院选课记录</td><td>？</td><td>？</td></tr>
+    <tr><td>实验室的设备清单</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 双学位如果只改基数不改约束，会出什么问题？② 设备做成实体还是属性，取决于哪条查询？③ 先修边成环时，约束应该拦在导入前还是查询时？</p>
+<p><strong>验收：</strong>三项改动都能落到类型与基数上，约束能写成脚本。模式的语言无关表达，见 <a href="../m07-knowledge-graph/k7-3-3-ontology.html">本体</a>；模式的落地流程，见 <a href="../m07-knowledge-graph/k7-6-3-pipeline.html">工程流水线</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-6-3-pipeline.html">7.6.3 抽取—融合—存储的工程流水线</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-6-1-requirements.html"><span class="p-label">← 上一知识点 7.6.1</span><span class="p-title">需求分析：从业务问题到图谱问题</span></a><a class="next" href="k7-6-3-pipeline.html"><span class="p-label">下一知识点 7.6.3 →</span><span class="p-title">抽取—融合—存储的工程流水线</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)27 · 综合实战：校园知识图谱</dd>
+    <dt>页面编号 / 路径</dt><dd>7.6.2 ｜ <span class="path">pages/m07-knowledge-graph/k7-6-2-schema.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-6-1-requirements.html"><b>7.6.1</b>需求分析：从业务问题到图谱问题</a><a class="xlink" href="k7-6-3-pipeline.html"><b>7.6.3</b>抽取—融合—存储的工程流水线</a><a class="xlink" href="k7-3-3-ontology.html"><b>7.3.3</b>本体：类、属性与约束</a><a class="xlink" href="u7-6-enterprise-kg.html"><b>7.6</b>企业知识图谱构建与综合项目（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-6-2（本页图 7-32）；知识库 M07-S5-00（filled）。 ｜ 知识库条目：M07-S5-00《企业知识图谱的构建方法》（filled） ｜ 参考来源：W3C OWL 2 规范；W3C RDF 1.1 规范；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

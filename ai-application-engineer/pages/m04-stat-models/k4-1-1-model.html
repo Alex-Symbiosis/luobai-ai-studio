@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.1.1 模型是什么：假设空间里的一个实例 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「假设空间、参数、模型」三要素复述模型的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-1-model-mse.html">4.1 模型、误差与 MSE</a><span class="sep">/</span><span class="here">4.1.1 模型是什么：假设空间里的一个实例</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.1</span>
+    <span class="tag">知识点 4.1.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>模型是什么：假设空间里的一个实例</h1>
+  <p class="lede">把 y = 2x + 1 叫作「模型」，在工程里几乎一定会出问题：参数写死了，数据一变就只能重写公式。真正的模型不是一条固定的式子，而是一族留好了旋钮的函数——训练，就是在这一族里拧出一组合适的参数。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「假设空间、参数、模型」三要素复述模型的含义。</li><li>能区分「一族函数」与「一个具体函数」，不把公式当成模型。</li><li>能为一个预测任务写出它的假设空间与待估参数。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个问题，两种写法</h2>
+<p>同一份房价数据，两个小组给出了两种「模型」：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>把公式写死</h3><p>直接规定「价格 = 3 万 × 面积 + 20 万」。数据换了、城市换了，公式不动，误差全靠人去改系数。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>把族留好，让数据定参数</h3><p>先规定「价格 = w × 面积 + b」，w、b 留空；用训练数据估出 w、b 后，才得到一条具体的直线。</p></div>
+</div>
+<p class="ask">两种写法都能算出价格，为什么只有后者被称为「模型」？</p>
+<p>因为后者把「可能长什么样」和「这一份数据下长什么样」分开了：前者是一个成品，后者是一套模具加一次选择。模型指的正是这套<strong>可以长出很多成品</strong>的结构。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>模具与成品</h2>
+<p>做月饼：模具决定月饼的轮廓，馅料和按压的力度决定这一块的具体样子。模具本身不是月饼，但没有模具就压不出稳定的形状。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="模型不是一条公式">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">模型不是一条公式</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">公式：映射写死</text><text class="f-s" x="80" y="108">· y = 2x + 1，只有一个映射</text><text class="f-s" x="80" y="138">· 参数是常数，不能改</text><text class="f-s" x="80" y="168">· 换数据也不变</text><text class="f-s" x="80" y="198">· 没有「选」的过程</text><text class="f-s" x="80" y="228">· 只能描述一种关系</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">模型：一族函数 + 参数</text><text class="f-s" x="530" y="108">· y = wx + b，w、b 可调</text><text class="f-s" x="530" y="138">· 参数取定后才是一条直线</text><text class="f-s" x="530" y="168">· 同一族里能长成无数条</text><text class="f-s" x="530" y="198">· 训练就是在族里选一个</text><text class="f-s" x="530" y="228">· 换数据，选中的那条会变</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 4-1　假设空间与其中被选中的模型</b>　外圈是所有可能的直线，训练只负责在其中挑一条；换一批数据，挑中的可能是另一条。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>模型 = <strong>假设空间</strong>（允许长什么样的函数集合）+ <strong>参数</strong>（决定具体长哪样的一组数）。训练不是「发明公式」，而是在给定空间里<strong>选一个实例</strong>。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个词，一条边界</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>房价例子</th><th>谁决定</th></tr></thead>
+  <tbody>
+    <tr><td>假设空间 H</td><td>所有候选函数的集合</td><td>全部直线 y = wx + b</td><td>人（建模选择）</td></tr>
+    <tr><td>参数 θ</td><td>空间内定位一个函数的数</td><td>(w, b) = (3.1, 18.5)</td><td>算法（从数据估）</td></tr>
+    <tr><td>模型 f<sub>θ</sub></td><td>参数取定后的那个函数</td><td>y = 3.1x + 18.5</td><td>前两者共同决定</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>设假设空间为 <span class="term">H = {f<sub>θ</sub> : θ ∈ Θ}</span>，学习算法依据训练集 D 输出 <span class="term">θ̂</span>，最终模型为 <span class="term">f<sub>θ̂</sub></span>。空间没选对，再好的算法也只能在错的集合里挑。</p>
+</div>
+<p>注意：线性回归、决策树、神经网络都是<strong>假设空间</strong>的名字，不是某一个训练好的模型。说「我用了线性回归」只说明了空间，没说明参数。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>选模型，其实是在空间里搜索</h2>
+<p>一次建模可以拆成四步，模型只占其中两步：</p>
+<div class="steps">
+  <div class="step"><b>定空间</b><span>根据问题形态选择函数族：直线、树、网络。空间太小会欠拟合，太大会过拟合。</span></div>
+  <div class="step"><b>定度量</b><span>选一个损失函数，说明「什么叫好」。空间和度量一起定义了优化问题。</span></div>
+  <div class="step"><b>搜索参数</b><span>算法在空间内找使损失最小的 θ；最小二乘直接解方程，梯度下降一步步逼近。</span></div>
+  <div class="step"><b>验证</b><span>在未参与训练的样本上检查；不达标时回到第一步换空间，而不是只反复调参。</span></div>
+</div>
+<p>这里有一个常被忽略的事实：<strong>参数最优 ≠ 模型最好</strong>。参数最优只说明在当前空间、当前度量下没有更好的选择；如果空间本身不含真实规律，最优参数仍然会错得很稳定。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一族直线，三个参数三份结论</h2>
+<p>用面积预测房价，假设空间取全部直线。三组参数给出三条线：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>参数 (w, b)</th><th>含义</th><th>训练误差</th><th>问题</th></tr></thead>
+  <tbody>
+    <tr><td>(2.0, 10)</td><td>斜率偏小</td><td>较高</td><td>系统性低估大户型</td></tr>
+    <tr><td>(3.1, 18)</td><td>拟合较好</td><td>较低</td><td>残差无明显形状</td></tr>
+    <tr><td>(5.5, −30)</td><td>斜率偏大</td><td>较高</td><td>小户型被压到负价</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三条线属于<strong>同一个假设空间</strong>，差别只在参数。这说明「模型不好」可能有两种完全不同的原因：空间不含规律，或参数没选对。前者要换空间，后者才轮到调参。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「模型越复杂越准」不成立。复杂度是假设空间的大小；空间变大只是让「可能更准」成为可能，是否真的更准，要由验证误差回答。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写出一个任务的三要素</h2>
+<p><strong>任务：</strong>为「门店日销量预测」写出假设空间、参数与模型，并回答两个追问。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>你的填写</th><th>检查点</th></tr></thead>
+  <tbody>
+    <tr><td>假设空间 H</td><td></td><td>是否写成了一个函数族，而不是一条式子</td></tr>
+    <tr><td>参数 θ</td><td></td><td>是否列出了真正需要从数据估的量</td></tr>
+    <tr><td>模型 f<sub>θ</sub></td><td></td><td>参数取定后是否只剩一个确定函数</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果把「直线族」换成「二次曲线族」，参数多了哪个？② 空间变大后，训练误差一定会下降吗？验证误差呢？</p>
+<p><strong>自检：</strong>能说清「空间由人定、参数由数据定」，并指出换空间与调参是两种不同的动作，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-1-2-error-residual.html">4.1.2 误差、残差与损失</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="u4-1-model-mse.html"><span class="p-label">← 返回</span><span class="p-title">单元 4.1 目录</span></a><a class="next" href="k4-1-2-error-residual.html"><span class="p-label">下一知识点 4.1.2 →</span><span class="p-title">误差、残差与损失</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)1 · 模型的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>4.1.1 ｜ <span class="path">pages/m04-stat-models/k4-1-1-model.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-1-2-error-residual.html"><b>4.1.2</b>误差、残差与损失</a><a class="xlink" href="k4-1-3-mse.html"><b>4.1.3</b>MSE：公式、量纲与优缺点</a><a class="xlink" href="k4-2-1-model-vs-algorithm.html"><b>4.2.1</b>模型与算法的区别</a><a class="xlink" href="u4-1-model-mse.html"><b>4.1</b>模型、误差与 MSE（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-1-1-a.svg（本页图 4-1）。 ｜ 知识库条目：M04-S1-01《模型的概念》（filled） ｜ 参考来源：S41 scikit-learn《Getting Started》；S54 ESL；S02 AIMA；S55 Boyd《Convex Optimization》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

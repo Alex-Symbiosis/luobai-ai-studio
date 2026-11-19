@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.6.1 三要素：数据、算力、算法，缺一项飞轮就停 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用数据、算力、算法三要素复述 2012 年前后的跃迁条件。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-6-new-millennium.html">1.6 新千年：数据、算力、算法三要素</a><span class="sep">/</span><span class="here">1.6.1 三要素：数据、算力、算法，缺一项飞轮就停</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.6</span>
+    <span class="tag">知识点 1.6.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>三要素：数据、算力、算法，缺一项飞轮就停</h1>
+  <p class="lede">深度学习的思想在二十世纪八十年代就写下过，真正改变产业的是 2012 年之后三件事同时到位。把跃迁归给某一个「更聪明的算法」，等于把一台机器的三个齿轮看成一个。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用数据、算力、算法三要素复述 2012 年前后的跃迁条件。</li><li>能说明三要素之间是相乘关系，而不是可以互相替代的清单。</li><li>能为一个具体技术突破判断主导要素，并写清另外两项如何配合。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个年份，两种解释</h2>
+<p>同一个问题「深度学习为什么到 2012 年才起来」，两组给出了两种答案：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>归给算法变聪明</h3><p>把原因锁定在「网络本身进步了」：新的激活函数、新的正则化、更深的层数。结论是算法一突破，其余条件自然跟上，数据与算力只是背景。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>拆成三笔账</h3><p>分别问：训练用的标注从哪来、一次训练要多少并行算力、算法改的是哪一处。三笔账各记年份与量级，再问哪一笔先把限制松开。</p></div>
+</div>
+<p class="ask">同一段历史，一边只有一个原因，一边有三本账。哪一种解释能说明「思想早就写过，却迟迟没有成」？</p>
+<p>因为一九八零年代就有的反向传播与卷积思想，缺的从来不是纸上的公式，而是能让公式跑起来的规模。三本账合起来才是答案：没有数据，网络学不到泛化；没有算力，网络训不完；没有新算法，规模加上去也不收敛。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>好食材、好灶火、好菜谱</h2>
+<p>做一顿好饭，需要三样东西同时到位：够好的食材、够旺的灶火、对得上食材的菜谱。只有菜谱，是纸上谈兵；只有食材和灶火，也只是把好材料烧糊。任何一样缺位，另外两样的投入都收不回来。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三要素飞轮：任何一项缺位都转不起来">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">三要素飞轮：任何一项缺位都转不起来</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">跃迁</text><text class="f-sc" x="480" y="200">2012 之后</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">数据</text><text class="f-sc" x="480.0" y="92.0">ImageNet 级标注</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">算力</text><text class="f-sc" x="742.0" y="200.0">GPU 并行训练</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">算法</text><text class="f-sc" x="480.0" y="308.0">表示学习与深层网络</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">产品</text><text class="f-sc" x="218.0" y="200.0">可交付的应用</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">三要素互相放大：更多数据训练更大模型，更大模型又需要更多算力。</text>
+</svg><figcaption><b>图 1-25　三要素飞轮：任何一项缺位都转不起来</b>　数据、算力、算法与产品构成一个回路：每一环的输出都是下一环的输入，飞轮每转一圈门槛一起抬高。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>三要素不是并列清单，而是一个互相放大的回路：数据变多，模型才敢做大；模型做大，才需要更多算力；算力到位，又能处理更多数据。跃迁来自回路转起来，不来自某一项单独变强。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三项各管一段</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>含义</th><th>2012 年前后的变化</th><th>缺位会怎样</th></tr></thead>
+  <tbody>
+    <tr><td>数据</td><td>带标签的样本规模与覆盖广度</td><td>互联网与传感器带来可训练语料；ImageNet 提供百万级标注图像</td><td>样本不足时，深层网络只能记住训练集</td></tr>
+    <tr><td>算力</td><td>单位时间内可完成的并行运算量</td><td>GPU 训练替代纯 CPU，集群把训练从月压到天</td><td>模型规模被硬性限制，训练周期无法排期</td></tr>
+    <tr><td>算法</td><td>从数据中自动形成表示的方法</td><td>深层网络配合反向传播、激活与正则化，端到端学特征</td><td>特征上限由人决定，换任务要重新设计</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>把一次跃迁记成能力 C ≈ F(D, P, A)：D 为可用数据规模，P 为有效算力，A 为单位算力的算法效率。F 对三者都单调，任一项接近零，输出都被压住。2012 年的变化不是某一项从零到一，而是三项同时越过了可训练的阈值；截至 2026-11，这条经验关系仍是解释规模跃迁最常用的框架。</p>
+</div>
+<p>三者还有一个次序问题：数据决定模型能学什么，算力决定模型能做多大，算法决定同样的数据与算力能榨出多少。次序是「先有料、再有灶、最后看菜谱」，但作用方式是相乘，不是相加。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>飞轮怎么转起来</h2>
+<p>三要素不是一次性凑齐，而是被一个回路越推越高：</p>
+<div class="steps">
+  <div class="step"><b>数据规模化</b><span>互联网把文本、图像、行为日志变成可采集的原料；标注把原料变成监督信号。</span></div>
+  <div class="step"><b>算力并行化</b><span>GPU 的矩阵运算把训练从串行改成并行，训练时间从「不可行」变成「可排期」。</span></div>
+  <div class="step"><b>表示学习化</b><span>深层网络不再等人设计特征，而是用梯度把特征一层层学出来。</span></div>
+  <div class="step"><b>回路放大</b><span>模型上线产生新数据，新数据又训练下一版模型；飞轮每转一圈，三项的门槛一起抬高。</span></div>
+</div>
+<p>回路一旦转起来，三项就互为条件：模型更大需要更多标注，更多标注需要更强算力去消化，更强算力又让更大的模型有意义。反过来说，只要有一项停在原地，另外两项的加码都会被它吃掉——这就是「加了三倍卡，指标只涨一点」的常见原因。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>2012 年那次夺冠，三项同时到位</h2>
+<p>2012 年，AlexNet 在 ImageNet 图像分类比赛上把冠军 Top-5 错误率压到 15.3%，比 2011 年冠军的 26% 低了十个百分点以上。拆开看，这次结果恰好是三要素同时到位的样本：数据侧是 ImageNet 提供的百万级标注图像，算力侧是两块消费级 GPU 撑起的并行训练，算法侧是深层卷积网络配合 ReLU 与 Dropout。</p>
+<p>更值得注意的是配合方式：网络更深带来更多参数，更多参数需要更多数据才不至于过拟合，而更大的数据与模型又需要并行算力才训得完。任何一项按 2012 年前的量级供给，另外两项的加码都会落空。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>解释「规模化工程跃迁」，即已有方法在资源到位后被放大</td><td>用来解释单点理论突破的时机，会漏掉思想本身的长期积累</td></tr>
+    <tr><td>三项都有可观测的规模指标：样本量、算力、参数</td><td>小样本、强解释要求的任务里，三要素的解释力明显下降</td></tr>
+    <tr><td>承认三者相乘，不把任何一项当唯一原因</td><td>只归因一项（「算力强」或「算法新」），结论会随下一项到位而失效</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三要素解释「为什么是这个时候成」，不解释「为什么是这一个想法」；当成唯一解释，就会把工程条件的成熟误读成理论突破。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给三个节点判主导要素</h2>
+<p><strong>任务：</strong>给下面三个节点各判一个「主导要素」，并写清另外两项如何配合。主导要素只能选一个，理由要落到可观测的量。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>节点</th><th>主导要素</th><th>另外两项如何配合</th><th>判断依据</th></tr></thead>
+  <tbody>
+    <tr><td>2012 年 AlexNet 夺冠</td><td></td><td></td><td></td></tr>
+    <tr><td>2017 年 Transformer 提出</td><td></td><td></td><td></td></tr>
+    <tr><td>2020 年代大规模预训练模型</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>填表时不要停在「算力强」：要写出是哪一项先松开了限制，另外两项是被拉动，还是被倒逼着跟上。</p>
+<p><strong>追问：</strong>① 若 2012 年只有 GPU 而没有 ImageNet，结论会怎样？② 算法效率提高后，同样的数据与算力能多做什么，这算不算第四要素？</p>
+<p><strong>自检：</strong>三行都能指出一个先松开的限制，并写清另外两项是被拉动还是被倒逼，即达标；若三行都只写「算力」，说明还没把相乘关系读进去。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-6-2-2012.html">1.6.2 2012 年：一场比赛把差距拉开</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-5-6-bioinformatics.html"><span class="p-label">← 上一知识点 1.5.6</span><span class="p-title">生物信息学：序列比对与结构预测</span></a><a class="next" href="k1-6-2-2012.html"><span class="p-label">下一知识点 1.6.2 →</span><span class="p-title">2012 年：一场比赛把差距拉开</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 新千年人工智能的发展特点</dd>
+    <dt>页面编号 / 路径</dt><dd>1.6.1 ｜ <span class="path">pages/m01-ai-overview/k1-6-1-three-factors.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-5-6-bioinformatics.html"><b>1.5.6</b>生物信息学：序列比对与结构预测</a><a class="xlink" href="k1-6-2-2012.html"><b>1.6.2</b>2012 年：一场比赛把差距拉开</a><a class="xlink" href="u1-6-new-millennium.html"><b>1.6</b>新千年：数据、算力、算法三要素（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-6-1（本页图 1-25）；知识库 M01-S2-03。 ｜ 知识库条目：M01-S2-03《新千年人工智能的发展特点》（filled） ｜ 参考来源：S27 Krizhevsky et al.《ImageNet Classification with Deep Convolutional Neural Networks》（2012）；S04 国务院《新一代人工智能发展规划》（2017）；S21 Vaswani et al.《Attention Is All You Need》（2017）；S02 Russell & Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

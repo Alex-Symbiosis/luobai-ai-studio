@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.2.1 线性回归：用一条直线逼近连续目标 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出线性回归的假设函数，并解释每个系数的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-2-linear-logistic.html">5.2 线性回归与逻辑回归</a><span class="sep">/</span><span class="here">5.2.1 线性回归：用一条直线逼近连续目标</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.2</span>
+    <span class="tag">知识点 5.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>线性回归：用一条直线逼近连续目标</h1>
+  <p class="lede">房价、销量、耗时这类连续目标，最先该试的模型都是线性回归。它不承诺拟合得最准，但能给出一个可解释、可比较的下界：每个特征的系数值多少钱，一句话说得清。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出线性回归的假设函数，并解释每个系数的含义。</li><li>能说明平方损失在衡量什么、为什么先平方再求和。</li><li>能判断当前数据是否满足线性回归的主要假设。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>拍一个单价，还是估一组系数</h2>
+<p>同一批成交记录，两种报价方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>单价乘面积</h3><p>业务拍一个每平米单价，总价 = 单价 × 面积；房龄、楼层、地段一律不折价；换一个城市，单价重新拍一次。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>估一组加权系数</h3><p>先假设总价 = w1 × 面积 + w2 × 房龄 + b，三个数都从历史成交里估；每个系数带方向与量纲，换城市重新估，不必重写公式。</p></div>
+</div>
+<p class="ask">两种做法都能报出一个数，为什么只有 B 的结论能复盘？</p>
+<p>因为 B 把「假设」和「证据」分开了：假设是加权和，证据是估出来的系数。A 的单价里混着假设、经验和拍板，一旦报偏，说不清是哪一环出的错。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>最贴合的一条线</h2>
+<p>散点画在平面上，能穿过的直线有无数条。所谓拟合，不是让线穿过每个点，而是让所有竖着量的偏差合起来最小。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一条最贴合的直线">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">一条最贴合的直线</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><circle cx="160" cy="244" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="210" cy="238" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="280" cy="220" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="340" cy="214" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="420" cy="190" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="500" cy="176" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="560" cy="168" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="640" cy="150" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="720" cy="138" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="800" cy="126" r="5.5" fill="#2f6fd0" opacity="0.8"/><path d="M140 250 L830 120" fill="none" stroke="#2f6fd0" stroke-width="2.6"/><line x1="680" y1="72" x2="706" y2="72" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="714" y="76">最小二乘直线</text><text class="f-s" x="100" y="340">拟合不是穿过每个点，而是让所有残差的平方和最小。</text>
+</svg><figcaption><b>图 5-5　一条最贴合的直线</b>　竖线是每个点的残差；拟合的目标是让这些残差的平方和最小，而不是让线穿过所有点。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>线性回归 = <strong>假设关系是加权和</strong> + <strong>用平方和衡量偏差</strong>。前一半决定能表达什么，后一半决定什么叫「拟合得好」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>假设函数与系数的读法</h2>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>假设函数 <span class="term">y = w0 + w1·x1 + w2·x2 + … + wp·xp + ε</span>，矩阵写法 <span class="term">y = Xw + ε</span>。目标是最小化残差平方和 <span class="term">SSE(w) = Σ (y_i − ŷ_i)²</span>。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>符号</th><th>含义</th><th>房价例子（示意）</th></tr></thead>
+  <tbody>
+    <tr><td>w0</td><td>截距，所有特征为 0 时的基线</td><td>18 万元</td></tr>
+    <tr><td>w1</td><td>面积的系数，控制其他特征后的边际效应</td><td>+3.1 万元/㎡</td></tr>
+    <tr><td>w2</td><td>房龄的系数，方向常为负</td><td>−2.4 万元/年</td></tr>
+    <tr><td>ε</td><td>噪声项，包含未观测到的因素</td><td>装修、朝向等</td></tr>
+  </tbody>
+</table>
+</div>
+<p>「线性」指对参数线性，不要求对特征线性：把面积平方作为新的一列，模型仍叫线性回归。系数也不能直接读成因果——房龄大的房子可能地段更好，控制不足时系数会混进别的因素。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么用平方，什么时候会失效</h2>
+<p>平方损失做了两件事：先把残差变成非负数，避免正负抵消；再对大偏差施以更重的惩罚，让模型优先修正错得最狠的点。它处处可导、整体是凸函数，因此最优解唯一，不会因为初值不同落到不同答案。</p>
+<p>求解有两条路：正规方程一次算完，梯度下降逐步逼近。两条路的代价不同，但解的是同一个优化问题。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两特征房价：系数怎么读</h2>
+<p>用面积与房龄两个特征拟合，得到一组系数（示意）：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>特征</th><th>系数</th><th>读法</th></tr></thead>
+  <tbody>
+    <tr><td>面积（㎡）</td><td>+3.1 万元/㎡</td><td>房龄相同，面积每多 1 ㎡，预测总价高 3.1 万元</td></tr>
+    <tr><td>房龄（年）</td><td>−2.4 万元/年</td><td>面积相同，房龄每多 1 年，预测总价低 2.4 万元</td></tr>
+    <tr><td>截距</td><td>18 万元</td><td>面积与房龄都为 0 的基线，不外推到真实房源</td></tr>
+  </tbody>
+</table>
+</div>
+<p>系数是否可信，要看残差图：残差呈弓形，说明关系弯曲；呈喇叭形，说明方差随预测值变大；个别点远离带状区域，说明有异常值或特殊样本。三种形态对应三种不同的修法，而不是统一「多跑几轮」。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「系数大就重要」不成立。系数带量纲，面积按㎡、房龄按年，数值不可直接比大小；要比较重要性，得先标准化或看置信区间。</p>
+</div>
+<p>把前面提到的四种失效信号收成一份核对单，换一份数据时逐条过一遍：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>目标与特征近似线性，残差无明显结构</td><td>关系弯曲时出现系统性偏差，加特征也救不回</td></tr>
+    <tr><td>样本相互独立，残差方差大致相同</td><td>异方差使系数标准误失真，区间估计不可信</td></tr>
+    <tr><td>特征之间没有严重共线</td><td>共线时系数符号翻转、方差膨胀，解释失效</td></tr>
+    <tr><td>异常值少，或已单独处理</td><td>平方放大大偏差，一个极值就能拉动整条线</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写假设函数，解释权重方向</h2>
+<p><strong>任务：</strong>为「门店日销量」写一个三特征的线性模型，并回答两个追问。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>特征</th><th>预期系数方向</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>营业面积</td><td></td><td></td></tr>
+    <tr><td>促销投入</td><td></td><td></td></tr>
+    <tr><td>距最近竞店距离</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 若把「促销投入」取对数再入模，系数含义变成什么？② 两个高度相关的特征同时入模，系数会发生什么？</p>
+<p><strong>验收：</strong>系数方向合理，能说清「控制其他特征不变」这个前提；追问能指向量纲与共线性，而不是含糊地说「会有影响」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-2-2-least-squares.html">5.2.2 最小二乘：为什么是平方和</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-1-4-selection-questions.html"><span class="p-label">← 上一知识点 5.1.4</span><span class="p-title">选型初判：先问四个问题</span></a><a class="next" href="k5-2-2-least-squares.html"><span class="p-label">下一知识点 5.2.2 →</span><span class="p-title">最小二乘：为什么是平方和</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 线性回归的概念及原理</dd>
+    <dt>页面编号 / 路径</dt><dd>5.2.1 ｜ <span class="path">pages/m05-ml-algorithms/k5-2-1-linear-regression.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-1-4-selection-questions.html"><b>5.1.4</b>选型初判：先问四个问题</a><a class="xlink" href="k5-2-2-least-squares.html"><b>5.2.2</b>最小二乘：为什么是平方和</a><a class="xlink" href="u5-2-linear-logistic.html"><b>5.2</b>线性回归与逻辑回归（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-2-1（本页图 5-5）；知识库 M05-S1-03。 ｜ 知识库条目：M05-S1-03《线性回归的概念及原理》（filled） ｜ 参考来源：S40 scikit-learn《Linear Models》；S54 ESL；S02 AIMA</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

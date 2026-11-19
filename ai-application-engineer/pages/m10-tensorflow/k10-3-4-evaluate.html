@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.3.4 评估模型：指标与混淆矩阵 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分训练集与测试集读数，并解释为什么后者才是交付依据。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-3-workflow.html">10.3 TensorFlow 程序主线：装载、探索、训练、评估、优化</a><span class="sep">/</span><span class="here">10.3.4 评估模型：指标与混淆矩阵</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.3</span>
+    <span class="tag">知识点 10.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>评估模型：指标与混淆矩阵</h1>
+  <p class="lede">准确率 95% 可能毫无价值：如果九成五的样本都是同一类，全猜这一类也能拿到 95%。评估的意义，是让这句话无法成立。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分训练集与测试集读数，并解释为什么后者才是交付依据。</li><li>能写出准确率、精确率、召回率、F1 的定义。</li><li>能用一个 2×2 混淆矩阵说明「偏科」发生在哪一格。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>95% 的陷阱</h2>
+<p>风控模型报告「准确率 95%」。翻一下测试集的标签分布：950 条正常、50 条欺诈。</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">模型 A</span><h3>全判「正常」</h3><p>准确率 95%，欺诈召回率 0%。报表很好看，业务上一个案子都没拦住。</p></div>
+  <div class="card mini"><span class="mini-tag">模型 B</span><h3>准确率 93%</h3><p>抓住 45 个欺诈、误伤 20 个正常客户。准确率更低，但召回率 90%。</p></div>
+</div>
+<p class="ask">哪个模型更该上线？</p>
+<p>取决于误伤与漏判的成本，而不是准确率高低。指标必须成组看。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>总分高，不代表没有偏科</h2>
+<p>一个学生总分很高，可能只是语文满分、数学不及格。混淆矩阵就是把每一科的分数拆开看。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="评估读数：四个指标一起看">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">评估读数：四个指标一起看</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">读数</text><text class="f-t" x="352.0" y="98">定义</text><text class="f-t" x="632.0" y="98">偏斜数据上的表现</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">loss</text><text class="f-s" x="352.0" y="139.0">损失函数在测试集上的均值</text><text class="f-s" x="632.0" y="139.0">受量纲影响，不能跨任务比</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">MAE</text><text class="f-s" x="352.0" y="183.0">预测与真实差的绝对均值</text><text class="f-s" x="632.0" y="183.0">与标签同量纲，最好解释</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">准确率</text><text class="f-s" x="352.0" y="227.0">预测对的样本占比</text><text class="f-s" x="632.0" y="227.0">全猜多数类也可能很高</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">精确率 / 召回率</text><text class="f-s" x="352.0" y="271.0">查得准 / 查得全</text><text class="f-s" x="632.0" y="271.0">二者此消彼长，看业务取舍</text><text class="f-s" x="60" y="316">只看准确率，会漏掉「偏科」：多数类全猜对，少数类一个没抓到。</text>
+</svg><figcaption><b>图 10-13　评估读数：四个指标一起看</b>　只看准确率会漏掉「偏科」：多数类全猜对，少数类一个没抓到。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>准确率回答「对了多少」，精确率回答「报出来的有多准」，召回率回答「该抓的抓到多少」。三者不能互相替代。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>混淆矩阵与四项指标</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th></th><th>预测 0</th><th>预测 1</th></tr></thead>
+  <tbody>
+    <tr><td><b>真实 0</b></td><td>TN 真负</td><td>FP 假正（误伤）</td></tr>
+    <tr><td><b>真实 1</b></td><td>FN 假负（漏判）</td><td>TP 真正</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>公式</th><th>回答的问题</th></tr></thead>
+  <tbody>
+    <tr><td>准确率 accuracy</td><td>(TP + TN) / 全部</td><td>整体对了多少</td></tr>
+    <tr><td>精确率 precision</td><td>TP / (TP + FP)</td><td>报出来的里面有多少是真的</td></tr>
+    <tr><td>召回率 recall</td><td>TP / (TP + FN)</td><td>真的里面抓到了多少</td></tr>
+    <tr><td>F1</td><td>2PR / (P + R)</td><td>精确率与召回率的调和平均</td></tr>
+  </tbody>
+</table>
+</div>
+<p>不平衡数据下，准确率会被多数类主导；精确率与召回率则分别对应「误伤」与「漏判」两种成本，业务上选哪个高，要看哪种错误更贵。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>在未见过的数据上算指标</h2>
+<p>下面用回归任务演示「训练集 / 测试集分组评估」的写法；换成分类任务时，损失与指标替换即可，评估流程完全一致：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>evaluate_model.py</span></div>
+<pre><code>import numpy as np
+import tensorflow as tf
+
+tf.keras.utils.set_random_seed(42)
+X = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]], dtype=&quot;float32&quot;)
+y = 2.0 * X + 1.0
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Input(shape=(1,)),
+    tf.keras.layers.Dense(1),
+])
+model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.05), loss=&quot;mse&quot;, metrics=[&quot;mae&quot;])
+model.fit(X, y, epochs=300, verbose=0)
+
+test_X = np.array([[6.0], [7.0]], dtype=&quot;float32&quot;)
+test_y = 2.0 * test_X + 1.0
+train_loss, train_mae = model.evaluate(X, y, verbose=0)
+test_loss, test_mae = model.evaluate(test_X, test_y, verbose=0)
+print(&quot;训练集 loss/mae:&quot;, round(train_loss, 6), round(train_mae, 4))
+print(&quot;测试集 loss/mae:&quot;, round(test_loss, 6), round(test_mae, 4))
+print(&quot;测试集预测:&quot;, [round(float(v), 2) for v in model.predict(test_X, verbose=0).ravel()])</code></pre>
+</div>
+<p><code>evaluate</code> 返回的顺序与 <code>compile</code> 里 <code>loss</code> + <code>metrics</code> 的顺序一致：先损失，后指标。用 <code>verbose=0</code> 关掉进度条，输出才干净。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>训练集 loss/mae: 4e-06 0.0016
+测试集 loss/mae: 1.3e-05 0.0035
+测试集预测: [13.0, 15.0]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>测试略高于训练</h3><p>1.3e-05 对 4e-06，属正常泛化误差；量级仍可接受，不算过拟合。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>MAE 0.0035</h3><p>与标签同量纲：平均每次预测差 0.0035，比 loss 的平方尺度更好解释。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>[13.0, 15.0]</h3><p>真实值是 2×6+1=13、2×7+1=15，预测完全命中。</p></div>
+</div>
+<p>换成分类任务时，把上面三步换成「测试集 <code>predict</code> → 阈值或 <code>argmax</code> → 填入混淆矩阵」，四项指标就能逐格算出来。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算四项指标</h2>
+<p><strong>任务：</strong>给定一个混淆矩阵，算出准确率、精确率、召回率与 F1，并说明哪个指标最能暴露问题。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th></th><th>预测 0</th><th>预测 1</th></tr></thead>
+  <tbody>
+    <tr><td><b>真实 0</b></td><td>930</td><td>20</td></tr>
+    <tr><td><b>真实 1</b></td><td>5</td><td>45</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>算式</th><th>要看什么</th></tr></thead>
+  <tbody>
+    <tr><td>准确率</td><td>(930 + 45) / 1000</td><td>是否被多数类抬高</td></tr>
+    <tr><td>精确率</td><td>45 / (45 + 20)</td><td>误伤成本</td></tr>
+    <tr><td>召回率</td><td>45 / (45 + 5)</td><td>漏判成本</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么不能只报 F1？② 阈值调高时，精确率与召回率各往哪边走？</p>
+<p><strong>验收：</strong>四项数值自洽（F1 介于精确率与召回率之间），并能说出业务含义。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-3-5-optimize-demo.html">10.3.5 优化模型：超参数与回调</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-3-3-train.html"><span class="p-label">← 上一知识点 10.3.3</span><span class="p-title">训练模型：编译与 fit</span></a><a class="next" href="k10-3-5-optimize-demo.html"><span class="p-label">下一知识点 10.3.5 →</span><span class="p-title">优化模型：超参数与回调</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)2 · 评估模型</dd>
+    <dt>页面编号 / 路径</dt><dd>10.3.4 ｜ <span class="path">pages/m10-tensorflow/k10-3-4-evaluate.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-3-3-train.html"><b>10.3.3</b>训练模型：编译与 fit</a><a class="xlink" href="k10-3-5-optimize-demo.html"><b>10.3.5</b>优化模型：超参数与回调</a><a class="xlink" href="k10-3-2-explore-data.html"><b>10.3.2</b>探索数据：统计、缺失与分布</a><a class="xlink" href="u10-3-workflow.html"><b>10.3</b>TensorFlow 程序主线：装载、探索、训练、评估、优化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-3-4（本页图 10-13）；知识库 M10-S2-04；输出为本机实测。 ｜ 知识库条目：M10-S2-04《评估模型》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S161 分类评估指标</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

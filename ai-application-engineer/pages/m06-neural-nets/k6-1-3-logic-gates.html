@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.1.3 从神经元到逻辑门 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 AND、OR、NOT、NAND 四个门的权重与阈值。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-1-mp-neuron.html">6.1 神经网络的演变与麦卡洛克-皮茨网络</a><span class="sep">/</span><span class="here">6.1.3 从神经元到逻辑门</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.1</span>
+    <span class="tag">知识点 6.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>从神经元到逻辑门</h1>
+  <p class="lede">同一个阈值单元，换一组权重就是另一个门。所谓「可编程」，最早就是这件事。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 AND、OR、NOT、NAND 四个门的权重与阈值。</li><li>能用 0.5 与 1.5 说明阈值为什么必须落在两档之间。</li><li>能用两个门拼出半加器，并指出和位为什么不是单个门。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>电梯不启动的条件</h2>
+<p>写字楼的电梯有一张安全逻辑：门没关好，或者超载，就不启动；只有门关好且无人挡光，才允许启动。</p>
+<p>控制柜里这些条件不是用「如果……否则……」写的，而是一排阈值单元。每个单元只看几个开关量，加权求和后过阈值，输出 0 或 1，再送给下一级。</p>
+<p class="ask">「与」「或」「非」在电路里是三块不同的芯片吗？</p>
+<p>控制柜用阈值单元而不是软件里的 if-else，有很实际的原因：输出只有 0 和 1，抗干扰；阈值可以现场拧，换一个门只要改接线参数，不用重烧固件。<strong>「用同一套硬件实现不同逻辑」这件事，本身就是价值。</strong></p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一个单元，四种门</h2>
+<p>不是。它们共用同一个单元，区别只在权重和阈值。图上把四个门的参数并排摆出来，一眼能看到：没有任何一行需要新结构。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三种逻辑门，同一套权重与阈值">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三种逻辑门，同一套权重与阈值</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">门</text><text class="f-t" x="240.0" y="98">w1</text><text class="f-t" x="408.0" y="98">w2</text><text class="f-t" x="576.0" y="98">阈值 θ</text><text class="f-t" x="744.0" y="98">真值（00/01/10/11）</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">AND</text><text class="f-s" x="240.0" y="139.0">0.5</text><text class="f-s" x="408.0" y="139.0">0.5</text><text class="f-s" x="576.0" y="139.0">0.75</text><text class="f-s" x="744.0" y="139.0">0 0 0 1</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">OR</text><text class="f-s" x="240.0" y="183.0">0.5</text><text class="f-s" x="408.0" y="183.0">0.5</text><text class="f-s" x="576.0" y="183.0">0.25</text><text class="f-s" x="744.0" y="183.0">0 1 1 1</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">NOT x1</text><text class="f-s" x="240.0" y="227.0">−0.5</text><text class="f-s" x="408.0" y="227.0">0</text><text class="f-s" x="576.0" y="227.0">−0.25</text><text class="f-s" x="744.0" y="227.0">1 1 0 0</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">NAND</text><text class="f-s" x="240.0" y="271.0">−0.5</text><text class="f-s" x="408.0" y="271.0">−0.5</text><text class="f-s" x="576.0" y="271.0">−0.75</text><text class="f-s" x="744.0" y="271.0">1 1 1 0</text><text class="f-s" x="60" y="316">只换权重和阈值，不求新结构——这就是「可编程」的雏形。</text>
+</svg><figcaption><b>图 6-3　三种逻辑门，同一套权重与阈值</b>　只换权重和阈值，不求新结构——这就是「可编程」的雏形。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>门不是元件，是参数。改变参数就改变了这个单元「认同什么组合」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>权重即接线</h2>
+<p>统一写法：<code>y = 1[Σ wᵢxᵢ ≥ θ]</code>。四个门的参数如下（输入 <code>x1, x2 ∈ {0,1}</code>）：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>门</th><th>w1</th><th>w2</th><th>θ</th><th>真值（00/01/10/11）</th></tr></thead>
+  <tbody>
+    <tr><td>AND</td><td>0.5</td><td>0.5</td><td>0.75</td><td>0 0 0 1</td></tr>
+    <tr><td>OR</td><td>0.5</td><td>0.5</td><td>0.25</td><td>0 1 1 1</td></tr>
+    <tr><td>NOT x1</td><td>−0.5</td><td>0</td><td>−0.25</td><td>1 1 0 0</td></tr>
+    <tr><td>NAND</td><td>−0.5</td><td>−0.5</td><td>−0.75</td><td>1 1 1 0</td></tr>
+  </tbody>
+</table>
+</div>
+<p>看 AND 的阈值 0.75：单个输入只有 0.5，凑不到；两个输入一起是 1.0，过线。阈值必须严格卡在 0.5 与 1.0 之间，落在端点上就会误判。</p>
+<p>再看 NOT：权重取负，等于把「有信号」记成负分。NAND 则是把 AND 的两个权重与阈值同时取负，输出恰好反过来。四个门里没有一个是新结构，全部是同一行公式的不同参数。</p>
+<div class="callout callout--warn">
+  <span class="c-label">最常见的错误</span>
+  <p>把 AND 的阈值写成 0.5。此时 (0,1) 的和是 0.5，<code>0.5 ≥ 0.5</code> 成立，输出 1，AND 变成了「或」。差 0.25 就换了一个门。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四个门一次跑完</h2>
+<p>下面这段代码只用了同一个函数，四个门靠参数区分。注意 NOT 的第二个权重是 0——那根线不接。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>logic_gates.py</span></div>
+<pre><code>import numpy as np
+
+def unit(x, w, theta):
+    return int(np.dot(w, x) &gt;= theta)
+
+gates = {
+    &quot;AND&quot;:  ([0.5, 0.5], 0.75),
+    &quot;OR&quot;:   ([0.5, 0.5], 0.25),
+    &quot;NOT&quot;:  ([-0.5, 0.0], -0.25),
+    &quot;NAND&quot;: ([-0.5, -0.5], -0.75),
+}
+for name, (w, theta) in gates.items():
+    print(name, [unit(x, w, theta) for x in ([0, 0], [0, 1], [1, 0], [1, 1])])</code></pre>
+</div>
+<p>四个门共用一套输入顺序，输出依次是 0001、0111、1100、1110。权重为负就是把「有」变成「没有」——非门不需要新机制。</p>
+<p>同一个函数处理四种逻辑，已经预告了后来神经网络的通用写法：<strong>结构固定，靠参数表达不同的函数</strong>。区别只是这里的参数由人填，而网络里的参数由训练定。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>门搭出加法器</h2>
+<p>二进制半加器要算 <code>x1 + x2</code>，输出「和」与「进位」。把四种输入列出来，规律很清楚：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>x1</th><th>x2</th><th>和（异或）</th><th>进位（与）</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+    <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+    <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+  </tbody>
+</table>
+</div>
+<p>进位是标准的 AND，一个单元就能出。和位是异或——它看上去只是「不同则 1」，却写不成任何一个门。CPU 里的加法器靠一堆门堆出来，但异或这一位需要两层，见 <a href="../m06-neural-nets/k6-1-4-xor-demo.html">单层的局限</a>。</p>
+<p>把两个半加器与一个 OR 串起来就是全加器，能算带进位的加法；把 32 个全加器并排，就是一个 32 位加法器。处理器里最基础的那条指令，底层就是这几十个阈值单元。</p>
+<p>这张表也是整个模块的转折点：门能拼出算术，说明阈值单元不是玩具；而拼不出异或，说明单层的表达力有硬边界。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>多数表决器</h2>
+<p><strong>任务：</strong>三个输入，两个或两个以上为 1 时输出 1。请给出权重与阈值，并填完真值表。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>输入</th><th>加权和</th><th>输出</th></tr></thead>
+  <tbody>
+    <tr><td>0 0 0</td><td>？</td><td>0</td></tr>
+    <tr><td>0 0 1</td><td>？</td><td>0</td></tr>
+    <tr><td>0 1 1</td><td>？</td><td>1</td></tr>
+    <tr><td>1 1 1</td><td>？</td><td>1</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>权重取 (1,1,1)、阈值取 2，和权重取 (0.5,0.5,0.5)、阈值取 0.75，是同一个门吗？为什么？</p>
+<p>这道题还带出一个工程习惯：设计门电路时，先把权重固定成 0.5 这类整齐的数，再反推阈值落在哪两档之间。阈值只要落在区间内部，取 0.7 还是 0.8 不影响结果，这给容差留了余量。</p>
+<p><strong>验收：</strong>能说出「成比例缩放权重与阈值，判决不变」，这是后面讲特征标准化时会再用到的性质。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-1-4-xor-demo.html">6.1.4 单层网络的局限：异或</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-1-2-mp-neuron.html"><span class="p-label">← 上一知识点 6.1.2</span><span class="p-title">MP 神经元：加权求和再阈值</span></a><a class="next" href="k6-1-4-xor-demo.html"><span class="p-label">下一知识点 6.1.4 →</span><span class="p-title">单层网络的局限：异或</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)1 · 神经网络的概念（逻辑门实现）</dd>
+    <dt>页面编号 / 路径</dt><dd>6.1.3 ｜ <span class="path">pages/m06-neural-nets/k6-1-3-logic-gates.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-1-2-mp-neuron.html"><b>6.1.2</b>MP 神经元：加权求和再阈值</a><a class="xlink" href="k6-1-4-xor-demo.html"><b>6.1.4</b>单层网络的局限：异或</a><a class="xlink" href="k6-2-2-xor-mlp.html"><b>6.2.2</b>异或与多层网络</a><a class="xlink" href="u6-1-mp-neuron.html"><b>6.1</b>神经网络的演变与麦卡洛克-皮茨网络（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-1-3（本页图 6-3）；知识库 M06-S1-02。 ｜ 知识库条目：M06-S1-02《神经网络的分类》（filled） ｜ 参考来源：S47 McCulloch & Pitts 1943；S53《深度学习》第 6 章；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

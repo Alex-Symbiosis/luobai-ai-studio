@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.2.1 乔姆斯基层级：四类语法 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按产生式左部的形式，把一条规则放进 0/1/2/3 型中的某一档。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-2-syntax-cyk.html">9.2 句法与形式语法：语法类型与 CYK 算法</a><span class="sep">/</span><span class="here">9.2.1 乔姆斯基层级：四类语法</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.2</span>
+    <span class="tag">知识点 9.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>乔姆斯基层级：四类语法</h1>
+  <p class="lede">同一条规则只改左部的写法，能生成的语言就差一个量级。四类语法的分界，全在上下文。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按产生式左部的形式，把一条规则放进 0/1/2/3 型中的某一档。</li><li>能画出 0 ⊃ 1 ⊃ 2 ⊃ 3 的包含关系，并为每一档举出一种上一档生成不了的语言。</li><li>能判断一条规则能不能写进 CFG，并说清它为什么会超出 CYK 的处理范围。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>第四层就错</h2>
+<p>课代表交来一段检查程序，判断一串括号是否配对。他用正则写了两行，测到第三层嵌套还全对，第四层开始误判。</p>
+<p>不是正则写得不好。括号配对要求「左括号数等于右括号数」，这个数没有上限，而正则文法只有有限个状态，记不住任意大的数。乔姆斯基按产生式左部允许写什么，把文法分成四档，正好把这类能力差别摆了出来。</p>
+<p class="ask">只改左部的写法，为什么能决定一门语言的上限？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>左部定档</h2>
+<p>四档的门槛只有一条：左部允不允许出现上下文。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四类语法：越往下，规则越紧">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">四类语法：越往下，规则越紧</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">短语结构文法</text><text class="f-sc" x="480.0" y="91.0">0 型到 3 型</text><path class="f-ar" d="M480 110 L143.25 150" marker-end="url(#ah)"/><text class="f-s" x="149.25" y="136" text-anchor="middle">0 型</text><rect class="f-b" x="40.0" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="143.25" y="193.0">无限制文法</text><text class="f-sc" x="143.25" y="212.0">α → β，两侧都可长</text><text class="f-sc" x="143.25" y="270">↓</text><path class="f-ar" d="M480 110 L367.75 150" marker-end="url(#ah)"/><text class="f-s" x="373.75" y="136" text-anchor="middle">1 型</text><rect class="f-b" x="264.5" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="367.75" y="193.0">上下文有关</text><text class="f-sc" x="367.75" y="212.0">αAβ → αγβ</text><text class="f-sc" x="367.75" y="270">↓</text><path class="f-ar" d="M480 110 L592.25 150" marker-end="url(#ah)"/><text class="f-s" x="598.25" y="136" text-anchor="middle">2 型</text><rect class="f-b" x="489.0" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="592.25" y="193.0">上下文无关</text><text class="f-sc" x="592.25" y="212.0">A → γ，左部单个非终结符</text><text class="f-sc" x="592.25" y="270">↓</text><path class="f-ar" d="M480 110 L816.75 150" marker-end="url(#ah)"/><text class="f-s" x="822.75" y="136" text-anchor="middle">3 型</text><rect class="f-b" x="713.5" y="152" width="206.5" height="92" rx="9"/><text class="f-tc" x="816.75" y="193.0">正则文法</text><text class="f-sc" x="816.75" y="212.0">A → aB 或 A → a</text><text class="f-sc" x="816.75" y="270">↓</text><text class="f-s" x="40" y="316">包含关系是 0 ⊃ 1 ⊃ 2 ⊃ 3：越往下能生成的语言越少，解析也越高效。</text>
+</svg><figcaption><b>图 9-6　四类语法：越往下，规则越紧</b>　包含关系是 0 ⊃ 1 ⊃ 2 ⊃ 3：越往下能生成的语言越少，解析也越高效。</figcaption></figure>
+<p>越往下，左部限制越严，能生成的语言越少，判定也越便宜。3 型用有限状态就能扫完，2 型要一个栈，1 型要一条线性有界纸带，0 型等于图灵机。</p>
+<div class="callout callout--def">
+  <span class="c-label">记号约定</span>
+  <p>大写 A、B、C 是非终结符，小写 a、b、c 是终结符，α、β、γ 是任意符号串，可以为空。左部至少要有一个非终结符，否则规则没有可改写的对象。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四种写法</h2>
+<p>四类的规则形式如下。表里的「最窄一档」很重要：同一条规则常常同时满足几档，报类型时报限制最严的那一档。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>别名</th><th>规则形式</th><th>例子</th><th>直观说法</th></tr></thead>
+  <tbody>
+    <tr><td>0 型</td><td>无限制文法</td><td>α → β，α 至少含一个非终结符</td><td>AB → ε</td><td>想怎么换就怎么换</td></tr>
+    <tr><td>1 型</td><td>上下文有关</td><td>αAβ → αγβ，长度不缩</td><td>aB → Ba</td><td>A 只在 α_β 这个上下文里能换</td></tr>
+    <tr><td>2 型</td><td>上下文无关</td><td>A → γ</td><td>S → aSb</td><td>不管前后是什么，A 都能换</td></tr>
+    <tr><td>3 型</td><td>正则文法</td><td>A → aB 或 A → a</td><td>A → aA | a</td><td>一次只往右长一个符号</td></tr>
+  </tbody>
+</table>
+</div>
+<p>3 型限定「右线性」：右部要么是一个终结符，要么是一个终结符加一个非终结符。左线性 <code>A → Ba</code> 单独用与右线性等价，两种混写就会跳出正则。</p>
+<p>1 型的长度条件要单独记：标准形式要求右部不短于左部；只有起始符允许推出空串，而且起始符不能出现在任何右部。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>严格包含</h2>
+<p>包含关系是严格的：<code>0 ⊃ 1 ⊃ 2 ⊃ 3</code>。每一档都有上一档生成不了的语言，这才是分档的意义。</p>
+<ul>
+  <li>3 型数不了配对。<code>aⁿbⁿ</code> 要记住已经读了多少个 a，有限状态记不住任意 n。</li>
+  <li>2 型能数一层配对。<code>S → aSb | ε</code> 生成 <code>aⁿbⁿ</code>；但数不了 <code>aⁿbⁿcⁿ</code>，因为栈只有一个，两个计数没法同时压。</li>
+  <li>1 型能数多层对应，办法是把上下文一起带过去，长度不缩保证改写过程可查。</li>
+  <li>0 型等于图灵机：能算的它都能生成，代价是判定可能不停机。</li>
+</ul>
+<p>判定顺序也照这个来：先看左部是不是单个非终结符，是就落在 2 型；再看右部是不是「一个终结符」或「一个终结符加一个非终结符」，是就升到 3 型；左部带上下文且长度不缩，是 1 型；其余归 0 型。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>四条规则</h2>
+<p>拿四条规则走一遍，判型就不抽象了。</p>
+<p>① <code>S → aSb | ε</code>：左部是单个非终结符，2 型。推导 <code>aabb</code> 走三步：<code>S ⇒ aSb ⇒ aaSbb ⇒ aabb</code>。它不是 3 型，因为正则文法状态数固定，而这里 n 可以任意大。</p>
+<p>② <code>A → aA | a</code>：右线性，3 型，生成 a、aa、aaa 这一串。</p>
+<p>③ <code>aB → Ba</code>：左部两个符号、带上下文，右部同长度，1 型。它把 B 左边的 a 挪到右边，正是正则文法做不到的交换。</p>
+<p>④ <code>AB → ε</code>：左部两个非终结符，长度从 2 缩到 0，不符合 1 型「αAβ → αγβ」的形式，只能算 0 型。</p>
+<p><strong>易错点：</strong>把 ② 报成 2 型。它确实也满足 2 型的写法，但按最窄一档应报 3 型；反过来把 ① 报成 3 型就错了——右部 <code>aSb</code> 中间夹着终结符 b，长度会随 n 增长，正则文法生成不了。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六条判型</h2>
+<p><strong>任务：</strong>下表 6 条规则，逐条填类型与依据。类型栏只写最窄的一档。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>序号</th><th>规则</th><th>类型</th><th>依据</th></tr></thead>
+  <tbody>
+    <tr><td>①</td><td>S → aSb | ε</td><td>？</td><td>？</td></tr>
+    <tr><td>②</td><td>A → aA | a</td><td>？</td><td>？</td></tr>
+    <tr><td>③</td><td>aB → Ba</td><td>？</td><td>？</td></tr>
+    <tr><td>④</td><td>AB → ε</td><td>？</td><td>？</td></tr>
+    <tr><td>⑤</td><td>S → SS | a</td><td>？</td><td>？</td></tr>
+    <tr><td>⑥</td><td>A → aB | b</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① ⑤ 生成的语言是不是正则？② ③ 如果硬写进 CFG，会丢掉什么信息？③ ⑥ 与 ② 的右部只差一个符号，为什么类型相同？</p>
+<p><strong>验收：</strong>6 条全判对，每条依据能落到「左部形式」「右部长度」或「右部是否右线性」三者之一。下一步把这些规则写成能一句句推导的文法，见 <a href="../m09-nlp/k9-2-2-cfg.html">上下文无关文法与推导树</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-2-2-cfg.html">9.2.2 上下文无关文法与推导树</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-1-4-neural-era.html"><span class="p-label">← 上一知识点 9.1.4</span><span class="p-title">神经时代：预训练与表示学习</span></a><a class="next" href="k9-2-2-cfg.html"><span class="p-label">下一知识点 9.2.2 →</span><span class="p-title">上下文无关文法与推导树</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)2 · 语法的类型</dd>
+    <dt>页面编号 / 路径</dt><dd>9.2.1 ｜ <span class="path">pages/m09-nlp/k9-2-1-chomsky.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-2-2-cfg.html"><b>9.2.2</b>上下文无关文法与推导树</a><a class="xlink" href="k9-2-4-cyk.html"><b>9.2.4</b>CYK 算法：表格里的动态规划</a><a class="xlink" href="k9-1-2-rule-era.html"><b>9.1.2</b>规则时代：形式语法与专家系统</a><a class="xlink" href="u9-2-syntax-cyk.html"><b>9.2</b>句法与形式语法：语法类型与 CYK 算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-2-1（本页图 9-6）；知识库 M09-S2-01《语法的类型》（filled）。 ｜ 知识库条目：M09-S2-01《语法的类型》（filled） ｜ 参考来源：Chomsky《Syntactic Structures》（1957）与乔姆斯基层级经典定义；Jurafsky & Martin《Speech and Language Processing》第 12–13 章；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

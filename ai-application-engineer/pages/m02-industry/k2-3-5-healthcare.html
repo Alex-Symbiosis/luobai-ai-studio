@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3.5 医疗：高价值、高风险、强证据 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清辅助诊断的三种定位，以及各自的风险大小。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-3-application-layer.html">2.3 应用层：安防、金融、制造、家居、医疗、自动驾驶</a><span class="sep">/</span><span class="here">2.3.5 医疗：高价值、高风险、强证据</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.3</span>
+    <span class="tag">知识点 2.3.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>医疗：高价值、高风险、强证据</h1>
+  <p class="lede">影像科一天 300 例，报告排到 5 天后；AI 先筛一遍，医生却说「标出来的四成是良性」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清辅助诊断的三种定位，以及各自的风险大小。</li><li>能用患病率、敏感度、特异度推算临床工作量，而不是只看 AUC。</li><li>能写出「不能做什么」清单，并说明医生在环的具体动作。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>先筛一遍</h2>
+<p>影像科一天 300 例胸部 CT，报告排到 5 天后。主任想让 AI 先看一遍，把可疑的挑出来，医生先写这些。试运行两周，医生反馈：AI 标出的四成是明显良性，真正该优先看的反而没排到前面。</p>
+<p>更麻烦的是：AI 标了「疑似结节」，医生复核后认为不是，报告怎么写？万一漏诊，责任在签字医生、采购的医院，还是算法供应商？</p>
+<p class="ask">离线测试准确率 95%，为什么进了临床就不好用？</p>
+<p>临床要的不是分数，而是「在什么人群、设备、流程下，能稳定地帮医生少漏、少等」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三个角色</h2>
+<p>医疗 AI 有三类角色：医生要不漏诊、少改稿，患者要安全与隐私，医院要责任清晰、合规可查。同一个功能，三方标准不一样。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="医生、患者、医院，要的不是同一件事">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">医生、患者、医院，要的不是同一件事</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">角色</text><text class="f-t" x="352.0" y="98">最在意什么</text><text class="f-t" x="632.0" y="98">对 AI 的要求</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">医生</text><text class="f-s" x="352.0" y="139.0">不漏诊、少改稿</text><text class="f-s" x="632.0" y="139.0">可解释、可修改</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">患者</text><text class="f-s" x="352.0" y="183.0">安全与隐私</text><text class="f-s" x="632.0" y="183.0">知情同意、可拒绝</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">医院</text><text class="f-s" x="352.0" y="227.0">责任与合规</text><text class="f-s" x="632.0" y="227.0">注册证、全流程留痕</text><text class="f-s" x="60" y="272">医疗 AI 的瓶颈常不在准确率，而在证据等级与责任归属。</text>
+</svg><figcaption><b>图 2-31　医生、患者、医院，要的不是同一件事</b>　医疗 AI 的瓶颈常不在准确率，而在证据等级与责任归属。</figcaption></figure>
+<p>这决定了产品只能定位为「辅助」：AI 排序、提示、给第二意见，最终签字的是医生。把 AI 放在「独立出报告」的位置，现有责任体系接不住。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="证据每升一级，能做的动作才多一步">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">证据每升一级，能做的动作才多一步</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">证据等级</text><text class="f-t" x="352.0" y="98">数据从哪来</text><text class="f-t" x="632.0" y="98">能支持什么</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">回顾性、单中心</text><text class="f-s" x="352.0" y="139.0">历史病历</text><text class="f-s" x="632.0" y="139.0">提出假设、做预研</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">多中心回顾</text><text class="f-s" x="352.0" y="183.0">多家医院历史数据</text><text class="f-s" x="632.0" y="183.0">评估泛化、定指标</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">前瞻性对照</text><text class="f-s" x="352.0" y="227.0">按方案采集</text><text class="f-s" x="632.0" y="227.0">验证效果、申报</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">随机对照 + 审批</text><text class="f-s" x="352.0" y="271.0">严格设计与随访</text><text class="f-s" x="632.0" y="271.0">进临床路径</text><text class="f-s" x="60" y="316">证据越强成本越高；风险越高的动作，要求的证据等级越高。</text>
+</svg><figcaption><b>图 2-32　证据每升一级，能做的动作才多一步</b>　证据越强成本越高；风险越高的动作，要求的证据等级越高。</figcaption></figure>
+<p>回顾性单中心只能提假设，多中心回顾评估泛化，前瞻性对照验证效果，随机对照加审批才可能进临床路径。等级不够，功能只能停在「研究」。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>准确率高一级，不等于能多用一步；证据等级决定的是「允许做什么」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>定位与证据</h2>
+<p><strong>辅助诊断有三种定位</strong>：分诊（谁先看）、检出（标出可疑病灶）、鉴别（给候选诊断及概率）。风险依次升高：分诊错只影响排队，检出漏可能延误治疗，鉴别错可能误导用药。</p>
+<p><strong>指标</strong>要看临床口径：敏感度、特异度、每例假阳性数、每例阅片时间、医生接受率。AUC 高不代表临床有用——患病率 1% 时，特异度 90% 也意味着大量假阳性。</p>
+<p><strong>证据等级</strong>从低到高：回顾性单中心、多中心回顾、前瞻性对照、随机对照。等级决定能否申报、能否进指南；跨人群、跨设备外推必须有外部验证。</p>
+<p><strong>医生在环</strong>是流程要求：AI 输出可查看、可修改、可拒绝，修改留痕；系统不能自动签发报告，也不能悄悄改变排序。</p>
+<p><strong>责任划分</strong>写进合同：供应商对性能负责，医院对流程负责，医生对诊断负责，三者不能替代。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>六段路径</h2>
+<p>从数据到临床，要经过六段：数据治理、标注、训练、验证、注册审批、上市后监测。任何一段省掉，后面都要补课。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>关键点</th><th>失败模式</th></tr></thead>
+  <tbody>
+    <tr><td>数据</td><td>设备、扫描参数、人群分布</td><td>单一设备数据，换院失效</td></tr>
+    <tr><td>标注</td><td>资质、双人独立、一致性</td><td>口径不一，模型学偏</td></tr>
+    <tr><td>训练</td><td>分层、留出外部测试集</td><td>在测试集上调参，指标虚高</td></tr>
+    <tr><td>验证</td><td>前瞻、分中心、分亚组</td><td>只报总体指标，掩盖短板</td></tr>
+    <tr><td>审批</td><td>注册证与适用范围</td><td>超范围使用</td></tr>
+    <tr><td>监测</td><td>版本、漂移、不良事件</td><td>换版未重新评价</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个细节：一是<strong>数据泄漏</strong>，同一患者多次检查分到训练与测试集，指标虚高；二是<strong>亚组差异</strong>，不同年龄、性别、设备的结果差很多，只报总体会掩盖短板；三是<strong>版本管理</strong>，算法更新后必须重新验证。</p>
+<p>还要设计「AI 不工作时怎么办」：超时、图像不合格、设备不兼容时，要能退回原流程。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>假阳性的人工账</h2>
+<p>用一组手算数字说明「离线指标」与「临床负担」的差距。筛查 1000 人，患病率 5%，即 50 例阳性；敏感度 90%、特异度 80%。</p>
+<p>检出 = 50×90% = 45 例，漏 5 例；假阳性 = 950×20% = 190 例。每例假阳性多花 2 分钟复核，共 380 分钟，约 6.3 小时——一名医生一天的工作量。</p>
+<p>这就是影像科更在意「每例假阳性数」的原因。特异度从 80% 提到 95%，假阳性从 190 降到约 48 例，复核时间降到约 1.6 小时，产品才可能被接受；提升特异度往往以敏感度略降为代价，要按后果权衡。</p>
+<p>还有一个数常被忽略：「医生接受率」，即 AI 标出的病灶被复核认可的比例。认可率低，医生形成「反正它老错」的印象，几周后不再点开。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>用单中心回顾数据宣传「准确率 95%」。换一家医院、换一台设备、换一个人群，指标可能大幅下降；没有外部验证，这个数字不能作为采购依据。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>不能做什么</h2>
+<p><strong>任务：</strong>为一个影像辅助诊断产品写 5 条「不能做什么」，每条注明风险来源。</p>
+<p>提示：可从独立诊断、外推、超范围、无人复核、版本变更五方面写；每条对应具体风险。</p>
+<p><strong>追问：</strong>① 同样的模型放到患病率 1% 的人群，假阳性会变成多少？② 医生修改了 AI 的标注，这个动作该不该留痕？③ 算法换版后，原来的临床验证结论还能用吗？</p>
+<p><strong>验收：</strong>5 条都写了「不能做什么＋依据＋风险」，并能说清医生在环的具体动作。隐私与数据合规见 <a href="../m02-industry/k2-3-1-security.html">安防</a>；深度学习的能力边界见 <a href="../m02-industry/k2-2-2-deep-learning.html">深度学习</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-3-6-autonomous-driving.html">2.3.6 自动驾驶：感知—预测—规划—控制的实时链</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-3-4-smart-home.html"><span class="p-label">← 上一知识点 2.3.4</span><span class="p-title">家居：低功耗、离线、可接受的误触发</span></a><a class="next" href="k2-3-6-autonomous-driving.html"><span class="p-label">下一知识点 2.3.6 →</span><span class="p-title">自动驾驶：感知—预测—规划—控制的实时链</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)3 · 人工智能与医疗</dd>
+    <dt>页面编号 / 路径</dt><dd>2.3.5 ｜ <span class="path">pages/m02-industry/k2-3-5-healthcare.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-3-1-security.html"><b>2.3.1</b>安防：从「看得见」到「认得准」</a><a class="xlink" href="k2-2-2-deep-learning.html"><b>2.2.2</b>深度学习：用多层表示替代手工特征</a><a class="xlink" href="u2-3-application-layer.html"><b>2.3</b>应用层：安防、金融、制造、家居、医疗、自动驾驶（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-3-5（本页图 2-31）、k2-3-5-b（图 2-32）；知识库 M02-S3-05《人工智能与医疗》（filled）。 ｜ 知识库条目：M02-S3-05《人工智能与医疗》（filled） ｜ 参考来源：国家药品监督管理局医疗器械软件审评相关指南；FDA AI/ML-based SaMD Action Plan；本页图为自绘，数字为课程假设。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

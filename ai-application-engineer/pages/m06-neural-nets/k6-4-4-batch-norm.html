@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.4.4 标准化与批归一化 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 Z-score 与 BN 的公式，指出 μ_B、σ_B、γ、β 各自的作用。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-4-params-training.html">6.4 神经网络参数、训练与优化</a><span class="sep">/</span><span class="here">6.4.4 标准化与批归一化</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.4</span>
+    <span class="tag">知识点 6.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>标准化与批归一化</h1>
+  <p class="lede">标准化管进门时的尺度，BN 管每层门口的尺度。两者都在改数值，都不改模型能表示什么。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 Z-score 与 BN 的公式，指出 μ_B、σ_B、γ、β 各自的作用。</li><li>能说清训练与推理两个阶段 BN 用的统计量为什么不同。</li><li>能解释为什么 BN 不算「去线性化」，不被「加了 BN 就有非线性」误导。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一个特征顶一百个</h2>
+<p>一份房源数据，两个特征并排放：面积取值 30–300，房龄取值 0–30。直接送进网络，同一个学习率下，面积那一维的更新量是房龄的十倍，损失等高线被拉成极扁的椭圆，梯度几乎垂直于最优方向，走起来是之字形。</p>
+<p>把特征压到均值 0、方差 1 之后，两个方向步长相当，负梯度基本指向最低点。这是输入标准化。</p>
+<p class="ask">网络深了以后，中间层的问题怎么解决？</p>
+<p>中间层没有「原始特征」可以预先标准化。每层的输入都是上一层的输出，而上一层的参数一直在变，分布也就一直在漂。BN 是把同一套标准化搬进了层内，每一批现算现用。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>每层一个调音台</h2>
+<p>输入标准化是进门时量一次身高；BN 是每层门口放一个调音台，不管上一层输出多大声，先归一化，再按学到的音量放出去。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="批归一化：先标准化，再学缩放">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">批归一化：先标准化，再学缩放</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">取一批激活</text><text class="f-sc" x="117.6" y="154.0">同一特征跨样本</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">算批均值方差</text><text class="f-sc" x="298.79999999999995" y="154.0">μ_B、σ_B</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">标准化</text><text class="f-sc" x="480.0" y="154.0">(z−μ)/√(σ²+ε)</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">γ 缩放 + β 平移</text><text class="f-sc" x="661.1999999999999" y="154.0">两个可学习参数</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">送入下一层</text><text class="f-sc" x="842.4" y="154.0">训练/推理统计不同</text><text class="f-s" x="40" y="244">BN 让每层输入分布更稳；它不改变表达能力，也不算「去线性化」。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-20　批归一化：先标准化，再学缩放</b>　BN 让每层输入分布更稳；它不改变表达能力，也不算「去线性化」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>BN 只动数值尺度，不动函数的形状。它让优化更好走，不让模型更能表达。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个符号</h2>
+<p><strong>输入标准化（Z-score）：</strong><code>x′ = (x − μ) / σ</code>，μ 与 σ 取自训练集，验证与测试沿用同一组。</p>
+<p><strong>批归一化：</strong>对一个批内的预激活 <code>z</code>，按通道计算</p>
+<p><code>μ_B = (1/B) Σ zᵢ，　σ_B² = (1/B) Σ (zᵢ − μ_B)²</code></p>
+<p><code>ẑ = (z − μ_B) / √(σ_B² + ε)，　y = γẑ + β</code></p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>符号</th><th>含义</th><th>谁决定</th></tr></thead>
+  <tbody>
+    <tr><td><code>μ_B</code></td><td>当前批的均值</td><td>每批现算</td></tr>
+    <tr><td><code>σ_B</code></td><td>当前批的标准差</td><td>每批现算</td></tr>
+    <tr><td><code>γ</code></td><td>缩放</td><td>可学习参数</td></tr>
+    <tr><td><code>β</code></td><td>平移</td><td>可学习参数</td></tr>
+  </tbody>
+</table>
+</div>
+<p><code>γ、β</code> 的存在让网络可以「取消」这次标准化：取 <code>γ = σ_B、β = μ_B</code>，输出就还原成 z。标准化提供的是一个更好的起点，不是一道强制约束。</p>
+<p>训练与推理的差别在于统计量来源。训练用当前批的 μ_B、σ_B，同时把它们做滑动平均存下来；推理用滑动平均，保证单条样本的输出是确定的。</p>
+<div class="callout callout--warn">
+  <span class="c-label">批太小会抖</span>
+  <p>批大小为 2–4 时，μ_B 与 σ_B 的估计噪声很大，BN 反而不稳。检测、分割这类显存吃紧的任务，常用 LayerNorm 或 GroupNorm 替代。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两套统计量</h2>
+<p>BN 的前向只有五行，但「用谁的统计量」必须显式区分。下面把训练与推理写成两个分支。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>bn_forward.py</span></div>
+<pre><code>import numpy as np
+
+def bn_train(z, gamma, beta, eps=1e-5):
+    mu = z.mean(axis=0)                  # 批均值 μ_B
+    var = z.var(axis=0)                  # 批方差 σ_B²
+    z_hat = (z - mu) / np.sqrt(var + eps)
+    return gamma * z_hat + beta, mu, var
+
+def bn_infer(z, gamma, beta, running_mu, running_var, eps=1e-5):
+    z_hat = (z - running_mu) / np.sqrt(running_var + eps)
+    return gamma * z_hat + beta</code></pre>
+</div>
+<p>训练侧返回 <code>mu、var</code>，是为了让调用方把它们累进滑动平均：<code>running = 0.9 × running + 0.1 × batch</code>。推理侧只用滑动平均，逐样本算出的结果就与批里其他样本无关。</p>
+<p>这也解释了一个常见现象：同一张图单独预测与放在一批里预测，结果应该完全一致；如果不一致，多半是推理时误用了批统计量。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>不算去线性化</h2>
+<p>一个常见说法是「加 BN 等于加了非线性，所以网络更强」。这个说法不成立。</p>
+<p>看公式：<code>y = γ · (z − μ_B)/√(σ_B²+ε) + β</code>。对固定的 μ_B、σ_B、γ、β，这是 z 的一个仿射变换——先减常数、再除常数、再乘、再加常数。仿射套仿射还是仿射，它没有引入任何弯曲。</p>
+<p>BN 真正的作用在优化侧：它把每层输入的尺度拉回可控范围，让损失曲面更平滑，允许更大的学习率，降低对初始化的敏感。收益是「更好训」，不是「更能表达」。</p>
+<p>这一点在教学上要分清：讲「为什么需要非线性」时，BN 不能作为例子；讲「怎么让深网训得动」时，BN 是第一梯队。两者不在同一个问题下。</p>
+<p>还有一条常被忽略的纪律：标准化的统计量只能用训练集。把验证集或测试集的数据混进去算 μ、σ，评估会虚高，上线后立刻掉点。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算一次 BN</h2>
+<p><strong>任务：</strong>某一维的批内取值是 <code>[2, 4, 4, 6]</code>，取 <code>γ = 1、β = 0、ε ≈ 0</code>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>计算</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>μ_B</td><td>(2+4+4+6)/4</td><td>？</td></tr>
+    <tr><td>σ_B</td><td>√(各偏差平方的均值)</td><td>？</td></tr>
+    <tr><td>ẑ</td><td>(z − μ_B)/σ_B</td><td>？</td></tr>
+    <tr><td>y</td><td>γẑ + β</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 若取 <code>γ = σ_B、β = μ_B</code>，y 等于什么？这说明 BN 约束了表达力吗？② 推理时只有一条样本，为什么不能现算 μ_B？</p>
+<p><strong>验收：</strong>ẑ 的均值是 0、标准差是 1，并能说清「BN 可被 γ、β 完全抵消」。诊断训练异常时，BN 与 Dropout 的模式切换是最先要查的两处，见 <a href="../m06-neural-nets/k6-4-5-diagnosis-demo.html">训练诊断</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-4-5-diagnosis-demo.html">6.4.5 训练诊断：loss 不降先查什么</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-4-3-dropout.html"><span class="p-label">← 上一知识点 6.4.3</span><span class="p-title">正则化与丢弃</span></a><a class="next" href="k6-4-5-diagnosis-demo.html"><span class="p-label">下一知识点 6.4.5 →</span><span class="p-title">训练诊断：loss 不降先查什么</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)17 · 标准化与批归一化</dd>
+    <dt>页面编号 / 路径</dt><dd>6.4.4 ｜ <span class="path">pages/m06-neural-nets/k6-4-4-batch-norm.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-4-3-dropout.html"><b>6.4.3</b>正则化与丢弃</a><a class="xlink" href="k6-4-5-diagnosis-demo.html"><b>6.4.5</b>训练诊断：loss 不降先查什么</a><a class="xlink" href="k6-4-1-parameters.html"><b>6.4.1</b>参数与超参数</a><a class="xlink" href="k6-2-3-delta-rule.html"><b>6.2.3</b>增量规则：用误差修正权重</a><a class="xlink" href="u6-4-params-training.html"><b>6.4</b>神经网络参数、训练与优化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-4-4（本页图 6-20）；知识库 M06-S1-04。 ｜ 知识库条目：M06-S1-04《标准化特征值》（filled） ｜ 参考来源：S83 Ioffe & Szegedy 2015；S33 scikit-learn 预处理文档；S23 LeCun 1998；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

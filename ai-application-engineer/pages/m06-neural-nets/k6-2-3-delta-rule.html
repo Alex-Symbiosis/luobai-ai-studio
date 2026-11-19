@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.2.3 增量规则：用误差修正权重 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出增量规则的更新式，并说明 e、x、η 三者各自的作用。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-2-perceptron-backprop.html">6.2 感知器、增量规则与反向传播</a><span class="sep">/</span><span class="here">6.2.3 增量规则：用误差修正权重</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.2</span>
+    <span class="tag">知识点 6.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>增量规则：用误差修正权重</h1>
+  <p class="lede">w ← w + η·e·x。误差告诉你改多少，输入告诉你往哪改，学习率决定敢改多大。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出增量规则的更新式，并说明 e、x、η 三者各自的作用。</li><li>能说清增量规则与感知器规则的差别：连续误差与符号误差。</li><li>能解释特征尺度如何放大或压缩同一步更新。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>上线后的那次误判</h2>
+<p>一个客服质检模型已经上线，靠两个特征给对话打风险分：客户情绪强度、出现敏感词的次数。某天运营标了一条新样本，模型把一次正常投诉判成了高危。</p>
+<p>重训全量要跑四十分钟，而这条样本马上就要用于当天的抽检。工程师想要的是：<strong>只根据这一条样本的误差，把权重挪一小步</strong>，让它别再犯同一个错。</p>
+<p class="ask">一小步该挪多少？往哪个方向挪？</p>
+<p>注意这条样本只说明「这一次判错了」，不代表整体分布变了。全量重训是把旧知识全部重学一遍，代价高；增量地改一步，是把新证据并进去，代价低。两者适用场景不同。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>误差指方向</h2>
+<p>把每个权重想成一个旋钮。误差 <code>e = y − ŷ</code> 告诉你「差多少」，输入 <code>x</code> 告诉你「这次该往哪个方向拧」——哪个特征参与了这次判断，哪个旋钮才有资格转。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="增量规则：误差直接乘输入">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">增量规则：误差直接乘输入</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">取样本 x</text><text class="f-sc" x="117.6" y="154.0">真实标签 y</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">算预测 ŷ</text><text class="f-sc" x="298.79999999999995" y="154.0">线性输出</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">误差 e = y−ŷ</text><text class="f-sc" x="480.0" y="154.0">错了才有非零</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">Δw = η·e·x</text><text class="f-sc" x="661.1999999999999" y="154.0">学习率控步长</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">更新 w</text><text class="f-sc" x="842.4" y="154.0">下一轮再判</text><text class="f-s" x="40" y="244">单层感知器的更新不是「平均分误差」，而是「谁输入大，谁改得多」。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-8　增量规则：误差直接乘输入</b>　误差 e 决定改多少，输入 x 决定往哪改，学习率 η 决定敢改多大。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>误差为零就不动；误差越大改动越大；输入为零的那一维不动。三条都是公式直接读出来的。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>增量规则</h2>
+<p><strong>增量规则（delta rule）：</strong></p>
+<p><code>w ← w + η·e·x，　b ← b + η·e，　e = y − ŷ</code></p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>符号</th><th>含义</th><th>影响什么</th></tr></thead>
+  <tbody>
+    <tr><td><code>e</code></td><td>误差，连续值</td><td>改动的幅度与正负</td></tr>
+    <tr><td><code>x</code></td><td>本次输入</td><td>哪些维度被改，改多少</td></tr>
+    <tr><td><code>η</code></td><td>学习率</td><td>敢不敢一次改到位</td></tr>
+  </tbody>
+</table>
+</div>
+<p>它与感知器规则的差别只在一处：感知器的 <code>e</code> 取 <code>{−1, 0, 1}</code>，只在分错时动；增量规则的 <code>e</code> 是实数，分对了也会微调。线性输出时，这条规则的稳定点就是最小二乘解（Widrow–Hoff 规则）。</p>
+<p>还有一层几何含义：每次更新都把权重向量朝「减小当前样本误差」的方向转一点。所有样本轮流来，方向会互相拉扯，最终停在一个对全体样本折中的位置。这不是 bug，是增量学习的常态。</p>
+<div class="callout callout--warn">
+  <span class="c-label">符号反了最致命</span>
+  <p>写成 <code>e = ŷ − y</code> 会把权重推向「错得更狠」的方向：损失不降反升，而且升得很稳。检查方法很简单——拿一个样本手算一步，看更新后输出是更接近还是更远离目标。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>量纲决定步长</h2>
+<p>看公式里的 <code>η·e·x</code>：更新量与 <code>x</code> 成正比。同一个 η，遇到量级大的特征就会产生大得多的位移。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>delta_rule.py</span></div>
+<pre><code>import numpy as np
+
+def train(X, y, lr=0.01, epochs=200):
+    w = np.zeros(X.shape[1])
+    b = 0.0
+    for _ in range(epochs):
+        for xi, yi in zip(X, y):
+            e = yi - (xi @ w + b)      # 误差
+            w += lr * e * xi            # w ← w + η·e·x
+            b += lr * e
+    return w, b
+
+X = np.array([[1.0, 2.0], [2.0, 4.0], [3.0, 6.0]])
+y = np.array([3.0, 6.0, 9.0])          # 满足 y = x1 + x2
+w, b = train(X, y)
+print(w.round(3), round(b, 3))</code></pre>
+</div>
+<p>这份数据的理论解是 <code>w = (1, 1)、b = 0</code>。注意这里没有阈值、没有阶跃——增量规则原本用于线性输出，输出直接是数值，不是类别。</p>
+<p>把 <code>X</code> 的第一列乘 1000 再跑，同一个 η 会让 w1 一步跨过最优点并在附近来回摆，而 w2 几乎不动。<strong>这不是算法坏了，是尺度不齐。</strong></p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一步改多少</h2>
+<p>设 <code>w = (0.2, 0.1)、b = 0、η = 0.05</code>，手算两个样本：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>样本 x</th><th>目标 y</th><th>当前 ŷ</th><th>e</th><th>Δw</th></tr></thead>
+  <tbody>
+    <tr><td>(10, 1)</td><td>1</td><td>2.1</td><td>−1.1</td><td>(−0.55, −0.055)</td></tr>
+    <tr><td>(0, 1)</td><td>1</td><td>0.1</td><td>+0.9</td><td>(0, +0.045)</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第一行 x1 = 10，所以 w1 一步被推了 0.55；第二行 x1 = 0，w1 一点没动。这就是「输入决定往哪改」的字面含义。</p>
+<p>两行的差距不是巧合：<code>Δw</code> 的第二个分量只由 x2 决定，所以两行里它都在 0.045 附近；第一个分量则完全取决于 x1 是否非零。</p>
+<p>放到业务里：情绪强度取值 0–100，敏感词次数取值 0–5。同一个 η 下，情绪那一维的更新量是敏感词那一维的二十倍。模型会先被大尺度特征主导，小尺度特征几乎学不动——这正是标准化特征值要解决的问题：把两者都压到均值 0、方差 1，同一个 η 才对所有维度公平。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算一步更新</h2>
+<p><strong>任务：</strong>已知 <code>w = (0, 0)、b = 0、η = 0.1</code>，第一个样本是 <code>x = (2, 3)、y = 1</code>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>要算的量</th><th>你的结果</th></tr></thead>
+  <tbody>
+    <tr><td>①</td><td>ŷ = w·x + b</td><td>？</td></tr>
+    <tr><td>②</td><td>e = y − ŷ</td><td>？</td></tr>
+    <tr><td>③</td><td>Δw = η·e·x</td><td>？</td></tr>
+    <tr><td>④</td><td>更新后的 ŷ</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>如果把这个样本的 x 整体乘 10，更新后的 ŷ 会不会冲过目标？这说明标准化该在哪一步做？</p>
+<p><strong>验收：</strong>四步都算对，并能指出「更新后输出一定更接近 y」这一性质。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-2-4-backprop.html">6.2.4 反向传播：把误差逐层传回去</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-2-2-xor-mlp.html"><span class="p-label">← 上一知识点 6.2.2</span><span class="p-title">异或与多层网络</span></a><a class="next" href="k6-2-4-backprop.html"><span class="p-label">下一知识点 6.2.4 →</span><span class="p-title">反向传播：把误差逐层传回去</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)2 · 增量学习规则</dd>
+    <dt>页面编号 / 路径</dt><dd>6.2.3 ｜ <span class="path">pages/m06-neural-nets/k6-2-3-delta-rule.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-2-1-perceptron.html"><b>6.2.1</b>感知器与线性可分</a><a class="xlink" href="k6-2-4-backprop.html"><b>6.2.4</b>反向传播：把误差逐层传回去</a><a class="xlink" href="k6-1-2-mp-neuron.html"><b>6.1.2</b>MP 神经元：加权求和再阈值</a><a class="xlink" href="u6-2-perceptron-backprop.html"><b>6.2</b>感知器、增量规则与反向传播（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-2-3（本页图 6-8）；知识库 M06-S1-03。 ｜ 知识库条目：M06-S1-03《训练神经网络的方法》（filled） ｜ 参考来源：S48 Rosenblatt 1958；S53《深度学习》第 6 章；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

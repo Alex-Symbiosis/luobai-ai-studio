@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.9.2 AlexNet：深度学习的引爆点 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 AlexNet 的 8 层结构与约 6,000 万参数的分布。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-9-classic-cnn.html">6.9 经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet</a><span class="sep">/</span><span class="here">6.9.2 AlexNet：深度学习的引爆点</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.9</span>
+    <span class="tag">知识点 6.9.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>AlexNet：深度学习的引爆点</h1>
+  <p class="lede">2012 年 ImageNet 冠军。它赢的不是某一层设计，而是把数据、显存、激活函数与正则凑成了一套能跑通的配方。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 AlexNet 的 8 层结构与约 6,000 万参数的分布。</li><li>能解释 ReLU、Dropout、双 GPU 分组、数据增强各解决什么问题。</li><li>能算分组卷积相对稠密卷积省下多少参数。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两张显卡装不下</h2>
+<p>2012 年 ILSVRC，AlexNet 的 top-5 错误率是 15.3%；同届第二名用传统特征加分类器，26.2%。这不是小改进，是路线切换。</p>
+<p>训练它用了一百多万张图、两块 GTX 580，每块 3GB 显存。网络放不进一张卡，于是把通道切成两半，分别放在两张卡上算——这就是「双 GPU 分组卷积」的由来。</p>
+<p class="ask">它是靠某个新结构赢的吗？</p>
+<p>不是。卷积、池化、Softmax 都在 LeNet 时代就有了。真正变的是规模与训练配方：数据大了三个数量级，网络深了、宽了，用 ReLU 替掉饱和激活，用 Dropout 压住全连接层的过拟合。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>更深更宽推到底</h2>
+<p>把 AlexNet 和 LeNet 摆在一起看，骨架几乎一样：卷积提特征，池化降分辨率，全连接出类别。差别在尺寸——输入从 32×32 变成 227×227，通道从 6 变成 96，深度从 5 个带权层变成 8 个。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="AlexNet：把「更深更宽」推到极致">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">AlexNet：把「更深更宽」推到极致</text><rect class="f-b2" x="120" y="54.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="83.0">输入 227×227×3</text><text class="f-s" x="430" y="83.0">比 LeNet 大 16 倍</text><rect class="f-b" x="120" y="110.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="139.0">5 个卷积层</text><text class="f-s" x="430" y="139.0">11×11 起步，通道 96→256</text><rect class="f-b" x="120" y="166.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="195.0">3 个全连接层</text><text class="f-s" x="430" y="195.0">4096 → 4096 → 1000</text><rect class="f-b" x="120" y="222.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="251.0">ReLU + Dropout</text><text class="f-s" x="430" y="251.0">替代 Sigmoid，抑制过拟合</text><rect class="f-b" x="120" y="278.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="307.0">双 GPU 分组</text><text class="f-s" x="430" y="307.0">当年显存放不下的工程拆法</text><text class="f-s" x="120" y="360.0">约 6,000 万参数，其中全连接层占绝大多数；结构不是重点，规模与训练技巧才是。</text>
+</svg><figcaption><b>图 6-47　AlexNet：把「更深更宽」推到极致</b>　约 6,000 万参数，其中全连接层占绝大多数；结构不是重点，规模与训练技巧才是。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>网络容量要配得上数据量。120 万张图撑得住 6,000 万参数，6 万张图撑不住——这条关系，是 AlexNet 之后所有选型讨论的起点。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>八层与六千万参数</h2>
+<p><strong>结构：</strong>5 个卷积层 + 3 个全连接层。输入 227×227×3，卷积段依次 55×55×96 → 27×27×96 → 27×27×256 → 13×13×256 → 13×13×384 → 13×13×384 → 13×13×256 → 6×6×256，展平后 9216 维接 4096 → 4096 → 1000。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层</th><th>配置</th><th>参数量</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>C1</td><td>96@11×11，步长 4</td><td>34,944</td><td>大核起步，快速降分辨率</td></tr>
+    <tr><td>C2</td><td>256@5×5，group=2</td><td>307,456</td><td>按显卡分组</td></tr>
+    <tr><td>C3</td><td>384@3×3</td><td>885,120</td><td>跨两组连接</td></tr>
+    <tr><td>C4</td><td>384@3×3，group=2</td><td>663,936</td><td>—</td></tr>
+    <tr><td>C5</td><td>256@3×3，group=2</td><td>442,624</td><td>—</td></tr>
+    <tr><td>FC6</td><td>9216→4096，Dropout 0.5</td><td>37,752,832</td><td>参数大户</td></tr>
+    <tr><td>FC7</td><td>4096→4096，Dropout 0.5</td><td>16,781,312</td><td>—</td></tr>
+    <tr><td>FC8</td><td>4096→1000</td><td>4,097,000</td><td>softmax</td></tr>
+    <tr><td><strong>合计</strong></td><td></td><td><strong>60,965,224</strong></td><td>约 6,000 万</td></tr>
+  </tbody>
+</table>
+</div>
+<p>卷积段合计 2,334,080，只占 3.8%；全连接段合计 58,631,144，占 <strong>96.2%</strong>。原文概称「60 million parameters」，逐层相加约 6,096 万，差额来自取整与偏置口径，讲课时报「约 6,000 万」并附这张表就够了。</p>
+<p>还有一个尺寸细节：原文输入是 227×227，不是后来常用的 224。因为 11×11、步长 4 的卷积配 227 才落到 55×55 的整数边长；换成 224 会得到 54，后面池化与展平的尺寸会连锁变化，参数量也跟着对不上表。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>分组卷积写进代码</h2>
+<p>Keras 的 <code>Conv2D</code> 直接支持 <code>groups</code> 参数。下面这段与表里的配置一一对应，<code>groups=2</code> 就是当年的双卡拆分：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>alexnet_keras.py</span></div>
+<pre><code>import tensorflow as tf
+from tensorflow.keras import layers
+
+model = tf.keras.Sequential([
+    layers.Input((227, 227, 3)),
+    layers.Conv2D(96, 11, strides=4, activation=&quot;relu&quot;),      # 55x55x96
+    layers.MaxPooling2D(3, strides=2),                        # 27x27x96
+    layers.Conv2D(256, 5, padding=&quot;same&quot;, groups=2,
+                  activation=&quot;relu&quot;),                          # 27x27x256
+    layers.MaxPooling2D(3, strides=2),                        # 13x13x256
+    layers.Conv2D(384, 3, padding=&quot;same&quot;, activation=&quot;relu&quot;),
+    layers.Conv2D(384, 3, padding=&quot;same&quot;, groups=2,
+                  activation=&quot;relu&quot;),
+    layers.Conv2D(256, 3, padding=&quot;same&quot;, groups=2,
+                  activation=&quot;relu&quot;),
+    layers.MaxPooling2D(3, strides=2),                        # 6x6x256
+    layers.Flatten(),                                         # 9216
+    layers.Dense(4096, activation=&quot;relu&quot;),
+    layers.Dropout(0.5),
+    layers.Dense(4096, activation=&quot;relu&quot;),
+    layers.Dropout(0.5),
+    layers.Dense(1000, activation=&quot;softmax&quot;),
+])
+model.summary()</code></pre>
+</div>
+<p>四个默认值决定了形状：<code>strides=4</code> 让 227 一步落到 55；<code>MaxPooling2D(3, strides=2)</code> 是重叠池化，窗口叠一行；<code>padding="same"</code> 保证中间三层不改分辨率；<code>groups=2</code> 把输入通道与卷积核各切一半，参数量随之减半。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三笔账看清参数</h2>
+<p><strong>第一笔，分组省多少。</strong>C2 稠密版是 5×5×96×256+256=614,656；分组版是 2×(5×5×48×128+128)=307,456，正好一半。省下的代价是两组在 C2 不交换信息，直到 C3 才融合。这个设计后来变成了深度可分离卷积的先声，但当时只是显存妥协。</p>
+<p><strong>第二笔，参数在哪。</strong>FC6 一层 3,775 万，占全网 62%。所以 Dropout 0.5 只加在这两个 4096 层上，不是随便加的——它压的正是最容易记住训练集的那部分。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">技巧 1</span><h3>ReLU</h3><p>正半轴导数恒 1，不像 sigmoid 在两端饱和；训练速度明显快于 tanh。</p></div>
+  <div class="card mini"><span class="mini-tag">技巧 2</span><h3>Dropout</h3><p>训练时随机置零一半单元，阻止全连接层靠固定组合记忆样本。</p></div>
+  <div class="card mini"><span class="mini-tag">技巧 3</span><h3>数据增强</h3><p>随机裁剪、水平翻转，把 120 万张图的多样性再放大，压住 6,000 万参数。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">别把结论说反</span>
+  <p>「网络深所以精度高」是错的。同期的浅层网络加大宽度也能涨点，AlexNet 的关键是让「深 + 宽 + 正则 + 算力」同时成立。少任何一条，6,000 万参数都会直接过拟合。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三问三算式</h2>
+<p><strong>任务：</strong>不看表，自己算三处参数。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>要算的量</th><th>提示</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>C1 参数量</td><td>11×11×3×96+96</td></tr>
+    <tr><td>B</td><td>FC6 参数量</td><td>6×6×256=9216，再乘 4096</td></tr>
+    <tr><td>C</td><td>把三个全连接换成全局平均池化，能省多少</td><td>58,631,144 里留下多少</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 分组卷积为什么能减半，代价是什么？② 重叠池化比不重叠好在哪，为什么今天不常用？③ 若训练集只有 5 万张，这套 6,000 万参数的网络该怎么改？</p>
+<p><strong>验收：</strong>三处参数量都能手算，且能说清「参数集中在全连接」。卷积核怎么共享，见 <a href="../m06-neural-nets/k6-8-2-conv-layer.html">卷积层</a>；Dropout 怎么抑制共适应，见 <a href="../m06-neural-nets/k6-4-3-dropout.html">Dropout</a>；前一个网络，见 <a href="../m06-neural-nets/k6-9-1-lenet.html">LeNet-5</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-9-3-vgg.html">6.9.3 VGGNet：用 3×3 小核堆深</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-9-1-lenet.html"><span class="p-label">← 上一知识点 6.9.1</span><span class="p-title">LeNet-5：第一个成功的 CNN</span></a><a class="next" href="k6-9-3-vgg.html"><span class="p-label">下一知识点 6.9.3 →</span><span class="p-title">VGGNet：用 3×3 小核堆深</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)39 · AlexNet：深度学习的引爆点</dd>
+    <dt>页面编号 / 路径</dt><dd>6.9.2 ｜ <span class="path">pages/m06-neural-nets/k6-9-2-alexnet.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-9-1-lenet.html"><b>6.9.1</b>LeNet-5：第一个成功的 CNN</a><a class="xlink" href="k6-9-3-vgg.html"><b>6.9.3</b>VGGNet：用 3×3 小核堆深</a><a class="xlink" href="k6-4-3-dropout.html"><b>6.4.3</b>正则化与丢弃</a><a class="xlink" href="u6-9-classic-cnn.html"><b>6.9</b>经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-9-2（本页图 6-47）；知识库 M06-S6-02。 ｜ 知识库条目：M06-S6-02《AlexNet》（filled） ｜ 参考来源：S27 Krizhevsky 等 2012 原始论文；S53《深度学习》第 9 章；S23 LeCun 等 1998。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

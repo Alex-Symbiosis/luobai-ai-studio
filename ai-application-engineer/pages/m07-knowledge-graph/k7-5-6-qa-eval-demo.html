@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.5.6 问答评价与查询映射实战 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能算出答案正确率、依据可查率、覆盖率三个指标。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-5-semantic-qa.html">7.5 语义搜索与知识问答</a><span class="sep">/</span><span class="here">7.5.6 问答评价与查询映射实战</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.5</span>
+    <span class="tag">知识点 7.5.6</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>问答评价与查询映射实战</h1>
+  <p class="lede">十道题，答对八道，报 80% 就够了吗？还有一道答不出、一道没依据，它们藏在同一个数字后面。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能算出答案正确率、依据可查率、覆盖率三个指标。</li><li>能区分「可执行但答错」与「不可执行」两类失败。</li><li>能解释只报正确率会掩盖什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>上线前的十道题</h2>
+<p>知识问答系统上线前，业务方给了 10 个真实问句：谁收购了谁、某公司在哪个城市、某公司属于什么行业，还有一道「两家公司哪家更值得投资」。</p>
+<p>团队跑完，9 道能执行，8 道答对。汇报时写了一句「准确率 80%」。业务方追问了三句：答不出的那一道算不算能力缺口？答对的 8 道里，有没有蒙对的？那 9 道可执行的，是不是每道都能指出依据？</p>
+<p>这三个追问，正好对应三层不同的指标。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三层指标一图</h2>
+<p>问答的质量不是一个数，而是一组分层的数。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="答案质量要分三层看">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">答案质量要分三层看</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">答案正确率</text><text class="f-sc" x="140.25" y="154.0">答对了吗</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">依据正确率</text><text class="f-sc" x="366.75" y="154.0">出处支持吗</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">覆盖率</text><text class="f-sc" x="593.25" y="154.0">问得动吗</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">抽样复核</text><text class="f-sc" x="819.75" y="154.0">每层都要抽</text><text class="f-s" x="40" y="244">答案对但依据错，是蒙对；依据对但覆盖低，是白建。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 7-29　答案质量要分三层看</b>　先问答对没有，再问依据在不在，最后问这个问题系统够不够得着。</figcaption></figure>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="十道问题的映射结果分布">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">十道问题的映射结果分布</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="283.2" width="119.60000000000001" height="16.8" rx="4" fill="#3f9b78" opacity="0.9"/><text class="f-sc" x="230.0" y="275.2">8 条</text><text class="f-sc" x="230.0" y="318">可执行且正确</text><rect x="430.2" y="297.9" width="119.60000000000001" height="2.1" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="490.0" y="289.9">1 条</text><text class="f-sc" x="490.0" y="318">可执行但答错</text><rect x="690.2" y="297.9" width="119.60000000000001" height="2.1" rx="4" fill="#d9534f" opacity="0.9"/><text class="f-sc" x="750.0" y="289.9">1 条</text><text class="f-sc" x="750.0" y="318">不可执行</text><text class="f-s" x="100" y="344">共 10 道题，与本模块 d7_5_qa.py 的实测一致；重点盯「答错」和「不可执行」两类。</text>
+</svg><figcaption><b>图 7-30　十道问题的映射结果分布</b>　按可执行且正确、可执行但答错、不可执行三类分柱，重点看最后一类。</figcaption></figure>
+<p>三层是递进的：覆盖率划出能力边界，答案正确率衡量边界内的结论质量，依据可查率衡量结论的可信度。只看其中一层，另外两层的问题就会被平均数盖住。</p>
+<div class="callout callout--def">
+  <span class="c-label">为什么要分层</span>
+  <p>一个系统可以「答对的都对，但只答得出一半」，也可以「什么都敢答，但一半没有依据」。这两种系统报同一个正确率，风险完全不同。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>公式与口径</h2>
+<p>三个指标的分母都是总题数 10，口径不同。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>公式</th><th>本例</th><th>回答什么</th></tr></thead>
+  <tbody>
+    <tr><td>答案正确率</td><td>答案正确题数 / 总题数</td><td>8/10 = 80.0%</td><td>答得对不对</td></tr>
+    <tr><td>依据可查率</td><td>有可核对依据的题数 / 总题数</td><td>8/10 = 80.0%</td><td>结论有没有出处</td></tr>
+    <tr><td>覆盖率</td><td>可映射为查询的题数 / 总题数</td><td>9/10 = 90.0%</td><td>问题够不够得着</td></tr>
+  </tbody>
+</table>
+</div>
+<p>还有一个条件指标：成功 8/9≈88.9%，分母只算可执行的题。它回答「能查的题里答对多少」，不能替代总体正确率——两者分母不同，混用会把 90% 的覆盖当成 90% 的正确。</p>
+<p>依据可查的判定要写死：必须能指到具体边或具体段落，且该依据支持结论。只写文档名不算，指到文档但结论与段落无关也不算。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三个计数器</h2>
+<p>Demo 用一个内存里的小图谱和 10 条查询模板，把三层指标算出来。核心是三个计数器：可执行、答案正确、有依据。下面是主体逻辑的节选。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d7_5_qa.py（节选）</span></div>
+<pre><code>def run(groups, init, select):
+    rows = []
+    for patterns in groups:
+        cur = [dict(init)]
+        for s, p, o in patterns:
+            nxt = []
+            for b in cur:
+                for ts, tp, to in T:
+                    nb = dict(b)
+                    ok = True
+                    for term, val in ((s, ts), (p, tp), (o, to)):
+                        if term.startswith(&quot;?&quot;):
+                            if term in nb and nb[term] != val:
+                                ok = False
+                                break
+                            nb[term] = val
+                        elif term != val:
+                            ok = False
+                            break
+                    if ok:
+                        nxt.append(nb)
+            cur = nxt
+        rows.extend(cur)
+    return [r[select] for r in rows]
+
+executable = correct = evidenced = 0
+for q in QUERIES:
+    if q[&quot;groups&quot;] is None:
+        can, ans, ev = False, [], 0
+    else:
+        can = True
+        ans = sorted(set(run(q[&quot;groups&quot;], q[&quot;init&quot;], q[&quot;select&quot;])))
+        ev = len(ans)
+    ok = can and set(ans) == q[&quot;expect&quot;] and bool(q[&quot;expect&quot;])
+    has_ev = can and ev &gt; 0
+    executable += int(can)
+    correct += int(ok)
+    evidenced += int(has_ev)</code></pre>
+</div>
+<p>三个计数器互不覆盖：可执行只看能不能映射成查询；答案正确要求结果等于预期且非空；有依据要求查询能返回至少一条边。Q8 能执行但返回 0 条，所以计可执行、不计正确、不计依据；Q10 连映射都没有，三项都不计。</p>
+<p>「答案正确」这一项加了 <code>bool(q["expect"])</code>，是为了避免「返回空集恰好等于空预期」被算成答对——空结果从来不是正确答案。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>十题实测</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>编号  问题                                      查询类型    可执行  答案正确  依据可查
+01    星海科技收购了哪些公司？                  单跳出边    是      是        是（1 条）
+02    谁收购了云图数据？                        单跳入边    是      是        是（1 条）
+03    星海科技投资了哪些公司？                  单跳出边    是      是        是（1 条）
+04    哪些公司与星海科技有合作关系？            双向单跳    是      是        是（1 条）
+05    星海科技位于哪个城市？                    单跳出边    是      是        是（1 条）
+06    星海科技属于什么行业？                    单跳出边    是      是        是（1 条）
+07    星海科技收购的公司中，哪些位于北京？      两跳连接    是      是        是（1 条）
+08    云图数据的 CEO 是谁？                     属性查询    是      否        否（0 条）
+09    哪些公司投资了星海科技？                  单跳入边    是      是        是（1 条）
+10    星海科技和云图数据哪家更值得投资？        不可映射    否      否        否（0 条）
+
+可执行      : 9/10
+成功        : 8/9（可执行且答案正确）
+答案正确率  : 80.0%（8/10）
+依据可查率  : 80.0%（8/10）
+覆盖率      : 90.0%（9/10 可映射为查询）
+失败原因分类
+  Q8  数据缺失：查询可执行但图谱无对应关系，返回 0 条
+  Q10 映射错：图谱无估值/财务关系，问题无法映射
+结论        : 答案、依据、覆盖三层都要看；只报正确率会掩盖“答不出”和“无依据”。</code></pre>
+</div>
+<p>读数要分开看。覆盖率 90.0%：10 题里 1 题压根没有对应的查询形态，这是能力边界，不是 bug。答案正确率 80.0%：8 题答对，Q8 能执行但图谱没有 ceo 边，Q10 不可映射。依据可查率 80.0%：有依据的也是这 8 题，本例两数恰好相同，但口径不同——换一批题，答对但依据缺失的情况就会出现，两个数会分开。</p>
+<p>Q8 与 Q10 的失败原因不同，处理方式也不同。Q8 是<strong>数据缺失</strong>：查询写对了，图谱里没有这条关系，补数据就能解决。Q10 是<strong>映射错</strong>：问题涉及估值与财务比较，图谱的 schema 里没有这类关系，属于能力外，应该拒答或转人工，而不是硬查。</p>
+<p>如果只报「准确率 80%」，会发生什么？30% 的汇报里看不到那 10% 的覆盖缺口，也看不到 Q8 的 0 条依据。业务方会以为系统「八成问题都能答且有据」，实际上有一道是答不出、一道是没依据的蒙对风险区。三层一起报，缺口才可见。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别混淆三个分母</span>
+  <p>8/10 是总体正确率，8/9 是条件正确率，9/10 是覆盖率。把 9/10 说成准确率，等于把「能查」当成「答对」。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>自己出一套题</h2>
+<p><strong>任务：</strong>为一个小图谱出 10 道题，必须包含至少 2 道不可映射、1 道数据缺失，然后算三层指标。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>要做的事</th><th>检查</th></tr></thead>
+  <tbody>
+    <tr><td>出题</td><td>写问句与预期答案</td><td>预期不能是空集</td></tr>
+    <tr><td>映射</td><td>把问句写成查询模板</td><td>标出可执行与否</td></tr>
+    <tr><td>判定</td><td>逐题记正确与依据</td><td>依据要指到具体边</td></tr>
+    <tr><td>归因</td><td>失败题分类</td><td>数据缺失 / 映射错</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 你的覆盖率是多少，缺的那题该补数据还是拒答？② 若把不可映射的题也算进分母，正确率会怎么变？③ 为什么「返回空集」不能算答对？</p>
+<p><strong>验收：</strong>三层指标都能复算，且失败题有归因。评价之前先拆三要素，见 <a href="../m07-knowledge-graph/k7-5-4-qa-elements.html">知识问答的基本要素</a>；路线怎么选，见 <a href="../m07-knowledge-graph/k7-5-5-four-routes.html">四条技术路线</a>；抽取环节的指标口径，见 <a href="../m07-knowledge-graph/k7-2-5-extraction-eval-demo.html">抽取评估</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-6-1-requirements.html">7.6.1 需求分析：从业务问题到图谱问题</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-5-5-four-routes.html"><span class="p-label">← 上一知识点 7.5.5</span><span class="p-title">四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</span></a><a class="next" href="k7-6-1-requirements.html"><span class="p-label">下一知识点 7.6.1 →</span><span class="p-title">需求分析：从业务问题到图谱问题</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)26 · 知识问答的评价方法</dd>
+    <dt>页面编号 / 路径</dt><dd>7.5.6 ｜ <span class="path">pages/m07-knowledge-graph/k7-5-6-qa-eval-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-5-4-qa-elements.html"><b>7.5.4</b>知识问答的基本要素与分类体系</a><a class="xlink" href="k7-5-5-four-routes.html"><b>7.5.5</b>四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</a><a class="xlink" href="k7-2-5-extraction-eval-demo.html"><b>7.2.5</b>抽取评估：准确率、召回率与标注一致性</a><a class="xlink" href="u7-5-semantic-qa.html"><b>7.5</b>语义搜索与知识问答（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k7-5-6（本页图 7-29）、k7-5-6-b（图 7-30）；Demo d7_5_qa.py；知识库 M09-S8-05（跨模块复用，filled）。知识库模块九 s8 按校正后的 5 条口径，原细纲的 S8-06「评价实践」并入 S8-05「评价方法」。 ｜ 知识库条目：M09-S8-05《知识问答的评价方法》（filled） ｜ 参考来源：AIMA《人工智能：一种现代的方法》；输出为 d7_5_qa.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

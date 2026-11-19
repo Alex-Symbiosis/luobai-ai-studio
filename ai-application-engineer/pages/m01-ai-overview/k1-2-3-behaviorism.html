@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.2.3 为什么它成了 AI 的行为主义标尺 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出内在主义与行为主义两种评价标准的区别。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-2-turing-test.html">1.2 图灵测试：把「能否思考」换成「能否骗过评委」</a><span class="sep">/</span><span class="here">1.2.3 为什么它成了 AI 的行为主义标尺</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.2</span>
+    <span class="tag">知识点 1.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>为什么它成了 AI 的行为主义标尺</h1>
+  <p class="lede">为什么几乎所有 AI 教材都从图灵测试讲起？因为它把评价标准从「像人一样想」挪到了「像人一样表现」，智能第一次可以被观察、被比较、被重复检验。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出内在主义与行为主义两种评价标准的区别。</li><li>能解释图灵测试作为评测框架的三个优点。</li><li>能在一个现代 AI 评测中找出「评委、被测、判定规则」三要素。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>先验机制，还是先看表现</h2>
+<p>评价同一个系统，两种标准：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>先要求内部机制对</h3><p>先看它是不是按人类的方式加工信息，机制不像人就不承认它智能。可机制看不见，标准也随学派而变，评测无法落地。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先看外部行为等价</h3><p>不管内部怎么算，只看它在规定任务上的表现能否与人类区分；能区分就记一笔，不能区分就暂时按同等水平处理。</p></div>
+</div>
+<p class="ask">同一套系统，为什么 A 说「还不算」，B 说「已经达到」？</p>
+<p>因为两者评价的对象不同：A 评的是机制，B 评的是行为。图灵测试站在 B 这一侧，把「智能」从本体论问题转成可操作的行为判据，这也是它成为 AI 评测起点的原因。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>考试只看答卷</h2>
+<p>一场考试，阅卷老师看的是答卷，不会去测考生的脑电波。答卷相同，就按同一标准给分——哪怕两个人解题时想的事情完全不一样。行为主义评测就是这个思路。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="评价标准从「像人一样想」转向「像人一样表现」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">评价标准从「像人一样想」转向「像人一样表现」</text><rect class="f-b2" x="40.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="178.0" y="135.0">内在主义</text><text class="f-sc" x="178.0" y="154.0">要求复制人的思维过程</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">行为主义</text><text class="f-sc" x="480.0" y="154.0">只看外部行为是否等价</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="644.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="782.0" y="135.0">可操作评测</text><text class="f-sc" x="782.0" y="154.0">盲评、轮次、判定规则</text><text class="f-s" x="40" y="244">图灵测试不是证明机器有意识，而是把「会思考」改写成一个可执行的实验。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-7　评价标准从状态转向表现</b>　内在主义要求复制思维过程，行为主义只看外部行为是否等价；图灵测试站后者。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>把评价对象从「内部状态」换成「外部表现」，评测才可执行。代价是：表现相同，不能推出内部相同。所以行为主义评测天然适合排序，不适合单独回答「它懂不懂」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两种评测传统的对照</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>对比项</th><th>内在主义评测</th><th>行为主义评测</th></tr></thead>
+  <tbody>
+    <tr><td>评价对象</td><td>内部机制是否与人类相同</td><td>外部行为是否与人类不可区分</td></tr>
+    <tr><td>证据来源</td><td>机制分析、过程复现</td><td>任务记录、盲评结果</td></tr>
+    <tr><td>优点</td><td>能解释「为什么」</td><td>可操作、可复现、可比较</td></tr>
+    <tr><td>风险</td><td>标准难统一，评测难落地</td><td>表现相同被误读为机制相同</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>行为主义评估把系统 <span class="term">S</span> 的智能水平定义为它在任务集合 <span class="term">T</span> 上与人类表现 <span class="term">H</span> 的不可区分程度：<span class="term">Score(S) = 1 − D(S, H)</span>，其中 <span class="term">D</span> 是评委区分人机的正确率。</p>
+</div>
+<p>这套传统并非图灵首创，但他把它变成了一个具体协议。SEP 也提醒：「图灵测试」最恰当的用法，是特指图灵 1950 年为处理「机器能否思考」提出的方案，而不是泛指任何行为主义测验。换句话说，行为主义不是否认内部机制，而是把它暂时放到评测之外。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三个优点，一个代价</h2>
+<p>行为主义评测之所以被沿用，是因为它同时满足三个工程条件：</p>
+<div class="steps">
+  <div class="step"><b>可操作</b><span>问题被写成「谁来问、问多久、怎么判」，不再依赖对「思考」的定义达成共识。</span></div>
+  <div class="step"><b>可复现</b><span>题面、轮次、评委规则固定后，换一批人重跑，结论可以对照。</span></div>
+  <div class="step"><b>可比较</b><span>不同系统放进同一套协议，水平高低有了共同刻度。</span></div>
+  <div class="step"><b>代价：表现不等于机制</b><span>协议只对行为负责；同样通过，内部可能是推理，也可能是话术。解释力必须另外补。</span></div>
+</div>
+<p>所以行为主义评测适合做「横向比较」，不适合单独做「是否理解」的证明。现代评测通常两条腿走路：行为指标负责排序，机制分析与错误分析负责解释。两条腿走路，排序与解释才不会互相冒充。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>现代对话评测里的图灵影子</h2>
+<p>截至 2026-11，主流对话模型的评测仍大量使用人工盲评与成对偏好比较：把两个模型的回答匿名并列，让评审选出更好的一条。把它的结构拆开，与图灵测试高度同构：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>图灵测试</th><th>现代盲评</th></tr></thead>
+  <tbody>
+    <tr><td>评委</td><td>人类询问者</td><td>人类评审或标注员</td></tr>
+    <tr><td>被测</td><td>机器与人类各一</td><td>两个待比较的模型</td></tr>
+    <tr><td>通道</td><td>只传文字</td><td>匿名回答，隐藏模型身份</td></tr>
+    <tr><td>判定</td><td>能否区分人机</td><td>哪条回答更好，汇总成偏好率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>差别也很清楚：图灵测试问「像不像人」，现代盲评问「哪条更有用」。评价目标变了，但「屏蔽身份、只看行为、用人类判断做基准」这套骨架没有变。看清这一点，就不会把每一次新评测都当成全新的发明。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>需要横向排序、快速比较多个系统</td><td>评审偏好被长度、格式等表面因素带偏</td></tr>
+    <tr><td>任务能用文本完整呈现</td><td>需要工具调用、多轮环境交互的任务</td></tr>
+    <tr><td>有稳定的人类对照基线</td><td>评审群体单一，结论难以外推</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给一个现代评测找影子</h2>
+<p><strong>任务：</strong>选一个你熟悉的现代 AI 评测（如对话盲评、图像识别基准、语音识别测试），写出它的三要素，并指出与图灵测试的差异。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>你选的评测</th><th>与图灵测试的异同</th></tr></thead>
+  <tbody>
+    <tr><td>评委</td><td></td><td></td></tr>
+    <tr><td>被测</td><td></td><td></td></tr>
+    <tr><td>判定规则</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果评测不再与人类对照，只设一个固定分数线，它还算行为主义评测吗？② 为什么现代评测大多不再问「像不像人」，而改问「有没有用」？这与应用目标有什么关系？</p>
+<p><strong>自检：</strong>三要素齐全，且能指出至少一处与图灵测试的实质差异（评价目标、通道或判定方式），即达标。只写「都是让人打分」不算完成。若能再说出该评测「测不到什么」，说明已经理解行为评测的边界。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-2-4-turing-limits.html">1.2.4 图灵测试的四个局限</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-2-2-three-party.html"><span class="p-label">← 上一知识点 1.2.2</span><span class="p-title">三方结构与判定规则</span></a><a class="next" href="k1-2-4-turing-limits.html"><span class="p-label">下一知识点 1.2.4 →</span><span class="p-title">图灵测试的四个局限</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)1 · 图灵测试与人工智能的关系</dd>
+    <dt>页面编号 / 路径</dt><dd>1.2.3 ｜ <span class="path">pages/m01-ai-overview/k1-2-3-behaviorism.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-2-1-imitation-game.html"><b>1.2.1</b>从「机器能否思考」到模仿游戏</a><a class="xlink" href="k1-2-4-turing-limits.html"><b>1.2.4</b>图灵测试的四个局限</a><a class="xlink" href="u1-2-turing-test.html"><b>1.2</b>图灵测试：把「能否思考」换成「能否骗过评委」（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-2-3（本页图 1-7）；知识库 M01-S1-03。 ｜ 知识库条目：M01-S1-03《图灵测试》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S11 SEP《The Turing Test》；S12 Searle《Minds, Brains, and Programs》（1980）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

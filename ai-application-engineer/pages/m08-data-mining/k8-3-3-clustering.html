@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.3.3 聚类：没有标签时按「相似」分组 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出聚类的输入输出，并说明「相似」由距离定义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-3-dm-techniques.html">8.3 数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析</a><span class="sep">/</span><span class="here">8.3.3 聚类：没有标签时按「相似」分组</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.3</span>
+    <span class="tag">知识点 8.3.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>聚类：没有标签时按「相似」分组</h1>
+  <p class="lede">数据不会告诉你该分几群，也不会告诉你每群叫什么。距离、簇数与命名，三件事都得人来定。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出聚类的输入输出，并说明「相似」由距离定义。</li><li>能用肘部法与轮廓系数选簇数，并解释两个指标的分歧怎么处理。</li><li>能说清聚类结果的三个局限：簇非因果、高维失效、只描述当前数据。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>八千会员，切三段</h2>
+<p>一家会员制书店有 8000 名会员，系统里没有「人群」这个字段。运营要分群做差异化：给谁发券、给谁推新课、给谁不必打扰。</p>
+<p>上次的做法是按累计消费三等分。最高一组里坐着一批只买过一次团购课的账号，运营打电话过去，对方以为是骚扰；最低一组里反而有几个刚注册、正在比价的高潜客户。</p>
+<p>三等分是按金额切的，切出来的不是人群，是金额区间。频次、品类数、最近购买间隔这些信息被丢掉了。</p>
+<p class="ask">不用人定规则，让数据自己分组，分出来的东西能直接用吗？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>相似就是离得近</h2>
+<p>聚类的全部直觉只有一句：把离得近的点放一堆，离得远的点分开放。先把每个会员画成一个点，横纵坐标是两个特征，点与点的距离就是「不相似程度」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="没有标签，就先看谁像谁">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">没有标签，就先看谁像谁</text><rect class="f-b3" x="60" y="50" width="840" height="256" rx="10"/><path class="f-ax" d="M90 288 L880 288"/><path class="f-ax" d="M90 70 L90 288"/><circle cx="210" cy="110" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="240" cy="140" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="275" cy="118" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="262" cy="160" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="300" cy="140" r="6" fill="#2f6fd0" opacity="0.85"/><circle cx="230" cy="165" r="6" fill="#2f6fd0" opacity="0.85"/><ellipse class="f-dash" cx="255" cy="138" rx="95" ry="52"/><circle cx="560" cy="180" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="600" cy="205" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="635" cy="175" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="650" cy="215" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="585" cy="235" r="6" fill="#d98b3a" opacity="0.85"/><circle cx="545" cy="215" r="6" fill="#d98b3a" opacity="0.85"/><ellipse class="f-dash" cx="600" cy="203" rx="95" ry="55"/><circle cx="720" cy="95" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="760" cy="118" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="790" cy="92" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="800" cy="125" r="6" fill="#3f9b78" opacity="0.85"/><circle cx="745" cy="135" r="6" fill="#3f9b78" opacity="0.85"/><ellipse class="f-dash" cx="762" cy="114" rx="80" ry="47"/><text class="f-s" x="60" y="336">簇的形状由距离定义；换一种距离或换一个 K，分组就会变，所以结果必须回到业务里解释。</text>
+</svg><figcaption><b>图 8-21　没有标签，就先看谁像谁</b>　簇的形状由距离定义；换一种距离或换一个 K，分组就会变，结果必须回到业务里解释。</figcaption></figure>
+<p>图上三团点不是算法「发现的真理」，是在这组坐标下自然形成的密集区。换两个特征，点会重新排布，团也跟着变。所以聚类的结果永远要带一句：在哪组特征、哪种距离下成立。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个点归哪组，只看距离">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">一个点归哪组，只看距离</text><rect class="f-b3" x="60" y="46" width="840" height="238" rx="10"/><path class="f-dash" d="M230 110 L300 150"/><circle cx="230" cy="110" r="6" fill="#2f6fd0" opacity="0.85"/><path class="f-dash" d="M268 182 L300 150"/><circle cx="268" cy="182" r="6" fill="#2f6fd0" opacity="0.85"/><path class="f-dash" d="M355 120 L300 150"/><circle cx="355" cy="120" r="6" fill="#2f6fd0" opacity="0.85"/><path class="f-dash" d="M585 150 L640 200"/><circle cx="585" cy="150" r="6" fill="#2f6fd0" opacity="0.85"/><path class="f-dash" d="M700 140 L640 200"/><circle cx="700" cy="140" r="6" fill="#2f6fd0" opacity="0.85"/><path class="f-dash" d="M700 250 L640 200"/><circle cx="700" cy="250" r="6" fill="#2f6fd0" opacity="0.85"/><path class="f-dash" d="M470 175 L300 150"/><path class="f-dash" d="M470 175 L640 200"/><circle class="f-pt" cx="470" cy="175" r="6"/><text class="f-s" x="360" y="224">两边一样远：平局要定规则</text><path d="M291 141 L309 159" stroke="#d9534f" stroke-width="2.4"/><path d="M291 159 L309 141" stroke="#d9534f" stroke-width="2.4"/><text class="f-sc" x="300" y="202">簇心 A</text><path d="M631 191 L649 209" stroke="#d9534f" stroke-width="2.4"/><path d="M631 209 L649 191" stroke="#d9534f" stroke-width="2.4"/><text class="f-sc" x="640" y="252">簇心 B</text><text class="f-s" x="90" y="272">虚线长度 = 到簇心的距离</text><text class="f-s" x="60" y="322">分到哪一组只看它到哪个簇心更近；距离定义一变，边界就跟着变。</text>
+</svg><figcaption><b>图 8-22　一个点归哪组，只看距离</b>　到哪个簇心更近就归哪一组；两边一样远时，必须有平局规则。</figcaption></figure>
+<p>归属只看距离，平局必须定规则：按编号小的归 A，或按上一次归属。规则没有对错，但要写下来，否则两次运行对不上。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>簇、簇心、K</h2>
+<p><strong>聚类</strong>是在没有标签的情况下，把 n 个对象分成 K 组，使组内相似、组间相异。输出三样东西：每个对象的簇标签、每个簇的中心、每个簇的规模。</p>
+<p>K-means 是最常用的一种。它最小化组内平方距离之和：<code>J = Σ Σ ||x − μk||²</code>，x 属于第 k 簇。做法是交替两步：先按当前簇心分配点，再按分配结果重算簇心，直到不再变化。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>怎么分</th><th>适合</th></tr></thead>
+  <tbody>
+    <tr><td>划分式（K-means）</td><td>直接切成 K 块</td><td>球形、规模相近的簇</td></tr>
+    <tr><td>层次式</td><td>自底向上合并或自顶向下分裂</td><td>要看分组树、簇数不确定</td></tr>
+    <tr><td>密度式（DBSCAN）</td><td>把连成片的密集点归为一簇</td><td>形状不规则、有噪声点</td></tr>
+  </tbody>
+</table>
+</div>
+<p>距离也要选：数值特征用欧氏距离，量纲差别大时先标准化；文本向量用余弦相似度。不标准化，金额以元计、频次以次计，前者会把后者整个压掉。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>定 K 与验收</h2>
+<p>流程六步：选特征 → 标准化 → 选距离 → 定 K → 多次初始化 → 解释命名。前两步决定上限，后两步决定能不能用。</p>
+<p>定 K 没有唯一答案，两个常用工具会给不同建议。<strong>肘部法</strong>画组内平方和随 K 的曲线，找下降明显变缓的拐点；<strong>轮廓系数</strong>对每个点算 <code>s = (b − a) / max(a, b)</code>，a 是到本簇其他点的平均距离，b 是到最近邻簇的平均距离，取值 −1 到 1，越接近 1 越好。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>assign.py</span></div>
+<pre><code>def assign(points, centers, dist):
+    return [min(range(len(centers)),
+                key=lambda i: dist(p, centers[i])) for p in points]</code></pre>
+</div>
+<p>K-means 对初始簇心敏感，同一份数据跑两次可能给出不同分组。标准做法是换若干组随机种子各跑一次，取组内平方和最小的那次；再抽 80% 样本重跑，看簇结构是否还在。</p>
+<p>验收不能只看内部指标：簇稳不稳定、能不能被业务命名、规模是否够做动作，三条都要过；一簇只有 30 人的分组，轮廓系数再高也没法用。</p>
+<p><strong>易错点：</strong>把簇编号当类别含义。第 3 簇不代表「三类客户」，它只是本次运行里的第三个编号，换种子就可能变成第 1 簇。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>四群还是六群</h2>
+<p>8000 名会员，选 5 个特征：月均消费、月均购买次数、品类数、最近购买间隔、退货率。标准化后用 K-means 跑两组（示例数据，用于说明读法）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>簇</th><th>人数</th><th>月均消费</th><th>月均频次</th><th>画像</th></tr></thead>
+  <tbody>
+    <tr><td>C1</td><td>2600</td><td>48 元</td><td>0.8</td><td>低频低额，多为注册后未活跃</td></tr>
+    <tr><td>C2</td><td>2100</td><td>96 元</td><td>4.2</td><td>高频低额，习惯买小课</td></tr>
+    <tr><td>C3</td><td>2400</td><td>210 元</td><td>2.1</td><td>中频中额，主力人群</td></tr>
+    <tr><td>C4</td><td>900</td><td>680 元</td><td>1.2</td><td>高额低频，买大课</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四群人数相加正好 8000。分群之后，动作才排得出来：C1 发召回券，C2 推进阶小课，C3 维持，C4 配一对一顾问。名字是运营起的，不是算法给的。</p>
+<p>K 改成 6，轮廓系数从 0.31 升到 0.34，但最小一簇只有 120 人。指标更好，业务更差，这类冲突要由业务拍板，算法不替人做决定。</p>
+<p>三个局限必须说在前面。簇不是因果群体：C2 买得多不代表「因为高频所以低额」，可能只是品类结构不同。高维会失效：特征加到 30 个，点与点的距离趋于接近，簇就失去意义。结果只描述这批数据：换了季节，C4 可能整批休眠。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算归簇</h2>
+<p><strong>任务：</strong>二维平面上两个簇心 A(2, 2)、B(8, 8)，四个点 P1(3, 3)、P2(5, 5)、P3(7, 6)、P4(1, 5)。用欧氏距离判断各点归哪一簇，并处理平局。手算示例，结果可自行核对。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>点</th><th>到 A</th><th>到 B</th><th>归簇</th></tr></thead>
+  <tbody>
+    <tr><td>P1</td><td>√2 ≈ 1.41</td><td>√50 ≈ 7.07</td><td>？</td></tr>
+    <tr><td>P2</td><td>√18 ≈ 4.24</td><td>√18 ≈ 4.24</td><td>？</td></tr>
+    <tr><td>P3</td><td>√41 ≈ 6.40</td><td>√5 ≈ 2.24</td><td>？</td></tr>
+    <tr><td>P4</td><td>√10 ≈ 3.16</td><td>√58 ≈ 7.62</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① P2 两边一样远，你的平局规则是什么？② 如果把纵轴单位从「次」换成「千次」，归属会变吗？</p>
+<p><strong>验收：</strong>四个点都有归属且平局有规则，能说清「换单位会改结果，所以必须先标准化」。下一步找商品之间的搭配，见 <a href="../m08-data-mining/k8-3-4-association-rules.html">关联规则：从购物篮里找「一起出现」</a>；K-means 的完整推导与调参见 <a href="../m05-ml-algorithms/u5-8-clustering.html">聚类算法</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-3-4-association-rules.html">8.3.4 关联规则：从购物篮里找「一起出现」</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-3-2-classification-regression.html"><span class="p-label">← 上一知识点 8.3.2</span><span class="p-title">分类与回归：有标签时的两种输出</span></a><a class="next" href="k8-3-4-association-rules.html"><span class="p-label">下一知识点 8.3.4 →</span><span class="p-title">关联规则：从购物篮里找「一起出现」</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)3 · 聚类</dd>
+    <dt>页面编号 / 路径</dt><dd>8.3.3 ｜ <span class="path">pages/m08-data-mining/k8-3-3-clustering.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-3-2-classification-regression.html"><b>8.3.2</b>分类与回归：有标签时的两种输出</a><a class="xlink" href="k8-3-4-association-rules.html"><b>8.3.4</b>关联规则：从购物篮里找「一起出现」</a><a class="xlink" href="k8-3-1-technique-map.html"><b>8.3.1</b>技术地图：先问「有没有标签」，再问「要找什么」</a><a class="xlink" href="u8-3-dm-techniques.html"><b>8.3</b>数据挖掘技术地图：分类、聚类、回归、关联规则、Web 挖掘、特征分析、偏差分析（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-3-3（本页图 8-21）、k8-3-3-b（图 8-22）；知识库 M08-S2-02《聚类的概念及操作方法》（filled）。 ｜ 知识库条目：M08-S2-02《聚类的概念及操作方法》（filled） ｜ 参考来源：K-means 与轮廓系数定义见公开聚类教材口径；算法推导见模块五 5.8；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.5.4 LVQ：用原型压缩训练集 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 LVQ1 的两条更新规则，并说明「拉近」与「推远」分别在做什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-5-knn-lvq.html">5.5 K 近邻与学习矢量量化</a><span class="sep">/</span><span class="here">5.5.4 LVQ：用原型压缩训练集</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.5</span>
+    <span class="tag">知识点 5.5.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>LVQ：用原型压缩训练集</h1>
+  <p class="lede">KNN 的准确率来自「把全部样本背在身上」，样本一多，内存和延迟都撑不住。学习矢量量化的思路是把训练集压缩成几十个带标签的原型：预测时只比这几个代表点，存储和计算一起降下来，代价是边界变粗、对初始化更敏感。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 LVQ1 的两条更新规则，并说明「拉近」与「推远」分别在做什么。</li><li>能说清 LVQ 与 KNN、K-Means 在数据使用方式上的三点差异。</li><li>能设计一次原型数量扫描实验，用准确率与延迟两条曲线给结论。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>上线被延迟卡住</h2>
+<p>一个用 KNN 做的商品分类服务，离线指标 0.94，上线评审却被拒：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>KNN 方案</th><th>上线要求</th></tr></thead>
+  <tbody>
+    <tr><td>单次预测延迟</td><td>约 80 ms</td><td>小于 10 ms</td></tr>
+    <tr><td>常驻内存</td><td>约 8 MB（含副本）</td><td>小于 2 MB</td></tr>
+    <tr><td>批量 1000 条耗时</td><td>0.42 s</td><td>小于 0.1 s</td></tr>
+  </tbody>
+</table>
+</div>
+<p>延迟超标八倍，因为每次预测都要和五万个样本逐一算距离；降采样能缓解，但少数类所剩无几。</p>
+<p class="ask">能不能不保存全部样本，只留几十个「代表」，还保住大部分准确率？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>每个类别选几个代表</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="LVQ：用少量原型代表类别">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">LVQ：用少量原型代表类别</text><rect class="f-b2" x="40.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="178.0" y="135.0">训练集</text><text class="f-sc" x="178.0" y="154.0">几百到上千个样本</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">学习少量原型</text><text class="f-sc" x="480.0" y="154.0">每个原型是一类代表</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="644.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="782.0" y="135.0">最近原型判决</text><text class="f-sc" x="782.0" y="154.0">预测时只和原型比距离</text><text class="f-s" x="40" y="244">KNN 保留全部样本，LVQ 把它压缩成几个原型；存储和预测代价都大幅下降。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 5-22　LVQ：用少量原型代表类别</b>　训练集被压缩成若干带标签原型；预测只和原型比距离，取最近标签。</figcaption></figure>
+<p>一个班选几个代表发言，代表够典型就够了。LVQ 为每类维护若干原型向量，落在该类的典型位置。</p>
+<p>原型不是随便挑的样本，而是<strong>学出来的</strong>：同类靠近时被拉过去，异类靠近时被推开。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>原型是<strong>压缩后的训练集</strong>：五万降到几十，代价是边界由原型位置的 Voronoi 划分决定，而非原始样本形状。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>竞争学习与两条更新规则</h2>
+<p>LVQ1 的更新规则只有两种情形，η 是学习率，w 是最近原型，x 是当前样本：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>情形</th><th>更新</th><th>效果</th></tr></thead>
+  <tbody>
+    <tr><td>原型类别与样本相同</td><td>w ← w + η × (x − w)</td><td>沿样本方向拉近，覆盖类内</td></tr>
+    <tr><td>原型类别与样本不同</td><td>w ← w − η × (x − w)</td><td>沿远离样本方向推开，移动边界</td></tr>
+  </tbody>
+</table>
+</div>
+<p>每次只有最近的原型被更新，称为<strong>竞争学习</strong>；原型把空间划成若干 <strong>Voronoi 单元</strong>；学习率随轮数衰减。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误讲</span>
+  <p>「推远」不是把原型移到异类均值，而是沿远离该样本的方向挪一步：前者模糊边界，后者移动边界线。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一次完整的训练循环</h2>
+<div class="steps">
+  <div class="step"><b>初始化原型</b><span>每类随机抽样本作初始原型，或先用 K-Means 定位置再打标签。</span></div>
+  <div class="step"><b>打乱样本顺序</b><span>逐样本更新，顺序会影响结果，必须多轮打乱。</span></div>
+  <div class="step"><b>找最近原型并更新</b><span>同类拉近、异类推远，学习率按轮次衰减。</span></div>
+  <div class="step"><b>预测</b><span>只和 k 个原型算距离，取最近原型的标签，复杂度 O(k × d)。</span></div>
+</div>
+<p>与 KNN 的差别：KNN 存全部样本、逐点算；LVQ 存少量原型、只比原型。与 K-Means 的差别在标签与更新：前者无标签、更新为均值；后者有标签、更新为拉近或推远。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>二十个原型，换回大部分准确率</h2>
+<p>同一份 5 万条数据，KNN 与不同原型数的 LVQ 对比：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方案</th><th>验证准确率</th><th>批量 1000 条耗时</th><th>常驻内存</th></tr></thead>
+  <tbody>
+    <tr><td>KNN（K = 7，全量）</td><td>0.94</td><td>0.42 s</td><td>约 8 MB</td></tr>
+    <tr><td>LVQ，10 个原型</td><td>0.87</td><td>0.014 s</td><td>约 0.8 KB</td></tr>
+    <tr><td>LVQ，20 个原型</td><td>0.91</td><td>0.014 s</td><td>约 1.6 KB</td></tr>
+    <tr><td>LVQ，50 个原型</td><td>0.93</td><td>0.021 s</td><td>约 4 KB</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="KNN vs LVQ：存什么、算什么">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">KNN vs LVQ：存什么、算什么</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">KNN</text><text class="f-s" x="80" y="108">· 存全部训练样本</text><text class="f-s" x="80" y="138">· 预测时逐点算距离</text><text class="f-s" x="80" y="168">· 样本大时内存与延迟高</text><text class="f-s" x="80" y="198">· 边界随数据自然形成</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">LVQ</text><text class="f-s" x="530" y="108">· 只存少量原型</text><text class="f-s" x="530" y="138">· 预测时只比原型</text><text class="f-s" x="530" y="168">· 可压缩到很小</text><text class="f-s" x="530" y="198">· 边界由原型位置决定</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-22b　KNN vs LVQ：存什么、算什么</b>　一个存全部样本、逐点算；一个只存原型、只比原型，压缩率可达四个数量级。</figcaption></figure>
+<p>20 个原型把准确率从 0.94 拉到 0.91，延迟降到三十分之一。曲线很快饱和：20 到 50 个原型只涨 0.02，延迟却翻倍。</p>
+<p>压缩率换得漂亮，但原型方案的短板也一并暴露；上线前按这份清单确认一遍：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>样本量大、需要低延迟</td><td>只给类别不给概率，概率型决策用不了</td></tr>
+    <tr><td>边界高度弯曲时</td><td>需大量原型，压缩率下降</td></tr>
+    <tr><td>可接受多次重启</td><td>对初始化与顺序敏感，单次结果不稳</td></tr>
+    <tr><td>欧氏距离、特征已标准化</td><td>尺度不齐时原型被大尺度特征主导</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>扫一遍原型数，画两条曲线</h2>
+<p><strong>任务：</strong>实现简化版 LVQ1（欧氏距离、学习率从 0.3 线性衰减），完成扫描实验。</p>
+<ol>
+  <li>原型数取 5、10、20、50，各跑 3 次不同初始化，记均值与标准差。</li>
+  <li>记录批量 1000 条耗时，与 KNN 对比。</li>
+  <li>画「准确率–原型数」与「耗时–原型数」两条曲线，标出饱和点。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>观察</th><th>要写出的结论</th></tr></thead>
+  <tbody>
+    <tr><td>准确率随原型数上升后趋平</td><td>存在性价比最高的原型数量</td></tr>
+    <tr><td>三次初始化的标准差较大</td><td>对初始化敏感，需多次重启</td></tr>
+    <tr><td>耗时与原型数近似线性</td><td>延迟由原型数而非样本量决定</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检：</strong>能给出准确率与延迟两组数字，并说明「为什么不用 KNN」，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-6-1-ensemble.html">5.6.1 集成学习：多样性从哪来</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-5-3-curse-dimensionality.html"><span class="p-label">← 上一知识点 5.5.3</span><span class="p-title">维度灾难：距离为什么失效</span></a><a class="next" href="k5-6-1-ensemble.html"><span class="p-label">下一知识点 5.6.1 →</span><span class="p-title">集成学习：多样性从哪来</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 学习矢量量化的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>5.5.4 ｜ <span class="path">pages/m05-ml-algorithms/k5-5-4-lvq-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-5-1-knn.html"><b>5.5.1</b>KNN：把训练集当模型</a><a class="xlink" href="k5-5-3-curse-dimensionality.html"><b>5.5.3</b>维度灾难：距离为什么失效</a><a class="xlink" href="u5-5-knn-lvq.html"><b>5.5</b>K 近邻与学习矢量量化（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张（k5-5-4、k5-5-4-b）+ 知识库 M05-S1-09（学习矢量量化）。 ｜ 知识库条目：M05-S1-09《学习矢量量化的概念及特点》（filled） ｜ 参考来源：S81 Kohonen《Improved versions of learning vector quantization》；S82 Ripley《Pattern Recognition and Neural Networks》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.1 人工智能到底是什么：思维、智能与机器智能 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能拆解「智能」的六个能力要素；能区分学科、能力、系统三层含义；能对 8 个常见系统判断是否属于 AI 并说明依据。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">判据</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#kps">知识点</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><span class="here">1.1 人工智能到底是什么：思维、智能与机器智能</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.1</span>
+    <span class="tag">2 课时</span>
+    <span class="tag">难度 ★☆☆</span>
+    <span class="badge badge--todo">讲授为主</span>
+  </div>
+  <h1>人工智能到底是什么：思维、智能与机器智能</h1>
+  <p class="lede">手机相册会自动把人脸聚成一堆，导航会在你走错路时重新规划，食堂刷卡机会拒绝余额不足的卡。三者都在「做判断」，但只有前两个通常被叫作人工智能。差别究竟在哪？</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">生活问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">严格定义</span><span class="arr">→</span>
+    <span class="pl">结构与算法</span><span class="arr">→</span>
+    <span class="pl is-key">真实案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能拆解「智能」的六个能力要素，并为每个要素各举一个生活例子。</li><li>能区分人工智能作为学科、能力、系统三层含义，不把三者混用。</li><li>能对 8 个常见系统判断是否属于 AI，并写出判断依据。</li></ol>
+</section>
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>先看三个日常场景</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">场景 A</span><h3>相册认出「这是谁」</h3><p>上传三千张照片，相册自动把人脸聚成几堆，还问你「这是谁」。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 B</span><h3>导航重新规划路线</h3><p>你错过一个路口，导航在两秒内换了一条路，还算出新的到达时间。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 C</span><h3>刷卡机拒绝支付</h3><p>余额不足，刷卡机亮红灯。它做了一个「拒绝」的判断，动作非常准确。</p></div>
+</div>
+<p class="ask">三个系统都在做判断。为什么我们只把前两个叫人工智能？如果「会做判断」就是智能，那自动售货机算什么？</p>
+<p>直觉上，我们会说：刷卡机的规则是<strong>人提前写死的</strong>，而相册和导航的规则是<strong>从大量数据里长出来的</strong>。这个模糊的直觉，正是理解人工智能的起点。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>把智能拆成一条链路</h2>
+<p>与其争论「机器有没有灵魂」，不如先看人是怎么完成一件「聪明事」的。把一次完整的智能行为拆开，会得到六个环节：</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" role="img" aria-label="智能的六个能力环节串成闭环">
+  <defs>
+    <marker id="d1ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9cc0ff"/>
+    </marker>
+  </defs>
+  <style>
+    .d1-bx{fill:#ffffff;stroke:#cfe0ff;stroke-width:1.5}
+    .d1-bx-hi{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.5}
+    .d1-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d1-c{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80;text-anchor:middle}
+    .d1-note{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:13px;fill:#5a6b80}
+    .d1-fb{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#1f5fd0;text-anchor:middle}
+    .d1-ln{stroke:#9cc0ff;stroke-width:1.5;marker-end:url(#d1ar)}
+    .d1-fbl{stroke:#9cc0ff;stroke-width:1.3;stroke-dasharray:5 5;fill:none}
+  </style>
+
+  <text class="d1-note" x="20" y="34">智能不是某一项技能，而是六个环节首尾相接的一条链路</text>
+
+  <rect class="d1-bx-hi" x="20" y="60" width="120" height="72" rx="12"/>
+  <text class="d1-t" x="80" y="94">感知</text>
+  <text class="d1-c" x="80" y="115">看见 / 听见 / 读到</text>
+
+  <rect class="d1-bx" x="180" y="60" width="120" height="72" rx="12"/>
+  <text class="d1-t" x="240" y="94">表示</text>
+  <text class="d1-c" x="240" y="115">把世界变成结构</text>
+
+  <rect class="d1-bx" x="340" y="60" width="120" height="72" rx="12"/>
+  <text class="d1-t" x="400" y="94">推理</text>
+  <text class="d1-c" x="400" y="115">由已知推未知</text>
+
+  <rect class="d1-bx" x="500" y="60" width="120" height="72" rx="12"/>
+  <text class="d1-t" x="560" y="94">学习</text>
+  <text class="d1-c" x="560" y="115">用数据改规则</text>
+
+  <rect class="d1-bx" x="660" y="60" width="120" height="72" rx="12"/>
+  <text class="d1-t" x="720" y="94">决策</text>
+  <text class="d1-c" x="720" y="115">在选项里取舍</text>
+
+  <rect class="d1-bx" x="820" y="60" width="120" height="72" rx="12"/>
+  <text class="d1-t" x="880" y="94">行动</text>
+  <text class="d1-c" x="880" y="115">作用于环境</text>
+
+  <line class="d1-ln" x1="142" y1="96" x2="176" y2="96"/>
+  <line class="d1-ln" x1="302" y1="96" x2="336" y2="96"/>
+  <line class="d1-ln" x1="462" y1="96" x2="496" y2="96"/>
+  <line class="d1-ln" x1="622" y1="96" x2="656" y2="96"/>
+  <line class="d1-ln" x1="782" y1="96" x2="816" y2="96"/>
+
+  <path class="d1-fbl" d="M880,140 L880,208 L80,208 L80,142"/>
+  <path d="M80,142 l-5,9 l10,0 z" fill="#9cc0ff"/>
+  <text class="d1-fb" x="480" y="230">反馈：行动的结果，成为下一轮感知与学习的输入</text>
+</svg><figcaption><b>图 1-1　智能的六个环节与反馈闭环</b>　注意最后那条虚线：行动的结果会重新进入感知。这让智能成为一个闭环，而不是一次性的计算。</figcaption></figure>
+<p>用「实习生第一天上班」来类比：他先<strong>看见</strong>工位和文件（感知），把信息<strong>整理</strong>成自己能懂的样子（表示），根据已有经验<strong>推断</strong>该做什么（推理），被纠正几次后<strong>学会</strong>了新规矩（学习），在几个方案里<strong>选一个</strong>（决策），最后真正<strong>动手</strong>（行动）。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>智能不是某一项技能特别强，而是这六个环节能<strong>串起来、并且能靠反馈自我修正</strong>。一个只会识别猫的模型，只点亮了链路的第一环。</p>
+</div>
+<span class="sidenote">这也是为什么「会下棋」和「会开车」不能直接互相迁移——它们共享感知与决策，但表示方式和行动空间完全不同。</span>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层含义与一个可操作定义</h2>
+<p>「人工智能」在中文语境里至少指三件不同的东西，混用会直接导致判断失误：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">含义一</span><h3>一门学科</h3><p>研究如何让机器表现出智能行为的学科，诞生于 1956 年达特茅斯会议。</p></div>
+  <div class="card mini"><span class="mini-tag">含义二</span><h3>一种能力</h3><p>系统在不确定环境中感知、推理、学习并采取行动的能力。</p></div>
+  <div class="card mini"><span class="mini-tag">含义三</span><h3>一类系统</h3><p>装进手机、摄像头、汽车里的具体产品或组件，比如人脸解锁。</p></div>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">可操作定义</span>
+  <p>人工智能系统，是指<strong>其行为规则主要来自数据与经验，而非完全由人逐条编写</strong>，并且能在<strong>不确定</strong>的输入下给出<strong>可评价</strong>的输出或行动的系统。</p>
+</div>
+<p>这个定义有三个抓手：规则来源、不确定性、可评价。它们也构成了下一节判断一个系统「是不是 AI」的三把尺子。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四问判断法：它到底算不算 AI</h2>
+<p>面对任何一个系统，按顺序问四个问题。四问全部为「是」，基本可以归入人工智能；只要有一问明显为「否」，就要谨慎。</p>
+<div class="steps">
+  <div class="step"><b>规则从哪来？</b><span>是工程师逐条写死的 if-else，还是从样本中拟合出来的参数？</span></div>
+  <div class="step"><b>要不要处理不确定性？</b><span>输入是否可能模糊、缺失、从未见过？系统是否需要给出概率或置信度？</span></div>
+  <div class="step"><b>能不能迁移到新样本？</b><span>换一批数据、换一个场景，它是否仍然工作，而不是立刻崩掉？</span></div>
+  <div class="step"><b>是否自主决策或行动？</b><span>它只是算出一个数，还是会自己选择一个动作并作用于环境？</span></div>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>传统软件</th><th>机器学习系统</th></tr></thead>
+  <tbody>
+    <tr><td>规则来源</td><td>人写死的逻辑分支</td><td>从数据中估计的参数</td></tr>
+    <tr><td>输入</td><td>格式固定、可预期</td><td>含噪声、可能分布漂移</td></tr>
+    <tr><td>出错方式</td><td>某条分支写错，可复现</td><td>某些样本系统性偏差，难枚举</td></tr>
+    <tr><td>维护方式</td><td>改代码</td><td>补数据、重训练、调阈值</td></tr>
+    <tr><td>典型例子</td><td>工资计算、库存扣减</td><td>人脸识别、推荐、语音转写</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个系统，三种答案</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">案例 1</span><h3>计算器</h3><p><strong>不是 AI。</strong>规则完全由人定义（加减乘除），输入确定，没有学习，也没有不确定性。</p></div>
+  <div class="card mini"><span class="mini-tag">案例 2</span><h3>短视频推荐</h3><p><strong>是 AI。</strong>规则来自点击与停留数据，输入是新用户的模糊偏好，输出是排序结果，且持续迭代。</p></div>
+  <div class="card mini"><span class="mini-tag">案例 3</span><h3>AlphaGo</h3><p><strong>是 AI。</strong>策略网络与价值网络从棋谱与自对弈中学习，在巨大搜索空间中做决策。</p></div>
+</div>
+<p>值得注意的是：一个系统「看起来智能」并不等于它是 AI。舞台上表演魔术的程序可能只是查表；反过来，一个只做分类的模型也可能嵌在很复杂的 AI 系统里，只承担感知这一环。</p>
+<span class="teacher">课堂上不要急着给结论。先让学生写下判断依据，再对照四问逐条检验，错误往往出在「把自动化当成智能」。</span>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>动手与自检</h2>
+<p><strong>任务：</strong>为下面 8 个系统各写一行判断，必须包含「是否 AI」与「依据哪一问」。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>系统</th><th>是否 AI</th><th>关键依据</th></tr></thead>
+  <tbody>
+    <tr><td>电梯的楼层调度</td><td></td><td></td></tr>
+    <tr><td>手机指纹解锁</td><td></td><td></td></tr>
+    <tr><td>Excel 的求和公式</td><td></td><td></td></tr>
+    <tr><td>邮件垃圾过滤</td><td></td><td></td></tr>
+    <tr><td>扫地机器人的随机碰撞</td><td></td><td></td></tr>
+    <tr><td>围棋 AI</td><td></td><td></td></tr>
+    <tr><td>语音助手</td><td></td><td></td></tr>
+    <tr><td>红绿灯定时切换</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 我能不能用一句话说清「规则从哪来」？② 我举的反例是否真的推翻了判断？③ 如果把数据换掉，这个系统还会正常工作吗？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「用了算法就是 AI」不成立。排序、查表、规则引擎都是算法。判断的分水岭在于<strong>规则是否主要来自数据</strong>，而不是代码里有没有出现「模型」这个词。</p>
+</div>
+</section>
+<section class="sec" id="kps"><h2><span class="sec-num">07</span>本单元知识点</h2><p>本单元拆成 4 个知识点页，按顺序读最省力；每页都可以单独完成一次练习。</p><div class="table-wrap"><table class="table"><thead><tr><th>编号</th><th>知识点</th><th>大纲条目</th></tr></thead><tbody><tr><td><a class="xlink" href="k1-1-1-intelligence-elements.html">k1.1.1</a></td><td>智能的六个能力要素</td><td>三(一)1 · 思维、智能的概念</td></tr><tr><td><a class="xlink" href="k1-1-2-thinking-intelligence.html">k1.1.2</a></td><td>思维、智能与机器智能</td><td>三(一)1 · 思维、智能的概念</td></tr><tr><td><a class="xlink" href="k1-1-3-three-meanings.html">k1.1.3</a></td><td>人工智能的三层含义：学科、能力、系统</td><td>三(一)1 · 人工智能的概念</td></tr><tr><td><a class="xlink" href="k1-1-4-ai-judgement.html">k1.1.4</a></td><td>判定练习：八个系统是不是 AI</td><td>三(一)1 · 人工智能的概念（综合应用）</td></tr></tbody></table></div></section>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页的核心定义，并各写一个反例。</li>
+    <li>完成实操：给 8 个系统（计算器、推荐系统、扫地机器人、专家系统等）做「是否 AI」判定表。</li>
+    <li>进入下一单元 <a href="u1-2-turing-test.html">1.2 图灵测试：把「能否思考」换成「能否骗过评委」</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="单元翻页"><a class="prev" href="index.html"><span class="p-label">← 返回</span><span class="p-title">模块① 目录</span></a><a class="next" href="u1-2-turing-test.html"><span class="p-label">下一单元 1.2 →</span><span class="p-title">图灵测试：把「能否思考」换成「能否骗过评委」</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ (一)1 · 人工智能的概念；思维、智能的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>1.1 ｜ <span class="path">pages/m01-ai-overview/u1-1-concept.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="u1-2-turing-test.html"><b>1.2</b>图灵测试：把「能否思考」换成「能否骗过评委」</a><a class="xlink" href="u1-3-strong-weak.html"><b>1.3</b>强人工智能与弱人工智能</a><a class="xlink" href="../m02-industry/u2-2-technology-layer.html"><b>2.2</b>技术层：五类使能技术</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-capability-chain.svg（本页图 1-1）。无外部素材与第三方技能包。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.5 K 近邻与学习矢量量化 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能解释 K 值对偏差/方差的影响；能说明维度灾难；能对比 KNN 与 LVQ 的原型思想。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">单元定位</a><a href="#s2">知识点清单</a><a href="#s3">学习顺序</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><span class="here">5.5 K 近邻与学习矢量量化</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.5</span>
+    <span class="tag">3 课时</span>
+    <span class="tag">难度 ★★☆</span>
+    <span class="badge badge--ready">已开放</span>
+  </div>
+  <h1>5.5　K 近邻与学习矢量量化</h1>
+  <p class="lede">能解释 K 值对偏差/方差的影响；能说明维度灾难；能对比 KNN 与 LVQ 的原型思想。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">生活问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">严格定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">真实案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>本单元学完能做到</h2>
+  <ol>
+    <li>按顺序学完 4 个知识点，每个都能用自己的话复述核心定义并给一个反例。</li>
+    <li>把「(五)1 · K 近邻算法、学习矢量量化的概念及特点」这条大纲要求落到可检查的动作上。</li>
+    <li>完成出口任务：K 值扫描 + 距离度量对比实验。</li>
+  </ol>
+</section>
+<section class="sec" id="s1">
+  <h2><span class="sec-num">01</span>单元定位</h2>
+  <div class="grid grid-3">
+    <div class="card mini"><span class="mini-tag">范围</span><h3>4 个知识点</h3><p>每个知识点一页，顺序即授课顺序；页面之间不合并、不跳讲。</p></div>
+    <div class="card mini"><span class="mini-tag">实操</span><h3>必须 Demo</h3><p>本单元有 1 个必须动手的 Demo，其余页面以推演与判读为主。</p></div>
+    <div class="card mini"><span class="mini-tag">前置</span><h3>先修 5.2</h3><p>前置不牢时，先回对应单元补齐，再进入本单元；本单元不重复讲前置内容。</p></div>
+  </div>
+</section>
+<section class="sec" id="s2">
+  <h2><span class="sec-num">02</span>知识点清单</h2>
+  <p>共 4 页，其中 1 页配必须动手的 Demo。点标题进入正文。</p>
+  <div class="table-wrap">
+  <table class="table unit-table">
+    <thead><tr><th>编号</th><th>知识点</th><th>一句话核心</th><th class="center">Demo</th></tr></thead>
+    <tbody><tr><td class="uid">5.5.1</td><td class="utitle"><a href="k5-5-1-knn.html">KNN：把训练集当模型</a></td><td class="muted">大多数算法在训练时把数据压成一组参数，预测时只做一次乘法；KNN 反过来——训练阶段什么都不…</td><td class="center">—</td></tr><tr><td class="uid">5.5.2</td><td class="utitle"><a href="k5-5-2-k-value.html">K 值：偏差与方差的旋钮</a></td><td class="muted">K 是 KNN 唯一的核心超参数，也是少数能让人亲眼看到偏差与方差此消彼长的旋钮</td><td class="center">—</td></tr><tr><td class="uid">5.5.3</td><td class="utitle"><a href="k5-5-3-curse-dimensionality.html">维度灾难：距离为什么失效</a></td><td class="muted">KNN 的全部逻辑建立在「近的样本更像我」上</td><td class="center">—</td></tr><tr><td class="uid">5.5.4</td><td class="utitle"><a href="k5-5-4-lvq-demo.html">LVQ：用原型压缩训练集</a></td><td class="muted">KNN 的准确率来自「把全部样本背在身上」，样本一多，内存和延迟都撑不住</td><td class="center">是</td></tr></tbody>
+  </table>
+  </div>
+</section>
+<section class="sec" id="s3">
+  <h2><span class="sec-num">03</span>学习顺序</h2>
+  <div class="steps"><div class="step"><b>5.5.1 KNN：把训练集当模型</b><span>能说清 KNN 的预测流程：算距离、取 K 个近邻、投票或取均值。</span></div><div class="step"><b>5.5.2 K 值：偏差与方差的旋钮</b><span>能说明 K 从小到大时偏差与方差各自怎么变。</span></div><div class="step"><b>5.5.3 维度灾难：距离为什么失效</b><span>能说明维度升高时最近邻与最远邻的距离为何趋于相同。</span></div><div class="step"><b>5.5.4 LVQ：用原型压缩训练集</b><span>能写出 LVQ1 的两条更新规则，并说明「拉近」与「推远」分别在做什么。</span></div></div>
+  <p style="margin-top:16px"><a class="btn btn--primary" href="k5-5-1-knn.html">从 5.5.1 开始 →</a></p>
+</section>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本单元的主线，并各写一个反例。</li>
+    <li>完成实操：K 值扫描 + 距离度量对比实验。</li>
+    <li>进入下一单元 <a href="u5-6-ensembles.html">5.6 集成学习：Bagging、随机森林、Boosting、AdaBoost</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="单元翻页"><a class="prev" href="u5-4-bayes.html"><span class="p-label">← 上一单元 5.4</span><span class="p-title">贝叶斯与朴素贝叶斯</span></a><a class="next" href="u5-6-ensembles.html"><span class="p-label">下一单元 5.6 →</span><span class="p-title">集成学习：Bagging、随机森林、Boosting、AdaBoost</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ (五)1 · K 近邻算法、学习矢量量化的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>5.5 ｜ <span class="path">pages/m05-ml-algorithms/u5-5-knn-lvq.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="../m01-ai-overview/u1-1-concept.html"><b>1.1</b>机器学习之前：人工智能是什么</a><a class="xlink" href="u5-5-knn-lvq.html"><b>5.5</b>本单元 4 个知识点</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：每个知识点 1 张主图，文件名与知识点编号一一对应（d-5-5-1-a.svg 起）。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

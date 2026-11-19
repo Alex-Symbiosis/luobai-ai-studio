@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="弱人工智能、强人工智能与超级智能的能力范围">
+  <style>
+    .d3-ring{fill:none;stroke-width:1.5}
+    .d3-in{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.5}
+    .d3-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d3-c{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80}
+    .d3-lead{stroke:#c8d7ea;stroke-width:1.2;stroke-dasharray:4 4}
+    .d3-lb{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:13px;fill:#123a78;font-weight:600}
+    .d3-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80}
+  </style>
+
+  <circle cx="300" cy="180" r="150" fill="#f7faff" stroke="#dbe5f2" stroke-width="1.5"/>
+  <circle cx="300" cy="180" r="98" fill="#f0f6ff" stroke="#cfe0ff" stroke-width="1.5"/>
+  <circle cx="300" cy="180" r="50" class="d3-in"/>
+
+  <text class="d3-t" x="300" y="176">弱 AI</text>
+  <text class="d3-t" x="300" y="194" style="font-size:10.5px;font-weight:400;fill:#5a6b80">今天全部商用系统</text>
+
+  <text class="d3-t" x="300" y="92">强 AI（AGI）</text>
+  <text class="d3-t" x="300" y="298">超级智能（ASI）</text>
+
+  <line class="d3-lead" x1="460" y1="180" x2="560" y2="120"/>
+  <line class="d3-lead" x1="410" y1="110" x2="560" y2="120"/>
+  <line class="d3-lead" x1="360" y1="292" x2="560" y2="272"/>
+
+  <text class="d3-lb" x="570" y="112">专用：一项任务一个模型</text>
+  <text class="d3-s" x="570" y="132">翻译、推荐、人脸识别、下棋</text>
+  <text class="d3-s" x="570" y="150">换个任务就要重做</text>
+
+  <text class="d3-lb" x="570" y="208">通用：一个系统跨任务迁移</text>
+  <text class="d3-s" x="570" y="228">能自主学习新任务、设定子目标</text>
+  <text class="d3-s" x="570" y="246">目前尚未实现</text>
+
+  <text class="d3-lb" x="570" y="286">全面超越人类</text>
+  <text class="d3-s" x="570" y="306">仍属思想实验与长期议题</text>
+</svg>

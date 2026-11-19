@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.5 改进实验：从基线到可用模型 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能建立基线并记录其全部关键指标。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-5-evaluation.html">4.5 模型评估与改进</a><span class="sep">/</span><span class="here">4.5.5 改进实验：从基线到可用模型</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.5</span>
+    <span class="tag">知识点 4.5.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>改进实验：从基线到可用模型</h1>
+  <p class="lede">「改进模型」不是把准确率从 0.78 调到 0.81 就结束，而是要说明「改了什么、为什么有效、代价是什么」。本页用一次完整的基线—改进对照，把评估指标、混淆矩阵与业务结论串起来。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能建立基线并记录其全部关键指标。</li><li>能通过单变量改动定位有效改进。</li><li>能用混淆矩阵解释指标变化，而不是只报一个总分。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>改进前后，该比什么</h2>
+<p>一个流失预警模型完成两轮迭代：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">基线</span><h3>逻辑回归 + 默认阈值</h3><p>准确率 0.86，召回 0.41；运营反馈「名单里漏了太多要流失的人」。</p></div>
+  <div class="card mini"><span class="mini-tag">改进</span><h3>加类别权重 + 阈值 0.35</h3><p>准确率降到 0.81，召回升到 0.72；名单变长，但覆盖了大部分流失用户。</p></div>
+</div>
+<p class="ask">准确率下降了，这次改进算成功吗？</p>
+<p>要看业务目标。若目标是「尽量别漏掉流失用户」，召回从 0.41 到 0.72 是实质改进；准确率下降只是代价，需要与运营人力一起评估。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>同一张表，两套矩阵</h2>
+<p>把基线与改进的混淆矩阵并排，四格的变化比单个指标更能说明问题。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="误差诊断：先定病因，再开药">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">误差诊断：先定病因，再开药</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">模型分数低</text><text class="f-sc" x="480.0" y="91.0">看训练与验证误差</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">两者都高</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">高偏差</text><text class="f-sc" x="180.66666666666666" y="212.0">加特征 / 升容量</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">训练低、验证高</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">高方差</text><text class="f-sc" x="480.0" y="212.0">加数据 / 加正则</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">两者都低但上线差</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">数据/流程</text><text class="f-sc" x="779.3333333333333" y="212.0">查泄漏与分布漂移</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">先判定类型，再选处理方法；跳过判定直接处理，是清洗里最常见的错误。</text>
+</svg><figcaption><b>图 4-23　基线与改进的混淆矩阵对照</b>　改进后 TP 明显增加、FN 减少，代价是 FP 上升；这正是「召回换精确」的具体形态。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="改进前后：指标变化">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">改进前后：指标变化</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="152.65" y="203.39999999999998" width="89.7" height="96.60000000000001" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="197.5" y="195.39999999999998">46%</text><text class="f-sc" x="197.5" y="318">改进前 F1</text><rect x="347.65" y="167.7" width="89.7" height="132.3" rx="4" fill="#4f83cf" opacity="0.9"/><text class="f-sc" x="392.5" y="159.7">63%</text><text class="f-sc" x="392.5" y="318">改进后 F1</text><rect x="542.65" y="220.2" width="89.7" height="79.8" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="587.5" y="212.2">38%</text><text class="f-sc" x="587.5" y="318">改进前召回</text><rect x="737.65" y="150.9" width="89.7" height="149.1" rx="4" fill="#4f83cf" opacity="0.9"/><text class="f-sc" x="782.5" y="142.9">71%</text><text class="f-sc" x="782.5" y="318">改进后召回</text><text class="f-s" x="100" y="344">先诊断再改动，指标才会按预期方向变化；一次改多处，就无法归因。</text>
+</svg><figcaption><b>图 4-23b　改进前后的关键指标</b>　召回与 F1 上升，精确率与准确率下降；没有一项指标全面变好，取舍必须由业务决定。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>改进通常不是「全面变好」，而是<strong>用一项代价换另一项收益</strong>。报告要写清换了什么、为什么值得。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>基线与改进的可比口径</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>要求</th><th>原因</th></tr></thead>
+  <tbody>
+    <tr><td>同一测试集</td><td>基线与改进用完全相同的留出集</td><td>否则差异可能来自数据</td></tr>
+    <tr><td>同一指标口径</td><td>固定阈值或同时报告阈值</td><td>阈值不同不可直接比</td></tr>
+    <tr><td>单变量改动</td><td>一次只改一处</td><td>才能归因</td></tr>
+    <tr><td>记录代价</td><td>FP 数量、名单长度、复核人力</td><td>收益要能换算成成本</td></tr>
+  </tbody>
+</table>
+</div>
+<p>如果一次同时加权重、换模型、调阈值，即使指标提升，也说不清是哪一项起作用。工程上更推崇「一次一处、逐步验证」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>改进实验的四步</h2>
+<div class="steps">
+  <div class="step"><b>固化基线</b><span>记录模型、特征、阈值、全部指标与混淆矩阵，作为对照锚点。</span></div>
+  <div class="step"><b>提出假设</b><span>例如「召回低是因为类别不平衡」，并写出预期变化方向。</span></div>
+  <div class="step"><b>单变量验证</b><span>只加类别权重，观察 TP/FP/FN 如何移动，验证假设是否成立。</span></div>
+  <div class="step"><b>联合调优</b><span>确认有效后再叠加阈值调整，并重新评估业务代价。</span></div>
+</div>
+<p>这套流程的价值在于<strong>可解释</strong>：每一步都有假设、有观测、有结论。相比之下，「调了一圈参数，指标涨了」无法复用到下一个项目。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一次完整的改进记录</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>版本</th><th>召回</th><th>精确</th><th>F1</th><th>TP</th><th>FP</th><th>FN</th></tr></thead>
+  <tbody>
+    <tr><td>基线</td><td>0.41</td><td>0.62</td><td>0.49</td><td>41</td><td>25</td><td>59</td></tr>
+    <tr><td>+ 类别权重</td><td>0.64</td><td>0.44</td><td>0.52</td><td>64</td><td>81</td><td>36</td></tr>
+    <tr><td>+ 阈值 0.35</td><td>0.72</td><td>0.38</td><td>0.50</td><td>72</td><td>117</td><td>28</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第一步权重让 TP 从 41 升到 64，FN 从 59 降到 36，假设成立；第二步阈值继续提召回，但 FP 从 81 增到 117，F1 反而略降。此时是否继续，取决于运营能否消化 117 个误报名单。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>完成一次改进实验</h2>
+<p><strong>任务：</strong>选一个二分类数据集，完成「基线 → 一处改进」的对照实验。</p>
+<ol>
+  <li>记录基线的准确率、召回、精确、F1 与混淆矩阵。</li>
+  <li>只改一处（权重、采样或阈值），写清假设与预期方向。</li>
+  <li>对比四格变化，写一句「收益是什么、代价是什么、是否值得」。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>必须给出混淆矩阵而不只是总分；结论必须包含代价，不能只写「提升了」。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-6-1-sklearn-api.html">4.6.1 Scikit-Learn 的统一 API</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-5-4-imbalanced.html"><span class="p-label">← 上一知识点 4.5.4</span><span class="p-title">类别不平衡：多数类会淹没少数类</span></a><a class="next" href="k4-6-1-sklearn-api.html"><span class="p-label">下一知识点 4.6.1 →</span><span class="p-title">Scikit-Learn 的统一 API</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)5 · 模型评估与改进（实验）</dd>
+    <dt>页面编号 / 路径</dt><dd>4.5.5 ｜ <span class="path">pages/m04-stat-models/k4-5-5-improvement-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-5-1-confusion-matrix.html"><b>4.5.1</b>混淆矩阵：把「错」拆成四格</a><a class="xlink" href="k4-5-4-imbalanced.html"><b>4.5.4</b>类别不平衡：多数类会淹没少数类</a><a class="xlink" href="k4-6-5-pipeline-demo.html"><b>4.6.5</b>端到端实验：从原始表到可用模型</a><a class="xlink" href="u4-5-evaluation.html"><b>4.5</b>模型评估与改进（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-5-5-a.svg（本页图 4-23）、d-k4-5-5-b.svg（本页图 4-23b）。 ｜ 知识库条目：M04-S5-01《模型评估与改进》（filled）、M04-S5-02《评估指标与改进方法》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S31《Hands-On Machine Learning》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

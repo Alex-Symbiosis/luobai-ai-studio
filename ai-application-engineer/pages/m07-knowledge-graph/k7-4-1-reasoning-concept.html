@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.4.1 推理：从已知事实推出未知事实 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清事实与规则的分工，并各举一个例子。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-4-reasoning.html">7.4 知识图谱推理</a><span class="sep">/</span><span class="here">7.4.1 推理：从已知事实推出未知事实</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.4</span>
+    <span class="tag">知识点 7.4.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>推理：从已知事实推出未知事实</h1>
+  <p class="lede">图里只有 parent，用户问的却是祖孙：推理就是把规则没说出口的那半边写出来。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清事实与规则的分工，并各举一个例子。</li><li>能用一个 parent→ancestor 的例子说明推理在做什么。</li><li>能说明推理结果为什么要写回图谱并标注来源。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>答案不在图里</h2>
+<p>校园图谱上线两周，76 个实体、150 条关系，点开每位教师能看到「讲授」和「属于」。有人问：张伟带过的学生里，谁后来选了王芳的课？系统答不出来。</p>
+<p>不是数据脏，也不是查询写错：图里没有「师徒」这条边，而这个问题要的正是图上不存在的连接。</p>
+<p>家族图谱更小也更干净：只存 parent 与 spouse 两类边。问「张伟的孙辈有谁」，图里同样没有 ancestor 边——可答案按常识是确定的。</p>
+<p class="ask">图里没写的关系，凭什么能答？</p>
+<p>凭的是传递性：张伟是张强的父亲，张强是张小雨的父亲，那么张伟就是张小雨的祖父。这个「那么」不需要新数据，只需要把两条已有事实按规则接起来。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两类东西</h2>
+<p>图里有两类东西，性质完全不同。</p>
+<p><strong>事实</strong>是已经断言的三元组，比如 <code>(张强, parent, 张小雨)</code>。它对不对另说，但它写在库里，有出处。</p>
+<p><strong>规则</strong>是模式，比如「若 x 是 y 的父或母，且 y 是 z 的父或母，则 x 是 z 的祖先」。规则里没有具体人名，只描述什么样的组合能推出什么。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="推理：把隐含的事实显式化">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">推理：把隐含的事实显式化</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">已知事实</text><text class="f-sc" x="117.6" y="154.0">三元组集合</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">规则库</text><text class="f-sc" x="298.79999999999995" y="154.0">若…则…</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">模式匹配</text><text class="f-sc" x="480.0" y="154.0">变量绑定对齐</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">推出新事实</text><text class="f-sc" x="661.1999999999999" y="154.0">满足前提的结论</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">写回图谱</text><text class="f-sc" x="842.4" y="154.0">标注来源与规则</text><text class="f-s" x="40" y="244">推理不创造信息，只把已有事实的另一半写出来；每条新事实都要带出处。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 7-19　推理：把隐含的事实显式化</b>　已知事实加规则库，经模式匹配推出新事实，再带来源写回图谱。</figcaption></figure>
+<p>一句话：推理就是拿规则去扫事实，把 parent 的传递性展开成 ancestor。图里没有 ancestor 边，不等于「不是祖孙」；规则能推出来，它就是祖孙。反过来说，规则没写，推理也不会凭空长出一条边。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>事实回答「已经知道什么」，规则回答「知道这些之后还能知道什么」。推理的输出既不是新观测，也不是猜测，而是前提里本来就隐含、只是没写出来的那部分。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个部件</h2>
+<p><strong>定义：</strong>给定事实集 F 与规则集 R，从 F 出发反复应用 R，直到再应用不产生新事实，得到的集合 F* 称为 F 在 R 下的闭包。F* 满足两条：包含原来的 F；在 R 下封闭。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>部件</th><th>装什么</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>事实库</td><td>三元组集合</td><td>已经断言的边</td></tr>
+    <tr><td>规则库</td><td>若…则…的模式</td><td>允许怎样组合推出什么</td></tr>
+    <tr><td>推理机</td><td>匹配与执行</td><td>一轮轮产出新事实</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>两种落地方式。</strong>物化：推理结果直接写成新边存进库，查询时和普通边一样快，代价是占空间、源数据一变就要重算。查询时推理：不存结果，查询时按规则现算，省空间，但每次查询都要付匹配成本。家族图谱这种小图适合物化，更新频繁的大图常常混用。</p>
+<p>还要分清推理和检索：检索是从已有事实里挑出符合条件的，推理是生成原先不存在的事实。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>绑定与写回</h2>
+<p>一次规则应用只有五个动作。</p>
+<p>① 取出候选事实。② 变量绑定：把规则里的 x、y、z 对齐到具体实体。③ 逐条检查前提是否都在事实库里。④ 生成结论。⑤ 去重后写回。</p>
+<p>以 R1 为例：扫到 <code>(张伟, parent, 张强)</code> 和 <code>(张强, parent, 张小雨)</code>，x 绑张伟、y 绑张强、z 绑张小雨。前提全部满足，产出 <code>(张伟, ancestor, 张小雨)</code>。</p>
+<p>绑定是核心动作：同一个变量在一次匹配里只能取一个值。y 在前一条里是宾语、后一条里是主语，两边必须是同一个人，规则才成立——这一步叫连接，也是推理里唯一需要「对齐」的地方。</p>
+<p>写回不能只写一条边。至少要带三样：规则编号、用了哪几条前提、生成时间。没有这三样，三个月后就分不清这条边是抽取来的、人工录的，还是推出来的；出错时也没法顺着规则回滚。</p>
+<div class="callout callout--warn">
+  <span class="c-label">最常见的误读</span>
+  <p>把推理当「发现新知识」。推理不产生新观测，结论的信息量不超过前提之和。它真正省下的是人工写查询和人工补边的成本。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一条边省一次连接</h2>
+<p>取一个最小的家谱：甲是乙的父亲，乙是丙的父亲，丙是丁的父亲，共 3 条 parent 事实。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>不推理怎么写</th><th>推理后怎么写</th></tr></thead>
+  <tbody>
+    <tr><td>甲的后代有谁</td><td>两跳模板 UNION 三跳模板，链一变长就改代码</td><td>一条 ancestor 边查完</td></tr>
+    <tr><td>丙和丁是什么关系</td><td>分别查 parent 与 ancestor 再拼</td><td>直接查 ancestor</td></tr>
+  </tbody>
+</table>
+</div>
+<p>按 R1 两两相接，3 条 parent 事实能多出 2 条 ancestor（甲→丙、乙→丁）。链再长，闭包按平方级增长：12 个人排成一条直链，11 条 parent 边，能推出 66 条 ancestor 边。</p>
+<p>收益能数出来，代价也能数出来：事实从 11 条涨到 77 条，每条都要存来源；一次人事调整，闭包要局部重算；万一有一条 parent 录错，错误会顺着链传进这 66 条里的一大半。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>先手推再上机</h2>
+<p><strong>任务：</strong>给 5 个人、两代以内的家谱写 5 条事实（parent 与 spouse 都可），手工推出闭包，填一张表：新增了几条、每条来自哪条规则。</p>
+<p><strong>追问：</strong>① 库里怎么区分「抽取来的边」和「推出来的边」？② 只推一跳够不够，为什么？③ 「没推出 ancestor」能不能当成「不是祖孙」？</p>
+<p><strong>验收：</strong>能说清事实与规则各管什么；能写出 1 条规则并手工完成一次变量绑定；知道结论要落库、要带来源。规则怎么写才不漏，见 <a href="../m07-knowledge-graph/k7-4-2-deductive.html">演绎推理：规则引擎与传递闭包</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-4-2-deductive.html">7.4.2 演绎推理：规则引擎与传递闭包</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-3-5-entity-alignment-demo.html"><span class="p-label">← 上一知识点 7.3.5</span><span class="p-title">实体对齐：相似度规则与召回评估</span></a><a class="next" href="k7-4-2-deductive.html"><span class="p-label">下一知识点 7.4.2 →</span><span class="p-title">演绎推理：规则引擎与传递闭包</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)4 · 知识图谱推理概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>7.4.1 ｜ <span class="path">pages/m07-knowledge-graph/k7-4-1-reasoning-concept.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-4-2-deductive.html"><b>7.4.2</b>演绎推理：规则引擎与传递闭包</a><a class="xlink" href="k7-4-3-inductive.html"><b>7.4.3</b>归纳推理与图谱补全</a><a class="xlink" href="u7-4-reasoning.html"><b>7.4</b>知识图谱推理（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-4-1（本页图 7-19）；知识库 M07-S4-01（filled）。 ｜ 知识库条目：M07-S4-01《知识图谱推理概念及特点》（filled） ｜ 参考来源：W3C RDF 1.1 Semantics；W3C OWL 2 规范；AIMA《人工智能：一种现代的方法》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

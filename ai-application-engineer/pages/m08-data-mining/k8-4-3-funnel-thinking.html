@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.4.3 漏斗思维：看每一步漏在哪 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出五步漏斗，算每步转化率、流失量与流失占比。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-4-big-data-thinking.html">8.4 大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环</a><span class="sep">/</span><span class="here">8.4.3 漏斗思维：看每一步漏在哪</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.4</span>
+    <span class="tag">知识点 8.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>漏斗思维：看每一步漏在哪</h1>
+  <p class="lede">总转化率 4.32%，只说明漏得多；分步转化率才说明漏在哪一段。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出五步漏斗，算每步转化率、流失量与流失占比。</li><li>能说清漏斗的四个口径，并识别分母漂移。</li><li>能对同一漏斗的两个改法做增量测算，选出先修的一步。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>4.32%，该往哪投</h2>
+<p>新课程上线，投放带来 10,000 次访问，最后 432 人付款，总转化率 4.32%。老板问：这个数算不算差？</p>
+<p>运营答不上来。行业均值 3% 到 6%，看着在区间内，可不知道钱该往哪投。把路径拆成访问、注册、加购、下单、支付五步之后，问题立刻变成：注册 24%、加购 40%、下单 50%、支付 90%，先修哪一步？</p>
+<p>同一个数，拆开之前只能评价好坏，拆开之后才能分配资源。</p>
+<p class="ask">总转化率低，凭什么能定位到具体哪一步？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>立起来看每一层</h2>
+<p>漏斗就是把一条有先后顺序的路径按步骤立起来。每一步记两个数：进入这一步的人数、完成这一步的人数；两者之比，就是这一步的转化率。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="先看绝对数，再看每步转化率">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">先看绝对数，再看每步转化率</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">步骤</text><text class="f-t" x="282.0" y="98">人数</text><text class="f-t" x="492.0" y="98">较上一步转化</text><text class="f-t" x="702.0" y="98">流失人数</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">访问</text><text class="f-s" x="282.0" y="135.8">10000</text><text class="f-s" x="492.0" y="135.8">—</text><text class="f-s" x="702.0" y="135.8">—</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">注册</text><text class="f-s" x="282.0" y="173.4">2400</text><text class="f-s" x="492.0" y="173.4">24.0%</text><text class="f-s" x="702.0" y="173.4">7600</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">加购</text><text class="f-s" x="282.0" y="211.0">960</text><text class="f-s" x="492.0" y="211.0">40.0%</text><text class="f-s" x="702.0" y="211.0">1440</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">下单</text><text class="f-s" x="282.0" y="248.60000000000002">480</text><text class="f-s" x="492.0" y="248.60000000000002">50.0%</text><text class="f-s" x="702.0" y="248.60000000000002">480</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">支付</text><text class="f-s" x="282.0" y="286.2">432</text><text class="f-s" x="492.0" y="286.2">90.0%</text><text class="f-s" x="702.0" y="286.2">48</text><text class="f-s" x="60" y="328.0">绝对数看规模，转化率看效率；只看总体转化率，会漏掉最漏的那一段。</text>
+</svg><figcaption><b>图 8-33　先看绝对数，再看每步转化率</b>　绝对数看规模，转化率看效率；只看总体转化率，会漏掉最漏的那一段。</figcaption></figure>
+<p>总转化率是各步转化率的连乘：0.24 × 0.40 × 0.50 × 0.90 = 0.0432。任何一步掉一半，总体就掉一半；反过来，总体掉了，却看不出是哪一步掉的。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="漏斗：每一步漏掉多少人">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">漏斗：每一步漏掉多少人</text><rect x="170.0" y="62" width="620.0" height="36" rx="8" fill="#eef4ff" stroke="#8fb8ff" stroke-width="1.3"/><text class="f-tc" x="480" y="86">访问 10000</text><rect x="328.131635947443" y="112" width="303.7367281051141" height="36" rx="8" fill="#e6efff" stroke="#8fb8ff" stroke-width="1.3"/><text class="f-tc" x="480" y="136">注册 2400</text><text class="f-s" x="645.868364052557" y="136">24.0% ｜ 流失 7600</text><rect x="383.950013014056" y="162" width="192.0999739718879" height="36" rx="8" fill="#dce9ff" stroke="#8fb8ff" stroke-width="1.3"/><text class="f-tc" x="480" y="186">加购 960</text><text class="f-s" x="590.049986985944" y="186">40.0% ｜ 流失 1440</text><rect x="412.0824028693594" y="212" width="135.8351942612812" height="36" rx="8" fill="#d2e2ff" stroke="#8fb8ff" stroke-width="1.3"/><text class="f-tc" x="480" y="236">下单 480</text><text class="f-s" x="561.9175971306406" y="236">50.0% ｜ 流失 480</text><rect x="415.0" y="262" width="130" height="36" rx="8" fill="#c8dbfe" stroke="#8fb8ff" stroke-width="1.3"/><text class="f-tc" x="480" y="286">支付 432</text><text class="f-s" x="559.0" y="286">90.0% ｜ 流失 48</text><text class="f-s" x="40" y="336">越往下越窄；最该补的，往往是转化率最低的那几步。</text>
+</svg><figcaption><b>图 8-34　漏斗：每一步漏掉多少人</b>　越往下越窄；最该补的，往往是转化率最低、又还有提升空间的那几步。</figcaption></figure>
+<p>「最窄的一段」不等于「最该修的一段」。还要看流失的绝对量、这一步的可提升空间，以及修它会不会把后面的漏斗带坏。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个口径先写死</h2>
+<p><strong>漏斗分析：</strong>定义起点事件、终点事件、中间步骤序列、统计窗口与去重口径，然后逐步计算转化率。</p>
+<p>四个口径必须写死：①步骤顺序——按真实路径，不能想当然插一步；②窗口——1 天、7 天还是 30 天，跨月完成算不算；③去重——按人还是按次；④分母——每一步都取同一批进入该步的人，不能中途换人。</p>
+<p>公式很朴素：总体转化率 = 终点人数 ÷ 起点人数；分步转化率 = 完成第 k 步人数 ÷ 进入第 k 步人数。步骤越多，总体越接近各步转化率的乘积，这也是「哪一步都掉不起」的原因。</p>
+<div class="callout callout--warn">
+  <span class="c-label">口径说明</span>
+  <p>方法论，非学术共识。漏斗是运营分析里常用的拆解方法，没有统一的学术定义；真正决定结论可信度的是上面四个口径，而不是漏斗画得好不好看。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>建漏斗与排优先级</h2>
+<p>建漏斗五件事：①按真实路径画，步骤之间不能跳；②固定窗口，新老用户分开算；③每步都用同一批人，别让分母漂移；④同时算绝对流失量与转化率；⑤按渠道、设备、新老客分群，比较同一段漏斗的差异。</p>
+<p>归因有个简单算式：某步提升 p 个百分点，终点大约增加「该步进入人数 × p × 后续各步转化率连乘」。所以高转化率步骤提 6 个点，收益可能不如低转化率步骤提 6 个点；但低转化率步骤往往也更难提。</p>
+<p>排序看两个数：流失绝对量（规模）和改善空间（这一步行不行）。只看百分比，会去修一个只流失 48 人的环节；只看绝对量，会去修一个已经 90% 转化的环节。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>五步注册漏斗手算</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>人数</th><th>较上一步</th><th>流失</th><th>占全程流失</th></tr></thead>
+  <tbody>
+    <tr><td>访问</td><td>10,000</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>注册</td><td>2,400</td><td>24.0%</td><td>7,600</td><td>79.4%</td></tr>
+    <tr><td>加购</td><td>960</td><td>40.0%</td><td>1,440</td><td>15.0%</td></tr>
+    <tr><td>下单</td><td>480</td><td>50.0%</td><td>480</td><td>5.0%</td></tr>
+    <tr><td>支付</td><td>432</td><td>90.0%</td><td>48</td><td>0.5%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>总体 432 ÷ 10,000 = 4.32%，全程流失 9,568 人。三个改法各算一遍：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>funnel_gain.py</span></div>
+<pre><code>注册率 24% -&gt; 30%：10000 * 0.30 * 0.40 * 0.50 * 0.90 = 540   (+108)
+加购率 40% -&gt; 46%： 2400 * 0.46 * 0.50 * 0.90       = 497   (+65)
+支付率 90% -&gt; 96%：  480 * 0.96                      = 461   (+29)</code></pre>
+</div>
+<p>同样提 6 个百分点，注册段带来 108 人，支付段只有 29 人。原因不在「支付更重要」，而在进入支付段的只有 480 人，基数小。百分比相同，杠杆不同。</p>
+<p>但也别据此直接去压注册：注册率低可能是流量质量差，硬拉注册会把一批不精准的人送进后面的漏斗，加购率反而下降。漏斗只能定位，不能解释；解释要回到渠道和人群数据。以上为手算示例，结果四舍五入到整数。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>自己搭一个五步漏斗</h2>
+<p><strong>任务：</strong>为「免费试听 → 付费」设计五步漏斗（曝光、点击、注册、试听、付费），给定一组人数，算出每步转化率、总体转化率、各步流失量与流失占比。</p>
+<p><strong>再加一步：</strong>选其中一步做 5 个百分点的提升测算，写出对终点的增量，并说明为什么选它。</p>
+<p><strong>追问：</strong>① 窗口定 7 天和 30 天，结果会差在哪？② 按人去重和按次去重，哪个更适合复购业务？③ 某步转化率突然翻倍，先怀疑什么？</p>
+<p><strong>验收：</strong>五个转化率连乘等于总体；能说出「先修哪一步」并给出两个理由（增量 + 可行性）。下一步把大问题拆成可验证的小问题，见 <a href="../m08-data-mining/k8-4-4-logic-tree.html">逻辑树思维：把大问题拆成可验证的小问题</a>；数据分析在业务流程里的位置，见 <a href="../m08-data-mining/k8-2-1-data-analysis.html">数据分析：解释已经发生的事</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-4-4-logic-tree.html">8.4.4 逻辑树思维：把大问题拆成可验证的小问题</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-4-2-classification-thinking.html"><span class="p-label">← 上一知识点 8.4.2</span><span class="p-title">分类思维：先把问题切开</span></a><a class="next" href="k8-4-4-logic-tree.html"><span class="p-label">下一知识点 8.4.4 →</span><span class="p-title">逻辑树思维：把大问题拆成可验证的小问题</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)4 · 漏斗思维</dd>
+    <dt>页面编号 / 路径</dt><dd>8.4.3 ｜ <span class="path">pages/m08-data-mining/k8-4-3-funnel-thinking.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-4-4-logic-tree.html"><b>8.4.4</b>逻辑树思维：把大问题拆成可验证的小问题</a><a class="xlink" href="k8-4-2-classification-thinking.html"><b>8.4.2</b>分类思维：先把问题切开</a><a class="xlink" href="k8-2-1-data-analysis.html"><b>8.2.1</b>数据分析：解释已经发生的事</a><a class="xlink" href="u8-4-big-data-thinking.html"><b>8.4</b>大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-4-3（本页图 8-33）、k8-4-3-b（图 8-34）；知识库 M08-S3-03《漏斗思维的概念及特点》（filled）。 ｜ 知识库条目：M08-S3-03《漏斗思维的概念及特点》（filled） ｜ 参考来源：漏斗分析的步骤与窗口口径参考 Google Analytics 漏斗报告文档；本页图为自绘，数字为手算示例。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

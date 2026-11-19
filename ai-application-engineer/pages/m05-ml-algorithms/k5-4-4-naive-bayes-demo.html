@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.4.4 朴素贝叶斯实验：文本分类 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能搭出一条不泄漏数据的文本分类流程：划分、向量化、交叉验证、测试集只评一次。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-4-bayes.html">5.4 贝叶斯与朴素贝叶斯</a><span class="sep">/</span><span class="here">5.4.4 朴素贝叶斯实验：文本分类</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.4</span>
+    <span class="tag">知识点 5.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>朴素贝叶斯实验：文本分类</h1>
+  <p class="lede">朴素贝叶斯的第一个实验很容易跑出「看起来不错」的结果：准确率 92%。但同一次运行里还有三件不对劲的事——精确率只有 0.90、换个随机种子分数掉三个点、模型输出的 0.99 当概率用却屡屡失灵。把这三件事拆开，才算真正跑过这个实验。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能搭出一条不泄漏数据的文本分类流程：划分、向量化、交叉验证、测试集只评一次。</li><li>能用混淆矩阵算出准确率、精确率、召回率，并说明三者为何不同。</li><li>能给出朴素贝叶斯在文本与数值数据上的适用边界，并用实验数字支撑。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一次「成功」的运行，三个异常</h2>
+<p>课程语料 200 条（垃圾 80、正常 120），用 MultinomialNB 跑完，屏幕上的数字挺好看：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>现象</th><th>数值</th><th>不对劲的地方</th></tr></thead>
+  <tbody>
+    <tr><td>测试集准确率</td><td>0.92</td><td>不知道错在哪一类</td></tr>
+    <tr><td>精确率</td><td>0.90</td><td>判为垃圾的邮件里混着 1 封正常邮件</td></tr>
+    <tr><td>换种子重跑</td><td>0.89–0.93</td><td>波动比模型间差距还大</td></tr>
+    <tr><td>概率当阈值用</td><td>大量 0.98 以上</td><td>挤在两端，阈值 0.9 形同虚设</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">92% 到底说明模型好，还是说明这份数据太容易？哪些数字可以直接汇报，哪些必须先校准？</p>
+<p>回答这两问，先把实验拆成：流程有没有泄漏、概率有没有校准。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>同一条边界，两种数据</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="文本 vs 数值：同一条边界">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">文本 vs 数值：同一条边界</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">文本分类：主场</text><text class="f-s" x="80" y="108">· 维度高、特征稀疏</text><text class="f-s" x="80" y="138">· 样本量中等即可训练</text><text class="f-s" x="80" y="168">· 训练与预测都很快</text><text class="f-s" x="80" y="198">· 词独立假设近似成立</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">数值表格：谨慎</text><text class="f-s" x="530" y="108">· 特征强相关，独立性被破坏</text><text class="f-s" x="530" y="138">· 连续值需要分箱或高斯假设</text><text class="f-s" x="530" y="168">· 概率常校准不良</text><text class="f-s" x="530" y="198">· 需要校准或换判别模型</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-18　文本 vs 数值：同一条边界</b>　同一个朴素贝叶斯，在稀疏高维的文本上很稳，换到强相关的数值特征上优势立刻消失。</figcaption></figure>
+<p>优势来自数据形态贴住假设：文本维度高、单词信息弱、词间近似独立，正是「多而弱」的结构；数值表格里面积与房间数强相关，同一份证据被数两遍，概率被推向两端。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>它是一条<strong>便宜且够快</strong>的边界线：越接近「独立的弱证据」越准，越接近「强相关的强证据」越不可信。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>实验变量与固定项</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类别</th><th>本项目设置</th><th>为什么这样定</th></tr></thead>
+  <tbody>
+    <tr><td>自变量</td><td>平滑系数 α：0.01 / 0.1 / 1 / 10</td><td>唯一要观察的因素</td></tr>
+    <tr><td>固定项</td><td>数据划分、词表、随机种子、5 折协议</td><td>否则分数变化无法归因</td></tr>
+    <tr><td>向量化</td><td>CountVectorizer，只在训练折上 fit</td><td>防止词表把测试集信息带进来</td></tr>
+    <tr><td>观测量</td><td>5 折均值与标准差、混淆矩阵、耗时</td><td>均值看水平，标准差看稳定性</td></tr>
+  </tbody>
+</table>
+</div>
+<p>指标三个：准确率 = 判对数 ÷ 总数；精确率 = 真垃圾 ÷ 判为垃圾；召回率 = 真垃圾 ÷ 全部垃圾。类别不平衡时三者会迅速分叉，所以必须同时报。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一条不会泄漏的流水线</h2>
+<div class="steps">
+  <div class="step"><b>先划分，再向量化</b><span>切出测试集之后才 fit 词表；顺序反了，测试集的词就进了训练。</span></div>
+  <div class="step"><b>交叉验证选 α</b><span>训练集内部做 5 折，取均值最高者，不碰测试集。</span></div>
+  <div class="step"><b>重训并评估</b><span>用选定 α 在全部训练集重训，对 25 条测试集只预测一次。</span></div>
+  <div class="step"><b>落盘三样东西</b><span>混淆矩阵、每类的精确率与召回率、单条预测耗时。</span></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">最容易犯的错</span>
+  <p>把 CountVectorizer 放在划分之前 fit，词表会混入测试集词汇，准确率虚高两三个点，且代码里看不出来。</p>
+</div>
+<p>另一处易忽略的是概率校准：输出挤在两端，拿 0.9 当拦截阈值前必须校准。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>α 扫描与混淆矩阵</h2>
+<p>5 折交叉验证的均值与波动：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>α</th><th>5 折均值</th><th>标准差</th><th>读法</th></tr></thead>
+  <tbody>
+    <tr><td>0.01</td><td>0.88</td><td>0.031</td><td>近乎不平滑，个别折被零概率拖累</td></tr>
+    <tr><td>0.1</td><td>0.92</td><td>0.018</td><td>与 α=1 持平，但更敏感</td></tr>
+    <tr><td>1</td><td>0.92</td><td>0.015</td><td>最稳，选它</td></tr>
+    <tr><td>10</td><td>0.84</td><td>0.022</td><td>过度平滑，词间区分度被抹平</td></tr>
+  </tbody>
+</table>
+</div>
+<p>测试集 25 条：垃圾 10 条判对 9，正常 15 条判对 14。准确率 23 ÷ 25 = 0.92，精确率与召回率都是 0.90。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一模型在两类数据上的表现">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">同一模型在两类数据上的表现</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="106.79999999999998" width="119.60000000000001" height="193.20000000000002" rx="4" fill="#4f83cf" opacity="0.9"/><text class="f-sc" x="230.0" y="98.79999999999998">92%</text><text class="f-sc" x="230.0" y="318">文本分类</text><rect x="430.2" y="150.9" width="119.60000000000001" height="149.1" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="490.0" y="142.9">71%</text><text class="f-sc" x="490.0" y="318">数值表格</text><rect x="690.2" y="167.7" width="119.60000000000001" height="132.3" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="750.0" y="159.7">63%</text><text class="f-sc" x="750.0" y="318">强相关特征</text><text class="f-s" x="100" y="344">示意数据：同一份朴素贝叶斯，换到强相关数值特征上，优势立刻消失。</text>
+</svg><figcaption><b>图 5-18b　同一模型在两类数据上的表现</b>　示意数据：文本 92、数值表格 71、强相关特征 63——换数据形态，优势立刻缩水。</figcaption></figure>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>高维稀疏文本、词袋特征</td><td>词序与否定结构丢失，语义翻转判不出来</td></tr>
+    <tr><td>样本中小规模即可训练</td><td>类别极不平衡时先验一边倒，少数类召回塌陷</td></tr>
+    <tr><td>特征近似条件独立</td><td>强相关数值特征上准确率掉到 70% 上下</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>复现一次，写三条边界结论</h2>
+<p><strong>任务：</strong>用课程语料完成一次朴素贝叶斯文本分类，产出可复核的实验记录。</p>
+<ol>
+  <li>按「先划分、再向量化」的顺序搭流程，记录 α 四个取值的 5 折均值与标准差。</li>
+  <li>测试集输出混淆矩阵，算准确率、精确率、召回率。</li>
+  <li>换到数值特征数据重跑，对比两个准确率。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>结论</th><th>必须引用的数字</th></tr></thead>
+  <tbody>
+    <tr><td>最优 α 及理由</td><td>均值最高且标准差最小</td></tr>
+    <tr><td>错误分布</td><td>误报 1 条、漏报 1 条</td></tr>
+    <tr><td>数据形态的影响</td><td>文本与数值两个准确率之差</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检：</strong>每条结论能指回具体数字，并能分清「向量化顺序」与「概率校准」，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-5-1-knn.html">5.5.1 KNN：把训练集当模型</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-4-3-spam-handcalc.html"><span class="p-label">← 上一知识点 5.4.3</span><span class="p-title">手算一封垃圾邮件</span></a><a class="next" href="k5-5-1-knn.html"><span class="p-label">下一知识点 5.5.1 →</span><span class="p-title">KNN：把训练集当模型</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 朴素贝叶斯（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.4.4 ｜ <span class="path">pages/m05-ml-algorithms/k5-4-4-naive-bayes-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-4-1-bayes-formula.html"><b>5.4.1</b>贝叶斯公式：先验、似然与后验</a><a class="xlink" href="k5-4-3-spam-handcalc.html"><b>5.4.3</b>手算一封垃圾邮件</a><a class="xlink" href="u5-4-bayes.html"><b>5.4</b>贝叶斯与朴素贝叶斯（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张（k5-4-4、k5-4-4-b）+ 知识库 M05-S1-07（贝叶斯及朴素贝叶斯）。 ｜ 知识库条目：M05-S1-07《贝叶斯及朴素贝叶斯的模型原理》（filled） ｜ 参考来源：S71 scikit-learn《Naive Bayes》；S02 Russell &amp; Norvig《AIMA》；S70 Maron《Automatic Indexing》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

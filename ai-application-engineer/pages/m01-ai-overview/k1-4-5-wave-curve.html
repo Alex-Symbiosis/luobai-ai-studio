@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.4.5 画一条 1943–2026 的浪潮曲线 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出 1943–2026 的浪潮曲线，并标出八个事件与两个低谷触发点。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-4-early-history.html">1.4 早期历史：三次浪潮与两次寒冬</a><span class="sep">/</span><span class="here">1.4.5 画一条 1943–2026 的浪潮曲线</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.4</span>
+    <span class="tag">知识点 1.4.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>画一条 1943–2026 的浪潮曲线</h1>
+  <p class="lede">背年份记不住，是因为年份是孤立坐标。把事件、资金与预期放进同一张图，峰谷之间就有了因果关系；这张图画完，历史才从名词表变成一条可解释的曲线。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出 1943–2026 的浪潮曲线，并标出八个事件与两个低谷触发点。</li><li>能说明曲线纵轴是热度而非技术能力。</li><li>能用「期望—交付」之差解释每一个峰谷。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>背年份表，还是画曲线</h2>
+<p>同一段历史，两位学习者的复习方式不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>背一张年份表</h3><p>1943、1956、1958、1969、1973、1987、2012，逐条抄写。两周后只记得「1956 很重要」，说不清哪一年为什么转折。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>画一条曲线</h3><p>横轴时间、纵轴热度，把事件落在坐标上，再把峰谷连起来。画完能指着图说：这里掉下去，是因为承诺没兑付。</p></div>
+</div>
+<p class="ask">同样七个年份，为什么背下来的会串，画出来的能讲？</p>
+<p>因为年份是孤立坐标，曲线给的是相对位置与因果。A 组记的是点，B 组记的是点之间的斜率；考试可以考前者，判断现实只能靠后者。背是横向铺开，画是把关系压进一张纸。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>心电图，不是一条直线</h2>
+<p>一条直线说明没在测；有起伏才说明有心脏。AI 的历史也是这样：技术能力大体单调上升，公众热度却反复冲高回落。技术能力的线更像台阶，一步上去就很难下来；热度的线像浪，冲高之后必然回撤。两条线画在同一张图上，才能看出「落差」，这也是本页练习要你自己动手画的原因。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="把事件、资金与预期画在同一张图上">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">把事件、资金与预期画在同一张图上</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 210 L210 160 L300 190 L380 120 L470 165 L560 95 L650 130 L740 70 L840 60" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="300" cy="190" r="6"/><text class="f-s" x="310" y="182">第一次寒冬</text><circle class="f-pt" cx="470" cy="165" r="6"/><text class="f-s" x="480" y="157">第二次寒冬</text><circle class="f-pt" cx="740" cy="70" r="6"/><text class="f-s" x="750" y="62">深度学习浪潮</text><text class="f-s" x="880" y="322" text-anchor="end">1943 → 2026</text><text class="f-s" x="92" y="66" text-anchor="end">关注度（示意）</text><text class="f-s" x="100" y="340">空白模板：先标事件，再用「期望与交付的差」解释涨落，不要只背年份。</text>
+</svg><figcaption><b>图 1-18　1943–2026 浪潮曲线模板</b>　横轴为年份，纵轴为公开热度与资源投入；图上留出八个事件位与两个低谷标记位，供手绘填写。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>曲线画的不是「技术能力」，而是「公开热度与资源投入」。技术可以一直变好，热度不必；两条线不重合，正是寒冬存在的原因。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三条轴与四条画法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>规定</th><th>常见错误</th></tr></thead>
+  <tbody>
+    <tr><td>横轴</td><td>1943–2026，按等距年份</td><td>为了好看压缩某些年代，峰谷位置失真</td></tr>
+    <tr><td>纵轴</td><td>公开热度与资源投入的合成，不标具体数值</td><td>写成「技术水平」，把寒冬画成能力下降</td></tr>
+    <tr><td>事件标注</td><td>只写可核验的年份与事件，不写评价</td><td>把「某公司成立」当成技术节点</td></tr>
+    <tr><td>低谷标记</td><td>标出触发事件，而不是只画一个坑</td><td>把低谷归因为「大家不关注了」</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>曲线上的每一点可写成 y(t)=f(期望, 资源, 可见成果)，与「技术能力」是两条不同的曲线。先定义 y 的含义，再讨论高低；否则同一条线可以被读成完全相反的结论。</p>
+</div>
+<p>画法还有一条隐含规则：事件必须是可核验的。论文、系统上线、政策报告都可以；「某位研究者开始思考」不行，因为它无法定位。还有一条：同一张图只解释一种「热度」，不要把论文数、投资额、岗位数混在一个纵轴里。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>五步画完一条曲线</h2>
+<p>从空白坐标到可讲解的曲线，只需要五步：</p>
+<div class="steps">
+  <div class="step"><b>定轴</b><span>写清纵轴是热度不是能力，标出 1943 与 2026 两个端点。</span></div>
+  <div class="step"><b>标点</b><span>把八个事件按年份落位，事件之间留出间距，不挤在一处。</span></div>
+  <div class="step"><b>连线</b><span>每个波峰连到支撑它的引擎：符号搜索、专家系统、深度学习。</span></div>
+  <div class="step"><b>标谷</b><span>两个低谷单独圈出，写上触发事件，而不是只写「寒冬」。</span></div>
+  <div class="step"><b>写句</b><span>为每个峰谷各写一句「期望—交付」之差，解释它为什么在这里转向。</span></div>
+</div>
+<p>五步里最关键的是第三步：波峰不能悬空，必须指到一个具体引擎。指不出来，说明那个峰只是媒体热度，不是技术推动；如果某个峰指不出引擎，就把它降级为「媒体事件」，不要当技术节点。画曲线不是美术作业，是一次因果复盘。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>课程示范曲线怎么读</h2>
+<p>课程示范曲线把 1943–2026 分成三段上涨、两段回撤。第一段 1956–1969，引擎是符号推理与搜索；1969 年《Perceptrons》指出单层网络局限，叠加算力不足，预期被打回。第二段 1980–1987，引擎是专家系统；维护成本与 LISP 机市场崩溃把曲线压下。第三段从 1990s 的统计学习起势，2012 年 AlexNet 加速，2022 年对话式大模型进入公众视野后再次抬高。</p>
+<p>关键读法只有一句：每次上涨不是「技术突然变好」，而是「承诺找到了可交付的示范」；每次下跌也不是「技术失效」，而是「交付跟不上承诺」。曲线因此是预期的形状，不是能力的形状。</p>
+<p>截至 2026-11，第三段仍在高位，但没有理由把它画成直线。画成直线，等于假设承诺永远不会再超出交付——而前两段已经证明，这个假设每次都会失效。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手绘曲线，标八事件两低谷</h2>
+<p><strong>任务：</strong>手绘一条 1943–2026 的浪潮曲线，标出八个事件与两个低谷触发点，并为每个峰谷写一句解释。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>检查项</th><th>要求</th><th>我的完成</th></tr></thead>
+  <tbody>
+    <tr><td>坐标轴</td><td>纵轴写明「热度/资源」，不写「技术水平」</td><td></td></tr>
+    <tr><td>八个事件</td><td>1943 M-P、1950 图灵、1956 达特茅斯、1958 感知器、1969《Perceptrons》、1973 Lighthill、1987 LISP 机崩盘、2012 AlexNet</td><td></td></tr>
+    <tr><td>两个低谷</td><td>1970s 中期与 1987 年，各标触发事件</td><td></td></tr>
+    <tr><td>峰谷解释</td><td>每处一句「期望—交付」之差</td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果把纵轴换成「论文数量」，两个低谷的位置会一样吗？② 你能为「下一次低谷」写两个可能触发点吗，依据是什么？</p>
+<p><strong>自检：</strong>八个事件位置不冲突并按时间顺序编号，两个低谷都有触发事件而非只写「寒冬」，且曲线允许回撤而不是单调上升，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-5-1-game-playing.html">1.5.1 博弈：从跳棋到 AlphaGo</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-4-4-winters.html"><span class="p-label">← 上一知识点 1.4.4</span><span class="p-title">两次寒冬：期望、承诺与资源的循环</span></a><a class="next" href="k1-5-1-game-playing.html"><span class="p-label">下一知识点 1.5.1 →</span><span class="p-title">博弈：从跳棋到 AlphaGo</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 人工智能的早期历史（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.4.5 ｜ <span class="path">pages/m01-ai-overview/k1-4-5-wave-curve.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-4-4-winters.html"><b>1.4.4</b>两次寒冬：期望、承诺与资源的循环</a><a class="xlink" href="k1-5-1-game-playing.html"><b>1.5.1</b>博弈：从跳棋到 AlphaGo</a><a class="xlink" href="u1-4-early-history.html"><b>1.4</b>早期历史：三次浪潮与两次寒冬（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-4-5（本页图 1-18）；知识库 M01-S2-01。 ｜ 知识库条目：M01-S2-01《人工智能的早期历史》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S02 Russell & Norvig《AIMA》第 4 版（2021）；S03 Dartmouth 1955 提案（1955）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

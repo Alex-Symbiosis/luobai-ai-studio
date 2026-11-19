@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.6.1 宾州树库：标注体系与用途 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出词性标记、句法成分、空节点、功能标记各标什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-6-language-datasets.html">9.6 语言数据集：宾州树库、WordNet 与隐喻模型</a><span class="sep">/</span><span class="here">9.6.1 宾州树库：标注体系与用途</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.6</span>
+    <span class="tag">知识点 9.6.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>宾州树库：标注体系与用途</h1>
+  <p class="lede">同一句「小明在图书馆看书」，两位标注员给出两个词性、三棵不同的树。树库先要解决的不是语言学，是让人标得一样。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出词性标记、句法成分、空节点、功能标记各标什么。</li><li>能按标记集给三句短句标词性并画出成分树。</li><li>能用 Kappa 判断一批标注是否够一致，并说出不过关时改什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>七句不一致</h2>
+<p>一个小组要给五百句新闻语料标词性和句法树。两个人各标一百句，重叠二十句做检查。结果重叠部分有七句词性不一致：「在」一会儿标介词，一会儿标动词；句法树的括号位置也差了一层。</p>
+<p>这不是谁水平差。标记集有几十个标签，边界情况本来就多。「在」可以带处所宾语作动词，也可以引出处所作介词；「在图书馆」既能整体挂在动词短语下作状语，也能直接挂到句子节点下。两种分析都能自圆其说。</p>
+<p>树库要解决的就是这件事：先把规范写死，再让所有人按同一份规范标，最后用一致性指标证明「标得一样」。宾州树库是这套做法最早、影响最大的一份工程样本。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两层标注</h2>
+<p>树库的标注分两层：一层标到词，一层标到短语。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="树库：一个词一行，一个成分一棵树">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">树库：一个词一行，一个成分一棵树</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">词</text><text class="f-t" x="282.0" y="98">词性标记</text><text class="f-t" x="492.0" y="98">句法成分</text><text class="f-t" x="702.0" y="98">父节点</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">小明</text><text class="f-s" x="282.0" y="135.8">NR</text><text class="f-s" x="492.0" y="135.8">主语</text><text class="f-s" x="702.0" y="135.8">S</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">在</text><text class="f-s" x="282.0" y="173.4">P</text><text class="f-s" x="492.0" y="173.4">状语</text><text class="f-s" x="702.0" y="173.4">VP</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">图书馆</text><text class="f-s" x="282.0" y="211.0">NN</text><text class="f-s" x="492.0" y="211.0">处所</text><text class="f-s" x="702.0" y="211.0">PP</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">看</text><text class="f-s" x="282.0" y="248.60000000000002">VV</text><text class="f-s" x="492.0" y="248.60000000000002">谓语</text><text class="f-s" x="702.0" y="248.60000000000002">VP</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">书</text><text class="f-s" x="282.0" y="286.2">NN</text><text class="f-s" x="492.0" y="286.2">宾语</text><text class="f-s" x="702.0" y="286.2">VP</text><text class="f-s" x="60" y="328.0">词性标到词，成分标到短语；同一批句子标完，才能统计规则概率。</text>
+</svg><figcaption><b>图 9-31　树库：词性标到词，成分标到短语</b>　每个词带一个词性标记，每个短语成分带一个句法标签；括号一收，树就出来了。</figcaption></figure>
+<p>词性层是每个词一个标签，回答「这个词属于哪一类」。句法层是每个成分一个标签加一对括号，回答「这几个词怎么组成更大的单位」。两层叠起来，一句话就变成一棵带叶标签的树。</p>
+<p>图里只画了五个词。真实树库一句几十个词，标注量大，所以规范必须细到「遇到这种情况标什么」，不能只给定义。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四件东西</h2>
+<p><strong>词性标记集：</strong>一套有限、互斥、覆盖全部词的标签表。英文宾州树库用三十六个标记，名词 NN、动词 VB、形容词 JJ、介词 IN、限定词 DT 是最常见的几个。中文宾州树库另有一套：普通名词 NN、专有名词 NR、动词 VV、介词 P、量词 M、标点 PU。</p>
+<p><strong>句法树标注：</strong>用成分标签加括号表示层级。句子 S、名词短语 NP、动词短语 VP、介词短语 PP 是最基本的几类。标注结果是括号串，不是图。</p>
+<p><strong>空节点：</strong>句子里没有词、但句法上必须存在的成分。汉语常省略主语，树里补一个零代词；英语的 wh- 移位留下语迹，标成带编号的星号节点。空节点不占词位，却决定树的结构，也决定统计时怎么数。</p>
+<p><strong>功能标记：</strong>挂在成分标签后面的短横线后缀，说明这个成分在句子里干什么。主语、时间、处所、谓语性成分各有标记。它让同一棵树能区分「主语」与「话题」，也给统计解析多一层可用信息。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>流程与一致性</h2>
+<p>标注流程固定四步：分词、标词性、切分成分、检查。前两步逐词做，第三步整句做，第四步由第二个人复核。每一步都要有判定规则，写进手册。</p>
+<p>规范再细，人还是会分歧，所以要有<strong>一致性指标</strong>。最常用的是 Cohen's Kappa：κ ＝ (P<sub>o</sub> － P<sub>e</sub>) / (1 － P<sub>e</sub>)。P<sub>o</sub> 是两人实际一致的比例，P<sub>e</sub> 是按各自标签分布算出的「碰巧一致」比例。减掉 P<sub>e</sub>，是因为两人都爱标普通名词时，一致率高不代表真的对齐。</p>
+<p>读法有惯例：0.8 以上算好，0.67 到 0.8 只能算有条件可用，低于 0.67 要回去改规范。词性标注常见 0.95 以上；句法树因为切分分歧多，通常低一截。</p>
+<p>不一致的样本不要直接改掉了事，要归类：是规范没覆盖，还是标注员理解错。前者补手册，后者做培训。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三句标一遍</h2>
+<p>三句练习，按上面的标记集标一遍。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>词性串</th><th>关键切分</th></tr></thead>
+  <tbody>
+    <tr><td>小明 在 图书馆 看 书 。</td><td>NR P NN VV NN PU</td><td>「在图书馆」整体作状语挂在 VP 下</td></tr>
+    <tr><td>他 昨天 买 了 三 本 书 。</td><td>PN NT VV AS CD M NN PU</td><td>「了」标体标记 AS，不标动词</td></tr>
+    <tr><td>桌上 的 苹果 很 甜 。</td><td>NN DEC NN AD VA PU</td><td>「的」标 DEC，「很」标副词 AD</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>树库括号表示（第一句）</span></div>
+<pre><code>(S
+  (NP (NR 小明))
+  (VP
+    (PP (P 在) (NP (NN 图书馆)))
+    (VP (VV 看) (NP (NN 书)))))</code></pre>
+</div>
+<p>第一句的分歧点有两个：「在」标 P 还是 V；「在图书馆」挂在 VP 下还是 S 下。按规范，后面带处所名词、句中另有主动词，标介词，整个介词短语作状语挂 VP。第二句的「了」是体标记，不是「了解」的动词。第三句的「的」是定语标记 DEC。</p>
+<p>这三处正是 κ 掉下来的地方。把三条判定写进手册，第二批的一致性会明显上升。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>标三句，算一次 Kappa</h2>
+<p><strong>任务：</strong>标下面三句的词性，并画出第一句的成分树。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>词性串</th><th>树的关键切分</th></tr></thead>
+  <tbody>
+    <tr><td>孩子们 的 笑声 穿过 走廊 。</td><td>？</td><td>？</td></tr>
+    <tr><td>他 把 报告 交给 了 老师 。</td><td>？</td><td>？</td></tr>
+    <tr><td>雨 停 了 ， 天 亮 了 。</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 「把」在这句里标 P 还是 V，依据是什么？② 第二句的「了」是体标记还是动词？③ 两个分句并列时，S 应该切成一个还是两个？</p>
+<p><strong>Kappa 小算：</strong>二十个词位，两人一致十八个；按标签分布算出碰巧一致 0.55。κ ＝ (0.9 － 0.55) / (1 － 0.55) ≈ 0.778，落在「有条件可用」区间，还得补规范。</p>
+<p><strong>验收：</strong>三句词性全对，第一句括号能配平，κ 能自己算一遍。词性之上的语义资源，见 <a href="../m09-nlp/k9-6-2-wordnet.html">WordNet：同义集与语义网络</a>；树库的标注用来估什么参数，见 <a href="../m09-nlp/k9-4-1-statistical-parsing.html">统计解析</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-6-2-wordnet.html">9.6.2 WordNet：同义集与语义网络</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-5-6-segmentation-demo.html"><span class="p-label">← 上一知识点 9.5.6</span><span class="p-title">HMM 中文分词与 F1 评估</span></a><a class="next" href="k9-6-2-wordnet.html"><span class="p-label">下一知识点 9.6.2 →</span><span class="p-title">WordNet：同义集与语义网络</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)6 · 宾夕法尼亚树库</dd>
+    <dt>页面编号 / 路径</dt><dd>9.6.1 ｜ <span class="path">pages/m09-nlp/k9-6-1-treebank.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-6-2-wordnet.html"><b>9.6.2</b>WordNet：同义集与语义网络</a><a class="xlink" href="k9-4-1-statistical-parsing.html"><b>9.4.1</b>统计解析：给语法树算概率</a><a class="xlink" href="k9-2-3-parsing-ambiguity.html"><b>9.2.3</b>句法分析的任务与歧义</a><a class="xlink" href="u9-6-language-datasets.html"><b>9.6</b>语言数据集：宾州树库、WordNet 与隐喻模型（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-6-1（本页图 9-31）；知识库 M09-S6-01《宾夕法尼亚树库项目概述及原理》（filled）。 ｜ 知识库条目：M09-S6-01《宾夕法尼亚树库项目概述及原理》（filled） ｜ 参考来源：Marcus 等 1993《Building a Large Annotated Corpus of English: The Penn Treebank》；Xia 等 2000《The Penn Chinese TreeBank》；Cohen 1960 关于 κ 系数的原始论文；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

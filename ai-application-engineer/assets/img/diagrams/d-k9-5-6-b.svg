@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="分词评估：三项指标都过 0.89">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">分词评估：三项指标都过 0.89</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="108.47999999999999" width="119.60000000000001" height="191.52" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="230.0" y="100.47999999999999">91.2%</text><text class="f-sc" x="230.0" y="318">精确率 P=0.912</text><rect x="430.2" y="111.41999999999999" width="119.60000000000001" height="188.58" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="490.0" y="103.41999999999999">89.8%</text><text class="f-sc" x="490.0" y="318">召回率 R=0.898</text><rect x="690.2" y="109.94999999999999" width="119.60000000000001" height="190.05" rx="4" fill="#3f9b78" opacity="0.9"/><text class="f-sc" x="750.0" y="101.94999999999999">90.5%</text><text class="f-sc" x="750.0" y="318">F1=0.905</text><text class="f-s" x="100" y="344">错误类型：未登录 6 例、歧义 3 例、人名边界 2 例；F1 由 P 与 R 调和得出。</text>
+</svg>

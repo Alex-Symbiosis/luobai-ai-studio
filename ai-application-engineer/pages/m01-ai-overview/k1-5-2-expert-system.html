@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.5.2 专家系统：把知识写成规则 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出知识库、推理机、工作记忆、解释接口各自负责什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-5-milestones.html">1.5 六大里程碑：博弈、专家系统、神经计算、进化计算、NLP、生物信息学</a><span class="sep">/</span><span class="here">1.5.2 专家系统：把知识写成规则</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.5</span>
+    <span class="tag">知识点 1.5.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>专家系统：把知识写成规则</h1>
+  <p class="lede">专家系统的野心很直接：老专家会退休，判断经验能不能留在系统里。做法是把「如果—那么」写进知识库，让推理机去推。它在狭窄领域确实管用，也第一次让 AI 赚到钱；但它把维护成本一起写进了系统。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出知识库、推理机、工作记忆、解释接口各自负责什么。</li><li>能区分前向推理与反向推理的适用场合。</li><li>能解释知识获取瓶颈为什么会成为这条路的天花板。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>带徒弟，还是写清单</h2>
+<p>同一个设备维修班组，两种传承方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>经验留在人脑里</h3><p>老师傅带徒弟，靠跟班、靠口传，遇到没见过的故障就现场判断。经验越老越值钱，人一退休，判断力就跟着走了。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>写成一张检查清单</h3><p>把「如果面板不亮，就先查电源」这类判断逐条写下来，交给一个人人都能照着走的流程；清单之外的情况，另立一条规则。</p></div>
+</div>
+<p class="ask">同一套诊断经验，写成规则后能一次传给很多人，为什么反而更脆弱？</p>
+<p>因为规则一旦外化，就可复制、可审查，也必须有人持续维护。经验本身一直在变，而写下来的那版不会自己更新——这就是专家系统从一开始就背上的债。</p>
+<p>清单越长，覆盖越广，也越难有人完整读一遍；这是同一枚硬币的两面。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一张会自己往下走的清单</h2>
+<p>老师傅带徒弟，先问症状，再按清单逐条排除；清单越细，徒弟上手越快。但清单没写到的情况，徒弟就束手无策——专家系统的能力边界，就是这张清单的长度。清单能不能自己往下走，取决于两件事：规则写得够不够细，冲突时听谁的。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="专家系统三件套">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">专家系统三件套</text><rect class="f-b2" x="40.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="178.0" y="135.0">知识库</text><text class="f-sc" x="178.0" y="154.0">如果—那么规则</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">推理机</text><text class="f-sc" x="480.0" y="154.0">前向 / 反向推理</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="644.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="782.0" y="135.0">解释器</text><text class="f-sc" x="782.0" y="154.0">说明用了哪条规则</text><text class="f-s" x="40" y="244">知识、推理、解释分开维护；规则冲突时要有优先级与消解策略。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-20　知识、推理、解释分开维护</b>　左边是规则库，中间是反复匹配的推理机，右边是能复述触发链的解释接口；改规则不必改推理程序。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>专家系统把「知识」和「用知识的过程」拆成两件东西：改知识只动规则库，推理机保持通用。这是它比一段写死的判断代码更强的地方。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四件套，两种推法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>部件</th><th>作用</th><th>出问题时的表现</th></tr></thead>
+  <tbody>
+    <tr><td>知识库</td><td>存「如果—那么」规则与置信度</td><td>规则冲突、覆盖不到长尾</td></tr>
+    <tr><td>推理机</td><td>反复匹配事实与规则，推出新结论</td><td>推不出、陷入循环</td></tr>
+    <tr><td>工作记忆</td><td>存当前已知的事实</td><td>关键事实缺失就停摆</td></tr>
+    <tr><td>解释接口</td><td>说明「为什么问这个、为什么得这个结论」</td><td>只能复述规则，讲不出因果</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>规则写成 <span class="term">IF 条件 THEN 结论（置信度）</span>。前向推理从已知事实出发，反复触发规则直到没有新结论；反向推理从待证假设出发，找能推出它的规则，再把规则条件当子目标。两者都在一个不断增长的事实集合上做匹配。</p>
+</div>
+<p>知识库与推理机分离，带来一个实际好处：同一台推理机可以换一套规则去修打印机、配服务器、查故障。代价是规则本身必须由人一条条写，而写规则的人往往既不是专家，也不懂程序。这也是为什么同一套推理机可以服务多个领域：换的是知识库，不是引擎。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>从规则到结论的四步</h2>
+<p>一次完整推理，走的是四步：</p>
+<div class="steps">
+  <div class="step"><b>建库</b><span>把领域判断拆成条件与结论，一条规则只表达一个判断；结论里带置信度，为后面的冲突消解留余地。</span></div>
+  <div class="step"><b>选方向</b><span>数据多、想枚举结论时用前向；假设明确、想找证据时用反向。方向选错，会把算力花在无关分支上。</span></div>
+  <div class="step"><b>消解冲突</b><span>多条规则同时可用时，按优先级、特异性或新近程度选一条先跑，否则同一组事实会推出互相矛盾的结论。</span></div>
+  <div class="step"><b>解释留痕</b><span>记录触发了哪几条规则、用到哪些事实，让结论能回溯。没有留痕，系统就只是一只会说「相信我」的黑箱。</span></div>
+</div>
+<p>四步里最贵的是第一步。专家往往说不清自己怎么判断，「看一眼就知道」的背后是一堆没被写下来的条件；工程师只能靠追问和反例把规则一条条抠出来，这就是知识获取瓶颈。真正跑起来之后，瓶颈会从「写规则」变成「改规则」：改一条，可能牵动十几条。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>MYCIN 与 XCON，赢了也输了</h2>
+<p>1965 年启动的 DENDRAL 用于化学结构推断，是这条路线最早的完整样本。MYCIN 用于感染病诊断：输入症状与化验结果，规则库给出可能的病原体与用药建议，并能解释是哪几条规则推出来的。XCON 用于计算机配置：按客户需求逐条核对部件兼容性，把一份配置单拼完整。</p>
+<p>两个系统都证明了一件事：在领域窄、规则稳定、结论需要解释的地方，规则系统能交付，而且比当时其他方法更可靠。它们也暴露了同一件事——知识获取是瓶颈，专家说不清，工程师写不全。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>领域窄、规则多年不变</td><td>长尾例外写不完，规则库越补越乱</td></tr>
+    <tr><td>专家能把判断讲成条件与结论</td><td>领域快速变化，规则刚写完就过期</td></tr>
+    <tr><td>输入事实完整、可枚举</td><td>关键证据要靠图像或语音，规则接不上</td></tr>
+  </tbody>
+</table>
+</div>
+<p>更麻烦的是规则会互相打架。一条规则的例外，往往要三条新规则来兜；补到最后，规则库里有一半在管理另一半的例外。这不是实现问题，而是「把知识写成规则」这条路本身的价格。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为打印机不出纸写八条规则</h2>
+<p><strong>任务：</strong>为「打印机不出纸」写八条规则，按前向推理跑一次，写出触发顺序与最终结论。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>编号</th><th>条件</th><th>结论</th><th>触发顺序</th></tr></thead>
+  <tbody>
+    <tr><td>R1</td><td></td><td></td><td></td></tr>
+    <tr><td>R2</td><td></td><td></td><td></td></tr>
+    <tr><td>R3</td><td></td><td></td><td></td></tr>
+    <tr><td>R4</td><td></td><td></td><td></td></tr>
+    <tr><td>R5</td><td></td><td></td><td></td></tr>
+    <tr><td>R6</td><td></td><td></td><td></td></tr>
+    <tr><td>R7</td><td></td><td></td><td></td></tr>
+    <tr><td>R8</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 哪两条规则会同时触发、结论却不同？你按什么规则消解？② 如果现场只能看到「卡纸灯亮」，八条规则里有几条永远用不上？③ 这八条规则里，哪一条最难向新人解释？</p>
+<p><strong>自检：</strong>八条规则都能写成「如果—那么」，触发顺序可复现，且至少有一处冲突有明确的消解规则，即达标。规则写成散文、条件里出现「可能是」这类模糊词，需要重写。若八条里出现循环（A 推出 B，B 又推出 A），前向推理会停不下来，要先断环。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-5-3-neural-computing.html">1.5.3 神经计算：从 MP 到深度学习</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-5-1-game-playing.html"><span class="p-label">← 上一知识点 1.5.1</span><span class="p-title">博弈：从跳棋到 AlphaGo</span></a><a class="next" href="k1-5-3-neural-computing.html"><span class="p-label">下一知识点 1.5.3 →</span><span class="p-title">神经计算：从 MP 到深度学习</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 专家系统的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>1.5.2 ｜ <span class="path">pages/m01-ai-overview/k1-5-2-expert-system.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-5-1-game-playing.html"><b>1.5.1</b>博弈：从跳棋到 AlphaGo</a><a class="xlink" href="k1-5-3-neural-computing.html"><b>1.5.3</b>神经计算：从 MP 到深度学习</a><a class="xlink" href="u1-5-milestones.html"><b>1.5</b>六大里程碑：博弈、专家系统、神经计算、进化计算、NLP、生物信息学（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-5-2（本页图 1-20）；知识库 M01-S2-02。 ｜ 知识库条目：M01-S2-02《人工智能发展的里程碑》（filled） ｜ 参考来源：S02 Russell &amp; Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

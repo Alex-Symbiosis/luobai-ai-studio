@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.4.4 结构、重复与格式：不报错的那一类脏 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能列出重复、单位、编码、时间、文本五类结构性问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-4-eda-cleaning.html">3.4 探索性分析与数据清洗</a><span class="sep">/</span><span class="here">3.4.4 结构、重复与格式：不报错的那一类脏</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.4</span>
+    <span class="tag">知识点 3.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>结构、重复与格式：不报错的那一类脏</h1>
+  <p class="lede">缺失和异常至少还会在图上看出来。重复、单位混用、编码不一致、时间格式混乱，往往在合并两张表时才爆发，而且一爆就是「少了一半数据」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能列出重复、单位、编码、时间、文本五类结构性问题。</li><li>能解释合并键不一致为什么会静默丢行。</li><li>能写出可复现的去重与归一规则。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一张表，两种连接</h2>
+<p>订单表 10 万行、用户表 3 万行，按用户 ID 连接。两种处理：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>直接 join</h3><p>跑通了，结果 4.8 万行。没有报错，也没有人核对行数，直到模型效果异常才发现少了一半。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先对齐再连接</h3><p>统一 ID 类型、去空格、查未匹配的 2 万条订单；连接后断言行数并输出未匹配清单，丢失量可控。</p></div>
+</div>
+<p class="ask">两种写法都「成功」了，差别在哪一步？</p>
+<p>差别在连接前的对齐与连接后的核对。格式问题不会抛异常，它只会静默改变数据规模。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>插头和插座对不上</h2>
+<p>两表合并像插头和插座：形状（类型）、尺寸（单位）、针脚定义（编码）任何一处不一致，要么插不进，要么插进去不通电，而且不会报警。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="脏数据不只「缺」和「怪」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">脏数据不只「缺」和「怪」</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">问题</text><text class="f-t" x="282.0" y="98">表现</text><text class="f-t" x="492.0" y="98">对建模的影响</text><text class="f-t" x="702.0" y="98">常见处理</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">重复</text><text class="f-s" x="282.0" y="135.8">同一条记录出现多次</text><text class="f-s" x="492.0" y="135.8">同一实体跨集，泄漏</text><text class="f-s" x="702.0" y="135.8">按主键去重，保留最新</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">单位/量纲</text><text class="f-s" x="282.0" y="173.4">金额有元也有分</text><text class="f-s" x="492.0" y="173.4">数值差 100 倍</text><text class="f-s" x="702.0" y="173.4">统一单位后重算</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">编码/拼写</text><text class="f-s" x="282.0" y="211.0">「男 / M / 1」</text><text class="f-s" x="492.0" y="211.0">同类被拆成多类</text><text class="f-s" x="702.0" y="211.0">建立映射表归一</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">时间格式</text><text class="f-s" x="282.0" y="248.60000000000002">字符串与时间戳混用</text><text class="f-s" x="492.0" y="248.60000000000002">无法排序与切窗</text><text class="f-s" x="702.0" y="248.60000000000002">统一解析为时间类型</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">文本脏值</text><text class="f-s" x="282.0" y="286.2">空格、全角、占位符</text><text class="f-s" x="492.0" y="286.2">类别爆炸</text><text class="f-s" x="702.0" y="286.2">清洗后重新编码</text><text class="f-s" x="60" y="328.0">清洗的目标不是「让数据好看」，而是让每一列的含义在整张表里唯一。</text>
+</svg><figcaption><b>图 3-19　五类结构性问题与处理</b>　这些问题不会让程序报错，只会让行数、类别数和数值在不知不觉中变化。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>结构性问题的共同特征是<strong>「静默失败」</strong>：代码跑通、表也生成了，但内容已经不对。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>五类问题与判定方法</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>判定方法</th><th>处理原则</th></tr></thead>
+  <tbody>
+    <tr><td>重复</td><td>按主键或全部列计数</td><td>按业务规则保留一条（最新/最完整）</td></tr>
+    <tr><td>单位与量纲</td><td>分位数跨度异常、极值差 100 倍</td><td>统一单位后重算，保留换算记录</td></tr>
+    <tr><td>编码与拼写</td><td>类别取值数量异常多</td><td>建映射表归一（男/M/1 → 男）</td></tr>
+    <tr><td>时间格式</td><td>字符串与时间戳混用、时区不一致</td><td>统一解析为时间类型并标明时区</td></tr>
+    <tr><td>文本脏值</td><td>首尾空格、全角字符、占位符</td><td>清洗后再做类别统计</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>结构性问题是指数据的组织方式或表示格式不一致，导致合并、分组、排序等操作产生错误结果，但不触发运行错误。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么「静默丢行」最难查</h2>
+<div class="steps">
+  <div class="step"><b>连接键类型不一致</b><span>整数 1001 与字符串 "1001" 不相等，连接后全部落空。</span></div>
+  <div class="step"><b>空白与全角</b><span>" 1001" 与 "1001" 不相等；肉眼几乎看不出差别。</span></div>
+  <div class="step"><b>一对多关系</b><span>用户表同一 ID 有两条记录，左连接会让订单翻倍，行数变多同样是错误。</span></div>
+</div>
+<p>防线是三个断言：<strong>连接前后行数对比</strong>、<strong>连接键去重检查</strong>、<strong>连接后空值率检查</strong>。任一异常就停下来查，而不是继续往下跑。</p>
+<span class="teacher">这一页适合现场演示：用两份手工构造的小表做一次错误连接，让学生看到「程序不报错，但结果少了一半」。</span>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三张表的合并事故</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>现象</th><th>定位与修复</th></tr></thead>
+  <tbody>
+    <tr><td>ID 类型不一致</td><td>左连接后仅剩 48%</td><td>统一转为字符串并 strip，重连后恢复 96%</td></tr>
+    <tr><td>金额单位混用</td><td>部分订单金额是另一部分的一百倍</td><td>按来源表分别换算为元，记录换算系数</td></tr>
+    <tr><td>用户表重复</td><td>连接后行数变多</td><td>先按 ID 去重保留最新，再连接</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个问题里只有第一个会让人立刻察觉「数据少了」。后两个若不做分布检查，会一路带进模型。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写一份合并检查清单</h2>
+<p><strong>任务：</strong>为「订单表 + 用户表 + 商品表」三表合并写一份检查清单，至少包含 6 个断言。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>断言</th><th>不通过时怎么办</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>连接键类型一致</td><td>统一转换后再连</td></tr>
+    <tr><td>2</td><td>连接键在维表中唯一</td><td>先去重</td></tr>
+    <tr><td>3</td><td>连接后行数符合预期</td><td>查未匹配与重复匹配</td></tr>
+    <tr><td>4</td><td></td><td></td></tr>
+    <tr><td>5</td><td></td><td></td></tr>
+    <tr><td>6</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 合并后行数和我预期的一致吗？② 关键列的空值率有没有突然升高？③ 类别数量有没有异常膨胀？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「左连接不会丢数据」不成立。左连接保留左表所有行，但如果右表有重复键，行数会增加；如果之后又做了内连接或过滤，行数会减少。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-4-5-cleaning-demo.html">3.4.5 动手：一条可复现的清洗流水线</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-4-3-outliers.html"><span class="p-label">← 上一知识点 3.4.3</span><span class="p-title">异常值：先判定性质，再决定去留</span></a><a class="next" href="k3-4-5-cleaning-demo.html"><span class="p-label">下一知识点 3.4.5 →</span><span class="p-title">动手：一条可复现的清洗流水线</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)3 · 数据清洗：结构与格式问题</dd>
+    <dt>页面编号 / 路径</dt><dd>3.4.4 ｜ <span class="path">pages/m03-ml-basics/k3-4-4-format-issues.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-4-1-eda.html"><b>3.4.1</b>探索性分析：先体检，再开药</a><a class="xlink" href="k3-4-5-cleaning-demo.html"><b>3.4.5</b>动手：一条可复现的清洗流水线</a><a class="xlink" href="k3-5-1-feature-engineering.html"><b>3.5.1</b>特征工程：把原始数据变成可学的信号</a><a class="xlink" href="u3-4-eda-cleaning.html"><b>3.4</b>探索性分析与数据清洗（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-4-4-a.svg（本页图 3-19）。 ｜ 知识库条目：M03-S3-02《数据清洗的方法》（filled） ｜ 参考来源：S64 Han et al.《Data Mining》；S58 NIST/SEMATECH e-Handbook</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

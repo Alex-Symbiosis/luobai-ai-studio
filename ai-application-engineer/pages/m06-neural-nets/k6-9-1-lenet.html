@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.9.1 LeNet-5：第一个成功的 CNN · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按 32→28→14→10→5→1 复算每层输出尺寸。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-9-classic-cnn.html">6.9 经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet</a><span class="sep">/</span><span class="here">6.9.1 LeNet-5：第一个成功的 CNN</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.9</span>
+    <span class="tag">知识点 6.9.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>LeNet-5：第一个成功的 CNN</h1>
+  <p class="lede">六万个参数认手写数字，同时代的全连接网络要几百万。省下来的不是运气，是三条写进结构的先验。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按 32→28→14→10→5→1 复算每层输出尺寸。</li><li>能说出 60,850 与 61,706 两种参数口径的差异来源。</li><li>能解释 C3 稀疏连接与 S 层可训练系数的历史作用。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>支票上的手写数字</h2>
+<p>1998 年，美国银行系统每天处理上百万张支票，金额栏是手写数字。规则程序写不出来：同一个人写的「7」和「1」都可能是另一个样子，笔画粗细、倾斜、断笔一直在变。</p>
+<p>LeNet-5 就是为这件事做的：输入 32×32 灰度图，输出 0–9 十类。它第一次把「卷积—下采样—全连接」串起来，并用反向传播端到端训练成功。</p>
+<p>先看一个对比。同样 32×32 的输入，换成全连接，第一层 1024→512 就要 52 万个参数；LeNet-5 全部参数只有 6 万出头，差了一个数量级。</p>
+<p class="ask">参数少一个数量级，凭什么还能认对？</p>
+<p>因为它把两个先验写进了结构：局部性（相邻像素才相关）与权值共享（同一种笔画模式在哪都用同一套权重检出）。参数不是省出来的，是被结构替代掉的。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>参数都在尾部</h2>
+<p>把 LeNet-5 看成两段。前四层是特征提取段：C1 卷积、S2 下采样、C3 卷积、S4 下采样，把 32×32 压成 5×5×16。后三层是判别段：C5 大卷积、F6 全连接、10 个输出单元，把特征图变成类别。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="LeNet-5 逐层账本（简化稠密口径）">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">LeNet-5 逐层账本（简化稠密口径）</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">层</text><text class="f-t" x="282.0" y="98">输出尺寸</text><text class="f-t" x="492.0" y="98">核 / 连接</text><text class="f-t" x="702.0" y="98">参数量</text><rect class="f-b3" x="60" y="112.0" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="130.42857142857144">C1 卷积</text><text class="f-s" x="282.0" y="130.42857142857144">28×28×6</text><text class="f-s" x="492.0" y="130.42857142857144">5×5×1×6</text><text class="f-s" x="702.0" y="130.42857142857144">156</text><rect class="f-b3" x="60" y="138.85714285714286" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="157.28571428571428">S2 池化</text><text class="f-s" x="282.0" y="157.28571428571428">14×14×6</text><text class="f-s" x="492.0" y="157.28571428571428">2×2</text><text class="f-s" x="702.0" y="157.28571428571428">0（原始 12）</text><rect class="f-b3" x="60" y="165.71428571428572" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="184.14285714285714">C3 卷积</text><text class="f-s" x="282.0" y="184.14285714285714">10×10×16</text><text class="f-s" x="492.0" y="184.14285714285714">5×5×6×16</text><text class="f-s" x="702.0" y="184.14285714285714">2,416</text><rect class="f-b3" x="60" y="192.57142857142856" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="210.99999999999997">S4 池化</text><text class="f-s" x="282.0" y="210.99999999999997">5×5×16</text><text class="f-s" x="492.0" y="210.99999999999997">2×2</text><text class="f-s" x="702.0" y="210.99999999999997">0（原始 32）</text><rect class="f-b3" x="60" y="219.42857142857144" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="237.85714285714286">C5 卷积</text><text class="f-s" x="282.0" y="237.85714285714286">1×1×120</text><text class="f-s" x="492.0" y="237.85714285714286">5×5×16×120</text><text class="f-s" x="702.0" y="237.85714285714286">48,120</text><rect class="f-b3" x="60" y="246.28571428571428" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="264.7142857142857">F6 全连接</text><text class="f-s" x="282.0" y="264.7142857142857">84</text><text class="f-s" x="492.0" y="264.7142857142857">120×84</text><text class="f-s" x="702.0" y="264.7142857142857">10,164</text><rect class="f-b3" x="60" y="273.1428571428571" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="291.57142857142856">输出</text><text class="f-s" x="282.0" y="291.57142857142856">10</text><text class="f-s" x="492.0" y="291.57142857142856">84×10</text><text class="f-s" x="702.0" y="291.57142857142856">850</text><text class="f-s" x="60" y="328.0">合计 61,706；按原始稀疏连接口径为 60,850，差在 C3 与 S 层系数。</text>
+</svg><figcaption><b>图 6-46　LeNet-5 逐层账本（简化稠密口径）</b>　合计 61,706；按原始稀疏连接口径为 60,850，差在 C3 与 S 层系数。</figcaption></figure>
+<p>读这张账本，先看数量级，不要急着背数字：前四层相加 2,616 个参数，C5 一层 48,120 个，F6 加输出 11,014 个。八成参数集中在判别段的入口。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>卷积段参数省，判别段参数贵。后来 ResNet 用全局平均池化削掉的，正是这个贵的部分；而 LeNet 时代还没有这个习惯。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两种参数口径</h2>
+<p><strong>结构：</strong>32×32×1 → C1(6@5×5) → S2(2×2) → C3(16@5×5) → S4(2×2) → C5(120@5×5) → F6(84) → 输出(10)。尺寸链 32→28→14→10→5→1，每一步都能用 <code>(H−K)/S+1</code> 复算。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层</th><th>输出</th><th>配置</th><th>参数量（简化口径）</th></tr></thead>
+  <tbody>
+    <tr><td>C1 卷积</td><td>28×28×6</td><td>5×5，6 核</td><td>156</td></tr>
+    <tr><td>S2 下采样</td><td>14×14×6</td><td>2×2，无参数池化</td><td>0（原始 12）</td></tr>
+    <tr><td>C3 卷积</td><td>10×10×16</td><td>5×5，16 核，稠密</td><td>2,416（原始 1,516）</td></tr>
+    <tr><td>S4 下采样</td><td>5×5×16</td><td>2×2，无参数池化</td><td>0（原始 32）</td></tr>
+    <tr><td>C5 卷积</td><td>1×1×120</td><td>5×5，120 核</td><td>48,120</td></tr>
+    <tr><td>F6 全连接</td><td>84</td><td>120×84</td><td>10,164</td></tr>
+    <tr><td>输出</td><td>10</td><td>84×10</td><td>850</td></tr>
+    <tr><td><strong>合计</strong></td><td></td><td></td><td><strong>61,706</strong></td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个总数都要记住，并且知道差在哪。<strong>原始口径 60,850</strong>：C3 只连 60 条稀疏连接（60×25+16=1,516），S2/S4 各带可训练缩放与偏置（12+32=44）。<strong>简化口径 61,706</strong>：C3 按稠密 96 条连接（25×6×16+16=2,416，多 900），池化改成无参数（少 44）。60,850+900−44=61,706。</p>
+<div class="callout callout--warn">
+  <span class="c-label">逐行相加会对不上</span>
+  <p>图 6-46 的 S2/S4 仍写着 12 和 32，那是原始口径的可训练系数。把七行直接相加得 61,750，与 61,706 差 44——那是「稠密 C3 + 可训练池化」的混合口径，不在两个标准口径里。答题时先声明池化算不算参数。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>九行代码复现</h2>
+<p>用 Keras 写出来只有九个带参数的部件。注意激活用 tanh，池化用平均池化——那是 1998 年的写法，S 层本就是「加权平均再乘一个系数」。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>lenet5_keras.py</span></div>
+<pre><code>import tensorflow as tf
+from tensorflow.keras import layers
+
+model = tf.keras.Sequential([
+    layers.Input((32, 32, 1)),
+    layers.Conv2D(6, 5, activation=&quot;tanh&quot;),        # 28x28x6   156
+    layers.AveragePooling2D(2),                    # 14x14x6     0
+    layers.Conv2D(16, 5, activation=&quot;tanh&quot;),       # 10x10x16  2416
+    layers.AveragePooling2D(2),                    # 5x5x16      0
+    layers.Conv2D(120, 5, activation=&quot;tanh&quot;),      # 1x1x120 48120
+    layers.Flatten(),
+    layers.Dense(84, activation=&quot;tanh&quot;),           #          10164
+    layers.Dense(10, activation=&quot;softmax&quot;),        #            850
+])
+model.summary()</code></pre>
+</div>
+<p>这段代码默认是「稠密 C3 + 无参数池化」，所以合计 61,706，与简化口径一致。要复现原始的稀疏连接表，Keras 没有现成接口，得自己写带掩码的卷积层，教学上不建议。</p>
+<p>三个尺寸自己推一遍：C1 用 5×5 无填充，32 变 28；S2 用 2×2、步长 2，28 变 14；C5 在 5×5 的特征图上用 5×5 核，输出 1×1。最后一步不是巧合——按感受野递推，C5 的感受野正好 32，等于输入边长。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>五处乘法对账</h2>
+<p>把关键层的乘法摆在一起，账就闭合了：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层</th><th>算式</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>C1</td><td>5×5×1×6+6</td><td>156</td></tr>
+    <tr><td>C3（原始稀疏）</td><td>60×25+16</td><td>1,516</td></tr>
+    <tr><td>C3（稠密）</td><td>5×5×6×16+16</td><td>2,416</td></tr>
+    <tr><td>C5</td><td>5×5×16×120+120</td><td>48,120</td></tr>
+    <tr><td>F6</td><td>120×84+84</td><td>10,164</td></tr>
+    <tr><td>输出</td><td>84×10+10</td><td>850</td></tr>
+  </tbody>
+</table>
+</div>
+<p>C5 一层占 48,120/61,706≈78%。它名字叫「卷积」，实际是特征图只剩 5×5 时用同样大小的核去卷，等价于一个 400→120 的全连接层，只是写成了卷积形式。这也解释了为什么现代网络改用全局平均池化：把这段几百维的输入直接压成每通道一个数。</p>
+<div class="callout callout--warn">
+  <span class="c-label">两个常见误读</span>
+  <p>第一，把 61,706 与 60,850 混着引用，或同一段里既说「六万」又给出 61,750。第二，把 C5 当普通卷积层讲——它参数多，正因为它看到的是一张 5×5 的图，等价于全连接。答辩时写出逐层算式，比背总数安全。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>改输入再算一遍</h2>
+<p><strong>任务：</strong>把输入从 32×32 改成 28×28，其余配置不动，回答三问。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>要算的量</th><th>提示</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>C1、C3、C5 的输出尺寸</td><td>28→24→12→8；C5 的 5×5 卷在 8×8 上还剩多大</td></tr>
+    <tr><td>B</td><td>若 C5 改 3×3、120 核，参数量多少</td><td>3×3×16×120+120</td></tr>
+    <tr><td>C</td><td>池化改成无参数后，总数比图 6-46 少多少</td><td>12+32</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 1998 年 S 层为什么带可训练系数，今天为什么不用了？② C3 的稀疏连接表想解决什么，代价是什么？③ 若把 C5 换成全局平均池化，参数只剩 F6 与输出，共多少？</p>
+<p><strong>验收：</strong>三问都有算式，且能分清「原始 60,850」与「简化 61,706」各自的前提。尺寸怎么来，见 <a href="../m06-neural-nets/k6-8-1-convolution.html">卷积运算</a>；池化怎么降采样，见 <a href="../m06-neural-nets/k6-8-3-pooling.html">池化</a>；骨架怎么复用，见 <a href="../m06-neural-nets/k6-8-4-cnn-framework.html">CNN 一般框架</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-9-2-alexnet.html">6.9.2 AlexNet：深度学习的引爆点</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-8-5-cnn-demo.html"><span class="p-label">← 上一知识点 6.8.5</span><span class="p-title">手写数字 CNN 实战</span></a><a class="next" href="k6-9-2-alexnet.html"><span class="p-label">下一知识点 6.9.2 →</span><span class="p-title">AlexNet：深度学习的引爆点</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)38 · LeNet-5：第一个成功的 CNN</dd>
+    <dt>页面编号 / 路径</dt><dd>6.9.1 ｜ <span class="path">pages/m06-neural-nets/k6-9-1-lenet.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-9-2-alexnet.html"><b>6.9.2</b>AlexNet：深度学习的引爆点</a><a class="xlink" href="k6-8-4-cnn-framework.html"><b>6.8.4</b>CNN 一般框架</a><a class="xlink" href="k6-8-2-conv-layer.html"><b>6.8.2</b>卷积层：参数共享与输出尺寸</a><a class="xlink" href="u6-9-classic-cnn.html"><b>6.9</b>经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-9-1（本页图 6-46）；知识库 M06-S6-01。 ｜ 知识库条目：M06-S6-01《LeNet-5》（filled） ｜ 参考来源：S23 LeCun 等 1998 原始论文；S92 LeCun 等 1989；S53《深度学习》第 9 章。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

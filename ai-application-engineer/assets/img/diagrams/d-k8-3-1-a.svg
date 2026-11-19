@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="八种方法，先按标签有无分家">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">八种方法，先按标签有无分家</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">方法</text><text class="f-t" x="282.0" y="98">标签</text><text class="f-t" x="492.0" y="98">找什么</text><text class="f-t" x="702.0" y="98">典型输出</text><rect class="f-b3" x="60" y="112.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="128.75">分类</text><text class="f-s" x="282.0" y="128.75">有</text><text class="f-s" x="492.0" y="128.75">离散类别</text><text class="f-s" x="702.0" y="128.75">类别标签</text><rect class="f-b3" x="60" y="135.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="152.25">回归</text><text class="f-s" x="282.0" y="152.25">有</text><text class="f-s" x="492.0" y="152.25">连续数值</text><text class="f-s" x="702.0" y="152.25">预测值</text><rect class="f-b3" x="60" y="159.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="175.75">聚类</text><text class="f-s" x="282.0" y="175.75">无</text><text class="f-s" x="492.0" y="175.75">相似分组</text><text class="f-s" x="702.0" y="175.75">簇与簇心</text><rect class="f-b3" x="60" y="182.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="199.25">关联规则</text><text class="f-s" x="282.0" y="199.25">无</text><text class="f-s" x="492.0" y="199.25">共现搭配</text><text class="f-s" x="702.0" y="199.25">规则与提升度</text><rect class="f-b3" x="60" y="206.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="222.75">神经网络</text><text class="f-s" x="282.0" y="222.75">有或无</text><text class="f-s" x="492.0" y="222.75">复杂非线性关系</text><text class="f-s" x="702.0" y="222.75">模型输出</text><rect class="f-b3" x="60" y="229.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="246.25">Web 挖掘</text><text class="f-s" x="282.0" y="246.25">无</text><text class="f-s" x="492.0" y="246.25">链接与文本结构</text><text class="f-s" x="702.0" y="246.25">网页与社区模式</text><rect class="f-b3" x="60" y="253.0" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="269.75">特征分析</text><text class="f-s" x="282.0" y="269.75">无</text><text class="f-s" x="492.0" y="269.75">群体画像</text><text class="f-s" x="702.0" y="269.75">特征画像</text><rect class="f-b3" x="60" y="276.5" width="840" height="23.5" rx="0"/><text class="f-s" x="72.0" y="293.25">偏差分析</text><text class="f-s" x="282.0" y="293.25">无</text><text class="f-s" x="492.0" y="293.25">与常态的偏离</text><text class="f-s" x="702.0" y="293.25">异常清单</text><text class="f-s" x="60" y="328.0">先问有没有标签，再问要找什么；两步定完，候选方法就剩一两个。</text>
+</svg>

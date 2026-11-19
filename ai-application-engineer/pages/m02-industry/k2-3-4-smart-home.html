@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3.4 家居：低功耗、离线、可接受的误触发 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出家居 AI 的四条约束，以及它们之间的相互拉扯。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-3-application-layer.html">2.3 应用层：安防、金融、制造、家居、医疗、自动驾驶</a><span class="sep">/</span><span class="here">2.3.4 家居：低功耗、离线、可接受的误触发</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.3</span>
+    <span class="tag">知识点 2.3.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>家居：低功耗、离线、可接受的误触发</h1>
+  <p class="lede">电视里一句台词把音箱叫醒，半夜它自己放起了音乐；用户第二天就关掉了语音。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出家居 AI 的四条约束，以及它们之间的相互拉扯。</li><li>能算一笔待机功耗账，判断一级唤醒该放在哪颗芯片上。</li><li>能用测试用例同时覆盖误唤醒与漏唤醒两类错误。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>半夜的音乐</h2>
+<p>客厅电视里说了一句「小爱同学」，角落的音箱应了一声；用户没在意，直到半夜它自己播起音乐。另一户人家的扫地机被窗帘缠住，原地转了 40 分钟，App 上显示「正在清扫」。</p>
+<p>家居设备的共同点：没有运维、没有机房、用户不看日志。出问题时，用户只做一件事——关掉功能，或把设备拔掉。误触发的成本不是一次错误，而是这个功能从此不被使用。</p>
+<p class="ask">同一个语音模型，手机上好用，装进音箱就问题不断，为什么？</p>
+<p>因为约束变了：供电、算力、网络、隐私，每一条都比手机更紧。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>四条约束</h2>
+<p>家居 AI 要同时满足四条约束：功耗、离线、误触发、隐私。四条互相拉扯——模型越大越准，也越费电；越依赖云端越聪明，断网就越不可用；越灵敏越不漏，误触发也越多。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="家居的指标不是聪明，是不添乱">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">家居的指标不是聪明，是不添乱</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">约束</text><text class="f-t" x="352.0" y="98">为什么</text><text class="f-t" x="632.0" y="98">设计对策</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">功耗</text><text class="f-s" x="352.0" y="139.0">电池供电、常年待机</text><text class="f-s" x="632.0" y="139.0">轻量模型 + 分级唤醒</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">离线</text><text class="f-s" x="352.0" y="183.0">断网也要能用</text><text class="f-s" x="632.0" y="183.0">本地规则保底</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">误触发</text><text class="f-s" x="352.0" y="227.0">语音与传感器都有噪声</text><text class="f-s" x="632.0" y="227.0">二次确认、可撤销</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">隐私</text><text class="f-s" x="352.0" y="271.0">声音画面出不了屋</text><text class="f-s" x="632.0" y="271.0">端侧处理、最小上传</text><text class="f-s" x="60" y="316">稳定、省电、能关掉，比多一个功能更重要。</text>
+</svg><figcaption><b>图 2-29　家居的指标不是聪明，是不添乱</b>　稳定、省电、能关掉，比多一个功能更重要。</figcaption></figure>
+<p>所以指标不是「多聪明」，而是「不添乱」：待机几个月、断网能开关灯、误唤醒少到用户愿意留、声音画面不出屋。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="端—云—端：断了网，哪一层还能跑">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">端—云—端：断了网，哪一层还能跑</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">层</text><text class="f-t" x="352.0" y="98">平时做什么</text><text class="f-t" x="632.0" y="98">断网时</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">端</text><text class="f-s" x="352.0" y="139.0">采集、执行、本地判定</text><text class="f-s" x="632.0" y="139.0">轻模型继续跑</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">网关</text><text class="f-s" x="352.0" y="183.0">本地联动与缓存</text><text class="f-s" x="632.0" y="183.0">规则场景照常</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">云</text><text class="f-s" x="352.0" y="227.0">训练、跨设备联动</text><text class="f-s" x="632.0" y="227.0">策略更新暂停</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">App</text><text class="f-s" x="352.0" y="271.0">远程查看与控制</text><text class="f-s" x="632.0" y="271.0">只能局域网内用</text><text class="f-s" x="60" y="316">断网不是故障，是常态；关键动作必须留在本地能跑完。</text>
+</svg><figcaption><b>图 2-30　端—云—端：断了网，哪一层还能跑</b>　断网不是故障，是常态；关键动作必须留在本地跑完。</figcaption></figure>
+<p>这张表是断网时的行为清单。端负责采集与执行，网关负责本地联动，云负责训练与跨设备策略。断网时云端能力暂停，本地规则必须照常。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>产品验收里，「断网后还能做什么」比「联网时能做什么」更能决定口碑。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个量</h2>
+<p><strong>唤醒与误唤醒：</strong>唤醒词检测是常开任务，指标是「每 24 小时误唤醒次数」和「漏唤醒率」。「一天一次」不是标准，验收要写清测试集、音量与噪声类型。</p>
+<p><strong>端侧低功耗：</strong>电池供电设备（门锁、传感器）的待机功耗以微安计，常开麦克风的预算往往只有几毫瓦。一级唤醒必须跑在低功耗单元上，主处理器休眠。</p>
+<p><strong>离线可用：</strong>断网时至少保留本地规则：开关、调光、布防、场景联动。云端语义与跨设备推荐可以暂停，但不能让灯打不开。</p>
+<p><strong>误触发成本</strong>分三档：打扰（半夜放音乐）、信任损失（用户关掉功能）、安全事件（门锁误开、摄像头误报引发恐慌）。档位越高，确认层级越多。</p>
+<p><strong>隐私：</strong>声音与画面属于敏感信息，原则是最小采集、端侧处理、可关闭、可删除。能本地判断「有人经过」，就不要上传视频。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两级唤醒</h2>
+<p>典型架构是两级唤醒加本地保底。一级在低功耗芯片上做关键词检测，只判断「像不像唤醒词」；二级唤醒主处理器，做识别与语义理解；复杂请求再上云。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层级</th><th>任务</th><th>功耗与依赖</th></tr></thead>
+  <tbody>
+    <tr><td>一级</td><td>关键词检测</td><td>毫瓦级，常开</td></tr>
+    <tr><td>二级</td><td>识别与意图理解</td><td>百毫瓦级，按需唤醒</td></tr>
+    <tr><td>本地规则</td><td>开关、联动、布防</td><td>不依赖网络</td></tr>
+    <tr><td>云</td><td>语义、推荐、训练</td><td>依赖网络，按请求计费</td></tr>
+  </tbody>
+</table>
+</div>
+<p>功耗要算总账。一块 2000 mAh 电池，若平均功耗 10 mW、电压 3.7 V，续航约 2000×3.7÷10 ≈ 740 小时，约 31 天；降到 1 mW 才接近一年。这是一级唤醒必须足够轻的原因。</p>
+<p>误触发的手段有三类：提高阈值（少唤醒、多漏唤醒）、二次确认（唤醒后补一句）、上下文过滤（电视声、相似词）。二次确认最有效，代价是多一步交互；门锁还要求「声纹＋按键」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>唤醒测试</h2>
+<p>给语音助手做 10 条唤醒测试，覆盖安静、电视声、相似词、厨房噪声、多人说话，记录 7 天（假设）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>版本</th><th>日均误唤醒</th><th>漏唤醒率</th><th>响应时延</th></tr></thead>
+  <tbody>
+    <tr><td>v1 阈值 0.60</td><td>3.4 次</td><td>1.2%</td><td>380 ms</td></tr>
+    <tr><td>v2 阈值 0.75</td><td>0.9 次</td><td>4.8%</td><td>360 ms</td></tr>
+    <tr><td>v3 阈值 0.75＋二次确认</td><td>0.2 次</td><td>5.1%</td><td>约 1.8 s</td></tr>
+  </tbody>
+</table>
+</div>
+<p>v1 误唤醒太多：一天 3.4 次，用户第一周就会关掉语音。v2 压到 0.9 次，漏唤醒却升到 4.8%，喊三遍没反应同样会被放弃。v3 用二次确认把误唤醒降到 0.2 次，代价是每次多花约 1.4 秒。</p>
+<p>误唤醒与漏唤醒不能同时最优，产品要选一个用户能接受的组合，再用交互补上代价。对灯泡、插座，1.8 秒可以接受；对跌倒检测这类「救命」场景，策略要反过来，宁可误报也不能漏报。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>拿实验室安静环境的唤醒率当验收。真实家庭有电视、油烟机、儿童哭闹；测试集不含这些噪声，上线后的误唤醒一定高于报告值。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>十条用例</h2>
+<p><strong>任务：</strong>为一个语音助手设计 10 条唤醒测试用例，覆盖电视声、相似词、安静与噪声环境，写出通过标准。</p>
+<p>提示：用例要同时覆盖误唤醒与漏唤醒；每条写清播放设备、音量、距离、噪声和判定条件。</p>
+<p><strong>追问：</strong>① 断网时哪些功能必须保留，哪些可以暂停？② 门锁的误识别成本与音箱有何不同，确认方式该怎么改？③ 把识别全部放云端，功耗和隐私各有什么变化？</p>
+<p><strong>验收：</strong>10 条用例覆盖两类错误，通过标准可量化（次数、时延、距离）。摄像头的隐私边界见 <a href="../m02-industry/k2-3-1-security.html">安防</a>；采集原理见 <a href="../m02-industry/k2-1-6-sensors.html">传感器</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-3-5-healthcare.html">2.3.5 医疗：高价值、高风险、强证据</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-3-3-manufacturing.html"><span class="p-label">← 上一知识点 2.3.3</span><span class="p-title">制造：把经验变成可复现的参数</span></a><a class="next" href="k2-3-5-healthcare.html"><span class="p-label">下一知识点 2.3.5 →</span><span class="p-title">医疗：高价值、高风险、强证据</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)3 · 人工智能与家居</dd>
+    <dt>页面编号 / 路径</dt><dd>2.3.4 ｜ <span class="path">pages/m02-industry/k2-3-4-smart-home.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-3-1-security.html"><b>2.3.1</b>安防：从「看得见」到「认得准」</a><a class="xlink" href="k2-1-6-sensors.html"><b>2.1.6</b>传感器：AI 的数据入口</a><a class="xlink" href="u2-3-application-layer.html"><b>2.3</b>应用层：安防、金融、制造、家居、医疗、自动驾驶（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-3-4（本页图 2-29）、k2-3-4-b（图 2-30）；知识库 M02-S3-04《人工智能与家居》（filled）。 ｜ 知识库条目：M02-S3-04《人工智能与家居》（filled） ｜ 参考来源：CSA Matter 规范；智能家居相关国家标准；厂商公开隐私白皮书；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

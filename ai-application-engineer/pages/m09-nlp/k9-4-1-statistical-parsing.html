@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.4.1 统计解析：给语法树算概率 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 PCFG 与 CFG 的差别，指明概率加在哪一层。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-4-statistical-methods.html">9.4 统计方法：统计解析、机器翻译与词义消歧</a><span class="sep">/</span><span class="here">9.4.1 统计解析：给语法树算概率</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.4</span>
+    <span class="tag">知识点 9.4.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>统计解析：给语法树算概率</h1>
+  <p class="lede">一句话能长出两棵树，两棵都合法：PCFG 给每条规则配一个概率，让语法自己排出胜负。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 PCFG 与 CFG 的差别，指明概率加在哪一层。</li><li>能按规则概率连乘算出两棵候选树的得分并比较。</li><li>能解释为什么必须做平滑，以及最高概率不等于正确。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两棵都合法</h2>
+<p>问答系统里出现一句「他看见拿望远镜的人」。句法分析给出两种读法：拿望远镜的是他，或者拿望远镜的是那个人。两棵推导树都符合文法，CYK 的判定都通过。</p>
+<p>规则系统到这里就停住了。它能回答「合法」或「不合法」，回答不了「哪一种读法更常见」。语料里两种结构都出现过，只是一个多、一个少。</p>
+<p class="ask">两棵都合法的树，凭什么选一棵？</p>
+<p>凭语料里的频率。把每条规则出现过的次数统计出来，换算成概率，再让每棵树自报一个分数，这就是统计解析的起点。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>概率高的树</h2>
+<p>同一句话的两棵候选树，分叉处用的规则不一样。树 A 用 <code>VP → V NP</code>，动词后面直接接宾语；树 B 用 <code>NP → NP PP</code>，把介词短语挂到名词上。</p>
+<p>树库里有十万句标注好的句子，这两种结构各出现过多少次，一数就知道。用得多的规则，概率自然高。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="两棵候选树，概率连乘后见分晓">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">两棵候选树，概率连乘后见分晓</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">候选树</text><text class="f-t" x="282.0" y="98">主要规则</text><text class="f-t" x="492.0" y="98">连乘结果</text><text class="f-t" x="702.0" y="98">结论</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">树 A</text><text class="f-s" x="282.0" y="139.0">VP → V NP</text><text class="f-s" x="492.0" y="139.0">0.42 × 0.63 ≈ 0.21</text><text class="f-s" x="702.0" y="139.0">保留</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">树 B</text><text class="f-s" x="282.0" y="183.0">NP → NP PP</text><text class="f-s" x="492.0" y="183.0">0.18 × 0.27 ≈ 0.05</text><text class="f-s" x="702.0" y="183.0">淘汰</text><text class="f-s" x="60" y="228">每棵树拆成规则序列，概率连乘；比的是同一句话下哪棵树更可能。</text>
+</svg><figcaption><b>图 9-18　两棵候选树，概率连乘后见分晓</b>　每棵树拆成规则序列，概率连乘；比的是同一句话下哪棵树更可能。</figcaption></figure>
+<p>概率高不代表语法更「正确」，只代表这种结构在语料里更常见。统计解析换掉的不是文法本身，是把「合法与否」的硬判定，换成「哪个更常见」的软比较。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>CFG 给出的是候选集合，PCFG 在候选集合上再铺一层概率。解析器要做的，从这个集合里挑出那条最可能的路。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>规则上的概率</h2>
+<p><strong>PCFG：</strong>在 CFG 的每条产生式上挂一个条件概率 <code>P(A → β | A)</code>，含义是「左边是 A 时，展开成 β 的比例」。同一个左部的所有规则，概率之和为 1。</p>
+<p><strong>树概率：</strong>一棵推导树 t 的得分，等于它用到的全部规则概率之积，<code>P(t) = ∏ P(A → β | A)</code>。整句话的概率，是所有候选树概率之和。</p>
+<p><strong>三个默认假设：</strong>规则只依赖左部符号，与上下文无关；规则之间相互独立；概率不随句子位置变化。三条都不完全成立，但代价可控，这是这套方法能跑起来的前提。</p>
+<p>分工一句话：CFG 说哪些树合法，PCFG 说合法的树各有多大可能。前者是集合，后者是集合上的分布。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>数频次，估概率，取对数</h2>
+<p>流程四步：数频次、估概率、取对数、找最优。</p>
+<p>① 在树库上数每条规则用了多少次，同时数每个左部出现了多少次。② 两者相除，得到最大似然估计。③ 连乘十几条概率会出现下溢，取对数改成加法。④ 在 CYK 的填表里，把「是否存在」换成「最大概率」，合并时取 max 而不是布尔或。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>pcfg_score.py</span></div>
+<pre><code>from collections import Counter
+import math
+
+rules = Counter()    # (左部, 右部) -&gt; 次数
+lhs = Counter()      # 左部 -&gt; 次数
+
+for tree in treebank:
+    for a, beta in tree.rules():
+        rules[(a, beta)] += 1
+        lhs[a] += 1
+
+
+def p(a, beta):
+    return rules[(a, beta)] / lhs[a]      # 最大似然估计
+
+
+score = sum(math.log(p(a, b)) for a, b in tree.rules())</code></pre>
+</div>
+<p>两个细节不能省。第一，树库里没出现过的规则概率为 0，一条 0 就让整棵树归零；实际系统要做平滑，给未见规则留一点余地。第二，取对数后分数是负数，越接近 0 越好，比较时取最大而不是最小。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两棵树差四倍</h2>
+<p>同一句歧义句，两棵候选树。为便于比较，只写出两边不同的两条规则；共用的规则在比值里约掉，不影响胜负。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>候选树</th><th>关键规则与概率</th><th>连乘</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>树 A</td><td>VP→V NP 0.42；NP→Det N 0.50</td><td>0.42 × 0.50 = 0.210</td><td>保留</td></tr>
+    <tr><td>树 B</td><td>NP→NP PP 0.18；PP→P NP 0.28</td><td>0.18 × 0.28 = 0.050</td><td>淘汰</td></tr>
+  </tbody>
+</table>
+</div>
+<p>0.42 乘 0.50 得 0.21，0.18 乘 0.28 得 0.0504。树 A 是树 B 的四倍多，解析器选 A。两个数字都来自同一张规则概率表，换一批语料就会变。</p>
+<p>再补一个量级感。真实句子的树有十几条规则，单条概率多在 0.1 到 0.9 之间，连乘之后常在百万分之一量级。这就是必须取对数的原因：浮点数下限再深，链一长也会触底。</p>
+<div class="callout callout--warn">
+  <span class="c-label">最常见的误读</span>
+  <p>把最高分当成正确答案。PCFG 学到的是标注者的偏好，语料偏向哪种结构，它就选哪种。概率只表示「在见过的语料里更常见」，不表示这句话在语义上就该这么读。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算两棵树</h2>
+<p><strong>任务：</strong>给一句 5 个词的歧义句写出两棵推导树，每棵列出 4 条规则并假设概率，算出得分，说明选哪棵、差几倍。</p>
+<p><strong>追问：</strong>① 同一左部的规则概率为什么要归一？不归一会出现什么？② 某条规则概率为 0，整棵树会怎样？③ 概率最高的树一定是正确树吗？</p>
+<p><strong>验收：</strong>能说出 PCFG 与 CFG 差在哪一层；能独立完成一次连乘或对数相加；能解释平滑为什么必须做。树怎么填表，见 <a href="../m09-nlp/k9-2-4-cyk.html">CYK 算法：表格里的动态规划</a>；概率怎么用到翻译上，见 <a href="../m09-nlp/k9-4-2-smt.html">统计机器翻译：从词对齐到解码</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-4-2-smt.html">9.4.2 统计机器翻译：从词对齐到解码</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-3-5-grammar-compare.html"><span class="p-label">← 上一知识点 9.3.5</span><span class="p-title">四种语法的谱系对比</span></a><a class="next" href="k9-4-2-smt.html"><span class="p-label">下一知识点 9.4.2 →</span><span class="p-title">统计机器翻译：从词对齐到解码</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)4 · 统计解析的概念及操作方法</dd>
+    <dt>页面编号 / 路径</dt><dd>9.4.1 ｜ <span class="path">pages/m09-nlp/k9-4-1-statistical-parsing.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-2-4-cyk.html"><b>9.2.4</b>CYK 算法：表格里的动态规划</a><a class="xlink" href="k9-4-2-smt.html"><b>9.4.2</b>统计机器翻译：从词对齐到解码</a><a class="xlink" href="u9-4-statistical-methods.html"><b>9.4</b>统计方法：统计解析、机器翻译与词义消歧（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-4-1（本页图 9-18）；知识库 M09-S4-01《统计解析的概念及操作方法》（filled）。 ｜ 知识库条目：M09-S4-01《统计解析的概念及操作方法》（filled） ｜ 参考来源：Jurafsky & Martin《Speech and Language Processing》第 12–13 章；Manning & Schütze《统计自然语言处理基础》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

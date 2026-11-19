@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.4.4 评价指标：BLEU 与解析准确率 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 BLEU 的 n-gram 精度、几何平均与简短惩罚，并手算一次。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-4-statistical-methods.html">9.4 统计方法：统计解析、机器翻译与词义消歧</a><span class="sep">/</span><span class="here">9.4.4 评价指标：BLEU 与解析准确率</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.4</span>
+    <span class="tag">知识点 9.4.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>评价指标：BLEU 与解析准确率</h1>
+  <p class="lede">BLEU 只数 n-gram 的重叠，句子通不通它不管；解析器看的是括号配对对不对，两套指标回答两个问题。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 BLEU 的 n-gram 精度、几何平均与简短惩罚，并手算一次。</li><li>能算解析的精确率、召回率与 F1，说明它们与 BLEU 的区别。</li><li>能指出 BLEU 的盲区，并说明为什么不能只报一个总分。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>好译文不止一种</h2>
+<p>一套翻译系统上线前，要回答两个问题：译文和参考译文像不像？解析出来的树对不对？这两个问题不能用同一个数字回答。</p>
+<p>麻烦在于「像」怎么定义。同一句英文可以有十种合格译法，参考译文只给了一两条。逐字比对，会把合格的意译判成错；只比关键词，又会把语序全乱的句子判成对。</p>
+<p class="ask">没有唯一答案的任务，怎么打分？</p>
+<p>退一步：不比对整句，只数片段。候选里有多少个 n-gram 在参考里出现过，这就是 BLEU 的全部出发点。片段不需要唯一答案，只要「出现过」。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>数片段</h2>
+<p>把候选译文切成连续的 n 个词，一段一段去参考译文里找。找得到算命中，找不到算漏。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="BLEU：逐阶 n-gram 命中率，再乘长度惩罚">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">BLEU：逐阶 n-gram 命中率，再乘长度惩罚</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">阶</text><text class="f-t" x="282.0" y="98">候选 n-gram 数</text><text class="f-t" x="492.0" y="98">命中数</text><text class="f-t" x="702.0" y="98">精确率</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">1-gram</text><text class="f-s" x="282.0" y="139.0">6</text><text class="f-s" x="492.0" y="139.0">5</text><text class="f-s" x="702.0" y="139.0">0.833</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">2-gram</text><text class="f-s" x="282.0" y="183.0">5</text><text class="f-s" x="492.0" y="183.0">3</text><text class="f-s" x="702.0" y="183.0">0.600</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">3-gram</text><text class="f-s" x="282.0" y="227.0">4</text><text class="f-s" x="492.0" y="227.0">2</text><text class="f-s" x="702.0" y="227.0">0.500</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">4-gram</text><text class="f-s" x="282.0" y="271.0">3</text><text class="f-s" x="492.0" y="271.0">1</text><text class="f-s" x="702.0" y="271.0">0.333</text><text class="f-s" x="60" y="316">四项取几何平均，再乘 brevity penalty：译得太短，分数会被压下去。</text>
+</svg><figcaption><b>图 9-21　BLEU：逐阶 n-gram 命中率，再乘长度惩罚</b>　四项取几何平均，再乘 brevity penalty：译得太短，分数会被压下去。</figcaption></figure>
+<p>图里四行：1-gram 候选 6 个、命中 5 个，精度 0.833；阶数越高，候选越少、命中越难，2 到 4 阶分别是 0.600、0.500、0.333。</p>
+<p>四阶一起看，才管得住词序。「猫 追 狗」和「狗 追 猫」的 1-gram 完全相同，4-gram 却一个都对不上。阶数越高，越接近「整段照抄」。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两个公式</h2>
+<p><strong>BLEU：</strong>先算每一阶的修正精度 <code>p_n = 命中 n-gram 数 / 候选 n-gram 数</code>，命中数按每个 n-gram 在参考中出现的最大次数截断。再取几何平均，乘长度惩罚：</p>
+<p><code>BLEU-N = BP × exp( (1/N) × Σ ln p_n )</code>，其中 <code>BP = 1</code>（候选不短于参考），否则 <code>BP = exp(1 − r/c)</code>，r 是参考长度，c 是候选长度。</p>
+<p><strong>解析指标：</strong>以括号（或依存弧）为单位比对。<code>P = 正确括号数 / 系统产出括号数</code>，<code>R = 正确括号数 / 参考括号数</code>，<code>F1 = 2PR / (P + R)</code>。</p>
+<p>两者结构不同。BLEU 是多阶精度取几何平均再加长度惩罚，没有召回项；P/R/F1 是单层集合匹配，有召回，还能定位是多了还是少了。BLEU 掉分只知道片段没对上，F1 掉分能指出哪一类括号错了。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>截断、平滑、多参考</h2>
+<p>照定义写，代码只有几行。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>bleu.py</span></div>
+<pre><code>from math import exp, log
+
+def brevity(c, r):
+    return 1.0 if c &gt; r else exp(1 - r / c)
+
+def bleu(precisions, c, r):
+    if min(precisions) &lt;= 0:
+        return 0.0
+    geo = exp(sum(log(p) for p in precisions) / len(precisions))
+    return brevity(c, r) * geo
+
+print(bleu([5/6, 3/5, 2/4, 1/3], 6, 6))   # 0.537</code></pre>
+</div>
+<p>三个工程细节决定这个数字可不可信。第一，截断计数：候选里出现 3 个 the、参考里只有 2 个，命中只算 2 个，否则堆常用词就能刷分。第二，平滑：某一阶命中为 0，几何平均直接归零，实际系统给极小值兜底。第三，多参考：每个 n-gram 取它在各条参考里的最大计数，允许一条译法对应多种正确表达。</p>
+<p>还有一条常被忽略：BLEU 是语料级指标。单句算出来的分数方差极大，必须在几十条以上句子上累加计数再算，否则同一套系统换个句子顺序就能差出几分。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>手算一遍</h2>
+<p>候选「the cat sat on the mat」，6 个词；参考「the cat is on the mat」，也是 6 个词。逐词对：the 命中 2 个（两边各 2 个，截断后仍算 2）、cat 命中、sat 不命中、on 命中、mat 命中。命中 5 个，分母 6 个，1-gram 精度 5/6 = 0.833。</p>
+<p>往上看：2-gram 命中 3 个、候选 5 个，得 0.600；3-gram 命中 2 个、候选 4 个，得 0.500；4-gram 命中 1 个、候选 3 个，得 0.333。四项几何平均 (0.833 × 0.600 × 0.500 × 0.333) 的四次方根约 0.537。候选 6 词、参考 6 词，BP 为 1，BLEU-4 约 0.54。</p>
+<p>若候选只译出 5 个词，BP = exp(1 − 6/5) = exp(−0.2) ≈ 0.819，分数先打八折。这一项专门堵「少译几个词反而精度高」的漏洞。</p>
+<p><strong>BLEU 不衡量通顺。</strong>候选改成「the mat sat on the cat」，1-gram 仍是 5/6，2-gram 掉到 3/5，3-gram 与 4-gram 全为 0。数字确实降了，但它说不出这句为什么别扭，只知道片段没对上；反过来，一句完全合格但换了说法的译文，也会因为用词不同而被扣分。</p>
+<p>解析这边：系统输出 10 个括号、参考 12 个，其中 8 个对得上，P = 8/10 = 0.8，R = 8/12 ≈ 0.667，F1 ≈ 0.727。这个分数能告诉你是多输出了两个括号、还是漏了两个，BLEU 给不了这种定位。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把分算穿</h2>
+<p><strong>任务：</strong>给一组候选与参考译文，手算 1-gram 到 4-gram 的精度，写出每阶的分母与命中数，再算几何平均与 BP；把候选删掉一个词重算一次，比较 BP 的变化。</p>
+<p><strong>追问：</strong>① 为什么高阶层权重相同，低阶却不能省？② 某阶精度为 0 时该怎么处理？③ 解析 F1 高、BLEU 低，可能是什么情况？</p>
+<p><strong>验收：</strong>能写出 p_n 的分子分母各是什么；能解释 BP 在惩罚什么；能说清 BLEU 与 P/R/F1 在结构上的三点不同。概率怎么给候选排序，见 <a href="../m09-nlp/k9-4-1-statistical-parsing.html">统计解析</a>；对齐错误怎么计数，见 <a href="../m09-nlp/k9-4-5-alignment-demo.html">最小词对齐演示</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-4-5-alignment-demo.html">9.4.5 最小词对齐演示</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-4-3-wsd.html"><span class="p-label">← 上一知识点 9.4.3</span><span class="p-title">词义消歧：一个词，多个意思</span></a><a class="next" href="k9-4-5-alignment-demo.html"><span class="p-label">下一知识点 9.4.5 →</span><span class="p-title">最小词对齐演示</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)4 · 统计解析与机器翻译的评价</dd>
+    <dt>页面编号 / 路径</dt><dd>9.4.4 ｜ <span class="path">pages/m09-nlp/k9-4-4-metrics.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-4-1-statistical-parsing.html"><b>9.4.1</b>统计解析：给语法树算概率</a><a class="xlink" href="k9-4-2-smt.html"><b>9.4.2</b>统计机器翻译：从词对齐到解码</a><a class="xlink" href="k9-4-3-wsd.html"><b>9.4.3</b>词义消歧：一个词，多个意思</a><a class="xlink" href="u9-4-statistical-methods.html"><b>9.4</b>统计方法：统计解析、机器翻译与词义消歧（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-4-4（本页图 9-21）；知识库 M09-S4-01《统计解析的概念及操作方法》、M09-S4-02《机器翻译的概念和特点》、M09-S4-03《词义消歧的概念及操作方法》（均 filled）。 ｜ 知识库条目：M09-S4-01《统计解析的概念及操作方法》（filled）、M09-S4-02《机器翻译的概念和特点》（filled）、M09-S4-03《词义消歧的概念及操作方法》（filled） ｜ 参考来源：Papineni et al.《BLEU: a Method for Automatic Evaluation of Machine Translation》（2002）；Jurafsky & Martin 第 25 章；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

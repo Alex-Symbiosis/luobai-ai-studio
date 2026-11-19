@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-label="图灵测试的三方结构">
+  <defs>
+    <marker id="d2ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8fb8ff"/>
+    </marker>
+  </defs>
+  <style>
+    .d2-bx{fill:#ffffff;stroke:#cfe0ff;stroke-width:1.5}
+    .d2-bx-j{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.5}
+    .d2-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;font-weight:600;fill:#123a78;text-anchor:middle}
+    .d2-c{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;fill:#5a6b80;text-anchor:middle}
+    .d2-l{stroke:#8fb8ff;stroke-width:1.4;stroke-dasharray:6 5;fill:none;marker-end:url(#d2ar)}
+    .d2-wall{stroke:#c8d7ea;stroke-width:1.4;stroke-dasharray:4 6}
+    .d2-lb{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;fill:#5a6b80}
+    .d2-cap{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:12px;fill:#1f5fd0;text-anchor:middle}
+  </style>
+
+  <rect class="d2-bx-j" x="30" y="110" width="190" height="92" rx="14"/>
+  <text class="d2-t" x="125" y="148">评委（人）</text>
+  <text class="d2-c" x="125" y="172">只能读文字</text>
+  <text class="d2-c" x="125" y="190">猜哪边是机器</text>
+
+  <line class="d2-wall" x1="300" y1="60" x2="300" y2="270"/>
+  <text class="d2-lb" x="300" y="50" text-anchor="middle">隔离墙</text>
+
+  <rect class="d2-bx" x="690" y="56" width="230" height="82" rx="14"/>
+  <text class="d2-t" x="805" y="90">被问者 A</text>
+  <text class="d2-c" x="805" y="114">一个人</text>
+
+  <rect class="d2-bx" x="690" y="188" width="230" height="82" rx="14"/>
+  <text class="d2-t" x="805" y="222">被问者 B</text>
+  <text class="d2-c" x="805" y="246">一台机器</text>
+
+  <path class="d2-l" d="M224,132 C340,110 520,96 686,96"/>
+  <path class="d2-l" d="M224,180 C340,202 520,226 686,228"/>
+
+  <text class="d2-lb" x="470" y="78" text-anchor="middle">文字问答</text>
+  <text class="d2-lb" x="470" y="254" text-anchor="middle">文字问答</text>
+
+  <text class="d2-cap" x="480" y="300">判定规则：若评委分辨不出哪边是机器，机器即被认为通过了测试</text>
+</svg>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.3.5 实体对齐：相似度规则与召回评估 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出名称二元组 Jaccard 与三项加权分的计算过程。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-3-fusion.html">7.3 知识表示与知识图谱融合</a><span class="sep">/</span><span class="here">7.3.5 实体对齐：相似度规则与召回评估</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.3</span>
+    <span class="tag">知识点 7.3.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>实体对齐：相似度规则与召回评估</h1>
+  <p class="lede">200 家对 200 家，人工要比 4 万次；先打分排序，再让人只看边界上的几十对。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出名称二元组 Jaccard 与三项加权分的计算过程。</li><li>能读懂阈值表，说清「精确率升、召回率降」在数据上的表现。</li><li>能解释为什么任何自动合并都必须留人工复核入口。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两百对两百</h2>
+<p>拿到两份公司名单，各 200 家：A 是自建库，B 是外部采购。B 里有 160 家与 A 真实对应，另外 40 家是干扰项——名字像、城市或行业不对。</p>
+<p>人工逐条比对要 40,000 次。可行做法是先打分，把 200×200 压成几千个候选，再由人看边界上的几十对。</p>
+<p class="ask">打分规则怎么定，阈值定在哪？</p>
+<p>规则决定候选排序，阈值决定放多少人进来复核；两者都直接改变准确率和召回率。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一路筛到人</h2>
+<p>对齐是一条流水线：先分块，再算名称、属性、结构三项相似度，加权成一个分，过阈值才进入人工复核。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="实体对齐：候选对一路筛到人工复核">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">实体对齐：候选对一路筛到人工复核</text><rect class="f-b2" x="40.0" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="91.71428571428572" y="135.0">候选对</text><text class="f-sc" x="91.71428571428572" y="154.0">先分块再两两比</text><path class="f-ar" d="M146.42857142857144 140.0 L165.42857142857144 140.0" marker-end="url(#ah)"/><rect class="f-b" x="169.42857142857144" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="221.14285714285717" y="135.0">名称相似</text><text class="f-sc" x="221.14285714285717" y="154.0">别名与编辑距离</text><path class="f-ar" d="M275.8571428571429 140.0 L294.8571428571429 140.0" marker-end="url(#ah)"/><rect class="f-b" x="298.8571428571429" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="350.5714285714286" y="135.0">属性相似</text><text class="f-sc" x="350.5714285714286" y="154.0">关键属性逐项比</text><path class="f-ar" d="M405.28571428571433 140.0 L424.28571428571433 140.0" marker-end="url(#ah)"/><rect class="f-b" x="428.28571428571433" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="480.00000000000006" y="135.0">结构相似</text><text class="f-sc" x="480.00000000000006" y="154.0">共同邻居占比</text><path class="f-ar" d="M534.7142857142858 140.0 L553.7142857142858 140.0" marker-end="url(#ah)"/><rect class="f-b" x="557.7142857142858" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="609.4285714285714" y="135.0">加权得分</text><text class="f-sc" x="609.4285714285714" y="154.0">三项加权求和</text><path class="f-ar" d="M664.1428571428572 140.0 L683.1428571428572 140.0" marker-end="url(#ah)"/><rect class="f-b" x="687.1428571428572" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="738.8571428571429" y="135.0">阈值判定</text><text class="f-sc" x="738.8571428571429" y="154.0">高于阈值则合并</text><path class="f-ar" d="M793.5714285714287 140.0 L812.5714285714287 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="816.5714285714287" y="92" width="103.42857142857143" height="96" rx="9"/><text class="f-tc" x="868.2857142857143" y="135.0">人工复核</text><text class="f-sc" x="868.2857142857143" y="154.0">抽样确认与回滚</text><text class="f-s" x="40" y="244">不分块直接比较，候选对会爆炸；任何自动合并都要留人工入口。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 7-17　实体对齐：候选对一路筛到人工复核</b>　不分块直接比较，候选对会爆炸；任何自动合并都要留人工入口。</figcaption></figure>
+<p>分块不是为省时间，是防爆炸：200×200 共 40,000 对，按城市和行业分块后只剩几千。分块键太窄会漏配，通常要多套键互补。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="阈值升高：精确率升、召回率降、F1 先升后降">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">阈值升高：精确率升、召回率降、F1 先升后降</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 250 L240 226 L380 196 L520 162 L660 126 L800 102 L880 92" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">精确率</text><path d="M110 100 L240 126 L380 162 L520 206 L660 254 L800 288 L880 294" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">召回率</text><path d="M110 172 L240 164 L380 156 L520 170 L660 196 L800 218 L880 230" fill="none" stroke="#3f9b78" stroke-width="2.4"/><line x1="700" y1="110" x2="726" y2="110" stroke="#3f9b78" stroke-width="2.6"/><text class="f-s" x="734" y="114">F1</text><circle class="f-pt" cx="380" cy="156" r="6"/><text class="f-s" x="390" y="148">F1 峰值</text><text class="f-s" x="880" y="322" text-anchor="end">判定阈值 →</text><text class="f-s" x="92" y="66" text-anchor="end">指标值</text><text class="f-s" x="100" y="340">阈值越高越保守；F1 的峰值只是参考，最终按业务代价选点。</text>
+</svg><figcaption><b>图 7-18　阈值升高：精确率升、召回率降、F1 先升后降</b>　阈值越高越保守；F1 的峰值只是参考，最终按业务代价选点。</figcaption></figure>
+<p>曲线说明阈值不是越高越安全：精确率升、召回率降、F1 先升后降。峰值只是参考，取点看漏配与误配哪个代价更高。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>阈值是「放行线」，不是「正确率旋钮」。调高只减少误配，错配会以漏配的形式出现。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个分数</h2>
+<p><strong>候选生成：</strong>按分块键（城市、行业、名称首字）把记录分组，只组内两两比较，避免全量笛卡尔积。</p>
+<p><strong>名称相似度：</strong>把名称切成字符二元组，算 Jaccard 系数。星海科技切成星海、海科、科技 3 个二元组；星海科技有限公司切成星海、海科、科技、技有、有限、限公、公司 7 个。交集 3、并集 7，相似度 3/7 约 0.429。</p>
+<p><strong>属性相似度：</strong>城市、行业等关键属性逐项比对，相同记 1、不同记 0 再平均；本例两项，结果只能是 0、0.5 或 1。</p>
+<p><strong>结构相似度：</strong>共同邻居占两边邻居并集的比例。属性少、图稀疏时这一项不稳，只能给低权重。</p>
+<p><strong>加权分：</strong><code>score = 0.6×名称 + 0.25×城市 + 0.15×行业</code>。权重来自业务判断：名称最常用也最不可靠，城市次之。加权分只用于排序，不做最终裁决。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>打分函数</h2>
+<p>下面用标准库实现三段：分块、二元组、打分。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>align.py</span></div>
+<pre><code>from itertools import combinations
+
+def bigrams(s):
+    s = &quot;&quot;.join(s.split())
+    return {s[i:i + 2] for i in range(len(s) - 1)}
+
+def jaccard(a, b):
+    A, B = bigrams(a), bigrams(b)
+    return len(A &amp; B) / len(A | B) if A | B else 0.0
+
+def score(a, b):
+    name = jaccard(a[&quot;name&quot;], b[&quot;name&quot;])
+    city = 1.0 if a[&quot;city&quot;] == b[&quot;city&quot;] else 0.0
+    industry = 1.0 if a[&quot;industry&quot;] == b[&quot;industry&quot;] else 0.0
+    return 0.6 * name + 0.25 * city + 0.15 * industry
+
+def candidates(records, key):
+    groups = {}
+    for rec in records:
+        groups.setdefault(key(rec), []).append(rec)
+    for group in groups.values():
+        yield from combinations(group, 2)</code></pre>
+</div>
+<p>三个实现细节。第一，二元组要去掉空白，否则「星海 科技」会多出跨空格的噪声二元组。第二，单字名称没有二元组，<code>len(A | B)</code> 为 0，必须显式返回 0，不能让它除零。第三，分块只用于生成候选，最终打分仍在全字段上做；分块键选错，整批真实对应会被挡在门外，而且不会报错。</p>
+<p>权重与阈值要写进配置并记版本，否则同一对记录换个权重就换结论，回溯找不到原因。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测阈值表</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>来源 A      : 200 家
+来源 B      : 200 家（真实对应 160，干扰项 40）
+相似度      : 0.6×名称 + 0.25×城市 + 0.15×行业（名称用字符二元组 Jaccard）
+
+阈值     TP   FP   FN    准确率  召回率  F1
+0.50    128   39   32    0.766   0.800  0.783
+0.55    128   29   32    0.815   0.800  0.808
+0.60    128   29   32    0.815   0.800  0.808
+0.65    128   28   32    0.821   0.800  0.810
+0.70     48   28  112    0.632   0.300  0.407
+0.75     32   28  128    0.533   0.200  0.291
+0.80     32    6  128    0.842   0.200  0.323
+0.85      0    6  160    0.000   0.000  0.000
+0.90      0    0  160    0.000   0.000  0.000
+0.95      0    0  160    0.000   0.000  0.000
+
+最佳阈值    : 0.65（F1=0.810，召回率=0.800，准确率=0.821）
+错配样例 1（名称变体漏配）
+  B 记录    : Company004 Tech / 南京 / 新能源
+  应为      : 星海医疗（相似度 0.400，低于阈值 0.65，未匹配）
+错配样例 2（同名不同城误配）
+  B 记录    : 星海科技 / 杭州 / 云计算
+  错配到    : 星海科技 / 北京 / 云计算（相似度 0.750）
+错配样例 3（行业不同误配）
+  B 记录    : 恒芯半导体 / 广州 / 医疗健康
+  错配到    : 恒芯半导体 / 广州 / 智能汽车（相似度 0.850）
+结论        : 阈值越高越保守，但名称变体会整批漏配；
+              相似度只能决定候选排序，同名/同城/行业冲突必须人工定案。</code></pre>
+</div>
+<p>阈值表有两个断层。0.55 到 0.65 几乎不动：TP 恒为 128、FP 29 降到 28、召回 0.800；到 0.70 召回掉到 0.300、FN 从 32 跳到 112，因为名称变体的分数挤在 0.65 到 0.70，阈值一过整批落选；0.85 后 TP 归零。</p>
+<p>最佳点 0.65：F1 0.810、准确率 0.821。但召回 0.800 意味着 32 家没找回，包括「Company004 Tech」应为「星海医疗」、相似度仅 0.400 的那条——任何高于 0.4 的阈值都救不回来。</p>
+<p>另两类错配说明分数高不等于对：星海科技配到北京同名公司，0.750；恒芯半导体名称、城市全同而行业不同，也到 0.850，行业权重只有 0.15，压不住。</p>
+<p>所以流程必须留人工口：相似度只管排序，同名、同城、行业冲突要回到登记信息、信用代码或人工核实。阈值越高越保守，名称变体却会整批漏配——表里就是 0.70 那一行。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把单一阈值当成上线标准。0.65 的召回只有 0.800，32 家真实对应永远进不了复核名单；漏配不会报错，只会让图谱少一批边，且很难在事后发现。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算一对名字</h2>
+<p><strong>任务：</strong>算「星海科技」与「星海科技有限公司」的名称相似度，写出两个二元组集合、交集与并集，判断在 0.65 阈值下能否进入复核，城市与行业相同。</p>
+<p><strong>追问：</strong>① 若把权重改成 0.8 名称、0.1 城市、0.1 行业，0.65 那一行的 TP 会升还是降？② 分块键只按城市，会漏掉哪类真实对应？③ 0.70 到 0.75 两行 TP 从 48 掉到 32，你怀疑是什么原因？</p>
+<p><strong>验收：</strong>相似度算到 0.429，加权分 <code>0.6×0.429+0.25+0.15</code> 约 0.657，刚过线；能说清「过线只代表进复核，不代表判定为同一实体」。异构分类见 <a href="../m07-knowledge-graph/k7-3-4-heterogeneity.html">异构与冲突</a>；精确率与召回率的统一口径见 <a href="../m07-knowledge-graph/k7-2-5-extraction-eval-demo.html">抽取评估</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-4-1-reasoning-concept.html">7.4.1 推理：从已知事实推出未知事实</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-3-4-heterogeneity.html"><span class="p-label">← 上一知识点 7.3.4</span><span class="p-title">异构与冲突：融合到底在解决什么</span></a><a class="next" href="k7-4-1-reasoning-concept.html"><span class="p-label">下一知识点 7.4.1 →</span><span class="p-title">推理：从已知事实推出未知事实</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)15 · 实体对齐：相似度规则与召回评估</dd>
+    <dt>页面编号 / 路径</dt><dd>7.3.5 ｜ <span class="path">pages/m07-knowledge-graph/k7-3-5-entity-alignment-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-3-4-heterogeneity.html"><b>7.3.4</b>异构与冲突：融合到底在解决什么</a><a class="xlink" href="k7-2-5-extraction-eval-demo.html"><b>7.2.5</b>抽取评估：准确率、召回率与标注一致性</a><a class="xlink" href="u7-3-fusion.html"><b>7.3</b>知识表示与知识图谱融合（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k7-3-5（本页图 7-17）、k7-3-5-b（图 7-18）；Demo d7_3_align.py；知识库 M07-S3-03、S3-04（filled）。 ｜ 知识库条目：M07-S3-03《本体概念层的融合方法与技术》（filled）、M07-S3-04《实例层的融合与匹配方法》（filled） ｜ 参考来源：W3C RDF 1.1 概念与抽象语法；Neo4j Cypher 手册；输出为 d7_3_align.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

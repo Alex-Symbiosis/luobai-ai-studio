@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3.2 金融：高频决策与强监管 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分反欺诈、授信评分、智能投顾三类任务，并说出各自的硬约束。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-3-application-layer.html">2.3 应用层：安防、金融、制造、家居、医疗、自动驾驶</a><span class="sep">/</span><span class="here">2.3.2 金融：高频决策与强监管</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.3</span>
+    <span class="tag">知识点 2.3.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>金融：高频决策与强监管</h1>
+  <p class="lede">一笔盗刷被几秒内拦下，一笔正常出差消费被误拒；同一套风控，两种结局。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分反欺诈、授信评分、智能投顾三类任务，并说出各自的硬约束。</li><li>能用成本矩阵选阈值，而不是用准确率选阈值。</li><li>能说清可解释与审计留痕各自要留下什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>凌晨的交易</h2>
+<p>凌晨两点，一张只在家附近消费的卡，在 800 公里外连刷 3 笔小额；第 4 笔被拦下，持卡人第二天来电致谢。同一个月，另一位客户境外出差，连续三次被拒，投诉到网点。</p>
+<p>两件事用的是同一套风控：规则判断地点跳变，模型给风险分，超过阈值转人工或拒绝。前者说明系统有效，后者说明代价——误拦一笔正常交易，损失的不只是手续费，还有信任。</p>
+<p class="ask">几毫秒内要给出「放行还是拦住」，靠的是什么？</p>
+<p>靠的不是一个更聪明的模型，而是规则、模型、名单和人工复核拼成的一条决策链。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三类场景</h2>
+<p>金融至少三类：反欺诈要毫秒级判断、授信评分要给出额度与利率、智能投顾要匹配风险偏好。三者的模型形态、更新频率与监管要求都不同，不能套同一个方案。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三个金融场景，各有各的硬约束">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三个金融场景，各有各的硬约束</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">场景</text><text class="f-t" x="282.0" y="98">要解决什么</text><text class="f-t" x="492.0" y="98">模型形态</text><text class="f-t" x="702.0" y="98">硬约束</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">反欺诈</text><text class="f-s" x="282.0" y="139.0">毫秒级判断交易风险</text><text class="f-s" x="492.0" y="139.0">规则与模型组合</text><text class="f-s" x="702.0" y="139.0">可解释、可追溯</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">授信评分</text><text class="f-s" x="282.0" y="183.0">给额度与利率</text><text class="f-s" x="492.0" y="183.0">评分卡与模型</text><text class="f-s" x="702.0" y="183.0">公平、可申诉</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">智能投顾</text><text class="f-s" x="282.0" y="227.0">匹配风险偏好</text><text class="f-s" x="492.0" y="227.0">组合优化与推荐</text><text class="f-s" x="702.0" y="227.0">适当性、全程留痕</text><text class="f-s" x="60" y="272">金融里准确率不是唯一门槛；能解释、能审计、能申诉，才允许上线。</text>
+</svg><figcaption><b>图 2-25　三个金融场景，各有各的硬约束</b>　准确率不是唯一门槛；能解释、能审计、能申诉，才允许上线。</figcaption></figure>
+<p>共同点只有一条：输出不能只是分数。反欺诈要说清「为什么被拦」，授信要回答「为什么是这个额度」，投顾要证明「推荐符合你的风险等级」。说不出理由，业务不敢用，监管也过不了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="模型夹在业务目标和监管约束之间">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">模型夹在业务目标和监管约束之间</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">业务目标</text><text class="f-s" x="430" y="87.0">转化率、风险、成本</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">模型能力</text><text class="f-s" x="430" y="151.0">打分、识别、生成</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">合规要求</text><text class="f-s" x="430" y="215.0">可解释、公平、留痕</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">监管约束</text><text class="f-s" x="430" y="279.0">牌照、披露、审计</text><text class="f-s" x="120" y="336">向上要效果，向下要合规；任何一边省掉，方案都过不了评审。</text>
+</svg><figcaption><b>图 2-26　模型夹在业务目标与监管约束之间</b>　向上要效果，向下要合规；任何一边省掉，方案都过不了评审。</figcaption></figure>
+<p>这张图也是评审顺序：业务目标、模型能力、合规监管。后果是先做了很准的模型，最后发现无法解释、无法留痕。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>金融 AI 的门槛不是准确率，而是「可解释、可申诉、可审计」三件事同时成立。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层与三件事</h2>
+<p><strong>定义：</strong>欺诈检测通常三层：名单层（黑名单、设备指纹）、规则层（时间、地点、金额、频次）、模型层（给出风险概率）。名单拦已知，规则兜边界，模型找新招。</p>
+<p><strong>风控模型</strong>常用评分卡或梯度提升树，输出 0 到 1 的风险分。评分卡最可解释：每个特征一个分值，加总能还原「为什么是这个分」。树模型更准，但要靠特征贡献等工具才能解释。</p>
+<p><strong>可解释</strong>不是「感觉合理」，而是能对单笔决策给出原因：涉及哪些特征、各贡献多少、触发哪条规则。拒绝授信时，还要给客户能理解的理由与申诉渠道。</p>
+<p><strong>审计留痕</strong>要求每次决策可回放：时间、模型版本、输入特征、输出分数、命中规则、复核人。缺一项，事后就分不清责任在模型还是在人。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>决策链五段</h2>
+<p>决策链有五段：特征、模型打分、决策引擎、人工复核、审计归档。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>做什么</th><th>失败后果</th></tr></thead>
+  <tbody>
+    <tr><td>特征</td><td>频次、地点距离、设备变更</td><td>口径不一致，离线线上对不上</td></tr>
+    <tr><td>模型</td><td>输出风险概率</td><td>版本漂移，分数整体失真</td></tr>
+    <tr><td>决策</td><td>规则与分数合并，放行、拦截、转人工</td><td>阈值过松，损失扩大</td></tr>
+    <tr><td>复核</td><td>人工看件、电话核实</td><td>积压，客户等待变长</td></tr>
+    <tr><td>归档</td><td>日志与模型版本快照</td><td>无法追溯，监管问询答不上</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个细节最易被低估。一是<strong>时点正确性</strong>：训练特征只能用决策当时可得的数据，把事后标签混进特征，离线漂亮、上线就崩。二是<strong>拒绝推断</strong>：被拒的申请没有后续表现，模型只学到「放行的人」，长期会把某类客户越拒越多。</p>
+<p>分工也要写清：规则管硬边界，模型管概率可疑的灰度。全用规则会被新手法绕过，全用模型则保证不了涉诈名单必须拦截。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>用成本选阈值</h2>
+<p>阈值取决于两类错误成本，而不是准确率。下面是手算示例（课程假设）。</p>
+<p>100 万笔交易，真实欺诈 0.1%，即 1000 笔。方案 A 命中 600、误报 4000；方案 B 命中 450、误报 800。漏一笔损失按 3000 元，核一笔误报按 8 元。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方案</th><th>命中</th><th>漏报</th><th>误报</th><th>总成本</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>600</td><td>400</td><td>4000</td><td>400×3000＋4000×8＝123.2 万元</td></tr>
+    <tr><td>B</td><td>450</td><td>550</td><td>800</td><td>550×3000＋800×8＝165.6 万元</td></tr>
+  </tbody>
+</table>
+</div>
+<p>A 的精确率只有 13%，B 是 36%，但 A 成本更低。阈值该由成本函数决定：漏报贵往前放，核查贵往后收；只看准确率会选出更贵的方案。</p>
+<p>算完成本还要合规：被拦能申诉，被拒有理由，换版留旧记录。没有这三样，成本再低也不能上线。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「模型 AUC 0.95」当作上线依据。AUC 只描述排序能力，不回答阈值定在哪、误杀多少正常客户、被拒的人怎么申诉。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三场景选型</h2>
+<p><strong>任务：</strong>给「小额高频反欺诈」「大额信贷审批」「投顾推荐」三个场景各选「模型为主」或「规则为主」，并各写 1 条解释要求。</p>
+<p>提示：依据是决策频率、单笔金额、错误代价与监管强度，不是模型新旧。</p>
+<p><strong>追问：</strong>① 反欺诈为什么不直接用最准的模型，而要保留名单和规则？② 训练时用了「结案后才有的标签」，会造成什么后果？③ 客户要求解释拒绝原因，你能给出哪三层信息？</p>
+<p><strong>验收：</strong>三个场景各有理由，可解释要求能落到「单笔可回放」这一级。决策管理的基本形态见 <a href="../m02-industry/k2-2-1-decision-management.html">决策管理</a>；安防场景的阈值权衡见 <a href="../m02-industry/k2-3-1-security.html">安防</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-3-3-manufacturing.html">2.3.3 制造：把经验变成可复现的参数</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-3-1-security.html"><span class="p-label">← 上一知识点 2.3.1</span><span class="p-title">安防：从「看得见」到「认得准」</span></a><a class="next" href="k2-3-3-manufacturing.html"><span class="p-label">下一知识点 2.3.3 →</span><span class="p-title">制造：把经验变成可复现的参数</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)3 · 人工智能与金融</dd>
+    <dt>页面编号 / 路径</dt><dd>2.3.2 ｜ <span class="path">pages/m02-industry/k2-3-2-finance.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-1-decision-management.html"><b>2.2.1</b>决策管理：把专家规则变成可执行策略</a><a class="xlink" href="k2-3-1-security.html"><b>2.3.1</b>安防：从「看得见」到「认得准」</a><a class="xlink" href="u2-3-application-layer.html"><b>2.3</b>应用层：安防、金融、制造、家居、医疗、自动驾驶（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-3-2（本页图 2-25）、k2-3-2-b（图 2-26）；知识库 M02-S3-02《人工智能与金融》（filled）。 ｜ 知识库条目：M02-S3-02《人工智能与金融》（filled） ｜ 参考来源：中国人民银行《金融科技发展规划（2022—2025年）》；《中华人民共和国个人信息保护法》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

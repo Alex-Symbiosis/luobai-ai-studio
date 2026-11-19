@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.2.2 上下文无关文法与推导树 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能分清非终结符与终结符，把一条产生式读成「左部换成右部」。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-2-syntax-cyk.html">9.2 句法与形式语法：语法类型与 CYK 算法</a><span class="sep">/</span><span class="here">9.2.2 上下文无关文法与推导树</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.2</span>
+    <span class="tag">知识点 9.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>上下文无关文法与推导树</h1>
+  <p class="lede">一句五个词，树上有九个非终结符节点。语法树把「谁和谁先结合」写死，不靠语感。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能分清非终结符与终结符，把一条产生式读成「左部换成右部」。</li><li>能对一个句子做最左推导，并画出与推导一一对应的语法树。</li><li>能说清同一棵树可以有多条推导顺序，但只有一种结合方式。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>五个词</h2>
+<p>一句 <em>the dog sees the cat</em>，五个词。人读完立刻分成「the dog」和「sees the cat」两块，机器拿到的却只是一串字符。</p>
+<p>要让它分块，得先告诉它哪些词能组合、组合后叫什么。这套声明就是文法；把每次组合记下来，就是推导；把推导画成图，就是语法树。</p>
+<p class="ask">同样五个词，凭什么「the dog」是一块，「dog sees」不是？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一次展开</h2>
+<p>文法只做一件事：把左边的符号换成右边的串。换到最后全是词，句子就生成了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一条产生式，对应树里的一次展开">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">一条产生式，对应树里的一次展开</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">S → NP VP</text><text class="f-sc" x="480.0" y="91.0">从句子开始推导</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">NP → Det N</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">NP</text><text class="f-sc" x="180.66666666666666" y="212.0">名词短语作主语</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">VP → V NP</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">VP</text><text class="f-sc" x="480.0" y="212.0">动词加宾语</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">N → 狗</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">N</text><text class="f-sc" x="779.3333333333333" y="212.0">词典里的终结符</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">树从上往下读是推导，从下往上读是归约；每个节点都对应一条产生式的左部。</text>
+</svg><figcaption><b>图 9-7　一条产生式，对应树里的一次展开</b>　树从上往下读是推导，从下往上读是归约；每个节点都对应一条产生式的左部。</figcaption></figure>
+<p>推导和树是同一件事的两种写法。推导写成一行行替换，树把替换的层次摊开；坐标轴一样，只是视图不同。</p>
+<p>「上下文无关」四个字要落实：不管 A 左边右边是什么符号，只要见到 A，就能用同一条规则换掉。正因如此，树里每个节点的展开都与兄弟节点无关，语法树才能独立成棵。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四元组</h2>
+<p>一个 CFG 是四元组 <code>G = (N, Σ, P, S)</code>：非终结符集、终结符集、产生式集、起始符。本页用一套小文法，共 5 条句法规则。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>grammar.txt</span></div>
+<pre><code>P1  S  → NP VP
+P2  NP → Det N
+P3  NP → Det Adj N
+P4  VP → V NP
+P5  VP → V</code></pre>
+</div>
+<p>再加一张词表，把词性落到具体的词：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>lexicon.txt</span></div>
+<pre><code>Det → the | a
+Adj → small | big
+N   → cat | dog | bird
+V   → sleeps | sees | chases</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>术语</th><th>记号</th><th>本页取值</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>非终结符</td><td>N</td><td>S、NP、VP、Det、Adj、N、V</td><td>还能继续展开的成分</td></tr>
+    <tr><td>终结符</td><td>Σ</td><td>the、a、cat、dog、bird、small、big、sleeps、sees、chases</td><td>直接落在句子里的词</td></tr>
+    <tr><td>产生式</td><td>P</td><td>P1–P5 与词表</td><td>规定谁能换成谁</td></tr>
+    <tr><td>起始符</td><td>S</td><td>S</td><td>推导的起点</td></tr>
+  </tbody>
+</table>
+</div>
+<p>非终结符和终结符的分界不在「抽象与具体」，而在「还能不能换」。NP 还能换成 Det N，所以是非终结符；cat 换不动了，只能原样出现在句子里，所以是终结符。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>最左推导</h2>
+<p>推导从 S 开始，每一步只改一个非终结符。规定每次都改最左边那个，叫最左推导。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>leftmost.txt</span></div>
+<pre><code>S ⇒ NP VP
+  ⇒ Det N VP
+  ⇒ the N VP
+  ⇒ the dog VP
+  ⇒ the dog V NP
+  ⇒ the dog sees NP
+  ⇒ the dog sees Det N
+  ⇒ the dog sees the cat</code></pre>
+</div>
+<p>八行，每行一条产生式。第一行用 P1，第二行 P2，第三行词表 Det → the，第四行 N → dog，第五行 P4，第六行 V → sees，第七行 P2，第八行 Det → the 与 N → cat。</p>
+<p>每一步只能改一个非终结符，这是「一步一换」的纪律；一次换两个，推导序列和树节点就对不上，后面做概率计算也没法逐条规则相乘。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>syntax_tree.txt</span></div>
+<pre><code>S
+├─ NP
+│  ├─ Det  the
+│  └─ N    dog
+└─ VP
+   ├─ V    sees
+   └─ NP
+      ├─ Det  the
+      └─ N    cat</code></pre>
+</div>
+<p>树里 9 个非终结符节点、5 个叶子。每个内部节点的孩子，正好是某条产生式的右部；叶子从左到右读，正好回到原句。这就是「树是推导的另一种写法」的具体含义。</p>
+<p><strong>易错点：</strong>以为一棵树只对应一条推导。同一棵树可以换展开顺序——先展开 VP 再回头展开 NP，树形不变。最左推导只是把这多种顺序固定成一条，方便比较和存盘。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三棵树</h2>
+<p>用同一套规则画三句。第一句只走 P1、P2、P5；第二句多一层宾语；第三句用上 P3 的形容词。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>three_trees.txt</span></div>
+<pre><code>① the cat sleeps
+S
+├─ NP
+│  ├─ Det  the
+│  └─ N    cat
+└─ VP
+   └─ V    sleeps
+
+② the dog sees the cat
+S
+├─ NP
+│  ├─ Det  the
+│  └─ N    dog
+└─ VP
+   ├─ V    sees
+   └─ NP
+      ├─ Det  the
+      └─ N    cat
+
+③ a small bird chases the dog
+S
+├─ NP
+│  ├─ Det  a
+│  ├─ Adj  small
+│  └─ N    bird
+└─ VP
+   ├─ V    chases
+   └─ NP
+      ├─ Det  the
+      └─ N    dog</code></pre>
+</div>
+<p>三棵树的叶子数分别是 4、5、6，非终结符节点 6、9、10。数字对得上，说明每个词都被某条词法规则接住，没有悬空的词。</p>
+<p>第 ③ 句值得多看一格：<code>a small bird</code> 不是「a」加「small bird」，而是 P3 一次展开成 Det、Adj、N 三个孩子。树的括号化方式，决定了 small 修饰谁。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>判三画二</h2>
+<p><strong>任务：</strong>仍用上面 5 条规则与词表，判断下列三句能否生成；能生成的画树，不能的指出卡在哪条规则。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>判断</th><th>卡点或所用规则</th></tr></thead>
+  <tbody>
+    <tr><td>the bird sleeps</td><td>？</td><td>？</td></tr>
+    <tr><td>a big dog sees the cat</td><td>？</td><td>？</td></tr>
+    <tr><td>the cat sees dog the</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 第二句的树比第一句多几个非终结符节点？② 第三句把 the 挪到句末就合法了吗？③ 若允许 <code>VP → V PP</code>，还缺哪条短语规则与哪条词法规则，才能生成 <em>the cat sleeps in the garden</em>？</p>
+<p><strong>验收：</strong>两句树画对、叶子能读回原句；第三句能指到具体规则，而不是笼统说「语序不对」。句子有多种画法时怎么处理，见 <a href="../m09-nlp/k9-2-3-parsing-ambiguity.html">句法分析的任务与歧义</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-2-3-parsing-ambiguity.html">9.2.3 句法分析的任务与歧义</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-2-1-chomsky.html"><span class="p-label">← 上一知识点 9.2.1</span><span class="p-title">乔姆斯基层级：四类语法</span></a><a class="next" href="k9-2-3-parsing-ambiguity.html"><span class="p-label">下一知识点 9.2.3 →</span><span class="p-title">句法分析的任务与歧义</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)2 · 语法的类型</dd>
+    <dt>页面编号 / 路径</dt><dd>9.2.2 ｜ <span class="path">pages/m09-nlp/k9-2-2-cfg.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-2-1-chomsky.html"><b>9.2.1</b>乔姆斯基层级：四类语法</a><a class="xlink" href="k9-2-3-parsing-ambiguity.html"><b>9.2.3</b>句法分析的任务与歧义</a><a class="xlink" href="k9-2-4-cyk.html"><b>9.2.4</b>CYK 算法：表格里的动态规划</a><a class="xlink" href="u9-2-syntax-cyk.html"><b>9.2</b>句法与形式语法：语法类型与 CYK 算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-2-2（本页图 9-7）；知识库 M09-S2-01《语法的类型》（filled）。 ｜ 知识库条目：M09-S2-01《语法的类型》（filled） ｜ 参考来源：Jurafsky & Martin《Speech and Language Processing》第 12–13 章；Aho《Compilers》语法分析章节；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

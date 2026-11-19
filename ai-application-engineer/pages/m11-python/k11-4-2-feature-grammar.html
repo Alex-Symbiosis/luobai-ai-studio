@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.4.2 基于特征的文法规则 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出一个特征结构，并说明键与值的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-4-parsing.html">11.4 句法分析与语义初探</a><span class="sep">/</span><span class="here">11.4.2 基于特征的文法规则</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.4</span>
+    <span class="tag">知识点 11.4.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>基于特征的文法规则</h1>
+  <p class="lede">纯 CFG 能推出「the cat run」——结构完全合法，只是英语不这么说。缺的不是结构规则，而是「主语和谓语在人称、数上必须一致」这类约束。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出一个特征结构，并说明键与值的含义。</li><li>能按「不重叠则合并、同值则通过、异值则失败」执行合一。</li><li>能解释特征文法与纯 CFG 的分工。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>结构对，句子却不对</h2>
+<p>同一套 CFG，两句话的推导都成立：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">合法</span><h3>the cat runs</h3><p>NP 是单数第三人称，VP 也是单数第三人称；结构与特征同时对上。</p></div>
+  <div class="card mini"><span class="mini-tag">不合法</span><h3>the cat run</h3><p>结构仍是 NP + VP，纯 CFG 照推不误；但主语单数、谓语却是复数形式。</p></div>
+</div>
+<p class="ask">文法规则一条没少，为什么错句也能推导出来？</p>
+<p>因为纯 CFG 只看语法类，不看语法类携带的属性；一致性约束没有地方可写。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>钥匙与锁的齿形</h2>
+<p>钥匙能插进锁孔，不等于能转动；齿形对不上，结构再合适也打不开。特征是齿形，结构是孔的形状。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="结构对上，特征也要对上">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">结构对上，特征也要对上</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">纯 CFG</text><text class="f-s" x="80" y="108">· 只看语法类：S → NP VP</text><text class="f-s" x="80" y="138">· 「他 go」也能推导出来</text><text class="f-s" x="80" y="168">· 规则少、写得快</text><text class="f-s" x="80" y="198">· 无法表达主谓一致</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">特征文法</text><text class="f-s" x="530" y="108">· 语法类带属性：NUM、PERS、TENSE</text><text class="f-s" x="530" y="138">· 合一成功才允许组合</text><text class="f-s" x="530" y="168">· 「他 go」因特征冲突被拒</text><text class="f-s" x="530" y="198">· 规则多，但判断更准</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 11-15　结构对上，特征也要对上</b>　左边纯 CFG 只检查成分类型，右边特征文法还要求数、人称等属性合一成功。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>特征文法 = 结构规则 + 属性约束；合一失败，就剪掉这条组合。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>特征结构与合一</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>例子</th></tr></thead>
+  <tbody>
+    <tr><td>特征结构</td><td>属性—值对的集合</td><td><code>{num: sg, pers: 3}</code></td></tr>
+    <tr><td>合一</td><td>合并两个结构，冲突则失败</td><td><code>{num: sg}</code> ⊕ <code>{num: pl}</code> → 失败</td></tr>
+    <tr><td>主谓一致</td><td>主语与谓语在人称、数上匹配</td><td>cat runs / cats run</td></tr>
+    <tr><td>子类框架</td><td>动词对论元数量与类型的要求</td><td>put 需要三个论元</td></tr>
+  </tbody>
+</table>
+</div>
+<p>合一有三条规则：属性不重叠，直接并入；属性相同且值相同，保留；属性相同但值不同，整体失败。嵌套结构递归执行同样的规则。它是单调的——只增加信息，不改写已有值，所以失败可以立即剪枝，不必等到整句分析完。</p>
+<div class="callout callout--def">
+  <span class="c-label">与纯 CFG 的分工</span>
+  <p>CFG 负责「哪些成分能组合」，特征负责「组合后属性能否相容」；两者叠加，才既描述结构又排除错句。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>二十行合一函数</h2>
+<p>下面这段用字典模拟特征结构，只依赖标准库：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>unify_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：特征结构合一，检查主谓一致（仅标准库）。&quot;&quot;&quot;
+from typing import Optional
+
+
+def unify(a: dict, b: dict) -&gt; Optional[dict]:
+    &quot;&quot;&quot;递归合一二个特征结构；冲突返回 None。&quot;&quot;&quot;
+    result = dict(a)
+    for key, value in b.items():
+        if key in result:
+            if isinstance(result[key], dict) and isinstance(value, dict):
+                merged = unify(result[key], value)
+                if merged is None:
+                    return None
+                result[key] = merged
+            elif result[key] != value:
+                return None
+        else:
+            result[key] = value
+    return result
+
+
+SUBJ = {
+    &quot;cat&quot;: {&quot;num&quot;: &quot;sg&quot;, &quot;pers&quot;: &quot;3&quot;},
+    &quot;cats&quot;: {&quot;num&quot;: &quot;pl&quot;, &quot;pers&quot;: &quot;3&quot;},
+    &quot;I&quot;: {&quot;num&quot;: &quot;sg&quot;, &quot;pers&quot;: &quot;1&quot;},
+}
+VERB = {
+    &quot;runs&quot;: {&quot;num&quot;: &quot;sg&quot;, &quot;pers&quot;: &quot;3&quot;},
+    &quot;run&quot;: {&quot;num&quot;: &quot;pl&quot;, &quot;pers&quot;: &quot;3&quot;},
+    &quot;am&quot;: {&quot;num&quot;: &quot;sg&quot;, &quot;pers&quot;: &quot;1&quot;},
+}
+
+
+def agree(subject: str, verb: str) -&gt; bool:
+    return unify(SUBJ[subject], VERB[verb]) is not None
+
+
+pairs = [(&quot;cat&quot;, &quot;runs&quot;), (&quot;cats&quot;, &quot;run&quot;), (&quot;cat&quot;, &quot;run&quot;), (&quot;I&quot;, &quot;am&quot;)]
+for s, v in pairs:
+    print(f&quot;{s} {v}: {&#x27;OK&#x27; if agree(s, v) else &#x27;FAIL&#x27;}&quot;)
+assert agree(&quot;cat&quot;, &quot;runs&quot;) and agree(&quot;cats&quot;, &quot;run&quot;) and agree(&quot;I&quot;, &quot;am&quot;)
+assert not agree(&quot;cat&quot;, &quot;run&quot;)</code></pre>
+</div>
+<p><code>unify</code> 先复制左侧，再逐键并入右侧：遇到嵌套字典就递归，遇到同键异值就立刻返回 <code>None</code>。复制这一步不能省，否则合并会修改传入的原始特征结构，后续判断全被污染。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与判定表</h2>
+<p>运行结果为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>cat runs: OK
+cats run: OK
+cat run: FAIL
+I am: OK</code></pre>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>主语</th><th>谓语</th><th>num</th><th>pers</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>cat</td><td>runs</td><td>sg = sg</td><td>3 = 3</td><td>OK</td></tr>
+    <tr><td>cats</td><td>run</td><td>pl = pl</td><td>3 = 3</td><td>OK</td></tr>
+    <tr><td>cat</td><td>run</td><td>sg ≠ pl</td><td>3 = 3</td><td>FAIL</td></tr>
+    <tr><td>I</td><td>am</td><td>sg = sg</td><td>1 = 1</td><td>OK</td></tr>
+  </tbody>
+</table>
+</div>
+<p>失败只由 <code>num</code> 一票决定，<code>pers</code> 相同也救不回来；这就是合一的「一票否决」。真实文法会继续往上叠加格、时态、子类框架，但判定逻辑不变。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>补三组特征，看谁失败</h2>
+<p><strong>任务：</strong>在 <code>SUBJ</code> 与 <code>VERB</code> 里补充 <code>they / run</code>、<code>he / run</code>、<code>we / are</code>，先预测结果再运行。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句对</th><th>num</th><th>pers</th><th>预测</th></tr></thead>
+  <tbody>
+    <tr><td>they run</td><td></td><td></td><td></td></tr>
+    <tr><td>he run</td><td></td><td></td><td></td></tr>
+    <tr><td>we are</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>unify</code> 要先 <code>dict(a)</code> 复制？② 如果要表达「动词需要宾语」，特征该加在哪一层？</p>
+<p><strong>验收：</strong>三组判定与特征表一致，并能指出「结构合法但特征失败」的具体一格。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-4-3-tree-stats.html">11.4.3 句法树生成与结构统计</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-4-1-sentence-structure.html"><span class="p-label">← 上一知识点 11.4.1</span><span class="p-title">句子结构与成分分析</span></a><a class="next" href="k11-4-3-tree-stats.html"><span class="p-label">下一知识点 11.4.3 →</span><span class="p-title">句法树生成与结构统计</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)4② · 建立基于特征的文法</dd>
+    <dt>页面编号 / 路径</dt><dd>11.4.2 ｜ <span class="path">pages/m11-python/k11-4-2-feature-grammar.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-4-1-sentence-structure.html"><b>11.4.1</b>句子结构与成分分析</a><a class="xlink" href="k11-4-3-tree-stats.html"><b>11.4.3</b>句法树生成与结构统计</a><a class="xlink" href="u11-4-parsing.html"><b>11.4</b>句法分析与语义初探（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-4-2（本页图 11-15）；知识库 M11-S4-02。 ｜ 知识库条目：M11-S4-02《建立基于特征的文法》（filled） ｜ 参考来源：S118 Jurafsky & Martin；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

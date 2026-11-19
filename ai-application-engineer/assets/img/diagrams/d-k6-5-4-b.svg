@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同样 60 轮，双螺旋上的验证准确率">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">同样 60 轮，双螺旋上的验证准确率</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="132.0" width="119.60000000000001" height="168.0" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="230.0" y="124.0">80.0%</text><text class="f-sc" x="230.0" y="318">宽 64</text><rect x="430.2" y="90.84" width="119.60000000000001" height="209.16" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="490.0" y="82.84">99.6%</text><text class="f-sc" x="490.0" y="318">宽 256</text><rect x="690.2" y="90.0" width="119.60000000000001" height="210.0" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="750.0" y="82.0">100.0%</text><text class="f-sc" x="750.0" y="318">深 4×16</text><text class="f-s" x="100" y="344">深 4×16 用 881 个参数追平甚至超过 1,025 参数的浅层；数值为本机实测。</text>
+</svg>

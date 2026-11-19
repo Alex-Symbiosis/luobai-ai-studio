@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.2.5 20 行代码实现「模仿游戏」判定器 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把模仿游戏拆成「读入一轮、提取特征、累计判定」三个函数。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-2-turing-test.html">1.2 图灵测试：把「能否思考」换成「能否骗过评委」</a><span class="sep">/</span><span class="here">1.2.5 20 行代码实现「模仿游戏」判定器</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.2</span>
+    <span class="tag">知识点 1.2.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>20 行代码实现「模仿游戏」判定器</h1>
+  <p class="lede">规则听起来简单，写进代码才会暴露问题：判定器凭什么在一轮又一轮对话里累积证据？把三种回复策略放进同一个离线脚本，就能亲眼看到它们分别在第几轮被识破。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把模仿游戏拆成「读入一轮、提取特征、累计判定」三个函数。</li><li>能解释关键词命中、重复度、答非所问三类特征各抓什么破绽。</li><li>能运行脚本，用三种策略各测一轮，并记录被识破的轮次与原因。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>单轮印象，还是逐轮累积</h2>
+<p>同一个判定任务，两种实现思路：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>每轮单独下结论</h3><p>看完一句回答就判「像人」或「像机器」。回答短一点、语气软一点，结论立刻翻转，同一个机器人会忽人忽机。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>每轮收集证据再累计</h3><p>每轮只记录证据：命中回避词、内容高度重复、答非所问；证据按轮次加权，累计超过阈值才判为机器。</p></div>
+</div>
+<p class="ask">同一个回复策略，为什么 A 判得忽高忽低，B 却能给出稳定的结论？</p>
+<p>因为单轮信息量太小，一句模糊回答既可能是人，也可能是机器。B 把多轮证据累积起来，用总量对抗单轮噪声——这正是判定器要写成循环、而不是写成一个条件判断的原因。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一场有记录的盲聊</h2>
+<p>把判定器想成一位记笔记的评委：每一轮对话后，他不急着下结论，只在笔记本上记一笔「这句像背的」「这句在绕」，等记满几页再翻总账。轮次越多，笔记越可靠。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="判定器：每轮收集证据，累计后给结论">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">判定器：每轮收集证据，累计后给结论</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">读取一轮对话</text><text class="f-sc" x="140.25" y="154.0">文本、轮次、回避词</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">提取特征</text><text class="f-sc" x="366.75" y="154.0">关键词、重复度、答非所问</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">累计得分</text><text class="f-sc" x="593.25" y="154.0">按轮次加权</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">输出判定</text><text class="f-sc" x="819.75" y="154.0">超过阈值判为机器</text><text class="f-s" x="40" y="244">规则越透明，越容易看出它被哪种策略绕过；这也是课堂上最有价值的部分。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-9　每轮收集证据，累计后给结论</b>　规则越透明，越容易看出它被哪种策略绕过；这也是课堂上最有价值的部分。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>判定不是一次性的灵感，而是一条流水线：读一轮、提特征、加分、到阈值再开口。流水线越透明，越容易被改进，也越容易被针对。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>输入、判定函数、输出</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>部分</th><th>作用</th><th>本页实现</th></tr></thead>
+  <tbody>
+    <tr><td>输入</td><td>一次对话的一轮问答</td><td>机器回复文本、当前轮次</td></tr>
+    <tr><td>特征</td><td>把文本转成可累计的证据</td><td>回避词命中数、重复度、答非所问标记</td></tr>
+    <tr><td>判定函数</td><td>把证据累计成得分并比较阈值</td><td>按轮次加权求和，超过阈值判机器</td></tr>
+    <tr><td>输出</td><td>给出结论与依据</td><td>判为机器 / 继续观察，附命中的证据</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>设第 <span class="term">t</span> 轮证据为 <span class="term">e_t</span>、权重为 <span class="term">w_t</span>，累计得分 <span class="term">S_n = Σ w_t·e_t</span>；当 <span class="term">S_n ≥ θ</span> 时判为机器，并记下首次达到阈值的轮次 <span class="term">n</span>，即「被识破轮次」。</p>
+</div>
+<p>三个部分对应三件可替换的事：换特征，判定器关注不同的破绽；换权重，早期与后期证据的分量改变；换阈值，误判与漏判的取舍改变。先把这三处分开，脚本才可调、可解释。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四步流水线怎样跑起来</h2>
+<p>一个最小判定器只需要四个动作：</p>
+<div class="steps">
+  <div class="step"><b>读入一轮</b><span>接收机器回复，记录轮次；轮次是后面加权与记录识破时间的依据。</span></div>
+  <div class="step"><b>提取特征</b><span>数回避词命中、算与上一轮的重复度、判断是否答非所问；每项都输出 0 或 1。</span></div>
+  <div class="step"><b>累计得分</b><span>把本轮证据乘以权重加到总分；重复度与回避词可以给不同权重。</span></div>
+  <div class="step"><b>输出判定</b><span>总分未过阈值就继续下一轮；过阈值立即判机器，并回报第几轮、命中了什么。</span></div>
+</div>
+<p>流水线跑通后，最有意思的不是「判得准不准」，而是「哪种策略撑得久」。固定模板通常最早暴露，因为它每轮都在重复；随机回复反而可能拖得更久，因为它不留下稳定的重复模式。这个差异正是练习要记录的东西。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>模板机器人与简单规则评委</h2>
+<p>课程自编离线脚本：机器端只用固定模板回复，评委端只用四个动作。第一轮出现「作为一个 AI」式回避词，得分上升；第三轮同一句式重复，重复度连续命中；总分越过阈值，判为机器并记轮次。</p>
+<p>换成「关键词回避」后，回复绕开敏感词，该特征得分下降，但答非所问开始累积，识破被推迟。再换成「随机回复」，重复度几乎不命中，只靠答非所问慢慢加分，识破最晚。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三种回复策略在同一判定规则下的表现">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三种回复策略在同一判定规则下的表现</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">策略</text><text class="f-t" x="352.0" y="98">被识破轮次（示意）</text><text class="f-t" x="632.0" y="98">原因</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">固定模板</text><text class="f-s" x="352.0" y="139.0">第 2 轮</text><text class="f-s" x="632.0" y="139.0">重复句式与固定话术暴露身份</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">关键词回避</text><text class="f-s" x="352.0" y="183.0">第 4 轮</text><text class="f-s" x="632.0" y="183.0">过度回避反而显得不像人</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">随机回复</text><text class="f-s" x="352.0" y="227.0">第 6 轮</text><text class="f-s" x="632.0" y="227.0">答非所问，评委改看连贯性</text><text class="f-s" x="60" y="272">轮次不是智能分数，只是该规则下的表现；换评委或换规则，结论会变。</text>
+</svg><figcaption><b>图 1-9b　三种策略的识破轮次（示意）</b>　示意数据：越像「有策略地回避」，越晚被识破；轮次不是智能分数，只是该规则下的表现。</figcaption></figure>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>用于教学演示判定规则如何累积</td><td>把识破轮次当作智能高低评分</td></tr>
+    <tr><td>文本短、策略固定、可离线复现</td><td>对手知道规则后专门绕开特征</td></tr>
+  </tbody>
+</table>
+</div>
+<p>图 1-9b 的轮次为示意值，课堂实测后按记录填入；重点是「策略越会藏，越晚被识破」的方向。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>跑三种策略，记录识破轮次</h2>
+<p><strong>任务：</strong>用 20 行左右的离线脚本实现上面的判定器，分别测试三种回复策略，记录被识破的轮次并写三条结论。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>策略</th><th>机器人怎么回</th><th>被识破轮次</th><th>首先命中的特征</th></tr></thead>
+  <tbody>
+    <tr><td>固定模板</td><td>每轮套用同一组句式</td><td></td><td></td></tr>
+    <tr><td>关键词回避</td><td>识别题面关键词后绕开作答</td><td></td><td></td></tr>
+    <tr><td>随机回复</td><td>从无关句库里随机抽一句</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<ol>
+  <li>脚本只依赖标准库，离线可跑，不调用任何外部模型或网络接口。</li>
+  <li>每种策略至少跑 5 轮；记录首次越过阈值的轮次，未越阈值就记「未识破」。</li>
+  <li>三条结论分别回答：哪种策略最早暴露、哪个特征最先命中、阈值调高后识破轮次怎样变化。</li>
+</ol>
+<p><strong>追问：</strong>① 如果机器人知道判定器只看重复度，它会怎样改写回复？这说明规则透明的代价是什么？② 把权重从每轮等权改成后期加权，哪种策略的识破轮次变化最大？</p>
+<p><strong>自检：</strong>脚本能独立运行、三行记录完整、结论能对应到具体特征，即达标。识破轮次必须来自自己脚本的输出，不能照抄示意值。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-3-1-strong-weak-criteria.html">1.3.1 强弱 AI 的划分标准：能力范围不是聪明程度</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-2-4-turing-limits.html"><span class="p-label">← 上一知识点 1.2.4</span><span class="p-title">图灵测试的四个局限</span></a><a class="next" href="k1-3-1-strong-weak-criteria.html"><span class="p-label">下一知识点 1.3.1 →</span><span class="p-title">强弱 AI 的划分标准：能力范围不是聪明程度</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)1 · 图灵测试的判定规则（实现）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.2.5 ｜ <span class="path">pages/m01-ai-overview/k1-2-5-imitation-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-2-4-turing-limits.html"><b>1.2.4</b>图灵测试的四个局限</a><a class="xlink" href="k1-2-2-three-party.html"><b>1.2.2</b>三方结构与判定规则</a><a class="xlink" href="u1-2-turing-test.html"><b>1.2</b>图灵测试：把「能否思考」换成「能否骗过评委」（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k1-2-5、k1-2-5-b（本页图 1-9、图 1-9b）；知识库 M01-S1-03。 ｜ 知识库条目：M01-S1-03《图灵测试》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S11 SEP《The Turing Test》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

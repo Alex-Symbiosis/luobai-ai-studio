@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.2.2 迭代法的三步循环 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出迭代法的初值、更新规则、停止条件三要素。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-2-iteration.html">4.2 模型与算法的区别、迭代法</a><span class="sep">/</span><span class="here">4.2.2 迭代法的三步循环</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.2</span>
+    <span class="tag">知识点 4.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>迭代法的三步循环</h1>
+  <p class="lede">很多模型的参数没有闭式解：方程写得出，却解不出来。这时人不再追求「一次算完」，而是从一个猜测出发，每轮修正一点，直到不再明显变好。这就是迭代法，也是梯度下降、EM、牛顿法的共同骨架。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出迭代法的初值、更新规则、停止条件三要素。</li><li>能说明「每轮基于上一轮结果」这一状态更新机制。</li><li>能用手算完成三轮简单迭代并记录误差。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>方程写得出，却解不出来</h2>
+<p>求一个数的平方根，或者让一个复杂损失最小，都会遇到同一种情况：目标很清楚，但没有一步到位的公式。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">场景 A</span><h3>求 √2</h3><p>知道它满足 x² = 2，但手算只能逼近；每算一位都要再修正一次。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 B</span><h3>最小化复杂损失</h3><p>损失带正则、带约束，正规方程不再适用，只能一步步往低处走。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 C</span><h3>数据太大</h3><p>全量矩阵求逆放不进内存，只能分批估计方向，反复更新。</p></div>
+</div>
+<p class="ask">没有一步到位的公式时，人是怎么「算」出答案的？</p>
+<p>答案是：先猜一个，再看错多少，然后按错误方向修一点。重复足够多次，误差就会小到可以接受。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>调收音机旋钮</h2>
+<p>老式收音机没有数字屏。你不会一次拧到正确频率，而是先大概拧到一个位置，听杂音大小，再往杂音变小的方向微调，直到声音清楚。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="迭代法的三步循环">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">迭代法的三步循环</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">当前参数</text><text class="f-sc" x="480" y="200">θ_t</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">猜一个起点</text><text class="f-sc" x="480.0" y="92.0">初值 θ_0</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">算误差</text><text class="f-sc" x="742.0" y="200.0">L(θ_t)</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">修正</text><text class="f-sc" x="480.0" y="308.0">θ_{t+1} = θ_t − ηg</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">判断</text><text class="f-sc" x="218.0" y="200.0">是否满足停止条件</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">每轮都基于上一轮的结果；没有「一次算完」，只有「越来越接近」。</text>
+</svg><figcaption><b>图 4-6　迭代法的三步循环</b>　当前参数决定这一轮的误差；误差给出修正方向；修正后的参数进入下一轮，直到满足停止条件。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>迭代法不是「一次算对」，而是<strong>「每轮比上一轮好一点」</strong>。它的三个关键决定是：从哪里开始、每轮怎么改、什么时候停。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三要素与一次更新</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>作用</th><th>选错的后果</th></tr></thead>
+  <tbody>
+    <tr><td>初值 θ<sub>0</sub></td><td>决定从哪出发</td><td>可能落到局部最优，或收敛更慢</td></tr>
+    <tr><td>更新规则</td><td>决定每轮往哪走、走多远</td><td>步长过大震荡，过小几乎不动</td></tr>
+    <tr><td>停止条件</td><td>决定何时算够好</td><td>停太早没收敛，停太晚浪费算力</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p><span class="term">θ<sub>t+1</sub> = θ<sub>t</sub> − η · g(θ<sub>t</sub>)</span>，其中 g 是误差对参数的梯度或修正方向，η 是步长。停止条件常见三类：误差小于阈值、参数变化小于阈值、达到最大轮数。</p>
+</div>
+<p>三要素里，<strong>更新规则</strong>决定方法的名字（梯度下降、牛顿法、坐标下降），<strong>停止条件</strong>决定结果是否可信。只关注前者、随手写个「跑 100 轮」，是工程里最常见的隐患。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>状态机：每轮只做四件事</h2>
+<div class="steps">
+  <div class="step"><b>读状态</b><span>拿到当前参数 θ<sub>t</sub>，这是上一轮留下的唯一结果。</span></div>
+  <div class="step"><b>算误差与方向</b><span>计算 L(θ<sub>t</sub>) 及其梯度；没有梯度就用有限差分或近似。</span></div>
+  <div class="step"><b>更新</b><span>按 θ<sub>t+1</sub> = θ<sub>t</sub> − ηg 得到新参数，覆盖旧状态。</span></div>
+  <div class="step"><b>判断与记录</b><span>记录本轮误差；满足停止条件则退出，否则回到第一步。</span></div>
+</div>
+<p>注意这里的<strong>顺序依赖</strong>：第 t+1 轮完全依赖第 t 轮的结果。这意味着两件事：不能并行跑同一串迭代；一旦某轮数值爆炸，后面全部无效。所以工程上要记录误差序列，先看曲线，再看最终值。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>手算 √2 的三轮</h2>
+<p>用牛顿迭代求 √2：x<sub>t+1</sub> = (x<sub>t</sub> + 2/x<sub>t</sub>) / 2，初值取 1。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>轮次</th><th>x<sub>t</sub></th><th>x<sub>t</sub>² − 2</th><th>x<sub>t+1</sub></th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>1</td><td>−1</td><td>1.5</td></tr>
+    <tr><td>1</td><td>1.5</td><td>0.25</td><td>1.4167</td></tr>
+    <tr><td>2</td><td>1.4167</td><td>0.0069</td><td>1.41422</td></tr>
+    <tr><td>3</td><td>1.41422</td><td>≈ 0.000006</td><td>1.41421</td></tr>
+  </tbody>
+</table>
+</div>
+<p>误差从 1 降到 0.25，再到 0.0069，每轮大约缩小一个数量级。这个「误差序列」比最终的 1.41421 更能说明方法是否健康：如果某轮误差反而变大，就说明更新规则或步长有问题。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算三轮并记录误差</h2>
+<p><strong>任务：</strong>用迭代法求方程 x = cos(x) 的根，初值取 x<sub>0</sub> = 0.5，更新规则为 x<sub>t+1</sub> = cos(x<sub>t</sub>)。</p>
+<ol>
+  <li>算三轮，记录每轮的 x 与 |x<sub>t+1</sub> − x<sub>t</sub>|。</li>
+  <li>判断误差是否在下降；若不变或变大，说明什么。</li>
+  <li>写出一条你认为合适的停止条件，并给出阈值理由。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">检查点</span>
+  <p>「跑固定轮数」不算停止条件的设计，只是兜底；真正的停止条件要能回答「凭什么说已经够好」。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-2-3-convergence.html">4.2.3 收敛、震荡与停止条件</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-2-1-model-vs-algorithm.html"><span class="p-label">← 上一知识点 4.2.1</span><span class="p-title">模型与算法的区别</span></a><a class="next" href="k4-2-3-convergence.html"><span class="p-label">下一知识点 4.2.3 →</span><span class="p-title">收敛、震荡与停止条件</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)2 · 迭代法的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>4.2.2 ｜ <span class="path">pages/m04-stat-models/k4-2-2-iteration.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-2-1-model-vs-algorithm.html"><b>4.2.1</b>模型与算法的区别</a><a class="xlink" href="k4-2-3-convergence.html"><b>4.2.3</b>收敛、震荡与停止条件</a><a class="xlink" href="k4-3-1-step-size.html"><b>4.3.1</b>步长与学习率</a><a class="xlink" href="u4-2-iteration.html"><b>4.2</b>模型与算法的区别、迭代法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-2-2-a.svg（本页图 4-6）。 ｜ 知识库条目：M04-S2-02《迭代法的概念及特点》（filled） ｜ 参考来源：S55 Boyd《Convex Optimization》；S54 ESL；S02 AIMA；S53 Goodfellow《Deep Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.9.3 可解释性与准确率的取舍 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把准确率与可解释性描述成取舍关系，而不是优劣关系。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-9-selection.html">5.9 算法评价原则与选型</a><span class="sep">/</span><span class="here">5.9.3 可解释性与准确率的取舍</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.9</span>
+    <span class="tag">知识点 5.9.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>可解释性与准确率的取舍</h1>
+  <p class="lede">两个模型摆在评审桌上：一个分数高一点，边界复杂到没人说得清；一个分数低一点，每条判断都能翻回具体条款。选哪个不是品味问题，而是约束问题——能不能解释，常常比多那两个点更能决定模型能不能上线。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把准确率与可解释性描述成取舍关系，而不是优劣关系。</li><li>能说出可解释性如何转化为工程与合规成本。</li><li>能为具体场景排出准确率、解释、延迟的优先级。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一批数据，两种做法</h2>
+<p>信贷审批模型，两组方案给出的效果与代价完全不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>先追准确率</h3><ul><li>用集成模型冲分</li><li>验证 AUC 领先约两个点</li><li>边界复杂，无法逐条复述</li><li>每次拒绝都要人工补说明</li></ul></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先保可解释</h3><ul><li>用逻辑回归</li><li>每个系数对应可核对的变量</li><li>分数低约两个点</li><li>规则能直接对上监管条款</li></ul></div>
+</div>
+<p class="ask">两种做法都在「做同一个业务」，差的是哪一步判断？</p>
+<p>差在把哪一项当约束、哪一项当目标。A 把分数当目标、解释当成本；B 把解释当准入条件、分数当可让步的量。这个顺序换了，选出来的模型就完全不同。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>跑车快，但山路开不了</h2>
+<p>跑车在直道上快，底盘低、悬挂硬，遇到坑洼山路反而寸步难行。没人会说跑车「比越野车先进」，只会说「这条路适合哪种车」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="追准确率 vs 顾可解释">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">追准确率 vs 顾可解释</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">先追准确率</text><text class="f-s" x="80" y="108">· 用集成或核方法冲分</text><text class="f-s" x="80" y="138">· 边界复杂、难以复述</text><text class="f-s" x="80" y="168">· 评审与排障成本高</text><text class="f-s" x="80" y="198">· 适合容忍黑箱的场景</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">先保可解释</text><text class="f-s" x="530" y="108">· 用线性模型或浅树</text><text class="f-s" x="530" y="138">· 每条规则能对上业务</text><text class="f-s" x="530" y="168">· 分数可能低几个点</text><text class="f-s" x="530" y="198">· 适合风控、医疗、政务</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-39　准确率与可解释性的两条路线</b>　追求分数往往换来难以复述的边界；保住解释往往要让出几个点。选哪条路，由场景决定。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>准确率与可解释性是一组取舍，不是一组高低。取舍的意思是：提高一边通常要在另一边付出代价，而愿不愿意付，取决于场景的约束，而不是算法的先进程度。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三根轴与它们的兑换率</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>含义</th><th>怎么量</th><th>典型代价</th></tr></thead>
+  <tbody>
+    <tr><td>准确率</td><td>模型在目标任务上的判别能力</td><td>AUC、F1、召回率</td><td>复杂模型提升有限，边际收益递减</td></tr>
+    <tr><td>可解释性</td><td>能否给出人可核对、可复述的理由</td><td>能否逐条解释、能否做反事实分析</td><td>线性与浅树的表达能力受限</td></tr>
+    <tr><td>工程代价</td><td>延迟、内存、维护与更新成本</td><td>单次推理耗时、模型体积、迭代周期</td><td>复杂模型上线与排障都更慢</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三者常被说成「不可能三角」，更准确的说法是：任何场景都要先决定哪一项是硬约束、哪一项可以让步。监管场景里可解释是硬约束；推荐场景里延迟是硬约束；离线评分场景里准确率可能是唯一目标。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>取舍怎么落到具体动作上</h2>
+<div class="steps">
+  <div class="step"><b>识别硬约束</b><span>先问「哪一项不满足就直接否掉」，而不是「哪一项最重要」。措辞不同，结论往往相反。</span></div>
+  <div class="step"><b>量化让步空间</b><span>把可让步的那一项写成区间：分数允许低多少、延迟允许高多少毫秒。</span></div>
+  <div class="step"><b>选可解释的基线</b><span>先跑线性模型或浅树，拿到一个「能解释的分数下限」，再评估复杂模型能多拿多少。</span></div>
+  <div class="step"><b>评估解释成本</b><span>复杂模型的解释往往要靠事后方法，事后解释只是近似，遇到质疑时不一定站得住。</span></div>
+  <div class="step"><b>留回退方案</b><span>复杂模型上线后若被要求解释或被审计叫停，要能切回可解释基线。</span></div>
+</div>
+<p>第三步最容易被跳过。没有可解释基线，就无法判断复杂模型多出来的两个点值不值那笔解释成本；很多项目正是在这一步才发现，收益远小于维持解释体系的开销。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>风控场景的选择与它的代价</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方案</th><th>AUC</th><th>能否逐条解释</th><th>上线周期</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>逻辑回归</td><td>0.81</td><td>能，系数可核对</td><td>两周</td><td>满足合规，采用</td></tr>
+    <tr><td>随机森林</td><td>0.85</td><td>需事后解释，属近似</td><td>两个月</td><td>分数更高，解释不被接受</td></tr>
+    <tr><td>梯度提升树</td><td>0.87</td><td>需事后解释，成本更高</td><td>三个月以上</td><td>仅用于内部预警，不用于拒贷</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这里没有「谁更先进」。逻辑回归用两个点的分数换来可审计性，梯度提升树被限制在「不直接决定拒贷」的位置上——两者在同一个系统里各司其职，靠的正是对取舍的明确分工。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>优先项</th><th>主动放弃</th></tr></thead>
+  <tbody>
+    <tr><td>信贷审批、医疗辅助诊断</td><td>可解释性（合规与追责）</td><td>部分准确率</td></tr>
+    <tr><td>实时竞价、搜索排序</td><td>延迟与准确率</td><td>逐条解释能力</td></tr>
+    <tr><td>离线批量评分</td><td>准确率</td><td>推理延迟的余量</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">注意</span>
+  <p>「可解释性可以用事后方法补上」是有条件的。事后解释给出的是近似归因，用于内部排障可以，用于对外说明与监管举证时，往往需要原生可解释的模型。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给三个场景排优先级</h2>
+<p><strong>任务：</strong>为下面三个场景排出「准确率 / 可解释 / 延迟」的优先级，并写理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>场景</th><th>第一优先</th><th>可让步</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>银行信用卡反欺诈，拒卡需告知理由</td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td>短视频推荐，首屏 100 毫秒内出结果</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td>工厂设备故障预测，维修工需看到依据</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 场景 2 如果改用复杂模型，解释成本体现在哪里？② 场景 3 若准确率只差一个点，你还会坚持可解释吗？③ 什么情况下「分数高但解释不了」是可以接受的？</p>
+<p><strong>验收：</strong>排序与业务约束一致，且明确指出被放弃的那一项及其代价。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-9-4-selection-demo.html">5.9.4 选型实验：四算法对比报告</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-9-2-benchmark-design.html"><span class="p-label">← 上一知识点 5.9.2</span><span class="p-title">公平对比：四个固定项</span></a><a class="next" href="k5-9-4-selection-demo.html"><span class="p-label">下一知识点 5.9.4 →</span><span class="p-title">选型实验：四算法对比报告</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)4 · 算法评价（工程）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.9.3 ｜ <span class="path">pages/m05-ml-algorithms/k5-9-3-interpretability.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-9-1-evaluation-principles.html"><b>5.9.1</b>评价四维：任务、数据、代价、解释</a><a class="xlink" href="k5-9-4-selection-demo.html"><b>5.9.4</b>选型实验：四算法对比报告</a><a class="xlink" href="u5-9-selection.html"><b>5.9</b>算法评价原则与选型（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-9-3（本页图 5-39）；知识库 M05-S2-06。 ｜ 知识库条目：M05-S2-06《算法评价原则及方法》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S54 ESL；S13 scikit-learn《Cross-validation》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

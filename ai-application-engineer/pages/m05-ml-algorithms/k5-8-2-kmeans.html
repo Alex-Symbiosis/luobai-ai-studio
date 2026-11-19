@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.8.2 K-Means：分配与更新 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 K-Means 的目标函数，说明两步各在优化什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-8-clustering.html">5.8 聚类算法</a><span class="sep">/</span><span class="here">5.8.2 K-Means：分配与更新</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.8</span>
+    <span class="tag">知识点 5.8.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>K-Means：分配与更新</h1>
+  <p class="lede">K-Means 的全部动作只有两个：把每个点分配给最近的中心，把每个中心挪到本簇的均值。难的不是这两步，而是理解为什么反复做这两步会停下来，以及停下来时为什么可能是一个坏答案。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 K-Means 的目标函数，说明两步各在优化什么。</li><li>能解释「一定收敛」与「只保证局部最优」为什么不矛盾。</li><li>能判断 K-Means 的簇形状假设在什么数据上会失效。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一次分配 vs 反复校准</h2>
+<p>同样给定 K=3，两种做法得到的结果差别很大：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>只分配一次</h3><ul><li>随机挑 3 个点当中心</li><li>每个点归到最近的中心</li><li>算出三组后直接结束</li><li>中心留在最初的随机位置</li></ul></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>分配与更新反复交替</h3><ul><li>同样从 3 个随机中心开始</li><li>分配后把中心挪到本组均值</li><li>再重新分配，直到中心不动</li><li>中心被数据反复校准</li></ul></div>
+</div>
+<p class="ask">两种做法用的是同一个「最近中心」规则，结果为什么差这么多？</p>
+<p>差在中心有没有被数据重新校准。只分配一次，中心是初始的随机值，分组只是对随机结果的切分；反复更新，中心才会落到簇的实际位置。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先插旗，再把旗挪到队伍中间</h2>
+<p>先在地图上随便插 K 面旗子，让每个人走向最近的旗子；等人站好，把每面旗子挪到这队人的正中间；再让人重新选最近的旗子。几轮之后，旗子不动了，队伍也不换队了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="K-Means 的两步循环">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">K-Means 的两步循环</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">中心</text><text class="f-sc" x="480" y="200">μ₁ … μ_K</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">分配</text><text class="f-sc" x="480.0" y="92.0">每个点归最近中心</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">更新</text><text class="f-sc" x="742.0" y="200.0">中心移到簇均值</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">检查</text><text class="f-sc" x="480.0" y="308.0">中心还动吗</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">输出</text><text class="f-sc" x="218.0" y="200.0">簇标签与中心</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">分配与更新交替进行；目标函数单调下降，所以一定收敛，但可能停在局部最优。</text>
+</svg><figcaption><b>图 5-33　K-Means 的两步循环</b>　分配与更新交替进行；目标函数单调下降，所以一定收敛，但可能停在局部最优。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>「分配」固定中心、调整归属；「更新」固定归属、调整中心。两步各自都不会让目标函数变差，所以整体只会下降，不会来回震荡——这就是收敛的来源。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一个目标，两个动作</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>表达</th></tr></thead>
+  <tbody>
+    <tr><td>质心 μ_k</td><td>第 k 簇所有样本的均值</td><td>μ_k = 本簇样本的平均向量</td></tr>
+    <tr><td>目标函数</td><td>簇内平方和，越小说明簇越紧</td><td>Σ_k Σ ||x − μ_k||²</td></tr>
+    <tr><td>分配步</td><td>每个样本归到最近的质心</td><td>argmin_k ||x − μ_k||²</td></tr>
+    <tr><td>更新步</td><td>质心移到本簇均值</td><td>μ_k ← 本簇样本均值</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">为什么一定收敛</span>
+  <p>分配步在固定质心时让目标不增，更新步在固定归属时也让目标不增；目标有下界 0，所以只能有限步停下来。但每一步都只在当前划分附近找最优，因此停下来的是<strong>局部最优</strong>，不保证全局最优。</p>
+</div>
+<p>还要注意：K 是超参数，必须由人在算法之外给定。算法不会告诉你该分几簇，它只会忠实地把给定的 K 分好。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>初始化决定你落在哪个局部最优</h2>
+<p>既然只保证局部最优，结果就强烈依赖起点：</p>
+<div class="steps">
+  <div class="step"><b>随机初始化的问题</b><span>两个初始中心恰好落在同一簇里，这一簇会被硬切成两半，另一个簇则被合并。</span></div>
+  <div class="step"><b>k-means++ 的做法</b><span>第一个中心随机，后续中心按「离已选中心越远越容易被选中」的概率挑选，让起点尽量分散。</span></div>
+  <div class="step"><b>多次重启</b><span>换若干组初始化各跑一次，取目标函数最小的那组结果，用重复次数换稳定性。</span></div>
+  <div class="step"><b>空簇处理</b><span>某簇没有样本时，把中心重新放到离其他中心最远的点上，或直接减少 K 重跑。</span></div>
+</div>
+<p>单轮复杂度约为 O(nkd)：n 个样本、K 个簇、d 维特征。轮数通常不大，但重启次数会成倍放大总耗时。样本量大时，这一项比算法本身更值得关注。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>8 个点，两轮收敛</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶段</th><th>中心 1</th><th>中心 2</th><th>目标函数</th></tr></thead>
+  <tbody>
+    <tr><td>初始</td><td>(2.0, 2.0)</td><td>(7.0, 7.0)</td><td>68.0</td></tr>
+    <tr><td>第 1 轮分配后</td><td>(2.0, 2.0)</td><td>(7.0, 7.0)</td><td>68.0</td></tr>
+    <tr><td>第 1 轮更新后</td><td>(2.4, 2.2)</td><td>(6.6, 6.4)</td><td>31.2</td></tr>
+    <tr><td>第 2 轮更新后</td><td>(2.3, 2.1)</td><td>(6.7, 6.5)</td><td>29.4</td></tr>
+    <tr><td>第 3 轮</td><td>(2.3, 2.1)</td><td>(6.7, 6.5)</td><td>29.4，收敛</td></tr>
+  </tbody>
+</table>
+</div>
+<p>目标函数只降不升，两轮后就稳定。若把初始中心改成 (2.0, 2.0) 与 (2.2, 2.1)，两个中心会挤在同一团里，收敛后目标函数明显更大——这就是坏初始化留下的痕迹。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>簇近似球形、大小相近</td><td>长条形、环形数据会被硬切成两半</td></tr>
+    <tr><td>各特征尺度一致</td><td>未标准化时距离被大量纲特征主导，分组失真</td></tr>
+    <tr><td>K 可事先给定或扫描</td><td>K 未知时只能靠启发式，没有定理保证</td></tr>
+    <tr><td>样本量中等</td><td>每轮 O(nkd)，K 大时总耗时成倍上升</td></tr>
+    <tr><td>噪声与离群点较少</td><td>离群点会拉偏质心，可改用 K-Medoids</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算两轮中心移动</h2>
+<p><strong>任务：</strong>给 8 个二维点与两个初始中心 (2, 2) 与 (7, 7)，手算两轮。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>轮次</th><th>簇 1 成员</th><th>簇 2 成员</th><th>新中心</th><th>目标函数</th></tr></thead>
+  <tbody>
+    <tr><td>初始</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>第 1 轮</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>第 2 轮</td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 目标函数在第二次分配后会不会上升？为什么？② 把初始中心换成就近的两个点，结果会怎样？③ K 从 2 改成 3，目标函数一定更小吗？它说明 3 更好吗？</p>
+<p><strong>验收：</strong>中心坐标计算正确，且能说明「K 变大时目标函数变小是必然，不能据此选 K」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-8-3-k-selection.html">5.8.3 K 怎么选：肘部与轮廓</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-8-1-clustering.html"><span class="p-label">← 上一知识点 5.8.1</span><span class="p-title">聚类：没有标签怎么分组</span></a><a class="next" href="k5-8-3-k-selection.html"><span class="p-label">下一知识点 5.8.3 →</span><span class="p-title">K 怎么选：肘部与轮廓</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)3 · K-Means 的原理</dd>
+    <dt>页面编号 / 路径</dt><dd>5.8.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-8-2-kmeans.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-8-1-clustering.html"><b>5.8.1</b>聚类：没有标签怎么分组</a><a class="xlink" href="k5-8-3-k-selection.html"><b>5.8.3</b>K 怎么选：肘部与轮廓</a><a class="xlink" href="u5-8-clustering.html"><b>5.8</b>聚类算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-8-2（本页图 5-33）；知识库 M05-S2-05。 ｜ 知识库条目：M05-S2-05《聚类算法的概念、特点、不同分类及操作原理》（filled） ｜ 参考来源：S80 Lloyd《Least Squares Quantization in PCM》；S38 scikit-learn《Clustering》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.3.1 Hopfield 结构与能量函数 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出 Hopfield 的全连接结构，说清 25 个单元为什么有 300 条无向连接。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-3-hopfield.html">6.3 离散型霍普菲尔德网络与实现关注点</a><span class="sep">/</span><span class="here">6.3.1 Hopfield 结构与能量函数</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.3</span>
+    <span class="tag">知识点 6.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>Hopfield 结构与能量函数</h1>
+  <p class="lede">给网络一半的线索，它自己补全。Hopfield 把「记忆」写成了一件事：状态不断往低处走，最后停在一个坑里。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出 Hopfield 的全连接结构，说清 25 个单元为什么有 300 条无向连接。</li><li>能写出 Hebb 规则与能量函数，并解释常数缩放为什么不改吸引子。</li><li>能估出 25 个单元的存储容量，并说明为什么不是 25 个。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>油污下的编号牌</h2>
+<p>仓库的货位牌是 5×5 的点阵编号，钉在货架侧面。用了五六年，右下角被油污盖住了七八个格子，巡检员照样一眼认出是哪个货位。</p>
+<p>换系统来做就难了。如果按「地址」查——第 3 行第 4 列到底亮不亮——缺一格就查不到。按「内容」查是另一条路：拿剩下的格子去和记忆里的图案比，谁最像就是谁。</p>
+<p class="ask">少了七格，凭什么还能认出？</p>
+<p>Hopfield 网络回答的正是这件事。它不存「第几号记录」，而是把每个图案摊进一组权重，让图案本身成为状态空间里的一个低点。输入残缺时，状态从坡上往下滑，滑到的谷底就是答案。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>地形与谷底</h2>
+<p>把 25 个单元的取值全列出来，是 2²⁵ 个格点的空间。给每个格点配一个标量，叫能量。网络运行就是在这张地形上往下走，走到不能再低就停住。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="能量地形：每个状态都往低处走">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">能量地形：每个状态都往低处走</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 90 L200 150 L300 235 L400 272 L480 278 L560 255 L640 180 L740 110 L860 85" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="480" cy="278" r="6"/><text class="f-s" x="490" y="270">稳定吸引子</text><text class="f-s" x="880" y="322" text-anchor="end">x</text><text class="f-s" x="92" y="66" text-anchor="end">能量 E</text><text class="f-s" x="100" y="340">网络的「记忆」就是地形的谷底；输入只是把状态推到某个坡上。</text>
+</svg><figcaption><b>图 6-12　能量地形：每个状态都往低处走</b>　网络的「记忆」就是地形的谷底；输入只是把状态推到某个坡上。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>记忆不是存在某个地址里的数据，而是地形上的一个坑。给出残缺输入，等于把球放在坡上松手。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>对称与零对角</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>符号</th><th>含义</th><th>本页取值</th></tr></thead>
+  <tbody>
+    <tr><td><code>N</code></td><td>神经元个数</td><td>25（5×5 点阵）</td></tr>
+    <tr><td><code>s</code></td><td>状态向量</td><td>每个分量 ±1</td></tr>
+    <tr><td><code>W</code></td><td>权重矩阵</td><td>对称，对角为 0</td></tr>
+    <tr><td><code>E</code></td><td>能量</td><td>一个标量</td></tr>
+  </tbody>
+</table>
+</div>
+<p>权重由 Hebb 规则一次算出：<code>W = Σ s sᵀ / N</code>。这里的 N 指存入图案的个数（本页 2 个），不是神经元数；写成 25 只差一个常数尺度。外积让「同一图案里同时为 +1 的两个单元」之间连一条正边，不同图案的贡献相加后再平均。</p>
+<p>能量函数 <code>E = −½ sᵀWs</code>。前面那个负号是关键：状态与权重越合拍，E 越小，所以谷底对应的正是存进去的图案。</p>
+<p>常数缩放不改吸引子。把 W 整体乘 0.1，每个局部场的符号不变，更新结果完全相同，只是能量读数缩小十倍。所以「除以图案数」还是「除以神经元数」只影响数值，不影响行为。</p>
+<div class="callout callout--warn">
+  <span class="c-label">对角必须清零</span>
+  <p>留着 <code>W_ii</code> 等于让单元给自己投票，局部场被这一项抬高，能量地形与更新规则一起被带偏。清零不是可选项。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>十来行就建完</h2>
+<p>三件事按顺序做：把 0/1 图案转成 ±1、累加外积、清掉对角。没有梯度，也没有损失函数。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>hopfield_build.py</span></div>
+<pre><code>import numpy as np
+
+def to_spin(p):                  # 0/1 图案 → ±1 状态
+    return np.where(p.ravel() == 1, 1.0, -1.0)
+
+def hebb(patterns):              # W = Σ s sᵀ / N
+    n = patterns[0].size
+    W = np.zeros((n, n))
+    for p in patterns:
+        s = to_spin(p)
+        W += np.outer(s, s)
+    W /= len(patterns)
+    np.fill_diagonal(W, 0)       # 自己不看自己
+    return W
+
+def energy(W, s):                # E = −½ sᵀWs
+    return -0.5 * s @ W @ s</code></pre>
+</div>
+<p><code>np.outer(s, s)</code> 是一个 25×25 的矩阵，它天然对称。清零对角之后矩阵仍然对称，这正是能量单调下降的前提——少这一步，收敛性的证明就不成立。</p>
+<p>还有一处容易忽略：<code>to_spin</code> 必须把 0 映射成 −1，不能映射成 0。状态只有 ±1 两种，夹一个 0 进去，能量公式里就会出现「既不贡献也不抵消」的项，更新也会卡死。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>存储容量上限</h2>
+<p>容量有个经验上限：<strong>大约 0.15N 个图案</strong>。N=25 时是 3.75，也就是可靠存 3 个。存 2 个时两个吸引域还很宽，加到 4 个就开始串扰——恢复出来的可能既不是 A 也不是 B。</p>
+<p>为什么不是 25？一个单元只贡献一位信息，而「记得住」要求图案之间互不干扰。图案越多，交叉项越大，谷底被填平，甚至凭空长出原本没存过的坑，也就是虚假吸引子。</p>
+<p>另一个常见误解是把容量当成「能接收多少个输入」。它能存的是稳定状态的数量；输入只是把状态推到哪个坡上的起点。</p>
+<p><strong>口径说明：</strong>细纲原回链与知识库不一致（M06-S1-07 实际讲参数与超参数），本页按经典 Hopfield 教材口径自述。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算容量、数连接</h2>
+<p><strong>任务：</strong>填完这张规模表。连接数按无向边算，公式是 <code>N(N−1)/2</code>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>N</th><th>无向连接</th><th>容量 0.15N</th><th>建议图案数</th></tr></thead>
+  <tbody>
+    <tr><td>25</td><td>300</td><td>3.75</td><td>3</td></tr>
+    <tr><td>100</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>400</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 把 W 整体乘 10，能量读数怎么变？吸引子变不变？② 把两个图案的汉明距离从 7 位缩到 2 位，容量会变大还是变小？</p>
+<p><strong>验收：</strong>能说清「对称且对角为零，所以连接数是 N(N−1)/2」，并能用串扰解释容量上限。下一节讲这些谷底怎么被找到，见 <a href="../m06-neural-nets/k6-3-2-associative-memory.html">吸引子与联想记忆</a>。</p>
+</section>
+<p class="sidenote">注：Hopfield 网络在知识库中无对应条目；细纲原回链的 M06-S1-07 实际讲「神经网络参数」，与本节主题不符。本页按经典教材口径自述。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-3-2-associative-memory.html">6.3.2 吸引子与联想记忆</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-2-5-backprop-demo.html"><span class="p-label">← 上一知识点 6.2.5</span><span class="p-title">2-2-1 网络一轮更新</span></a><a class="next" href="k6-3-2-associative-memory.html"><span class="p-label">下一知识点 6.3.2 →</span><span class="p-title">吸引子与联想记忆</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)10 · Hopfield 网络结构与能量函数</dd>
+    <dt>页面编号 / 路径</dt><dd>6.3.1 ｜ <span class="path">pages/m06-neural-nets/k6-3-1-hopfield-energy.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-3-2-associative-memory.html"><b>6.3.2</b>吸引子与联想记忆</a><a class="xlink" href="k6-3-3-update-rule.html"><b>6.3.3</b>离散型更新规则</a><a class="xlink" href="k6-3-4-hopfield-demo.html"><b>6.3.4</b>实现关注点与图案恢复</a><a class="xlink" href="u6-3-hopfield.html"><b>6.3</b>离散型霍普菲尔德网络与实现关注点（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-3-1（本页图 6-12）；知识库无对应条目，按经典教材口径自述。 ｜  ｜ 参考来源：Hopfield 1982, PNAS；S53《深度学习》第 6 章相关章节；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

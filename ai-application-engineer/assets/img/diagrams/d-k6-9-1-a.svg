@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="LeNet-5 逐层账本（简化稠密口径）">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">LeNet-5 逐层账本（简化稠密口径）</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">层</text><text class="f-t" x="282.0" y="98">输出尺寸</text><text class="f-t" x="492.0" y="98">核 / 连接</text><text class="f-t" x="702.0" y="98">参数量</text><rect class="f-b3" x="60" y="112.0" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="130.42857142857144">C1 卷积</text><text class="f-s" x="282.0" y="130.42857142857144">28×28×6</text><text class="f-s" x="492.0" y="130.42857142857144">5×5×1×6</text><text class="f-s" x="702.0" y="130.42857142857144">156</text><rect class="f-b3" x="60" y="138.85714285714286" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="157.28571428571428">S2 池化</text><text class="f-s" x="282.0" y="157.28571428571428">14×14×6</text><text class="f-s" x="492.0" y="157.28571428571428">2×2</text><text class="f-s" x="702.0" y="157.28571428571428">0（原始 12）</text><rect class="f-b3" x="60" y="165.71428571428572" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="184.14285714285714">C3 卷积</text><text class="f-s" x="282.0" y="184.14285714285714">10×10×16</text><text class="f-s" x="492.0" y="184.14285714285714">5×5×6×16</text><text class="f-s" x="702.0" y="184.14285714285714">2,416</text><rect class="f-b3" x="60" y="192.57142857142856" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="210.99999999999997">S4 池化</text><text class="f-s" x="282.0" y="210.99999999999997">5×5×16</text><text class="f-s" x="492.0" y="210.99999999999997">2×2</text><text class="f-s" x="702.0" y="210.99999999999997">0（原始 32）</text><rect class="f-b3" x="60" y="219.42857142857144" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="237.85714285714286">C5 卷积</text><text class="f-s" x="282.0" y="237.85714285714286">1×1×120</text><text class="f-s" x="492.0" y="237.85714285714286">5×5×16×120</text><text class="f-s" x="702.0" y="237.85714285714286">48,120</text><rect class="f-b3" x="60" y="246.28571428571428" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="264.7142857142857">F6 全连接</text><text class="f-s" x="282.0" y="264.7142857142857">84</text><text class="f-s" x="492.0" y="264.7142857142857">120×84</text><text class="f-s" x="702.0" y="264.7142857142857">10,164</text><rect class="f-b3" x="60" y="273.1428571428571" width="840" height="26.857142857142858" rx="0"/><text class="f-s" x="72.0" y="291.57142857142856">输出</text><text class="f-s" x="282.0" y="291.57142857142856">10</text><text class="f-s" x="492.0" y="291.57142857142856">84×10</text><text class="f-s" x="702.0" y="291.57142857142856">850</text><text class="f-s" x="60" y="328.0">合计 61,706；按原始稀疏连接口径为 60,850，差在 C3 与 S 层系数。</text>
+</svg>

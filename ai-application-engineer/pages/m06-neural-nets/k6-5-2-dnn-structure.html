@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.5.2 深度神经网络的结构 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出「输入层—隐藏层—输出层」的骨架，并说清每层有没有参数。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-5-deep-learning.html">6.5 深度学习、深度神经网络与正向传播</a><span class="sep">/</span><span class="here">6.5.2 深度神经网络的结构</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.5</span>
+    <span class="tag">知识点 6.5.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>深度神经网络的结构</h1>
+  <p class="lede">一个 DNN 的说明书只有三件事：几层、每层多宽、一共多少参数。参数量算错，后面显存和过拟合的判断都会跟着错。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出「输入层—隐藏层—输出层」的骨架，并说清每层有没有参数。</li><li>能按 n(out)×(n(in)+1) 逐层算出参数量，并能求和。</li><li>能解释「宽度翻倍、参数变四倍」，并据此判断模型是不是太大了。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>第三轮就过拟合</h2>
+<p>实习生的第一个模型：28×28 的手写数字，展平成 784，直接接 512 个单元，再出 10 类。他一算就兴奋：第一层 784×512 加 512 个偏置，约 40.2 万个参数，比书上那些模型都大。</p>
+<p>训练集只有 2000 张。第三轮训练准确率 0.99，验证准确率 0.81，之后验证一路回头。改成 784→128→64→10 之后，参数降到 10 万多，训练准确率 0.94，验证反而到 0.91。</p>
+<p class="ask">参数更多，为什么反而更差？</p>
+<p>因为在 2000 个样本上，40 万个参数足够把训练集「背下来」。问题不是网络学不会，而是它学的东西没有推广价值——这一点，从参数量这个数字上就能提前看出来。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三层的骨架</h2>
+<p>把网络横过来看，就是一条从左到右的带子：最左边是输入，最右边是输出，中间是可以有很多层的隐藏层。每一层是一排单元，排与排之间两两相连。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个三层全连接网络长什么样">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">一个三层全连接网络长什么样</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">输入层 784</text><text class="f-s" x="430" y="87.0">28×28 展平，不含参数</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">隐藏层 128</text><text class="f-s" x="430" y="151.0">784×128 + 128</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">隐藏层 64</text><text class="f-s" x="430" y="215.0">128×64 + 64</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">输出层 10</text><text class="f-s" x="430" y="279.0">64×10 + 10</text><text class="f-s" x="120" y="336">参数量逐层相加：100,480 + 8,256 + 650 = 109,386。</text>
+</svg><figcaption><b>图 6-24　一个三层全连接网络长什么样</b>　参数量逐层相加：100,480 + 8,256 + 650 = 109,386。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>输入层只是把数据摆好，不产生参数；参数全部长在「连线」上。所以数参数量，就是数每两层之间的连线条数加上偏置。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>层、宽、深</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>本页取值</th><th>有没有参数</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>输入层</td><td>784</td><td>没有</td><td>28×28 展平，只是形状转换</td></tr>
+    <tr><td>隐藏层 1</td><td>128</td><td>784×128 + 128</td><td>激活函数作用在这里</td></tr>
+    <tr><td>隐藏层 2</td><td>64</td><td>128×64 + 64</td><td>逐层变窄是常见做法</td></tr>
+    <tr><td>输出层</td><td>10</td><td>64×10 + 10</td><td>多分类配 softmax</td></tr>
+  </tbody>
+</table>
+</div>
+<p>参数量公式一行就够：<code>n(out) × (n(in) + 1)</code>，那个 +1 是偏置。整个网络把各层相加即可。</p>
+<p>「深度」有两种口径。教材常说「深度 = 隐藏层数 + 1」（把输出层也算进去），也有按隐藏层数计的。本课程统一按前者，并注明这是口径而非定理——考试遇到时看题目怎么定义。</p>
+<p>「宽度」指单层单元数，不是总和。一个 128 + 64 的网络，宽度不是一个 192。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>从公式到代码</h2>
+<p>每层做两件事：先用矩阵乘加算出预激活 <code>z = Wh + b</code>，再过激活 <code>h' = f(z)</code>。批量计算时把样本按行摞起来，矩阵乘一次算完一批。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>dnn_params.py</span></div>
+<pre><code>import keras
+from keras import layers
+
+model = keras.Sequential([
+    layers.Input((784,)),
+    layers.Dense(128, activation=&quot;relu&quot;, name=&quot;h1&quot;),
+    layers.Dense(64, activation=&quot;relu&quot;, name=&quot;h2&quot;),
+    layers.Dense(10, activation=&quot;softmax&quot;, name=&quot;out&quot;),
+])
+
+widths = [784, 128, 64, 10]
+for i in range(1, len(widths)):
+    print(widths[i], &quot;x&quot;, widths[i - 1], &quot;+&quot;, widths[i],
+          &quot;=&quot;, widths[i] * (widths[i - 1] + 1))
+print(&quot;总参数:&quot;, sum(widths[i] * (widths[i - 1] + 1)
+                    for i in range(1, len(widths))))</code></pre>
+</div>
+<p>逐层对账：784×128 + 128 = 100,480；128×64 + 64 = 8,256；64×10 + 10 = 650。三项相加 109,386。</p>
+<p>代码里 <code>widths</code> 这个列表就是结构本身：改了它，<code>Dense</code> 的单元数跟着改，参数量公式也跟着变。所以读别人代码时，先找这个列表，再算参数量，比看 <code>summary()</code> 更快。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三处最容易算错</h2>
+<p>同一套结构，三种常见算法得出三个数：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">漏偏置</span><h3>108,864</h3><p>只数权重 100,352 + 8,192 + 640，少了 3 层共 1,042 个偏置。偏置很少，但它一样占显存、一样要学。</p></div>
+  <div class="card mini"><span class="mini-tag">算对</span><h3>109,386</h3><p>每层都是 n(out)×(n(in)+1)，三项相加。这个数才是 <code>model.count_params()</code> 会还给你的值。</p></div>
+  <div class="card mini"><span class="mini-tag">宽度翻倍</span><h3>407,050</h3><p>784→512→10：512×785 + 10×513。宽度从 128 到 512 是四倍，参数也接近四倍。</p></div>
+</div>
+<p>第一处错在「偏置不算参数」，第二处错在「把输入层也当成一层参数」，第三处错在把宽度和参数量当成线性关系。全连接层的参数是「输入宽 × 输出宽」，两头都变，所以宽度翻倍，参数量变四倍。</p>
+<p>深度口径的混淆更隐蔽：把 784→128→64→10 叫「四层网络」还是「三层网络」，取决于算不算输入层。写论文时注明口径，别在答辩里被追问。</p>
+<div class="callout callout--warn">
+  <span class="c-label">参数量不等于容量</span>
+  <p>同样的参数量，深的网络能拼出更复杂的边界（见 <a href="../m06-neural-nets/k6-5-4-why-deep-demo.html">深度学习为什么有效</a>）。参数量只回答「能背多少」，不回答「能推广多少」。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算两个结构的账</h2>
+<p><strong>任务：</strong>按 n(out)×(n(in)+1) 填表，单位是参数个数。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>结构</th><th>第 1 层</th><th>第 2 层</th><th>输出层</th><th>合计</th></tr></thead>
+  <tbody>
+    <tr><td>784→256→10</td><td>？</td><td>—</td><td>？</td><td>？</td></tr>
+    <tr><td>784→64→64→10</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 把 784→128→64→10 的第一层从 128 改到 256，参数量大约变成多少倍？② 如果输出改成 100 类，哪一层变、变多少？</p>
+<p><strong>验收：</strong>两行都能给出逐层数字与合计，并能说出「+1 是偏置」。结构确定之后，才谈得上初始化与训练，见 <a href="../m06-neural-nets/k6-5-3-forward-prop.html">前向传播</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-5-3-forward-prop.html">6.5.3 前向传播：一层层算到输出</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-5-1-deep-learning.html"><span class="p-label">← 上一知识点 6.5.1</span><span class="p-title">深度学习：用多层表示学习</span></a><a class="next" href="k6-5-3-forward-prop.html"><span class="p-label">下一知识点 6.5.3 →</span><span class="p-title">前向传播：一层层算到输出</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)20 · 深度神经网络的结构</dd>
+    <dt>页面编号 / 路径</dt><dd>6.5.2 ｜ <span class="path">pages/m06-neural-nets/k6-5-2-dnn-structure.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-5-1-deep-learning.html"><b>6.5.1</b>深度学习：用多层表示学习</a><a class="xlink" href="k6-5-3-forward-prop.html"><b>6.5.3</b>前向传播：一层层算到输出</a><a class="xlink" href="k6-6-1-feedforward.html"><b>6.6.1</b>前馈与全连接</a><a class="xlink" href="k6-5-4-why-deep-demo.html"><b>6.5.4</b>深度学习为什么有效</a><a class="xlink" href="u6-5-deep-learning.html"><b>6.5</b>深度学习、深度神经网络与正向传播（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-5-2（本页图 6-24，图注参数已按 784→128→64→10 重算）；知识库 M06-S2-02。 ｜ 知识库条目：M06-S2-02《深度神经网络》（filled） ｜ 参考来源：S53《深度学习》第 6 章；S84 Glorot & Bengio 2010；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

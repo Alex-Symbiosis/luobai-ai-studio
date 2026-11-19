@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3.1 数据集、特征与标签：先认领角色 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能在一张数据表中正确标出样本、特征、标签三类角色。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-3-datasets.html">3.3 数据集、特征、标签与三个划分</a><span class="sep">/</span><span class="here">3.3.1 数据集、特征与标签：先认领角色</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.3</span>
+    <span class="tag">知识点 3.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>数据集、特征与标签：先认领角色</h1>
+  <p class="lede">同一张房价表，预测成交价时「成交价」是标签；预测「是否成交」时它只是一个普通特征，甚至是会泄漏答案的危险特征。角色不是列自带的，是任务赋予的。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能在一张数据表中正确标出样本、特征、标签三类角色。</li><li>能说出结构化、非结构化与时序数据在建模上的主要差异。</li><li>能判断某一列在给定任务下是特征、标签，还是必须排除的泄漏源。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一张表，三种问法</h2>
+<p>学校后勤有一张宿舍用电表：房间号、楼栋、楼层、入住人数、是否装了空调、月度用电量、是否报修。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">问法 A</span><h3>预测下月用电量</h3><p>用电量是标签，其余列是候选特征。</p></div>
+  <div class="card mini"><span class="mini-tag">问法 B</span><h3>预测是否报修</h3><p>报修是标签；用电量可以作为特征，但要注意它是否在报修前就能拿到。</p></div>
+  <div class="card mini"><span class="mini-tag">问法 C</span><h3>找出异常房间</h3><p>没有标签，用电量变成「用来定义异常的特征」。</p></div>
+</div>
+<p class="ask">同一列在不同问法里角色完全不同。建模前不认领角色，后面所有的评估都不可信。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一张表就是一张成绩单</h2>
+<p>成绩单有表头（列名）、每一行是一个学生（样本）、每一格是一个观测值。学习任务就是问：能不能用其中几列，推出另一列。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一张表里，每一列都要先认领角色">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">一张表里，每一列都要先认领角色</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">表头</text><text class="f-t" x="212.0" y="98">面积</text><text class="f-t" x="352.0" y="98">楼层</text><text class="f-t" x="492.0" y="98">装修</text><text class="f-t" x="632.0" y="98">成交价</text><text class="f-t" x="772.0" y="98">备注</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">角色</text><text class="f-s" x="212.0" y="139.0">特征</text><text class="f-s" x="352.0" y="139.0">特征</text><text class="f-s" x="492.0" y="139.0">特征（类别）</text><text class="f-s" x="632.0" y="139.0">标签</text><text class="f-s" x="772.0" y="139.0">无关/泄漏风险</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">类型</text><text class="f-s" x="212.0" y="183.0">连续数值</text><text class="f-s" x="352.0" y="183.0">有序数值</text><text class="f-s" x="492.0" y="183.0">无序类别</text><text class="f-s" x="632.0" y="183.0">连续数值</text><text class="f-s" x="772.0" y="183.0">文本</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">处理</text><text class="f-s" x="212.0" y="227.0">可直接用</text><text class="f-s" x="352.0" y="227.0">可保留序</text><text class="f-s" x="492.0" y="227.0">需编码</text><text class="f-s" x="632.0" y="227.0">只作目标</text><text class="f-s" x="772.0" y="227.0">先审查再决定</text><text class="f-s" x="60" y="272">特征与标签的角色由任务决定：预测成交价时它是标签，预测是否成交时它只是特征。</text>
+</svg><figcaption><b>图 3-11　同一张表里，每一列都要先认领角色</b>　角色由任务决定，不由列名决定。认错角色，最常见的后果就是把标签本身的代理变量当成特征。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>先问「我要预测哪一列」，再问「哪些列在预测时刻真的拿得到」。两个问题的答案共同决定特征集合。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个基本概念</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>定义</th><th>房价表里的对应</th></tr></thead>
+  <tbody>
+    <tr><td>样本（sample）</td><td>一条独立观测，通常是一行</td><td>一套已成交的房子</td></tr>
+    <tr><td>特征（feature）</td><td>描述样本的可测量属性，通常是一列</td><td>面积、楼层、房龄、距地铁距离</td></tr>
+    <tr><td>标签（label）</td><td>要预测的目标值</td><td>成交价</td></tr>
+    <tr><td>标注（annotation）</td><td>人工或规则赋予标签的过程</td><td>从成交合同提取成交价</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>数据集是按样本组织起来的特征与标签的集合；特征是输入侧的观测，标签是输出侧的目标，标注是产生标签的过程。</p>
+</div>
+<p>数据类型决定特征处理方式：<strong>结构化</strong>（表格）以数值与类别为主；<strong>非结构化</strong>（图像、文本、音频）需要先转成向量；<strong>时序</strong>必须保留时间顺序，不能随机打乱。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>特征有四种类型，标签只有两种</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>例子</th><th>常见处理</th><th>易犯的错</th></tr></thead>
+  <tbody>
+    <tr><td>连续数值</td><td>面积、金额</td><td>标准化、分箱</td><td>把量纲差异当成重要性</td></tr>
+    <tr><td>无序类别</td><td>楼栋、专业</td><td>独热 / 目标编码</td><td>直接编号成 1、2、3</td></tr>
+    <tr><td>有序类别</td><td>学历、满意度</td><td>保留顺序的编码</td><td>当无序类别打散</td></tr>
+    <tr><td>时间</td><td>下单时间</td><td>拆成周期特征</td><td>直接当连续数值回归</td></tr>
+  </tbody>
+</table>
+</div>
+<p>标签侧只有两种基本形态：离散（分类）与连续（回归）。但同一个业务目标可以有两种标注方式——「是否逾期」与「逾期金额」，选哪一种取决于你要做的决策。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>房价表逐列认领</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>列</th><th>角色</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>面积、房龄、楼层</td><td>特征</td><td>成交前已知</td></tr>
+    <tr><td>小区均价</td><td>特征（需谨慎）</td><td>若含本套房成交价，会泄漏</td></tr>
+    <tr><td>挂牌价</td><td>特征</td><td>成交前已知，但与标签高度相关，需检查是否合理</td></tr>
+    <tr><td>成交价</td><td>标签</td><td>预测目标</td></tr>
+    <tr><td>成交日期</td><td>特征或排除</td><td>做时间切分时用于排序，不直接入模</td></tr>
+    <tr><td>中介备注</td><td>待审查</td><td>文本里可能直接写了成交价</td></tr>
+  </tbody>
+</table>
+</div>
+<p>最后一行是真实项目里最常见的坑：一段自由文本里藏着答案。<strong>非结构化列必须抽查内容</strong>，不能只看列名。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给一张表标角色</h2>
+<p><strong>任务：</strong>下面是校园卡流水表的字段。为「预测学生下月是否透支」这个任务，逐列标出「特征 / 标签 / 排除」，并写理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>字段</th><th>角色</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>学号</td><td></td><td></td></tr>
+    <tr><td>月消费总额</td><td></td><td></td></tr>
+    <tr><td>充值次数</td><td></td><td></td></tr>
+    <tr><td>是否透支（下月）</td><td></td><td></td></tr>
+    <tr><td>本月是否已透支</td><td></td><td></td></tr>
+    <tr><td>补助发放金额</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 这一列在预测时刻真的拿得到吗？② 它是不是标签的代理（和标签几乎同义）？③ 它会不会把测试集信息带进训练？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「列越多越好」不成立。多一列泄漏特征，比少十列普通特征危害更大——它会让离线指标看起来很漂亮。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-3-2-three-splits.html">3.3.2 训练集、验证集与测试集</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-2-5-paradigm-choice.html"><span class="p-label">← 上一知识点 3.2.5</span><span class="p-title">范式选择：先看信号，再选方法</span></a><a class="next" href="k3-3-2-three-splits.html"><span class="p-label">下一知识点 3.3.2 →</span><span class="p-title">训练集、验证集与测试集</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 数据集、特征、标签</dd>
+    <dt>页面编号 / 路径</dt><dd>3.3.1 ｜ <span class="path">pages/m03-ml-basics/k3-3-1-dataset-roles.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-3-2-three-splits.html"><b>3.3.2</b>训练集、验证集与测试集</a><a class="xlink" href="k3-3-4-leakage.html"><b>3.3.4</b>数据泄漏：四种让指标虚高的写法</a><a class="xlink" href="k3-5-1-feature-engineering.html"><b>3.5.1</b>特征工程：把原始数据变成可学的信号</a><a class="xlink" href="u3-3-datasets.html"><b>3.3</b>数据集、特征、标签与三个划分（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-3-1-a.svg（本页图 3-11）。 ｜ 知识库条目：M03-S1-07《数据集、特征和标签的概念》（filled） ｜ 参考来源：S41 scikit-learn《Data representation》；S64 Han et al.《Data Mining》；S58 NIST e-Handbook</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

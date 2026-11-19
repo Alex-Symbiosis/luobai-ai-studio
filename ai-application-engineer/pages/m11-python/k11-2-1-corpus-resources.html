@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.2.1 语料与词汇资源：NLTK 的数据入口 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分语料库、生语料、标注语料与词汇资源。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-2-corpus.html">11.2 文本获取与词汇资源</a><span class="sep">/</span><span class="here">11.2.1 语料与词汇资源：NLTK 的数据入口</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.2</span>
+    <span class="tag">知识点 11.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>语料与词汇资源：NLTK 的数据入口</h1>
+  <p class="lede">同样叫「数据」，语料库与词汇资源回答的是两个问题：真实语言长什么样，一个词有哪些属性。混着用，词表会膨胀，指标也解释不清。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分语料库、生语料、标注语料与词汇资源。</li><li>能说清语料库的四项构成：文本、元数据、标注、说明。</li><li>能用标准库遍历分体裁语料并统计词例与词型。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两份「词表」，用途不同</h2>
+<p>做情感分析前，两个小组各自准备了一份「数据」：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">小组 A</span><h3>把评论全丢进一个 txt</h3><p>五万条评论拼成一个文件，没有来源、时间、类别；统计词频时只能得到一份混合分布，分不出「退货」在售前与售后语境下的差异。</p></div>
+  <div class="card mini"><span class="mini-tag">小组 B</span><h3>按体裁分目录，另配词表</h3><p>评论按品类与时间分文件，附来源与采集日期；另接入停用词表与领域词典，过滤与扩展各司其职。</p></div>
+</div>
+<p class="ask">两份数据的规模可能一样，为什么只有 B 能支撑分析？</p>
+<p>因为语料库的价值在结构，不在体积；词表的价值在属性，不在词多。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>原料与工具书</h2>
+<p>厨房里，食材与菜谱是两样东西：食材决定能做什么菜，菜谱决定怎么做；缺一样都开不了火。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="两类数据入口，用途不同">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">两类数据入口，用途不同</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">语料库（corpus）</text><text class="f-s" x="80" y="108">· 大规模真实文本的集合</text><text class="f-s" x="80" y="138">· 按体裁、来源、年代组织</text><text class="f-s" x="80" y="168">· 回答：真实语言长什么样</text><text class="f-s" x="80" y="198">· 例：新闻、对话、短信</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">词汇资源（lexicon）</text><text class="f-s" x="530" y="108">· 词表、停用词、词典、同义词</text><text class="f-s" x="530" y="138">· 结构化、可检索</text><text class="f-s" x="530" y="168">· 回答：一个词有哪些属性</text><text class="f-s" x="530" y="198">· 例：WordNet、停用词表</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 11-5　语料是文本，词汇资源是结构</b>　左边是真实文本的集合，右边是词条属性的集合；前者提供分布，后者提供约束。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>语料库回答「语言实际怎么用」，词汇资源回答「这个词是什么」；建模时两者配合，缺一不可。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个词，一条边界</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>定义</th><th>判断要点</th></tr></thead>
+  <tbody>
+    <tr><td>语料库</td><td>按原则组织、可复用的文本集合</td><td>有目的、有结构、有说明</td></tr>
+    <tr><td>生语料</td><td>只含文本，没有标签</td><td>能做统计，不能直接做监督训练</td></tr>
+    <tr><td>标注语料</td><td>附词性、句法、语义等标签</td><td>标注规范决定可比性</td></tr>
+    <tr><td>词汇资源</td><td>词典、同义词集、停用词表、领域词表</td><td>提供归一、扩展与过滤</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四个要素缺一不可：文本是内容，元数据（体裁、来源、时间、作者、语言）是分析维度，标注是监督信号，说明文档是复现依据。只有文本，只是一堆文件；缺元数据，无法分层统计；缺标注，只能做无监督。</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「语料越多越好」不成立。代表性不足时，增加同源文本只会放大偏差；新闻语料再多，也代表不了口语。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>用标准库搭一个临时语料库</h2>
+<p>下面这段只依赖标准库，把三篇文本写进临时目录，再按文件统计；保存为 <code>corpus_demo.py</code>：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>corpus_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：临时语料库 + 词型/词例统计（仅标准库）。&quot;&quot;&quot;
+import re
+import tempfile
+from collections import Counter
+from pathlib import Path
+
+DOCS = {
+    &quot;news/news1.txt&quot;: &quot;The cat sat on the mat. The dog sat on the log.&quot;,
+    &quot;news/news2.txt&quot;: &quot;A cat and a dog played in the yard.&quot;,
+    &quot;fiction/fiction1.txt&quot;: &quot;The robot dreamed of electric cats and dogs.&quot;,
+}
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp) / &quot;corpus&quot;
+    for rel, content in DOCS.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding=&quot;utf-8&quot;)
+
+    vocab: Counter[str] = Counter()
+    per_file: dict[str, Counter[str]] = {}
+    for path in sorted(root.rglob(&quot;*.txt&quot;)):
+        words = re.findall(r&quot;[a-z]+&quot;, path.read_text(encoding=&quot;utf-8&quot;).lower())
+        per_file[path.name] = Counter(words)
+        vocab.update(words)
+
+    print(&quot;文件数:&quot;, len(per_file))
+    print(&quot;词例总数:&quot;, sum(vocab.values()))
+    print(&quot;词型总数:&quot;, len(vocab))
+    print(&quot;the 出现次数:&quot;, vocab[&quot;the&quot;])
+    print(&quot;news1 高频词:&quot;, per_file[&quot;news1.txt&quot;].most_common(2))
+    assert vocab[&quot;the&quot;] == 6</code></pre>
+</div>
+<p>三个设计点值得注意：<code>parent.mkdir(parents=True)</code> 让子目录自动创建；<code>rglob("*.txt")</code> 递归遍历，按路径排序保证结果稳定；<code>vocab.update</code> 把每篇的计数合并成全局词表，同时保留 <code>per_file</code> 供分体裁比较。</p>
+<p>临时目录在 <code>with</code> 结束时自动删除，所以脚本可以反复运行而不留垃圾；真实项目里换成固定数据目录，并额外记录来源与许可。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与三个读数</h2>
+<p>在 Python 3.13.14 下运行，输出为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>文件数: 3
+词例总数: 29
+词型总数: 18
+the 出现次数: 6
+news1 高频词: [(&#x27;the&#x27;, 4), (&#x27;sat&#x27;, 2)]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>29 与 18</h3><p>词例是出现次数，词型是不同词形；两者相差 11，说明重复不少。词汇量通常指词型数。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>the 占 6 次</h3><p>三个文件里 the 共出现 6 次；单看 news1 是 4 次，全局与分体裁是两个口径。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>news1 第二位是 sat</h3><p>去掉 the 之后，sat 才是内容词里的高频项；不过滤虚词，Top 榜会被功能词占满。</p></div>
+</div>
+<p>把 <code>per_file</code> 按体裁汇总，就能回答「新闻与小说的高频词是否不同」；这正是元数据存在的意义。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>加一篇，先算再跑</h2>
+<p><strong>任务：</strong>在 <code>DOCS</code> 里新增 <code>"news/news3.txt": "A dog and a cat nap."</code>，先手算下面四项，再运行核对。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>观察项</th><th>你的手算</th><th>核对点</th></tr></thead>
+  <tbody>
+    <tr><td>文件数</td><td></td><td>是否变成 4</td></tr>
+    <tr><td>词例总数</td><td></td><td>逐词累加，别漏标点后的词</td></tr>
+    <tr><td>词型总数</td><td></td><td>哪些词是新增词型</td></tr>
+    <tr><td>the 出现次数</td><td></td><td>新文件没有 the，断言是否仍成立</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果把 <code>rglob</code> 改成 <code>glob</code>，文件数会变成多少？② 为什么脚本要先 <code>sorted</code> 再遍历？不排序会影响哪个输出？</p>
+<p><strong>验收：</strong>手算与实测一致，并能解释「断言 <code>vocab["the"] == 6</code> 为什么仍然通过」。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-2-2-token-type.html">11.2.2 token 与 type：词频统计的两个口径</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-1-4-debug-demo.html"><span class="p-label">← 上一知识点 11.1.4</span><span class="p-title">读报错栈与调试</span></a><a class="next" href="k11-2-2-token-type.html"><span class="p-label">下一知识点 11.2.2 →</span><span class="p-title">token 与 type：词频统计的两个口径</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)2① · 获得文本语料和词汇资源</dd>
+    <dt>页面编号 / 路径</dt><dd>11.2.1 ｜ <span class="path">pages/m11-python/k11-2-1-corpus-resources.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-2-2-token-type.html"><b>11.2.2</b>token 与 type：词频统计的两个口径</a><a class="xlink" href="k11-2-3-preprocess.html"><b>11.2.3</b>原始文本处理：分词、规范化与停用词</a><a class="xlink" href="k11-5-1-corpus-structure.html"><b>11.5.1</b>语料库的结构</a><a class="xlink" href="u11-2-corpus.html"><b>11.2</b>文本获取与词汇资源（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-2-1（本页图 11-5）；知识库 M11-S1-03、M11-S2-01。 ｜ 知识库条目：M11-S1-03《计算语言的概念》（filled）、M11-S2-01《获得文本语料和词汇资源》（filled） ｜ 参考来源：S120《The Python Tutorial》(3.13)；S129 pathlib；S124 collections；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

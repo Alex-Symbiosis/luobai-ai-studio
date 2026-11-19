@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.4.5 时间序列思维：把「现在」放回「趋势」 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出趋势、季节、周期、异常四成分各看什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-4-big-data-thinking.html">8.4 大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环</a><span class="sep">/</span><span class="here">8.4.5 时间序列思维：把「现在」放回「趋势」</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.4</span>
+    <span class="tag">知识点 8.4.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>时间序列思维：把「现在」放回「趋势」</h1>
+  <p class="lede">三月比二月涨了 16%，可能只是春节过完了；放回趋势和季节里，才知道是真涨还是假涨。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出趋势、季节、周期、异常四成分各看什么。</li><li>能判断一个指标该看同比还是环比，并说出适用条件。</li><li>能用三个月的数据算同比、环比，解释两者方向相反的原因。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>环比涨，同比跌</h2>
+<p>运营月报：三月销量 880 万，二月 760 万，环比 +15.8%，标题写「强劲反弹」。</p>
+<p>财务翻出去年：去年三月 900 万，同比 -2.2%。同一组数，两个方向。再往前看，2024 年春节在 2 月 10 日，2025 年在 1 月 29 日——二月本来就是低点，三月回升是常态。</p>
+<p>数字都没算错，错的是把「季节性的回升」当成了「业务的增长」。</p>
+<p class="ask">环比说涨、同比说跌，哪个才算数？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一条线里住着四样东西</h2>
+<p>一条月度序列里同时住着四样东西：<strong>趋势</strong>（长期往上还是往下）、<strong>季节</strong>（每年同月重复的起伏）、<strong>周期</strong>（比季节更长、不固定的起伏）、<strong>异常</strong>（某几个点不合群）。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一条序列，拆成四件事看">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">一条序列，拆成四件事看</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">看什么</text><text class="f-t" x="352.0" y="98">问句</text><text class="f-t" x="632.0" y="98">常用做法</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">趋势</text><text class="f-s" x="352.0" y="139.0">长期在往上还是往下</text><text class="f-s" x="632.0" y="139.0">移动平均、拟合趋势线</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">季节</text><text class="f-s" x="352.0" y="183.0">每年同月是否重复</text><text class="f-s" x="632.0" y="183.0">同比、季节指数</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">周期</text><text class="f-s" x="352.0" y="227.0">有没有更长的起伏</text><text class="f-s" x="632.0" y="227.0">多年对比、周期分解</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">异常</text><text class="f-s" x="352.0" y="271.0">哪几个点不合群</text><text class="f-s" x="632.0" y="271.0">残差、阈值、人工核查</text><text class="f-s" x="60" y="316">先剥趋势和季节，剩下的才叫异常；直接指着最高点喊异常，常常只是季节。</text>
+</svg><figcaption><b>图 8-37　一条序列，拆成四件事看</b>　先剥趋势和季节，剩下的才叫异常；直接指着最高点喊异常，常常只是季节。</figcaption></figure>
+<p>看图的方法固定：先剥趋势，再剥季节，剩下的才叫异常。直接指着最高点喊异常，十次有八次只是大促或春节。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="趋势在涨，季节在起伏">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">趋势在涨，季节在起伏</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 250 L178 268 L246 230 L314 238 L382 210 L450 224 L518 196 L586 208 L654 186 L722 200 L790 140 L858 176" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">月度销量</text><path d="M110 244 L246 232 L382 218 L518 204 L654 190 L790 176 L858 164" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">趋势线</text><circle class="f-pt" cx="790" cy="140" r="6"/><text class="f-s" x="800" y="132">尖峰：先查大促</text><circle class="f-pt" cx="178" cy="268" r="6"/><text class="f-s" x="188" y="260">春节回落</text><text class="f-s" x="880" y="322" text-anchor="end">月份 →</text><text class="f-s" x="92" y="66" text-anchor="end">销量</text><text class="f-s" x="100" y="340">剥掉趋势与季节再看那个尖峰，才谈得上「异常」。</text>
+</svg><figcaption><b>图 8-38　趋势在涨，季节在起伏</b>　斜线是趋势，锯齿是季节；尖峰先查大促，凹口先用春节解释。</figcaption></figure>
+<p>解释不掉的那一点，才值得立案查。顺序反了，就会把每个正常起伏都当成问题。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四成分与两种比较</h2>
+<p><strong>时间序列</strong>是按时间顺序排列的同一指标观测值。常用分解：加法模型 y = T + S + C + I，乘法模型 y = T × S × C × I。季节波动幅度随整体水平放大时用乘法，否则用加法。</p>
+<p><strong>同比</strong> = 本期 ÷ 去年同月 − 1，消掉以年为周期的季节影响；<strong>环比</strong> = 本期 ÷ 上一期 − 1，反映最近一次变化，但含季节。</p>
+<p>适用条件：强季节业务（零售、旅游、教育）看同比，或看季节调整后的环比；季节弱的指标（日活、留存）可以看环比；基期本身异常（疫情、大促、系统故障）时，同比环比都会失真，要换基期或直接标注不可比。</p>
+<div class="callout callout--warn">
+  <span class="c-label">口径说明</span>
+  <p>方法论，非学术共识。分解模型是统计工具，但「该看同比还是环比」是业务判断，没有统一答案；写结论时必须把比较口径一起写出来。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>拆序列五步</h2>
+<p>①画图，至少 24 个月，先看形状。②估趋势，用 12 期移动平均或拟合趋势线。③算季节指数，同月均值 ÷ 全期均值。④去季节，实际值 ÷ 季节指数，得到季调值。⑤看残差，把残差超过 2 到 3 倍标准差的点列为候选异常，逐个查业务事件。</p>
+<p>季节性强度可以先测一下：各月季节指数的最大值减最小值，差距小于 5% 的指标，同比环比差别不大；差距 20% 以上，环比基本不能用。</p>
+<p>还有一个坑：口径变更。中途换过统计系统、改过退款计入方式，序列在变更点会跳一下，那不是趋势，是断点。断点前后的数不能直接算同比，要么补算旧口径，要么在图上断开。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个月，两个方向</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>月份</th><th>2024</th><th>2025</th><th>同比</th><th>环比</th></tr></thead>
+  <tbody>
+    <tr><td>1 月</td><td>1,000</td><td>950</td><td>-5.0%</td><td>—</td></tr>
+    <tr><td>2 月</td><td>620</td><td>760</td><td>+22.6%</td><td>-20.0%</td></tr>
+    <tr><td>3 月</td><td>900</td><td>880</td><td>-2.2%</td><td>+15.8%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>二月同比 +22.6%，三月同比 -2.2%：春节错位把增速在两个月之间挪了一下，单看某一个月都会误判。把一季度合起来：2025 年 2,590，2024 年同期 2,520，+2.8%，这才是比较稳的读数。</p>
+<p>季节指数示例：若三月季节指数 1.15，实际 880，季调值 = 880 ÷ 1.15 ≈ 765；与二月季调后的数比，才是「去掉季节」的变化。</p>
+<p>异常示例：某月单周销量 320，周均 220，先查大促排期与补录，再谈异常。以上为手算示例，数字为讲解构造。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>先画图，再算两个数</h2>
+<p><strong>任务：</strong>取一个指标 24 个月的数据，画出趋势线，算最近三个月的同比与环比，标出至少两个候选异常并写核查结论（大促 / 口径变更 / 真异常）。</p>
+<p><strong>追问：</strong>① 什么情况下环比会系统性高估？② 季节指数为什么用同月均值？③ 口径变更点前后的数据怎么处理？</p>
+<p><strong>验收：</strong>同比环比都算对，且能说出该用哪个、为什么；异常有业务解释，或明确标注「未查明」。下一步把比较变公平、把行动收回来，见 <a href="../m08-data-mining/k8-4-6-index-closed-loop.html">指数化与闭环：让比较公平，让行动可回收</a>；探索性分析里的趋势图与清洗口径，见 <a href="../m03-ml-basics/u3-4-eda-cleaning.html">探索性分析与数据清洗</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-4-6-index-closed-loop.html">8.4.6 指数化与闭环：让比较公平，让行动可回收</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-4-4-logic-tree.html"><span class="p-label">← 上一知识点 8.4.4</span><span class="p-title">逻辑树思维：把大问题拆成可验证的小问题</span></a><a class="next" href="k8-4-6-index-closed-loop.html"><span class="p-label">下一知识点 8.4.6 →</span><span class="p-title">指数化与闭环：让比较公平，让行动可回收</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)4 · 时间序列思维</dd>
+    <dt>页面编号 / 路径</dt><dd>8.4.5 ｜ <span class="path">pages/m08-data-mining/k8-4-5-time-series-thinking.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-4-6-index-closed-loop.html"><b>8.4.6</b>指数化与闭环：让比较公平，让行动可回收</a><a class="xlink" href="k8-4-3-funnel-thinking.html"><b>8.4.3</b>漏斗思维：看每一步漏在哪</a><a class="xlink" href="k8-4-4-logic-tree.html"><b>8.4.4</b>逻辑树思维：把大问题拆成可验证的小问题</a><a class="xlink" href="u8-4-big-data-thinking.html"><b>8.4</b>大数据思维七件套：信度效度、分类、漏斗、逻辑树、时间序列、指数化、闭环（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-4-5（本页图 8-37）、k8-4-5-b（图 8-38）；知识库 M08-S3-05《时间序列思维的概念及特点》（filled）。 ｜ 知识库条目：M08-S3-05《时间序列思维的概念及特点》（filled） ｜ 参考来源：时间序列四成分分解参考 Hyndman & Athanasopoulos《Forecasting: Principles and Practice》；季节指数与移动平均为通用做法；本页图为自绘，案例数字为讲解构造。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

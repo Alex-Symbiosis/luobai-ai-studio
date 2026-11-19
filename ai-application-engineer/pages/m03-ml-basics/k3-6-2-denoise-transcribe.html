@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.6.2 去噪与转录：一个保形，一个换形 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按输入输出形态区分去噪与转录。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-6-task-map.html">3.6 常见任务地图：分类、回归、去噪、转录、机器翻译、异常检测、结构化输出</a><span class="sep">/</span><span class="here">3.6.2 去噪与转录：一个保形，一个换形</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.6</span>
+    <span class="tag">知识点 3.6.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>去噪与转录：一个保形，一个换形</h1>
+  <p class="lede">老照片修复和语音转文字，输入都是「不完美的信号」，但输出完全不同：前者要还原成同样形状的干净信号，后者要变成另一种形态的符号序列。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按输入输出形态区分去噪与转录。</li><li>能为两类任务各选一个可计算的评价指标。</li><li>能说明「去噪 + 转录」串联时误差如何累积。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>老照片修复和语音转文字是一类吗</h2>
+<p>两个项目同时立项：一个修复模糊的档案扫描件，一个把客服录音转成文字。都被叫作「AI 识别」，都被要求「越准越好」。</p>
+<p class="ask">「准」在这两个项目里，是同一个意思吗？</p>
+<p>不是。修复要的是「像素接近原图」，转录要的是「文字内容对得上」。评价对象不同，方法也不同。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>擦掉污渍 vs 听写</h2>
+<p>擦掉照片上的污渍，纸还是那张纸，只是干净了；听写一段录音，声音变成了文字，形态已经换了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="去噪与转录：一个保形，一个换形">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">去噪与转录：一个保形，一个换形</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">去噪：同形恢复</text><text class="f-s" x="80" y="108">· 输入是带噪信号（图 / 音频）</text><text class="f-s" x="80" y="138">· 输出与输入同维度、同结构</text><text class="f-s" x="80" y="168">· 目标：尽量接近干净的原信号</text><text class="f-s" x="80" y="198">· 评价：PSNR、SNR、下游任务分数</text><text class="f-s" x="80" y="228">· 例：老照片修复、语音降噪</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">转录：换形转换</text><text class="f-s" x="530" y="108">· 输入是信号，输出是符号序列</text><text class="f-s" x="530" y="138">· 输出与输入维度不同（音频→文字）</text><text class="f-s" x="530" y="168">· 目标：内容对，不要求波形一致</text><text class="f-s" x="530" y="198">· 评价：字错率 CER、词错率 WER</text><text class="f-s" x="530" y="228">· 例：语音转写、扫描件 OCR</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 3-27　去噪与转录的输入输出对照</b>　去噪保持维度与结构，转录改变形态；一个用信号相似度评价，一个用字词错误率评价。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>去噪是「同形恢复」，转录是「换形转换」。判断类型只看一件事：输出和输入是不是同一种东西。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两类任务的形式化</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>去噪</th><th>转录</th></tr></thead>
+  <tbody>
+    <tr><td>输入</td><td>带噪信号（图像、音频）</td><td>信号（音频、扫描件）</td></tr>
+    <tr><td>输出</td><td>同维度的干净信号</td><td>符号序列（文字）</td></tr>
+    <tr><td>目标</td><td>逼近真实信号</td><td>内容与语义正确</td></tr>
+    <tr><td>指标</td><td>PSNR、SNR、下游任务分数</td><td>字错率 CER、词错率 WER</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>去噪是从含噪观测中恢复原始信号的任务；转录是把一种信号序列转换为另一种符号序列的任务。二者的分界是输出是否保持输入的结构。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>串联时的误差累积</h2>
+<div class="steps">
+  <div class="step"><b>去噪的取舍</b><span>去得太轻，噪声残留；去得太重，细节被抹平。评价要同时看保真度与下游效果。</span></div>
+  <div class="step"><b>转录的对齐</b><span>输出长度与输入不同，需要对齐机制；漏字、多字、错字要分开统计。</span></div>
+  <div class="step"><b>串联的放大</b><span>先降噪再识别时，降噪抹掉的细节无法在识别阶段恢复，误差会沿链路累积。</span></div>
+</div>
+<p>所以工程上常把「下游指标」作为去噪的最终验收：降噪后识别 CER 降了多少，比 PSNR 高了多少更有说服力。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两个真实任务</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>类型</th><th>输入</th><th>输出</th><th>验收指标</th></tr></thead>
+  <tbody>
+    <tr><td>档案扫描件去污</td><td>去噪</td><td>含噪图像</td><td>干净图像</td><td>PSNR + OCR 识别率</td></tr>
+    <tr><td>客服录音转写</td><td>转录</td><td>音频</td><td>文字稿</td><td>CER</td></tr>
+    <tr><td>会议录音降噪</td><td>去噪</td><td>含噪音频</td><td>干净音频</td><td>SNR + 转写 CER</td></tr>
+    <tr><td>票据字段识别</td><td>转录 + 结构化</td><td>票据图像</td><td>字段对象</td><td>字段级准确率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>最后一行已经跨到下一节的结构化输出：转录只要求「文字对」，结构化还要求「字段能对号入座」。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>判断类型并写指标</h2>
+<p><strong>任务：</strong>为四个任务判断属于去噪还是转录，并写一个可计算的指标。</p>
+<div class="steps">
+  <div class="step"><b>① 监控视频去雾</b><span>输出是什么形态？</span></div>
+  <div class="step"><b>② 手写体识别</b><span>输出是什么形态？</span></div>
+  <div class="step"><b>③ 通话录音去除背景音乐</b><span>输出与输入同形吗？</span></div>
+  <div class="step"><b>④ 直播字幕生成</b><span>评价单位是字还是句？</span></div>
+</div>
+<p><strong>验收：</strong>指标必须能写成公式或明确的计算口径，不能只写「准确率」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-6-3-machine-translation.html">3.6.3 机器翻译：序列到序列的生成</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-6-1-classification-regression.html"><span class="p-label">← 上一知识点 3.6.1</span><span class="p-title">分类与回归：输出是类别还是数值</span></a><a class="next" href="k3-6-3-machine-translation.html"><span class="p-label">下一知识点 3.6.3 →</span><span class="p-title">机器翻译：序列到序列的生成</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)4 · 去噪、转录</dd>
+    <dt>页面编号 / 路径</dt><dd>3.6.2 ｜ <span class="path">pages/m03-ml-basics/k3-6-2-denoise-transcribe.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-6-1-classification-regression.html"><b>3.6.1</b>分类与回归：输出是类别还是数值</a><a class="xlink" href="k3-6-3-machine-translation.html"><b>3.6.3</b>机器翻译：序列到序列的生成</a><a class="xlink" href="k3-6-5-structured-output.html"><b>3.6.5</b>结构化输出与任务判定</a><a class="xlink" href="u3-6-task-map.html"><b>3.6</b>常见任务地图：分类、回归、去噪、转录、机器翻译、异常检测、结构化输出（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-6-2-a.svg（本页图 3-27）。 ｜ 知识库条目：M03-S4-03《去噪》（filled）、M03-S4-04《转录》（filled） ｜ 参考来源：S64 Han et al.《Data Mining》；公开任务说明（PSNR / CER 定义）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

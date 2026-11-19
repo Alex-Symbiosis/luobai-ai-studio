@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.5.6 生物信息学：序列比对与结构预测 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出序列比对、结构预测、功能注释三层任务各自要什么输入。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-5-milestones.html">1.5 六大里程碑：博弈、专家系统、神经计算、进化计算、NLP、生物信息学</a><span class="sep">/</span><span class="here">1.5.6 生物信息学：序列比对与结构预测</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.5</span>
+    <span class="tag">知识点 1.5.6</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>生物信息学：序列比对与结构预测</h1>
+  <p class="lede">生物数据的特点是又长又吵：几十亿个碱基里，真正有用的可能只有一小段。生物信息学做的就是在这类数据里找模式——先比对，再预测结构，最后连到功能。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出序列比对、结构预测、功能注释三层任务各自要什么输入。</li><li>能解释比对为什么必须允许插入与缺失。</li><li>能说明比对高分与功能相同之间为什么不能画等号。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>逐字比，还是允许改动</h2>
+<p>判断两条 DNA 序列是否同源，两种做法：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>逐字比对</h3><p>同一位置、同一个碱基才算相同；错一位就当作无关。两条真正同源的序列，只要中间插入过一个碱基，后面全部错位。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>允许空位的比对</h3><p>允许插入、缺失与替换，用打分规则找一条总分最高的对齐；同源关系靠总分判断，而不是靠逐字相等。</p></div>
+</div>
+<p class="ask">同一对序列，逐字比对说「没关系」，允许空位的比对却说「同源」。差在哪？</p>
+<p>差在对「变化」的建模。序列在进化中会替换、插入、缺失；比对要找的是「经历这些变化之后还剩下什么」，不是「是否一字不差」。所以比对的第一步不是算分，而是决定允许哪些变化。进化的变化是随机的，比对要能容忍它们，而不是要求序列保持原样。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两本厚书找同一段</h2>
+<p>两本厚书找同一段话，没人要求逐字相同：允许别人改过几个字、删过几句、插过一行。只要大意与顺序对得上，就能认出是同一段——比对就是把这个「对得上」写成分数。所以比对的分值不是相似度百分比，而是「在这套罚分下，这样对齐划不划算」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="序列—结构—功能：三层任务">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">序列—结构—功能：三层任务</text><rect class="f-b2" x="40.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="178.0" y="135.0">序列比对</text><text class="f-sc" x="178.0" y="154.0">找相似片段</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">结构预测</text><text class="f-sc" x="480.0" y="154.0">由序列推三维结构</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="644.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="782.0" y="135.0">功能注释</text><text class="f-sc" x="782.0" y="154.0">把结构与功能连起来</text><text class="f-s" x="40" y="244">比对找相似，预测推结构，注释连功能；三者共享同一套数据与统计方法。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 1-24　比对找相似，预测推结构，注释连功能</b>　底层是序列，中层是三维结构，顶层是功能；箭头表示从比对到结构、再到功能的推断方向，每一层都需要不同的证据。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>三层任务难度递增：比对只要序列，结构预测要物理约束，功能注释要实验证据。越往后，越不能只靠序列。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层任务，三种证据</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>输入</th><th>输出</th><th>难点</th></tr></thead>
+  <tbody>
+    <tr><td>序列比对</td><td>两条或多条序列</td><td>对齐结果与得分</td><td>空位罚分怎么定</td></tr>
+    <tr><td>结构预测</td><td>氨基酸序列</td><td>三维结构</td><td>搜索空间极大</td></tr>
+    <tr><td>功能注释</td><td>序列或结构</td><td>功能标签</td><td>相似不等于同功能</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>比对是找一条对齐路径，使总分最大：<span class="term">得分 = 匹配得分 − 错配罚分 − 空位罚分</span>。长度分别为 m、n 的两条序列，可用动态规划在 O(mn) 时间内求出最优路径。</p>
+</div>
+<p>三层任务共享一个假设：相似的序列往往有相似的结构与功能。这个假设来自进化，也解释了它的边界——一旦相似只是偶然，整条推断链就断了。三层任务里，只有第一层能完全由算法给出确定答案。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>填表、回溯、判显著</h2>
+<p>一次标准比对走五步：</p>
+<div class="steps">
+  <div class="step"><b>定打分</b><span>匹配、错配、空位各给一个分。分数决定「什么样的相似才算同源」，换一套分数，结论可能翻转。</span></div>
+  <div class="step"><b>填表</b><span>逐格比较三种走法：两两对齐、跳过上面一个、跳过下面一个，取最大值填进去。</span></div>
+  <div class="step"><b>回溯</b><span>从右下角沿最大值的来源走回左上角，得到实际的对齐结果。</span></div>
+  <div class="step"><b>判显著</b><span>用置换检验或统计模型判断这个分数是偶然还是真的相似；分数高不等于显著。</span></div>
+  <div class="step"><b>往后推</b><span>把比对上的片段拿去找结构域、查功能注释，完成从序列到功能的跳跃。</span></div>
+</div>
+<p>BLAST 把比对做成可对整个序列库批量检索的服务，成为日常科研基础设施。它的代价是用启发式加速换取速度，灵敏度会有损失；动态规划给的是精确最优，但一条条算完整库并不现实。灵敏度与速度的取舍，是这一领域所有工具都要面对的问题。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>BLAST 与 AlphaFold</h2>
+<p>BLAST 是 NCBI 提供的序列相似性检索工具：输入一条序列，返回库里相似的片段与显著性指标。它成为日常基础设施，说明「比对」已经从算法问题变成了公共服务。</p>
+<p>2021 年，AlphaFold2 在蛋白质结构预测上达到接近实验的精度（Nature 论文）。它把「结构」从昂贵的实验测定变成可计算的预测，但它预测的是结构，不是功能。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>存在同源序列可供比对</td><td>孤儿蛋白找不到同源，比对给不出线索</td></tr>
+    <tr><td>有已知结构数据可供学习</td><td>无同源、无模板时，预测精度下降</td></tr>
+    <tr><td>把相似当作线索而非结论</td><td>比对高分不等于同功能，低复杂度区尤其容易误判</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两层边界要分开看：序列相似只是「可能同源」，结构相似只是「可能同折叠」。从相似到功能，中间还隔着实验验证——把预测当结论，是这一领域最常见的误用。这也是为什么结构预测的突破，不会自动带来功能注释的突破。这两层边界，也是所有 AI for Science 成果共有的边界。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算两条短序列的比对</h2>
+<p><strong>任务：</strong>给定两条 8 碱基序列 S1=AGCTTACG、S2=AGCTATCG，按「匹配 +1、错配 −1、空位 −2」手算最优比对；再把空位罚分改成 −1，看结论是否翻转。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方案</th><th>得分计算</th><th>总分</th><th>是否最优</th></tr></thead>
+  <tbody>
+    <tr><td>不加空位</td><td></td><td></td><td></td></tr>
+    <tr><td>加一对空位</td><td></td><td></td><td></td></tr>
+    <tr><td>空位罚分改为 −1 后</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<ol>
+  <li>先逐列写出对齐结果，再算分，不要先猜结论。</li>
+  <li>加空位时注意：一条序列插入一个空位，另一条也要补一个，空位成对出现。</li>
+  <li>两套罚分各算一遍，说明是哪一项让最优解改变。</li>
+</ol>
+<p><strong>追问：</strong>① 空位罚分调低，为什么更容易出现「看似同源」的比对？② 两条序列得分很高，还可能因为什么原因并不同源？③ 若把打分矩阵换成按碱基相似性给分，结论会变吗？</p>
+<p><strong>自检：</strong>两种罚分下的总分都算对，且能指出「空位罚分决定了对插入缺失的容忍度」，即达标。只写「它们很像」而不给逐列得分，视为未完成。算分时把空位成对计入，否则总分会被高估。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-6-1-three-factors.html">1.6.1 三要素：数据、算力、算法，缺一项飞轮就停</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-5-5-nlp-milestone.html"><span class="p-label">← 上一知识点 1.5.5</span><span class="p-title">NLP：从规则到统计到神经</span></a><a class="next" href="k1-6-1-three-factors.html"><span class="p-label">下一知识点 1.6.1 →</span><span class="p-title">三要素：数据、算力、算法，缺一项飞轮就停</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 生物信息学的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>1.5.6 ｜ <span class="path">pages/m01-ai-overview/k1-5-6-bioinformatics.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-5-5-nlp-milestone.html"><b>1.5.5</b>NLP：从规则到统计到神经</a><a class="xlink" href="k1-6-1-three-factors.html"><b>1.6.1</b>三要素：数据、算力、算法，缺一项飞轮就停</a><a class="xlink" href="u1-5-milestones.html"><b>1.5</b>六大里程碑：博弈、专家系统、神经计算、进化计算、NLP、生物信息学（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-5-6（本页图 1-24）；知识库 M01-S2-02。 ｜ 知识库条目：M01-S2-02《人工智能发展的里程碑》（filled） ｜ 参考来源：S30 NCBI BLAST 官方网站（2026 访问）；S24 Jumper 等《Highly accurate protein structure prediction with AlphaFold》（2021）；S02 Russell &amp; Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

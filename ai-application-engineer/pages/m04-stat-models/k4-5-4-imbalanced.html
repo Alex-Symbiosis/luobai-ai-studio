@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.5.4 类别不平衡：多数类会淹没少数类 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明类别不平衡为什么会让准确率失真。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-5-evaluation.html">4.5 模型评估与改进</a><span class="sep">/</span><span class="here">4.5.4 类别不平衡：多数类会淹没少数类</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.5</span>
+    <span class="tag">知识点 4.5.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>类别不平衡：多数类会淹没少数类</h1>
+  <p class="lede">当正类只占 1%，模型只要全部判负就能拿到 99% 准确率。这不是模型聪明，而是指标失灵。处理不平衡，要么改变数据分布，要么改变错误的代价，要么改变判断阈值——三条路解决的问题并不相同。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明类别不平衡为什么会让准确率失真。</li><li>能区分重采样、代价敏感与阈值调整三类做法。</li><li>能根据业务代价选择合适的不平衡处理方式。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两种处理不平衡的方式</h2>
+<p>一份 99:1 的欺诈交易数据，两种方案：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>先把多数类削到 1:1</h3><p>随机丢弃大量正常交易，训练集变小、分布被改写；模型对欺诈更敏感，但正常交易的细节丢了。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>保留分布，改代价与阈值</h3><p>给少数类更高权重，并把阈值从 0.5 调低；分布不变，但模型更愿意判正。</p></div>
+</div>
+<p class="ask">两种方案都能提高召回，为什么不能默认选「重采样」？</p>
+<p>因为重采样改的是数据分布，代价敏感改的是错误代价。前者可能丢信息，后者保留全部样本；选哪种取决于样本量与业务代价。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一勺盐倒进游泳池</h2>
+<p>少数类像一勺盐，多数类像一池水。直接尝一口，几乎尝不到咸味；要让模型「尝到」，要么浓缩（重采样），要么提高味觉敏感度（加权），要么把「尝到一点就报警」的阈值调低。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="不平衡数据：准确率会骗人">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">不平衡数据：准确率会骗人</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="152.65" y="92.1" width="89.7" height="207.9" rx="4" fill="#c0504d" opacity="0.9"/><text class="f-sc" x="197.5" y="84.1">99%</text><text class="f-sc" x="197.5" y="318">准确率</text><rect x="347.65" y="237.0" width="89.7" height="63.0" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="392.5" y="229.0">30%</text><text class="f-sc" x="392.5" y="318">少数类召回</text><rect x="542.65" y="115.19999999999999" width="89.7" height="184.8" rx="4" fill="#4f83cf" opacity="0.9"/><text class="f-sc" x="587.5" y="107.19999999999999">88%</text><text class="f-sc" x="587.5" y="318">AUC ×100</text><rect x="737.65" y="211.8" width="89.7" height="88.2" rx="4" fill="#9db9dd" opacity="0.9"/><text class="f-sc" x="782.5" y="203.8">42%</text><text class="f-sc" x="782.5" y="318">F1 ×100</text><text class="f-s" x="100" y="344">全判为多数类也有 99% 准确率，但召回只有 0；先看类别比例，再决定主指标。</text>
+</svg><figcaption><b>图 4-22　不平衡数据下的准确率陷阱</b>　全部判负即可得到 99% 准确率，但召回率为 0；准确率在这类数据上几乎不提供信息。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>不平衡不是「数据脏」，而是<strong>评估与训练都被多数类主导</strong>。先换指标（召回、F1、AUC），再选处理手段。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三类手段，三个层面</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层面</th><th>手段</th><th>做法</th><th>风险</th></tr></thead>
+  <tbody>
+    <tr><td>数据</td><td>过采样 / 欠采样</td><td>复制或合成少数类；丢弃部分多数类</td><td>过采样易过拟合，欠采样丢信息</td></tr>
+    <tr><td>损失</td><td>类别权重</td><td>少数类样本的损失乘更大系数</td><td>权重过大导致误报激增</td></tr>
+    <tr><td>决策</td><td>阈值调整</td><td>按业务代价选择阈值，而非固定 0.5</td><td>需要验证集与代价估计</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三者可以叠加，但要知道自己在改哪一层：重采样改数据分布，加权改优化目标，调阈值改决策规则。混在一起调，出了问题无法归因。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么准确率会骗人</h2>
+<p>准确率 = (TP + TN) / 总数。当 TN 占绝对多数时，即使 TP = 0，准确率仍接近 1。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>策略</th><th>TP</th><th>FP</th><th>FN</th><th>TN</th><th>准确率</th><th>召回</th></tr></thead>
+  <tbody>
+    <tr><td>全判负</td><td>0</td><td>0</td><td>10</td><td>990</td><td>0.99</td><td>0.00</td></tr>
+    <tr><td>加权 + 调阈值</td><td>8</td><td>40</td><td>2</td><td>950</td><td>0.958</td><td>0.80</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第二种策略准确率更低，业务价值却高得多。这正是不平衡场景必须放弃「准确率优先」的原因：指标要对应错误的代价，而不是对应多数类的比例。</p>
+<div class="callout callout--warn">
+  <span class="c-label">采样顺序</span>
+  <p>重采样只能在训练折内做。若先对全体数据过采样再交叉验证，同一合成样本可能同时出现在训练与验证中，分数会虚高。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>99:1 的三种处理对比</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>处理</th><th>召回</th><th>精确</th><th>F1</th><th>备注</th></tr></thead>
+  <tbody>
+    <tr><td>原始 + 阈值 0.5</td><td>0.12</td><td>0.66</td><td>0.20</td><td>几乎抓不到</td></tr>
+    <tr><td>类别加权</td><td>0.71</td><td>0.31</td><td>0.43</td><td>误报上升，可接受</td></tr>
+    <tr><td>欠采样 1:1</td><td>0.78</td><td>0.24</td><td>0.37</td><td>丢失多数类信息</td></tr>
+    <tr><td>加权 + 阈值 0.3</td><td>0.83</td><td>0.22</td><td>0.35</td><td>适合「宁可多报」</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四种处理的 F1 都不高，因为精确率被误报拉低。是否接受，取决于人工复核成本：若复核便宜，召回优先；若复核昂贵，就要提高精确率。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三个场景选手段</h2>
+<p><strong>任务：</strong>为下面三个场景选择处理方式，并写指标与风险。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>场景</th><th>手段</th><th>主指标</th><th>风险</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>欺诈交易，样本 50 万，人工复核成本低</td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td>罕见病筛查，样本仅 800</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td>流失预警，运营希望名单尽量准</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>手段与样本量、复核成本对应；至少一条指出「过采样要在折内做」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-5-5-improvement-demo.html">4.5.5 改进实验：从基线到可用模型</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-5-3-cross-validation.html"><span class="p-label">← 上一知识点 4.5.3</span><span class="p-title">交叉验证：让评估结果可重复</span></a><a class="next" href="k4-5-5-improvement-demo.html"><span class="p-label">下一知识点 4.5.5 →</span><span class="p-title">改进实验：从基线到可用模型</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)5 · 类别不平衡</dd>
+    <dt>页面编号 / 路径</dt><dd>4.5.4 ｜ <span class="path">pages/m04-stat-models/k4-5-4-imbalanced.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-5-1-confusion-matrix.html"><b>4.5.1</b>混淆矩阵：把「错」拆成四格</a><a class="xlink" href="k4-5-2-roc-auc.html"><b>4.5.2</b>ROC 与 AUC：与阈值无关的整体排序能力</a><a class="xlink" href="k4-5-5-improvement-demo.html"><b>4.5.5</b>改进实验：从基线到可用模型</a><a class="xlink" href="u4-5-evaluation.html"><b>4.5</b>模型评估与改进（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-5-4-a.svg（本页图 4-22）。 ｜ 知识库条目：M04-S5-01《模型评估与改进》（filled） ｜ 参考来源：S32 scikit-learn《Metrics and scoring》；S54 ESL；S31《Hands-On Machine Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

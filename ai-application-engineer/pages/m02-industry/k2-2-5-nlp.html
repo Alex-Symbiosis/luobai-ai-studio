@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2.5 NLP：让机器处理人类语言 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按词法、句法、语义、应用四层，把常见语言任务归类。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-2-technology-layer.html">2.2 技术层：五类使能技术</a><span class="sep">/</span><span class="here">2.2.5 NLP：让机器处理人类语言</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.2</span>
+    <span class="tag">知识点 2.2.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>NLP：让机器处理人类语言</h1>
+  <p class="lede">同一句「这个方案不行」，可能是嫌贵、嫌慢，也可能少了个功能。分错类，工单就派错人。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按词法、句法、语义、应用四层，把常见语言任务归类。</li><li>能画出「文本—切分—表示—任务模型—输出」这条链，并指出中文分词的位置。</li><li>能从一个分类错误回溯到具体某一层，而不是笼统归因于「模型不行」。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>五千张工单</h2>
+<p>客服中心每天进五千张工单。用户写「这个方案不行」，可能是功能缺失，可能是价格太贵，也可能是交付太慢。同一句话，三种诉求，分错类就派错人。</p>
+<p>合同抽取是另一种难：一份三十页的采购合同，要找出付款节点、违约金比例、自动续约条款。措辞每份都不同，模板套不住。</p>
+<p>两件事的共同点是：输入是人类语言，没有固定格式，同一个意思有无数种说法。</p>
+<p class="ask">机器要处理语言，第一步该做什么？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先拆成结构</h2>
+<p>自然语言处理把文本变成结构，再交给任务模型。链条是：原始文本、规范化与切分、表示成向量、任务模型、结构化输出。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一句话进模型之前，先被拆成结构">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">一句话进模型之前，先被拆成结构</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">原始文本</text><text class="f-sc" x="117.6" y="154.0">句子、段落</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">规范化与切分</text><text class="f-sc" x="298.79999999999995" y="154.0">去噪、分词、分句</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">表示成向量</text><text class="f-sc" x="480.0" y="154.0">词向量或上下文向量</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">任务模型</text><text class="f-sc" x="661.1999999999999" y="154.0">分类、抽取、生成</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">结构化输出</text><text class="f-sc" x="842.4" y="154.0">标签、关系、答案</text><text class="f-s" x="40" y="244">难点不在字，而在歧义与上下文；同一句话换个语境，意思就变了。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-21　一句话进模型之前，先被拆成结构</b>　难点不在字，而在歧义与上下文；同一句话换个语境，意思就变了。</figcaption></figure>
+<p>切分是中文特有的坎。「南京市长江大桥」可以切成「南京市 / 长江大桥」，也可以切成「南京市长 / 江大桥」。切错，后面全歪。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四层任务栈，下层错上层全歪">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">四层任务栈，下层错上层全歪</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">词法</text><text class="f-s" x="430" y="87.0">分词、词性、命名实体</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">句法</text><text class="f-s" x="430" y="151.0">依存、短语结构</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">语义</text><text class="f-s" x="430" y="215.0">词义消歧、角色标注</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">应用</text><text class="f-s" x="430" y="279.0">检索、问答、翻译、摘要</text><text class="f-s" x="120" y="336">分词切错，句法和语义都无从谈起；应用层的问题，往往要回底层查。</text>
+</svg><figcaption><b>图 2-22　四层任务栈，下层错上层全歪</b>　分词切错，句法和语义都无从谈起；应用层的问题，往往要回底层查。</figcaption></figure>
+<p>四层任务像一座栈：词法在最下，句法在其上，语义再上，应用在最顶。下层错，上层只能带着错误往上算；应用层效果差，往往要回到底层找原因，而不是换一个更大的模型。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四层任务</h2>
+<p>四层各管什么，可以用一张表分开。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层次</th><th>典型任务</th><th>输入 → 输出</th></tr></thead>
+  <tbody>
+    <tr><td>词法</td><td>分词、词性标注、命名实体</td><td>字串 → 词与标签</td></tr>
+    <tr><td>句法</td><td>依存分析、短语结构</td><td>词序列 → 树</td></tr>
+    <tr><td>语义</td><td>词义消歧、语义角色、指代</td><td>句子 → 含义结构</td></tr>
+    <tr><td>应用</td><td>检索、问答、翻译、摘要、生成</td><td>文本 → 文本或答案</td></tr>
+  </tbody>
+</table>
+</div>
+<p>分层是分析工具，不是系统架构。实际系统里，大模型把四层压进一个网络，端到端出结果；但排查错误时仍要按层拆：是切错了，是句子结构判错，还是词义理解偏了。</p>
+<p>产业上，NLP 是落地最广的一层：搜索、客服、审核、翻译、写作辅助都靠它。成熟度分化明显——分类、抽取、翻译在限定领域可用；开放域问答与长文生成，仍要人工兜底。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>歧义从哪来</h2>
+<p>中文的第一个工程问题是分词与歧义。词典加统计能解决大部分，专有名词、新词、网络用语仍会漏。命名实体识别再往上走一步，把词标成人名、地名、机构名。</p>
+<p>句法层给出谁修饰谁。「咬死了猎人的狗」有两种结构，句法分析要选一种；选错，语义层就跟着错。</p>
+<p>语义层处理词义与指代。「苹果」是水果还是公司，要看上下文；「它」指前文哪个对象，要靠指代消解。</p>
+<p>应用层把前几层的结果拼成产品。产业分工沿这条链切开：云厂商提供通用 API，开源社区提供可微调的权重，行业方案商做领域数据与流程集成，标注公司提供语料。选型先问「领域词表谁维护」，这一项决定上线后的迭代速度。</p>
+<p><strong>易错点：</strong>用通用评测分数选型。榜单分数来自公开语料，你的合同、你的工单不在这里面；必须用自己标注的五百条做验收。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>工单分错类</h2>
+<p>回到工单分类，错误会指路。</p>
+<p>五千条工单分八类，词袋加 TF-IDF 的基线准确率 0.78；换预训练模型微调后到 0.91。剩下的错集中在一处：「退款进度」被分到「退款申请」。</p>
+<p>看原文就明白：用户写「我上周申请的退款到现在还没到账」，关键词是「退款」，诉求是查进度。词法层把「退款进度」切成「退款 / 进度」，语义层没有区分「询问状态」与「发起动作」，应用层只能按高频词投票。</p>
+<p>解法不是换更大的模型，而是补两类样本、加一个「进度查询」的意图标签，并在预处理阶段保护「退款进度」这类领域词组不被切开。改完，这两类的混淆从 31% 降到 9%。</p>
+<p><strong>易错点：</strong>把应用层的错都归给模型能力。分类错先看标签体系是否互斥，再看分词是否切坏，最后才轮到模型。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六个任务归层</h2>
+<p><strong>任务：</strong>把下面六个任务归到四层，并写出一条「下层出错会怎样」的连锁后果。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>层次</th><th>下层出错的后果</th></tr></thead>
+  <tbody>
+    <tr><td>「南京市长江大桥」切分</td><td>？</td><td>？</td></tr>
+    <tr><td>「咬死了猎人的狗」结构</td><td>？</td><td>？</td></tr>
+    <tr><td>「苹果发布了新手机」词义</td><td>？</td><td>？</td></tr>
+    <tr><td>合同付款节点抽取</td><td>？</td><td>？</td></tr>
+    <tr><td>工单八分类</td><td>？</td><td>？</td></tr>
+    <tr><td>三十页合同摘要</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 大模型端到端之后，分层还有用吗？② 领域词表该由谁维护？③ 摘要漏掉一条违约金，算词法错还是语义错？</p>
+<p><strong>验收：</strong>六个任务层次正确，且每条后果都能指到具体一层。四层怎么算，见 <a href="../m09-nlp/k9-1-1-what-is-nlp.html">什么是自然语言处理</a>；三个阶段怎么演进，见 <a href="../m09-nlp/k9-1-4-neural-era.html">神经语言模型时代</a>。本单元到此结束，下一单元看技术怎么落到行业，见 <a href="../m02-industry/k2-3-1-security.html">安防</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-3-1-security.html">2.3.1 安防：从「看得见」到「认得准」</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-2-4-robotics.html"><span class="p-label">← 上一知识点 2.2.4</span><span class="p-title">机器人：感知—决策—执行的闭环</span></a><a class="next" href="k2-3-1-security.html"><span class="p-label">下一知识点 2.3.1 →</span><span class="p-title">安防：从「看得见」到「认得准」</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)2 · 自然语言处理技术的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>2.2.5 ｜ <span class="path">pages/m02-industry/k2-2-5-nlp.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-1-decision-management.html"><b>2.2.1</b>决策管理：把专家规则变成可执行策略</a><a class="xlink" href="k2-2-2-deep-learning.html"><b>2.2.2</b>深度学习：用多层表示替代手工特征</a><a class="xlink" href="k2-3-5-healthcare.html"><b>2.3.5</b>医疗：高价值、高风险、强证据</a><a class="xlink" href="u2-2-technology-layer.html"><b>2.2</b>技术层：五类使能技术（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-2-5（本页图 2-21）、k2-2-5-b（图 2-22）；知识库 M02-S2-05《自然语言处理技术的概念及特点》（filled）。 ｜ 知识库条目：M02-S2-05《自然语言处理技术的概念及特点》（filled） ｜ 参考来源：Jurafsky & Martin《Speech and Language Processing》任务分层口径；中文分词歧义公开示例；公开客服工单分类实践口径；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

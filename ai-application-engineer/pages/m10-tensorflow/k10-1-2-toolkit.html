@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.1.2 工具包地图：keras、data、TensorBoard · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出 tf.keras、tf.data、TensorBoard 各自的职责，并指出它们不重叠。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-1-tf-basics.html">10.1 TensorFlow 的概念、特点与工具包</a><span class="sep">/</span><span class="here">10.1.2 工具包地图：keras、data、TensorBoard</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.1</span>
+    <span class="tag">知识点 10.1.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>工具包地图：keras、data、TensorBoard</h1>
+  <p class="lede">TensorFlow 装完之后，命名空间里有几百个名字。真正需要先记住的只有三条线：建模、备料、观测。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出 tf.keras、tf.data、TensorBoard 各自的职责，并指出它们不重叠。</li><li>能按任务把需求分配到正确的工具包，而不是什么都往 keras 里塞。</li><li>能区分 .keras 与 SavedModel 两种保存格式，并知道 save() 传目录会报错。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>六个任务，先分给谁</h2>
+<p>拿到一个新项目，手上有六件事：读 CSV、打乱分批、搭三层网络、画训练曲线、算梯度、导出给 Java 服务调用。</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">新手做法</span><h3>全部塞进 keras</h3><p>用 <code>keras.utils</code> 硬读文件，用回调里手写画图，导出时 <code>save()</code> 一个目录，然后卡在 <code>ValueError</code>。</p></div>
+  <div class="card mini"><span class="mini-tag">工程做法</span><h3>按职责分包</h3><p>读盘与分批给 <code>tf.data</code>，建模与训练给 <code>tf.keras</code>，曲线给 TensorBoard 回调，导出用 <code>export()</code>。</p></div>
+</div>
+<p class="ask">分错的代价是什么？</p>
+<p>不是「不能跑」，而是每一处都多写一层胶水，且换数据源、换部署目标时要重写。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三个工位，一条产线</h2>
+<p>把工具包想成车间里的工位：<code>tf.data</code> 负责备料，<code>tf.keras</code> 负责加工，TensorBoard 是挂在墙上的仪表盘。工位之间靠「张量」这个标准件传递。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四层工具包，各管一段">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">四层工具包，各管一段</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">tf.keras</text><text class="f-s" x="430" y="87.0">建模：层、损失、优化器、训练循环</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">tf.data + 预处理层</text><text class="f-s" x="430" y="151.0">备料：读盘、打乱、分批、特征变换</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">tf.nn / tf.linalg / tf.math</text><text class="f-s" x="430" y="215.0">算子：手写前向、损失与梯度</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">tf.function / saved_model</text><text class="f-s" x="430" y="279.0">执行与交付：编图、导出、分布式</text><text class="f-s" x="120" y="336">越往下越接近数学，越往上越接近业务；日常九成工作在最高两层。</text>
+</svg><figcaption><b>图 10-2　四层工具包，各管一段</b>　越往下越接近数学，越往上越接近业务；日常九成工作在最高两层。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>先判断「这件事属于备料、加工还是观测」，再去找对应的包，基本不会选错。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个核心包 + 一层算子</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>包</th><th>职责</th><th>典型接口</th><th>不该用它做</th></tr></thead>
+  <tbody>
+    <tr><td><code>tf.keras</code></td><td>建模、编译、训练、评估</td><td><code>Sequential</code>、<code>compile</code>、<code>fit</code></td><td>大规模流式读盘</td></tr>
+    <tr><td><code>tf.data</code></td><td>数据管道：读、洗、批、预取</td><td><code>Dataset</code>、<code>map</code>、<code>batch</code></td><td>定义网络结构</td></tr>
+    <tr><td>TensorBoard</td><td>训练过程观测与对比</td><td><code>tf.keras.callbacks.TensorBoard</code></td><td>替代日志与指标计算</td></tr>
+    <tr><td><code>tf.nn</code> / <code>tf.linalg</code></td><td>底层算子，手写前向与损失</td><td><code>relu</code>、<code>matmul</code></td><td>搭常规模型</td></tr>
+  </tbody>
+</table>
+</div>
+<p>TensorBoard 不是 import 进来就能用的库，它靠回调在训练中写事件文件，再用 <code>tensorboard --logdir</code> 起一个本地网页查看；本模块不展开，只要求知道它属于「观测」这一层。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>巡览一遍命名空间</h2>
+<p>先用代码确认这些包都在，且职责边界看得见：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>toolkit_tour.py</span></div>
+<pre><code>import tensorflow as tf
+
+names = [&quot;data&quot;, &quot;keras&quot;, &quot;nn&quot;, &quot;linalg&quot;, &quot;math&quot;, &quot;strings&quot;, &quot;image&quot;,
+         &quot;train&quot;, &quot;function&quot;, &quot;saved_model&quot;, &quot;distribute&quot;, &quot;autograph&quot;]
+for name in names:
+    print(f&quot;tf.{name:&lt;12}&quot;, &quot;有&quot; if hasattr(tf, name) else &quot;无&quot;)
+
+print(&quot;keras.layers 数量:&quot;, len(dir(tf.keras.layers)))
+print(&quot;内置数据集:&quot;,
+      [n for n in (&quot;mnist&quot;, &quot;fashion_mnist&quot;, &quot;cifar10&quot;, &quot;imdb&quot;, &quot;boston_housing&quot;)
+       if hasattr(tf.keras.datasets, n)])</code></pre>
+</div>
+<p><code>dir()</code> 数出来的是「名字个数」，不是「可用层数」——里面混着大量内部符号，只适合做存在性检查，不要拿它当 API 清单。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>保存与导出：两种格式，一条规矩</h2>
+<p>模型训完必须落盘。这里同时验证三件事：<code>.keras</code> 能存能读、<code>save()</code> 传目录会报错、<code>export()</code> 产出 SavedModel 目录：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>save_and_export.py</span></div>
+<pre><code>import contextlib
+import io
+import os
+import tempfile
+
+import keras
+import tensorflow as tf
+
+print(&quot;tf.keras 版本属性:&quot;, getattr(tf.keras, &quot;__version__&quot;, &quot;无&quot;))
+print(&quot;tf.keras.layers.Dense is keras.layers.Dense:&quot;,
+      tf.keras.layers.Dense is keras.layers.Dense)
+
+model = tf.keras.Sequential([tf.keras.layers.Input((1,)), tf.keras.layers.Dense(1)])
+d = tempfile.mkdtemp()
+keras_path = os.path.join(d, &quot;model.keras&quot;)
+model.save(keras_path)
+print(&quot;.keras 存在:&quot;, os.path.exists(keras_path))
+print(&quot;重新加载层数:&quot;, len(tf.keras.models.load_model(keras_path).layers))
+
+try:
+    model.save(os.path.join(d, &quot;saved_model_dir&quot;))
+except Exception as e:
+    print(&quot;save() 存目录:&quot;, type(e).__name__, &quot;Invalid filepath extension&quot;)
+
+export_dir = os.path.join(d, &quot;exported&quot;)
+with contextlib.redirect_stdout(io.StringIO()):
+    model.export(export_dir)
+print(&quot;export() 产物:&quot;, sorted(os.listdir(export_dir)))</code></pre>
+</div>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>tf.keras 版本属性: 3.15.1
+tf.keras.layers.Dense is keras.layers.Dense: True
+.keras 存在: True
+重新加载层数: 1
+save() 存目录: ValueError Invalid filepath extension
+export() 产物: [&#x27;assets&#x27;, &#x27;fingerprint.pb&#x27;, &#x27;saved_model.pb&#x27;, &#x27;variables&#x27;]</code></pre>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">两个易错点</span>
+  <p>① <code>save()</code> 的路径必须以 <code>.keras</code>（或 <code>.h5</code>）结尾，传一个目录名会直接抛 <code>ValueError: Invalid filepath extension</code>，这是本机实测。② <code>export()</code> 默认会向 stdout 打印 Saved artifact 的端点信息，<code>redirect_stdout</code> 只是把它收起来，方便对齐输出；那段信息不是报错。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把六个任务分下去</h2>
+<p><strong>任务：</strong>给六个任务各标一个归属：读 CSV、打乱分批、搭三层网络、画训练曲线、算梯度、导出给非 Python 服务。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>任务</th><th>归属</th><th>判断依据</th></tr></thead>
+  <tbody>
+    <tr><td>读 CSV / 打乱分批</td><td><code>tf.data</code></td><td>属于备料，与网络结构无关</td></tr>
+    <tr><td>搭网络 / 算梯度</td><td><code>tf.keras</code> 或 <code>tf.GradientTape</code></td><td>属于加工</td></tr>
+    <tr><td>画曲线 / 导出</td><td>TensorBoard 回调 / <code>export()</code></td><td>属于观测与交付</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>tf.keras</code> 要设计成「懒加载命名空间」而不是直接 <code>import keras</code>？② 如果团队只允许交付一个 <code>.keras</code> 文件，哪些部署端会受限？</p>
+<p><strong>验收：</strong>六个任务无归属冲突；能说出选错包时多出来的那层胶水。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-1-3-tf1-vs-tf2.html">10.1.3 1.x 与 2.x：计算图、会话与 Eager</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-1-1-what-is-tf.html"><span class="p-label">← 上一知识点 10.1.1</span><span class="p-title">TensorFlow 的定位与特点</span></a><a class="next" href="k10-1-3-tf1-vs-tf2.html"><span class="p-label">下一知识点 10.1.3 →</span><span class="p-title">1.x 与 2.x：计算图、会话与 Eager</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)1 · 工具包的主要内容</dd>
+    <dt>页面编号 / 路径</dt><dd>10.1.2 ｜ <span class="path">pages/m10-tensorflow/k10-1-2-toolkit.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-1-1-what-is-tf.html"><b>10.1.1</b>TensorFlow 的定位与特点</a><a class="xlink" href="k10-1-4-minimal-demo.html"><b>10.1.4</b>最小训练脚本与模型摘要</a><a class="xlink" href="k10-3-3-train.html"><b>10.3.3</b>训练模型：编译与 fit</a><a class="xlink" href="u10-1-tf-basics.html"><b>10.1</b>TensorFlow 的概念、特点与工具包（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-1-2（本页图 10-2）；知识库 M10-S1-02；输出为本机实测。 ｜ 知识库条目：M10-S1-02《工具包的主要内容》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S152 tf.data 指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

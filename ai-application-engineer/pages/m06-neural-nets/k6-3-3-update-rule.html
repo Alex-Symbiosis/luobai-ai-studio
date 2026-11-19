@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.3.3 离散型更新规则 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出局部场与符号更新式，并说明为什么状态里不能出现 0。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-3-hopfield.html">6.3 离散型霍普菲尔德网络与实现关注点</a><span class="sep">/</span><span class="here">6.3.3 离散型更新规则</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.3</span>
+    <span class="tag">知识点 6.3.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>离散型更新规则</h1>
+  <p class="lede">一次只改一个单元，能量就不会上升。收敛性不是调出来的，是这样一步一行证出来的。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出局部场与符号更新式，并说明为什么状态里不能出现 0。</li><li>能用 ΔE = −Δsᵢ·hᵢ 推导「能量单调不增」。</li><li>能说清同步更新与异步更新的差别，以及同步为什么会震荡。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一次只扳一个开关</h2>
+<p>值班室的墙上有 25 个指示灯，对应 25 个开关。老师傅的规矩是：一次只扳一个，扳完看总电表，确认往下走了再扳下一个。谁要是一次全扳，读数会来回跳，根本判断不了方向。</p>
+<p>这套土办法正好是 Hopfield 的更新规则。每个单元看一圈邻居的加权和，决定自己该是 +1 还是 −1；改完之后，整个网络的能量只会降低或不变，绝不会升高。</p>
+<p class="ask">为什么「一次只改一个」这么重要？</p>
+<p>因为能量下降是可以逐步核对的：单个单元改动带来的能量变化，只取决于它自己的局部场。同时改多个，各项之间互相影响，就说不清是哪一步在起作用。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>逐格校对</h2>
+<p>把更新想成校对一篇稿子：读到一个错字改一个，改完再看下一处。整篇的「错误总数」在每一步都不增加，所以不会出现改回原样、来回打转的情况。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="异步更新：一次只改一个神经元">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">异步更新：一次只改一个神经元</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">取一个单元 i</text><text class="f-sc" x="117.6" y="154.0">随机顺序</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">算局部场 h_i</text><text class="f-sc" x="298.79999999999995" y="154.0">Σ w_ij s_j</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">按符号改写 s_i</text><text class="f-sc" x="480.0" y="154.0">s_i = sign(h_i)</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">能量下降？</text><text class="f-sc" x="661.1999999999999" y="154.0">只降不升</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">换下一个 i</text><text class="f-sc" x="842.4" y="154.0">直到稳定</text><text class="f-s" x="40" y="244">异步保证每次改写都让能量单调不增，因此不会来回震荡。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-14　异步更新：一次只改一个神经元</b>　异步保证每次改写都让能量单调不增，因此不会来回震荡。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>异步 + 对称权重 + 零对角，这三条合起来才保证能量单调不增。缺任何一条，收敛性都没有理由成立。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>局部场与符号函数</h2>
+<p><strong>局部场：</strong><code>hᵢ = Σⱼ wᵢⱼsⱼ</code>，读作「其他单元对第 i 个单元的总投票」。</p>
+<p><strong>更新式：</strong><code>sᵢ ← sign(hᵢ)</code>，即 hᵢ ≥ 0 取 +1，否则取 −1。hᵢ 恰好为 0 时保持原值，不引入第三种取值。</p>
+<p><strong>能量变化：</strong>由于 W 对称且对角为零，只改第 i 个单元时</p>
+<p><code>ΔE = −Δsᵢ · hᵢ</code></p>
+<p>分析一下就得到结论：若 hᵢ &gt; 0，更新后 sᵢ 必为 +1，Δsᵢ 要么是 0（本来就在 +1），要么是 +2（从 −1 翻转），两种情况下 ΔE 都 ≤ 0；hᵢ &lt; 0 时对称地成立。<strong>每一步都不会让能量上升</strong>，而状态总数有限（2²⁵），所以必然在有限步内停住。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方式</th><th>一次改几个</th><th>能量</th><th>结局</th></tr></thead>
+  <tbody>
+    <tr><td>异步</td><td>1 个</td><td>单调不增</td><td>必收敛到不动点</td></tr>
+    <tr><td>同步</td><td>全部</td><td>无保证</td><td>可能出现 2-周期</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">两处最容易写错</span>
+  <p>一是让 <code>sign(0)</code> 返回 0，状态里混进第三种取值，后面的能量计算全乱。二是用同步更新却期待能量单调，两个单元同时翻转时，ΔE 的交叉项可以为正。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一步一算</h2>
+<p>把「改一个单元」封成一个函数，顺便返回这一步的能量变化，就能逐步核对单调性。注意这里的 ΔE 是算出来的，不是猜的。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>async_step.py</span></div>
+<pre><code>import numpy as np
+
+def energy(W, s):
+    return -0.5 * s @ W @ s
+
+def update_one(W, s, i):
+    h = W[i] @ s                     # 局部场
+    before = s[i]
+    s[i] = 1.0 if h &gt;= 0 else -1.0   # 只有 ±1，没有 0
+    dE = -h * (s[i] - before)        # ΔE = −Δs·h
+    return dE
+
+for i in rng.permutation(25):
+    dE = update_one(W, s, i)
+    assert dE &lt;= 1e-9                # 每一步都不增</code></pre>
+</div>
+<p><code>assert</code> 那一行不是装饰。它把「收敛性」这条数学结论变成了一条可执行的检查：只要权重对称、对角为零、每次只动一个单元，它就不该被触发。</p>
+<p>顺序用 <code>rng.permutation</code> 打乱，是异步的常见做法。固定顺序（比如永远从 1 到 25）也能收敛，只是某些图案下容易在早期被少数单元主导，恢复率略低。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>稳定之后就不动了</h2>
+<p>异步跑到某个时刻，所有单元都满足「当前取值与 sign(hᵢ) 一致」。这时再扫描一轮，每个单元算出的 hᵢ 都没让它改变，<code>Δsᵢ = 0</code>，能量一点不动。</p>
+<p>这个状态就是不动点。它可能是一个存进去的图案，也可能是虚假吸引子，从能量上分不出真假——两者的区别只在「有没有被存过」，而网络本身不知道这件事。</p>
+<p>由此得到两个实用结论。第一，收敛判据很简单：一整轮扫描没有任何单元改变，就可以停。第二，能量是单调的，所以不存在「先变差再变好」的路径，调试时看到能量上升，一定是实现有问题，而不是运气不好。</p>
+<p>顺带说清同步更新为什么危险：两个互相抑制的单元可能在同一拍里一起翻转，下一拍又一起翻回来，形成 2-周期。能量一上一下，永远停不下来。真实实现里几乎都用异步或「随机选一个子集」。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三个单元手算一轮</h2>
+<p><strong>任务：</strong>三个单元，权重 <code>w₁₂ = w₂₁ = 1、w₁₃ = w₃₁ = −1、w₂₃ = w₃₂ = 1</code>，对角为 0。初始状态 <code>s = (+1, +1, −1)</code>，按 1 → 2 → 3 的顺序更新。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>局部场 hᵢ</th><th>新的 sᵢ</th><th>ΔE</th></tr></thead>
+  <tbody>
+    <tr><td>i = 1</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>i = 2</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>i = 3</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>若把顺序改成 3 → 2 → 1，最终状态一样吗？若改成三个同时更新，会不会出现两个状态来回跳？</p>
+<p><strong>验收：</strong>三个 ΔE 全为负或零，并能指出「同时更新时 ΔE 的交叉项可能为正」。把规则跑在真实图案上，见 <a href="../m06-neural-nets/k6-3-4-hopfield-demo.html">实现与图案恢复</a>。</p>
+</section>
+<p class="sidenote">注：Hopfield 网络在知识库中无对应条目；细纲原回链的 M06-S1-07 实际讲「神经网络参数」，与本节主题不符。本页按经典教材口径自述。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-3-4-hopfield-demo.html">6.3.4 实现关注点与图案恢复</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-3-2-associative-memory.html"><span class="p-label">← 上一知识点 6.3.2</span><span class="p-title">吸引子与联想记忆</span></a><a class="next" href="k6-3-4-hopfield-demo.html"><span class="p-label">下一知识点 6.3.4 →</span><span class="p-title">实现关注点与图案恢复</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)12 · 离散型 Hopfield 更新规则</dd>
+    <dt>页面编号 / 路径</dt><dd>6.3.3 ｜ <span class="path">pages/m06-neural-nets/k6-3-3-update-rule.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-3-1-hopfield-energy.html"><b>6.3.1</b>Hopfield 结构与能量函数</a><a class="xlink" href="k6-3-2-associative-memory.html"><b>6.3.2</b>吸引子与联想记忆</a><a class="xlink" href="k6-3-4-hopfield-demo.html"><b>6.3.4</b>实现关注点与图案恢复</a><a class="xlink" href="u6-3-hopfield.html"><b>6.3</b>离散型霍普菲尔德网络与实现关注点（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-3-3（本页图 6-14）；知识库无对应条目，按经典教材口径自述。 ｜  ｜ 参考来源：Hopfield 1982, PNAS；S53《深度学习》第 6 章相关章节；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

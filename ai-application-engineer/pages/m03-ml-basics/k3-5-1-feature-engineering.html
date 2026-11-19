@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.5.1 特征工程：把原始数据变成可学的信号 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出特征工程包含构造、变换、选择三类动作。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-5-feature-engineering.html">3.5 特征工程</a><span class="sep">/</span><span class="here">3.5.1 特征工程：把原始数据变成可学的信号</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.5</span>
+    <span class="tag">知识点 3.5.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>特征工程：把原始数据变成可学的信号</h1>
+  <p class="lede">同一个算法、同一份数据，两个人跑出来的效果能差一截。差距往往不在调参，而在喂进去的列：一个直接把原始字段丢进模型，另一个先把业务理解翻译成了数值。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出特征工程包含构造、变换、选择三类动作。</li><li>能区分数值、类别、时间三类特征各自的处理方式。</li><li>能为一个原始字段写出对应的业务假设。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一算法，为什么别人效果更好</h2>
+<p>两个小组做同一个用户流失预测，用的是同一个逻辑回归。A 组直接拿原始表的 12 个字段建模，AUC 0.68；B 组拿同样的表，AUC 0.81。</p>
+<p class="ask">B 组没有换模型，也没有更多数据。多出来的效果从哪来？</p>
+<p>B 组把「最近一次登录距今多少天」「近 30 天订单数」「平均客单价」这些列造了出来。原始表里没有这些列，但它们才是流失的直接信号。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>食材切法决定入味</h2>
+<p>同一块肉，切片、切丝、切块，下锅后的口感完全不同。食材没变，变的是「以什么形态进入烹饪」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一张订单表，两种形态">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一张订单表，两种形态</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">原始记录：一行一次交易</text><text class="f-s" x="80" y="108">· 订单号、用户 ID、下单时间</text><text class="f-s" x="80" y="138">· 商品 ID、件数、单价</text><text class="f-s" x="80" y="168">· 优惠金额、支付方式</text><text class="f-s" x="80" y="198">· 一行只描述「这一次」</text><text class="f-s" x="80" y="228">· 模型无法直接读这一行</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">特征宽表：一行一个用户</text><text class="f-s" x="530" y="108">· 近 30 天订单数、总金额</text><text class="f-s" x="530" y="138">· 平均客单价、最大单笔</text><text class="f-s" x="530" y="168">· 首单距今天数、复购间隔</text><text class="f-s" x="530" y="198">· 常用支付方式（编码）</text><text class="f-s" x="530" y="228">· 一行描述「这个人的行为」</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 3-21　原始记录与特征宽表的映射</b>　左边一行是一次交易，右边一行是一个用户；特征工程做的就是把「发生过的行为」汇总成「可比较的画像」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>模型只能读数值列。凡是模型读不懂的业务概念，都要先被翻译成一列数字——这个翻译过程就是特征工程。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三类动作：构造、变换、选择</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>动作</th><th>做什么</th><th>例子</th></tr></thead>
+  <tbody>
+    <tr><td>构造</td><td>从已有字段算出新字段</td><td>由下单时间算出「距今天数」；由金额与件数算出「客单价」</td></tr>
+    <tr><td>变换</td><td>改变已有字段的尺度或形态</td><td>对数变换、标准化、类别编码</td></tr>
+    <tr><td>选择</td><td>从大量候选中留下有用的列</td><td>按相关性、重要性或稳定性筛列</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>特征工程是利用领域知识，把原始数据加工成模型易于学习的数值特征的过程。它的产物是一张「一行一个样本、一列一个假设」的宽表，而不是一段代码。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三类特征，三套处理</h2>
+<div class="steps">
+  <div class="step"><b>数值特征</b><span>关注量纲与分布。量纲差距大会压过其他列，偏态重时考虑对数变换，异常值要按性质处理。</span></div>
+  <div class="step"><b>类别特征</b><span>关注「能不能比大小」。无序类别用独热，有序类别才用序号，高基数类别慎用目标编码。</span></div>
+  <div class="step"><b>时间特征</b><span>关注「什么时候可用」。任何时间特征都必须标一个可用时点，晚于预测时点的值一律不能用。</span></div>
+</div>
+<p>三类特征的共同约束是同一条：<strong>这一列在预测那一刻，真的能拿到吗？</strong>拿不到，再强的相关性也是泄漏。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>订单表怎么长成特征表</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>原始字段</th><th>加工动作</th><th>产出特征</th><th>业务假设</th></tr></thead>
+  <tbody>
+    <tr><td>order_time</td><td>取最大值与快照日相减</td><td>days_since_last_order</td><td>越久没下单，越可能流失</td></tr>
+    <tr><td>amount</td><td>近 30 天求和 / 求均值</td><td>amount_sum_30d、avg_amount_30d</td><td>近期消费力反映活跃度</td></tr>
+    <tr><td>category</td><td>近 30 天去重计数</td><td>n_categories_30d</td><td>品类越分散，探索意愿越强</td></tr>
+    <tr><td>order_id</td><td>近 30 天计数</td><td>order_cnt_30d</td><td>频次是最直接的活跃信号</td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意最后一列：每个特征都对应一条可被反驳的假设。写不出假设的特征，通常也解释不了它为什么有效。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三列各造两个特征</h2>
+<p><strong>任务：</strong>拿「用户注册时间 / 订单金额 / 商品类目」三列，各造 2 个特征，并为每个特征写一条业务假设。</p>
+<div class="steps">
+  <div class="step"><b>注册时间</b><span>可造「账龄天数」「注册距首单天数」。</span></div>
+  <div class="step"><b>订单金额</b><span>可造「近 30 天均值」「最大单笔 / 均值之比」。</span></div>
+  <div class="step"><b>商品类目</b><span>可造「类目数」「主类目占比」。</span></div>
+</div>
+<p><strong>验收：</strong>六个特征都能写成「因为……所以预期它和标签有关系」的句子；写不出假设的，删掉重来。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-5-2-categorical.html">3.5.2 类别特征：独热、序号与目标编码</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-4-5-cleaning-demo.html"><span class="p-label">← 上一知识点 3.4.5</span><span class="p-title">动手：一条可复现的清洗流水线</span></a><a class="next" href="k3-5-2-categorical.html"><span class="p-label">下一知识点 3.5.2 →</span><span class="p-title">类别特征：独热、序号与目标编码</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)3 · 特征工程的概念和特点</dd>
+    <dt>页面编号 / 路径</dt><dd>3.5.1 ｜ <span class="path">pages/m03-ml-basics/k3-5-1-feature-engineering.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-5-2-categorical.html"><b>3.5.2</b>类别特征：独热、序号与目标编码</a><a class="xlink" href="k3-5-3-scaling.html"><b>3.5.3</b>归一化与标准化：先对齐尺度，再谈距离</a><a class="xlink" href="k3-5-4-time-features.html"><b>3.5.4</b>时间特征与未来信息</a><a class="xlink" href="u3-5-feature-engineering.html"><b>3.5</b>特征工程（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-5-1-a.svg（本页图 3-21）。 ｜ 知识库条目：M03-S3-03《特征工程的概念和特点》（filled） ｜ 参考来源：S41 scikit-learn《Preprocessing data》；S64 Han et al.《Data Mining》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

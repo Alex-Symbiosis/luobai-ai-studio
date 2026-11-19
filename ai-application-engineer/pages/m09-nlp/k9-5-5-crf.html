@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.5.5 条件随机场：全局归一化 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清逐点归一化为什么会产出非法标签序列。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-5-statistical-models.html">9.5 统计模型：HMM、最大熵与 CRF</a><span class="sep">/</span><span class="here">9.5.5 条件随机场：全局归一化</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.5</span>
+    <span class="tag">知识点 9.5.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>条件随机场：全局归一化</h1>
+  <p class="lede">每个字都判得很自信，连起来却是「O I-PER」这种非法序列。问题不在分类器，在归一化放在了哪一层。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清逐点归一化为什么会产出非法标签序列。</li><li>能写出线性链 CRF 的转移特征、状态特征与全局分母。</li><li>能判断一组 BIO 序列是否合法，并数出合法路径数。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一个不合法的自信</h2>
+<p>逐字分类器在「张 三 在 北 京」上输出：O、I-PER、O、B-LOC、I-LOC。前两个字出了问题——句首冒出一个 I，它前面没有任何 B。</p>
+<p>每个位置单独看，模型都很自信：第二个字 0.91 判 I。可这串标签在标注规范里根本不存在：I 只能跟在 B 或 I 后面。</p>
+<p>逐点分类的每个 0.91 都各自归一化过，互不知情。拼起来是不是合法序列，没人负责。CRF 补的就是这一环。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>分母的位置</h2>
+<p>同样给一条序列打分，两个模型只差一个分母的范围。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="归一化放在哪里，决定模型怎么算">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">归一化放在哪里，决定模型怎么算</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">逐点归一化：每个位置各自除</text><text class="f-s" x="80" y="108">· 每个 y 单独算分母</text><text class="f-s" x="80" y="138">· 分母只含局部因子</text><text class="f-s" x="80" y="168">· 训练简单，推断快</text><text class="f-s" x="80" y="198">· 局部最优不等于全局</text><text class="f-s" x="80" y="228">· 标签偏置会逐步累积</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">全局归一化：整条链一起除</text><text class="f-s" x="530" y="108">· 整条序列共用一个 Z</text><text class="f-s" x="530" y="138">· Z 要对所有路径求和</text><text class="f-s" x="530" y="168">· 训练代价高，推断准</text><text class="f-s" x="530" y="198">· 从根上避免标签偏置</text><text class="f-s" x="530" y="228">· CRF 的标准做法</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 9-28　归一化放在哪一层，决定模型怎么算</b>　逐点各自除，全局整串除；后者才看得见转移是否合法。</figcaption></figure>
+<p>逐点归一化：每个位置各自 softmax，分母只覆盖当前位置的几个标签。整串概率是各位置概率连乘。</p>
+<p>全局归一化：整串只有一个分母，覆盖所有可能的标签序列。分母里出现过的每一种组合都参与竞争，转移不合法的那条自然排不到前面。</p>
+<div class="callout callout--def">
+  <span class="c-label">关键差别</span>
+  <p>逐点的分母看不见邻居，全局的分母看得见整串。分数是否合法，只能在整串这个层面判断。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>势函数与全局分母</h2>
+<p><strong>条件随机场：</strong>给定观测序列 x，标签序列 y 构成一个条件随机场。线性链是最常用的一种：标签只与相邻标签相关，整串的分布写成</p>
+<p>p(y | x) ＝ exp(Σ<sub>t</sub> Σ<sub>k</sub> λ<sub>k</sub> f<sub>k</sub>(y<sub>t-1</sub>, y<sub>t</sub>, x, t)) / Z(x)，Z(x) ＝ Σ<sub>y′</sub> exp(Σ<sub>t</sub> Σ<sub>k</sub> λ<sub>k</sub> f<sub>k</sub>(y′<sub>t-1</sub>, y′<sub>t</sub>, x, t))。</p>
+<p><strong>转移特征</strong>看相邻两个标签与位置，例如「前一个标签是 B、当前是 I」；<strong>状态特征</strong>看当前标签与整条观测，例如「当前字是『京』、标签是 I-LOC」。两类特征共同给一条路径打分，权重由训练得到。</p>
+<p>分母把全部标签序列的分数加起来，这就是「全局」。序列长度 n、标签数 m 时，分母理论上要枚举 m<sup>n</sup> 条路径；实际用前向算法在 O(nm²) 内算完，与 HMM 的评估同构。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>逐点为什么会拼出非法序列</h2>
+<p>三个原因，层层递进。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>逐点归一化（CMM/MEMM）</th><th>全局归一化（CRF）</th></tr></thead>
+  <tbody>
+    <tr><td>分母范围</td><td>每个位置，只对当前标签求和</td><td>整条序列，对所有路径求和</td></tr>
+    <tr><td>序列概率</td><td>各位置概率连乘</td><td>一个势函数除以一个全局分母</td></tr>
+    <tr><td>非法序列</td><td>概率非零，甚至可能不低</td><td>由转移特征压到接近零</td></tr>
+    <tr><td>解码</td><td>逐点取最大，再拼接</td><td>Viterbi 在整串上取最大</td></tr>
+    <tr><td>已知缺陷</td><td>label bias：出口少的状态吞掉概率</td><td>无此偏差，分数在同一尺度上比较</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第一层是搜索不一致：每个位置取局部最大，拼起来不一定是全局最大。第二层是约束缺失：局部 softmax 不会因为「O 后面不能是 I」而扣分。第三层是 label bias：某状态能转出的分支少，它的概率被摊薄得少，模型反而偏爱停在那里，即使观测更像别处。</p>
+<p>全局归一化把三个问题一起解掉：解码在整串上取最大，转移特征给非法转移极低的分，分母统一后各路径可比。代价是训练要算配分函数，复杂度上去了，但仍是多项式时间。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>BIO 的合法路径</h2>
+<p>标签取 B、I、O 三种。合法转移六条：B→I、B→O、I→I、I→O、O→B、O→O；句首只允许 B 或 O。B→B 与 O→I 都不合法。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>候选序列（三位）</th><th>判定</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>O I B</td><td>非法</td><td>O 后不能接 I</td></tr>
+    <tr><td>I B O</td><td>非法</td><td>句首不能是 I</td></tr>
+    <tr><td>B I I</td><td>合法</td><td>B→I→I 均在允许表内</td></tr>
+    <tr><td>B O I</td><td>非法</td><td>O 后不能接 I</td></tr>
+    <tr><td>O B O</td><td>合法</td><td>O→B→O 均在允许表内</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三位序列共 3³ ＝ 27 条。按约束逐条数：句首为 B 的有 4 条（第二步 I 或 O，第三步各 2 种），句首为 O 的也有 4 条，合计 8 条合法。</p>
+<p>逐点模型会给 27 条都打上非零概率，非法的那 19 条只是分数偏低；全局模型的分母覆盖 27 条，非法转移的势函数接近零，路径分数自然沉底。同一句上，两者给出的最高分路径可能都是合法的，但在边界样本上，逐点模型更容易滑出去。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>判合法再数路径</h2>
+<p><strong>任务：</strong>标签改成 B、I、O、E 四种，句首只允许 B 或 O，允许转移为 B→I、B→E、B→O、I→I、I→E、I→O、E→B、E→O、O→B、O→O。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>序列</th><th>合法与否</th><th>卡在哪一步</th></tr></thead>
+  <tbody>
+    <tr><td>B I E O</td><td>？</td><td>？</td></tr>
+    <tr><td>O E B</td><td>？</td><td>？</td></tr>
+    <tr><td>I E O</td><td>？</td><td>？</td></tr>
+    <tr><td>B E I</td><td>？</td><td>？</td></tr>
+    <tr><td>O B E</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 三条序列里哪几条合法？② 四位序列一共 4⁴ ＝ 256 条，合法路径占多少？③ 逐点模型为什么也能给非法序列打出 0.9 的概率？</p>
+<p><strong>验收：</strong>逐条给出卡住的转移；第②问的答案是 29 条，用「按前一位分类、逐位累加」的办法数，不靠硬记。这套全局打分怎么落到分词上，见 <a href="../m09-nlp/k9-5-6-segmentation-demo.html">HMM 中文分词</a>；特征与权重怎么解，见 <a href="../m09-nlp/k9-5-4-maxent.html">最大熵模型</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-5-6-segmentation-demo.html">9.5.6 HMM 中文分词与 F1 评估</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-5-4-maxent.html"><span class="p-label">← 上一知识点 9.5.4</span><span class="p-title">最大熵模型：把约束都满足</span></a><a class="next" href="k9-5-6-segmentation-demo.html"><span class="p-label">下一知识点 9.5.6 →</span><span class="p-title">HMM 中文分词与 F1 评估</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)5 · 条件随机场</dd>
+    <dt>页面编号 / 路径</dt><dd>9.5.5 ｜ <span class="path">pages/m09-nlp/k9-5-5-crf.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-5-4-maxent.html"><b>9.5.4</b>最大熵模型：把约束都满足</a><a class="xlink" href="k9-5-6-segmentation-demo.html"><b>9.5.6</b>HMM 中文分词与 F1 评估</a><a class="xlink" href="k9-5-3-hmm-vs-cmm.html"><b>9.5.3</b>HMM 与条件马尔可夫模型的区别</a><a class="xlink" href="u9-5-statistical-models.html"><b>9.5</b>统计模型：HMM、最大熵与 CRF（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-5-5（本页图 9-28）；知识库 M09-S5-04《条件随机场模型的概念及原理》（filled）。 ｜ 知识库条目：M09-S5-04《条件随机场模型的概念及原理》（filled） ｜ 参考来源：Lafferty 等 2001《Conditional Random Fields》；统计学习方法（李航）第 11 章；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

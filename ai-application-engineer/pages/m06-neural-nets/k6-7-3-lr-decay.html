@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.7.3 指数衰减学习率 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 η_t=η_0·γ^t，并算出给定轮次的学习率与累计步长。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-7-optimization.html">6.7 优化网络：梯度下降变体、学习率衰减与过拟合抑制</a><span class="sep">/</span><span class="here">6.7.3 指数衰减学习率</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.7</span>
+    <span class="tag">知识点 6.7.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>指数衰减学习率</h1>
+  <p class="lede">固定学习率要么前期太慢、要么后期太抖。指数衰减用一条等比曲线，把「探索」和「精修」分到两段时间里。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 η_t=η_0·γ^t，并算出给定轮次的学习率与累计步长。</li><li>能用半衰期 ln0.5/lnγ 判断一个 γ 是快衰减还是慢衰减。</li><li>能避开「按 step 衰减误设成按 epoch」这个实现坑。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>最后十轮全在抖</h2>
+<p>一个 40 轮的训练，学习率固定 0.1。前 30 轮损失降得漂亮，从 1.09 掉到 0.28；后 10 轮在 0.26–0.31 之间来回跳，验证损失甚至小幅回升。</p>
+<p>原因不复杂：越靠近极小点，损失面曲率越大，步子必须小于 <code>2/λ_max</code> 才不会跨过谷底。固定 0.1 在前期是好步长，在后期就是坏步长。</p>
+<p class="ask">那一路调小行不行？</p>
+<p>行，而且不必手工调。把「每轮乘一个小于 1 的固定比例」写成规则，就是指数衰减：前期步子大，后期自动收紧，中间不用人盯。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>倒车入库</h2>
+<p>倒车入库时，远处可以快，贴近车位必须慢。学习率衰减是同一件事：离最优点远时用大步探索，进入极小点附近时用小步精修。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="指数衰减：步长按固定比例缩小">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">指数衰减：步长按固定比例缩小</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 90 L220 120 L340 160 L470 205 L610 245 L740 270 L880 285" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><circle class="f-pt" cx="470" cy="205" r="6"/><text class="f-s" x="480" y="197">半衰期</text><path class="f-dash" d="M470 60 L470 300"/><text class="f-s" x="478" y="76">η 减半</text><text class="f-s" x="880" y="322" text-anchor="end">轮次 t</text><text class="f-s" x="92" y="66" text-anchor="end">学习率 η</text><text class="f-s" x="100" y="340">η_t = η_0·γ^t；γ=0.9 时约 6.6 轮减半，γ 越小衰减越快。</text>
+</svg><figcaption><b>图 6-36　指数衰减：步长按固定比例缩小</b>　η_t=η_0·γ^t；γ=0.9 时约 6.6 轮减半，γ 越小衰减越快。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>衰减不是在「省算力」，而是在没有二阶信息的情况下，用时间换曲率的适应：假设越靠近极小点越要小步，那就让步长随时间单调变小。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>一条等比数列</h2>
+<p><strong>定义：</strong><code>η_t = η_0 · γ^t</code>，<code>η_0</code> 是初值，<code>γ</code> 是衰减率（decay rate），通常取 <strong>0.9–0.99</strong>，<code>t</code> 按 epoch 或按 step 计数。</p>
+<p>它是等比数列，因此有两个可直接算的量。</p>
+<p><strong>半衰期：</strong><code>t₁/₂ = ln0.5 / lnγ</code>。γ=0.99 时 69.0 轮，0.95 时 13.5 轮，0.9 时 6.6 轮，0.8 时 3.1 轮。半衰期越短，精修开始得越早，也越容易提前停滞。</p>
+<p><strong>累计步长额度：</strong>取 <code>η_0=0.1、γ=0.9</code>，前 10 轮（t=0…9）之和为</p>
+<p><code>0.1 × (1−0.9¹⁰) / (1−0.9) = 0.1 × (1−0.3487) / 0.1 = 0.6513</code>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>epoch</th><th>0</th><th>1</th><th>2</th><th>3</th><th>10</th></tr></thead>
+  <tbody>
+    <tr><td>η</td><td>0.1</td><td>0.09</td><td>0.081</td><td>0.0729</td><td>0.0349</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个读数要紧：练完 10 轮，学习率还剩 0.0349，约为初值的 35%；想让它降到初值的 1%，要 <code>t = ln0.01 / ln0.9 ≈ 43.7</code> 轮。也就是说，计划只跑 20 轮却设 γ=0.9，末段学习率还有初值的 12%，衰减根本没走完。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>框架里按 step 走</h2>
+<p>Keras 的调度器按「步」计数，不按「轮」：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>exp_decay.py</span></div>
+<pre><code>import tensorflow as tf
+
+# 每 decay_steps 步乘一次 decay_rate；本例让「一步 = 一个 epoch」
+steps_per_epoch = len(X) // 32
+sched = tf.keras.optimizers.schedules.ExponentialDecay(
+    initial_learning_rate=0.1,
+    decay_steps=steps_per_epoch,
+    decay_rate=0.9,
+    staircase=True,          # True: 阶梯式，每 decay_steps 步跳一次
+)
+opt = tf.keras.optimizers.SGD(learning_rate=sched)</code></pre>
+</div>
+<p>三个坑按出现频率排。第一，<code>decay_steps</code> 填成 1 而不是「一个 epoch 的步数」，学习率会每一步都乘 0.9，375 步之后直接归零，训练立刻停住；填成「总步数」则整个训练只衰减一次。第二，<code>staircase=True</code> 才是每段跳一次，False 是每个 step 连续插值，同一组参数下两条曲线不同。第三，调度器是「基础学习率」的生成器，Adam 也能挂，但它会在此基础上再做逐维缩放，观察时不要拿两者相乘的结果去解释曲线。</p>
+<p>与阶梯衰减的区别只有一条：阶梯衰减每 k 轮乘一次 γ，指数衰减每轮都乘，曲线更平滑、没有跳变点。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一 γ，不同总轮数</h2>
+<p>取 <code>η_0=0.1</code>，比较三种计划下的末段学习率：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>γ</th><th>计划轮数</th><th>末轮 η</th><th>占初值</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>0.9</td><td>10</td><td>0.0349</td><td>35%</td><td>衰减已明显，进入精修</td></tr>
+    <tr><td>0.9</td><td>20</td><td>0.0122</td><td>12%</td><td>偏快，后期可能停步</td></tr>
+    <tr><td>0.99</td><td>20</td><td>0.0821</td><td>82%</td><td>几乎没衰减，等于固定学习率</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第三行最能说明问题：γ 不是孤立参数，它必须与总轮数一起看。20 轮的训练配 0.99，末段仍是 0.0821，后期抖动一点没解决；反过来，200 轮的训练配 0.9，第 44 轮学习率就掉到初值的 1%，后 150 轮基本在原地磨。</p>
+<div class="callout callout--warn">
+  <span class="c-label">一个常被忽略的连带关系</span>
+  <p>衰减改的是「步长随时间的变化」，不是「总步数」。批大小减半会让每轮步数翻倍，如果 <code>decay_steps</code> 仍按旧值填，衰减速度会跟着翻倍——调了批大小，就要重算 <code>decay_steps</code>。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算三个数</h2>
+<p><strong>任务：</strong>给定 <code>η_0=0.2、γ=0.95</code>，完成三件事。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>要算的量</th><th>提示</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>第 5 轮的学习率</td><td>0.2 × 0.95⁵</td></tr>
+    <tr><td>B</td><td>半衰期是几轮</td><td>ln0.5 / ln0.95</td></tr>
+    <tr><td>C</td><td>降到初值 1% 要几轮</td><td>ln0.01 / ln0.95</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 若计划只有 10 轮，γ=0.95 合不合适？② 为什么说指数衰减在「训练轮数不确定」时更合适？③ Adam 已经自带步长缩放，再挂衰减还有意义吗？</p>
+<p><strong>验收：</strong>三问都有数字，且能说出「γ 与总轮数必须一起定」这条约束。前期步子该怎么定，见 <a href="../m06-neural-nets/k6-7-2-optimizers.html">Momentum、RMSProp 与 Adam</a>；什么时候该停，见 <a href="../m06-neural-nets/k6-7-5-early-stop-demo.html">早停、正则与训练策略</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-7-4-over-under.html">6.7.4 过拟合与欠拟合</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-7-2-optimizers.html"><span class="p-label">← 上一知识点 6.7.2</span><span class="p-title">Momentum、RMSProp 与 Adam</span></a><a class="next" href="k6-7-4-over-under.html"><span class="p-label">下一知识点 6.7.4 →</span><span class="p-title">过拟合与欠拟合</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)30 · 指数衰减学习率</dd>
+    <dt>页面编号 / 路径</dt><dd>6.7.3 ｜ <span class="path">pages/m06-neural-nets/k6-7-3-lr-decay.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-7-1-sgd-loop.html"><b>6.7.1</b>基于梯度下降的优化</a><a class="xlink" href="k6-7-2-optimizers.html"><b>6.7.2</b>Momentum、RMSProp 与 Adam</a><a class="xlink" href="k6-7-5-early-stop-demo.html"><b>6.7.5</b>早停、正则与训练策略</a><a class="xlink" href="k6-7-4-over-under.html"><b>6.7.4</b>过拟合与欠拟合</a><a class="xlink" href="u6-7-optimization.html"><b>6.7</b>优化网络：梯度下降变体、学习率衰减与过拟合抑制（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-7-3（本页图 6-36）；知识库 M06-S4-03。 ｜ 知识库条目：M06-S4-03《指数衰减学习率》（filled） ｜ 参考来源：S97 PyTorch ExponentialLR 文档；S53《深度学习》第 8 章；S98 Robbins & Monro 1951。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

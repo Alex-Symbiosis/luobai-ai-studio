@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.6.4 查询与服务化：API、可视化与权限 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出服务化三层的职责与先后顺序。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-6-enterprise-kg.html">7.6 企业知识图谱构建与综合项目</a><span class="sep">/</span><span class="here">7.6.4 查询与服务化：API、可视化与权限</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.6</span>
+    <span class="tag">知识点 7.6.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>查询与服务化：API、可视化与权限</h1>
+  <p class="lede">三个使用方各自直连图库，写法各不相同。一次全表扫描，学生端等了三十秒。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出服务化三层的职责与先后顺序。</li><li>能写出一个带分页、超时与截断标记的查询接口。</li><li>能把权限与脱敏放在服务端而不是界面上。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三方直连</h2>
+<p>图谱刚上线，三个使用方同时来接。教务系统要按课程查先修链，学院官网要展示实验室成员，学生端小程序要查教师信息。三边各写一套查询，参数命名不同，深度也不设上限。</p>
+<p>某天一个页面传了 depth=10，查询沿着边一路展开，把图库的 CPU 占满。其他人全部超时，学生端转圈 30 秒后报错。</p>
+<p>问题不在图库，在缺少一个统一入口。服务化要解决的就是这件事：谁能查、查多深、查不到时返回什么。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先接口后界面</h2>
+<p>三层从下往上搭：查询接口是唯一入口，可视化是它的一个调用方，权限与脱敏是每个入口都要过的关卡。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="服务化三层：接口、展示、权限">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">服务化三层：接口、展示、权限</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">查询接口</text><text class="f-s" x="430" y="87.0">统一入口，模板化查询、分页与超时</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">可视化</text><text class="f-s" x="430" y="151.0">子图浏览、路径高亮、结果导出</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">权限与脱敏</text><text class="f-s" x="430" y="215.0">按角色控字段，敏感值掩码</text><text class="f-s" x="120" y="272">接口先定，界面才好接；权限最后补，往往要重构——三层一起设计。</text>
+</svg><figcaption><b>图 7-34　服务化三层：接口、展示、权限</b>　接口统一收口查询，可视化负责呈现，权限与脱敏在服务端执行。</figcaption></figure>
+<p>顺序建议是接口先定、可视化后接、权限同步设计。权限放到最后补，往往要把已经写好的查询全部改一遍。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层各管什么</h2>
+<p><strong>查询接口：</strong>把查询模板化，外部只传参数，不传查询语句。负责参数校验、分页、超时与错误码。</p>
+<p><strong>可视化：</strong>把返回的节点与边画成子图，支持路径高亮与结果导出。它不直接访问图库，只调接口。</p>
+<p><strong>权限与脱敏：</strong>按角色控制可见字段与可见范围，敏感值在服务端掩码。前端只负责展示，不承担鉴权。</p>
+<p>三层之间用同一份响应结构对接：节点、边、元信息。元信息至少包含是否截断、耗时与依据，界面才能提示「还有更多」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>接口的四个参数</h2>
+<p>一个查询接口至少要管住四件事。<strong>深度</strong>：默认 1，上限 3，超过直接报错。<strong>分页</strong>：默认 20 条，上限 100。<strong>超时</strong>：服务端 800 毫秒，超时返回部分结果并标记截断。<strong>错误码</strong>：参数错 400，无权限 403，找不到 404，超时 504。</p>
+<p>权限按角色矩阵写：学生只能查自己所在学院的课程与自己所在实验室的成员；教师可查本学院全部；教务可查全部但看不到手机号。脱敏在序列化时做，学号保留前 4 位，手机号中间 4 位掩码。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别把查询语句交给前端</span>
+  <p>接口如果接收 Cypher 或 SPARQL 原文，等于把整库开放出去：一条不带 LIMIT 的查询就能拖垮服务。模板化不是洁癖，是边界。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一个请求与响应</h2>
+<p>教务系统查「数据库原理」的两跳先修链，请求只带课程号与深度。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">json</span><span>GET /api/v1/courses/CS301/prerequisites</span></div>
+<pre><code>GET /api/v1/courses/CS301/prerequisites?depth=2&amp;direction=in
+
+200 OK
+{
+  &quot;course&quot;: {&quot;code&quot;: &quot;CS301&quot;, &quot;name&quot;: &quot;数据库原理&quot;},
+  &quot;depth&quot;: 2,
+  &quot;nodes&quot;: [
+    {&quot;id&quot;: &quot;C_OS&quot;,  &quot;type&quot;: &quot;课程&quot;, &quot;name&quot;: &quot;操作系统&quot;},
+    {&quot;id&quot;: &quot;C_NET&quot;, &quot;type&quot;: &quot;课程&quot;, &quot;name&quot;: &quot;计算机网络&quot;},
+    {&quot;id&quot;: &quot;C_DB&quot;,  &quot;type&quot;: &quot;课程&quot;, &quot;name&quot;: &quot;数据库原理&quot;}
+  ],
+  &quot;edges&quot;: [
+    {&quot;from&quot;: &quot;C_OS&quot;,  &quot;rel&quot;: &quot;先修&quot;, &quot;to&quot;: &quot;C_NET&quot;},
+    {&quot;from&quot;: &quot;C_NET&quot;, &quot;rel&quot;: &quot;先修&quot;, &quot;to&quot;: &quot;C_DB&quot;}
+  ],
+  &quot;truncated&quot;: false,
+  &quot;elapsed_ms&quot;: 12,
+  &quot;evidence&quot;: &quot;培养方案 2024 版 §3.2&quot;
+}</code></pre>
+</div>
+<p>响应里同时给节点和边，是因为可视化要画边，缺了边就只能画点。truncated 让前端知道结果是否被截断，不必自己数条数。evidence 让答案可核对，出了问题能回到原始文档。</p>
+<p>depth 上限 3 不是拍脑袋：校园的先修链实际深度多在 3 以内，深度越大，路径数量增长越快，返回结果也越难读。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>设计成员接口</h2>
+<p><strong>任务：</strong>为「实验室成员」设计接口，写清参数、响应字段与权限矩阵。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>你的设计</th><th>检查</th></tr></thead>
+  <tbody>
+    <tr><td>路径与参数</td><td>？</td><td>是否有分页与上限</td></tr>
+    <tr><td>响应字段</td><td>？</td><td>是否含节点、边、元信息</td></tr>
+    <tr><td>角色权限</td><td>？</td><td>学生是否只能看本实验室</td></tr>
+    <tr><td>脱敏规则</td><td>？</td><td>学号、手机号怎么掩码</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 越权请求应该返回 403 还是空列表，为什么？② 超时返回部分结果时，前端要怎么提示？③ 权限规则改了，历史接口怎么兼容？</p>
+<p><strong>验收：</strong>越权返回 403，截断有标记，脱敏在服务端完成。查询怎么写，见 <a href="../m07-knowledge-graph/k7-5-2-query-languages.html">结构化查询语言</a>；整条链路怎么收尾，见 <a href="../m07-knowledge-graph/k7-6-5-project-demo.html">综合实战与复盘</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-6-5-project-demo.html">7.6.5 校园知识图谱综合实战与复盘</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-6-3-pipeline.html"><span class="p-label">← 上一知识点 7.6.3</span><span class="p-title">抽取—融合—存储的工程流水线</span></a><a class="next" href="k7-6-5-project-demo.html"><span class="p-label">下一知识点 7.6.5 →</span><span class="p-title">校园知识图谱综合实战与复盘</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)27 · 综合实战：校园知识图谱</dd>
+    <dt>页面编号 / 路径</dt><dd>7.6.4 ｜ <span class="path">pages/m07-knowledge-graph/k7-6-4-serving.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-6-3-pipeline.html"><b>7.6.3</b>抽取—融合—存储的工程流水线</a><a class="xlink" href="k7-6-5-project-demo.html"><b>7.6.5</b>校园知识图谱综合实战与复盘</a><a class="xlink" href="k7-5-2-query-languages.html"><b>7.5.2</b>结构化查询语言：SPARQL、Cypher 与 SQL</a><a class="xlink" href="u7-6-enterprise-kg.html"><b>7.6</b>企业知识图谱构建与综合项目（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-6-4（本页图 7-34）；知识库 M07-S5-00（filled）。 ｜ 知识库条目：M07-S5-00《企业知识图谱的构建方法》（filled） ｜ 参考来源：Neo4j Cypher 文档；W3C SPARQL 1.1 规范；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

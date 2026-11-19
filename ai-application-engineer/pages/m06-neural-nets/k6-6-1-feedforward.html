@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.6.1 前馈与全连接 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「有向无环」判断一个网络是不是前馈，包括带跨层连接的情况。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-6-feedforward.html">6.6 深度前馈网络：激活、去线性化与损失函数</a><span class="sep">/</span><span class="here">6.6.1 前馈与全连接</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.6</span>
+    <span class="tag">知识点 6.6.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>前馈与全连接</h1>
+  <p class="lede">「前馈」说的是图里没有回边，「全连接」说的是层间两两相连。两个词经常被当成同义词，其实一个讲结构，一个讲连接密度。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「有向无环」判断一个网络是不是前馈，包括带跨层连接的情况。</li><li>能写出神经元与全连接层的式子，并说清一层就是一次矩阵乘。</li><li>能区分前馈与前向传播，不再把结构属性和一次计算混用。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>评审会上的一条箭头</h2>
+<p>架构评审，图上有七层。有人在第 3 层和第 6 层之间画了一条箭头，把第 3 层的输出直接加到第 6 层上，用来缓解深层难训。会议室里立刻有人问：这样还叫前馈网络吗？</p>
+<p>另一个项目里，一位同事把「前馈分类器」的标题挂在一个含 LSTM 的模型上，被追问时答「反正数据是往前走」。这两个问题其实是同一个：<strong>判据不是「数据大体往哪走」，而是图里有没有回边。</strong></p>
+<p class="ask">跨层连接算不算回头？循环层为什么不算前馈？</p>
+<p>答案在「有没有形成环」这一条上，与跳了几层无关。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>从零件到整机</h2>
+<p>先有一个单元，再有同一层里并排的一排单元，然后是相邻两层两两相连，最后把这些层摞起来。整机的行为，就是这几步的重复。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="神经元 → 层 → 网络">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">神经元 → 层 → 网络</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">单个神经元</text><text class="f-sc" x="117.6" y="154.0">加权 + 激活</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">同层并行</text><text class="f-sc" x="298.79999999999995" y="154.0">共享输入、各自权重</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">层间全连接</text><text class="f-sc" x="480.0" y="154.0">W 是矩阵</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">堆叠多层</text><text class="f-sc" x="661.1999999999999" y="154.0">特征逐层抽象</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">输出预测</text><text class="f-sc" x="842.4" y="154.0">损失反向传</text><text class="f-s" x="40" y="244">「全连接」指相邻两层两两相连；矩阵乘法只是把这句话写成一行。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-28　神经元 → 层 → 网络</b>　「全连接」指相邻两层两两相连；矩阵乘法只是把这句话写成一行。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>连线是结构，矩阵是写法。看图时数箭头，写代码时写矩阵乘，两者说的是同一件事。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个层次</h2>
+<p><strong>神经元：</strong><code>a = f(wᵀx + b)</code>。w 是权重模板，b 是触发门槛，f 是激活。内积衡量输入像不像这个模板。</p>
+<p><strong>全连接层：</strong><code>z = Wx + b</code>，其中 <code>W</code> 有 n(out) 行，每一行是一个神经元的模板。所以一层就是「n(out) 个模板并行匹配」，一次矩阵乘算完。</p>
+<p><strong>参数量：</strong><code>n(out) × (n(in) + 1)</code>。全连接不共享权重，每个连接一个独立参数，所以参数量随宽度平方增长。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>回答什么</th><th>反义或对照</th></tr></thead>
+  <tbody>
+    <tr><td>前馈</td><td>图里有没有回边</td><td>反馈 / 循环网络</td></tr>
+    <tr><td>全连接</td><td>相邻层是不是两两相连</td><td>卷积（局部 + 共享）</td></tr>
+    <tr><td>深度前馈</td><td>多个隐藏层 + 无环</td><td>单层感知器</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一层就是一次矩阵乘</h2>
+<p>先手写一个神经元，再用框架写一层，两者应当给出同一个数。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>neuron_vs_dense.py</span></div>
+<pre><code>import numpy as np
+import keras
+from keras import layers
+
+x = np.array([[1.0, 2.0, -1.0]])
+w = np.array([[0.5], [-0.5], [1.0]])
+b = np.array([0.2])
+
+z = x @ w + b                    # (1,3) @ (3,1) = (1,1)
+a = np.maximum(0.0, z)           # ReLU
+print(&quot;手算:&quot;, float(a[0, 0]))
+
+dense = layers.Dense(1, activation=&quot;relu&quot;)
+print(&quot;框架:&quot;, float(dense(x)[0, 0]))</code></pre>
+</div>
+<p>把 <code>layers.Dense(1)</code> 换成 <code>layers.Dense(64)</code>，w 就从 3×1 变成 3×64，一次乘出 64 个模板的匹配得分。再往上叠一层 <code>Dense(10)</code>，就是一个 3→64→10 的网络。</p>
+<p>批量时把 32 个样本摞成 (32, 3)，一次矩阵乘得到 (32, 64)。并行度来自这里：不是循环 32 次，而是把样本并排放好，让硬件一次算完。</p>
+<p>全连接的代价也在这一步：3→64 是 <code>64×4 = 256</code> 个参数，784→256 就是 <code>256×785 = 200,960</code> 个。输入维度一高，参数立刻失控，这正是卷积要共享权重的动机。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两个常被混用的词</h2>
+<p>「前馈」与「前向传播」只差一个字，含义完全不同。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>前馈</th><th>前向传播</th></tr></thead>
+  <tbody>
+    <tr><td>是什么</td><td>网络的结构属性</td><td>一次计算过程</td></tr>
+    <tr><td>回答</td><td>图里有没有环</td><td>这一趟怎么算</td></tr>
+    <tr><td>能否同时成立</td><td colspan="2">能：前馈网络的一次前向传播</td></tr>
+  </tbody>
+</table>
+</div>
+<p>按这条判据：MLP 是前馈；CNN 是前馈；带跨层恒等连接的 ResNet 仍是前馈（没有回边）；LSTM 不是（隐藏状态会送回自己）。说「前馈分类器」时挂一个 LSTM，就是概念用错了。</p>
+<p>全连接与前馈也不是一回事：全连接是连接密度，前馈是有没有环。一个前馈网络可以全是卷积，一个全连接网络也可以带反馈——只是后者少见。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别用「数据往前走」当判据</span>
+  <p>循环网络在展开之后，数据看起来也是一路向前。判断依据只有一条：把网络画成图，是否存在从某点出发又回到该点的路径。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>四个图，判是不是前馈</h2>
+<p><strong>任务：</strong>逐个判断，并写出理由（一句话即可）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>结构</th><th>是否是前馈</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>三层 MLP</td><td>？</td><td>层间两两相连，无回边</td></tr>
+    <tr><td>带残差连接的 CNN</td><td>？</td><td>跨层但是单向</td></tr>
+    <tr><td>单层 LSTM</td><td>？</td><td>隐藏状态回送</td></tr>
+    <tr><td>两层全连接 + 第 2 层输出接回第 1 层输入</td><td>？</td><td>形成环</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 全连接层 784→256 有多少参数？其中偏置占多少？② 同样的输入输出，换成 3×3 卷积（3 通道进、16 通道出）要多少参数？两数相差几个数量级？</p>
+<p><strong>验收：</strong>四个判断都能落到「有没有回边」，并算对 200,960 与偏置 256。前馈结构确定后，怎么把输入算到输出，见 <a href="../m06-neural-nets/k6-5-3-forward-prop.html">前向传播</a>；层里为什么必须加激活，见 <a href="../m06-neural-nets/k6-6-2-activation.html">激活函数</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-6-2-activation.html">6.6.2 激活函数：给网络加弯折</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-5-4-why-deep-demo.html"><span class="p-label">← 上一知识点 6.5.4</span><span class="p-title">深度学习为什么有效</span></a><a class="next" href="k6-6-2-activation.html"><span class="p-label">下一知识点 6.6.2 →</span><span class="p-title">激活函数：给网络加弯折</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)23 · 前馈与全连接</dd>
+    <dt>页面编号 / 路径</dt><dd>6.6.1 ｜ <span class="path">pages/m06-neural-nets/k6-6-1-feedforward.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-5-3-forward-prop.html"><b>6.5.3</b>前向传播：一层层算到输出</a><a class="xlink" href="k6-6-2-activation.html"><b>6.6.2</b>激活函数：给网络加弯折</a><a class="xlink" href="k6-6-3-nonlinearity.html"><b>6.6.3</b>去线性化：多层为什么不再是直线</a><a class="xlink" href="k6-5-2-dnn-structure.html"><b>6.5.2</b>深度神经网络的结构</a><a class="xlink" href="u6-6-feedforward.html"><b>6.6</b>深度前馈网络：激活、去线性化与损失函数（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k6-6-1（本页图 6-28）；知识库 M06-S3-01、M06-S3-02。 ｜ 知识库条目：M06-S3-01《网络的前馈方式》（filled）、M06-S3-02《神经元与全连接结构》（filled） ｜ 参考来源：S47 McCulloch & Pitts 1943；S53《深度学习》第 6 章；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.5.2 语料库的生命周期 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出语料库生命周期的七个阶段及各自的交付物。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-5-corpus-xml.html">11.5 语言数据管理与 XML</a><span class="sep">/</span><span class="here">11.5.2 语料库的生命周期</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.5</span>
+    <span class="tag">知识点 11.5.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>语料库的生命周期</h1>
+  <p class="lede">语料库不是发布那天就完事的文件包。链接会失效、格式会过时、许可会到期；没有生命周期管理，三年后的实验就复现不出来。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出语料库生命周期的七个阶段及各自的交付物。</li><li>能解释校验和解决的是「信任」问题，而不是「保密」问题。</li><li>能用标准库生成 manifest 并检测文件变更。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>论文里的数据取不到了</h2>
+<p>复现一篇三年前的论文，需要它用的语料。按论文写的链接打开：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">现状 A</span><h3>链接 404</h3><p>作者个人主页已改版，数据没有镜像；论文只写了「公开可用」，没说版本号与哈希。</p></div>
+  <div class="card mini"><span class="mini-tag">现状 B</span><h3>拿到的和当初不一样</h3><p>数据还在，但作者做过一次纠错，文件被覆盖；没有变更日志，也说不清差在哪。</p></div>
+</div>
+<p class="ask">这两种情况，缺的是同一件东西吗？</p>
+<p>不是。前者缺长期托管与退役说明，后者缺版本与完整性校验；两者都属于生命周期管理。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>发布不是终点</h2>
+<p>软件有版本号、发布说明与缺陷跟踪；语料库是同样的长期资产，只是很多人只做了「上传」这一步。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四阶段，每阶段都有质量门槛">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">四阶段，每阶段都有质量门槛</text><circle class="f-b3" cx="480" cy="186" r="62"/><text class="f-tc" x="480" y="182">语料库</text><text class="f-sc" x="480" y="200">不是一次做完</text><rect class="f-b" x="384" y="48" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="73.0">规划</text><text class="f-sc" x="480.0" y="92.0">目标与口径</text><rect class="f-b" x="646" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="742.0" y="181.0">采集</text><text class="f-sc" x="742.0" y="200.0">版权与清洗</text><rect class="f-b" x="384" y="264" width="192" height="60" rx="9"/><text class="f-tc" x="480.0" y="289.0">标注</text><text class="f-sc" x="480.0" y="308.0">规范与质检</text><rect class="f-b" x="122" y="156" width="192" height="60" rx="9"/><text class="f-tc" x="218.0" y="181.0">发布维护</text><text class="f-sc" x="218.0" y="200.0">版本与文档</text><path class="f-ar" d="M480 108 L480 124" marker-end="url(#ah)"/><path class="f-ar" d="M680 186 L672 186" marker-end="url(#ah)"/><path class="f-ar" d="M480 264 L480 248" marker-end="url(#ah)"/><path class="f-ar" d="M280 186 L288 186" marker-end="url(#ah)"/><path class="f-dash" d="M604 92 Q700 120 700 150"/><path class="f-dash" d="M356 280 Q260 252 260 222"/><text class="f-s" x="40" y="338">发布不是终点：版本、许可、纠错通道都要跟着语料一起维护。</text>
+</svg><figcaption><b>图 11-19　四阶段，每阶段都有质量门槛</b>　规划定口径，采集管版权与清洗，标注管规范与质检，发布维护管版本与文档；任一环节跳过，后面都要返工。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>生命周期管理的目标只有一句话：让三年后的自己（或别人）能确认「拿到的就是当初那一份」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>七个阶段与四件交付物</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶段</th><th>主要活动</th><th>交付物</th></tr></thead>
+  <tbody>
+    <tr><td>规划</td><td>明确任务、规模、许可、隐私</td><td>数据说明书</td></tr>
+    <tr><td>采集</td><td>抓取、授权获取、转写</td><td>原始数据 + 来源记录</td></tr>
+    <tr><td>清洗</td><td>去噪、去重、规范化</td><td>清洗后语料 + 脚本</td></tr>
+    <tr><td>标注</td><td>规范、双盲标注、仲裁</td><td>标注层 + 一致性报告</td></tr>
+    <tr><td>发布</td><td>版本号、清单、许可、文档</td><td>发布包</td></tr>
+    <tr><td>维护</td><td>修错、扩充、迁移格式</td><td>新版本 + 变更日志</td></tr>
+    <tr><td>退役</td><td>停止分发、删除敏感数据</td><td>退役说明</td></tr>
+  </tbody>
+</table>
+</div>
+<p>四件交付物贯穿全程：<strong>版本号</strong>（<code>主.次.修订</code>）、<strong>变更日志</strong>（每版新增/修改/删除）、<strong>清单</strong>（文件 + 哈希 + 大小）、<strong>许可</strong>（每个样本可追溯）。校验和用哈希保证完整性，它防的是篡改与静默损坏，不是防泄露——那是加密要解决的问题。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>生成清单并检测变更</h2>
+<p>只用标准库（<code>hashlib</code>、<code>json</code>、<code>pathlib</code>），无需第三方依赖，Python 3.13.14 直接运行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>manifest_demo.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：生成 manifest 并校验文件完整性（仅标准库）。&quot;&quot;&quot;
+import hashlib
+import json
+import tempfile
+from pathlib import Path
+
+
+def sha256(path: Path) -&gt; str:
+    digest = hashlib.sha256()
+    with path.open(&quot;rb&quot;) as fh:
+        for chunk in iter(lambda: fh.read(65536), b&quot;&quot;):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    (root / &quot;a.txt&quot;).write_text(&quot;hello corpus&quot;, encoding=&quot;utf-8&quot;)
+    (root / &quot;b.txt&quot;).write_text(&quot;second sample&quot;, encoding=&quot;utf-8&quot;)
+
+    manifest = {p.name: sha256(p) for p in sorted(root.glob(&quot;*.txt&quot;))}
+    (root / &quot;manifest.json&quot;).write_text(json.dumps(manifest, indent=2), encoding=&quot;utf-8&quot;)
+
+    ok = all(sha256(root / name) == digest for name, digest in manifest.items())
+    print(&quot;初次校验:&quot;, ok)
+
+    (root / &quot;a.txt&quot;).write_text(&quot;hello corpus!&quot;, encoding=&quot;utf-8&quot;)
+    changed = [name for name, digest in manifest.items() if sha256(root / name) != digest]
+    print(&quot;变更文件:&quot;, changed)
+    assert ok and changed == [&quot;a.txt&quot;]</code></pre>
+</div>
+<p><code>iter(lambda: fh.read(65536), b"")</code> 是分块读取的惯用法：大文件不必一次读进内存。<code>sorted(root.glob("*.txt"))</code> 保证清单顺序稳定，否则同样的内容会生成不同的 JSON，失去可比性。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>在 Python 3.13.14 下运行：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>初次校验: True
+变更文件: [&#x27;a.txt&#x27;]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>初次校验 True</h3><p>刚生成的清单与文件一致，这是基线；校验的意义在于之后每次比对都有参照。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>只报出 a.txt</h3><p>多了一个感叹号，哈希全变；b.txt 未动就不在变更列表里，说明校验能定位到文件级。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>改一个字符也算变</h3><p>哈希对输入极其敏感，这正是它能发现静默损坏的原因。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">校验和不等于签名</span>
+  <p>清单只能证明「文件与清单一致」；清单本身若被替换，校验就失效。防抵赖场景需要数字签名或可信时间戳。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把清单变成发布流程</h2>
+<p><strong>任务：</strong>在示例基础上补三件事，形成一个最小发布脚本。</p>
+<div class="steps">
+  <div class="step"><b>加元信息</b><span>清单里除哈希外，再记录每个文件的字节数与 UTF-8 行数。</span></div>
+  <div class="step"><b>加版本号</b><span>用 <code>version.txt</code> 写 <code>1.0.0</code>，并把它自身也纳入清单。</span></div>
+  <div class="step"><b>加变更日志</b><span>每次检测到变更，向 <code>CHANGELOG.md</code> 追加一行日期、文件名与旧新哈希前 8 位。</span></div>
+</div>
+<p><strong>追问：</strong>① 为什么清单要连同版本号一起发布？② 什么情况下应该「退役」而不是「维护」？</p>
+<p><strong>验收：</strong>脚本重复运行结果稳定；能说清哈希、加密、签名三者的区别。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-5-3-development.html">11.5.3 语料库的开发方法</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-5-1-corpus-structure.html"><span class="p-label">← 上一知识点 11.5.1</span><span class="p-title">语料库的结构</span></a><a class="next" href="k11-5-3-development.html"><span class="p-label">下一知识点 11.5.3 →</span><span class="p-title">语料库的开发方法</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)5② · 语料库的生命周期</dd>
+    <dt>页面编号 / 路径</dt><dd>11.5.2 ｜ <span class="path">pages/m11-python/k11-5-2-lifecycle.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-5-1-corpus-structure.html"><b>11.5.1</b>语料库的结构</a><a class="xlink" href="k11-5-3-development.html"><b>11.5.3</b>语料库的开发方法</a><a class="xlink" href="k11-1-2-venv.html"><b>11.1.2</b>虚拟环境与依赖管理</a><a class="xlink" href="u11-5-corpus-xml.html"><b>11.5</b>语言数据管理与 XML（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-5-2（本页图 11-19）；知识库 M11-S5-02；输出为本机实测，仅标准库。 ｜ 知识库条目：M11-S5-02《语料库的生命周期》（filled） ｜ 参考来源：S126 json；S129 pathlib；S132 hashlib；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

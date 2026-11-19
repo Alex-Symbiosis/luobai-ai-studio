@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.1.1 数据很多，知识很少：数据挖掘要解决什么 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用自己的话给出数据挖掘的定义，并说出它与报表、SQL 查询的分界。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-1-what-is-dm.html">8.1 数据挖掘的概念与时代背景</a><span class="sep">/</span><span class="here">8.1.1 数据很多，知识很少：数据挖掘要解决什么</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.1</span>
+    <span class="tag">知识点 8.1.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>数据很多，知识很少：数据挖掘要解决什么</h1>
+  <p class="lede">报表回答的是有人事先想到的问题；数据挖掘要回答的，是没人写进报表的那一个。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用自己的话给出数据挖掘的定义，并说出它与报表、SQL 查询的分界。</li><li>能用「非平凡、有效、可理解、可行动」四条逐一检验一个结论算不算挖掘成果。</li><li>能说出 KDD 五步的先后顺序，并指出挖掘在其中只是第四步。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>报表答不了的那一问</h2>
+<p>一家有 18 家门店的茶饮连锁，一年积累 42 万条订单明细，字段包括门店、日期、时段、商品、数量、金额、会员号和渠道。BI 报表做得不差：日销、周销、品类占比、门店排行，点几下就能出。</p>
+<p>运营总监问了一个报表答不了的问题：点了杨枝甘露的顾客，还会顺手加购什么小食？这个问题没有现成字段，也没有预设口径，答案要靠算法在几十万条单据里自己找。</p>
+<p>数据一直在涨，能直接拿去改动作的规则却没几条。这个落差，就是数据挖掘要处理的事。</p>
+<p class="ask">数据不缺、报表也不缺，缺的到底是哪一步？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>淘金，而不是数沙子</h2>
+<p>把数据挖掘想成淘金：沙子已经堆成山，值钱的是筛出来的那几粒，而不是把沙子再数一遍。数沙子是统计，淘金才是挖掘。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="数据在涨，能用的规则却没几条">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">数据在涨，能用的规则却没几条</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">数据这一侧</text><text class="f-s" x="80" y="108">· 每天新增的记录在涨</text><text class="f-s" x="80" y="138">· 字段几十上百，看不过来</text><text class="f-s" x="80" y="168">· 报表能出，结论还得人写</text><text class="f-s" x="80" y="198">· 存下来的多，用起来的少</text><text class="f-s" x="80" y="228">· 问题不清楚，数据就没靶子</text><rect class="f-amber" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">知识这一侧</text><text class="f-s" x="530" y="108">· 能直接用的规则很少</text><text class="f-s" x="530" y="138">· 规则要经得起复核</text><text class="f-s" x="530" y="168">· 换个场景常常要重来</text><text class="f-s" x="530" y="198">· 经验靠老师傅口口相传</text><text class="f-s" x="530" y="228">· 沉淀不下来就随人流失</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 8-1　数据在涨，能直接用的规则却没几条</b>　缺口不在存储，而在从数据里发现可用的规则。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="数据、信息、知识、决策：四级阶梯">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">数据、信息、知识、决策：四级阶梯</text><rect class="f-b" x="70" y="252" width="180" height="62" rx="9"/><text class="f-tc" x="160" y="278">数据</text><text class="f-sc" x="160" y="298">订单里的原始记录</text><text class="f-sc" x="160" y="332">发生了什么？</text><path class="f-ar" d="M252 270 L288 218" marker-end="url(#ah)"/><rect class="f-b" x="290" y="196" width="180" height="62" rx="9"/><text class="f-tc" x="380" y="222">信息</text><text class="f-sc" x="380" y="242">本月牛奶销量上升</text><text class="f-sc" x="380" y="276">说明什么？</text><path class="f-ar" d="M472 214 L508 162" marker-end="url(#ah)"/><rect class="f-b" x="510" y="140" width="180" height="62" rx="9"/><text class="f-tc" x="600" y="166">知识</text><text class="f-sc" x="600" y="186">雨天牛奶更好卖</text><text class="f-sc" x="600" y="220">为什么？</text><path class="f-ar" d="M692 158 L728 106" marker-end="url(#ah)"/><rect class="f-b2" x="730" y="84" width="180" height="62" rx="9"/><text class="f-tc" x="820" y="110">决策</text><text class="f-sc" x="820" y="130">雨天提前补货</text><text class="f-sc" x="820" y="164">该做什么？</text><text class="f-s" x="40" y="348">每上一层多一次加工；越往上，越接近可以直接执行的动作。</text>
+</svg><figcaption><b>图 8-2　数据、信息、知识、决策是四级加工</b>　每上一层多一次加工，越往上越接近一个可执行的动作。</figcaption></figure>
+<p>四级阶梯放进店里就很具体：一条订单是<strong>数据</strong>；本周杨枝甘露销量上升是<strong>信息</strong>；下午时段的订单更常搭配某款小食是<strong>知识</strong>；把它做成下午套餐是<strong>决策</strong>。数据挖掘干的，是从第一级跳到第三级。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>报表把数据变成信息，挖掘把数据变成知识和动作。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个限定词</h2>
+<p><strong>数据挖掘</strong>是从大量数据中，以非平凡的方式提取隐含的、先前未知的、潜在有用模式的过程。定义里的形容词太多，落到判断上只需要四条：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>限定</th><th>要问的问题</th><th>不成立的样子</th></tr></thead>
+  <tbody>
+    <tr><td>非平凡</td><td>一条 SQL 或一张固定报表能不能直接得出？</td><td>月度销售额、同比环比</td></tr>
+    <tr><td>有效</td><td>换一批数据、换几家门店，这个模式还成立吗？</td><td>只是这一份数据的巧合</td></tr>
+    <tr><td>可理解</td><td>人能读懂、能复核这个模式吗？</td><td>一串无法解释的系数</td></tr>
+    <tr><td>可行动</td><td>能不能落到陈列、套餐、名单或阈值上？</td><td>只能说一句「有意思」</td></tr>
+  </tbody>
+</table>
+</div>
+<p>「隐含」和「先前未知」不用另立两条：它们正是前两条的另一种说法——不是明摆着的，也不是已经知道的。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>KDD 五步，挖掘是第四步</h2>
+<p>数据挖掘常被当成全流程，其实它只是「从数据中发现知识」（KDD）的五步之一：<strong>选择</strong>圈定数据范围，<strong>预处理</strong>去重补缺，<strong>变换</strong>统一口径、构造特征，<strong>挖掘</strong>用算法搜模式，<strong>解释评估</strong>判断模式能不能用。</p>
+<p>顺序不能颠倒。范围选错，算法再强也只是在错的池子里捞；口径没统一，两个系统的「销售额」根本不是同一个数；评估跳过，输出的只是一堆候选，没人知道哪条能用。</p>
+<p>工程上，前三步往往吃掉大半工期，第四步反而是最短的一段。这也解释了一个常见现象：项目失败多半死在问题定义和数据质量，而不是算法不够新。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「跑了一个模型」当成「完成了挖掘」。模型只是载体，没有模式筛选和业务评估，它仍然停在第四步。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个行业，三种模式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>数据</th><th>找到的模式</th><th>动作</th></tr></thead>
+  <tbody>
+    <tr><td>零售</td><td>订单明细里的商品组合</td><td>点某款茶的订单常加购某款小食</td><td>做成套餐、调整端架</td></tr>
+    <tr><td>电信</td><td>计费详单与套餐变更记录</td><td>某类用量组合先于离网出现</td><td>提前外呼、给保留方案</td></tr>
+    <tr><td>互联网</td><td>访问日志与点击序列</td><td>某条路径上的流失集中在一个环节</td><td>改页面、调推荐</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个案例的共同点：模式都不是预先写好的查询结果，而是从大量记录里搜出来的；并且都能落到一个具体动作上。这里只讲任务形态，不引用任何未核实的效果数字。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>四句话，判是不是挖掘</h2>
+<p><strong>任务：</strong>判断下面四件事是否属于数据挖掘，各写一句理由。</p>
+<p>① 把日报做成折线图；② 用 SQL 查上月销售额；③ 从购物篮中发现捆绑规律；④ 把客户按消费行为分成几群。</p>
+<p><strong>参考答案：</strong>① 不算，指标和图形都是预先定义的，没有搜索未知模式；② 不算，条件由人给定，属于按已知取数；③ 算，商品组合的数量远超人工枚举，属于非平凡搜索；④ 算，没有标签，靠算法按相似度分组，输出是事先不知道的群。</p>
+<p><strong>验收：</strong>四句理由都能落到「非平凡」或「可行动」上，而不是只说「用了算法」。接着看 <a href="../m08-data-mining/k8-1-2-era-background.html">数据挖掘产生的时代背景</a>，看这三条条件是怎么凑齐的。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-1-2-era-background.html">8.1.2 时代背景：三条技术条件同时成熟</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="u8-1-what-is-dm.html"><span class="p-label">← 返回</span><span class="p-title">单元 8.1 目录</span></a><a class="next" href="k8-1-2-era-background.html"><span class="p-label">下一知识点 8.1.2 →</span><span class="p-title">时代背景：三条技术条件同时成熟</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)1 · 数据挖掘的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>8.1.1 ｜ <span class="path">pages/m08-data-mining/k8-1-1-what-is-dm.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-1-2-era-background.html"><b>8.1.2</b>时代背景：三条技术条件同时成熟</a><a class="xlink" href="k8-1-3-four-tasks.html"><b>8.1.3</b>四类典型应用：找关联、分群、预测、异常</a><a class="xlink" href="k8-2-3-data-mining.html"><b>8.2.3</b>数据挖掘：在数据里找「没人告诉过你」的模式</a><a class="xlink" href="u8-1-what-is-dm.html"><b>8.1</b>数据挖掘的概念与时代背景（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-1-1（本页图 8-1）、k8-1-1-b（本页图 8-2）；知识库 M08-S1-01《数据挖掘的概念》（filled）。 ｜ 知识库条目：M08-S1-01《数据挖掘的概念》（filled） ｜ 参考来源：Fayyad, Piatetsky-Shapiro & Smyth, From Data Mining to Knowledge Discovery in Databases, AI Magazine 1996；Han, Kamber & Pei《数据挖掘：概念与技术》；CRISP-DM 1.0；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

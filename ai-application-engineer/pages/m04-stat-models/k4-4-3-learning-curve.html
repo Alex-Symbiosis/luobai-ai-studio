@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.4.3 用学习曲线诊断 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出并读懂训练/验证误差随样本量变化的学习曲线。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-4-overfitting.html">4.4 欠拟合与过拟合</a><span class="sep">/</span><span class="here">4.4.3 用学习曲线诊断</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.4</span>
+    <span class="tag">知识点 4.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>用学习曲线诊断</h1>
+  <p class="lede">单个分数只能说明「现在多好」，学习曲线能说明「为什么好或不好」。把训练误差与验证误差随样本量或复杂度画在一起，欠拟合、过拟合、数据不足会呈现完全不同的形状。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出并读懂训练/验证误差随样本量变化的学习曲线。</li><li>能区分高偏差、高方差与数据不足三种曲线形态。</li><li>能根据曲线形态选择「加数据」还是「降容量」。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>只看一个分数，判断不了</h2>
+<p>两个模型的验证误差都是 0.32：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">模型 A</span><h3>训练 0.31</h3><p>两条曲线几乎重合，都在 0.3 附近；加数据也降不下去。</p></div>
+  <div class="card mini"><span class="mini-tag">模型 B</span><h3>训练 0.08</h3><p>训练很低、验证较高，且随样本增加两条线在靠近，但尚未闭合。</p></div>
+</div>
+<p class="ask">验证误差一样，为什么一个该换模型，一个该加数据？</p>
+<p>因为两者的<strong>曲线形态</strong>不同：A 是高偏差，两条线贴着且都高；B 是高方差，中间有大裂口。只看终点数值，这个差别完全被藏掉。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两条线的间距与走势</h2>
+<p>把训练误差与验证误差分别画成两条线，横轴是样本量或模型复杂度：间距说明泛化差距，走势说明加数据还有没有用。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="学习曲线的三种诊断">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">学习曲线的三种诊断</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">状态</text><text class="f-t" x="240.0" y="98">训练误差</text><text class="f-t" x="408.0" y="98">验证误差</text><text class="f-t" x="576.0" y="98">两条线的关系</text><text class="f-t" x="744.0" y="98">下一步</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">高偏差</text><text class="f-s" x="240.0" y="139.0">高</text><text class="f-s" x="408.0" y="139.0">高</text><text class="f-s" x="576.0" y="139.0">都很高且贴得近</text><text class="f-s" x="744.0" y="139.0">加特征 / 升容量</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">高方差</text><text class="f-s" x="240.0" y="183.0">低</text><text class="f-s" x="408.0" y="183.0">高</text><text class="f-s" x="576.0" y="183.0">裂口大</text><text class="f-s" x="744.0" y="183.0">加数据 / 加正则</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">合适</text><text class="f-s" x="240.0" y="227.0">低</text><text class="f-s" x="408.0" y="227.0">低</text><text class="f-s" x="576.0" y="227.0">都低且间距小</text><text class="f-s" x="744.0" y="227.0">进入评估</text><text class="f-s" x="60" y="272">先看两条线的间距，再看它们随样本量的走势；只看一个分数无法判断是哪一类问题。</text>
+</svg><figcaption><b>图 4-16　三种典型学习曲线</b>　高偏差：两条线很快贴合但都高；高方差：裂口大，随样本增加缓慢收窄；合适：裂口小且都低。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p><strong>先看间距</strong>（大 → 方差问题），<strong>再看高度</strong>（都高 → 偏差问题），<strong>最后看走势</strong>（还在收窄 → 加数据有用）。三步顺序不能颠倒。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>学习曲线与验证曲线</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>曲线</th><th>横轴</th><th>看什么</th><th>典型用途</th></tr></thead>
+  <tbody>
+    <tr><td>学习曲线</td><td>训练样本量</td><td>加数据是否还有收益</td><td>决定要不要扩样本</td></tr>
+    <tr><td>验证曲线</td><td>超参数 / 模型复杂度</td><td>最优点在哪、两侧各是什么问题</td><td>选复杂度或正则强度</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">读图口径</span>
+  <p>训练误差通常随样本量<strong>上升</strong>（样本更难拟合），验证误差<strong>下降</strong>；两条线最终趋于接近。若验证线早早走平且与训练线间距大，加数据的收益就很小。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三种形态对应三种动作</h2>
+<div class="steps">
+  <div class="step"><b>高偏差</b><span>两条线都高、很快贴合。加数据无效，应升容量或补特征。</span></div>
+  <div class="step"><b>高方差</b><span>裂口大且随样本增加收窄。优先加数据；数据拿不到再加正则或降容量。</span></div>
+  <div class="step"><b>数据不足</b><span>验证线抖动大、不光滑，换一批样本结论就变。先扩样本或做交叉验证。</span></div>
+  <div class="step"><b>合适</b><span>裂口小、两条线都低且平稳。此时再调参收益有限，应转向特征或业务。</span></div>
+</div>
+<p>这张判断表的价值在于<strong>避免无效动作</strong>：高偏差时盲目加数据、数据不足时盲目降容量，都是常见的方向性错误。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一模型，三个复杂度</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>复杂度</th><th>训练误差</th><th>验证误差</th><th>曲线形态</th><th>诊断</th></tr></thead>
+  <tbody>
+    <tr><td>低</td><td>0.42</td><td>0.45</td><td>贴合但都高</td><td>欠拟合</td></tr>
+    <tr><td>中</td><td>0.18</td><td>0.21</td><td>裂口小、都较低</td><td>合适</td></tr>
+    <tr><td>高</td><td>0.03</td><td>0.39</td><td>裂口大且张开</td><td>过拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>验证曲线通常呈 U 形：左侧高偏差、右侧高方差，最低点在中间。选复杂度就是找这个最低点，而不是一味往右走。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>判读三张学习曲线</h2>
+<p><strong>任务：</strong>为下面三种曲线写诊断与下一步。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>曲线特征</th><th>诊断</th><th>下一步</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>两线间距 0.3，随样本增加缓慢收窄</td><td></td><td></td></tr>
+    <tr><td>2</td><td>两线贴合，均在 0.4 以上</td><td></td><td></td></tr>
+    <tr><td>3</td><td>验证线剧烈抖动，无稳定走势</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>验收：</strong>诊断与形态一致，下一步能区分「加数据」「升容量」「先扩样本/交叉验证」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-4-4-regularization.html">4.4.4 四种抑制过拟合的手段</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-4-2-overfitting.html"><span class="p-label">← 上一知识点 4.4.2</span><span class="p-title">过拟合：模型背答案</span></a><a class="next" href="k4-4-4-regularization.html"><span class="p-label">下一知识点 4.4.4 →</span><span class="p-title">四种抑制过拟合的手段</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)4 · 欠拟合与过拟合（诊断）</dd>
+    <dt>页面编号 / 路径</dt><dd>4.4.3 ｜ <span class="path">pages/m04-stat-models/k4-4-3-learning-curve.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-4-1-underfitting.html"><b>4.4.1</b>欠拟合：模型没学到</a><a class="xlink" href="k4-4-2-overfitting.html"><b>4.4.2</b>过拟合：模型背答案</a><a class="xlink" href="k4-5-3-cross-validation.html"><b>4.5.3</b>交叉验证：让评估结果可重复</a><a class="xlink" href="u4-4-overfitting.html"><b>4.4</b>欠拟合与过拟合（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-4-3-a.svg（本页图 4-16）。 ｜ 知识库条目：M04-S4-01《欠拟合与过拟合的概念及特点》（filled） ｜ 参考来源：S54 ESL；S32 scikit-learn《Metrics and scoring》；S15 Google《Overfitting》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

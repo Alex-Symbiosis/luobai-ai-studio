@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.4.3 三次浪潮：符号推理、专家系统与深度学习 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按技术引擎区分三次浪潮，并说出各波的代表系统。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-4-early-history.html">1.4 早期历史：三次浪潮与两次寒冬</a><span class="sep">/</span><span class="here">1.4.3 三次浪潮：符号推理、专家系统与深度学习</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.4</span>
+    <span class="tag">知识点 1.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>三次浪潮：符号推理、专家系统与深度学习</h1>
+  <p class="lede">AI 热了又冷、冷了又热。如果只背年份，看到的是一串数字；如果看每次上涨靠什么引擎、向谁许诺、钱从哪里来，看到的是三段结构相似、引擎完全不同的故事。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按技术引擎区分三次浪潮，并说出各波的代表系统。</li><li>能解释每一波「承诺」与「边界」分别是什么。</li><li>能把九个事件正确放回三次浪潮的区间。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>背年份，还是看引擎</h2>
+<p>同样讲这段历史，两个人用了两种组织方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>按年份排事件</h3><p>1943、1956、1958、1966、1969、1973、1980、1987、2012，一路排下来。年份记住了，却说不清为什么 1969 年之后会冷、1987 年之后又冷。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>按引擎分三段</h3><p>第一段靠符号搜索，第二段靠专家系统，第三段靠数据与深度学习。每段都问：谁在推、承诺什么、在哪里撞墙。</p></div>
+</div>
+<p class="ask">同样是上涨，为什么第一次靠搜索、第二次靠规则、第三次靠数据？</p>
+<p>因为可用的问题、可用的算力、愿意付钱的人都在变。A 组记住的是坐标，B 组记住的是坐标之间的因果关系；后者才能迁移到对下一次热潮的判断。这也是为什么同一份年表，有人读出宿命，有人读出机会——差别在于有没有把「谁付钱」放进解释里。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三次涨潮，三种风</h2>
+<p>海边的潮水一次比一次高，但推动它的风并不相同。只看浪高，会以为「同一股力量又来了」；看见风从哪来，才知道下一次涨潮该看什么信号。第三次浪潮尤其容易被误读：算力与数据是风，深度学习只是帆；看见帆，不等于看见风，看见浪高，也不等于知道下一次什么时候退。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三次浪潮，每次换一套技术引擎">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="28">三次浪潮，每次换一套技术引擎</text><path class="f-ar" d="M60 200 L900 200" marker-end="url(#ah)"/><circle class="f-dot" cx="90.0" cy="200" r="5"/><path class="f-ax" d="M90.0 195 L90.0 160"/><text class="f-t" x="90.0" y="146" text-anchor="middle">符号主义浪潮</text><text class="f-s" x="90.0" y="130" text-anchor="middle">逻辑理论家、通用问题求解器</text><text class="f-s" x="90.0" y="220" text-anchor="middle">1956–1974</text><circle class="f-dot" cx="495.0" cy="200" r="5"/><path class="f-ax" d="M495.0 205 L495.0 240"/><text class="f-t" x="495.0" y="258" text-anchor="middle">专家系统浪潮</text><text class="f-s" x="495.0" y="274" text-anchor="middle">MYCIN、XCON 与商用规则系统</text><text class="f-s" x="495.0" y="194" text-anchor="middle">1980–1987</text><circle class="f-dot" cx="900.0" cy="200" r="5"/><path class="f-ax" d="M900.0 195 L900.0 160"/><text class="f-t" x="900.0" y="146" text-anchor="middle">深度学习浪潮</text><text class="f-s" x="900.0" y="130" text-anchor="middle">AlexNet、GPU 与大规模数据</text><text class="f-s" x="900.0" y="220" text-anchor="middle">2012–</text><text class="f-s" x="60" y="330">浪潮的标志不是论文数量，而是出现了可交付、可复用的代表系统。</text>
+</svg><figcaption><b>图 1-16　三次浪潮与各自的引擎</b>　1956–1969 符号搜索，1980–1987 专家系统，1990s 起统计学习并在 2012 年加速；每段的技术标志不同。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>浪潮是「技术引擎 + 承诺 + 资源」的组合。技术换了，承诺的结构没换；资源来源换了，放大的机制没换。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三波浪潮，三套引擎</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>次序</th><th>年代</th><th>技术标志</th><th>代表系统</th><th>主要承诺</th></tr></thead>
+  <tbody>
+    <tr><td>第一次</td><td>1956–1969</td><td>符号推理与搜索</td><td>逻辑理论家（1956）、LISP（1958）、ELIZA（1966）</td><td>通用问题求解</td></tr>
+    <tr><td>第二次</td><td>1980–1987</td><td>专家系统</td><td>DENDRAL（1965 启动）、MYCIN（1970s）、XCON（1980）</td><td>把专家知识装进产品</td></tr>
+    <tr><td>第三次</td><td>1990s 起，2012 年加速</td><td>统计学习与深度学习</td><td>AlexNet（2012）</td><td>从数据端到端学习</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>每一波都可以写成同一个四元组（引擎、示范、承诺、资源）。浪潮更替时，变的是前两项；后两项的放大机制——媒体放大承诺、资本放大规模——几乎不变。这正是「历史押韵」的具体含义。</p>
+</div>
+<p>三段之间不是简单替代：符号方法在专家系统里延续，神经网络在寒冬里继续研究。所谓「范式转移」，转移的是资源与注意力，不是旧方法的全部死亡。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>每一波都走同四步</h2>
+<p>把三次浪潮叠在一起，会发现同一条四步结构：</p>
+<div class="steps">
+  <div class="step"><b>能力突破</b><span>某类任务上出现可复现的改进：搜索能证定理、规则能诊断感染、网络能识别图像。</span></div>
+  <div class="step"><b>示范系统</b><span>一个能上台演示的原型，把改进变成可见证据。没有它，承诺起不来。</span></div>
+  <div class="step"><b>承诺放大</b><span>媒体与资金把「这一类」说成「所有类」：通用问题求解、替代各行业专家、万能钥匙。</span></div>
+  <div class="step"><b>边界暴露</b><span>真实场景的维护成本、组合爆炸与失败率回到台面，资源随之收缩。</span></div>
+</div>
+<p>四步里最容易被忽略的是第二步。没有示范系统，承诺无从谈起；只有示范系统，承诺必然超界。判断一轮热潮处在哪一步，就看它有没有可复现的示范，以及承诺有没有超出示范覆盖的范围。这一步也是「研究」与「产品」的分水岭。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三个示范，各证明一件事</h2>
+<p>1956 年的逻辑理论家证明「机器可以证明定理」，没有证明「机器可以学习」。1970 年代的 MYCIN 在血液感染诊断上给出可解释的建议，没有解决知识获取与长期维护的成本。2012 年的 AlexNet 在 ImageNet 上把识别错误率大幅拉低，证明「端到端学习在感知任务上可行」，没有证明「通用推理」。</p>
+<p>三个系统都真实、都可复现，也都被过度解读。共同点是：证明「这一类」可行，随后被讲成「所有类」可行。把一次比赛成绩当通用能力，是三次浪潮共享的同一种误读。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>分期用法的适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>用来解释资源与预期的同步变化</td><td>把分期当精确年代，纠结某年算第一波还是第二波</td></tr>
+    <tr><td>以代表系统与资金结构为锚</td><td>用单篇论文给浪潮定位，忽略产业与政策的转向</td></tr>
+    <tr><td>承认各波之间存在重叠</td><td>把「范式转移」写成旧方法彻底消失，漏掉寒冬期的积累</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>九张事件卡归位</h2>
+<p><strong>任务：</strong>把九个事件放回三次浪潮或两次寒冬，并写出判断依据。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>事件</th><th>年份</th><th>浪潮 / 寒冬</th><th>判断依据</th></tr></thead>
+  <tbody>
+    <tr><td>M-P 形式神经元</td><td>1943</td><td></td><td></td></tr>
+    <tr><td>达特茅斯会议</td><td>1956</td><td></td><td></td></tr>
+    <tr><td>逻辑理论家</td><td>1956</td><td></td><td></td></tr>
+    <tr><td>感知器</td><td>1957–1958</td><td></td><td></td></tr>
+    <tr><td>ELIZA 对话程序</td><td>1966</td><td></td><td></td></tr>
+    <tr><td>Lighthill 报告</td><td>1973</td><td></td><td></td></tr>
+    <tr><td>XCON 投入商用</td><td>1980</td><td></td><td></td></tr>
+    <tr><td>LISP 机市场崩溃</td><td>1987</td><td></td><td></td></tr>
+    <tr><td>AlexNet</td><td>2012</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么同一波浪潮里会同时出现符号与联结两条路线？② 如果只按论文数量画曲线，会漏掉哪一类转折？</p>
+<p><strong>自检：</strong>九行的时间与阶段都不冲突，且每行依据能指到「引擎」或「资源」中的一项，即达标；把 1943 年放进第一次浪潮说明前史没读进去。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-4-4-winters.html">1.4.4 两次寒冬：期望、承诺与资源的循环</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-4-2-dartmouth.html"><span class="p-label">← 上一知识点 1.4.2</span><span class="p-title">达特茅斯会议：命名的时刻</span></a><a class="next" href="k1-4-4-winters.html"><span class="p-label">下一知识点 1.4.4 →</span><span class="p-title">两次寒冬：期望、承诺与资源的循环</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 人工智能的早期历史（分期）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.4.3 ｜ <span class="path">pages/m01-ai-overview/k1-4-3-three-waves.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-4-2-dartmouth.html"><b>1.4.2</b>达特茅斯会议：命名的时刻</a><a class="xlink" href="k1-4-4-winters.html"><b>1.4.4</b>两次寒冬：期望、承诺与资源的循环</a><a class="xlink" href="u1-4-early-history.html"><b>1.4</b>早期历史：三次浪潮与两次寒冬（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-4-3（本页图 1-16）；知识库 M01-S2-01。 ｜ 知识库条目：M01-S2-01《人工智能的早期历史》（filled） ｜ 参考来源：S01 Turing《Computing Machinery and Intelligence》（1950）；S02 Russell & Norvig《AIMA》第 4 版（2021）；S03 Dartmouth 1955 提案（1955）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

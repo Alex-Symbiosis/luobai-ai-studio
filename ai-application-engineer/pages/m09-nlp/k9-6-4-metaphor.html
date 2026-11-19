@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.6.4 隐喻模型：基本假设与计算路径 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能指出一个隐喻的源域、目标域与至少两条映射关系。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-6-language-datasets.html">9.6 语言数据集：宾州树库、WordNet 与隐喻模型</a><span class="sep">/</span><span class="here">9.6.4 隐喻模型：基本假设与计算路径</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.6</span>
+    <span class="tag">知识点 9.6.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>隐喻模型：基本假设与计算路径</h1>
+  <p class="lede">「这个功能是一把钥匙」——人一听就懂。程序要回答的是：钥匙的哪一层结构，被搬到了功能上。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能指出一个隐喻的源域、目标域与至少两条映射关系。</li><li>能复述结构映射的三条基本假设，并解释「关系优先于属性」。</li><li>能说清识别与解释两步各自做什么、错在哪。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两道都卡住</h2>
+<p>产品文档里写「这个功能是一把钥匙」。翻译系统直译成 a key，读者以为是硬件；客服检索「钥匙」，返回的是门锁说明。人一眼能懂的句子，机器两步都卡住：先没认出这是隐喻，再没找到搬过去的是哪层结构。</p>
+<p>隐喻不是修辞装饰。日常语言里大量表达靠它组织：「时间不够」「抓住机会」「观点站不住」。这些说法都从一个熟悉的域借结构，只是借得自然，人察觉不到。</p>
+<p>要让机器处理，得拆成可标注的两步：识别与解释。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>搬结构，不搬字面</h2>
+<p>隐喻的骨架是两个域加一张映射。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="隐喻计算：把源域的结构搬到目标域">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">隐喻计算：把源域的结构搬到目标域</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">源域</text><text class="f-sc" x="117.6" y="154.0">熟悉的领域</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">抽结构</text><text class="f-sc" x="298.79999999999995" y="154.0">关系与属性</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">找映射</text><text class="f-sc" x="480.0" y="154.0">一一对应</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">目标域</text><text class="f-sc" x="661.1999999999999" y="154.0">待理解的领域</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">新表达</text><text class="f-sc" x="842.4" y="154.0">可解释的说法</text><text class="f-s" x="40" y="244">映射保结构不保字面：搬的是关系不是词，搬错关系隐喻就变成误导。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 9-35　源域的结构搬到目标域</b>　先抽源域的关系与属性，再一一对应到目标域，最后生成可解释的说法。</figcaption></figure>
+<p>源域是熟悉的、具体的，比如钥匙与锁；目标域是待理解的、抽象的，比如功能与权限。映射搬的是关系，不是词：钥匙「开启」某物，对应功能「解锁」某权限。</p>
+<p>搬错关系就成误导：把「钥匙很轻」搬过去说「功能很轻」，听的人会理解成「简单」，而不是「成本低」。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两个域，一张图</h2>
+<p><strong>源域与目标域：</strong>源域提供结构，通常具体、有身体经验；目标域被解释，通常抽象。概念隐喻把两者固定绑定，如「时间是金钱」「论证是战争」。</p>
+<p><strong>映射：</strong>源域中的实体、属性、关系分别对应目标域中的对象。以「时间是金钱」为例：金钱对应时间，花费对应消耗，预算对应安排，浪费对应空耗，节省对应压缩。</p>
+<p><strong>基本假设：</strong>隐喻是跨域的结构映射，不是字面比较。三条推论。关系优先于属性，先对齐「谁作用于谁」，再对齐「有多重」。映射保结构，源域里若甲支撑乙，目标域里对应项也要有支撑关系。只映射一部分，源域的细节不会全部搬过去，搬哪些由语境决定。</p>
+<p><strong>识别与解释：</strong>识别判断一句话是不是隐喻，并定位本体与喻体；解释给出映射表与一句字面改写。识别是分类问题，解释是生成问题，两者可以分开评。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四步计算路径</h2>
+<p>计算路径四步，对应图上五个框。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>输入</th><th>输出</th><th>失败的样子</th></tr></thead>
+  <tbody>
+    <tr><td>候选生成</td><td>源域知识库里的关系</td><td>一组候选映射</td><td>候选太多，挑不出主映射</td></tr>
+    <tr><td>结构对齐</td><td>两个域的局部结构</td><td>同构子图</td><td>关系对不上，只剩属性相似</td></tr>
+    <tr><td>打分筛选</td><td>多个候选映射</td><td>一个主映射</td><td>系统性差，解释零散</td></tr>
+    <tr><td>生成解释</td><td>主映射</td><td>一句字面改写</td><td>改写得通顺，却丢了原句的重点</td></tr>
+  </tbody>
+</table>
+</div>
+<p>对齐是核心。结构映射理论主张关系优先：先找关系同构，再考虑属性相似；并要求系统性——一组能互相支撑的关系，比若干条孤立关系更可信。实现上是子图匹配加一对一约束：源域一个元素只能对应目标域一个元素。</p>
+<p>识别可以先用规则加分类器：字面义不通、跨域词共现、范畴冲突都是信号。解释难在评价，只能看映射是否成系统、改写是否保住了原句的断言。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>五句标注</h2>
+<p>五句隐喻，按「源域—目标域—映射关系」标一遍。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>源域</th><th>目标域</th><th>映射关系</th></tr></thead>
+  <tbody>
+    <tr><td>时间是金钱</td><td>金钱</td><td>时间</td><td>花费→消耗；预算→安排；浪费→空耗</td></tr>
+    <tr><td>论证是战争</td><td>战争</td><td>论证</td><td>攻击→质疑；防守→辩护；胜负→说服</td></tr>
+    <tr><td>这个功能是一把钥匙</td><td>钥匙</td><td>功能</td><td>开启→解锁；锁→权限限制</td></tr>
+    <tr><td>山脚</td><td>人体</td><td>山体</td><td>脚在底部→下部；部位→位置</td></tr>
+    <tr><td>理论是建筑</td><td>建筑</td><td>理论</td><td>地基→基本假设；框架→体系；塌→被推翻</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第三句只有一个映射点，属于局部隐喻；第一、二、五句是概念隐喻，能拉出一整组对应。第四句是方位隐喻的变体，靠身体经验把「下」映射成「基础」。</p>
+<p>标注时容易混的是本体与喻体：「这个功能是一把钥匙」里本体是功能，喻体是钥匙；「山脚」里本体是山体下部，喻体是脚。判断依据是「谁被解释」。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>五句标三栏</h2>
+<p><strong>任务：</strong>标注下面五句的源域、目标域与至少两条映射关系。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>源域</th><th>目标域</th><th>映射关系</th></tr></thead>
+  <tbody>
+    <tr><td>他的论证站不住。</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这是一场信息洪水。</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>我们还有很长的路要走。</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这个方案是空中楼阁。</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>时间是条河流。</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 哪几句是概念隐喻，哪几句只是一次性比喻？② 「站不住」按字面理解，程序该在哪一步判错？③ 把「洪水」的属性「多」搬过去，和把它的关系「淹没」搬过去，解释差在哪？</p>
+<p><strong>验收：</strong>五句都有源域与目标域，每句两条映射，且能写出一句字面改写。隐喻借的是语义结构，见 <a href="../m09-nlp/k9-3-4-semantic-grammar.html">语义语法</a>；词义在网上的组织，见 <a href="../m09-nlp/k9-6-2-wordnet.html">WordNet：同义集与语义网络</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u9-6-language-datasets.html">9.6 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-6-3-similarity-demo.html"><span class="p-label">← 上一知识点 9.6.3</span><span class="p-title">词义相似度与近义词推荐</span></a><a class="next" href="u9-6-language-datasets.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 9.6 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)6 · 隐喻模型</dd>
+    <dt>页面编号 / 路径</dt><dd>9.6.4 ｜ <span class="path">pages/m09-nlp/k9-6-4-metaphor.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-6-2-wordnet.html"><b>9.6.2</b>WordNet：同义集与语义网络</a><a class="xlink" href="k9-6-3-similarity-demo.html"><b>9.6.3</b>词义相似度与近义词推荐</a><a class="xlink" href="k9-3-4-semantic-grammar.html"><b>9.3.4</b>语义语法：从结构走向意义</a><a class="xlink" href="u9-6-language-datasets.html"><b>9.6</b>语言数据集：宾州树库、WordNet 与隐喻模型（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-6-4（本页图 9-35）；知识库 M09-S6-03《隐喻模型的概念及原理》（filled）。 ｜ 知识库条目：M09-S6-03《隐喻模型的概念及原理》（filled） ｜ 参考来源：Lakoff & Johnson 1980《Metaphors We Live By》；Gentner 1983《Structure-Mapping: A Theoretical Framework for Analogy》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

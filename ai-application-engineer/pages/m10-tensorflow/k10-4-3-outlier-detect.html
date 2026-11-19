@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.4.3 离群值识别：分位数与稳健统计 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能算出 Q1、Q3、IQR 与上下界，并据此判定离群值。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-4-synthetic-features.html">10.4 合成特征与离群值处理</a><span class="sep">/</span><span class="here">10.4.3 离群值识别：分位数与稳健统计</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.4</span>
+    <span class="tag">知识点 10.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>离群值识别：分位数与稳健统计</h1>
+  <p class="lede">十个正常值里混进一个 400，均值从 15 变成 54.4，标准差涨到 115——连「多离谱才算离谱」这把尺子，都被这个值改写了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能算出 Q1、Q3、IQR 与上下界，并据此判定离群值。</li><li>能解释为什么 z 分数在含极端值的小样本上会失效。</li><li>能说出两种方法各自适用的场景。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一个值毁掉标准化</h2>
+<p>一列收入数据：12 到 20 之间九个正常值，加一个 400（单位：万元，可能是录错）。</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">用 z 分数</span><h3>先算均值与标准差</h3><p>均值被拉到 54.4，标准差 115.23；再用 <code>|z| &gt; 3</code> 找离群——结果一个都没找到。</p></div>
+  <div class="card mini"><span class="mini-tag">用 IQR</span><h3>先算四分位</h3><p>Q1=14.25、Q3=18.75，上界 25.5；400 远远在外，直接判为离群。</p></div>
+</div>
+<p class="ask">为什么 z 分数会失效？</p>
+<p>因为 z 分数的分母是标准差，而标准差本身就被那个极端值撑大了——拿被污染的量去检测污染源，自然检测不出来。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>拉偏的平均线</h2>
+<p>十个人里九个身高 1.7 米，一个 2.4 米，平均身高变成 1.77 米。平均值仍然「有定义」，但已经不描述任何一个人了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="z 分数被极端值带偏，IQR 不会">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">z 分数被极端值带偏，IQR 不会</text><rect class="f-red" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">均值 / 标准差</text><text class="f-s" x="80" y="108">· 十个正常值加一个 400</text><text class="f-s" x="80" y="138">· 均值被拉到 54.4</text><text class="f-s" x="80" y="168">· 标准差涨到 115.23</text><text class="f-s" x="80" y="198">· 最大 |z| 只有 2.999</text><text class="f-s" x="80" y="228">· 按 |z| > 3 判定：一个都抓不到</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">中位数 / IQR</text><text class="f-s" x="530" y="108">· Q1=14.25，Q3=18.75</text><text class="f-s" x="530" y="138">· IQR=4.5，上界 25.5</text><text class="f-s" x="530" y="168">· 400 远在上界之外</text><text class="f-s" x="530" y="198">· 判为离群：1 个</text><text class="f-s" x="530" y="228">· 对极端值不敏感，先看它</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 10-17　z 分数被极端值带偏，IQR 不会</b>　越极端的值，越会同时污染均值与方差。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>稳健统计的意思是：少数极端值改变不了它。中位数与四分位数只看「排在第几」，不看「值多大」。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>IQR、分位数与上下界</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>定义</th><th>对极端值敏感吗</th></tr></thead>
+  <tbody>
+    <tr><td>Q1 / Q3</td><td>25% / 75% 分位数</td><td>不敏感</td></tr>
+    <tr><td>IQR</td><td>Q3 − Q1，中间一半数据的跨度</td><td>不敏感</td></tr>
+    <tr><td>下界 / 上界</td><td>Q1 − 1.5×IQR / Q3 + 1.5×IQR</td><td>不敏感</td></tr>
+    <tr><td>均值 / 标准差</td><td>全体参与计算</td><td>非常敏感</td></tr>
+  </tbody>
+</table>
+</div>
+<p>1.5 倍是经验常数（箱线图的须），不是定理；偏态强时可以放宽到 3 倍。判为离群也不等于要删，下一步是判断成因。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两种方法，同一列数据</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>outlier_detect.py</span></div>
+<pre><code>import numpy as np
+import tensorflow as tf
+
+x = tf.constant([12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 400.0])
+values = x.numpy()
+
+mean = tf.reduce_mean(x)
+std = tf.math.reduce_std(x)
+z = (x - mean) / std
+print(&quot;均值/标准差:&quot;, round(float(mean), 2), round(float(std), 2))
+print(&quot;最大 |z|:&quot;, round(float(tf.reduce_max(tf.abs(z))), 3))
+print(&quot;|z| &gt; 3 的个数:&quot;, int(tf.reduce_sum(tf.cast(tf.abs(z) &gt; 3.0, tf.int32))))
+
+q1, q3 = np.percentile(values, [25, 75])
+iqr = q3 - q1
+low, high = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+print(&quot;Q1/Q3/IQR:&quot;, round(float(q1), 2), round(float(q3), 2), round(float(iqr), 2))
+print(&quot;IQR 上下界:&quot;, round(float(low), 2), round(float(high), 2))
+print(&quot;IQR 判为离群:&quot;, int(np.sum((values &lt; low) | (values &gt; high))))</code></pre>
+</div>
+<p><code>tf.math.reduce_std</code> 是总体标准差（除以 n），与 NumPy 的 <code>std</code> 默认口径一致；<code>np.percentile</code> 用线性插值，所以 Q1 落在 14 与 15 之间。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数：一枪未中与一击命中</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>均值/标准差: 54.4 115.23
+最大 |z|: 2.999
+|z| &gt; 3 的个数: 0
+Q1/Q3/IQR: 14.25 18.75 4.5
+IQR 上下界: 7.5 25.5
+IQR 判为离群: 1</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>最大 |z| = 2.999</h3><p>离 3 只差千分之一，但阈值是「大于 3」，所以判定结果是 0 个。这不是 bug，是方法的局限。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>标准差 115.23</h3><p>正常值之间只差 8，标准差却上百——它描述的是「那个 400 有多远」，不是数据整体的离散程度。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>IQR 上界 25.5</h3><p>只用到中间一半数据的跨度 4.5，400 落在界外 16 倍远处，判定毫无争议。</p></div>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">先看分布再选方法</span>
+  <p>数据近似正态且样本量大时，z 分数可用；样本小、长尾、含疑似错误值时，先看 IQR。两种都判不出来，再用业务边界兜底。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>两把尺子量同一列</h2>
+<p><strong>任务：</strong>换一列数据（含两个极端值），分别用 z 分数与 IQR 找离群，比较结果差异并解释来源。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>要观察什么</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>算 z 分数</td><td>极端值自身的 z 有多大</td><td>通常不到 3</td></tr>
+    <tr><td>算 IQR 边界</td><td>边界是否被极端值影响</td><td>几乎不变</td></tr>
+    <tr><td>两个极端值</td><td>z 分数是否更失效</td><td>标准差被撑得更大</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 样本量从 10 增到 10000，z 分数会恢复可用吗？② 判为离群之后，下一步必须先做什么？</p>
+<p><strong>验收：</strong>能解释差异来自「均值与标准差被污染」，而不是「IQR 更准」。</p>
+</section>
+<p class="sidenote">注：本页需 NumPy 辅助计算，运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + NumPy 2.5.5 + Python 3.13.14；输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-4-4-outlier-demo.html">10.4.4 离群值处理：截断、稳健标准化与对照</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-4-2-feature-eval.html"><span class="p-label">← 上一知识点 10.4.2</span><span class="p-title">合成特征的效果评估</span></a><a class="next" href="k10-4-4-outlier-demo.html"><span class="p-label">下一知识点 10.4.4 →</span><span class="p-title">离群值处理：截断、稳健标准化与对照</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)2 · 离群值处理（识别）</dd>
+    <dt>页面编号 / 路径</dt><dd>10.4.3 ｜ <span class="path">pages/m10-tensorflow/k10-4-3-outlier-detect.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-4-4-outlier-demo.html"><b>10.4.4</b>离群值处理：截断、稳健标准化与对照</a><a class="xlink" href="k10-3-2-explore-data.html"><b>10.3.2</b>探索数据：统计、缺失与分布</a><a class="xlink" href="k10-4-1-synthetic-features.html"><b>10.4.1</b>合成特征：交叉、分桶与比例</a><a class="xlink" href="u10-4-synthetic-features.html"><b>10.4</b>合成特征与离群值处理（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k10-4-3（本页图 10-17）；知识库 M10-S2-07；输出为本机实测。 ｜ 知识库条目：M10-S2-07《离群值处理》（filled） ｜ 参考来源：S165 箱线图与 IQR；S166 稳健统计</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

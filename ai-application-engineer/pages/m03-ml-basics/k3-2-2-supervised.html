@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2.2 监督学习：答案从标签来 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清监督学习中 x、y、f 三者的关系。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-2-workflow.html">3.2 任务流程与三类学习范式</a><span class="sep">/</span><span class="here">3.2.2 监督学习：答案从标签来</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.2</span>
+    <span class="tag">知识点 3.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>监督学习：答案从标签来</h1>
+  <p class="lede">给模型看的每一条数据都附着一个正确答案，模型的任务是找出「输入到答案」的映射。这类方法占了工业界落地案例的绝大多数，也是本课程后面所有算法的主线。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清监督学习中 x、y、f 三者的关系。</li><li>能区分分类与回归，并为一个需求选择正确的输出形态。</li><li>能指出标签质量如何决定模型效果的上限。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>有答案的题，和没有答案的题</h2>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">有答案</span><h3>历史邮件都标了「垃圾 / 正常」</h3><p>模型可以逐条对照，错了就改。这类任务可以直接量化「错了多少」。</p></div>
+  <div class="card mini"><span class="mini-tag">没答案</span><h3>一堆用户行为，没说谁和谁一类</h3><p>没有标准答案，只能从数据自身的结构去分组。评价方式也随之改变。</p></div>
+</div>
+<p class="ask">同样是「从数据学」，有没有答案，会让整个建模流程差在哪里？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>带答案的练习册</h2>
+<p>监督学习像一本带答案的练习册：每题后面都有标准答案，你做完可以自己对。做得多了，遇到新题也能推出答案。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="监督学习：答案从标签来">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">监督学习：答案从标签来</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">有标签样本 (x, y)</text><text class="f-s" x="80" y="108">· x 是特征向量</text><text class="f-s" x="80" y="138">· y 是正确答案</text><text class="f-s" x="80" y="168">· 成对出现才可用</text><text class="f-s" x="80" y="198">· 标签质量决定上限</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">学到的映射 f</text><text class="f-s" x="530" y="108">· f: x → y</text><text class="f-s" x="530" y="138">· 新样本可直接预测</text><text class="f-s" x="530" y="168">· 误差可量化</text><text class="f-s" x="530" y="198">· 可对照验证集</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 3-7　监督学习的两个组成部分</b>　左边是带标签的样本，右边是学到的映射。缺了左边，映射无从估计；缺了右边，样本只是记录。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>「监督」指的是<strong>标签在训练时提供了纠错信号</strong>，不是指有人在旁边看着模型训练。</p>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="监督学习：每条样本都带着答案">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">监督学习：每条样本都带着答案</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">特征 X</text><text class="f-sc" x="140.25" y="154.0">面积、房龄…</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">模型 f</text><text class="f-sc" x="366.75" y="154.0">由参数决定</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">预测 ŷ</text><text class="f-sc" x="593.25" y="154.0">一个数值</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">对比标签 y</text><text class="f-sc" x="819.75" y="154.0">误差回传</text><text class="f-s" x="40" y="244">标签的作用不是「多一列」，而是让误差可以被计算。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 3-7b　一条监督样本的完整链路</b>　特征进模型，预测出结果，结果与标签相减得到误差，误差再回头改参数。四个环节构成一次最小训练。</figcaption></figure>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>分类与回归：输出形态决定一切</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>分类</th><th>回归</th></tr></thead>
+  <tbody>
+    <tr><td>输出</td><td>离散类别</td><td>连续数值</td></tr>
+    <tr><td>典型损失</td><td>交叉熵、0-1 损失</td><td>平方误差、绝对误差</td></tr>
+    <tr><td>典型指标</td><td>准确率、精确率、召回率、F1、AUC</td><td>MAE、MSE、R²</td></tr>
+    <tr><td>例子</td><td>是否违约、邮件是否垃圾</td><td>房价、销量、温度</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>监督学习是在给定成对样本 <span class="term">(x, y)</span> 的条件下，估计映射 <span class="term">f: x → y</span>；当 y 为离散类别时称分类，为连续数值时称回归。</p>
+</div>
+<p>「逻辑回归」名字里有回归，输出的是概率再取阈值，做的是分类——命名是历史遗留，不要按字面归类。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>标签质量就是效果上限</h2>
+<p>监督学习的训练目标是最小化训练集上的平均损失（经验风险）。但真正决定上限的是三件事：</p>
+<div class="steps">
+  <div class="step"><b>标签是否正确</b><span>标注错误会被模型当作规律学进去。10% 的错标，足以让一个本可达 95% 的任务停在 85%。</span></div>
+  <div class="step"><b>标签是否一致</b><span>同一情况两个标注员给出不同答案，模型学到的是噪声的平均。</span></div>
+  <div class="step"><b>标签是否覆盖</b><span>只标注了容易判的样本，模型就学不会难例——难例往往才是业务关心的部分。</span></div>
+</div>
+<p>所以工业界在模型上花的力气，常常不如在标注规范与复核上花的多。<strong>垃圾进，垃圾出</strong>在监督学习里是最硬的约束。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>信用评分：一个标签，两种用法</h2>
+<p>某消费金融场景有 12 万条历史申请，每条都有「是否逾期 90 天以上」的标记。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">分类用法</span><h3>通过 / 拒绝</h3><p>输出违约概率，按阈值切分。指标看召回率（漏放坏人）与精确率（错拒好人）的平衡。</p></div>
+  <div class="card mini"><span class="mini-tag">回归用法</span><h3>额度定价</h3><p>把「逾期金额」作为连续目标，预测预期损失，用于定额度与利率。</p></div>
+  <div class="card mini"><span class="mini-tag">同一个标签</span><h3>为什么能两用</h3><p>标签是「是否逾期」，但既可以二值化，也可以关联到金额。输出形态由业务问题决定。</p></div>
+</div>
+<p>这也说明：<strong>任务类型不是数据自带的属性</strong>，而是第 1 步做出的选择。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>六个需求，判断输出形态</h2>
+<p><strong>任务：</strong>判断下面 6 个需求属于分类还是回归，写出输出形态与一个合适的指标。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>需求</th><th>类型</th><th>指标</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>预测明天食堂各窗口销量</td><td></td><td></td></tr>
+    <tr><td>2</td><td>判断一篇课程作业是否抄袭</td><td></td><td></td></tr>
+    <tr><td>3</td><td>估计一套二手房的成交价</td><td></td><td></td></tr>
+    <tr><td>4</td><td>预测学生期末是否挂科</td><td></td><td></td></tr>
+    <tr><td>5</td><td>给用户推荐 1–5 星评分</td><td></td><td></td></tr>
+    <tr><td>6</td><td>预测共享单车下一小时借出量</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 输出是「哪一类」还是「多少」？② 如果输出是 5 星评分，它更接近分类还是回归？为什么？③ 这个指标能不能被「全判多数类」骗过？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「有标签就一定能监督学习」不成立。标签若与特征同时产生（例如「是否退款」和「退款金额」），会引入泄漏；标签若严重不平衡，准确率也会失去意义。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-2-3-unsupervised.html">3.2.3 无监督学习：没有答案时看结构</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-2-1-workflow.html"><span class="p-label">← 上一知识点 3.2.1</span><span class="p-title">六步流程：从问题定义到部署</span></a><a class="next" href="k3-2-3-unsupervised.html"><span class="p-label">下一知识点 3.2.3 →</span><span class="p-title">无监督学习：没有答案时看结构</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 监督式学习</dd>
+    <dt>页面编号 / 路径</dt><dd>3.2.2 ｜ <span class="path">pages/m03-ml-basics/k3-2-2-supervised.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-1-1-what-is-ml.html"><b>3.1.1</b>机器学习：从数据里归纳规则</a><a class="xlink" href="k3-2-3-unsupervised.html"><b>3.2.3</b>无监督学习：没有答案时看结构</a><a class="xlink" href="k3-6-1-classification-regression.html"><b>3.6.1</b>分类与回归：输出是类别还是数值</a><a class="xlink" href="u3-2-workflow.html"><b>3.2</b>任务流程与三类学习范式（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-2-2-a.svg（本页图 3-7）、d-k3-2-2-b.svg（图 3-7b）。 ｜ 知识库条目：M03-S1-08《监督式学习与非监督式学习》（filled） ｜ 参考来源：S41 scikit-learn《Supervised learning》；S02 AIMA 4th ed.；S33 Hastie et al.《ESL》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

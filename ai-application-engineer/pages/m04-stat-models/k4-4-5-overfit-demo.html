@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.4.5 阶数扫描实验：看见欠拟合与过拟合 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能设计一次只改模型复杂度的控制变量实验。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-4-overfitting.html">4.4 欠拟合与过拟合</a><span class="sep">/</span><span class="here">4.4.5 阶数扫描实验：看见欠拟合与过拟合</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.4</span>
+    <span class="tag">知识点 4.4.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>阶数扫描实验：看见欠拟合与过拟合</h1>
+  <p class="lede">「欠拟合—合适—过拟合」这三个词，只有亲手把不同阶数的曲线画在同一张图上，才会变成直觉。本页用一次阶数扫描，把训练误差、验证误差与曲线形态绑在一起看。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能设计一次只改模型复杂度的控制变量实验。</li><li>能同时记录训练误差、验证误差与拟合曲线形态。</li><li>能根据验证误差的 U 形曲线选出合适阶数。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>复杂度到底调到哪一档</h2>
+<p>用多项式拟合一组带噪声的点，阶数从 1 试到 15：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">低阶</span><h3>曲线太直</h3><p>训练误差就高，弯曲趋势完全没跟上。</p></div>
+  <div class="card mini"><span class="mini-tag">中阶</span><h3>形状贴合</h3><p>训练与验证误差都较低，曲线平滑且抓住主要趋势。</p></div>
+  <div class="card mini"><span class="mini-tag">高阶</span><h3>开始穿过噪声</h3><p>训练误差接近 0，曲线在样本之间剧烈摆动，验证误差回升。</p></div>
+</div>
+<p class="ask">没有验证集，能看出高阶模型已经出问题了吗？</p>
+<p>很难。训练误差会一直下降，看起来「越高阶越好」。必须同时记录验证误差，才能看到拐点。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一张图上的三档形态</h2>
+<p>把三档阶数的拟合曲线叠在散点上，形态差异比任何数字都直观。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="阶数扫描：验证误差的 U 形">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">阶数扫描：验证误差的 U 形</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M120 250 L200 190 L280 150 L360 122 L440 105 L520 96 L600 92 L680 96 L760 110 L840 135" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">训练误差</text><path d="M120 258 L200 210 L280 175 L360 150 L440 135 L520 132 L600 145 L680 170 L760 205 L840 245" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">验证误差</text><circle class="f-pt" cx="520" cy="132" r="6"/><text class="f-s" x="530" y="124">拐点：合适复杂度</text><text class="f-s" x="880" y="322" text-anchor="end">多项式阶数</text><text class="f-s" x="92" y="66" text-anchor="end">误差</text><text class="f-s" x="100" y="340">训练误差单调下降，验证误差先降后升；最低点就是容量与泛化的平衡点。</text>
+</svg><figcaption><b>图 4-18　三档阶数的拟合形态</b>　低阶欠拟合、中阶合适、高阶过拟合；阶数越高，曲线越贴合训练点，也越容易在点之间摆动。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三档阶数的拟合形态">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">三档阶数的拟合形态</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><circle cx="160" cy="250" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="230" cy="210" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="300" cy="180" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="370" cy="155" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="440" cy="140" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="510" cy="132" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="580" cy="138" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="650" cy="155" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="720" cy="185" r="5.5" fill="#2f6fd0" opacity="0.8"/><circle cx="790" cy="225" r="5.5" fill="#2f6fd0" opacity="0.8"/><path d="M140 245 L820 130" fill="none" stroke="#9db9dd" stroke-width="2.6" stroke-dasharray="6 4"/><line x1="680" y1="72" x2="706" y2="72" stroke="#9db9dd" stroke-width="2.6"/><text class="f-s" x="714" y="76">1 阶：欠拟合</text><path d="M140 240 L240 200 L320 170 L400 148 L480 135 L560 132 L640 148 L720 180 L820 225" fill="none" stroke="#3f9b78" stroke-width="2.6"/><line x1="680" y1="94" x2="706" y2="94" stroke="#3f9b78" stroke-width="2.6"/><text class="f-s" x="714" y="98">3 阶：合适</text><path d="M140 250 L180 200 L230 210 L290 155 L340 175 L390 130 L440 140 L500 118 L560 132 L630 150 L700 180 L760 210 L820 235" fill="none" stroke="#c0504d" stroke-width="2.6"/><line x1="680" y1="116" x2="706" y2="116" stroke="#c0504d" stroke-width="2.6"/><text class="f-s" x="714" y="120">15 阶：过拟合</text><text class="f-s" x="100" y="340">同一批点，三档容量给出三种形态；正确的那条通常不是最贴合点的那条。</text>
+</svg><figcaption><b>图 4-18b　训练误差与验证误差随阶数变化</b>　训练误差单调下降，验证误差先降后升，呈 U 形；最低点对应的阶数才是合适复杂度。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>训练误差永远「越高阶越好」，验证误差才有拐点。<strong>选复杂度看验证曲线的最低点</strong>，而不是训练误差的终点。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>实验设计与记录口径</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项</th><th>设置</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>自变量</td><td>多项式阶数 1–15</td><td>唯一变化的复杂度因素</td></tr>
+    <tr><td>控制变量</td><td>同一训练集、同一验证集、同一随机种子</td><td>保证可比</td></tr>
+    <tr><td>观测量</td><td>训练 MSE、验证 MSE、曲线形态</td><td>数值与图形同时记录</td></tr>
+    <tr><td>选择规则</td><td>验证 MSE 最小，且曲线无明显摆动</td><td>避免选到偶然低点</td></tr>
+  </tbody>
+</table>
+</div>
+<p>如果只记录验证 MSE 而不看曲线，可能选中一个数值略低但形态剧烈摆动的阶数。图形与数值要一起看，这是本实验的核心训练点。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么会先降后升</h2>
+<p>阶数上升带来两种相反的效果：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">收益</span><h3>更能表达真实趋势</h3><p>从直线到曲线，模型补上了原先缺失的形状，偏差下降，验证误差随之下降。</p></div>
+  <div class="card mini"><span class="mini-tag">代价</span><h3>更容易拟合噪声</h3><p>阶数过高时，模型开始追随个别点的随机波动，方差上升，验证误差回升。</p></div>
+</div>
+<p>两股力量叠加，验证误差呈 U 形。最优阶数就是两股力量的平衡点；它取决于样本量、噪声水平与真实关系的复杂度，不能照搬别人的数值。</p>
+<div class="callout callout--warn">
+  <span class="c-label">注意</span>
+  <p>高阶模型在训练集外的区间会剧烈外推。即使验证误差尚可，也要检查边界处的预测是否合理。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一次阶数扫描的结果</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶数</th><th>训练 MSE</th><th>验证 MSE</th><th>形态</th><th>判断</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>0.82</td><td>0.86</td><td>直线，贴不上弯曲</td><td>欠拟合</td></tr>
+    <tr><td>3</td><td>0.24</td><td>0.27</td><td>平滑贴合主趋势</td><td>接近合适</td></tr>
+    <tr><td>5</td><td>0.18</td><td>0.22</td><td>平滑，残差均匀</td><td>合适</td></tr>
+    <tr><td>9</td><td>0.06</td><td>0.35</td><td>局部摆动</td><td>过拟合</td></tr>
+    <tr><td>15</td><td>0.01</td><td>0.71</td><td>剧烈震荡，边界失控</td><td>严重过拟合</td></tr>
+  </tbody>
+</table>
+</div>
+<p>验证 MSE 在 5 阶最低，之后回升；训练 MSE 则一路下降。两个数列的分叉点，就是「开始背答案」的位置。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>完成扫描并写结论</h2>
+<p><strong>任务：</strong>用同一组带噪声的数据完成阶数扫描（1、3、5、9、15）。</p>
+<ol>
+  <li>记录每个阶数的训练 MSE 与验证 MSE，画成两条线。</li>
+  <li>标出验证 MSE 的最低点，写出你选择的阶数。</li>
+  <li>对最高阶模型，指出一处「曲线穿过噪声」的具体位置。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>结论必须同时引用数值（验证 MSE 最低）与形态（曲线是否摆动），只给一个阶数不算完成。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k4-5-1-confusion-matrix.html">4.5.1 混淆矩阵：把「错」拆成四格</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-4-4-regularization.html"><span class="p-label">← 上一知识点 4.4.4</span><span class="p-title">四种抑制过拟合的手段</span></a><a class="next" href="k4-5-1-confusion-matrix.html"><span class="p-label">下一知识点 4.5.1 →</span><span class="p-title">混淆矩阵：把「错」拆成四格</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)4 · 欠拟合与过拟合（实验）</dd>
+    <dt>页面编号 / 路径</dt><dd>4.4.5 ｜ <span class="path">pages/m04-stat-models/k4-4-5-overfit-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-4-1-underfitting.html"><b>4.4.1</b>欠拟合：模型没学到</a><a class="xlink" href="k4-4-2-overfitting.html"><b>4.4.2</b>过拟合：模型背答案</a><a class="xlink" href="k4-4-4-regularization.html"><b>4.4.4</b>四种抑制过拟合的手段</a><a class="xlink" href="u4-4-overfitting.html"><b>4.4</b>欠拟合与过拟合（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-4-5-a.svg（本页图 4-18）、d-k4-4-5-b.svg（本页图 4-18b）。 ｜ 知识库条目：M04-S4-01《欠拟合与过拟合的概念及特点》（filled）、M04-S4-02《过拟合的处理方法》（filled） ｜ 参考来源：S54 ESL；S15 Google《Overfitting》；S32 scikit-learn《Metrics and scoring》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.4.2 缺失值：先问机制，再选策略 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分完全随机缺失、随机缺失与非随机缺失三种机制。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-4-eda-cleaning.html">3.4 探索性分析与数据清洗</a><span class="sep">/</span><span class="here">3.4.2 缺失值：先问机制，再选策略</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.4</span>
+    <span class="tag">知识点 3.4.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>缺失值：先问机制，再选策略</h1>
+  <p class="lede">「缺失就填均值」是最常见、也最容易出错的处理。同样 30% 的缺失，机制不同，正确做法可能是删行、填补、加指示变量，或者根本不能填。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分完全随机缺失、随机缺失与非随机缺失三种机制。</li><li>能根据机制与缺失比例选择合适的处理策略。</li><li>能解释填补为什么会改变变量分布与相关性。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个字段，三种缺失</h2>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">情形 A</span><h3>问卷漏填</h3><p>学生随手跳过「月生活费」这一题，与金额本身无关。</p></div>
+  <div class="card mini"><span class="mini-tag">情形 B</span><h3>老系统没有该字段</h3><p>2020 年前入学的记录没有「是否住校」，但住校与否可以从宿舍号推断。</p></div>
+  <div class="card mini"><span class="mini-tag">情形 C</span><h3>高收入者拒答</h3><p>收入越高越不愿意填。缺失本身与答案相关。</p></div>
+</div>
+<p class="ask">三种情形都表现为「这一列有空值」，但能用同一种方法填吗？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>缺项的原因决定能不能补</h2>
+<p>体检表上空了一项：如果是护士漏填，可以重测；如果是受检者故意不填，重测也没用；如果这一项只有查出问题的人才会被要求补测，那「空缺」本身就携带信息。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="缺失不是一种问题，是三种机制">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">缺失不是一种问题，是三种机制</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">缺失值</text><text class="f-sc" x="480.0" y="91.0">先问：为什么缺</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">完全随机</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">MCAR</text><text class="f-sc" x="180.66666666666666" y="212.0">删行不引入偏差</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">随机但可解释</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">MAR</text><text class="f-sc" x="480.0" y="212.0">可用其他列填补</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">与缺失值本身有关</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">MNAR</text><text class="f-sc" x="779.3333333333333" y="212.0">填补会系统性偏移</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">先判定类型，再选处理方法；跳过判定直接处理，是清洗里最常见的错误。</text>
+</svg><figcaption><b>图 3-17　三种缺失机制与对应策略</b>　机制决定策略：完全随机可删可填，随机缺失可用其他列填补，非随机缺失的填补会带来系统性偏移。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>缺失值处理的第一步不是「填什么」，而是<strong>「为什么会缺」</strong>。机制判断错了，后面所有处理都在制造偏差。</p>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="缺失值的三种处理">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">缺失值的三种处理</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">做法</text><text class="f-t" x="352.0" y="98">适用</text><text class="f-t" x="632.0" y="98">风险</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">删除行</text><text class="f-s" x="352.0" y="139.0">缺失比例很低且随机</text><text class="f-s" x="632.0" y="139.0">样本变少，可能引入选择偏差</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">均值 / 中位数填补</text><text class="f-s" x="352.0" y="183.0">数值型、缺失随机</text><text class="f-s" x="632.0" y="183.0">方差被低估，相关性被稀释</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">模型预测填补</text><text class="f-s" x="352.0" y="227.0">缺失有规律、字段相关</text><text class="f-s" x="632.0" y="227.0">流程复杂，且必须折内拟合</text><text class="f-s" x="60" y="272">填补规则只能在训练集上统计，再套用到验证集与测试集。</text>
+</svg><figcaption><b>图 3-17b　三种缺失处理的适用边界</b>　没有一种处理方式对所有机制都成立；选错做法的代价，通常不是分数下降，而是结论系统性偏移。</figcaption></figure>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三种机制与五种策略</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>机制</th><th>含义</th><th>可用的策略</th></tr></thead>
+  <tbody>
+    <tr><td>MCAR（完全随机）</td><td>缺失与任何变量无关</td><td>删行、均值/中位数填补</td></tr>
+    <tr><td>MAR（随机缺失）</td><td>缺失可由其他观测变量解释</td><td>回归/多重填补、模型内建处理</td></tr>
+    <tr><td>MNAR（非随机）</td><td>缺失与缺失值本身有关</td><td>加缺失指示变量、单独建模、谨慎解读</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>缺失机制描述「缺失发生的概率」与变量取值之间的关系；它决定了删除或填补是否会引入系统性偏差。</p>
+</div>
+<p>五种常见策略：删行、删列、常数填补、统计量填补、模型填补。另有第六种常被忽略——<strong>把「是否缺失」本身作为特征</strong>，在 MNAR 场景里往往最有效。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>填补的两个副作用</h2>
+<div class="steps">
+  <div class="step"><b>方差被压缩</b><span>全部填成均值，这一列的方差变小，与其他变量的相关性也被稀释。模型会低估它的作用。</span></div>
+  <div class="step"><b>关系被伪造</b><span>用其他列回归填补，等于人为加强了变量间的相关。若这些列也进入模型，会放大共线。</span></div>
+</div>
+<p>所以填补必须<strong>在训练集上拟合规则，再应用到验证/测试集</strong>——否则又是一次泄漏。多重填补（生成多份完整数据、分别建模、汇总）是减轻上述副作用的常用做法。</p>
+<span class="sidenote">缺失比例是决策门槛：低于 5% 可谨慎删行；5%–30% 优先填补并加指示变量；超过 50% 且无业务含义时，考虑整列弃用。</span>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>收入缺失的三种处理与后果</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>处理</th><th>做法</th><th>后果</th></tr></thead>
+  <tbody>
+    <tr><td>删行</td><td>丢掉缺失样本</td><td>高收入群体被系统性剔除，模型低估高消费人群</td></tr>
+    <tr><td>均值填补</td><td>用全体均值补齐</td><td>方差压缩，收入与消费的相关被低估</td></tr>
+    <tr><td>加指示变量</td><td>填补 + 「是否缺失」标记</td><td>模型可以学到「缺失本身」的信息，通常最稳</td></tr>
+  </tbody>
+</table>
+</div>
+<p>第三种做法之所以有效，是因为它把「拒答」这一行为变成了可用信号，而不是把它抹平。</p>
+<span class="teacher">可以追问：如果业务要求「必须给出每个人的收入预测」，删行还可接受吗？——引出「处理方式要服从使用场景」。</span>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>判定机制并写策略</h2>
+<p><strong>任务：</strong>为下面四个字段判定缺失机制（能判到什么程度就写到什么程度），并给出处理策略与理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>字段</th><th>缺失率</th><th>机制判断</th><th>策略</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>学生月生活费</td><td>18%</td><td></td><td></td><td></td></tr>
+    <tr><td>宿舍楼号</td><td>6%</td><td></td><td></td><td></td></tr>
+    <tr><td>家庭年收入</td><td>35%</td><td></td><td></td><td></td></tr>
+    <tr><td>课程满意度评分</td><td>42%</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 我的判断有证据，还是凭感觉？② 填补规则是在训练集上拟合的吗？③ 我有没有把「缺失」这件事本身保留下来？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「缺失率低就可以直接删」不成立。若缺失集中在某一类样本（例如只缺新用户），删行等于悄悄改变了样本构成。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-4-3-outliers.html">3.4.3 异常值：先判定性质，再决定去留</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-4-1-eda.html"><span class="p-label">← 上一知识点 3.4.1</span><span class="p-title">探索性分析：先体检，再开药</span></a><a class="next" href="k3-4-3-outliers.html"><span class="p-label">下一知识点 3.4.3 →</span><span class="p-title">异常值：先判定性质，再决定去留</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)3 · 数据清洗：缺失值处理</dd>
+    <dt>页面编号 / 路径</dt><dd>3.4.2 ｜ <span class="path">pages/m03-ml-basics/k3-4-2-missing-values.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-4-1-eda.html"><b>3.4.1</b>探索性分析：先体检，再开药</a><a class="xlink" href="k3-4-3-outliers.html"><b>3.4.3</b>异常值：先判定性质，再决定去留</a><a class="xlink" href="k3-3-4-leakage.html"><b>3.3.4</b>数据泄漏：四种让指标虚高的写法</a><a class="xlink" href="u3-4-eda-cleaning.html"><b>3.4</b>探索性分析与数据清洗（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-4-2-a.svg（本页图 3-17）、d-k3-4-2-b.svg（图 3-17b）。 ｜ 知识库条目：M03-S3-02《数据清洗的方法》（filled） ｜ 参考来源：S58 NIST/SEMATECH e-Handbook；S64 Han et al.《Data Mining》；S41 scikit-learn《Imputation》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

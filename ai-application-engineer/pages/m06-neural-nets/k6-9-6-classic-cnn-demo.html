@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.9.6 五网络对比与迁移学习 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按年份说出五个网络各解决了什么问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-9-classic-cnn.html">6.9 经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet</a><span class="sep">/</span><span class="here">6.9.6 五网络对比与迁移学习</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.9</span>
+    <span class="tag">知识点 6.9.6</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>五网络对比与迁移学习</h1>
+  <p class="lede">五个网络看下来，主线不是「谁更深」，而是「谁用更少的参数换到同样的精度」。这一页把五个网络排成表，再跑一次迁移学习。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按年份说出五个网络各解决了什么问题。</li><li>能写出冻结卷积基、只训练分类头的代码。</li><li>能诚实解读实验：迁移的优势是首轮更快、参数更少，不是必然涨点。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>只有一千张图</h2>
+<p>手上有一个二分类任务：判断数字是不是 5 以上。带标签的样本只有 1,000 张，画质与 MNIST 一致。</p>
+<p>从零训练一个 CNN，1,000 张图连一个 epoch 的梯度都喂不饱，验证准确率会随初始化漂。可如果先在一个更大的、相似的任务上训好卷积层，再把它们冻结，只训练一个新的分类头，需要的样本量就小得多。</p>
+<p class="ask">这就是迁移学习，它为什么有效？</p>
+<p>因为卷积段学的是「边缘、笔画、局部形状」这类通用特征，换任务时这些特征大多还能用。真正需要重学的，是「怎么用这些特征下结论」的那一层。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>五条主线一次冻结</h2>
+<p>先把五个网络排成一张表。看的时候不要只记参数，要看每一次改动解决了前一个网络的什么问题。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="五个网络，五条设计主线">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">五个网络，五条设计主线</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">网络</text><text class="f-t" x="282.0" y="98">年份</text><text class="f-t" x="492.0" y="98">关键设计</text><text class="f-t" x="702.0" y="98">参数量级</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">LeNet-5</text><text class="f-s" x="282.0" y="135.8">1998</text><text class="f-s" x="492.0" y="135.8">卷积 + 池化 + 全连接</text><text class="f-s" x="702.0" y="135.8">约 6 万</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">AlexNet</text><text class="f-s" x="282.0" y="173.4">2012</text><text class="f-s" x="492.0" y="173.4">ReLU、Dropout、双 GPU</text><text class="f-s" x="702.0" y="173.4">约 6,000 万</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">VGG-16</text><text class="f-s" x="282.0" y="211.0">2014</text><text class="f-s" x="492.0" y="211.0">全 3×3 堆叠，结构规整</text><text class="f-s" x="702.0" y="211.0">约 1.38 亿</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">Inception-v3</text><text class="f-s" x="282.0" y="248.60000000000002">2015</text><text class="f-s" x="492.0" y="248.60000000000002">多分支并联 + 卷积分解</text><text class="f-s" x="702.0" y="248.60000000000002">约 2,400 万</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">ResNet-50</text><text class="f-s" x="282.0" y="286.2">2015</text><text class="f-s" x="492.0" y="286.2">残差短路，超深可训</text><text class="f-s" x="702.0" y="286.2">约 2,560 万</text><text class="f-s" x="60" y="328.0">主线从「更深」走向「更高效」：同样精度下参数与计算量持续下降。</text>
+</svg><figcaption><b>图 6-51　五个网络，五条设计主线</b>　主线从「更深」走向「更高效」：同样精度下参数与计算量持续下降。</figcaption></figure>
+<p>LeNet 证明卷积可训练，AlexNet 证明规模可行，VGG 证明深度可以系统研究，Inception 转向宽度与算力效率，ResNet 解决「深到一定程度训不动」。五步走完，主干网络的基本工具箱就齐了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="迁移学习：冻结基座，只换头">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">迁移学习：冻结基座，只换头</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">加载预训练模型</text><text class="f-sc" x="117.6" y="154.0">权重已有</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">冻结卷积层</text><text class="f-sc" x="298.79999999999995" y="154.0">trainable=False</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">换新分类头</text><text class="f-sc" x="480.0" y="154.0">输出维度改任务</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">小数据训练</text><text class="f-sc" x="661.1999999999999" y="154.0">只更新头部</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">可选解冻微调</text><text class="f-sc" x="842.4" y="154.0">小学习率</text><text class="f-s" x="40" y="244">源任务与目标任务越像、目标数据越少，冻结训练的优势越明显。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-52　迁移学习：冻结基座，只换头</b>　源任务与目标任务越像、目标数据越少，冻结训练的优势越明显。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>迁移学习不是新网络，是一种训练策略：把已经学好的通用特征当成固定的特征提取器，只让最后几层适配新任务。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>冻结换头解冻</h2>
+<p><strong>冻结：</strong>把卷积基的 <code>trainable</code> 设为 <code>False</code>，反向传播不更新这些权重，优化器也不再为它们维护状态。<strong>换头：</strong>去掉原模型的分类层，接一个输出维度等于新任务类别数的新头。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>做法</th><th>可训练部分</th><th>适用条件</th></tr></thead>
+  <tbody>
+    <tr><td>只训练新头</td><td>分类头</td><td>目标数据很少，源任务相似</td></tr>
+    <tr><td>解冻最后一段</td><td>头部 + 末段卷积</td><td>数据中等，需要一点适配</td></tr>
+    <tr><td>全部微调</td><td>整个网络</td><td>数据充足，但学习率要小</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三档的选择标准就两条：源任务与目标任务有多像、目标数据有多少。越像、越少，越应该冻得狠；越不像、越多，越应该放开。解冻时学习率通常要降一到两个数量级，否则预训练权重会被几步大梯度冲掉。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>冻结前后差在哪</h2>
+<p>下面这段就是本节实验的主体：先训一个 0–9 十类模型，再把它的卷积段接到二分类头上，分别跑冻结与从头两种设置。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d6_9_transfer.py</span></div>
+<pre><code>def conv_base():
+    return tf.keras.Sequential([
+        tf.keras.layers.Input((28, 28, 1)),
+        tf.keras.layers.Conv2D(8, 3, activation=&quot;relu&quot;),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Conv2D(16, 3, activation=&quot;relu&quot;),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Flatten(),
+    ], name=&quot;conv_base&quot;)
+
+base = tf.keras.Sequential([conv_base(), tf.keras.layers.Dense(10,
+                             activation=&quot;softmax&quot;)])
+base.compile(optimizer=&quot;adam&quot;, loss=&quot;sparse_categorical_crossentropy&quot;,
+             metrics=[&quot;accuracy&quot;])
+base.fit(src_x, src_y, epochs=5, batch_size=128, verbose=0,
+         validation_split=0.1)
+
+def head_model(frozen):
+    cb = base.layers[0]
+    cb.trainable = not frozen          # 冻结即 trainable=False
+    m = tf.keras.Sequential([
+        cb,
+        tf.keras.layers.Dense(16, activation=&quot;relu&quot;),
+        tf.keras.layers.Dense(1, activation=&quot;sigmoid&quot;),
+    ])
+    m.compile(optimizer=tf.keras.optimizers.Adam(0.002),
+              loss=&quot;binary_crossentropy&quot;, metrics=[&quot;accuracy&quot;])
+    return m</code></pre>
+</div>
+<p>两个容易踩的点。第一，<code>trainable</code> 必须在 <code>compile</code> 之前设好，编译后再改，优化器已经按旧参数表建好了状态，改动不会完全生效。第二，冻结的层在 <code>summary</code> 里仍显示总参数，要看「可训练参数」那一行才知道真正被更新的有多少。</p>
+<p>数据切分也决定结论：源任务用前 20,000 张，目标任务用接下来的 1,000 张，标签由「是否大于等于 5」重新生成。两次训练都用同样的随机种子，唯一变量是卷积基冻不冻。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测两种训练</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>源任务(0–9 分类)验证准确率: 0.9615
+冻结卷积基    首轮验证 0.7600  末轮验证 0.9250  训练轮数 10
+从头训练     首轮验证 0.7450  末轮验证 0.9400  训练轮数 10
+可训练参数(冻结版): 6433
+可训练参数(从头): 7681</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>0.9250 与 0.9400</h3><p>冻结版末轮反而低一点。目标数据虽少，但与源任务几乎同分布，从头训 10 轮也追得上。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>首轮 0.7600 vs 0.7450</h3><p>冻结版第一轮就站在更高的起点，因为它不需要重学边缘与笔画。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>6,433 vs 7,681</h3><p>差的 1,248 个参数正是卷积基；冻结版只更新头部，训练更省。</p></div>
+</div>
+<p>结论要说得诚实：<strong>本实验里迁移的优势不是涨点</strong>。冻结版末轮 0.9250，从头 0.9400，低了 1.5 个百分点。它真正赢在两处——首轮更快（0.7600 对 0.7450），可训练参数更少（6,433 对 7,681，省掉整个卷积基）。</p>
+<p>为什么这次没涨点？因为目标数据是 MNIST 的另一段，和源任务几乎同分布，从头训练也有足够信号。若换成完全不同的图像（比如彩色商品图），或目标数据只有一百张，冻结的优势会立刻显出来。源任务与目标任务越像、目标数据越少，冻结训练越划算——这是选型原则，不是保证。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别把迁移当定理</span>
+  <p>「预训练一定更好」只在特定条件下成立。冻结会限制模型对新任务的适配能力；数据够多、分布够远时，解冻微调甚至从头训练都可能反超。判断依据是验证集，不是名词。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>换三个条件再判断</h2>
+<p><strong>任务：</strong>不改代码，只改条件，先写预测再看验证集。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>你预计冻结版会怎样</th><th>依据</th></tr></thead>
+  <tbody>
+    <tr><td>目标数据从 1,000 张减到 100 张</td><td>？</td><td>可训练参数的差距被放大</td></tr>
+    <tr><td>源任务改成彩色时装分类</td><td>？</td><td>特征还通用吗</td></tr>
+    <tr><td>解冻最后一层卷积一起训</td><td>？</td><td>可训练参数增加多少</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 <code>trainable</code> 要在 <code>compile</code> 之前设？② 冻结版的 6,433 个参数具体由哪几层组成？③ 若把学习率从 0.002 提到 0.02，冻结版与从头版谁更敏感？</p>
+<p><strong>验收：</strong>三行预测都有依据，且能说清「迁移省的是样本与时间，不是必然的精度」。五个网络的对比见 <a href="../m06-neural-nets/k6-9-1-lenet.html">LeNet-5</a> 到 <a href="../m06-neural-nets/k6-9-5-resnet.html">ResNet</a>；冻结的层是什么，见 <a href="../m06-neural-nets/k6-8-4-cnn-framework.html">CNN 一般框架</a>。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境 work/tf-venv，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-10-1-rl-elements.html">6.10.1 强化学习五要素</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-9-5-resnet.html"><span class="p-label">← 上一知识点 6.9.5</span><span class="p-title">ResNet：用残差连接训练更深的网络</span></a><a class="next" href="k6-10-1-rl-elements.html"><span class="p-label">下一知识点 6.10.1 →</span><span class="p-title">强化学习五要素</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)43 · 五网络对比与迁移学习</dd>
+    <dt>页面编号 / 路径</dt><dd>6.9.6 ｜ <span class="path">pages/m06-neural-nets/k6-9-6-classic-cnn-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-9-1-lenet.html"><b>6.9.1</b>LeNet-5：第一个成功的 CNN</a><a class="xlink" href="k6-9-5-resnet.html"><b>6.9.5</b>ResNet：用残差连接训练更深的网络</a><a class="xlink" href="k6-8-5-cnn-demo.html"><b>6.8.5</b>手写数字 CNN 实战</a><a class="xlink" href="u6-9-classic-cnn.html"><b>6.9</b>经典卷积网络：LeNet-5、AlexNet、VGGNet、InceptionNet-V3、ResNet（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k6-9-6（本页图 6-51）、k6-9-6-b（图 6-52）；Demo d6_9_transfer.py；知识库 M06-S6-01～S6-05。 ｜ 知识库条目：M06-S6-01《LeNet-5》（filled）、M06-S6-02《AlexNet》（filled）、M06-S6-03《VGGNet》（filled）、M06-S6-04《InceptionNet-V3》（filled）、M06-S6-05《ResNet》（filled） ｜ 参考来源：S23 LeCun 等 1998；S27 Krizhevsky 等 2012；S100 Simonyan & Zisserman 2014；S101 Szegedy 等 2015；S102 He 等 2015；输出为 d6_9_transfer.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

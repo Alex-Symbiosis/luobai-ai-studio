@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.4.3 句法树生成与结构统计 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能对一棵句法树计算深度、节点数与叶子序列。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-4-parsing.html">11.4 句法分析与语义初探</a><span class="sep">/</span><span class="here">11.4.3 句法树生成与结构统计</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.4</span>
+    <span class="tag">知识点 11.4.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>句法树生成与结构统计</h1>
+  <p class="lede">树画出来不是终点。把树当成数据，才能回答「这批句子平均多深」「哪种短语最多」「改写后结构是否更简单」；没有统计，句法分析只是一张好看的图。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能对一棵句法树计算深度、节点数与叶子序列。</li><li>能说明树深、分支度与短语分布各自反映什么。</li><li>能把解析结果批量转成可汇总的结构指标。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两批文本，谁的句子更绕</h2>
+<p>编辑问：改版后的科技报道，句子是不是更易读了？两组人给了不同回答：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">回答 A</span><h3>看平均句长</h3><p>改版后每句少了 3 个字；但句子仍套了三层从句，读起来并不轻松。</p></div>
+  <div class="card mini"><span class="mini-tag">回答 B</span><h3>看句法树深度</h3><p>平均树深从 6.2 降到 4.8，长距修饰减少；句长只是表层，结构才是负担。</p></div>
+</div>
+<p class="ask">句长相近的两句话，为什么阅读难度可能差很多？</p>
+<p>因为难度更多来自嵌套层级，而不是字数；层级要靠树来量。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>量身高，也称体重</h2>
+<p>看一个人不能只量身高；树也一样，深度、节点数、分支度各说明一件事，合起来才是结构画像。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="把树当数据：短语类型分布">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">把树当数据：短语类型分布</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="142.12" y="220.2" width="71.76" height="79.8" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="178.0" y="212.2">38%</text><text class="f-sc" x="178.0" y="318">NP</text><rect x="298.12" y="232.8" width="71.76" height="67.2" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="334.0" y="224.8">32%</text><text class="f-sc" x="334.0" y="318">VP</text><rect x="454.12" y="262.2" width="71.76" height="37.800000000000004" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="490.0" y="254.2">18%</text><text class="f-sc" x="490.0" y="318">PP</text><rect x="610.12" y="283.2" width="71.76" height="16.8" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="646.0" y="275.2">8%</text><text class="f-sc" x="646.0" y="318">ADJP</text><rect x="766.12" y="291.6" width="71.76" height="8.4" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="802.0" y="283.6">4%</text><text class="f-sc" x="802.0" y="318">其他</text><text class="f-s" x="100" y="344">同一批句子，树深、分支度、短语分布是可比的三个结构指标。数值为示意。</text>
+</svg><figcaption><b>图 11-16　树也能当数据来量</b>　同一棵树可以读出深度、节点数、叶子序列与短语类型分布；指标不同，回答的问题也不同。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>树是嵌套结构，统计要递归；把树转成几个数，才能跨句子、跨语料比较。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个结构指标</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>算法</th><th>反映什么</th></tr></thead>
+  <tbody>
+    <tr><td>树深</td><td>根到最远叶子的边数 + 1</td><td>嵌套层级、阅读负担</td></tr>
+    <tr><td>节点数</td><td>递归累加所有节点</td><td>结构规模</td></tr>
+    <tr><td>叶子序列</td><td>按从左到右收集终结符</td><td>是否与原文词序一致</td></tr>
+    <tr><td>短语分布</td><td>统计 NP / VP / PP 等出现次数</td><td>句法偏好、体裁差异</td></tr>
+  </tbody>
+</table>
+</div>
+<p>树深有两种常见口径：按节点层数算，或按边数算；报告里必须注明，否则同一棵树会出现两个数。分支度（每个节点的子节点数）能区分「长而平」与「短而深」两类句子，单看深度会漏掉前者。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>不同文法体系产出的树不能直接比深度；PTB 风格与依存树的层级定义不同，跨体系比较要先统一口径。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>递归三件套</h2>
+<p>下面这段对一棵手写树计算三个指标，只依赖标准库；树结构取自 11.4.1 的解析输出：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>tree_stats.py</span></div>
+<pre><code>TREE = (&quot;S&quot;, (&quot;NP&quot;, (&quot;Det&quot;, &quot;the&quot;), (&quot;N&quot;, &quot;dog&quot;)),
+        (&quot;VP&quot;, (&quot;V&quot;, &quot;saw&quot;), (&quot;NP&quot;, (&quot;Det&quot;, &quot;the&quot;), (&quot;N&quot;, &quot;cat&quot;))))
+
+
+def depth(node) -&gt; int:
+    if not isinstance(node, tuple) or len(node) == 1:
+        return 1
+    return 1 + max(depth(k) for k in node[1:])
+
+
+def nodes(node) -&gt; int:
+    if not isinstance(node, tuple):
+        return 1
+    return 1 + sum(nodes(k) for k in node[1:])
+
+
+def leaves(node) -&gt; list[str]:
+    if not isinstance(node, tuple):
+        return [node]
+    out: list[str] = []
+    for k in node[1:]:
+        out.extend(leaves(k))
+    return out
+
+
+print(&quot;树深:&quot;, depth(TREE))
+print(&quot;节点数:&quot;, nodes(TREE))
+print(&quot;叶子:&quot;, leaves(TREE))</code></pre>
+</div>
+<p>三个函数结构相同：先判断是不是叶子，再对子节点递归。写成 <code>tuple</code> 的约定是「第一个元素是标签，其余是子节点」；换成对象或字典，递归逻辑不变，只改取值方式。</p>
+<p>批量处理时，把每棵树的三个指标追加到列表，再用 <code>statistics.mean</code> 求均值；短语分布则用 <code>Counter</code> 统计标签。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与读数</h2>
+<p>运行结果为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>树深: 5
+节点数: 14
+叶子: [&#x27;the&#x27;, &#x27;dog&#x27;, &#x27;saw&#x27;, &#x27;the&#x27;, &#x27;cat&#x27;]</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>深度 5</h3><p>路径 S → VP → NP → Det → the 最长，共 5 层；换成边数口径则是 4。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>14 个节点</h3><p>含 5 个词与 9 个语法节点；节点数随短语数量增长，比词数更能反映结构复杂度。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>叶子与原文一致</h3><p>叶子序列就是词序；若解析后叶子错位，说明文法或实现有 bug。</p></div>
+</div>
+<p>真实语料里，先算每句的树深，再看分布而不是均值：均值会被少量超长句拉高，中位数与 90 分位更适合描述阅读负担。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给三棵树做一张表</h2>
+<p><strong>任务：</strong>用 11.4.1 的解析器输出三句话的树，转成元组后填表。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>树深</th><th>节点数</th><th>叶子数</th><th>短语类型</th></tr></thead>
+  <tbody>
+    <tr><td>the dog saw the cat</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>the dog saw the cat in the park</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>a cat chased a dog with a ball</td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么节点数增长快于叶子数？② 如果两句话树深相同，还能用哪个指标区分复杂度？</p>
+<p><strong>验收：</strong>三个指标都能从树上手算出来，并与脚本结果一致；能说明口径是层数还是边数。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-4-4-similarity-demo.html">11.4.4 语句含义与词义相似度</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-4-2-feature-grammar.html"><span class="p-label">← 上一知识点 11.4.2</span><span class="p-title">基于特征的文法规则</span></a><a class="next" href="k11-4-4-similarity-demo.html"><span class="p-label">下一知识点 11.4.4 →</span><span class="p-title">语句含义与词义相似度</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)4① · 句法树与结构统计</dd>
+    <dt>页面编号 / 路径</dt><dd>11.4.3 ｜ <span class="path">pages/m11-python/k11-4-3-tree-stats.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-4-1-sentence-structure.html"><b>11.4.1</b>句子结构与成分分析</a><a class="xlink" href="k11-4-2-feature-grammar.html"><b>11.4.2</b>基于特征的文法规则</a><a class="xlink" href="k11-4-4-similarity-demo.html"><b>11.4.4</b>语句含义与词义相似度</a><a class="xlink" href="u11-4-parsing.html"><b>11.4</b>句法分析与语义初探（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-4-3（本页图 11-16）；知识库 M11-S4-01；输出为本机实测。 ｜ 知识库条目：M11-S4-01《分析句子结构》（filled） ｜ 参考来源：S118 Jurafsky & Martin；S124 collections；S137 NLTK 教材</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

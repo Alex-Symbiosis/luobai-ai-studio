@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.5.6 HMM 中文分词与 F1 评估 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把分词写成逐字 BMES 标注，再用 Viterbi 解码。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-5-statistical-models.html">9.5 统计模型：HMM、最大熵与 CRF</a><span class="sep">/</span><span class="here">9.5.6 HMM 中文分词与 F1 评估</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.5</span>
+    <span class="tag">知识点 9.5.6</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>HMM 中文分词与 F1 评估</h1>
+  <p class="lede">F1 报 0.905，听着不错。可业务只问一句：错的那 11 处，错在哪一类？这个数字答不上来，评估就还没做完。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把分词写成逐字 BMES 标注，再用 Viterbi 解码。</li><li>能按词级完全匹配算 P、R、F1，并说清分母。</li><li>能把错误按未登录词、歧义切分、人名边界归因。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一次小规模分词实验</h2>
+<p>要验证「HMM 能不能撑起分词」，最省事的做法是自己造一批语料，跑一遍完整流程，再按词级指标打分。</p>
+<p>实验设定：100 句自造句，80 句训练、20 句测试；词表 50 个词、89 个字符；标签用 BMES 四个。测试集里 9 句是模板生成的干净句，11 句是刻意埋了缺陷的句子。</p>
+<p>流程不复杂：逐字标注、数频次估参数、Viterbi 解码、按边界还原成词，最后对标准答案算 P、R、F1。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>从字到词，再从词到分</h2>
+<p>分词被拆成两步：先把词边界转成逐字标签，再把标签还原成词。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="字序列经 BMES 标注还原成词">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">字序列经 BMES 标注还原成词</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">原句</text><text class="f-sc" x="140.25" y="154.0">南京市长江大桥</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">逐字标注</text><text class="f-sc" x="366.75" y="154.0">南/B 京/M 市/E …</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">合并成词</text><text class="f-sc" x="593.25" y="154.0">按 E 与 S 切开</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">分词结果</text><text class="f-sc" x="819.75" y="154.0">南京 / 市 / 长江 / 大桥</text><text class="f-s" x="40" y="244">标注错一个位置，切分就错一处；分词问题因此被改写成逐字分类问题。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 9-29　字序列经 BMES 标注还原成词</b>　标注错一个位置，切分就错一处。</figcaption></figure>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="分词评估：三项指标都过 0.89">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">分词评估：三项指标都过 0.89</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 62 L100 300"/><rect x="170.2" y="108.47999999999999" width="119.60000000000001" height="191.52" rx="4" fill="#2f6fd0" opacity="0.9"/><text class="f-sc" x="230.0" y="100.47999999999999">91.2%</text><text class="f-sc" x="230.0" y="318">精确率 P=0.912</text><rect x="430.2" y="111.41999999999999" width="119.60000000000001" height="188.58" rx="4" fill="#d98b3a" opacity="0.9"/><text class="f-sc" x="490.0" y="103.41999999999999">89.8%</text><text class="f-sc" x="490.0" y="318">召回率 R=0.898</text><rect x="690.2" y="109.94999999999999" width="119.60000000000001" height="190.05" rx="4" fill="#3f9b78" opacity="0.9"/><text class="f-sc" x="750.0" y="101.94999999999999">90.5%</text><text class="f-sc" x="750.0" y="318">F1=0.905</text><text class="f-s" x="100" y="344">错误类型：未登录 6 例、歧义 3 例、人名边界 2 例；F1 由 P 与 R 调和得出。</text>
+</svg><figcaption><b>图 9-30　三项指标与错误类型分布</b>　P、R、F1 都在 0.9 上下，错误集中在三类。</figcaption></figure>
+<p>标签的含义很直白：S 单字成词，B 词首，M 词中，E 词尾。见到 E 或 S 就断一次，词就出来了。</p>
+<p>这个转换把「怎么切」变成了「每个字标什么」。后者是标准的序列标注问题，HMM、CRF 都能接。代价是标签之间的约束变多了：M 前面只能是 B 或 M，E 前面只能是 B 或 M。</p>
+<div class="callout callout--def">
+  <span class="c-label">为什么不用字级准确率</span>
+  <p>一个字标错，整词就算错。「实验报告」错切成「实验 / 报告」，字级只错一个位置，词级直接错两个。评估要看词边界，就得按词算。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>词级 P、R、F1</h2>
+<p>判定单位是「词的起止位置」，也就是 span。预测的一个 span 与标准的一个 span 完全相同，才算一次命中；只重合一部分不算。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标</th><th>公式</th><th>分母含义</th></tr></thead>
+  <tbody>
+    <tr><td>准确率 P</td><td>TP / 预测词数</td><td>切出来的词里有多少是对的</td></tr>
+    <tr><td>召回率 R</td><td>TP / 标准词数</td><td>标准答案里的词被切对多少</td></tr>
+    <tr><td>F1</td><td>2PR / (P + R)</td><td>两者的调和平均</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个分母不能混。预测切得碎，预测词数变大，P 被拉低而 R 不受影响；预测切得粗，标准词数不变，R 掉得比 P 快。F1 把两边拉平，所以汇报时三个数一起给。</p>
+<p>参数估计是监督式的：转移概率数「前一个标签→当前标签」的频次，发射概率数「标签→字」的频次，两者都加 0.1 的平滑，避免未登录字把概率打成零。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>几十行代码的骨架</h2>
+<p>核心就三段：标注、数频次、Viterbi。下面是解码部分的节选，对数域计算，平滑系数 0.1。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d9_5_segment.py（节选）</span></div>
+<pre><code>def p_trans(prev, cur):
+    return math.log((trans.get((prev, cur), 0) + alpha)
+                    / (trans.get((prev, &quot;&quot;), 0) + alpha * len(TAGS)))
+
+def p_emit(tag, ch):
+    return math.log((emit.get((tag, ch), 0) + alpha)
+                    / (tags_total[tag] + alpha * vocab))
+
+dp = {tag: p_trans(&quot;&lt;s&gt;&quot;, tag) + p_emit(tag, chars[0]) for tag in TAGS}
+back = []
+for ch in chars[1:]:
+    ndp, bp = {}, {}
+    for cur in TAGS:
+        best = None
+        for prev in TAGS:
+            score = dp[prev] + p_trans(prev, cur)
+            if best is None or score &gt; best[0]:
+                best = (score, prev)
+        ndp[cur] = best[0] + p_emit(cur, ch)
+        bp[cur] = best[1]
+    dp, back = ndp, back + [bp]
+last = max(TAGS, key=lambda t: dp[t])</code></pre>
+</div>
+<p>三个细节值得留意。取对数是为了把连乘变连加，避免长句概率下溢。平滑加在分子分母两侧，未登录字的发射概率不会变成零，只是变小。回溯指针单独存一份，解码完要倒着走一遍。</p>
+<p>还原成词时，遇到 B 就开一个新词，遇到 M 或 E 就续上，遇到 S 就单字成词。句子结尾若还有残留，补成最后一个词。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>二十句实测</h2><div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14（仅标准库）</span></div>
+<pre><code>语料规模    : 100 句（训练 80 / 测试 20），固定种子 20261119
+词表规模    : 50 个词，89 个字符
+标签集      : S 单字 / B 词首 / M 词中 / E 词尾（4 个）
+标注与解码  : 逐字标 BMES，监督估计转移/发射，Viterbi 求最优路径
+测试规模    : 20 句，标准词 197 个，预测词 194 个
+
+准确率 P    : 0.912
+召回率 R    : 0.898
+F1          : 0.905
+
+错误类型分布
+  未登录词     6
+  歧义切分     3
+  人名边界     2
+错例 1
+  原句    : 老师 分析 神经网络 的 结果 。
+  标准    : 老师 / 分析 / 神经网络 / 的 / 结果 / 。
+  预测    : 老师 / 分析 / 神经 / 网络 / 的 / 结果 / 。
+错例 2
+  原句    : 老师 需要 提交 实验 报告 和 语料 。
+  标准    : 老师 / 需要 / 提交 / 实验 / 报告 / 和 / 语料 / 。
+  预测    : 老师 / 需要 / 提交 / 实验报告 / 和 / 语料 / 。
+结论        : 词表内的词切分稳定，误差集中在未登录词、交集歧义与人名边界。</code></pre>
+</div>
+<p>三个数可以互相校验。197 个标准词、194 个预测词、命中 177 个：177/194 ＝ 0.912，177/197 ＝ 0.898，F1 ＝ 0.905。P 高于 R，说明切得偏粗：只切出 194 个词，比标准少 3 个，漏掉的边界全记在召回上。错例 2 把「实验 / 报告」并成「实验报告」，正是这种情形。</p>
+<p>错误 11 处，正好对应 11 个缺陷句各一处：未登录词 6、歧义切分 3、人名边界 2。三类的原因不同。「神经网络」不在词表里，发射概率靠平滑，切成了「神经 / 网络」；「实验报告」两词都常见，但连写时的组合没在训练里出现，被并成一个词；「王五 阅读」被并成「王五阅读」，是姓氏单字加动词的边界没学到。</p>
+<p>三类错要分开修。未登录词靠更大的词表或字符级回退；歧义切分靠上下文特征，HMM 的观测独立假设在这里是短板；人名边界要先有人名识别，单靠分词模型很难稳定。这也是为什么实际系统常用 CRF 加词典兜底。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>改一个变量再跑</h2>
+<p><strong>任务：</strong>只改一处，重跑一遍，比较三个指标的变化方向。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>改动</th><th>预期变化</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>平滑系数 0.1 → 1.0</td><td>P/R 怎么变</td><td>未见字概率变大，误切增多还是减少</td></tr>
+    <tr><td>测试集加 5 个新词</td><td>R 怎么变</td><td>未登录词比例上升</td></tr>
+    <tr><td>训练集 80 → 40 句</td><td>三者怎么变</td><td>转移与发射的频次变稀</td></tr>
+    <tr><td>标签改 3 个（B、I、E）</td><td>词数怎么变</td><td>约束变少，非法序列变多</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 P 与 R 的分母不同却都要报？② 「实验报告」这类错，加词典能解决吗？③ 逐字错与整词错，哪个更该出现在汇报里？</p>
+<p><strong>验收：</strong>每项改动都给出变化方向与一句机制解释，且能复算至少一题的 P、R、F1。这套解码的理论，见 <a href="../m09-nlp/k9-5-2-hmm.html">HMM：三要素与两个基本问题</a>；想补上下文特征，见 <a href="../m09-nlp/k9-5-5-crf.html">条件随机场</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-6-1-treebank.html">9.6.1 宾州树库：标注体系与用途</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-5-5-crf.html"><span class="p-label">← 上一知识点 9.5.5</span><span class="p-title">条件随机场：全局归一化</span></a><a class="next" href="k9-6-1-treebank.html"><span class="p-label">下一知识点 9.6.1 →</span><span class="p-title">宾州树库：标注体系与用途</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)5 · 统计模型（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>9.5.6 ｜ <span class="path">pages/m09-nlp/k9-5-6-segmentation-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-5-2-hmm.html"><b>9.5.2</b>HMM：三要素与两个基本问题</a><a class="xlink" href="k9-5-5-crf.html"><b>9.5.5</b>条件随机场：全局归一化</a><a class="xlink" href="k9-4-4-metrics.html"><b>9.4.4</b>评价指标：BLEU 与解析准确率</a><a class="xlink" href="u9-5-statistical-models.html"><b>9.5</b>统计模型：HMM、最大熵与 CRF（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k9-5-6（本页图 9-29）、k9-5-6-b（图 9-30）；Demo d9_5_segment.py；知识库 M09-S5-01～S5-04（filled）。 ｜ 知识库条目：M09-S5-01《统计模型方法的概念和分类》（filled）、M09-S5-02《隐马尔可夫模型和条件马尔可夫模型的概念及区别》（filled）、M09-S5-03《最大熵模型的概念及原理》（filled）、M09-S5-04《条件随机场模型的概念及原理》（filled） ｜ 参考来源：输出为 d9_5_segment.py 本机实测（Python 3.13.14，仅标准库）；统计学习方法（李航）第 10 章；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

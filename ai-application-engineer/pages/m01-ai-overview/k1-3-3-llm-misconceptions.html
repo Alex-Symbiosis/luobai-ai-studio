@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.3.3 「大模型什么都会」的三种误解 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能拆开「语言覆盖、生成能力、环境行动」三件事，说明它们的差别。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-3-strong-weak.html">1.3 强人工智能与弱人工智能</a><span class="sep">/</span><span class="here">1.3.3 「大模型什么都会」的三种误解</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.3</span>
+    <span class="tag">知识点 1.3.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>「大模型什么都会」的三种误解</h1>
+  <p class="lede">会写诗、会编程、会答题，看起来覆盖了语言的全部角落。但语言能力广，不等于任务能力通用；把「会说」当成「会做」，是这一轮讨论里最贵的误会。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能拆开「语言覆盖、生成能力、环境行动」三件事，说明它们的差别。</li><li>能识别三种常见话术各偷换了哪个概念。</li><li>能用能力阶梯为一个模型定位，并写出它的边界。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一句宣传语，两种听法</h2>
+<p>面对「它什么都会」这句宣传，两位使用者的反应不同：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>逐条数功能</h3><p>写诗、写代码、答题、翻译、改简历都能来一手，功能清单越数越长，于是认定它已经具备通用能力。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>换成三个追问</h3><p>没见过的环境里能不能动手？做错了知不知道自己不知道？能不能自己定目标并承担后果？三问都答不上来，就把它放回「会说」这一层。</p></div>
+</div>
+<p class="ask">功能清单越长，是否就越接近通用智能？如果「会聊」等于「会做」，为什么让它去改一台真实服务器会立刻卡住？</p>
+<p>功能清单证明的是语言覆盖，不是任务能力。A 组数的是「它谈过多少话题」，B 组问的是「它能在多少环境里改变结果」。这两件事之间，隔着工具、反馈与责任。两套计数单位不同，结论自然不同。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>顾问不等于老板</h2>
+<p>一位知识广博的顾问能引经据典，把开公司的利弊讲得头头是道；真让他去选址、招人、垫资、承担亏损，他未必干得了。会说、会做、会自己定目标，是三件不同的事。顾问能给出方案，但方案落地要有人签字、有人执行、有人负责；这三件事都不在语言能力之内。阶梯的每一层，都需要下一层提供反馈。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="会说—会做—会自主定目标">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">会说—会做—会自主定目标</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">会说</text><text class="f-s" x="430" y="87.0">生成语言、回答问题：语言能力广</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">会做</text><text class="f-s" x="430" y="151.0">在环境里执行动作、使用工具：需要闭环</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">会定目标</text><text class="f-s" x="430" y="215.0">自己提出并分解目标：强 AI 的标志</text><text class="f-s" x="120" y="272">语言通用不等于任务通用；第三层才是强弱之分的关键。</text>
+</svg><figcaption><b>图 1-12　会说、会做、会自主定目标</b>　三层阶梯：语言能力只覆盖最下面一层；向上每走一层，都需要环境反馈与责任承担。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>语言通用不等于任务通用。模型可以在极广的话题上流畅作答，却仍然不会在陌生环境里采取行动、不会持续学习、不会自己设定目标。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三种误解，三次偷换</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>误解</th><th>偷换的概念</th><th>反例</th></tr></thead>
+  <tbody>
+    <tr><td>语言覆盖广 = 任务通用</td><td>把语言任务当成全部任务</td><td>会写合同文本，不等于会审合同、会谈判、会承担条款后果</td></tr>
+    <tr><td>会生成 = 会行动</td><td>把输出文本当成改变世界</td><td>能写出排障步骤，不能自己拆机检测、复位、验证</td></tr>
+    <tr><td>上下文记忆 = 持续学习</td><td>把对话窗口当成参数更新</td><td>换一个会话，上一轮学到的偏好不会保留</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>把能力写成三元组（覆盖域 C、迁移效率 E、目标自主度 G）。语言任务只抬高 C 的一个子集；E 与 G 不变时，系统仍在弱 AI 一侧。三个分量不能互相替代，也不能用「C 很大」推出「E 或 G 也大」。</p>
+</div>
+<p>还要补一句：这三种误解并非模型本身的缺陷，而是「用生成式接口展示能力」带来的观感偏差。接口越像人，越容易被读成「什么都会」。识别误解的办法不是追问「它到底懂不懂」，而是问「这句话把哪两个概念接在了一起」。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么它止步于「会说」</h2>
+<p>限制不在话术，而在训练与运行方式。四条机制决定了它的天花板：</p>
+<div class="steps">
+  <div class="step"><b>训练目标</b><span>优化的是文本似然——下一个词像不像人话，而不是任务有没有完成。目标不同，能力自然不同。</span></div>
+  <div class="step"><b>上下文窗口</b><span>窗口内的信息可用，窗口外不保留；对话结束，状态归零。</span></div>
+  <div class="step"><b>参数冻结</b><span>一次会话里学到的东西默认不写回权重，「记忆」多数靠外部检索或重复粘贴。</span></div>
+  <div class="step"><b>工具外挂</b><span>算数、检索、执行动作都要接外部工具，任务拆解仍高度依赖人给的提示结构。</span></div>
+</div>
+<p>「规模更大」改善的是覆盖与流畅度，不自动带来因果模型、持续学习与目标管理。这也是为什么每增加一层能力（搜索、代码执行、浏览器操作），工程上都要补一整套接口、权限与回退机制。所以「能力变强」通常表现为接口变多，而不是同一个接口突然无所不能。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>换一个领域就露馅</h2>
+<p>2022 年对话式大模型进入公众视野后，公开模型卡与评测报告反复记录三类失败：精确计数与多步算术、实时事实、长链条规划。截至 2026-11，这些仍是常见短板，而不是个别样本的偶然错误；这类失败不随版本号消失，只会换一种表现形式。</p>
+<p>把同一模型放进一个它从未接入的内部工单系统，让它「自己把配置改好」：它不知道入口在哪、不知道权限如何申请、也无法验证改动是否生效。这不是提示词没写清，而是它缺少环境反馈与行动接口——能力阶梯的第一层之上，没有第二层的支撑。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>任务在语言内完成，结果可由人复核</td><td>把生成内容直接当执行结果，错误进入下游流程</td></tr>
+    <tr><td>有明确的资料边界与引用要求</td><td>模型在无依据处补全，形成看似合理的错误事实</td></tr>
+    <tr><td>把「一次成功」当能力上限来评估</td><td>换问法、换数据、换环境后表现骤降，却仍按旧结论使用</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>拆三句宣传话术</h2>
+<p><strong>任务：</strong>把下面三句话各拆一次：它偷换了哪个概念，落在能力阶梯的哪一层，改写成准确说法后是什么。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>宣传话术</th><th>偷换的概念</th><th>阶梯层</th><th>准确说法</th></tr></thead>
+  <tbody>
+    <tr><td>「它能回答任何领域的问题」</td><td></td><td></td><td></td></tr>
+    <tr><td>「它会自己完成任务」</td><td></td><td></td><td></td></tr>
+    <tr><td>「它记得你，越用越懂你」</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>三句改写后要能直接放进产品说明，而不是只换一个形容词；并把阶梯层写进每一行的行首。</p>
+<p><strong>追问：</strong>① 给模型接上搜索与代码执行，它补上了哪一层？还缺哪一层？② 上下文里学会的偏好，为什么不算持续学习？</p>
+<p><strong>自检：</strong>三句都能对应到阶梯的具体一层，改写后不再出现「任何」「自己」「记得」这类无限定词，即达标；若只写「它不真的懂」，说明还没拆到机制。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-3-4-transfer-failure.html">1.3.4 迁移失败案例：为什么专用系统换场景就崩</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-3-2-product-spectrum.html"><span class="p-label">← 上一知识点 1.3.2</span><span class="p-title">专用 AI 与通用 AI 的产品谱系</span></a><a class="next" href="k1-3-4-transfer-failure.html"><span class="p-label">下一知识点 1.3.4 →</span><span class="p-title">迁移失败案例：为什么专用系统换场景就崩</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)1 · 强人工智能与弱人工智能的区别（辨析）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.3.3 ｜ <span class="path">pages/m01-ai-overview/k1-3-3-llm-misconceptions.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-3-2-product-spectrum.html"><b>1.3.2</b>专用 AI 与通用 AI 的产品谱系</a><a class="xlink" href="k1-3-4-transfer-failure.html"><b>1.3.4</b>迁移失败案例：为什么专用系统换场景就崩</a><a class="xlink" href="u1-3-strong-weak.html"><b>1.3</b>强人工智能与弱人工智能（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-3-3（本页图 1-12）；知识库 M01-S1-04。 ｜ 知识库条目：M01-S1-04《强人工智能与弱人工智能的区别》（filled） ｜ 参考来源：S12 Searle《Minds, Brains, and Programs》（1980）；S22 Stanford Encyclopedia of Philosophy《Artificial Intelligence》（2026）；S02 Russell & Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

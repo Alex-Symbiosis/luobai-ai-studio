@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3.1 安防：从「看得见」到「认得准」 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清安防链路的五段，以及每一段各自的瓶颈。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-3-application-layer.html">2.3 应用层：安防、金融、制造、家居、医疗、自动驾驶</a><span class="sep">/</span><span class="here">2.3.1 安防：从「看得见」到「认得准」</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.3</span>
+    <span class="tag">知识点 2.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>安防：从「看得见」到「认得准」</h1>
+  <p class="lede">200 路画面、两个值班员、一天三百条告警，真正要出警的只有七起。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清安防链路的五段，以及每一段各自的瓶颈。</li><li>能同时用检出率、误报率、精确率描述一套系统，而不是只报准确率。</li><li>能按人力上限反推告警阈值，并写出长尾场景的验收条件。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三百条告警</h2>
+<p>监控室值班表上写着 2 个人，屏幕上有 200 路画面。夜班 8 小时，人眼真正能盯住的只有 4 路。上周报警 312 条，实际出警 7 起；保安后来把告警音量调到最低。</p>
+<p>摄像头从 60 路加到 200 路，清晰度早就够了。「看得见」不是问题，问题是「认得准」：夜里逆光的人形被当成树枝，围墙边的猫触发红外，真正翻越的那一次夹在三百多条误报里，没人看。</p>
+<p class="ask">画面都在，为什么还是漏掉了目标？</p>
+<p>因为瓶颈不在采集，而在判定与处置：谁来看、先看哪一条、看完怎么闭环。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>五段链路</h2>
+<p>一次告警拆开，链路只有五段：视频采集、解码抽帧、目标检测、识别比对、告警与复核。每段都有明确的输入输出，也都可能成为瓶颈。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="从「看得见」到「认得准」，中间还有三步">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">从「看得见」到「认得准」，中间还有三步</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">视频采集</text><text class="f-sc" x="117.6" y="154.0">摄像头、补光</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">解码与抽帧</text><text class="f-sc" x="298.79999999999995" y="154.0">降噪、去隔行</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">目标检测</text><text class="f-sc" x="480.0" y="154.0">框出人、车、物</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">识别与比对</text><text class="f-sc" x="661.1999999999999" y="154.0">人脸或属性比对</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">告警与复核</text><text class="f-sc" x="842.4" y="154.0">推送并留证</text><text class="f-s" x="40" y="244">看得见只是第一步；逆光、遮挡、夜间还能认对，系统才算可用。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 2-23　安防 AI 的五段链路：检测只是开始，处置闭环才产生价值</b>　采集定上限，抽帧定成本，复核定成败。</figcaption></figure>
+<p>采集定上限：补光不足、镜头脏污、码率太低，模型再强也补不回来。抽帧定成本：25 帧全送，一台边缘盒子只带 8 路；每秒抽 5 帧能带 40 路，代价是快速翻越只留一帧。</p>
+<p>检测回答「有没有」，识别回答「是谁」，复核才把告警变成处置。多数项目九成预算花在前四段，最后只留一个弹窗，结果告警越多越没人看。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>安防系统的价值不取决于模型能框出多少目标，而取决于值班的人愿意相信并处理多少条告警。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四个指标</h2>
+<p><strong>定义：</strong>安防 AI 常用四个指标：检出率（真实目标被发现的比率）、漏报率（有目标却没报警）、误报率（无目标却报警）、精确率（报警中真有目标的比率）。四个数相关，不能只看一个。</p>
+<p>检出率与漏报率是一体两面：检出率 95%，就是每 100 次真实入侵漏 5 次。误报按「每路每天次数」考核，它直接对应人力：200 路每路每天 1 次，就是 200 条待复核。</p>
+<p>精确率最容易被忽略。一天真实事件 10 起、报警 210 条，精确率只有 4.8%；即使检出率 100%，值班员也要在 200 条噪声里找那 10 条。</p>
+<p><strong>长尾场景</strong>必须写进验收：夜间逆光、雨雪、树影、遮挡、密集人群。这些样本在训练集里通常不足 1%，模型在演示视频里很好，换一个门口就失效。</p>
+<p><strong>隐私合规</strong>是第三条硬约束。人脸是敏感个人信息，采集要告知目的、单独同意、最小必要；能本地比对就不上传。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>端边云分工</h2>
+<p>工程上按「端—边—云」分工，依据是带宽、时延与隐私，不是哪层算力强。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层级</th><th>承担什么</th><th>典型约束</th></tr></thead>
+  <tbody>
+    <tr><td>端</td><td>采集、编码、轻量移动侦测</td><td>每路 2～4 Mbps，镜头与补光决定画质</td></tr>
+    <tr><td>边</td><td>解码、检测、跟踪、比对</td><td>单盒 8～40 路，告警延迟 500 ms 内</td></tr>
+    <tr><td>云</td><td>跨点检索、模型训练、长期归档</td><td>上传受隐私与带宽双重限制</td></tr>
+  </tbody>
+</table>
+</div>
+<p>一条实用规则：能在边缘出结果的，不要上传视频。200 路 1080p 全天上传约需 200×4 Mbps，骨干先撑不住；检测放在边缘、只回传告警片段，带宽能降两个数量级。</p>
+<p>阈值要按场景分组：周界、出入口、电梯、仓库各用各的。分组越细越费工，但误报分布可解释，出了偏差知道去哪组找。</p>
+<p>处置闭环：告警要有级别、责任人、时限、回执。没有回执等于没发生；「多少条被真正处理」比模型指标更能说明问题。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>阈值在哪里</h2>
+<p>某园区把阈值从 0.50 提到 0.85，记录如下（手算示例，数据为课程假设）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阈值</th><th>日均告警</th><th>误报</th><th>漏报</th><th>值班可处理 120 条</th></tr></thead>
+  <tbody>
+    <tr><td>0.50</td><td>612</td><td>590</td><td>2</td><td>严重超载</td></tr>
+    <tr><td>0.65</td><td>318</td><td>302</td><td>4</td><td>超载</td></tr>
+    <tr><td>0.75</td><td>116</td><td>104</td><td>9</td><td>接近上限</td></tr>
+    <tr><td>0.85</td><td>41</td><td>32</td><td>21</td><td>能看完，漏报高</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="阈值一动，误报和漏报此消彼长">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">阈值一动，误报和漏报此消彼长</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M110 272 L240 240 L380 205 L520 170 L660 132 L800 102 L880 92" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">误报率</text><path d="M110 92 L240 118 L380 148 L520 176 L660 215 L800 258 L880 272" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">漏报率</text><circle class="f-pt" cx="505" cy="173" r="6"/><text class="f-s" x="515" y="165">折中点</text><text class="f-s" x="880" y="322" text-anchor="end">告警阈值 →</text><text class="f-s" x="92" y="66" text-anchor="end">错误率</text><text class="f-s" x="100" y="340">误报多了，保安会直接关掉告警；那时的漏报代价比误报更大。</text>
+</svg><figcaption><b>图 2-24　阈值一动，误报与漏报此消彼长</b>　曲线只能选择把错误放在哪一边；要整体下移，得改链路而不是挪阈值。</figcaption></figure>
+<p>0.50 时几乎不漏，但每天 612 条、两个人处理不完，实际处置率不到 20%，等效漏报反而最高。0.85 时告警降到 41 条、全部能看完，可真实事件漏了 21 起。折中点在 0.75：116 条接近人力上限，漏 9 起。</p>
+<p>误报与漏报此消彼长，阈值只决定把错误放在哪边；真正的改进来自补光、机位、二次确认，把整条曲线往下压。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「告警准确率 99%」写进验收。一天只有 10 起真实事件时，99% 的准确率仍可能带来上百条误报；验收要写「每路每天误报次数」和「漏报抽查结果」。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画处置流程</h2>
+<p><strong>任务：</strong>为这个园区画一张「预警→复核→处置→归档」的流程图，标出 2 个人工复核点和 1 个考核指标，写明判断依据与时限。</p>
+<p>提示：第一个复核点解决「是不是目标」，第二个解决「要不要出警」；指标写清统计口径。</p>
+<p><strong>追问：</strong>① 夜间补光不足导致的漏报，调阈值能解决吗？② 人脸比对放在云端，带宽和合规各有什么代价？③ 值班员关掉告警音，是流程问题还是模型问题？</p>
+<p><strong>验收：</strong>流程图闭环，两个复核点各有责任人与时限，指标能按天统计。人脸比对的技术基础见 <a href="../m02-industry/k2-2-3-biometrics.html">生物特征识别</a>；金融场景里同类的阈值权衡见 <a href="../m02-industry/k2-3-2-finance.html">金融</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-3-2-finance.html">2.3.2 金融：高频决策与强监管</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-2-5-nlp.html"><span class="p-label">← 上一知识点 2.2.5</span><span class="p-title">NLP：让机器处理人类语言</span></a><a class="next" href="k2-3-2-finance.html"><span class="p-label">下一知识点 2.3.2 →</span><span class="p-title">金融：高频决策与强监管</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)3 · 人工智能与安防</dd>
+    <dt>页面编号 / 路径</dt><dd>2.3.1 ｜ <span class="path">pages/m02-industry/k2-3-1-security.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-3-biometrics.html"><b>2.2.3</b>生物特征识别：用「你是谁」做钥匙</a><a class="xlink" href="k2-3-2-finance.html"><b>2.3.2</b>金融：高频决策与强监管</a><a class="xlink" href="u2-3-application-layer.html"><b>2.3</b>应用层：安防、金融、制造、家居、医疗、自动驾驶（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-3-1（本页图 2-23）、k2-3-1-b（图 2-24）；知识库 M02-S3-01《人工智能与安防》（filled）。 ｜ 知识库条目：M02-S3-01《人工智能与安防》（filled） ｜ 参考来源：GB/T 31488-2015《安全防范 视频监控人脸识别系统技术要求》；《中华人民共和国个人信息保护法》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

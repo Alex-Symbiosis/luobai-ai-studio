@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.4.1 探索性分析：先体检，再开药 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按「结构—单变量—双变量」三层完成一次探索性分析。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-4-eda-cleaning.html">3.4 探索性分析与数据清洗</a><span class="sep">/</span><span class="here">3.4.1 探索性分析：先体检，再开药</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.4</span>
+    <span class="tag">知识点 3.4.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>探索性分析：先体检，再开药</h1>
+  <p class="lede">拿到一份表就直接 `fit()`，跑出来的模型往往「什么都对，就是没用」。探索性分析要回答的是一组很朴素的问题：每一列是什么、分布长什么样、两列之间有没有关系、哪些列根本不能用。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按「结构—单变量—双变量」三层完成一次探索性分析。</li><li>能从分布形态读出偏态、双峰、异常堆积等信号。</li><li>能把 EDA 结论整理成一张「可用 / 需处理 / 不可用」的列清单。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>模型没错，数据有问题</h2>
+<p>一份二手房数据，模型 R² 只有 0.3。检查后发现：面积列里混着「89 平米」这样的字符串，成交价有 12 条是 0，还有 300 条记录完全重复。</p>
+<p class="ask">这些问题没有一条会报错。它们是怎么被发现的？</p>
+<p>靠的是在看模型之前，先把每一列的分布画出来、把缺失与重复数出来。这一步就叫探索性分析（EDA）。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>体检报告先看指标，再看结论</h2>
+<p>体检不会一上来就下诊断，而是先量身高体重、抽血、拍片，把异常指标圈出来，再决定看哪个科。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="探索性分析：先体检，再开药">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">探索性分析：先体检，再开药</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">结构体检</text><text class="f-sc" x="140.25" y="154.0">行列/类型/缺失</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">单变量分布</text><text class="f-sc" x="366.75" y="154.0">偏态与异常</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">双变量关系</text><text class="f-sc" x="593.25" y="154.0">相关与分组差异</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">问题清单</text><text class="f-sc" x="819.75" y="154.0">按严重度排序</text><text class="f-s" x="40" y="244">EDA 的产出不是图，是一张「哪些列能用、哪些要先处理」的清单。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 3-16　探索性分析的四步</b>　结构体检看「表长什么样」，单变量看「每列怎么分布」，双变量看「列之间有没有关系」，最后汇总成一张问题清单。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>EDA 的产出不是一堆图，而是<strong>一张按严重度排序的问题清单</strong>：哪些列可用、哪些要先处理、哪些必须弃用。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三层问题与对应工具</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>层次</th><th>要回答的问题</th><th>常用工具</th></tr></thead>
+  <tbody>
+    <tr><td>结构</td><td>多少行多少列、类型是否正确、缺失与重复多少</td><td>info、describe、缺失率表、重复计数</td></tr>
+    <tr><td>单变量</td><td>分布形态、集中趋势、离散程度、异常堆积</td><td>直方图、箱线图、分位数</td></tr>
+    <tr><td>双变量</td><td>特征与标签的关系、特征之间的共线</td><td>散点图、分组均值、相关系数矩阵</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>探索性分析是在建模前，用统计量与可视化检查数据结构、分布与变量关系的步骤；目的是发现数据问题、形成特征假设，而不是验证某个模型。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四种形态，四种结论</h2>
+<div class="steps">
+  <div class="step"><b>偏态</b><span>收入、金额常右偏。均值被长尾拉高，此时中位数更能代表「典型值」；建模时可能需要对数变换。</span></div>
+  <div class="step"><b>双峰</b><span>往往意味着混入了两个群体（两个片区、两类用户）。不分组建模，模型会学出一个谁都不准的中间值。</span></div>
+  <div class="step"><b>异常堆积</b><span>某个值出现频率异常高（0、-1、9999），通常是占位符而非真实值，要按缺失处理。</span></div>
+  <div class="step"><b>缺失模式</b><span>缺失是否集中在某一类样本上。集中缺失往往意味着 MAR/MNAR，不能简单删行。</span></div>
+</div>
+<p>这四种形态的共同价值是：它们都指向「这一列的含义可能和预期不一样」。<strong>先修正对列的理解，再谈模型。</strong></p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>房价表的 EDA 发现</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>发现</th><th>证据</th><th>结论与动作</th></tr></thead>
+  <tbody>
+    <tr><td>成交价双峰</td><td>直方图在 200 万与 600 万各有一峰</td><td>数据含两个城市/片区，应分组建模或加入区域特征</td></tr>
+    <tr><td>房龄缺失 28%</td><td>缺失集中在老旧小区</td><td>非随机缺失，删除会丢偏样本；加「是否缺失」指示变量</td></tr>
+    <tr><td>面积含字符串</td><td>抽查发现「89 平米」</td><td>解析为数值，解析失败置空并记录</td></tr>
+    <tr><td>300 条完全重复</td><td>按全部列去重后行数减少</td><td>去重；若重复来自同一套房多次挂牌，按主键保留最新</td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意第二行：如果直接 `dropna()`，模型就永远学不到老旧小区的规律，而这类样本恰恰可能是业务最关心的。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为一张表写 EDA 清单</h2>
+<p><strong>任务：</strong>任选一份课程数据（或自造 200 行表格），完成三层检查，填出下面的清单。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>列名</th><th>类型是否正确</th><th>缺失率</th><th>分布形态</th><th>结论（可用/需处理/弃用）</th></tr></thead>
+  <tbody>
+    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检三问：</strong>① 我有没有把「编号列」当成数值特征？② 我看到双峰时，是继续建模还是先分组？③ 我的结论有没有落到「具体动作」上？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「EDA 就是画几张图」不成立。图只是证据，EDA 的交付物是判断：哪一列能用、要怎么改、改完预期解决什么问题。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-4-2-missing-values.html">3.4.2 缺失值：先问机制，再选策略</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-3-5-leakage-demo.html"><span class="p-label">← 上一知识点 3.3.5</span><span class="p-title">动手复现：先变换再划分，分数会虚高多少</span></a><a class="next" href="k3-4-2-missing-values.html"><span class="p-label">下一知识点 3.4.2 →</span><span class="p-title">缺失值：先问机制，再选策略</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)3 · 探索性分析的概念和方法</dd>
+    <dt>页面编号 / 路径</dt><dd>3.4.1 ｜ <span class="path">pages/m03-ml-basics/k3-4-1-eda.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-4-2-missing-values.html"><b>3.4.2</b>缺失值：先问机制，再选策略</a><a class="xlink" href="k3-4-4-format-issues.html"><b>3.4.4</b>结构、重复与格式：不报错的那一类脏</a><a class="xlink" href="k3-5-1-feature-engineering.html"><b>3.5.1</b>特征工程：把原始数据变成可学的信号</a><a class="xlink" href="u3-4-eda-cleaning.html"><b>3.4</b>探索性分析与数据清洗（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-4-1-a.svg（本页图 3-16）。 ｜ 知识库条目：M03-S3-01《探索性分析的概念和方法》（filled） ｜ 参考来源：S58 NIST/SEMATECH e-Handbook；S64 Han et al.《Data Mining》；S33 Hastie et al.《ESL》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

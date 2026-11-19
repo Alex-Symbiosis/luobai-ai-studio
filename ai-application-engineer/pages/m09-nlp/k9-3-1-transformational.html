@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.3.1 转换语法：深层结构与表层结构 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分深层结构与表层结构，并说清各自决定什么。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-3-semantic-grammar.html">9.3 语义分析与扩展语法：转换、系统、格、语义语法</a><span class="sep">/</span><span class="here">9.3.1 转换语法：深层结构与表层结构</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.3</span>
+    <span class="tag">知识点 9.3.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>转换语法：深层结构与表层结构</h1>
+  <p class="lede">同样一件事，「老师打开了门」和「门被老师打开了」词几乎一样，凭什么说它们是同一句话？</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分深层结构与表层结构，并说清各自决定什么。</li><li>能写出主动改被动的三步转换：移位、插入、保留角色。</li><li>能用三元组判断两个表层句子是否同源。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三组句子</h2>
+<p>三组句子摆在一起：老师打开了门，门被老师打开了；学生交了作业，作业被学生交了；工人修好了机器，机器被工人修好了。每组左右两句，词几乎一样，说的是同一件事，语序却整整齐齐地反了过来。</p>
+<p>再看两句：打开窗！主语「你」不见了。你吃了什么？疑问词跑到了句尾。同一套成分，能排出好几种合法顺序，还能省掉一部分不说。</p>
+<p class="ask">如果每句都单独记一条规则，句子越多规则越多，有没有更省的写法？</p>
+<p>有。把「谁对谁做了什么」和「说出来是什么顺序」分成两层。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两层一句</h2>
+<p>一层管意义，一层管语序。深层结构把施事、动作、受事按原始关系摆好；表层结构是实际说出口的那一串词。中间隔着一组转换规则，专门负责挪位置、删成分、加标记。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="深层结构定意义，转换规则定语序">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">深层结构定意义，转换规则定语序</text><rect class="f-b2" x="40.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="140.25" y="135.0">深层结构</text><text class="f-sc" x="140.25" y="154.0">语义角色的原始位置</text><path class="f-ar" d="M243.5 140.0 L262.5 140.0" marker-end="url(#ah)"/><rect class="f-b" x="266.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="366.75" y="135.0">转换</text><text class="f-sc" x="366.75" y="154.0">移位、删除、插入</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="593.25" y="135.0">表层结构</text><text class="f-sc" x="593.25" y="154.0">成分顺序已调整</text><path class="f-ar" d="M696.5 140.0 L715.5 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="719.5" y="92" width="200.5" height="96" rx="9"/><text class="f-tc" x="819.75" y="135.0">语音形式</text><text class="f-sc" x="819.75" y="154.0">说出来或写出来</text><text class="f-s" x="40" y="244">「谁做了什么」在深层已定；被动和疑问只是把同一份关系换个排列说出来。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 9-12　深层结构定意义，转换规则定语序</b>　深层已定「谁做了什么」；被动、疑问只是把同一份关系换个排列说出来。</figcaption></figure>
+<p>图中四个格子：深层结构、转换、表层结构、语音形式。左边一变，右边跟着变；反过来，两个不同的表层只要来自同一个深层，就算同义句。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>句子的「意思」在深层已经定好，被动、疑问、祈使只是把同一份关系换个排列说出去。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>深层与表层</h2>
+<p><strong>定义：</strong>转换语法（transformational grammar）由乔姆斯基提出，主张句子分两层：深层结构决定语义关系，表层结构决定实际语序，两者之间用转换规则连接。</p>
+<p>深层结构是一棵成分树，直接编码「谁做了什么」：主语位置放施事，宾语位置放受事。表层结构是这棵树转换之后得到的另一棵树，也就是我们读到的词序。</p>
+<p>转换规则有三类动作：<strong>移位</strong>把成分从一个位置搬到另一个位置（疑问词前移、宾语前置）；<strong>删除</strong>把成分去掉（祈使句删主语）；<strong>插入</strong>补上标记（被动句插入「被」）。</p>
+<p>关键约束：转换不改变深层结构的语义关系，只改变排列。所以主动句与被动句被看作同一深层结构的两个表层变体。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两条转换规则</h2>
+<p>把被动转换写成一条规则，读法是「左边匹配，右边改写」。NP1 是深层主语，NP2 是深层宾语，V 是动词。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>transform.py</span></div>
+<pre><code># 被动转换：NP1 V NP2  -&gt;  NP2 被 NP1 V
+def passive(deep):
+    &quot;&quot;&quot;deep = (施事, 动作, 受事)&quot;&quot;&quot;
+    agent, verb, patient = deep
+    return f&quot;{patient} 被 {agent} {verb}&quot;
+
+# 删除转换：祈使句去掉深层主语「你」
+def imperative(deep):
+    _, verb, patient = deep
+    return f&quot;{verb} {patient}&quot;
+
+print(passive((&quot;老师&quot;, &quot;打开了&quot;, &quot;门&quot;)))   # 门 被 老师 打开了
+print(imperative((&quot;你&quot;, &quot;关上&quot;, &quot;窗&quot;)))    # 关上 窗</code></pre>
+</div>
+<p>两段代码只做改写，不碰角色：施事还是老师，受事还是门。这正是「转换不改意义」的可操作版本——输入输出都是三元组，只有字符串顺序变了。</p>
+<p>真实规则还要统一动词形态、处理施事可省（门被打开了），骨架仍是「换位加标记」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三组对齐</h2>
+<p>把三组句子逐层对齐，看深层与表层的关系：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>深层（施事-动作-受事）</th><th>表层（主动）</th><th>表层（被动）</th><th>用到的转换</th></tr></thead>
+  <tbody>
+    <tr><td>老师-打开-门</td><td>老师打开了门</td><td>门被老师打开了</td><td>移位＋插入「被」</td></tr>
+    <tr><td>学生-交-作业</td><td>学生交了作业</td><td>作业被学生交了</td><td>移位＋插入「被」</td></tr>
+    <tr><td>工人-修好-机器</td><td>工人修好了机器</td><td>机器被工人修好了</td><td>移位＋插入「被」</td></tr>
+    <tr><td>你-关上-窗</td><td>关上窗</td><td>—</td><td>删除主语</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三组被动句深层完全相同，区别只在表层。同义因此在句法层面可检验：深层一致，表层不同。</p>
+<p>但同义有边界。主动句默认从施事说起，被动句把受事提到句首，多半因为受事是话题，或施事不重要。「门被打开了」和「有人打开了门」深层相近，语气和焦点并不一样。句法说同义，语用未必同义。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「转换」理解成改写句子或翻译。转换规则作用在同一语言的深层结构上，输出的是同语言的表层，不跨语言。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三句改被动</h2>
+<p><strong>任务：</strong>把三句主动句改成被动句，逐句写出深层三元组（施事、动作、受事），并标出用了移位还是插入：① 警察抓住了小偷；② 公司发布了公告；③ 孩子吃掉了蛋糕。</p>
+<p>提示：先定角色再改语序。被动句里「被」后面是施事，句首是受事；施事可以省略，但省略后角色仍然存在。</p>
+<p><strong>追问：</strong>① 三句改被动后哪一句最不自然？问题出在语义还是语用？② 「蛋糕被吃掉了」省略施事，深层还完整吗？③ 「谁抓住了小偷」用了哪种转换？</p>
+<p><strong>验收：</strong>三组三元组齐全，能说清「移位改位置、插入加标记、删除省成分」，并承认同义只在句法层面成立。系统语法怎么看同一句话，见 <a href="../m09-nlp/k9-3-2-systemic.html">系统语法</a>；四种语法的整体关系见 <a href="../m09-nlp/k9-3-5-grammar-compare.html">谱系对比</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-3-2-systemic.html">9.3.2 系统语法：选择网络与元功能</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-2-5-cyk-demo.html"><span class="p-label">← 上一知识点 9.2.5</span><span class="p-title">CYK 实现与 10 句判定</span></a><a class="next" href="k9-3-2-systemic.html"><span class="p-label">下一知识点 9.3.2 →</span><span class="p-title">系统语法：选择网络与元功能</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)3 · 转换语法：深层结构与表层结构</dd>
+    <dt>页面编号 / 路径</dt><dd>9.3.1 ｜ <span class="path">pages/m09-nlp/k9-3-1-transformational.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-3-2-systemic.html"><b>9.3.2</b>系统语法：选择网络与元功能</a><a class="xlink" href="k9-3-5-grammar-compare.html"><b>9.3.5</b>四种语法的谱系对比</a><a class="xlink" href="u9-3-semantic-grammar.html"><b>9.3</b>语义分析与扩展语法：转换、系统、格、语义语法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-3-1（本页图 9-12）；知识库 M09-S3-01《转换语法的概念和特点》（filled）。 ｜ 知识库条目：M09-S3-01《转换语法的概念和特点》（filled） ｜ 参考来源：Chomsky《句法结构》（1957）、《句法理论要略》（1965）；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

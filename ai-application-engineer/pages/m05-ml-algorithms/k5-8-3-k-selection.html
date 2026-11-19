@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.8.3 K 怎么选：肘部与轮廓 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能画出肘部曲线并指出拐点，说明为什么不取 SSE 最小的 K。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-8-clustering.html">5.8 聚类算法</a><span class="sep">/</span><span class="here">5.8.3 K 怎么选：肘部与轮廓</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.8</span>
+    <span class="tag">知识点 5.8.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>K 怎么选：肘部与轮廓</h1>
+  <p class="lede">K-Means 不会告诉你该分几簇，K 要由人来定。这件事没有定理可依，只有两类启发式：看组内平方和什么时候不再明显下降，看每个样本在自己簇里是否比在隔壁簇里更自在。两种方法都会给出一个数字，但都不该单独使用。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能画出肘部曲线并指出拐点，说明为什么不取 SSE 最小的 K。</li><li>能用轮廓系数的峰值辅助选 K，并解释它的取值范围。</li><li>能结合业务粒度修正纯数据给出的 K。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>每个 K 都「看起来还行」</h2>
+<p>同一份数据，K 从 2 试到 8，每次都画出一张图。问题随之而来：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>选择方式</th><th>结论</th><th>问题</th></tr></thead>
+  <tbody>
+    <tr><td>按业务拍脑袋</td><td>「就分 5 类吧」</td><td>说不出依据，换个人会拍出另一个数</td></tr>
+    <tr><td>按组内平方和最小</td><td>选 K=8</td><td>SSE 随 K 单调下降，K 等于样本数时它最小，但没有意义</td></tr>
+    <tr><td>按轮廓系数最大</td><td>选 K=3</td><td>与上一条冲突，两个指标给出两个答案</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">两个指标都「有依据」，为什么结论相反？该听谁的？</p>
+<p>因为两者衡量的不是同一件事：SSE 只看簇内紧不紧，天然偏好更多簇；轮廓系数同时看簇内与簇间，才会在某个 K 上出现峰值。选 K 要两个一起看，再让业务拍板。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>收益递减的拐点</h2>
+<p>把人群分组，从 2 组加到 3 组，往往能明显拆开原本混在一起的两类；从 8 组加到 9 组，多半只是把某一组再切一刀。前一种加法有收益，后一种几乎没有。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="肘部法选 K">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">肘部法选 K</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M140 110 L220 170 L300 215 L380 245 L460 262 L540 272 L620 278 L700 282 L780 285 L840 287" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">组内平方和</text><circle class="f-pt" cx="380" cy="245" r="6"/><text class="f-s" x="390" y="237">拐点 K = 3</text><text class="f-s" x="880" y="322" text-anchor="end">K</text><text class="f-s" x="92" y="66" text-anchor="end">SSE</text><text class="f-s" x="100" y="340">拐点之前加簇收益大，之后收益迅速变小；K 的选择要结合业务粒度，不只看曲线。</text>
+</svg><figcaption><b>图 5-34　肘部法选 K</b>　拐点之前加簇收益大，之后收益迅速变小；K 的选择要结合业务粒度，不只看曲线。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>肘部法看的是「斜率突然变缓」的位置。轮廓系数看的是「峰值」。两者指向同一个 K 时最可信；指向不同时，说明数据本身没有明显结构，任何 K 都只是切法之一。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两个指标，一个补充手段</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>概念</th><th>含义</th><th>怎么用</th><th>局限</th></tr></thead>
+  <tbody>
+    <tr><td>组内平方和 SSE</td><td>所有点到所属中心的距离平方和</td><td>画 SSE 随 K 的曲线找拐点</td><td>随 K 单调下降，不能取最小</td></tr>
+    <tr><td>轮廓系数</td><td>综合簇内紧密度与簇间分离度，取值 −1 到 1</td><td>取峰值对应的 K</td><td>偏好凸形簇，计算量 O(n²)</td></tr>
+    <tr><td>K-Means++</td><td>让初始中心尽量分散的初始化方法</td><td>固定 K 后提升结果稳定性</td><td>不解决 K 该取几</td></tr>
+    <tr><td>业务粒度</td><td>运营能同时维护几类人群</td><td>在候选 K 中做最终取舍</td><td>无法写成公式</td></tr>
+  </tbody>
+</table>
+</div>
+<p>轮廓系数的定义与判读放在 5.8.5 展开，本页只把它当作选 K 的第二个视角：它在 K 增大时不会单调变化，因此能出现峰值。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>两个视角怎么合起来用</h2>
+<div class="steps">
+  <div class="step"><b>先扫一遍 K</b><span>K 取 2 到 8，每个 K 用同一初始化策略跑若干次，记录 SSE 与轮廓系数。</span></div>
+  <div class="step"><b>找肘点</b><span>SSE 曲线上从陡降转为平缓的那个 K；没有明显拐点时，说明数据缺乏簇结构。</span></div>
+  <div class="step"><b>找峰值</b><span>轮廓系数曲线的最高点；若曲线平坦，同样说明结构不明显。</span></div>
+  <div class="step"><b>对齐与取舍</b><span>两值一致则优先采用；不一致时看下游任务能承受几类，以及每类是否有足够样本。</span></div>
+</div>
+<p>还有两个常被忽略的检查：某个 K 下出现只含一两个点的簇，说明 K 偏大；两个簇心几乎重合，说明 K 偏小。这两种情况比曲线上的小数差异更值得处理。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>K 从 2 到 6 的两个指标</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>K</th><th>SSE</th><th>轮廓系数</th><th>观察</th></tr></thead>
+  <tbody>
+    <tr><td>2</td><td>412</td><td>0.48</td><td>两簇过大，内部混杂</td></tr>
+    <tr><td>3</td><td>236</td><td><strong>0.61</strong></td><td>SSE 明显下降，轮廓最高</td></tr>
+    <tr><td>4</td><td>198</td><td>0.55</td><td>收益变小，开始出现小簇</td></tr>
+    <tr><td>5</td><td>181</td><td>0.49</td><td>SSE 几乎走平</td></tr>
+    <tr><td>6</td><td>172</td><td>0.44</td><td>一簇仅 3 个样本</td></tr>
+  </tbody>
+</table>
+</div>
+<p>SSE 在 K=3 之后从陡降转为缓降，轮廓系数在 K=3 取到峰值，两个视角对齐。K=6 的 SSE 更小，但代价是拆出一个只有 3 个样本的簇，业务上无法运营。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>数据存在一定簇结构</td><td>本来就没有分组的连续分布，任何 K 都会被强行切出来</td></tr>
+    <tr><td>样本量中等</td><td>轮廓系数需两两距离，大样本计算不可行，只能抽样估计</td></tr>
+    <tr><td>簇近似凸形</td><td>环形或长条形数据上，轮廓系数会低估正确分组</td></tr>
+    <tr><td>下游能维护 K 类</td><td>纯数据选出的 K 可能超出运营或系统可承受的类别数</td></tr>
+    <tr><td>允许重复运行</td><td>每个 K 都要多次重启，K 扫描的总耗时成倍增长</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">注意</span>
+  <p>肘部与轮廓都是启发式，不是定理。曲线没有拐点或峰值时，正确的结论是「这批数据没有明显簇结构」，而不是「再换个 K 试试」。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画一条肘部曲线</h2>
+<p><strong>任务：</strong>对同一份数据跑 K=1 到 8，完成两件事。</p>
+<ol>
+  <li>画 SSE 随 K 的曲线，标出你认为的拐点。</li>
+  <li>计算每个 K 的轮廓系数，标出峰值；若与拐点不一致，说明如何取舍。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>K</th><th>SSE</th><th>轮廓系数</th><th>是否出现小簇</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td></td><td>不适用</td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 K 等于样本数时 SSE 为 0？② 轮廓系数为什么在 K=1 时无法计算？③ 若两个指标指向 3 和 5，你会怎么向业务解释你的选择？</p>
+<p><strong>验收：</strong>选择有曲线依据，且能说出一个放弃另一个的理由。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-8-4-hierarchical-dbscan.html">5.8.4 层次与密度：两种不同的簇</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-8-2-kmeans.html"><span class="p-label">← 上一知识点 5.8.2</span><span class="p-title">K-Means：分配与更新</span></a><a class="next" href="k5-8-4-hierarchical-dbscan.html"><span class="p-label">下一知识点 5.8.4 →</span><span class="p-title">层次与密度：两种不同的簇</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)3 · K-Means（K 选择）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.8.3 ｜ <span class="path">pages/m05-ml-algorithms/k5-8-3-k-selection.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-8-2-kmeans.html"><b>5.8.2</b>K-Means：分配与更新</a><a class="xlink" href="k5-8-4-hierarchical-dbscan.html"><b>5.8.4</b>层次与密度：两种不同的簇</a><a class="xlink" href="u5-8-clustering.html"><b>5.8</b>聚类算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-8-3（本页图 5-34）；知识库 M05-S2-05。 ｜ 知识库条目：M05-S2-05《聚类算法的概念、特点、不同分类及操作原理》（filled） ｜ 参考来源：S38 scikit-learn《Clustering》；S80 Lloyd《Least Squares Quantization in PCM》；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.1.3 算法地图：先按任务定位 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出算法地图的三条轴以及各自的用途。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-1-algorithm-map.html">5.1 算法的概念、分类与地图</a><span class="sep">/</span><span class="here">5.1.3 算法地图：先按任务定位</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.1</span>
+    <span class="tag">知识点 5.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>算法地图：先按任务定位</h1>
+  <p class="lede">一张按难度排序的算法清单，看着整齐，用起来没用。因为选型不是「从简单的开始试」，而是「先确定自己在哪一类任务上，再看附近有谁」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出算法地图的三条轴以及各自的用途。</li><li>能按任务类型把代表算法放到地图上。</li><li>能用「相邻但不同」的方式比较同一区域的算法。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>清单贴在墙上，没人按它选型</h2>
+<p>团队墙上贴着一张「常用算法清单」，按学习难度从低到高排：线性回归、逻辑回归、KNN、决策树、SVM、随机森林……</p>
+<p>半年后回看，这张清单只被用来应付面试，真正选型时一次也没用上：新需求来了，还是从清单第一个开始试；遇到客户分群这种没有标签的任务，清单上的分类算法一个也用不了。</p>
+<p class="ask">一份按难度排好的清单，为什么在真实需求面前帮不上忙？</p>
+<p>因为它只有一根轴。难度能决定「先学哪个」，却回答不了「这个任务该往哪个方向找」。选型需要的是坐标，不是排名。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先量任务，再量算法</h2>
+<p>装修时不会先挑瓷砖再看户型：先确认是厨房还是卫生间，再决定防水、防滑这些硬条件，最后才比较花色。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="12 种算法地图">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">12 种算法地图</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">任务</text><text class="f-t" x="282.0" y="98">代表算法</text><text class="f-t" x="492.0" y="98">可解释性</text><text class="f-t" x="702.0" y="98">典型数据规模</text><rect class="f-b3" x="60" y="112.0" width="840" height="31.333333333333332" rx="0"/><text class="f-s" x="72.0" y="132.66666666666669">回归</text><text class="f-s" x="282.0" y="132.66666666666669">线性回归、回归树</text><text class="f-s" x="492.0" y="132.66666666666669">高 / 中</text><text class="f-s" x="702.0" y="132.66666666666669">小到中</text><rect class="f-b3" x="60" y="143.33333333333334" width="840" height="31.333333333333332" rx="0"/><text class="f-s" x="72.0" y="164.0">分类</text><text class="f-s" x="282.0" y="164.0">逻辑回归、SVM、KNN</text><text class="f-s" x="492.0" y="164.0">高 / 中 / 中</text><text class="f-s" x="702.0" y="164.0">小到中</text><rect class="f-b3" x="60" y="174.66666666666666" width="840" height="31.333333333333332" rx="0"/><text class="f-s" x="72.0" y="195.33333333333331">分类</text><text class="f-s" x="282.0" y="195.33333333333331">决策树、随机森林</text><text class="f-s" x="492.0" y="195.33333333333331">高 / 低</text><text class="f-s" x="702.0" y="195.33333333333331">中</text><rect class="f-b3" x="60" y="206.0" width="840" height="31.333333333333332" rx="0"/><text class="f-s" x="72.0" y="226.66666666666666">分类</text><text class="f-s" x="282.0" y="226.66666666666666">朴素贝叶斯、AdaBoost</text><text class="f-s" x="492.0" y="226.66666666666666">中 / 低</text><text class="f-s" x="702.0" y="226.66666666666666">中到高</text><rect class="f-b3" x="60" y="237.33333333333331" width="840" height="31.333333333333332" rx="0"/><text class="f-s" x="72.0" y="258.0">聚类</text><text class="f-s" x="282.0" y="258.0">K-Means、DBSCAN</text><text class="f-s" x="492.0" y="258.0">中 / 中</text><text class="f-s" x="702.0" y="258.0">中到高</text><rect class="f-b3" x="60" y="268.66666666666663" width="840" height="31.333333333333332" rx="0"/><text class="f-s" x="72.0" y="289.3333333333333">降维</text><text class="f-s" x="282.0" y="289.3333333333333">LDA、PCA</text><text class="f-s" x="492.0" y="289.3333333333333">高 / 中</text><text class="f-s" x="702.0" y="289.3333333333333">中</text><text class="f-s" x="60" y="328.0">先按任务定位纵轴，再按可解释性与数据规模收窄候选。</text>
+</svg><figcaption><b>图 5-3　12 种算法地图</b>　先按任务定位纵轴，再按可解释性与数据规模收窄候选；地图看的是邻域，不是名次。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>地图的价值在于「先定位、再比较」。位置错了，后面比的分数再精细也没有意义。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三条轴，各管一件事</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>轴</th><th>取值</th><th>决定什么</th></tr></thead>
+  <tbody>
+    <tr><td>任务类型</td><td>回归 / 分类 / 聚类 / 降维</td><td>输出形式、损失与评价指标</td></tr>
+    <tr><td>数据形态</td><td>小到中 / 中到高；稠密 / 稀疏</td><td>算法能否吃得下、要不要先降维</td></tr>
+    <tr><td>可解释性</td><td>高 / 中 / 低</td><td>能否进入强监管、需审批的场景</td></tr>
+  </tbody>
+</table>
+</div>
+<p>图上把「数据形态」落到「典型数据规模」这个刻度上，是为了让位置可比；真正的判断仍要看稀疏性与特征类型。可解释性一轴最容易被忽略，却常常是最先淘汰候选的硬条件。</p>
+<p>同一算法可以出现在多个任务上：CART 既做分类也做回归，LDA 既能分类也能降维。地图上的一个点，往往代表「某算法的一个用法」，而不是算法的全部。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>定位、收窄、比较</h2>
+<p>用地图选型是三步，不是一步：</p>
+<div class="steps">
+  <div class="step"><b>定位</b><span>先按任务类型确定纵轴位置。无标签的任务直接落在聚类或降维，不必再看分类算法。</span></div>
+  <div class="step"><b>收窄</b><span>用数据规模与可解释性切掉不合条件的点。强监管场景里，低可解释性的模型先出局。</span></div>
+  <div class="step"><b>比较</b><span>只在剩下的邻域里比分数、比训练成本、比上线难度。此时比较才有可比性。</span></div>
+</div>
+<p>「邻域」是这张图最有用的部分：相邻的两个点往往只差一个假设。逻辑回归与线性 SVM 都是线性分类器，差别在损失与是否输出概率；决策树与回归树结构相同，差别在叶子输出；LDA 与 PCA 都在做投影，差别在要不要用标签。看清这一层差异，比记住十个算法名字更管用。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>违约预测：同一任务的三个候选</h2>
+<p>任务：预测客户是否违约。三个候选都落在地图的分类区，但位置不同：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>候选</th><th>可解释性</th><th>非线性</th><th>样本需求</th><th>典型用途</th></tr></thead>
+  <tbody>
+    <tr><td>逻辑回归</td><td>高</td><td>弱，需要造特征</td><td>中等</td><td>评分卡、合规场景</td></tr>
+    <tr><td>决策树</td><td>高</td><td>中，轴对齐切分</td><td>中等</td><td>规则交付、人工复核</td></tr>
+    <tr><td>随机森林</td><td>低</td><td>强</td><td>较大</td><td>容忍黑箱的排序场景</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一个任务，三条候选路线">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一个任务，三条候选路线</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">路线 A：先保可解释</text><text class="f-s" x="80" y="108">· 逻辑回归：系数方向可解释</text><text class="f-s" x="80" y="138">· 上线快，评审容易过</text><text class="f-s" x="80" y="168">· 非线性关系要手工造特征</text><text class="f-s" x="80" y="198">· 适合风控、医疗等强解释场景</text><rect class="f-b2" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">路线 B：先保准确率</text><text class="f-s" x="530" y="108">· 随机森林或梯度提升树</text><text class="f-s" x="530" y="138">· 自动捕捉交互与非线性</text><text class="f-s" x="530" y="168">· 模型体积大，解释成本高</text><text class="f-s" x="530" y="198">· 适合推荐、排序等容忍黑箱场景</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 5-3b　同一个任务，三条候选路线</b>　先保可解释与先保准确率是两条不同的路线，代价写在各自的清单里。</figcaption></figure>
+<p>如果业务要求每条拒绝理由都能向客户解释，第三个候选在第一轮就被排除；如果只要求在同等成本下尽可能多抓坏人，前两个候选又可能不够。地图不能替你拍板，但能保证你是在一个合理的候选集里拍板。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>画地图，标算法，写三组对比</h2>
+<p><strong>任务：</strong>在一张二维图上放 12 个算法，并写出三组「相邻但不同」的对比。</p>
+<ol>
+  <li>纵轴取任务类型，横轴取可解释性；数据规模用点的标注说明。</li>
+  <li>每个点旁写一句「为什么放在这里」，不许只写名字。</li>
+  <li>选三对相邻算法，各写「差在哪个假设、换来的代价是什么」。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>位置必须有依据，且能解释「同区域的算法为什么还不能互相替代」。只把名字摆满图，不算完成。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-1-4-selection-questions.html">5.1.4 选型初判：先问四个问题</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-1-2-dimensions.html"><span class="p-label">← 上一知识点 5.1.2</span><span class="p-title">三种分类维度：把算法放上坐标</span></a><a class="next" href="k5-1-4-selection-questions.html"><span class="p-label">下一知识点 5.1.4 →</span><span class="p-title">选型初判：先问四个问题</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 算法的分类（综合）</dd>
+    <dt>页面编号 / 路径</dt><dd>5.1.3 ｜ <span class="path">pages/m05-ml-algorithms/k5-1-3-algorithm-map.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-1-2-dimensions.html"><b>5.1.2</b>三种分类维度：把算法放上坐标</a><a class="xlink" href="k5-1-4-selection-questions.html"><b>5.1.4</b>选型初判：先问四个问题</a><a class="xlink" href="u5-1-algorithm-map.html"><b>5.1</b>算法的概念、分类与地图（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k5-1-3、k5-1-3-b（本页图 5-3、5-3b）；知识库 M05-S1-02。 ｜ 知识库条目：M05-S1-02《算法的分类》（filled） ｜ 参考来源：S02 AIMA；S54 ESL；S62 Mitchell《Machine Learning》；S38 scikit-learn《Clustering》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.6.2 WordNet：同义集与语义网络 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清同义集、义项编号、上下位与部分关系的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-6-language-datasets.html">9.6 语言数据集：宾州树库、WordNet 与隐喻模型</a><span class="sep">/</span><span class="here">9.6.2 WordNet：同义集与语义网络</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.6</span>
+    <span class="tag">知识点 9.6.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>WordNet：同义集与语义网络</h1>
+  <p class="lede">查 bank，词典给三段释义，WordNet 给两个同义集和四条上下位边。释义是给人读的，关系是给程序走的。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清同义集、义项编号、上下位与部分关系的含义。</li><li>能说明为什么 WordNet 是关系网络而不是词典释义。</li><li>能为一个多义词拆出两个义项，并各画三条边。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>义项清单从哪来</h2>
+<p>做词义消歧，第一步不是选模型，是找一份「有哪些义项」的清单。词典的释义是一段话，程序读不懂；同义词表只给「近义」，分不出义项。两边都不够用。</p>
+<p>WordNet 提供另一种组织方式：先把意思相同的一组词捆成一个同义集，再把同义集按上下位、部分与整体连成网络。每个同义集就是一个义项，编号从 1 开始。</p>
+<p>这样，bank 的河岸义和银行义分别是两个节点，各自挂着不同的上位与下位。查相似度不必读释义，只要在图上走。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>节点是概念，边是关系</h2>
+<p>把网络想成一张地图：节点是一簇同义词，边是「更一般」「更具体」「是它的一部分」。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="WordNet：同义词先成集，再按上下位连网">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">WordNet：同义词先成集，再按上下位连网</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">dog 同义集</text><text class="f-sc" x="480.0" y="91.0">{dog, domestic dog}</text><path class="f-ar" d="M480 110 L180.66666666666666 150" marker-end="url(#ah)"/><text class="f-s" x="186.66666666666666" y="136" text-anchor="middle">上义</text><rect class="f-b" x="40.0" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="180.66666666666666" y="193.0">animal</text><text class="f-sc" x="180.66666666666666" y="212.0">更一般的概念</text><text class="f-sc" x="180.66666666666666" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">下义</text><rect class="f-b" x="339.3333333333333" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">poodle</text><text class="f-sc" x="480.0" y="212.0">更具体的概念</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L779.3333333333333 150" marker-end="url(#ah)"/><text class="f-s" x="785.3333333333333" y="136" text-anchor="middle">部分</text><rect class="f-b" x="638.6666666666666" y="152" width="281.3333333333333" height="92" rx="9"/><text class="f-tc" x="779.3333333333333" y="193.0">tail</text><text class="f-sc" x="779.3333333333333" y="212.0">整体与部件</text><text class="f-sc" x="779.3333333333333" y="270">↓</text><text class="f-s" x="40" y="316">同义集是节点，上下位是边；路径越短，两个词在语义上越近。</text>
+</svg><figcaption><b>图 9-32　同义集是节点，上下位是边</b>　dog 的同义集向上一层是 animal，向下是 poodle，另有一条部件边指向 tail。</figcaption></figure>
+<p>距离越短，两个概念越近，这是后面算相似度的基础。注意边上没有词，词只出现在节点里，节点代表概念。一个词可以出现在多个节点里，这就是多义。</p>
+<p>网络与词典的差别在这里。词典按词头排列，释义用自然语言写；网络按概念排列，关系用固定的几种边表示。前者供人查，后者供程序遍历。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>同义集与四类边</h2>
+<p><strong>同义集：</strong>一组在某个语境下可以互换而不改变真值的词，如 dog 与 domestic dog。它是基本单位，不是词。词形与同义集多对多：一个词形有多个义项，一个同义集有多个词形。</p>
+<p><strong>义项编号：</strong>同一词形下的同义集按常用程度编号。bank 的银行义与河岸义各占一个号，具体序号随版本变化，用的时候查该版本的索引，不要背。</p>
+<p><strong>上下位关系：</strong>名词网络的主干。上位更一般，下位更具体。dog 的上位是 canine、animal，下位是 poodle、bulldog。关系可传递，沿边向上能一直走到 entity。</p>
+<p><strong>部分关系：</strong>表示「是……的一部分」，反向表示整体。狗的部件有尾巴、腿；树的部件有树干、树枝。它与上下位不同：poodle 是狗的一种，尾巴不是狗的一种。</p>
+<p>另有反义、蕴涵、导致等边。四个子库分开建：名词、动词、形容词、副词。名词层级最深，动词浅，形容词多成对出现。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么不是词典</h2>
+<p>「不是词典释义，而是关系网络」这句话要展开。WordNet 里通常没有例句，没有用法说明，也没有一段话解释词义。节点的内容是词形清单加一句简短注释，真正有用的是边。</p>
+<p>网络结构给出两个可用的量。<strong>深度</strong>：从根到节点的边数，名词网络最深约十几层。<strong>路径长度</strong>：两个节点之间的最短边数。这两个量直接支撑路径相似度与信息量相似度。</p>
+<p>按词性分子库，是因为上下位并非处处成立。说「红是一种颜色」可以，说「深红是红的上位」就勉强。分开建，各用各的关系，避免硬套。</p>
+<p>规模上，英文 WordNet 3.0 约十一点八万个同义集、十五点五万个词形，覆盖大部分常用词。中文没有同等规模的开放资源，常用替代是同义词词林、知网与各类领域本体；结构不同，用前先看节点与边怎么定义。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两个词走一遍</h2>
+<p>拿 dog 走一遍网络，看四类边各落在哪。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方向</th><th>走到哪</th><th>关系名</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td>向上</td><td>canine → animal → organism → entity</td><td>上位</td><td>概括、归并</td></tr>
+    <tr><td>向下</td><td>poodle、bulldog、retriever</td><td>下位</td><td>细化、举例</td></tr>
+    <tr><td>横向</td><td>tail、leg、ear</td><td>部件</td><td>整体与部分</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三条路含义完全不同：向上得到更抽象的类，向下得到更具体的类，横向的部件边说明组成，不能当上下位用。反义边主要出现在形容词里，如 good 与 bad，名词之间很少严格反义。</p>
+<p>另一个例子是 bank。银行义的上位是金融机构，部件有金库、柜台；河岸义的上位是地貌，部件是坡面。两个义项在图上离得很远，不先消歧，算出的相似度没有意义。</p>
+<p>多义还带来一个操作细节：算相似度前要先定用哪个义项。常见做法是取所有义项组合里的最大值，或先用上下文消歧再算。两种口径给出的分数不同，报告里要写明用了哪一种。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>拆义项，画三条边</h2>
+<p><strong>任务：</strong>下面三个词，各写两个义项，并为其中一个义项画三条边。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>词</th><th>义项一</th><th>义项二</th><th>要画的边</th></tr></thead>
+  <tbody>
+    <tr><td>mouse</td><td>？</td><td>？</td><td>上位、下位、部件</td></tr>
+    <tr><td>spring</td><td>？</td><td>？</td><td>上位、部件、反义</td></tr>
+    <tr><td>bank</td><td>？</td><td>？</td><td>上位、部件、下位</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 鼠标义的上位该是 device 还是 animal？② dog 与 domestic dog 真能互换吗，什么语境下不等价？③ 一个词的两个义项在图上相邻，说明什么？</p>
+<p><strong>验收：</strong>每个义项都能指到具体同义集，三条边不混用上下位与部分关系。义项怎么定，见 <a href="../m09-nlp/k9-4-3-wsd.html">词义消歧</a>；网络上的距离怎么变成分数，见 <a href="../m09-nlp/k9-6-3-similarity-demo.html">词义相似度与近义词推荐</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-6-3-similarity-demo.html">9.6.3 词义相似度与近义词推荐</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-6-1-treebank.html"><span class="p-label">← 上一知识点 9.6.1</span><span class="p-title">宾州树库：标注体系与用途</span></a><a class="next" href="k9-6-3-similarity-demo.html"><span class="p-label">下一知识点 9.6.3 →</span><span class="p-title">词义相似度与近义词推荐</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)6 · WordNet 的概念及原理</dd>
+    <dt>页面编号 / 路径</dt><dd>9.6.2 ｜ <span class="path">pages/m09-nlp/k9-6-2-wordnet.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-6-3-similarity-demo.html"><b>9.6.3</b>词义相似度与近义词推荐</a><a class="xlink" href="k9-4-3-wsd.html"><b>9.4.3</b>词义消歧：一个词，多个意思</a><a class="xlink" href="k9-6-1-treebank.html"><b>9.6.1</b>宾州树库：标注体系与用途</a><a class="xlink" href="u9-6-language-datasets.html"><b>9.6</b>语言数据集：宾州树库、WordNet 与隐喻模型（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-6-2（本页图 9-32）；知识库 M09-S6-02《WordNet 的概念及原理》（filled）。 ｜ 知识库条目：M09-S6-02《WordNet 的概念及原理》（filled） ｜ 参考来源：Miller 1995《WordNet: A Lexical Database for English》；Fellbaum 编《WordNet: An Electronic Lexical Database》；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

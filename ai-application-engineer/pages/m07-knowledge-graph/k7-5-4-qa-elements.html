@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.5.4 知识问答的基本要素与分类体系 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能拆出问题理解、知识检索、答案生成三要素及各自的产物。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-5-semantic-qa.html">7.5 语义搜索与知识问答</a><span class="sep">/</span><span class="here">7.5.4 知识问答的基本要素与分类体系</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.5</span>
+    <span class="tag">知识点 7.5.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>知识问答的基本要素与分类体系</h1>
+  <p class="lede">一句「云图数据的 CEO 是谁」，要先理解、再检索、后生成。三段里断一段，答案就只能靠猜。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能拆出问题理解、知识检索、答案生成三要素及各自的产物。</li><li>能按知识源与映射方式两个维度给问答系统分类。</li><li>能定位一条问答链路断在哪一段，并给出兜底做法。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>客服的一句问话</h2>
+<p>客服系统收到一条提问：「云图数据的 CEO 是谁」。要答对，系统得先知道三件事：问的是哪家公司、「CEO」对应哪类属性、答案应该是个人名。</p>
+<p>接着它去查。如果公司信息存在图谱里，就找「云图数据」这个节点有没有 ceo 边；如果只在年报文档里，就去检索含「云图数据」「首席执行官」的段落。</p>
+<p>最后它组织答案。找到就答「张三」，找不到就该说「现有资料没有这条信息」，而不是编一个名字。一句短问，背后是三段完全不同的工作。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>问答三段</h2>
+<p>把问答看成一条流水线，三段各有输入输出，也各有各的失败方式。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="问答三段：理解、检索、生成">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">问答三段：理解、检索、生成</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">问题理解</text><text class="f-sc" x="117.6" y="154.0">意图与槽位</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">实体与关系链接</text><text class="f-sc" x="298.79999999999995" y="154.0">对齐图谱节点</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">知识检索</text><text class="f-sc" x="480.0" y="154.0">图谱 + 文档</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">答案生成</text><text class="f-sc" x="661.1999999999999" y="154.0">模板或模型</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">依据回填</text><text class="f-sc" x="842.4" y="154.0">给出处与置信</text><text class="f-s" x="40" y="244">答案的可信度来自依据；没有出处的答案，只能算猜测。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 7-27　问答三段：理解、检索、生成</b>　问题理解产出意图与槽位，知识检索产出证据，答案生成产出结论并回填依据。</figcaption></figure>
+<p>图里最后一步是「依据回填」，它常被漏掉。没有回填，前两段做得再准，用户也无法核对；有了回填，即使答错，也能顺着依据找到是哪一段出的问题。</p>
+<div class="callout callout--def">
+  <span class="c-label">三段的产物</span>
+  <p>理解段产出「实体 + 关系/属性 + 约束」；检索段产出「证据集合」；生成段产出「一句答案 + 出处」。产物不清楚，链路就不可调试。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三要素与两维</h2>
+<p><strong>问题理解：</strong>识别意图（问事实、问列表、问比较）、实体提及、关系或属性槽位，以及时间、地点等约束。输出是一份结构化问句表示。</p>
+<p><strong>知识检索：</strong>按问句表示去对应知识源取证据。知识源可以是关系表、知识图谱、文档集合，也可以是问答社区的历史帖子。</p>
+<p><strong>答案生成：</strong>把证据组织成答案。常见三种：模板填充（把查到的值填进句式）、片段抽取（从文档里截一句）、生成式改写（用模型组织语言，但必须有证据约束）。</p>
+<p>分类看两个维度。<strong>知识源</strong>分结构化、半结构化、非结构化与社区四类；<strong>映射方式</strong>分语义解析（问句转查询）、检索匹配（问句找片段）、模式匹配（问句对子图）、问句匹配（问句找相似历史问）。两个维度交叉，就得到后面四条技术路线。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>断在哪一段</h2>
+<p>三段串起来，任何一段出错都会传到末端，但表现不同，可以据此定位。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>断点</th><th>典型表现</th><th>处理</th></tr></thead>
+  <tbody>
+    <tr><td>理解错</td><td>把「CEO」当成公司名，检索到无关实体</td><td>加类型约束，回问澄清</td></tr>
+    <tr><td>检索空</td><td>查询可执行，返回 0 条</td><td>明确答「无此数据」，给出缺口</td></tr>
+    <tr><td>生成幻觉</td><td>证据为空却给出具体人名</td><td>生成前强制校验证据非空</td></tr>
+  </tbody>
+</table>
+</div>
+<p>可调试的前提是留痕：每个答案都记下「问句→槽位→查询→证据→结论」这条链。出问题时能一眼看出是实体链接错了，还是图谱里根本没有这条边。</p>
+<p>还有一条工程原则：<strong>允许答不出</strong>。把「无此数据」当成正常结果返回，比编一个答案安全得多；后者一旦被用户当真，修复成本远高于承认缺口。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>串联的损耗</h2>
+<p>三段各自 90% 正确，串起来是多少？假设三段独立，整链正确率约为 0.9×0.9×0.9≈0.729。也就是说，每一段看起来都不错，端到端只剩七成出头。</p>
+<p>这个算式不是精确预测，只说明一件事：串联系统的短板会被乘法放大。要提升端到端指标，先找最低的那一段，而不是平均用力。</p>
+<p>回到「云图数据的 CEO 是谁」。假设图谱里有公司节点、有收购与投资边，但没有 ceo 边。正确的行为是：理解段正常，检索段返回 0 条，生成段回答「现有资料没有该公司的 CEO 信息」。这条答案的得分不高，但它是诚实的；编一个人名则同时污染了正确率与依据可查率。</p>
+<div class="callout callout--warn">
+  <span class="c-label">两个易错点</span>
+  <p>把「答不出」当成系统故障，于是用生成模型去补缺口；把单段准确率当成系统准确率。前者制造幻觉，后者掩盖短板。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>拆三道题</h2>
+<p><strong>任务：</strong>把下面三题拆成三要素，并标出最可能失败的一段。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>槽位</th><th>知识源</th><th>最易断点</th></tr></thead>
+  <tbody>
+    <tr><td>星海科技收购了哪些公司</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>差旅报销上限是多少</td><td>？</td><td>？</td><td>？</td></tr>
+    <tr><td>这款打印机卡纸怎么修</td><td>？</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 第三题的答案在文档里，检索段该找句还是找段？② 如果三题共用一套系统，理解段要区分什么？③ 答不出时的话术该怎么写？</p>
+<p><strong>验收：</strong>三题都能写出「实体 + 槽位 + 知识源」，并给出一句兜底回答。四条路线的分工，见 <a href="../m07-knowledge-graph/k7-5-5-four-routes.html">四条技术路线</a>；怎么打分，见 <a href="../m07-knowledge-graph/k7-5-6-qa-eval-demo.html">问答评价</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-5-5-four-routes.html">7.5.5 四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-5-3-interaction.html"><span class="p-label">← 上一知识点 7.5.3</span><span class="p-title">语义搜索的交互范式：从链接列表到答案加依据</span></a><a class="next" href="k7-5-5-four-routes.html"><span class="p-label">下一知识点 7.5.5 →</span><span class="p-title">四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)24 · 知识问答的概念和基本要素</dd>
+    <dt>页面编号 / 路径</dt><dd>7.5.4 ｜ <span class="path">pages/m07-knowledge-graph/k7-5-4-qa-elements.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-5-5-four-routes.html"><b>7.5.5</b>四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</a><a class="xlink" href="k7-5-6-qa-eval-demo.html"><b>7.5.6</b>问答评价与查询映射实战</a><a class="xlink" href="k7-5-3-interaction.html"><b>7.5.3</b>语义搜索的交互范式：从链接列表到答案加依据</a><a class="xlink" href="u7-5-semantic-qa.html"><b>7.5</b>语义搜索与知识问答（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-5-4（本页图 7-27）；知识库 M09-S8-01、S8-02（跨模块复用，filled）。 ｜ 知识库条目：M09-S8-01《知识问答的概念和基本要素》（filled）、M09-S8-02《知识问答与信息检索和数据库查询的区别》（filled） ｜ 参考来源：AIMA《人工智能：一种现代的方法》；W3C SPARQL 1.1 规范；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

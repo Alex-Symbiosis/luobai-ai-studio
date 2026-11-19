@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.1.4 「啤酒与尿布」真伪：一个案例的取证练习 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能区分轶事、案例、证据三级，并说清每一级的判据。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-1-what-is-dm.html">8.1 数据挖掘的概念与时代背景</a><span class="sep">/</span><span class="here">8.1.4 「啤酒与尿布」真伪：一个案例的取证练习</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.1</span>
+    <span class="tag">知识点 8.1.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>「啤酒与尿布」真伪：一个案例的取证练习</h1>
+  <p class="lede">每个 PPT 都在讲它，却几乎没人拿得出原始交易数据；这个故事最大的价值，是教你如何不相信它。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能区分轶事、案例、证据三级，并说清每一级的判据。</li><li>能用支持度、置信度、提升度三个指标说明「要证明这个故事还需要什么」。</li><li>能按「主张—来源—原始数据—可复核结论」写一份一页取证报告。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>第三页 PPT</h2>
+<p>培训讲到关联规则，第三页照例是啤酒与尿布：超市发现年轻父亲买尿布时顺手拿啤酒，于是把两样摆在一起，销量大涨。台下有人举手：数据在哪？</p>
+<p>讲者说，是沃尔玛的数据。再追问是哪一年、哪家门店、多少笔交易，答案开始含糊。这个场景在会议室里重复了二十年，故事越讲越顺，原始数据始终没出现过。</p>
+<p class="ask">一个被引用上千次的案例，凭什么只能算「听说过」？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>先找第一手证据</h2>
+<p>把这件事当办案：先记下主张，再找谁在说、依据是什么，最后看能不能重算一遍。侦探不会因为三个人转述同一句话就结案。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一个故事，两种命运">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一个故事，两种命运</text><rect class="f-amber" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">流传的版本</text><text class="f-s" x="80" y="108">· 常被当作挖掘的范本</text><text class="f-s" x="80" y="138">· 说法来自咨询与演讲</text><text class="f-s" x="80" y="168">· 细节越传越具体</text><text class="f-s" x="80" y="198">· 原始数据一直查不到</text><text class="f-s" x="80" y="228">· 门店与时间段说不清</text><text class="f-s" x="80" y="258">· 结论：只能算轶事</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">可核查的版本</text><text class="f-s" x="530" y="108">· 先确认数据来源与字段</text><text class="f-s" x="530" y="138">· 重算支持度与置信度</text><text class="f-s" x="530" y="168">· 看提升度是否大于 1</text><text class="f-s" x="530" y="198">· 换门店再算一遍</text><text class="f-s" x="530" y="228">· 保留计算过程与代码</text><text class="f-s" x="530" y="258">· 结论：能复核才算证据</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 8-7　同一个故事，两种命运</b>　故事靠转述成立，证据靠重算成立；中间隔着原始数据。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="把传说还原成证据链">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">把传说还原成证据链</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">听说一个故事</text><text class="f-sc" x="117.6" y="154.0">来源、时间、谁在说</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">找原始数据</text><text class="f-sc" x="298.79999999999995" y="154.0">交易明细与字段</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">重算指标</text><text class="f-sc" x="480.0" y="154.0">支持度、置信度</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">对照与验证</text><text class="f-sc" x="661.1999999999999" y="154.0">换门店再算一次</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">下结论</text><text class="f-sc" x="842.4" y="154.0">区分事实与轶事</text><text class="f-s" x="40" y="244">链条上任一环断了，结论就只能降级为传说；能重算，才有资格被引用。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 8-8　把传说还原成证据链</b>　链条上任一环断掉，结论就只能降级为轶事。</figcaption></figure>
+<p>证据链有五环：听说、找原始数据、重算指标、对照验证、下结论。断在哪一环，结论就停在哪一级，不能靠语气补上。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>轶事、案例、证据</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>级别</th><th>有什么</th><th>缺什么</th><th>能不能引用</th></tr></thead>
+  <tbody>
+    <tr><td>轶事</td><td>有讲述者、有情节</td><td>来源、数据、口径</td><td>只能当故事</td></tr>
+    <tr><td>案例</td><td>可追溯的项目背景与方法</td><td>原始数据可能不公开</td><td>可讲方法，不背书结论</td></tr>
+    <tr><td>证据</td><td>原始数据、可复现计算、可核对指标</td><td>仍需说明适用范围</td><td>可作为结论引用</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这个故事目前能定到哪一级？最常见的溯源说法指向 1990 年代初一家分析机构为药妆连锁 Osco Drug 做的购物篮分析，约 120 万笔，但原始交易数据与分析过程始终没有公开；转述版本在门店、时段、商品组合上还互相矛盾。因此只能定为<strong>轶事级</strong>，不能当作已验证规律。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三个指标，一次手算</h2>
+<p>要证明「买 A 的人常买 B」，关联规则只看三个数：支持度是 AB 同时出现的比例，置信度是买 A 的人里也买 B 的比例，提升度是置信度除以 B 的基础比例。提升度大于 1 才算正相关。</p>
+<p>下面是一组<strong>手算示例，不是真实数据</strong>：1,000 笔交易，啤酒 200 笔，尿布 150 笔，两者同现 60 笔。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>basket_metrics.py</span></div>
+<pre><code>baskets, beer, diaper, both = 1000, 200, 150, 60
+
+support    = both / baskets              # 60/1000 = 6.0%
+confidence = both / beer                 # 60/200  = 30.0%
+lift       = confidence / (diaper / baskets)   # 0.30/0.15 = 2.00</code></pre>
+</div>
+<p>三个数放在一起看：提升度 2.00 说明正相关，但置信度只有 30%，意味着七成买啤酒的单子并没有尿布。只报「提升度大于 1」就下结论，会把一个弱搭配说成强规律。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>为什么它经不起复核</h2>
+<p>把指标套回故事，第一个缺口是三个数一个都没有：没有支持度，不知道这种搭配有多普遍；没有置信度，不知道买啤酒的人里多少会买尿布；没有提升度，不知道它是否高于尿布本来的销量占比。</p>
+<p>第二个缺口是搜索规模。500 个商品能组成约 12.5 万个商品对，即使数据里全是随机搭配，按 5% 的显著性也会有数千对「看起来显著」。不控制这一点，任何超市都能挖出几条惊人的规则。</p>
+<p>第三个缺口是混杂。两样商品摆在同一促销区、同一货架端头，共现就会上升；这解释的是陈列，不是顾客偏好。观察数据能说明「一起出现」，说明不了「因为买啤酒所以买尿布」。</p>
+<p>所以正确的引用方式是：把它当作关联规则的教学引子，而不是「已验证的商业事实」。要变成证据，得拿自己的交易明细重算，再换门店复核一次。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写一页取证报告</h2>
+<p><strong>任务：</strong>选一个课堂流传的数据挖掘案例，按四栏写一页取证报告：主张是什么、来源是谁、有没有原始数据、能不能复核出结论。</p>
+<p><strong>要求：</strong>至少追到一层原始来源（论文、规范、企业公开文档），并写明断在哪一环；结论只能写「可信」「存疑」「不可用」三选一，且与证据一致。</p>
+<p><strong>加分项：</strong>给出一个替代动作，例如用自己的订单数据算一遍支持度与提升度，并说明样本量够不够。验收标准是：四栏齐全，结论不高于证据等级，且能指出「故事流传」与「可核查证据」的分界。接着看 <a href="../m08-data-mining/k8-2-1-data-analysis.html">数据分析：解释已经发生的事</a>，把「解释」与「发现」分开。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-2-1-data-analysis.html">8.2.1 数据分析：解释已经发生的事</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-1-3-four-tasks.html"><span class="p-label">← 上一知识点 8.1.3</span><span class="p-title">四类典型应用：找关联、分群、预测、异常</span></a><a class="next" href="k8-2-1-data-analysis.html"><span class="p-label">下一知识点 8.2.1 →</span><span class="p-title">数据分析：解释已经发生的事</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)1 · 数据挖掘的概念（案例取证）</dd>
+    <dt>页面编号 / 路径</dt><dd>8.1.4 ｜ <span class="path">pages/m08-data-mining/k8-1-4-beer-diapers.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-1-1-what-is-dm.html"><b>8.1.1</b>数据很多，知识很少：数据挖掘要解决什么</a><a class="xlink" href="k8-1-3-four-tasks.html"><b>8.1.3</b>四类典型应用：找关联、分群、预测、异常</a><a class="xlink" href="k8-3-4-association-rules.html"><b>8.3.4</b>关联规则：从购物篮里找「一起出现」</a><a class="xlink" href="u8-1-what-is-dm.html"><b>8.1</b>数据挖掘的概念与时代背景（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-1-4（本页图 8-7）、k8-1-4-b（本页图 8-8）；知识库 M08-S1-01《数据挖掘的概念》（filled）。 ｜ 知识库条目：M08-S1-01《数据挖掘的概念》（filled） ｜ 参考来源：DSSResources 关于啤酒与尿布溯源的文章；Fayyad 等 KDD 五步；Agrawal & Srikant 关联规则论文；指标算例为自编手算示例。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

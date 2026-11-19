@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6.5 端到端实验：从原始表到可用模型 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能把预处理、模型、调参串成一条可复现的流水线。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块④ 统计模型与优化</a><span class="sep">/</span><a href="u4-6-frameworks.html">4.6 实现框架：Scikit-Learn 与 Spark MLlib</a><span class="sep">/</span><span class="here">4.6.5 端到端实验：从原始表到可用模型</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲④ · 统计模型与优化</span>
+    <span class="tag">单元 4.6</span>
+    <span class="tag">知识点 4.6.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>端到端实验：从原始表到可用模型</h1>
+  <p class="lede">前面每一页都只解决一个问题；真实项目要求把它们串起来：读原始表、补缺失、编码、缩放、训练、交叉验证、调参、评估、保存。本页用一条端到端流水线，把整门模块的知识点收束成一次可复现的实验。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能把预处理、模型、调参串成一条可复现的流水线。</li><li>能用交叉验证与混淆矩阵给出完整评估结论。</li><li>能说明保存整条流水线对上线一致性的意义。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>模型训练完了，上线却对不上</h2>
+<p>一个项目在 Notebook 里表现很好，上线后指标明显下降：</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">现象 A</span><h3>缺失值处理不一致</h3><p>训练时用中位数填补，上线时用了 0；分布一变，预测全偏。</p></div>
+  <div class="card mini"><span class="mini-tag">现象 B</span><h3>编码顺序不同</h3><p>训练时类别编码按字母序，上线时按出现顺序，同一类别对应了不同列。</p></div>
+  <div class="card mini"><span class="mini-tag">现象 C</span><h3>只保存了模型</h3><p>预处理代码散落在脚本里，部署时漏了一步缩放。</p></div>
+</div>
+<p class="ask">为什么「训练指标好」不能保证「上线指标好」？</p>
+<p>因为训练与推理用了两套不一致的预处理。把整条流水线保存下来，是消除这种不一致的最直接办法。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>一条产线，从原料到成品</h2>
+<p>端到端不是「多写代码」，而是把每个环节固定在同一条产线上，原料进去、预测出来，中间不靠人手补步骤。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="端到端 Pipeline：一条命令复现">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">端到端 Pipeline：一条命令复现</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">读取与清洗</text><text class="f-sc" x="117.6" y="154.0">原始表 → 干净表</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">特征工程</text><text class="f-sc" x="298.79999999999995" y="154.0">编码、缩放、拼表</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">模型 + 调参</text><text class="f-sc" x="480.0" y="154.0">Pipeline + GridSearch</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">交叉验证</text><text class="f-sc" x="661.1999999999999" y="154.0">均值与标准差</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">交付物</text><text class="f-sc" x="842.4" y="154.0">脚本 + 参数 + 报告</text><text class="f-s" x="40" y="244">交付的标准不是「notebook 能跑」，而是「换一台机器、换一份同结构数据，一条命令仍能跑出同样的结论」。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 4-28　端到端流水线的七个阶段</b>　读数据 → 切分 → 预处理 → 模型 → 交叉验证 → 调参 → 评估与保存；任何一个阶段脱离流水线，都会带来一致性风险。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>端到端的目标不是「一次跑通」，而是<strong>可复现、可保存、可迁移</strong>。三者都满足，实验结果才有工程价值。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>七个阶段与三个边界</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶段</th><th>动作</th><th>边界要求</th></tr></thead>
+  <tbody>
+    <tr><td>读数据</td><td>加载原始表，核对行列与类型</td><td>不改动原始文件</td></tr>
+    <tr><td>切分</td><td>先分训练/测试，再谈其他</td><td>测试集此后再不参与训练</td></tr>
+    <tr><td>预处理</td><td>补缺失、编码、缩放</td><td>全部放进流水线</td></tr>
+    <tr><td>模型</td><td>选一个基线模型</td><td>先跑通再换复杂模型</td></tr>
+    <tr><td>交叉验证</td><td>在训练集内评估</td><td>整条流水线一起验证</td></tr>
+    <tr><td>调参</td><td>网格搜索选超参数</td><td>测试集仍不参与</td></tr>
+    <tr><td>评估与保存</td><td>测试集一次性评估，保存整条流水线</td><td>记录指标、阈值、版本</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个边界最容易破：切分前做预处理、调参时偷看测试集、保存时只存模型。任意一条破了，前面的工作都会失去可信度。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一次完整运行的骨架</h2>
+<div class="callout callout--code">
+  <span class="c-label">骨架（与框架无关的伪代码）</span>
+<pre>X_train, X_test, y_train, y_test = split(raw, test_size=0.2, stratify=y)
+pipe = build_pipeline()                  # 预处理 + 模型
+scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring="f1")
+search = GridSearchCV(pipe, grid, cv=5, scoring="f1").fit(X_train, y_train)
+best = search.best_estimator_
+pred = best.predict(X_test)
+report(confusion_matrix(y_test, pred), classification_report(y_test, pred))
+save(best)                                # 保存整条流水线</pre>
+</div>
+<p>骨架里每个变量都对应一个边界：X_test 只在最后两行出现；best 是整条流水线而非单个模型；save 保存的也是整条线。把这三处守住，实验就基本可复现。</p>
+<div class="callout callout--warn">
+  <span class="c-label">记录清单</span>
+  <p>至少记录：数据版本、切分种子、流水线结构、搜索网格、最优参数、测试指标、阈值、保存路径。缺一项，别人就无法重跑。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一次端到端实验的结果</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>阶段</th><th>结果</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>基线（默认参数）</td><td>F1 0.49</td><td>5 折均值，标准差 0.02</td></tr>
+    <tr><td>网格搜索后</td><td>F1 0.57</td><td>最优 C=1，depth=5</td></tr>
+    <tr><td>测试集一次性评估</td><td>F1 0.55，召回 0.68</td><td>略低于交叉验证，属正常波动</td></tr>
+    <tr><td>保存整条流水线</td><td>约 2 MB</td><td>含预处理与模型，可直接部署</td></tr>
+  </tbody>
+</table>
+</div>
+<p>测试集 F1 比交叉验证低 0.02，在合理范围内；若低很多，应先怀疑调参时泄漏了测试信息，而不是「模型不稳定」。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>跑通一次端到端实验</h2>
+<p><strong>任务：</strong>用一个公开二分类数据集完成端到端实验，并提交一页实验记录。</p>
+<ol>
+  <li>画出流水线结构（含预处理与模型）。</li>
+  <li>给出基线与调参后的交叉验证结果（均值 ± 标准差）。</li>
+  <li>给出测试集混淆矩阵与三项指标，并写一句业务结论。</li>
+  <li>保存整条流水线，重新加载后对同一批样本预测，确认结果一致。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>重新加载后的预测必须与保存前完全一致；实验记录缺任一阶段，视为未完成。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>本单元已学完，回到 <a href="u4-6-frameworks.html">4.6 单元页</a> 复盘，再进入下一单元。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k4-6-4-mllib.html"><span class="p-label">← 上一知识点 4.6.4</span><span class="p-title">Spark MLlib：同一套思路，另一种规模</span></a><a class="next" href="u4-6-frameworks.html"><span class="p-label">单元结束 →</span><span class="p-title">回到单元 4.6 目录</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块④ 统计模型与优化 ｜ 三(四)6 · 端到端流水线（实验）</dd>
+    <dt>页面编号 / 路径</dt><dd>4.6.5 ｜ <span class="path">pages/m04-stat-models/k4-6-5-pipeline-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k4-6-2-pipeline.html"><b>4.6.2</b>Pipeline：把预处理和模型焊在一起</a><a class="xlink" href="k4-6-3-grid-search.html"><b>4.6.3</b>网格搜索：把调参变成可复现的实验</a><a class="xlink" href="k4-5-5-improvement-demo.html"><b>4.5.5</b>改进实验：从基线到可用模型</a><a class="xlink" href="u4-6-frameworks.html"><b>4.6</b>实现框架：Scikit-Learn 与 Spark MLlib（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k4-6-5-a.svg（本页图 4-28）。 ｜ 知识库条目：M04-S6-01《Scikit-Learn 与 Spark MLlib》（filled）、M04-S6-02《Spark MLlib》（filled） ｜ 参考来源：S41 scikit-learn《Getting Started》；S32 scikit-learn《Metrics and scoring》；S31《Hands-On Machine Learning》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

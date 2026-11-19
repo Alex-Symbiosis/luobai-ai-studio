@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="校园图谱的最小可用模式">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="30">校园图谱的最小可用模式</text><rect class="f-b2" x="330" y="48" width="300" height="58" rx="9"/><text class="f-tc" x="480.0" y="72.0">校园图谱</text><text class="f-sc" x="480.0" y="91.0">五类实体与关系</text><path class="f-ar" d="M480 110 L120.8 150" marker-end="url(#ah)"/><text class="f-s" x="126.8" y="136" text-anchor="middle">开设</text><rect class="f-b" x="40.0" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="120.8" y="193.0">学院</text><text class="f-sc" x="120.8" y="212.0">学院 → 课程</text><text class="f-sc" x="120.8" y="270">↓</text><path class="f-ar" d="M480 110 L300.4 150" marker-end="url(#ah)"/><text class="f-s" x="306.4" y="136" text-anchor="middle">隶属</text><rect class="f-b" x="219.6" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="300.4" y="193.0">教师</text><text class="f-sc" x="300.4" y="212.0">教师 → 学院</text><text class="f-sc" x="300.4" y="270">↓</text><path class="f-ar" d="M480 110 L480.0 150" marker-end="url(#ah)"/><text class="f-s" x="486.0" y="136" text-anchor="middle">讲授</text><rect class="f-b" x="399.2" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="480.0" y="193.0">课程</text><text class="f-sc" x="480.0" y="212.0">教师 → 课程</text><text class="f-sc" x="480.0" y="270">↓</text><path class="f-ar" d="M480 110 L659.5999999999999 150" marker-end="url(#ah)"/><text class="f-s" x="665.5999999999999" y="136" text-anchor="middle">使用</text><rect class="f-b" x="578.8" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="659.5999999999999" y="193.0">实验室</text><text class="f-sc" x="659.5999999999999" y="212.0">课程 → 实验室</text><text class="f-sc" x="659.5999999999999" y="270">↓</text><path class="f-ar" d="M480 110 L839.1999999999999 150" marker-end="url(#ah)"/><text class="f-s" x="845.1999999999999" y="136" text-anchor="middle">选修</text><rect class="f-b" x="758.4" y="152" width="161.6" height="92" rx="9"/><text class="f-tc" x="839.1999999999999" y="193.0">学生</text><text class="f-sc" x="839.1999999999999" y="212.0">学生 → 课程</text><text class="f-sc" x="839.1999999999999" y="270">↓</text><text class="f-s" x="40" y="316">箭头方向就是查询方向；写反了，路径就查不到。</text>
+</svg>

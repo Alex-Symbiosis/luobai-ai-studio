@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.8.5 聚类实验：K 扫描与轮廓系数 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能算出单个样本的轮廓系数，并解释 a 与 b 的含义。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-8-clustering.html">5.8 聚类算法</a><span class="sep">/</span><span class="here">5.8.5 聚类实验：K 扫描与轮廓系数</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.8</span>
+    <span class="tag">知识点 5.8.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>聚类实验：K 扫描与轮廓系数</h1>
+  <p class="lede">聚类跑完只会得到一串簇编号，没有任何分数告诉你「分得好不好」。有标签时还能对答案，没标签时只能靠内部指标自评。轮廓系数是其中最常用的一种，但它衡量的是几何上的分离度，不是业务意义。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能算出单个样本的轮廓系数，并解释 a 与 b 的含义。</li><li>能扫描 K 并同时读 SSE 与轮廓系数两条曲线。</li><li>能指出内部指标的边界，不用它替代业务验证。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>「分成 3 簇了」，然后呢</h2>
+<p>实验做完，报告里只有三行：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>报告内容</th><th>评审的追问</th><th>回答</th></tr></thead>
+  <tbody>
+    <tr><td>用 K-Means 分成 3 簇</td><td>为什么是 3 不是 4</td><td>「试出来的，3 看着最顺眼」</td></tr>
+    <tr><td>画了一张彩色散点图</td><td>颜色分开就代表分得好吗</td><td>「应该吧」</td></tr>
+    <tr><td>簇心坐标列表</td><td>这些数说明什么</td><td>「还没想好怎么解释」</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="ask">图看起来分得挺开，为什么还是说服不了人？</p>
+<p>因为「看起来」不是指标。要让人复核，必须给出一个可复算的数、一条随 K 变化的曲线，以及每个簇的业务解释。三者缺一，结论都只是印象。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>每个人问两句话</h2>
+<p>对每个样本问两句话：你在自己簇里，平均要挤多远才能碰到同伴？你走到最近的隔壁簇，又要多远？前者小、后者大，说明你站对了地方。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="轮廓系数的判读">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">轮廓系数的判读</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">取值范围</text><text class="f-t" x="352.0" y="98">含义</text><text class="f-t" x="632.0" y="98">常见原因</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">接近 1</text><text class="f-s" x="352.0" y="139.0">簇内紧、簇间远</text><text class="f-s" x="632.0" y="139.0">结构清晰</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">接近 0</text><text class="f-s" x="352.0" y="183.0">簇之间有重叠</text><text class="f-s" x="632.0" y="183.0">K 偏大或边界模糊</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">接近 −1</text><text class="f-s" x="352.0" y="227.0">样本可能分错簇</text><text class="f-s" x="632.0" y="227.0">K 偏小或形状假设不符</text><text class="f-s" x="60" y="272">轮廓系数不需要标签，但只能评价「分得开不开」，不能证明簇有业务意义。</text>
+</svg><figcaption><b>图 5-36　轮廓系数的判读</b>　接近 1 是簇内紧、簇间远；接近 0 是两簇有重叠；接近 −1 是这个样本可能被分错了簇。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>轮廓系数就是「隔壁比自己人远多少」的相对度量，取值 −1 到 1。它是每个样本的分数，整份数据的分数是所有样本的平均——平均值高，不代表每一簇都好。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>实验变量与指标</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类别</th><th>本实验设置</th><th>为什么这样定</th></tr></thead>
+  <tbody>
+    <tr><td>自变量</td><td>K 取 2 到 8</td><td>覆盖从小簇数到过度切分</td></tr>
+    <tr><td>控制变量</td><td>同一数据、同一标准化、同一初始化策略</td><td>保证差异只来自 K</td></tr>
+    <tr><td>固定项</td><td>每个 K 重复若干次初始化，取目标函数最小的一次</td><td>避免把坏初始化当成 K 的问题</td></tr>
+    <tr><td>观测量</td><td>SSE、轮廓系数、最小簇样本数</td><td>紧密度、分离度、是否过度切分</td></tr>
+    <tr><td>判据</td><td>轮廓峰值且最小簇样本数不少于总数的 5%</td><td>排除靠拆小簇刷分的解</td></tr>
+  </tbody>
+</table>
+</div>
+<p>如果手上有部分真实标签，可以再加一个外部指标（如 ARI 或 NMI）作为对照。外部指标能验证结构是否与真值一致，但没有标签时不能用它替代内部指标。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一个样本的分数怎么来</h2>
+<div class="steps">
+  <div class="step"><b>算 a</b><span>样本到同簇其他样本的平均距离，衡量簇内紧密度；只有自己一个样本的簇，规定分数为 0。</span></div>
+  <div class="step"><b>算 b</b><span>样本到最近邻簇所有样本的平均距离，衡量与隔壁的分离度。</span></div>
+  <div class="step"><b>合成</b><span>s = (b − a) / max(a, b)；a 远小于 b 时 s 接近 1，a 与 b 相当时 s 接近 0。</span></div>
+  <div class="step"><b>汇总</b><span>对全部样本取平均；同时画出每簇的分布，避免均值掩盖某一簇的糟糕表现。</span></div>
+</div>
+<p>计算代价是两两距离，复杂度 O(n²)。样本上万时只能抽样估计，此时分数本身也带抽样误差，不能在小数点后两位上做文章。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>K 扫描的结果</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>K</th><th>SSE</th><th>轮廓系数</th><th>最小簇占比</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr><td>2</td><td>412</td><td>0.48</td><td>38%</td><td>簇过大，内部混杂</td></tr>
+    <tr><td>3</td><td>236</td><td><strong>0.61</strong></td><td>21%</td><td>峰值，簇大小均衡</td></tr>
+    <tr><td>4</td><td>198</td><td>0.55</td><td>12%</td><td>开始切出小簇</td></tr>
+    <tr><td>5</td><td>181</td><td>0.49</td><td>6%</td><td>收益变小</td></tr>
+    <tr><td>6</td><td>172</td><td>0.44</td><td>2%</td><td>低于 5% 阈值，排除</td></tr>
+  </tbody>
+</table>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="不同 K 的轮廓系数">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">不同 K 的轮廓系数</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M140 210 L220 150 L300 108 L380 96 L460 120 L540 150 L620 178 L700 200 L780 216 L840 228" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">轮廓系数</text><circle class="f-pt" cx="380" cy="96" r="6"/><text class="f-s" x="390" y="88">峰值 K = 3</text><text class="f-s" x="880" y="322" text-anchor="end">K</text><text class="f-s" x="92" y="66" text-anchor="end">轮廓系数</text><text class="f-s" x="100" y="340">轮廓系数有明确峰值时可直接选 K；曲线平坦时说明数据本身没有明显簇结构。</text>
+</svg><figcaption><b>图 5-36b　不同 K 的轮廓系数曲线</b>　轮廓系数有明确峰值时可直接选 K；曲线平坦时说明数据本身没有明显簇结构。</figcaption></figure>
+<p>SSE 一路下降，轮廓系数在 K=3 取峰，最小簇占比在 K=6 触到红线。三个量指向同一个 K=3，这个结论才站得住。若只看 SSE，会选到 K=6 并得到一个只有两个样本的簇。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>簇近似凸形、密度相近</td><td>环形与长条形数据上，正确的分组反而得分低</td></tr>
+    <tr><td>样本量可承受两两距离</td><td>大样本只能抽样，分数带估计误差</td></tr>
+    <tr><td>用内部指标做相对比较</td><td>不同数据集之间的绝对分数不可比</td></tr>
+    <tr><td>结果仍由业务复核</td><td>几何分离好不等于业务有意义，指标不能替代解释</td></tr>
+    <tr><td>簇不出现单点</td><td>单点簇的分数被规定为 0，会拉低均值，需单独查看</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--warn">
+  <span class="c-label">注意</span>
+  <p>轮廓系数高只说明「分得开」，不说明「分得对」。一组按颜色分得很开的簇，在业务上可能毫无意义。指标负责排除明显糟糕的方案，业务负责判断留下来的方案。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>算一次，选一次</h2>
+<p><strong>任务：</strong>对同一份数据完成 K=2、3、4 的聚类，计算轮廓系数并选方案。</p>
+<ol>
+  <li>手算两个样本的 a、b、s，验证代码结果。</li>
+  <li>画出三条轮廓系数曲线，比较峰值位置。</li>
+  <li>写一段结论，说明选择哪个 K、放弃了什么。</li>
+</ol>
+<div class="callout callout--warn">
+  <span class="c-label">验收</span>
+  <p>手算与代码一致；结论同时包含指标依据与业务理由。只写「轮廓系数最高的是 K=3」不够，还要说明另外两个 K 为什么被放弃。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-9-1-evaluation-principles.html">5.9.1 评价四维：任务、数据、代价、解释</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-8-4-hierarchical-dbscan.html"><span class="p-label">← 上一知识点 5.8.4</span><span class="p-title">层次与密度：两种不同的簇</span></a><a class="next" href="k5-9-1-evaluation-principles.html"><span class="p-label">下一知识点 5.9.1 →</span><span class="p-title">评价四维：任务、数据、代价、解释</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)3 · 聚类评价</dd>
+    <dt>页面编号 / 路径</dt><dd>5.8.5 ｜ <span class="path">pages/m05-ml-algorithms/k5-8-5-cluster-eval-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-8-2-kmeans.html"><b>5.8.2</b>K-Means：分配与更新</a><a class="xlink" href="k5-8-3-k-selection.html"><b>5.8.3</b>K 怎么选：肘部与轮廓</a><a class="xlink" href="u5-8-clustering.html"><b>5.8</b>聚类算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k5-8-5（本页图 5-36）、k5-8-5-b（本页图 5-36b）；知识库 M05-S2-05。 ｜ 知识库条目：M05-S2-05《聚类算法的概念、特点、不同分类及操作原理》（filled） ｜ 参考来源：S38 scikit-learn《Clustering》；S54 ESL；S80 Lloyd《Least Squares Quantization in PCM》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

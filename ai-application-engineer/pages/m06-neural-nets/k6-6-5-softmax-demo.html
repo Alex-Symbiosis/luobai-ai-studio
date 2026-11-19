@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.6.5 多类别输出与 Softmax · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写出 softmax 与多类交叉熵的式子，并说明「先减最大值」为什么不影响结果。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-6-feedforward.html">6.6 深度前馈网络：激活、去线性化与损失函数</a><span class="sep">/</span><span class="here">6.6.5 多类别输出与 Softmax</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.6</span>
+    <span class="tag">知识点 6.6.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>多类别输出与 Softmax</h1>
+  <p class="lede">三个打分进去，三个概率出来，和恒为 1。更值得记住的是它的梯度为什么只剩 p − y 这么干净。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写出 softmax 与多类交叉熵的式子，并说明「先减最大值」为什么不影响结果。</li><li>能推导 softmax + CE 的梯度为 p − y，指出对数与指数在哪一步抵消。</li><li>能读懂三分类的混淆矩阵，指出哪两类最容易被认错。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>八成标签里改错了一成</h2>
+<p>三堆二维点，分别在 (−2, 0)、(2, 0)、(0, 3) 附近，每堆 200 个，三个类别。采集时出了点问题：8% 的标签被随机改成了别的类，约 48 条。</p>
+<p>网络很小：两个输入、16 个隐藏单元、3 个输出。训 30 轮，验证准确率 0.9333。这个数字看着还行，但它把两类问题混在了一起——到底是模型不会分，还是标签本身错了？</p>
+<p class="ask">光看准确率，分不清这两件事。</p>
+<p>要看清，得看混淆矩阵：错的那几条，是从哪一类错到哪一类。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>打分变概率</h2>
+<p>输出层先给每个类一个实数打分（logit），softmax 做三件事：取指数把负分抬成正数，除以总和把量级拉回 0–1，最后保证加起来正好是 1。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="Softmax：把 K 个分数压成概率">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">Softmax：把 K 个分数压成概率</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">输出 logits</text><text class="f-sc" x="117.6" y="154.0">z1…zK</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">减最大值</text><text class="f-sc" x="298.79999999999995" y="154.0">数值稳定</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">取指数</text><text class="f-sc" x="480.0" y="154.0">exp(z)</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">归一化</text><text class="f-sc" x="661.1999999999999" y="154.0">除以总和</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">交叉熵</text><text class="f-sc" x="842.4" y="154.0">−log p_y</text><text class="f-s" x="40" y="244">减最大值不改变结果，只防溢出；概率和恒为 1。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-32　Softmax：把 K 个分数压成概率</b>　减最大值不改变结果，只防溢出；概率和恒为 1。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>softmax 不创造信息，它只把「谁的分高」翻译成「谁的概率大」。分差越大，分布越尖锐。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>公式与互斥假设</h2>
+<p><code>ŷ_k = exp(z_k) / Σ_j exp(z_j)</code>，分母对所有类求和，所以 <code>Σ ŷ_k = 1</code>。</p>
+<p>数值实现上要先减最大值：<code>softmax(z) = softmax(z − max z)</code>。分子分母同乘 <code>exp(−max z)</code>，比值不变，但最大的指数变成 <code>exp(0) = 1</code>，不会再溢出。</p>
+<p>训练目标是最小化真实类的负对数似然：<code>L = −log ŷ_c</code>。Keras 里标签用整数时选 <code>sparse_categorical_crossentropy</code>，用 one-hot 时选 <code>categorical_crossentropy</code>，两者算的是同一个数。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>输出层</th><th>损失</th></tr></thead>
+  <tbody>
+    <tr><td>类别互斥（一张图一个类别）</td><td>softmax</td><td>多类交叉熵</td></tr>
+    <tr><td>标签不互斥（一图多物体）</td><td>每类一个 sigmoid</td><td>各标签 BCE 求和</td></tr>
+  </tbody>
+</table>
+</div>
+<p>判断口诀：能同时为真吗？能，用 sigmoid；不能，用 softmax。用错的话，模型会被迫在「猫」和「狗」之间分掉概率，明明两个都在图里。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>为什么梯度是 p − y</h2>
+<p>先把结论放这儿：<code>∂L/∂z_k = ŷ_k − y_k</code>。推一遍，就能看出「对数」与「指数」在哪一步互相抵消。</p>
+<p>第一步，对 <code>L = −log ŷ_c</code> 用链式法则：<code>∂L/∂z_k = −(1/ŷ_c)·∂ŷ_c/∂z_k</code>。</p>
+<p>第二步，求 softmax 自己的导数。分两种情况：k = c 时 <code>∂ŷ_c/∂z_c = ŷ_c(1 − ŷ_c)</code>；k ≠ c 时 <code>∂ŷ_c/∂z_k = −ŷ_c·ŷ_k</code>。合并成一个式子就是 <code>∂ŷ_c/∂z_k = ŷ_c(δ_ck − ŷ_k)</code>，δ 在 k = c 时为 1。</p>
+<p>第三步，代回去：<code>−（1/ŷ_c)·ŷ_c(δ_ck − ŷ_k) = ŷ_k − δ_ck</code>。这就是 <code>p − y</code>：预测概率减去「是不是真实类」。除法的 <code>1/ŷ_c</code> 与乘法里的 <code>ŷ_c</code> 正好约掉，指数在求导时留下的自身又被打包进 <code>ŷ_k</code>。</p>
+<p>它的含义非常直白：真实类的概率低了就往上抬，其他类高了就往下压，压抬的量正好等于「差多少」。所以 softmax + CE 训起来稳，不需要额外调梯度尺度。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d6_6_softmax.py</span></div>
+<pre><code>import os
+os.environ[&quot;TF_CPP_MIN_LOG_LEVEL&quot;] = &quot;3&quot;
+import numpy as np
+import tensorflow as tf
+
+rng = np.random.default_rng(6)
+centers = np.array([[-2.0, 0.0], [2.0, 0.0], [0.0, 3.0]])
+X = np.vstack([c + rng.normal(0, 0.55, (200, 2)) for c in centers]).astype(&quot;float32&quot;)
+y = np.repeat([0, 1, 2], 200)
+flip = rng.choice(len(y), size=int(0.08 * len(y)), replace=False)
+y[flip] = rng.integers(0, 3, size=len(flip))
+idx = rng.permutation(len(y))
+X, y = X[idx], y[idx]
+
+tf.keras.utils.set_random_seed(6)
+model = tf.keras.Sequential([
+    tf.keras.layers.Input((2,)),
+    tf.keras.layers.Dense(16, activation=&quot;relu&quot;),
+    tf.keras.layers.Dense(3, activation=&quot;softmax&quot;),
+])
+model.compile(optimizer=tf.keras.optimizers.Adam(0.02),
+              loss=&quot;sparse_categorical_crossentropy&quot;, metrics=[&quot;accuracy&quot;])
+h = model.fit(X, y, epochs=30, batch_size=32, verbose=0,
+              validation_split=0.2)</code></pre>
+</div>
+<p>代码里没有手写 softmax 与交叉熵：Keras 把两者合成了一个算子，内部用 log-sum-exp 实现，避免「先算概率再取对数」造成的下溢。这也是为什么框架里几乎从不单独使用 <code>softmax</code> 加 <code>log</code>。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三行读数与一张矩阵</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>首样本概率: [0.00800000037997961, 0.972599983215332, 0.01940000057220459]
+概率和    : 1.0
+验证准确率: 0.9333
+混淆矩阵(行=真实):
+  [190, 3, 6]
+  [4, 192, 7]
+  [6, 5, 187]</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="混淆矩阵：错在哪一类，一目了然">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">混淆矩阵：错在哪一类，一目了然</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">真实 \ 预测</text><text class="f-t" x="240.0" y="98">类 0</text><text class="f-t" x="408.0" y="98">类 1</text><text class="f-t" x="576.0" y="98">类 2</text><text class="f-t" x="744.0" y="98">召回率</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">类 0</text><text class="f-s" x="240.0" y="139.0">184</text><text class="f-s" x="408.0" y="139.0">12</text><text class="f-s" x="576.0" y="139.0">4</text><text class="f-s" x="744.0" y="139.0">0.92</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">类 1</text><text class="f-s" x="240.0" y="183.0">9</text><text class="f-s" x="408.0" y="183.0">180</text><text class="f-s" x="576.0" y="183.0">11</text><text class="f-s" x="744.0" y="183.0">0.90</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">类 2</text><text class="f-s" x="240.0" y="227.0">3</text><text class="f-s" x="408.0" y="227.0">16</text><text class="f-s" x="576.0" y="227.0">181</text><text class="f-s" x="744.0" y="227.0">0.905</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">精确率</text><text class="f-s" x="240.0" y="271.0">0.939</text><text class="f-s" x="408.0" y="271.0">0.865</text><text class="f-s" x="576.0" y="271.0">0.923</text><text class="f-s" x="744.0" y="271.0">准确率 0.908</text><text class="f-s" x="60" y="316">示意数值；对角线越重越好，非对角行揭示「谁最容易被认成谁」。</text>
+</svg><figcaption><b>图 6-33　混淆矩阵：错在哪一类，一目了然</b>　示意图；对角线越重越好，本页实测矩阵见上方输出。</figcaption></figure>
+<p>首样本的三个概率是 0.008、0.9726、0.0194，和正好 1.0。第二个类占绝对优势，说明这个点落得离类 1 的簇心很近；如果真实标签不是 1，这就是一条被改错的标签或一个离群点。</p>
+<p>矩阵的对角是 190、192、187，行和分别是 199、203、198——不是整齐的 200，因为 8% 的标签被改过，训练集与验证集里各类的样本数都会轻微变动。非对角上最大的是第 2 行的 7（真实类 2 被判成类 1），其次是第 1 行的 6（真实类 0 被判成类 2）。</p>
+<p>这正是混淆矩阵比准确率有用的地方：0.9333 只告诉你「错了 6.7%」，矩阵告诉你「错在哪」。如果错误集中在相邻两类上，多半是特征不够或类别边界重叠；如果错误均匀散布，反倒更像标签噪声。</p>
+<div class="callout callout--warn">
+  <span class="c-label">别把概率当把握</span>
+  <p>softmax 输出的 0.97 不等于「97% 的把握」可信。未经校准的网络概率常常过度自信，需要可靠性图或温度缩放才能当置信度用。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算一次 softmax</h2>
+<p><strong>任务：</strong>三个 logits 为 <code>z = [2, 1, 0]</code>，算出三个概率，再算一次交叉熵（真实类为 0）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>计算</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>exp(z)</td><td>7.389, 2.718, 1.000</td><td>和 11.107</td></tr>
+    <tr><td>ŷ</td><td>各项除以 11.107</td><td>？</td></tr>
+    <tr><td>L</td><td>−log ŷ₀</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 若把三个 logits 全加上 5，概率变不变？为什么必须减最大值而不是加？② 真实类是 0 时，<code>p − y</code> 的三个分量分别是多少？③ 换成多标签任务，输出层该怎么改？</p>
+<p><strong>验收：</strong>概率约为 0.665、0.245、0.090，交叉熵约 0.408；能说清「加常数不变、减最大值只为防溢出」，并写出 <code>p − y = [−0.335, 0.245, 0.090]</code>。配套的损失选型见 <a href="../m06-neural-nets/k6-6-4-loss.html">损失函数</a>。</p>
+</section>
+<p class="sidenote">注：本页需 NumPy 辅助计算，运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + NumPy 2.5.5 + Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-7-1-sgd-loop.html">6.7.1 基于梯度下降的优化</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-6-4-loss.html"><span class="p-label">← 上一知识点 6.6.4</span><span class="p-title">损失函数：任务决定目标</span></a><a class="next" href="k6-7-1-sgd-loop.html"><span class="p-label">下一知识点 6.7.1 →</span><span class="p-title">基于梯度下降的优化</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)27 · 多类别输出与 Softmax</dd>
+    <dt>页面编号 / 路径</dt><dd>6.6.5 ｜ <span class="path">pages/m06-neural-nets/k6-6-5-softmax-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-6-4-loss.html"><b>6.6.4</b>损失函数：任务决定目标</a><a class="xlink" href="k6-6-2-activation.html"><b>6.6.2</b>激活函数：给网络加弯折</a><a class="xlink" href="k6-5-3-forward-prop.html"><b>6.5.3</b>前向传播：一层层算到输出</a><a class="xlink" href="k6-6-1-feedforward.html"><b>6.6.1</b>前馈与全连接</a><a class="xlink" href="u6-6-feedforward.html"><b>6.6</b>深度前馈网络：激活、去线性化与损失函数（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k6-6-5（本页图 6-32）、k6-6-5-b（图 6-33，示意）；Demo d6_6_softmax.py；知识库 M06-S1-06、M06-S3-06。 ｜ 知识库条目：M06-S1-06《多类别神经网络》（filled）、M06-S3-06《损失函数》（filled） ｜ 参考来源：S90 Bishop 2006；S36 scikit-learn 神经网络文档；S39 多分类文档；输出为 d6_6_softmax.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

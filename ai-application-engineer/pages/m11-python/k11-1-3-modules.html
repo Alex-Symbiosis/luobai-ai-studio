@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.1.3 函数、类与模块：把脚本变成工程 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清函数封装步骤、类封装状态、模块封装职责各自解决什么问题。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑪ Python 语言与语料工程</a><span class="sep">/</span><a href="u11-1-env.html">11.1 Python 运行环境与工程规范</a><span class="sep">/</span><span class="here">11.1.3 函数、类与模块：把脚本变成工程</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑪ · Python 语言与语料工程</span>
+    <span class="tag">单元 11.1</span>
+    <span class="tag">知识点 11.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>函数、类与模块：把脚本变成工程</h1>
+  <p class="lede">一个 500 行的脚本，改一处崩三处，通常不是水平问题，而是边界问题：步骤、状态、职责全缠在同一个文件里。拆开它们，靠的不是设计模式，而是三种最朴素的封装。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清函数封装步骤、类封装状态、模块封装职责各自解决什么问题。</li><li>能按「先分步骤、再分状态、最后分职责」的顺序重构脚本。</li><li>能写出带主入口保护、可被导入而不产生副作用的最小模块。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>改一行，崩三处</h2>
+<p>同一个文本统计脚本，两种组织方式：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>一路写到底</h3><p>读文件、清洗、分词、计数、打印全在顶层；改清洗规则要翻 200 行，测试只能整段跑，别人 import 这个文件还会顺带打印一堆东西。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先分步骤，再分状态</h3><p>清洗、分词、计数各是一个函数；需要跨步骤保留的配置与计数结果放进一个类；对外只暴露一个模块级函数。改规则只动一个函数，测试可以逐段做。</p></div>
+</div>
+<p class="ask">同样的功能，为什么 B 改起来更安全？</p>
+<p>因为 B 把「变化点」收进了明确的边界：函数管输入输出，类管状态，模块管对外职责。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>工具箱分格</h2>
+<p>木工箱不会把所有钉子倒在一起：一格放螺丝、一格放钻头、一格放量具。找的时候按格找，补货也按格补。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="重构顺序：先分步骤，再分状态，最后分职责">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">重构顺序：先分步骤，再分状态，最后分职责</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">脚本 main.py</text><text class="f-s" x="430" y="87.0">一次性的流程：从上跑到下</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">函数</text><text class="f-s" x="430" y="151.0">封装步骤：输入明确、输出明确</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">类</text><text class="f-s" x="430" y="215.0">封装状态：数据与操作绑在一起</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">模块 / 包</text><text class="f-s" x="430" y="279.0">封装职责：可导入、可测试、可复用</text><text class="f-s" x="120" y="336">每上一层只解决一件事；跳级重构，往往只是把混乱挪了个位置。</text>
+</svg><figcaption><b>图 11-3　先分步骤，再分状态，最后分职责</b>　脚本是最小单元；往上依次是函数（步骤）、类（状态）、模块与包（职责）。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>封装不是把代码变短，而是让「改这里不会影响那里」成为可验证的事实。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>四层结构，一条依赖方向</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>单位</th><th>封装什么</th><th>判断标准</th></tr></thead>
+  <tbody>
+    <tr><td>函数</td><td>一段步骤：输入 → 输出</td><td>能否用一句话说清它做什么</td></tr>
+    <tr><td>类</td><td>一组状态与操作</td><td>多个函数是否共享同一批数据</td></tr>
+    <tr><td>模块</td><td>一个 <code>.py</code> 文件</td><td>能否被导入而不产生副作用</td></tr>
+    <tr><td>包</td><td>含 <code>__init__.py</code> 的目录</td><td>对外接口是否收敛在 <code>__init__</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>依赖方向要单向：模块可以导入函数与类，函数不应回头导入模块；底层工具不依赖上层业务。方向一旦成环，任何一处修改都会牵动全局，重构就失去了意义。</p>
+<div class="callout callout--def">
+  <span class="c-label">主入口保护</span>
+  <p><code>if __name__ == "__main__":</code> 区分「被直接运行」与「被导入」。没有它，别人一 <code>import</code> 就会执行你的测试代码与打印语句。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一个可导入的最小模块</h2>
+<p>下面这段把「词与标注」建模成两个类，并提供纯函数与主入口；存为 <code>tagger.py</code>：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>tagger.py</span></div>
+<pre><code>&quot;&quot;&quot;最小可运行示例：类型注解 + dataclass + 主入口保护（Python 3.10+）。&quot;&quot;&quot;
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+
+@dataclass
+class Token:
+    text: str
+    tag: str = &quot;UNK&quot;
+
+
+@dataclass
+class Sentence:
+    tokens: list[Token] = field(default_factory=list)
+
+    def render(self) -&gt; str:
+        return &quot; &quot;.join(f&quot;{t.text}/{t.tag}&quot; for t in self.tokens)
+
+
+def tag_naive(text: str) -&gt; Sentence:
+    &quot;&quot;&quot;按空格切分，长度大于 6 的词标 LONG，其余标 SHORT。&quot;&quot;&quot;
+    sent = Sentence()
+    for word in text.split():
+        sent.tokens.append(Token(word, &quot;LONG&quot; if len(word) &gt; 6 else &quot;SHORT&quot;))
+    return sent
+
+
+def main() -&gt; None:
+    demo = tag_naive(&quot;Python natural language processing&quot;)
+    print(demo.render())
+    assert demo.tokens[0].text == &quot;Python&quot;
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+</div>
+<p>拆开看三层职责：<code>Token</code> 与 <code>Sentence</code> 只保存状态与渲染；<code>tag_naive</code> 只做「文本 → Sentence」的转换；<code>main</code> 只负责演示。导入 <code>tagger</code> 时不会打印任何东西，因为打印被主入口保护挡住了。</p>
+<p>运行方式与普通脚本一致：<code>python tagger.py</code>。在别的文件里则写 <code>from tagger import tag_naive</code>，只取函数，不触发演示。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测输出与拆分记录</h2>
+<p>运行 <code>python tagger.py</code>，Python 3.13.14 下的输出为：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · Python 3.13.14</span></div>
+<pre><code>Python/SHORT natural/LONG language/LONG processing/LONG</code></pre>
+</div>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>SHORT 只出现一次</h3><p><code>Python</code> 长度 6，不满足「大于 6」，所以标 SHORT；边界写错一位，标签就会全变。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>渲染即接口</h3><p><code>render()</code> 把内部结构转成字符串；外部只依赖这个方法，不必知道 <code>tokens</code> 怎么存。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>断言在跑</h3><p><code>assert</code> 验证第一个词没被切错；它随脚本一起运行，是成本最低的回归测试。</p></div>
+</div>
+<p>把这段脚本拆成模块时，推荐顺序是：先抽函数（不改逻辑），再把共享状态收进类（不改行为），最后按职责分文件（不改接口）。每一步都能单独运行、单独回滚。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>把 100 行脚本拆成 3 + 1 + 2</h2>
+<p><strong>任务：</strong>找一段自己写过的、超过 100 行的脚本，按下面结构重构，并记录每一步的验证方式。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>产出</th><th>数量</th><th>验收</th></tr></thead>
+  <tbody>
+    <tr><td>纯函数</td><td>3 个</td><td>每个函数只做一件事，输入输出都有类型注解</td></tr>
+    <tr><td>类</td><td>1 个</td><td>至少两个函数共享它的状态，否则不需要类</td></tr>
+    <tr><td>模块</td><td>2 个</td><td>导入任一个都不打印、不读文件、不发请求</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 如果一个「类」只有一个方法、没有共享状态，它应该是什么？② 两个模块互相 <code>import</code> 会发生什么，怎么拆掉这个环？</p>
+<p><strong>验收：</strong>重构前后对同一输入输出一致；<code>python -c "import 模块名"</code> 无任何输出。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 Python 3.13.14（Windows），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k11-1-4-debug-demo.html">11.1.4 读报错栈与调试</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k11-1-2-venv.html"><span class="p-label">← 上一知识点 11.1.2</span><span class="p-title">虚拟环境与依赖管理</span></a><a class="next" href="k11-1-4-debug-demo.html"><span class="p-label">下一知识点 11.1.4 →</span><span class="p-title">读报错栈与调试</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑪ Python 语言与语料工程 ｜ 三(十一)1 · Python 的操作规范（结构）</dd>
+    <dt>页面编号 / 路径</dt><dd>11.1.3 ｜ <span class="path">pages/m11-python/k11-1-3-modules.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k11-1-2-venv.html"><b>11.1.2</b>虚拟环境与依赖管理</a><a class="xlink" href="k11-1-4-debug-demo.html"><b>11.1.4</b>读报错栈与调试</a><a class="xlink" href="k11-2-4-preprocess-demo.html"><b>11.2.4</b>可复用预处理函数与词频报告</a><a class="xlink" href="u11-1-env.html"><b>11.1</b>Python 运行环境与工程规范（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k11-1-3（本页图 11-3）；知识库 M11-S1-01。 ｜ 知识库条目：M11-S1-01《Python 的概念与操作规范》（filled） ｜ 参考来源：S120《The Python Tutorial》(3.13)；S121《The Python Language Reference》；S130 dataclasses</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

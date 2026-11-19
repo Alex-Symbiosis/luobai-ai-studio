@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2.1 六步流程：从问题定义到部署 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能按顺序写出机器学习的六个步骤，并说明每一步的交付物。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-2-workflow.html">3.2 任务流程与三类学习范式</a><span class="sep">/</span><span class="here">3.2.1 六步流程：从问题定义到部署</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.2</span>
+    <span class="tag">知识点 3.2.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>六步流程：从问题定义到部署</h1>
+  <p class="lede">打开 notebook、读进 CSV、`fit()` 一个模型，十分钟就能跑出 90% 的准确率。三周后上线，业务说「这个结果没法用」。问题几乎从不在于模型不够强，而在于跳过了流程里的某一步。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能按顺序写出机器学习的六个步骤，并说明每一步的交付物。</li><li>能指出「先选模型后定指标」会带来什么后果。</li><li>能为一个具体场景写出含评价指标的完整六步方案。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一个项目，两种起手式</h2>
+<p>同一个流失预测需求，两个团队用两种顺序推进：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>先选模型</h3><p>拿到数据先试三种算法，谁分高用谁。上线前才发现：正样本只占 4%，准确率没有意义；线上也拿不到训练时的那些字段。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先定问题与验收</h3><p>先写清预测对象、预测时点、漏判代价，再定指标与可用字段。模型最后才选，且只在前几步都通过后才选。</p></div>
+</div>
+<p class="ask">两组的模型能力差不多，为什么只有 B 组能交付？</p>
+<p>因为 A 组把「建模」当成了起点，B 组把「问题定义与验收口径」当成了起点。六步流程真正约束的，是每一步都要交出可检查的东西。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>装修不能先买沙发</h2>
+<p>装修的顺序是先量房、定功能、改水电，再买家具。如果先买了沙发，后面所有尺寸都得围着它改。建模也一样：先选模型，等于先买沙发。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="六步流程：每一步都要有可验收的产出">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">六步流程：每一步都要有可验收的产出</text><rect class="f-b2" x="40.0" y="92" width="125.0" height="96" rx="9"/><text class="f-tc" x="102.5" y="135.0">问题定义</text><text class="f-sc" x="102.5" y="154.0">任务与指标</text><path class="f-ar" d="M168.0 140.0 L187.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="191.0" y="92" width="125.0" height="96" rx="9"/><text class="f-tc" x="253.5" y="135.0">数据</text><text class="f-sc" x="253.5" y="154.0">采集与清洗</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="125.0" height="96" rx="9"/><text class="f-tc" x="404.5" y="135.0">特征</text><text class="f-sc" x="404.5" y="154.0">变换与编码</text><path class="f-ar" d="M470.0 140.0 L489.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="493.0" y="92" width="125.0" height="96" rx="9"/><text class="f-tc" x="555.5" y="135.0">模型</text><text class="f-sc" x="555.5" y="154.0">训练与调参</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="644.0" y="92" width="125.0" height="96" rx="9"/><text class="f-tc" x="706.5" y="135.0">评估</text><text class="f-sc" x="706.5" y="154.0">独立测试集</text><path class="f-ar" d="M772.0 140.0 L791.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="795.0" y="92" width="125.0" height="96" rx="9"/><text class="f-tc" x="857.5" y="135.0">部署</text><text class="f-sc" x="857.5" y="154.0">监控与回流</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 3-6　六步流程与每一步的交付物</b>　每一步的产出都是下一步的输入；任何一步的产出含糊，后面都会以「指标虚高」或「无法上线」的形式暴露。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>流程的价值不在「六个步骤」，而在<strong>每一步都必须交出一个可以被检查的东西</strong>。交不出，就不要进入下一步。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>六步与六份交付物</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>#</th><th>步骤</th><th>要回答的问题</th><th>交付物</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>问题定义</td><td>预测什么、给谁用、错了会怎样</td><td>任务类型 + 评价指标 + 可接受下限</td></tr>
+    <tr><td>2</td><td>数据获取</td><td>数据从哪来、覆盖谁、有没有标签</td><td>数据字典 + 采样说明</td></tr>
+    <tr><td>3</td><td>特征处理</td><td>用哪些列、怎么变换、怎么编码</td><td>特征清单 + 变换脚本</td></tr>
+    <tr><td>4</td><td>模型训练</td><td>用什么假设空间、怎么调参</td><td>基线模型 + 候选模型</td></tr>
+    <tr><td>5</td><td>评估</td><td>在没见过的数据上表现如何</td><td>独立测试集报告 + 误差分析</td></tr>
+    <tr><td>6</td><td>部署与监控</td><td>怎么接线上、怎么发现退化</td><td>服务接口 + 监控指标 + 回流机制</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>机器学习的一般流程是「问题定义 → 数据获取 → 特征处理 → 模型训练 → 评估 → 部署监控」的闭环；流程的核心约束是<strong>后一步只能使用前一步已经冻结的产出</strong>。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>三条回路，而不是一条直线</h2>
+<p>流程不是走完就结束的直线，它有三个回退口：</p>
+<div class="steps">
+  <div class="step"><b>回到问题</b><span>指标不可达或与业务目标冲突时，回到第 1 步。这是最贵但最必要的回退。</span></div>
+  <div class="step"><b>回到数据</b><span>误差分析发现某类样本系统性出错，说明采样或标注有问题，回到第 2 步。</span></div>
+  <div class="step"><b>回到特征</b><span>模型已调到瓶颈、残差仍有结构，说明信息没被表达出来，回到第 3 步。</span></div>
+</div>
+<p>三条回路的判断依据都来自第 5 步的<strong>误差分析</strong>，而不是训练集分数。只看总分，永远不知道该回哪一格。</p>
+<span class="teacher">课堂上让学生先写第 1 步和第 5 步，再补中间。多数人会发现自己一开始想的指标根本没法验收。</span>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>食堂销量预测的六步方案</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>步骤</th><th>本场景的具体做法</th><th>交付物</th></tr></thead>
+  <tbody>
+    <tr><td>问题定义</td><td>预测次日各窗口销量，用于备料；低估比高估代价大</td><td>回归任务，指标 MAE + 售罄率</td></tr>
+    <tr><td>数据获取</td><td>近两年刷卡流水、天气、校历、窗口菜单</td><td>按日聚合的宽表 + 数据字典</td></tr>
+    <tr><td>特征处理</td><td>星期、节假日、天气、历史同期均值</td><td>特征清单 + 缺失处理规则</td></tr>
+    <tr><td>模型训练</td><td>先用「上周同日销量」做基线，再试树模型</td><td>基线 + 候选模型</td></tr>
+    <tr><td>评估</td><td>按时间切分，最后 8 周做测试；分窗口报告</td><td>MAE 报告 + 误差最大的窗口</td></tr>
+    <tr><td>部署监控</td><td>每日收盘对账，偏差连续 3 天超阈值就告警</td><td>日报 + 告警规则</td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意第 4 步先做基线。没有基线，就无法判断一个复杂模型是「有效」还是「只是比瞎猜好一点」。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为一个校园场景写六步方案</h2>
+<p><strong>任务：</strong>从下面三个场景中任选一个，写出完整六步方案，每一步都要有可检查的交付物，并给出评价指标与可接受下限。</p>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">场景 1</span><h3>图书馆座位占用预测</h3><p>预测未来 2 小时各区域占用率，用于引导分流。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 2</span><h3>课程退课预警</h3><p>开学第 3 周预测哪些学生可能退课，用于辅导介入。</p></div>
+  <div class="card mini"><span class="mini-tag">场景 3</span><h3>宿舍水电异常</h3><p>识别异常用量，用于排查漏水与违规电器。</p></div>
+</div>
+<p><strong>自检三问：</strong>① 我的指标能区分「全判一类」的懒惰模型吗？② 测试数据在调参过程中被我看过吗？③ 第 6 步的监控指标，出问题时真的会有人看吗？</p>
+<div class="callout callout--warn">
+  <span class="c-label">常见误解</span>
+  <p>「流程是给大项目用的，小作业可以跳」不成立。恰恰是小作业最容易把测试集当验证集用，因为没人会在旁边提醒你。</p>
+</div>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-2-2-supervised.html">3.2.2 监督学习：答案从标签来</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-1-5-ml-dm-da.html"><span class="p-label">← 上一知识点 3.1.5</span><span class="p-title">机器学习与数据挖掘、数据分析的边界</span></a><a class="next" href="k3-2-2-supervised.html"><span class="p-label">下一知识点 3.2.2 →</span><span class="p-title">监督学习：答案从标签来</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)1 · 机器学习的一般流程</dd>
+    <dt>页面编号 / 路径</dt><dd>3.2.1 ｜ <span class="path">pages/m03-ml-basics/k3-2-1-workflow.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-2-2-supervised.html"><b>3.2.2</b>监督学习：答案从标签来</a><a class="xlink" href="k3-3-2-three-splits.html"><b>3.3.2</b>训练集、验证集与测试集</a><a class="xlink" href="k3-3-4-leakage.html"><b>3.3.4</b>数据泄漏：四种让指标虚高的写法</a><a class="xlink" href="u3-2-workflow.html"><b>3.2</b>任务流程与三类学习范式（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-2-1-a.svg（本页图 3-6）。 ｜ 知识库条目：M03-S1-04《机器学习的任务流程》（filled） ｜ 参考来源：S41 scikit-learn《Getting Started》；S02 AIMA 4th ed.；S64 Han et al.《Data Mining》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

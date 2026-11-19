@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.6.1 集成学习：多样性从哪来 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出集成的三个要素：基学习器、组合策略、多样性来源。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-6-ensembles.html">5.6 集成学习：Bagging、随机森林、Boosting、AdaBoost</a><span class="sep">/</span><span class="here">5.6.1 集成学习：多样性从哪来</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.6</span>
+    <span class="tag">知识点 5.6.1</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>集成学习：多样性从哪来</h1>
+  <p class="lede">「三个臭皮匠，顶个诸葛亮」在机器学习里成立，但有前提：三个模型不能错在同一处。三个错误高度重叠的模型投票，结果往往比最差的那个还差。集成真正要解决的问题不是「找几个模型」，而是「怎么让它们的错误不重叠」。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出集成的三个要素：基学习器、组合策略、多样性来源。</li><li>能把集成误差拆成「个体平均误差」与「平均差异」，并据此解释投票为何可能变差。</li><li>能针对一份数据设计出至少两种制造多样性的手段。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>三个模型投票，比最差的还差</h2>
+<p>三个模型各自的表现都不难看，于是顺理成章地做了多数投票：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>模型</th><th>算法</th><th>验证 AUC</th><th>主要错误类型</th></tr></thead>
+  <tbody>
+    <tr><td>模型 A</td><td>逻辑回归</td><td>0.78</td><td>非线性边界处漏判</td></tr>
+    <tr><td>模型 B</td><td>逻辑回归（换正则）</td><td>0.79</td><td>与 A 相同</td></tr>
+    <tr><td>模型 C</td><td>逻辑回归（换缩放）</td><td>0.77</td><td>与 A 相同</td></tr>
+    <tr><td>三模型投票</td><td>硬投票</td><td>0.76</td><td>错误被同时强化</td></tr>
+  </tbody>
+</table>
+</div>
+<p>投票之后反而退步。翻看错误样本：三个模型错的是同一批人，重叠率接近 90%。</p>
+<p class="ask">说好的「三个臭皮匠」呢？为什么凑了三个模型，得到的不是一个更强的模型？</p>
+<p>因为集成收益来自<strong>差异</strong>，不来自数量。三个几乎一样的模型，等于把一个模型投了三票。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>会诊的前提是医生看法不同</h2><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="从弱学习器到强学习器">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">从弱学习器到强学习器</text><rect class="f-b2" x="40.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="178.0" y="135.0">训练多个弱模型</text><text class="f-sc" x="178.0" y="154.0">样本/特征各有差异</text><path class="f-ar" d="M319.0 140.0 L338.0 140.0" marker-end="url(#ah)"/><rect class="f-b" x="342.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">组合输出</text><text class="f-sc" x="480.0" y="154.0">投票、平均或加权</text><path class="f-ar" d="M621.0 140.0 L640.0 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="644.0" y="92" width="276.0" height="96" rx="9"/><text class="f-tc" x="782.0" y="135.0">更强的整体</text><text class="f-sc" x="782.0" y="154.0">偏差或方差下降</text><text class="f-s" x="40" y="244">集成的前提是多样性：模型错得一样，组合起来还是同一个错。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 5-23　从弱学习器到强学习器</b>　多个各有所长的弱模型，经投票、平均或加权组合，偏差或方差下降；前提是它们错得不一样。</figcaption></figure>
+<p>三个医生会诊，价值在看片角度不同、怀疑的病不一样。若同校、同教材、看同一批指标，第三个人只是重复前两人的话。</p>
+<p>模型同理。多样性只有几处来源：样本不同、特征不同、初始化不同、算法不同。任一处制造出差异，错误就有机会被平均掉。</p>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>集成的收益 = <strong>个体能力 × 差异程度</strong>；两者缺一，组合都不会比单模型强。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个要素与一条分解式</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>要素</th><th>含义</th><th>常见取值</th></tr></thead>
+  <tbody>
+    <tr><td>基学习器</td><td>被组合的单个模型</td><td>深树、浅树、线性模型</td></tr>
+    <tr><td>组合策略</td><td>怎么把多个输出变成一个</td><td>投票、平均、加权、再学习一层</td></tr>
+    <tr><td>多样性</td><td>基学习器之间的不一致程度</td><td>样本扰动、特征扰动、算法异构</td></tr>
+  </tbody>
+</table>
+</div>
+<p>按训练方式分两类：<strong>并行</strong>（Bagging、随机森林）降方差；<strong>串行</strong>（Boosting、AdaBoost）降偏差。组合规则另有投票与堆叠。</p>
+<p>平方损失下，<span class="term">集成误差 = 个体平均误差 − 平均差异</span>：差异越大，集成误差越小；差异为零，收益也为零。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>四种制造差异的手段</h2>
+<div class="steps">
+  <div class="step"><b>样本扰动</b><span>自助采样让每个基学习器看到不同子集，最常用，也是 Bagging 的核心。</span></div>
+  <div class="step"><b>特征扰动</b><span>每次分裂只看部分特征，有效降低树与树之间的相关性。</span></div>
+  <div class="step"><b>参数扰动</b><span>不同初始化、深度或正则强度，成本最低但差异也最小。</span></div>
+  <div class="step"><b>算法异构</b><span>线性加树加近邻，差异最大，但要处理输出尺度不一致。</span></div>
+</div>
+<p>组合方式跟着任务选：分类投票、回归平均；可信度差别大用加权；用堆叠时，基学习器的预测必须来自折外样本。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两种组合，两个结局</h2>
+<p>同样三个基学习器、同样多数投票，只换多样性来源，结果差出九个点：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>指标（100 个验证样本）</th><th>情形甲：同源模型</th><th>情形乙：异构模型</th></tr></thead>
+  <tbody>
+    <tr><td>单个错误数</td><td>21 / 22 / 23</td><td>20 / 18 / 22</td></tr>
+    <tr><td>两两共同错误</td><td>各 18</td><td>6 / 6 / 7</td></tr>
+    <tr><td>三者共同错误</td><td>15</td><td>2</td></tr>
+    <tr><td>投票后错误数</td><td>24</td><td>15</td></tr>
+  </tbody>
+</table>
+</div>
+<p>算法是同一个：至少两个模型同时判错的样本，多数投票就会判错。投票错误数 = 两两共同错误之和 − 2 × 三者共同错误：情形甲 54 − 30 = 24，情形乙 19 − 4 = 15。</p>
+<p>验收标准：不看单个模型准确率，统计<strong>错误重叠率</strong>；重叠率高于七成，加模型基本无用。</p>
+<p>重叠率低只说明收益有空间，集成何时反而亏，还要对照它的成立条件：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>适用条件</th><th>失效场景或代价</th></tr></thead>
+  <tbody>
+    <tr><td>基学习器各自不错且错法不同</td><td>同源同参模型错误重叠，投票反而放大偏差</td></tr>
+    <tr><td>基学习器是高方差模型（深树）</td><td>基学习器高偏差时，平均几乎不降误差</td></tr>
+    <tr><td>可接受成倍的训练与推理成本</td><td>成本随基学习器数量线性增长，解释性下降</td></tr>
+    <tr><td>验证流程独立于集成</td><td>用测试集挑组合方式，等于把测试集变成训练集</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>设计一个集成方案，并给出多样性证据</h2>
+<p><strong>任务：</strong>为一份二分类表格数据设计集成方案，写成一页方案说明。</p>
+<ol>
+  <li>选三个基学习器，说明算法与关键超参数。</li>
+  <li>指定组合策略，并说明为什么不用另一种。</li>
+  <li>给出多样性证据：统计任意两个基学习器的错误重叠率。</li>
+</ol>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>项目</th><th>你的填写</th><th>检查点</th></tr></thead>
+  <tbody>
+    <tr><td>三个基学习器</td><td></td><td>是否至少有两种不同的算法或采样</td></tr>
+    <tr><td>组合策略</td><td></td><td>是否与输出类型匹配（概率还是标签）</td></tr>
+    <tr><td>错误重叠率</td><td></td><td>是否用同一份验证集统计</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>自检：</strong>每个选择都能指回一个具体数字或误差结构，而不是「业界常用」，即达标。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-6-2-random-forest.html">5.6.2 随机森林：两个随机性</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-5-4-lvq-demo.html"><span class="p-label">← 上一知识点 5.5.4</span><span class="p-title">LVQ：用原型压缩训练集</span></a><a class="next" href="k5-6-2-random-forest.html"><span class="p-label">下一知识点 5.6.2 →</span><span class="p-title">随机森林：两个随机性</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 集成学习的概念</dd>
+    <dt>页面编号 / 路径</dt><dd>5.6.1 ｜ <span class="path">pages/m05-ml-algorithms/k5-6-1-ensemble.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-6-2-random-forest.html"><b>5.6.2</b>随机森林：两个随机性</a><a class="xlink" href="k5-6-3-boosting.html"><b>5.6.3</b>Boosting：串行纠错</a><a class="xlink" href="u5-6-ensembles.html"><b>5.6</b>集成学习：Bagging、随机森林、Boosting、AdaBoost（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张（k5-6-1）+ 知识库 M05-S1-10（Bagging 与随机森林）、M05-S2-04（集成算法）。 ｜ 知识库条目：M05-S1-10《Bagging 和随机森林的概念及特点》（filled）、M05-S2-04《集成算法的概念、特点及操作原理》（filled） ｜ 参考来源：S74 Breiman《Bagging Predictors》；S75 Breiman《Random Forests》；S76 scikit-learn《Ensembles》；S77 Freund &amp; Schapire 1997；S54 ESL</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

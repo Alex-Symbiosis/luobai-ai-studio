@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.1.2 三种分类维度：把算法放上坐标 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出生成式与判别式、参数与非参数、线性与非线性的判定要点。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑤ 机器学习算法</a><span class="sep">/</span><a href="u5-1-algorithm-map.html">5.1 算法的概念、分类与地图</a><span class="sep">/</span><span class="here">5.1.2 三种分类维度：把算法放上坐标</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑤ · 机器学习算法</span>
+    <span class="tag">单元 5.1</span>
+    <span class="tag">知识点 5.1.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>三种分类维度：把算法放上坐标</h1>
+  <p class="lede">算法名字太多，靠背清单记不住。更耐用的办法是给自己三个问题：建不建联合概率、参数量随不随样本增长、边界是直线还是曲线。答完三句，位置就定了。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出生成式与判别式、参数与非参数、线性与非线性的判定要点。</li><li>能解释三个维度分别对应哪些能力差异。</li><li>能给同一批算法在三个维度上各标一个位置。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>背清单，还是记问法</h2>
+<p>面对同一批算法，两个人用了两种记法：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>按名字背清单</h3><p>把十来个算法的名字和一句特点抄在本子上，按章节顺序回忆；被追问「朴素贝叶斯和逻辑回归差在哪」时，只能背结论，换一个问法就答不上。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>按三种问法归档</h3><p>遇到陌生算法先问三句：建不建联合概率？参数随样本增长吗？边界是直线还是曲线？三句答完，它在坐标里的位置就定了，比较也有据可依。</p></div>
+</div>
+<p class="ask">两种记法面对的是同一批算法，为什么 B 更抗遗忘？</p>
+<p>因为 B 记的是判定规则，规则可以推；清单只能背，背漏一条就断。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>同一本书，三套索引</h2>
+<p>图书馆里同一本书会同时出现在学科、作者、年代三套索引中。找书时从哪套进都行，但每套索引回答的问题不同。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三种问法，三个坐标">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">三种问法，三个坐标</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">维度</text><text class="f-t" x="282.0" y="98">问什么</text><text class="f-t" x="492.0" y="98">两种取值</text><text class="f-t" x="702.0" y="98">代表算法</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">生成式 / 判别式</text><text class="f-s" x="282.0" y="139.0">建不建联合概率</text><text class="f-s" x="492.0" y="139.0">建 P(x,y) / 只学 P(y|x)</text><text class="f-s" x="702.0" y="139.0">朴素贝叶斯 / 逻辑回归</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">参数 / 非参数</text><text class="f-s" x="282.0" y="183.0">参数随数据增长吗</text><text class="f-s" x="492.0" y="183.0">固定参数 / 随样本增长</text><text class="f-s" x="702.0" y="183.0">线性回归 / KNN</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">线性 / 非线性</text><text class="f-s" x="282.0" y="227.0">边界是什么形状</text><text class="f-s" x="492.0" y="227.0">直线或超平面 / 曲线</text><text class="f-s" x="702.0" y="227.0">SVM 线性核 / 树与核 SVM</text><text class="f-s" x="60" y="272">同一算法在三个维度上各有一个位置；分类不是互斥的单选题。</text>
+</svg><figcaption><b>图 5-2　三种问法，三个坐标</b>　每一行是一把尺子，同一算法在每把尺子上各有一个落点；分类不是互斥的单选题。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>分类的作用不是给算法贴唯一标签，而是给它三个可回答的问题。标签会过时，问题不会。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个维度，三把尺子</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>问什么</th><th>两种取值</th><th>判定要点</th></tr></thead>
+  <tbody>
+    <tr><td>生成式 / 判别式</td><td>建不建联合分布</td><td>建 P(x,y) / 只学 P(y|x)</td><td>能不能生成新样本</td></tr>
+    <tr><td>参数 / 非参数</td><td>参数量随样本增长吗</td><td>固定 / 随样本增长</td><td>容量是否由数据撑大</td></tr>
+    <tr><td>线性 / 非线性</td><td>边界是什么形状</td><td>直线或超平面 / 曲线或分段</td><td>是否必须造交互特征</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三个维度不必都背全，但要能回答「这个算法凭什么被归到这一端」。例如朴素贝叶斯建联合分布，是生成式；KNN 把训练集当模型，参数随样本增长，是非参数；树用轴对齐的折线切空间，是非线性。知识库的五维分类里，这三问同属「模型形式」一层，本页单独展开，是因为它们最影响选型。</p>
+<div class="callout callout--def">
+  <span class="c-label">关键前提</span>
+  <p>维度之间不正交。随机森林同时是「监督、非参数、非线性、判别、迭代、集成」，强行归入单一类别会丢掉最关键的信息。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>每个维度换来什么、付出什么</h2>
+<p>三个维度之所以有用，是因为每一端都对应一组能力与代价：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>前一端强在哪</th><th>后一端付出的代价</th></tr></thead>
+  <tbody>
+    <tr><td>生成式 / 判别式</td><td>可采样、缺失数据下更方便</td><td>判别精度常让位，假设更强</td></tr>
+    <tr><td>参数 / 非参数</td><td>小样本稳定、推理快</td><td>容量封顶，复杂关系容易欠拟合</td></tr>
+    <tr><td>线性 / 非线性</td><td>系数可解释、优化简单</td><td>交互与弯曲关系要人工造特征</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这些差异会互相抵消。非参数模型容量随数据增长，但更吃样本；参数模型省样本，却可能从头就表达不了规律。生成式在数据缺失时方便，判别式在纯预测任务上通常假设更少。选型时只看一个维度，很容易得出相反结论。</p>
+<p>还有一层：分类维度描述的是「模型形式」，不描述「求解难度」。同样是线性模型，正规方程与梯度下降的可扩展性差别很大，这属于求解维度，不在三把尺子里。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一个垃圾邮件任务，两端的代表</h2>
+<p>同一批词袋特征、同一个二分类任务，朴素贝叶斯与逻辑回归各自站在不同端：</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>对比项</th><th>朴素贝叶斯</th><th>逻辑回归</th></tr></thead>
+  <tbody>
+    <tr><td>建模对象</td><td>P(x,y)，再用贝叶斯公式转成后验</td><td>直接建 P(y|x)</td></tr>
+    <tr><td>核心假设</td><td>特征条件独立</td><td>对数几率是特征的线性函数</td></tr>
+    <tr><td>训练成本</td><td>一次计数，极快</td><td>迭代优化，较慢但可控</td></tr>
+    <tr><td>小样本高维稀疏</td><td>可作快速下界</td><td>加正则后往往更准</td></tr>
+    <tr><td>缺失数据</td><td>可用边缘分布绕过</td><td>需要插补</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个算法没有「谁更先进」，只有假设不同、代价不同。能在三个维度上说清它们各自的位置，比记住「朴素贝叶斯适合文本」这句结论更有用——因为换一个任务，这句结论就可能失效。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给九个算法各标三个值</h2>
+<p><strong>任务：</strong>从下面的池子里选九个算法，按三个维度各标一个值，并写一句判定理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>算法</th><th>生成 / 判别</th><th>参数 / 非参数</th><th>线性 / 非线性</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>线性回归</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>逻辑回归</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>朴素贝叶斯</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>KNN</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>决策树</td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么「非参数」不代表没有参数？② 一个算法能否同时是生成式与非线性？举一例。</p>
+<p><strong>验收：</strong>至少能解释生成式与判别式的差异，且每个标注都能指向具体机制，而不是「书上这么写」。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k5-1-3-algorithm-map.html">5.1.3 算法地图：先按任务定位</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k5-1-1-algorithm.html"><span class="p-label">← 上一知识点 5.1.1</span><span class="p-title">算法是什么：模型之外的另一半</span></a><a class="next" href="k5-1-3-algorithm-map.html"><span class="p-label">下一知识点 5.1.3 →</span><span class="p-title">算法地图：先按任务定位</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑤ 机器学习算法 ｜ 三(五)1 · 算法的分类</dd>
+    <dt>页面编号 / 路径</dt><dd>5.1.2 ｜ <span class="path">pages/m05-ml-algorithms/k5-1-2-dimensions.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k5-1-1-algorithm.html"><b>5.1.1</b>算法是什么：模型之外的另一半</a><a class="xlink" href="k5-1-3-algorithm-map.html"><b>5.1.3</b>算法地图：先按任务定位</a><a class="xlink" href="u5-1-algorithm-map.html"><b>5.1</b>算法的概念、分类与地图（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k5-1-2（本页图 5-2）；知识库 M05-S1-02。 ｜ 知识库条目：M05-S1-02《算法的分类》（filled） ｜ 参考来源：S02 AIMA；S62 Mitchell《Machine Learning》；S54 ESL；S38 scikit-learn《Clustering》</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

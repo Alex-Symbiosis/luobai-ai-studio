@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="靶心图：聚不聚看信度，偏不偏看效度">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">靶心图：聚不聚看信度，偏不偏看效度</text><circle cx="250" cy="110" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="110" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="110" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="244" cy="104" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="256" cy="110" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="250" cy="118" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="258" cy="102" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="246" cy="112" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="250" y="180">信度高 · 效度高</text><text class="f-sc" x="250" y="198">稳且准，可以拿来决策</text><circle cx="710" cy="110" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="110" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="110" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="722" cy="124" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="732" cy="130" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="726" cy="136" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="736" cy="120" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="728" cy="128" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="710" y="180">信度高 · 效度低</text><text class="f-sc" x="710" y="198">每次都偏在同一处</text><circle cx="250" cy="252" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="252" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="250" cy="252" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="226" cy="232" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="272" cy="244" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="240" cy="276" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="266" cy="266" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="252" cy="254" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="250" y="322">信度低 · 效度高</text><text class="f-sc" x="250" y="340">平均下来落在中心</text><circle cx="710" cy="252" r="46" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="252" r="30" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="710" cy="252" r="14" fill="#f8fbff" stroke="#cfe0ff" stroke-width="1.4"/><circle cx="680" cy="230" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="742" cy="242" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="700" cy="282" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="752" cy="268" r="5" fill="#2f6fd0" opacity="0.85"/><circle cx="716" cy="250" r="5" fill="#2f6fd0" opacity="0.85"/><text class="f-tc" x="710" y="322">信度低 · 效度低</text><text class="f-sc" x="710" y="340">又散又偏，两头都丢</text>
+</svg>

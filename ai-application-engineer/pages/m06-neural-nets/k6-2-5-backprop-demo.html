@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.2.5 2-2-1 网络一轮更新 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能数清 2-2-1 网络的参数量，并写出前向的形状变化。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑥ 神经网络与深度学习</a><span class="sep">/</span><a href="u6-2-perceptron-backprop.html">6.2 感知器、增量规则与反向传播</a><span class="sep">/</span><span class="here">6.2.5 2-2-1 网络一轮更新</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑥ · 神经网络与深度学习</span>
+    <span class="tag">单元 6.2</span>
+    <span class="tag">知识点 6.2.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>2-2-1 网络一轮更新</h1>
+  <p class="lede">九个参数、一个样本、一次前向一次反向，把每一步的数字打出来看。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能数清 2-2-1 网络的参数量，并写出前向的形状变化。</li><li>能读懂 δ 与梯度矩阵，指出 gW1 两行相同的原因。</li><li>能解释「更新后 o 从 0.5896 降到 0.4756」意味着什么，以及不意味着什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>最小可手算的网络</h2>
+<p>要讲清反向传播，最有效的办法不是画大图，而是找一个能全部手算的网络：2 个输入、2 个隐藏单元、1 个输出。</p>
+<p>它刚好能解异或，参数只有 9 个，打印出来的每一行都能和公式对上。课堂上把这个网络跑通，再去看 8 层 CNN，只是同一套运算重复更多次。</p>
+<p class="ask">一次更新里，哪些数字是前向留下的，哪些是反向算出来的？</p>
+<p>之所以选 2-2-1，还有一个原因：它的隐藏层只有两个单元，可以把每个单元的预激活、输出、δ 全部手算一遍，再用代码核对。数字对不上时，能立刻定位到是哪一步。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两个单元两条线</h2>
+<p>两个隐藏单元对应两条斜线，输出层负责「站在这两条线之间」的判断。隐藏层做的事，是把原空间里切不开的四个点搬到一个切得开的新坐标。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="异或的最小解：2 个隐藏单元够了">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">异或的最小解：2 个隐藏单元够了</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">输入 (x1,x2)</text><text class="f-sc" x="117.6" y="154.0">四种组合</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">隐藏层 2 单元</text><text class="f-sc" x="298.79999999999995" y="154.0">两条斜线</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">输出层 1 单元</text><text class="f-sc" x="480.0" y="154.0">与门组合</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">阈值 0.5</text><text class="f-sc" x="661.1999999999999" y="154.0">概率转类别</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">得到异或</text><text class="f-sc" x="842.4" y="154.0">0 1 1 0</text><text class="f-s" x="40" y="244">隐藏层把「线性不可分」翻译成「在新空间里线性可分」。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 6-10　异或的最小解：2 个隐藏单元够了</b>　隐藏层把「线性不可分」翻译成「在新空间里线性可分」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>2-2-1 是「深度有用」的最小证据：再少一个隐藏单元就表示不了异或，再多一个就开始冗余。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>九个参数</h2>
+<p>前向两行：<code>h = σ(xW1 + b1)</code>，<code>o = σ(hW2 + b2)</code>；损失用二元交叉熵 <code>L = −[t·log o + (1−t)·log(1−o)]</code>。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>张量</th><th>形状</th><th>参数个数</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><td>W1</td><td>2 × 2</td><td>4</td><td>输入到隐藏</td></tr>
+    <tr><td>b1</td><td>1 × 2</td><td>2</td><td>隐藏层偏置</td></tr>
+    <tr><td>W2</td><td>2 × 1</td><td>2</td><td>隐藏到输出</td></tr>
+    <tr><td>b2</td><td>1 × 1</td><td>1</td><td>输出层偏置</td></tr>
+  </tbody>
+</table>
+</div>
+<p>合计 9 个。注意 W1 的形状是「输入维 × 隐藏维」，写成 2 × 2 时两边数字相同，很容易在后面接错方向——如果隐藏层改成 3 个单元，W1 必须变成 2 × 3。</p>
+<p>参数量还可以直接数边：输入到隐藏 2×2 条连接，隐藏到输出 2×1 条，再加 3 个偏置，一共 9 个。以后看到大网络，先数边再数层，估算参数量比背公式快。</p>
+<div class="callout callout--warn">
+  <span class="c-label">形状错误的典型表现</span>
+  <p>矩阵乘报错的位置往往在下一行，而不是写错形状的那一行。排查时从后往前推形状，比从报错行往前找快。</p>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一轮一个样本</h2>
+<p>下面是从 Demo 里摘出的核心段：取样本 (1,1)、目标 0，做一次前向、一次反向、一次更新。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>d6_2_bp221_core.py</span></div>
+<pre><code>import numpy as np
+
+def sigmoid(z):
+    return 1.0 / (1.0 + np.exp(-z))
+
+rng = np.random.default_rng(1)
+W1 = rng.normal(0, 0.5, size=(2, 2)); b1 = np.zeros((1, 2))
+W2 = rng.normal(0, 0.5, size=(2, 1)); b2 = np.zeros((1, 1))
+lr = 0.5
+
+x = np.array([[1.0, 1.0]])       # 取 (1,1)，目标 0
+t = np.array([[0.0]])
+h = sigmoid(x @ W1 + b1)
+o = sigmoid(h @ W2 + b2)
+d_o = o - t
+d_h = (d_o @ W2.T) * h * (1 - h)
+
+W2 -= lr * (h.T @ d_o)
+W1 -= lr * (x.T @ d_h)</code></pre>
+</div>
+<p>真正的训练把这段放进循环，对四个样本各做一次，再重复几千轮。一轮更新只挪一小步，看不出「学会」，只能看出「方向对不对」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>零点四七五六</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · NumPy 2.5.5 / Python 3.13.14</span></div>
+<pre><code>前向 h      : [[0.5837, 0.4401]]
+前向 o      : [[0.5896]]
+损失        : 0.8907
+输出层 delta: [[0.5896]]
+隐藏层 delta: [[0.0649, 0.0324]]
+gW2         : [[0.3442], [0.2595]]
+gW1         : [[0.0649, 0.0324], [0.0649, 0.0324]]
+更新后 o    : [[0.4756]]
+训练后输出  : [0.006, 0.995, 0.995, 0.006]
+训练后损失  : 0.00544
+预测类别    : [0, 1, 1, 0]</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="加隐藏层后，损失持续下降并收敛">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="28">加隐藏层后，损失持续下降并收敛</text><path class="f-ax" d="M100 300 L880 300"/><path class="f-ax" d="M100 60 L100 300"/><path d="M100 80 L220 150 L360 230 L520 276 L700 288 L880 291" fill="none" stroke="#2f6fd0" stroke-width="2.4"/><line x1="700" y1="70" x2="726" y2="70" stroke="#2f6fd0" stroke-width="2.6"/><text class="f-s" x="734" y="74">训练损失</text><path d="M100 90 L220 165 L360 240 L520 278 L700 289 L880 291" fill="none" stroke="#d98b3a" stroke-width="2.4"/><line x1="700" y1="90" x2="726" y2="90" stroke="#d98b3a" stroke-width="2.6"/><text class="f-s" x="734" y="94">验证损失</text>
+</svg><figcaption><b>图 6-11　加隐藏层后，损失持续下降并收敛</b>　对比 6.1 的平线：结构不变时，加一层就能让损失真正动起来。</figcaption></figure>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>损失 0.8907</h3><p>目标 0，模型给 0.5896。<code>−log(1−0.5896) ≈ 0.8907</code>，比「瞎猜 0.5」的 0.693 还差。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>δ 两行同源</h3><p>δ_o = 0.5896 就是 o − t。gW1 两行相同，因为 x = (1,1)，两个输入贡献一样大。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>更新后 0.4756</h3><p>一步走了 0.114，方向对，但离 0 还很远。这是朝 0 走的第一步，不是收敛。</p></div>
+</div>
+<p><strong>「更新后 o 0.4756」的正确读法：</strong>它说明这次反向算出的梯度方向没错——目标为 0，输出确实降了；也说明学习率 0.5 只够走一小步。把它当成「模型学会了」是误读：同样的网络要跑 5000 轮，输出才降到 0.006。</p>
+<p>顺带看清一件事：训练后损失 0.00544、预测 [0,1,1,0]，这才叫收敛。对比 6.1 异或的 0.50，结构变了，结局才变。</p>
+<p>把输出层从 1 个 sigmoid 换成 K 个 softmax，隐藏层与整套 BP 完全不用改——只把输出层 δ 换成 <code>ŷ − onehot(y)</code>，就是多类别网络的版本。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>换样本再算一次</h2>
+<p><strong>任务：</strong>用同一组初始权重，改成样本 <code>x = (0,1)、t = 1</code>，手算或改代码跑一轮，填表。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>量</th><th>(1,1) → 0 时</th><th>(0,1) → 1 时</th></tr></thead>
+  <tbody>
+    <tr><td>h</td><td>[0.5837, 0.4401]</td><td>？</td></tr>
+    <tr><td>o</td><td>0.5896</td><td>？</td></tr>
+    <tr><td>δ_o</td><td>0.5896</td><td>？</td></tr>
+    <tr><td>更新后 o</td><td>0.4756</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 为什么 gW1 的两行在这一组样本下不再相同？② 隐藏单元从 2 个加到 3 个，参数量变成多少？③ 只跑一轮、四个样本轮流更新，和一次用四个样本求平均梯度，结果会一样吗？</p>
+<p><strong>验收：</strong>三问都能答，并能指出「单样本更新的梯度有噪声，但方向总体正确」。<a href="../m06-neural-nets/k6-2-4-backprop.html">反向传播</a>的 δ 递推是这一页所有数字的来源。</p>
+</section>
+<p class="sidenote">注：本页示例只用 NumPy，运行口径为 NumPy 2.5.5 + Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k6-3-1-hopfield-energy.html">6.3.1 Hopfield 结构与能量函数</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k6-2-4-backprop.html"><span class="p-label">← 上一知识点 6.2.4</span><span class="p-title">反向传播：把误差逐层传回去</span></a><a class="next" href="k6-3-1-hopfield-energy.html"><span class="p-label">下一知识点 6.3.1 →</span><span class="p-title">Hopfield 结构与能量函数</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑥ 神经网络与深度学习 ｜ 三(六)2 · 反向传播（2-2-1 实例）</dd>
+    <dt>页面编号 / 路径</dt><dd>6.2.5 ｜ <span class="path">pages/m06-neural-nets/k6-2-5-backprop-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k6-2-2-xor-mlp.html"><b>6.2.2</b>异或与多层网络</a><a class="xlink" href="k6-2-4-backprop.html"><b>6.2.4</b>反向传播：把误差逐层传回去</a><a class="xlink" href="k6-1-4-xor-demo.html"><b>6.1.4</b>单层网络的局限：异或</a><a class="xlink" href="u6-2-perceptron-backprop.html"><b>6.2</b>感知器、增量规则与反向传播（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k6-2-5（图 6-10）、k6-2-5-b（图 6-11）；Demo d6_2_bp221.py；知识库 M06-S4-02。 ｜ 知识库条目：M06-S4-02《反向传播》（filled） ｜ 参考来源：S26 Rumelhart 等 1986；S53《深度学习》第 6 章；S36 scikit-learn 神经网络文档；输出为 d6_2_bp221.py 本机实测。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

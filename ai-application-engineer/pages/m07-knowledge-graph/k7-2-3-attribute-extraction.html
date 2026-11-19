@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.2.3 属性提取：模板、槽位与值归一 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能为一个实体类型写出属性模板，标明每个槽位接受什么类型的值。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-2-extraction.html">7.2 知识提取：语义、属性与关系抽取</a><span class="sep">/</span><span class="here">7.2.3 属性提取：模板、槽位与值归一</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.2</span>
+    <span class="tag">知识点 7.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>属性提取：模板、槽位与值归一</h1>
+  <p class="lede">抽得出来，不等于算得出来。单位、日期精度和货币口径，才是属性抽取真正的难点。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能为一个实体类型写出属性模板，标明每个槽位接受什么类型的值。</li><li>能完成金额、日期、货币三类值归一，并说清各自最容易错在哪。</li><li>能解释为什么值归一的错误率通常高于抽取本身，以及怎样标记估算值。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>一段财报</h2>
+<p>一段财报文字：<em>「公司注册资本 1.2 亿元，成立于 2016 年 3 月，2025 年营收约 12 亿元，其中海外收入 3200 万美元。」</em></p>
+<p>四个值，四种麻烦：金额带「亿」，日期只到月，「约」是模糊限定，海外收入还用美元。抽出来都不难，难的是能不能直接排序、求和、比较。</p>
+<p class="ask">「12 亿」和「1.2 亿」哪个大？不换算，程序答不上来。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>模板先行</h2>
+<p>属性抽取的第一步不是写规则，而是先有一张表：这个实体类型有哪些属性，每个属性落在哪个槽位，值要归成什么样。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="属性模板：每一行都要落成规则">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">属性模板：每一行都要落成规则</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">实体类型</text><text class="f-t" x="282.0" y="98">属性</text><text class="f-t" x="492.0" y="98">槽位</text><text class="f-t" x="702.0" y="98">归一规则</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">公司</text><text class="f-s" x="282.0" y="135.8">成立时间</text><text class="f-s" x="492.0" y="135.8">日期</text><text class="f-s" x="702.0" y="135.8">统一为 YYYY-MM-DD</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">公司</text><text class="f-s" x="282.0" y="173.4">注册资本</text><text class="f-s" x="492.0" y="173.4">金额</text><text class="f-s" x="702.0" y="173.4">换算成同一货币单位</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">人物</text><text class="f-s" x="282.0" y="211.0">任职单位</text><text class="f-s" x="492.0" y="211.0">实体引用</text><text class="f-s" x="702.0" y="211.0">对齐公司标识</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">产品</text><text class="f-s" x="282.0" y="248.60000000000002">所属厂商</text><text class="f-s" x="492.0" y="248.60000000000002">实体引用</text><text class="f-s" x="702.0" y="248.60000000000002">对齐公司标识</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">地点</text><text class="f-s" x="282.0" y="286.2">所在地</text><text class="f-s" x="492.0" y="286.2">行政区</text><text class="f-s" x="702.0" y="286.2">对齐行政区划码</text><text class="f-s" x="60" y="328.0">模板先定，抽取才有靶子；槽位写不清，抽出来的值就没法用。</text>
+</svg><figcaption><b>图 7-9　属性模板的每一行，都要落成一条规则</b>　模板先定，抽取才有靶子；槽位写不清，抽出来的值就没法用。</figcaption></figure>
+<p>表定下来之后，抽取就变成「按行找值」：公司这一行要成立时间，就去句子里找日期；要注册资本，就找金额。没有模板，字段名一页一个样，后面的聚合全对不上。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>模板槽位</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>实体类型</th><th>属性</th><th>槽位</th><th>归一规则</th></tr></thead>
+  <tbody>
+    <tr><td>公司</td><td>成立时间</td><td>日期</td><td>统一为 YYYY-MM-DD</td></tr>
+    <tr><td>公司</td><td>注册资本</td><td>金额</td><td>换算成同一货币单位</td></tr>
+    <tr><td>人物</td><td>任职单位</td><td>实体引用</td><td>对齐公司标识</td></tr>
+    <tr><td>产品</td><td>所属厂商</td><td>实体引用</td><td>对齐公司标识</td></tr>
+    <tr><td>地点</td><td>所在地</td><td>行政区</td><td>对齐行政区划码</td></tr>
+  </tbody>
+</table>
+</div>
+<p>槽位只有四类：日期、金额、数值、实体引用。前三种是字面量，第四种必须指向一个已归一的实体。槽位定错，归一就无从谈起——把「任职单位」当自由文本存，同名公司永远对不上。</p>
+<p>还有一条隐含列：值域。「注册资本」必须非负，「成立时间」不能晚于今天。值域检查放在校验段，不放在抽取段，抽的时候只求抓到。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>单位日期</h2>
+<p>抽取分两半：找值和定槽。找值靠模板或上下文，「成立于 2016 年 3 月」这样的句式，一条正则就能拿到年份和月份；定槽靠模板声明，这个位置只接受日期。</p>
+<p>值归一才是主要工作量，三件事：单位换算、日期格式统一、货币换算。再把「约/近/超过」记成精度标记，别把估算值当精确值。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>parse_amount.py</span></div>
+<pre><code>UNIT = {&quot;亿&quot;: 100_000_000, &quot;万&quot;: 10_000}
+
+def parse_amount(text):                 # &quot;约 1.2 亿元&quot; → (数值, 是否近似)
+    text = text.replace(&quot; &quot;, &quot;&quot;)
+    approx = text.startswith((&quot;约&quot;, &quot;近&quot;, &quot;超过&quot;))
+    text = text.lstrip(&quot;约近超过&quot;)
+    for unit in (&quot;亿&quot;, &quot;万&quot;):
+        if unit in text:
+            return float(text.split(unit)[0]) * UNIT[unit], approx
+    return float(text.rstrip(&quot;元&quot;)), approx</code></pre>
+</div>
+<p>100 条样本里 37 条含金额，其中 19 条带「约/近/超过」，4 条用「万元」，2 条用「美元」。不做归一直接入库，按注册资本排序会把 1.2 亿元排到 1200 万元后面。</p>
+<p><strong>易错点：</strong>把「归一」只当成格式美化。单位不换算、货币不统一，值是好看的中文，却完全不可计算。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>差一个量级</h2>
+<p>「1.2 亿元」和「1200 万元」是同一个数：前者 120000000，后者 12000000。单位读错一位，差十倍，而且不报错——数字格式完全合法，只有排序时才露出破绽。</p>
+<p>日期同理。「2016 年 3 月」存成 <code>2016-03-01</code> 看着规整，实际凭空多出 30 天精度。正确做法是存 <code>2016-03</code>，并标注精度为月；下游判断「成立满十年」时按月比，别用日。</p>
+<p>美元那条最隐蔽。3200 万美元若直接记成 32000000，和人民币的营收放在一起求和，等于把两种货币当成一种。归一必须先换汇，并保留原币值与汇率日期，否则三个月后没人说得清这个数是怎么来的。</p>
+<p><strong>易错点：</strong>把「约 12 亿」直接写成 1200000000 就完事。它是估算值，参与求和会把误差带进总额；应存数值加 <code>approx=true</code>，聚合时单独标记，别混进精确值。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>写四模板</h2>
+<p><strong>任务：</strong>为公司、课程、论文各写 4 个属性模板，每个都填齐四列；再为金额和日期各写 2 条归一规则。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>实体类型</th><th>要覆盖的句子</th></tr></thead>
+  <tbody>
+    <tr><td>公司</td><td>成立时间、注册资本、员工数、总部</td></tr>
+    <tr><td>课程</td><td>学分、学时、开课学期、先修课</td></tr>
+    <tr><td>论文</td><td>发表年份、期刊、作者数、被引数</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 「约 12 亿」能不能参与求和，为什么？② 同一金额一处写「亿元」、一处写「万元」，在哪一步被发现？</p>
+<p><strong>验收：</strong>每条模板都能匹配一句真实文本，且槽位类型明确。关系怎么从实体对里抽，见 <a href="../m07-knowledge-graph/k7-2-4-relation-extraction.html">关系抽取：规则、监督与远程监督</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-2-4-relation-extraction.html">7.2.4 关系抽取：规则、监督与远程监督</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-2-2-semantic-extraction.html"><span class="p-label">← 上一知识点 7.2.2</span><span class="p-title">语义提取：实体识别与指代消解</span></a><a class="next" href="k7-2-4-relation-extraction.html"><span class="p-label">下一知识点 7.2.4 →</span><span class="p-title">关系抽取：规则、监督与远程监督</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)2 · 属性和属性值提取的概念和应用方法</dd>
+    <dt>页面编号 / 路径</dt><dd>7.2.3 ｜ <span class="path">pages/m07-knowledge-graph/k7-2-3-attribute-extraction.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-2-2-semantic-extraction.html"><b>7.2.2</b>语义提取：实体识别与指代消解</a><a class="xlink" href="k7-2-4-relation-extraction.html"><b>7.2.4</b>关系抽取：规则、监督与远程监督</a><a class="xlink" href="k7-2-1-extraction-pipeline.html"><b>7.2.1</b>知识提取在流水线中的位置</a><a class="xlink" href="u7-2-extraction.html"><b>7.2</b>知识提取：语义、属性与关系抽取（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-2-3（本页图 7-9）；知识库 M07-S2-03（filled）。 ｜ 知识库条目：M07-S2-03《属性和属性值提取的概念和应用方法》（filled） ｜ 参考来源：公开属性抽取实践说明；Wikidata 属性与数据类型文档；ISO 8601 日期表示法；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

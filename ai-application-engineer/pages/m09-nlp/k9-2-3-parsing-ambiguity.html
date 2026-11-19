@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.2.3 句法分析的任务与歧义 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能写清句法分析的输入输出：文法、词串、一棵或多棵分析树。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-2-syntax-cyk.html">9.2 句法与形式语法：语法类型与 CYK 算法</a><span class="sep">/</span><span class="here">9.2.3 句法分析的任务与歧义</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.2</span>
+    <span class="tag">知识点 9.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>句法分析的任务与歧义</h1>
+  <p class="lede">七个字，两棵树，两件事。句法分析的第一道难题不是算得快，而是算出来的树该选哪棵。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能写清句法分析的输入输出：文法、词串、一棵或多棵分析树。</li><li>能对「咬死了猎人的狗」给出两种括号化，并指出分歧出在哪个成分。</li><li>能解释歧义数为什么随句长组合增长，以及为什么不能靠枚举全部树来解决。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>七个字</h2>
+<p>一句「咬死了猎人的狗」，七个字，两种意思：狗被咬死了，或者狗咬死了猎人。两种读法都合语法，谁也不能靠规则本身排除。</p>
+<p>这不是文字游戏。新闻标题、合同条款、说明书里，同样的结构每天都在产生两种解释。句法分析要交出的，正是这些解释以及它们的结构。</p>
+<p class="ask">一句话有两棵合法的树，程序该交哪一棵？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>两种切分</h2>
+<p>两种读法的词序完全相同，差别只在成分从哪切开、挂到哪个父节点。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一串词，两种合法切分">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一串词，两种合法切分</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">树 A：动宾结构</text><text class="f-s" x="80" y="108">· 咬死了 · 猎人的狗</text><text class="f-s" x="80" y="138">· 「猎人的狗」整体作宾语</text><text class="f-s" x="80" y="168">· 被咬死的是狗</text><text class="f-s" x="80" y="198">· 结构为 VP → V NP</text><text class="f-s" x="80" y="228">· 语义：狗死了</text><rect class="f-amber" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">树 B：定中结构</text><text class="f-s" x="530" y="108">· 咬死了猎人 · 的狗</text><text class="f-s" x="530" y="138">· 「咬死了猎人」修饰狗</text><text class="f-s" x="530" y="168">· 咬死人的是狗</text><text class="f-s" x="530" y="198">· 结构为 NP → S 的 N</text><text class="f-s" x="530" y="228">· 语义：猎人死了</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 9-8　同一串词，两种合法切分</b>　左边把「猎人的狗」当宾语，右边把「咬死了猎人」当定语；词没变，结构变了。</figcaption></figure>
+<p>所以句法分析的任务不是「判对错」，而是「列出所有合法结构，再选一个」。前者是文法的事，后者是打分的事。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三类歧义</h2>
+<p>形式化地说：给定文法 G 和词串 w，输出 w 的全部合法分析树；工程上通常只留得分最高的一棵。歧义就是合法树多于一棵。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>类型</th><th>歧义出在哪</th><th>例子</th><th>两种读法</th></tr></thead>
+  <tbody>
+    <tr><td>结构歧义</td><td>成分边界不同</td><td>咬死了猎人的狗</td><td>咬死了［猎人的狗］／［咬死了猎人］的狗</td></tr>
+    <tr><td>附着歧义</td><td>成分挂到哪个父节点</td><td>I saw the man with the telescope</td><td>用望远镜看／看那个带望远镜的人</td></tr>
+    <tr><td>词性歧义</td><td>同一个词的词性不唯一</td><td>他的研究</td><td>名词「研究」／动词「研究」</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三类里，结构歧义影响最大：它改变的是「谁对谁做什么」。附着歧义常常只改一个修饰关系，但同样能让句子的意思翻面。词性歧义更局部，通常在词法阶段就能列出候选。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>组合增长</h2>
+<p>歧义数量随句长组合增长。把 n 个词两两结合的方式数，是第 n−1 个卡特兰数：</p>
+<p><code>C(n−1) = (1/n) × (2n−2)! / ((n−1)! × (n−1)!)</code></p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>词数</th><th>括号化上界</th><th>直观感受</th></tr></thead>
+  <tbody>
+    <tr><td>6</td><td>42</td><td>一屏能看完</td></tr>
+    <tr><td>8</td><td>429</td><td>需要程序枚举</td></tr>
+    <tr><td>10</td><td>4 862</td><td>人工已不可能</td></tr>
+    <tr><td>20</td><td>1 767 263 190</td><td>每秒一万棵也要两天</td></tr>
+  </tbody>
+</table>
+</div>
+<p>这是二叉括号化的上界，真实合法树会少一些，但增长量级一样。介词短语附着更直接：k 个 PP 有卡特兰数种挂法，3 个 PP 就是 5 种，5 个是 42 种。</p>
+<p>所以不能靠「枚举全部树再挑」：20 个词就有十七亿棵，每棵都打分会直接拖垮系统。工程上有三条路：用动态规划让共享子结构只算一次（下一节 CYK）、用概率给树打分（9.4）、用约束或规则提前剪枝。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>两种括号</h2>
+<p>把两种读法写成括号，分歧点立刻显形。</p>
+<p><strong>读法 A：</strong><code>[咬死了 [猎人的狗]]</code>。动词「咬死了」带一个宾语「猎人的狗」，结构是 <code>VP → V NP</code>。被咬死的是狗。</p>
+<p><strong>读法 B：</strong><code>[[咬死了猎人] 的狗]</code>。整个「咬死了猎人」加「的」修饰「狗」，结构是 <code>NP → S 的 N</code>。狗咬了猎人。</p>
+<p>英文的附着歧义同理：<em>I saw the man with the telescope</em>。PP「with the telescope」挂在 VP 上，是「用望远镜看」；挂在 NP「the man」上，是「看那个带望远镜的人」。一棵树只差一条边的父节点，意思就换了一个人。</p>
+<p>这句英文 7 个词，二叉括号化上界是 132 种；真正合法的分析通常只有几种到十几种，靠词性和介词搭配就能先筛掉大半。筛完再打分，才是可行的做法。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>两种读法</h2>
+<p><strong>任务：</strong>给下面两句各写两种括号化，标出分歧所在的成分名；再算 9 个词的句子二叉括号化上界。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>句子</th><th>读法一</th><th>读法二</th></tr></thead>
+  <tbody>
+    <tr><td>他 用 望远镜 看 了 小偷</td><td>？</td><td>？</td></tr>
+    <tr><td>old men and women</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 「他 用 望远镜 看 了 小偷」的两种读法，哪一种需要「小偷」带望远镜？② 9 个词的上界是多少，比 8 个词涨了几倍？③ 如果只能输出一棵树，你会用哪三条线索排序？</p>
+<p><strong>验收：</strong>两种括号化都能读回原句，分歧点能指到具体成分；上界会算，且能说清它只是上界。怎么在不枚举全部树的前提下判定，见 <a href="../m09-nlp/k9-2-4-cyk.html">CYK 算法：表格里的动态规划</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-2-4-cyk.html">9.2.4 CYK 算法：表格里的动态规划</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-2-2-cfg.html"><span class="p-label">← 上一知识点 9.2.2</span><span class="p-title">上下文无关文法与推导树</span></a><a class="next" href="k9-2-4-cyk.html"><span class="p-label">下一知识点 9.2.4 →</span><span class="p-title">CYK 算法：表格里的动态规划</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)2 · 语法的类型</dd>
+    <dt>页面编号 / 路径</dt><dd>9.2.3 ｜ <span class="path">pages/m09-nlp/k9-2-3-parsing-ambiguity.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-2-2-cfg.html"><b>9.2.2</b>上下文无关文法与推导树</a><a class="xlink" href="k9-2-4-cyk.html"><b>9.2.4</b>CYK 算法：表格里的动态规划</a><a class="xlink" href="k9-4-1-statistical-parsing.html"><b>9.4.1</b>统计解析：给语法树算概率</a><a class="xlink" href="u9-2-syntax-cyk.html"><b>9.2</b>句法与形式语法：语法类型与 CYK 算法（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-2-3（本页图 9-8）；知识库 M09-S2-01《语法的类型》（filled）。 ｜ 知识库条目：M09-S2-01《语法的类型》（filled） ｜ 参考来源：Jurafsky & Martin《Speech and Language Processing》第 12–13 章；句法歧义与 PP 附着的公开教材口径；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

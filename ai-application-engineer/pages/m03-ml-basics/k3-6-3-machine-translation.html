@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.6.3 机器翻译：序列到序列的生成 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说明机器翻译为什么不能逐词替换。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块③ 机器学习基础</a><span class="sep">/</span><a href="u3-6-task-map.html">3.6 常见任务地图：分类、回归、去噪、转录、机器翻译、异常检测、结构化输出</a><span class="sep">/</span><span class="here">3.6.3 机器翻译：序列到序列的生成</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲③ · 机器学习基础</span>
+    <span class="tag">单元 3.6</span>
+    <span class="tag">知识点 3.6.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>机器翻译：序列到序列的生成</h1>
+  <p class="lede">把「我很喜欢这本书」逐词替换成「I very like this book」，每个词都查对了，句子却不成立。翻译不是词典拼接，而是理解意群之后的重排与再生成。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说明机器翻译为什么不能逐词替换。</li><li>能描述编码—解码的基本流程与对齐的作用。</li><li>能用 BLEU、chrF 或人工错误分类评价一段译文。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>同一句话，两种译法</h2>
+<p>把「我昨天在图书馆看了一本书」译成英文，两种做法：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>逐词替换</h3><p>I yesterday in library read a book. 每个词都查对了，但英文不会这样排；「开灯」还会被译成 open light。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先理解再生成</h3><p>先把整句压成语义表示，再在目标语言里重新组织语序与搭配，得到 I read a book in the library yesterday.</p></div>
+</div>
+<p class="ask">两种做法都用了词典，为什么 A 的句子不成立？</p>
+<p>因为翻译要处理语序、一词多义与固定搭配。逐词替换把「句子」当成了「词袋」，丢失的正是这些关系。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>意群重排，不是词典拼接</h2>
+<p>中文说「我昨天在图书馆看了一本书」，英文更自然的顺序是「I read a book in the library yesterday」。地点与时间的位置整个调换了。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="机器翻译：编码—解码，不是逐词替换">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="40" y="42">机器翻译：编码—解码，不是逐词替换</text><rect class="f-b2" x="40.0" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="117.6" y="135.0">源语言序列</text><text class="f-sc" x="117.6" y="154.0">中文短句</text><path class="f-ar" d="M198.2 140.0 L217.2 140.0" marker-end="url(#ah)"/><rect class="f-b" x="221.2" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="298.79999999999995" y="135.0">编码</text><text class="f-sc" x="298.79999999999995" y="154.0">压成语义表示</text><path class="f-ar" d="M379.4 140.0 L398.4 140.0" marker-end="url(#ah)"/><rect class="f-b" x="402.4" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="480.0" y="135.0">对齐与重排</text><text class="f-sc" x="480.0" y="154.0">意群顺序调整</text><path class="f-ar" d="M560.5999999999999 140.0 L579.5999999999999 140.0" marker-end="url(#ah)"/><rect class="f-b" x="583.5999999999999" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="661.1999999999999" y="135.0">解码</text><text class="f-sc" x="661.1999999999999" y="154.0">逐词生成</text><path class="f-ar" d="M741.8 140.0 L760.8 140.0" marker-end="url(#ah)"/><rect class="f-b2" x="764.8" y="92" width="155.2" height="96" rx="9"/><text class="f-tc" x="842.4" y="135.0">目标语言序列</text><text class="f-sc" x="842.4" y="154.0">英文译文</text><text class="f-s" x="40" y="244">逐词替换只能得到「词都对、句子不通」的结果；翻译的核心是重排与生成。</text><path class="f-dash" d="M40 268 L920 268"/><text class="f-s" x="40" y="296">顺序即约束：前一步的产出是后一步的输入；顺序错了，结论就不可信。</text>
+</svg><figcaption><b>图 3-28　机器翻译的编码—解码流程</b>　先把源句压成语义表示，再在目标语言里逐词生成；对齐负责告诉模型「谁对应谁」。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>翻译的输出不是「输入的逐词映射」，而是「在另一种语言里重新组织一遍」。所以它是一个生成任务。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>序列到序列任务</h2>
+<div class="callout callout--def">
+  <span class="c-label">定义</span>
+  <p>机器翻译是把源语言序列映射为目标语言序列的任务，属于序列到序列（seq2seq）生成。输入与输出长度可以不同，词序可以重排，输出词表也完全不同。</p>
+</div>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>组件</th><th>作用</th><th>要解决的问题</th></tr></thead>
+  <tbody>
+    <tr><td>编码器</td><td>把源句压成向量表示</td><td>保留语义，丢弃表层词序</td></tr>
+    <tr><td>对齐</td><td>建立源词与目标词的对应</td><td>处理语序调换与一对多</td></tr>
+    <tr><td>解码器</td><td>逐词生成目标句</td><td>保证目标语言流畅、语法正确</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>生成过程中的三个难点</h2>
+<div class="steps">
+  <div class="step"><b>一词多义</b><span>「bank」是银行还是河岸，取决于上下文。编码器必须把整句信息带进来，而不是只看当前词。</span></div>
+  <div class="step"><b>语序重排</b><span>修饰语、时间地点的位置在两种语言里可能相反，对齐机制要允许「跳着对应」。</span></div>
+  <div class="step"><b>长度变化</b><span>输出可能比输入长或短，解码要能自己决定何时结束，而不是按输入长度逐位生成。</span></div>
+</div>
+<p>这三点也解释了为什么翻译模型比分类模型难评：一句原文可以有多个正确译文，评价必须允许「不同但都对」。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三句译文的错误类型</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>原文</th><th>译文</th><th>错误类型</th><th>改进方向</th></tr></thead>
+  <tbody>
+    <tr><td>请把门关上</td><td>Please close the door</td><td>无</td><td>—</td></tr>
+    <tr><td>他不喜欢咖啡</td><td>He likes coffee</td><td>否定漏译</td><td>检查否定词是否进入编码表示</td></tr>
+    <tr><td>昨天来的那个人是我老师</td><td>The person came yesterday is my teacher</td><td>语法/关系从句</td><td>补充目标语言的关系代词与语序</td></tr>
+    <tr><td>这个方案很有前景</td><td>This plan has a lot of money</td><td>词义错译</td><td>补充搭配与领域词表</td></tr>
+  </tbody>
+</table>
+</div>
+<p>BLEU 高不代表没错误：它看的是 n-gram 重合度，漏掉一个否定词可能只掉零点几分，但语义完全反了。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>为三句译文找错误</h2>
+<p><strong>任务：</strong>找三句中英对照，给每句译文标注错误类型（漏译 / 错译 / 语序 / 语法），并写一条改进方向。</p>
+<div class="callout callout--warn">
+  <span class="c-label">自检</span>
+  <p>「读起来别扭」不算错误类型。要指出具体是哪个词、哪段结构出了问题，否则无法转成可执行的改进项。</p>
+</div>
+<p><strong>验收：</strong>三类错误各至少一例；每例都能定位到具体词或结构。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k3-6-4-anomaly-demo.html">3.6.4 异常检测：找少数的不一样</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k3-6-2-denoise-transcribe.html"><span class="p-label">← 上一知识点 3.6.2</span><span class="p-title">去噪与转录：一个保形，一个换形</span></a><a class="next" href="k3-6-4-anomaly-demo.html"><span class="p-label">下一知识点 3.6.4 →</span><span class="p-title">异常检测：找少数的不一样</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块③ 机器学习基础 ｜ 三(三)4 · 机器翻译</dd>
+    <dt>页面编号 / 路径</dt><dd>3.6.3 ｜ <span class="path">pages/m03-ml-basics/k3-6-3-machine-translation.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k3-6-2-denoise-transcribe.html"><b>3.6.2</b>去噪与转录：一个保形，一个换形</a><a class="xlink" href="k3-6-5-structured-output.html"><b>3.6.5</b>结构化输出与任务判定</a><a class="xlink" href="k3-6-1-classification-regression.html"><b>3.6.1</b>分类与回归：输出是类别还是数值</a><a class="xlink" href="u3-6-task-map.html"><b>3.6</b>常见任务地图：分类、回归、去噪、转录、机器翻译、异常检测、结构化输出（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘 SVG：d-k3-6-3-a.svg（本页图 3-28）。 ｜ 知识库条目：M03-S4-05《机器翻译》（filled） ｜ 参考来源：S65 Jurafsky &amp; Martin《Speech and Language Processing》相关章节</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

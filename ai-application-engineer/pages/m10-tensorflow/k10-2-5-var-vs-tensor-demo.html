@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.2.5 变量与张量的区别 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能从可变性、梯度行为、生命周期三个维度区分张量与变量。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑩ TensorFlow 工程实践</a><span class="sep">/</span><a href="u10-2-graph-tensor.html">10.2 计算图、张量、会话与变量</a><span class="sep">/</span><span class="here">10.2.5 变量与张量的区别</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑩ · TensorFlow 工程实践</span>
+    <span class="tag">单元 10.2</span>
+    <span class="tag">知识点 10.2.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>变量与张量的区别</h1>
+  <p class="lede">这是高频辨析题，也是高频踩坑点。记一句话就够：张量是一次计算的产物，变量是跨计算的存储。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能从可变性、梯度行为、生命周期三个维度区分张量与变量。</li><li>能用一次实验证明：常量求梯度得 None，变量求梯度得张量。</li><li>能给模型里的八类对象正确分类。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>两道题，同一个知识点</h2>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">考题</span><h3>「张量与变量有何区别」</h3><p>背了三句话，一追问「谁会被保存」就答不上来。</p></div>
+  <div class="card mini"><span class="mini-tag">工程</span><h3>「为什么我的损失不下降」</h3><p>把权重写成了 <code>tf.constant</code>，优化器收集不到参数，fit 跑完一轮数值没变。</p></div>
+</div>
+<p class="ask">这两个问题为什么是同一个？</p>
+<p>因为都指向「谁是可训练状态」。答得出这一条，考题能答，bug 也能查。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>计算结果 vs 可擦写白板</h2>
+<p>输入、激活、损失都是「算出来的值」，算完就该固定；权重、偏置是「要被反复改写的值」，必须能原地更新并被存档。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="一个算完就固定，一个会被反复改写">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">一个算完就固定，一个会被反复改写</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">张量 tf.Tensor</text><text class="f-s" x="80" y="108">· 创建后值不可修改</text><text class="f-s" x="80" y="138">· 没有 assign 方法</text><text class="f-s" x="80" y="168">· 常量求梯度得到 None</text><text class="f-s" x="80" y="198">· 生命周期：一次计算</text><text class="f-s" x="80" y="228">· 例子：输入、中间激活、损失</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">变量 tf.Variable</text><text class="f-s" x="530" y="108">· 支持 assign / assign_add</text><text class="f-s" x="530" y="138">· 默认 trainable=True</text><text class="f-s" x="530" y="168">· 求梯度返回与形状相同的张量</text><text class="f-s" x="530" y="198">· 生命周期：跨批次、跨进程</text><text class="f-s" x="530" y="228">· 例子：权重、偏置、批归一化统计</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 10-9　一个算完就固定，一个会被反复改写</b>　对比三个维度：可变性、梯度行为、生命周期。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>判断标准只有一个：<b>它需不需要在两次计算之间被改写</b>。需要，就是变量；不需要，就是张量。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三个维度的对照</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>tf.Tensor</th><th>tf.Variable</th></tr></thead>
+  <tbody>
+    <tr><td>可变性</td><td>不可改，无 assign</td><td>可 assign / assign_add</td></tr>
+    <tr><td>梯度</td><td>对常量求梯度返回 None</td><td>返回同形状张量</td></tr>
+    <tr><td>生命周期</td><td>一次计算，随引用消失</td><td>跨批次、跨进程，可保存</td></tr>
+    <tr><td>典型对象</td><td>输入、激活、损失、预测</td><td>权重、偏置、BN 统计量</td></tr>
+  </tbody>
+</table>
+</div>
+<p>注意「对常量求梯度返回 None」不是 bug：常量不是待优化对象，框架没有理由为它保留梯度。变量则因为 <code>trainable=True</code>，被 <code>GradientTape</code> 特殊对待。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>一次对照实验</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>var_vs_tensor.py</span></div>
+<pre><code>import tensorflow as tf
+
+t = tf.constant([2.0, 3.0])
+v = tf.Variable([2.0, 3.0])
+
+print(&quot;tensor 有 assign:&quot;, hasattr(t, &quot;assign&quot;))
+print(&quot;variable 有 assign:&quot;, hasattr(v, &quot;assign&quot;))
+
+with tf.GradientTape() as tape:
+    y_t = tf.reduce_sum(t * t)
+print(&quot;常量梯度:&quot;, tape.gradient(y_t, t))
+
+with tf.GradientTape() as tape2:
+    y_v = tf.reduce_sum(v * v)
+print(&quot;变量梯度:&quot;, tape2.gradient(y_v, v).numpy().tolist())</code></pre>
+</div>
+<p>两个 <code>GradientTape</code> 必须分开建：一个 tape 只能求一次梯度，重复调用会返回 <code>None</code> 或报错。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>实测读数与分布图</h2>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>实测输出 · TF 2.21.0 / Python 3.13.14</span></div>
+<pre><code>tensor 有 assign: False
+variable 有 assign: True
+常量梯度: None
+变量梯度: [4.0, 6.0]</code></pre>
+</div>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="模型里的值，分四类看">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">模型里的值，分四类看</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">对象</text><text class="f-t" x="282.0" y="98">可修改</text><text class="f-t" x="492.0" y="98">有梯度</text><text class="f-t" x="702.0" y="98">要保存</text><rect class="f-b3" x="60" y="112.0" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="135.8">输入 x</text><text class="f-s" x="282.0" y="135.8">否</text><text class="f-s" x="492.0" y="135.8">通常否</text><text class="f-s" x="702.0" y="135.8">否</text><rect class="f-b3" x="60" y="149.6" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="173.4">权重 w / 偏置 b</text><text class="f-s" x="282.0" y="173.4">是</text><text class="f-s" x="492.0" y="173.4">是</text><text class="f-s" x="702.0" y="173.4">是</text><rect class="f-b3" x="60" y="187.2" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="211.0">中间激活</text><text class="f-s" x="282.0" y="211.0">否</text><text class="f-s" x="492.0" y="211.0">是（对上游）</text><text class="f-s" x="702.0" y="211.0">否</text><rect class="f-b3" x="60" y="224.8" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="248.60000000000002">损失 / 预测</text><text class="f-s" x="282.0" y="248.60000000000002">否</text><text class="f-s" x="492.0" y="248.60000000000002">是（对参数）</text><text class="f-s" x="702.0" y="248.60000000000002">否</text><rect class="f-b3" x="60" y="262.4" width="840" height="37.6" rx="0"/><text class="f-s" x="72.0" y="286.2">超参数</text><text class="f-s" x="282.0" y="286.2">训练中否</text><text class="f-s" x="492.0" y="286.2">无关</text><text class="f-s" x="702.0" y="286.2">写进配置</text><text class="f-s" x="60" y="328.0">只有「可修改 + 有梯度 + 要保存」的那一行，才用 Variable。</text>
+</svg><figcaption><b>图 10-19　模型里的值，分四类看</b>　只有「可修改 + 有梯度 + 要保存」的那一行，才用 Variable。</figcaption></figure>
+<div class="grid grid-3">
+  <div class="card mini"><span class="mini-tag">读数 1</span><h3>常量梯度 None</h3><p>不是算不出来，而是「不需要」；把它当报错去查，会白查半天。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 2</span><h3>[4.0, 6.0]</h3><p>sum(v²) 的导数是 2v，代入 [2,3] 得 [4,6]，形状与变量一致。</p></div>
+  <div class="card mini"><span class="mini-tag">读数 3</span><h3>hasattr 一眼分辨</h3><p>不确定手上是哪个类型时，先看有没有 <code>assign</code>，比 isinstance 更直观。</p></div>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>八类对象，各归一边</h2>
+<p><strong>任务：</strong>给八类对象分类，并写出理由（可变 / 有梯度 / 要保存）。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>对象</th><th>归类</th><th>理由要点</th></tr></thead>
+  <tbody>
+    <tr><td>输入特征</td><td>张量</td><td>每批不同，不保存</td></tr>
+    <tr><td>权重、偏置</td><td>变量</td><td>可改、有梯度、要存</td></tr>
+    <tr><td>中间激活</td><td>张量</td><td>反向用完即弃</td></tr>
+    <tr><td>损失、预测</td><td>张量</td><td>计算结果</td></tr>
+    <tr><td>常量、超参数</td><td>张量 / 配置</td><td>训练中不改</td></tr>
+  </tbody>
+</table>
+</div>
+<p>（八类里的「偏置」与「权重」拆开数，「预测」与「损失」拆开数，正好八项。）</p>
+<p><strong>追问：</strong>① 批归一化的滑动均值为什么是变量却不是 trainable？② 如果把输入也建成变量，会带来什么后果？</p>
+<p><strong>验收：</strong>八项分类与三项属性一致；能解释「可保存」不等于「可训练」。</p>
+</section>
+<p class="sidenote">注：本页代码与「实测输出」的运行口径为 tensorflow-cpu 2.21.0 + Keras 3.15.1 + Python 3.13.14（Windows 原生 CPU，独立虚拟环境，未安装 GPU 版），结果来自本机实际运行，可直接复现。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k10-3-1-load-data.html">10.3.1 装载数据：tf.data 管道</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k10-2-4-variable.html"><span class="p-label">← 上一知识点 10.2.4</span><span class="p-title">变量：可训练的状态</span></a><a class="next" href="k10-3-1-load-data.html"><span class="p-label">下一知识点 10.3.1 →</span><span class="p-title">装载数据：tf.data 管道</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑩ TensorFlow 工程实践 ｜ 三(十)3 · 变量与张量的区别</dd>
+    <dt>页面编号 / 路径</dt><dd>10.2.5 ｜ <span class="path">pages/m10-tensorflow/k10-2-5-var-vs-tensor-demo.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k10-2-4-variable.html"><b>10.2.4</b>变量：可训练的状态</a><a class="xlink" href="k10-2-2-tensor.html"><b>10.2.2</b>张量：形状、类型与秩</a><a class="xlink" href="k10-3-3-train.html"><b>10.3.3</b>训练模型：编译与 fit</a><a class="xlink" href="u10-2-graph-tensor.html"><b>10.2</b>计算图、张量、会话与变量（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k10-2-5（本页图 10-9）、k10-2-5-b（图 10-19）；知识库 M10-S3-02、M10-S3-04、M10-S3-05；输出为本机实测。 ｜ 知识库条目：M10-S3-02《张量》（filled）、M10-S3-04《创建变量》（filled）、M10-S3-05《变量与张量的区别》（filled） ｜ 参考来源：S150 TensorFlow 官方文档；S158 tf.Variable 指南</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

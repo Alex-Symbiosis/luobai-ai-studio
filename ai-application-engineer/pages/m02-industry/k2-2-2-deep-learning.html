@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2.2 深度学习：用多层表示替代手工特征 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清特征工程与表示学习的分界：是谁在决定「看什么」，参数是否随数据更新。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块② 人工智能产业发展概况</a><span class="sep">/</span><a href="u2-2-technology-layer.html">2.2 技术层：五类使能技术</a><span class="sep">/</span><span class="here">2.2.2 深度学习：用多层表示替代手工特征</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲② · 人工智能产业发展概况</span>
+    <span class="tag">单元 2.2</span>
+    <span class="tag">知识点 2.2.2</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>深度学习：用多层表示替代手工特征</h1>
+  <p class="lede">同一条产线，工程师写了二十个特征，调了三个月；换成八千张标注图，网络自己决定看什么。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清特征工程与表示学习的分界：是谁在决定「看什么」，参数是否随数据更新。</li><li>能对照两条路线在样本量、算力、换场景、可解释性上的代价。</li><li>能算清一笔标注与推理的账，并指出换型后精度下降该先查什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>二十个特征</h2>
+<p>一条金属件产线要做表面缺陷检测。老办法是工程师写特征：灰度均值、边缘密度、纹理熵、连通域面积，一共二十维，交给分类器。规则调了三个月，划痕检得出，反光一强就误报。</p>
+<p>换深度学习，标了八千张图，网络自己学。漏检从 12% 降到 3.5%，工程师不再决定「看什么」。可产线换型号，新零件只有三百张图，直接套用又掉回 18%。</p>
+<p class="ask">特征由谁定，为什么决定了这套系统的天花板？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>谁决定看什么</h2>
+<p>分界只有一句：<strong>特征工程是人把领域知识写成列，表示学习是把「看什么」交给可训练的参数。</strong></p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="每一层表示，都由数据自己学出来">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">每一层表示，都由数据自己学出来</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">原始输入</text><text class="f-s" x="430" y="87.0">像素、波形、文本</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">低层表示</text><text class="f-s" x="430" y="151.0">边缘、笔画、音素</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">中层表示</text><text class="f-s" x="430" y="215.0">部件、词组、片段</text><rect class="f-b" x="120" y="246" width="720" height="56" rx="8"/><text class="f-t" x="146" y="279.0">高层语义</text><text class="f-s" x="430" y="279.0">对象、意图、类别</text><text class="f-s" x="120" y="336">手工特征是告诉机器看什么；深度学习的每一层，都是自己学出来的表示。</text>
+</svg><figcaption><b>图 2-15　每一层表示，都由数据自己学出来</b>　手工特征是告诉机器看什么；深度学习的每一层，都是自己学出来的表示。</figcaption></figure>
+<p>网络的每一层都是一次表示变换：像素进来，低层学到边缘和色块，中层拼出划痕、凹坑这样的部件，高层才对应「合格 / 不合格」。这些中间层没有人工命名，是训练目标逼出来的。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一件事：由谁决定「看什么」">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一件事：由谁决定「看什么」</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">手工特征工程</text><text class="f-s" x="80" y="108">· 人来决定看什么</text><text class="f-s" x="80" y="138">· 边缘、纹理、词频</text><text class="f-s" x="80" y="168">· 依赖领域经验</text><text class="f-s" x="80" y="198">· 换场景要重新设计</text><text class="f-s" x="80" y="228">· 特征可解释</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">端到端表示学习</text><text class="f-s" x="530" y="108">· 模型自己学表示</text><text class="f-s" x="530" y="138">· 多层堆叠逐级抽象</text><text class="f-s" x="530" y="168">· 依赖数据与算力</text><text class="f-s" x="530" y="198">· 换场景可微调</text><text class="f-s" x="530" y="228">· 中间层难解释</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 2-16　同一件事：由谁决定「看什么」</b>　人定特征可解释、样本省；模型学表示省事，代价是数据、算力与黑箱。</figcaption></figure>
+<p>辅图把两条路的代价摆在一起：手工特征可解释、样本省，但换场景要重新设计；端到端省掉特征设计，换来的是对数据和算力的硬依赖，以及中间层难以解释。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>两条路</h2>
+<p>判断一个系统属于哪条路，看两点：特征是人工列出来的，还是随参数一起更新的；换数据时改的是特征表，还是权重。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>环节</th><th>手工特征</th><th>表示学习</th></tr></thead>
+  <tbody>
+    <tr><td>看什么</td><td>人定</td><td>模型学</td></tr>
+    <tr><td>输入</td><td>结构化列</td><td>原始像素、波形、文本</td></tr>
+    <tr><td>样本需求</td><td>百到千级</td><td>万级以上</td></tr>
+    <tr><td>算力</td><td>CPU 可跑</td><td>训练要 GPU</td></tr>
+    <tr><td>换场景</td><td>重写特征</td><td>微调权重</td></tr>
+    <tr><td>解释</td><td>每个特征有含义</td><td>需额外手段</td></tr>
+  </tbody>
+</table>
+</div>
+<p>深度学习是机器学习的一支，区别不在「深」，而在表示由多层可微变换复合而成。层数只是结果：要拟合复杂边界，单层不够，才堆深。</p>
+<p>产业上它已是最成熟的一层：视觉、语音、自然语言的主力方案都建在这上面。成熟不等于通用，样本少、要求逐条解释的场景，规则和传统模型仍占多数。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>数据与算力</h2>
+<p>两条依赖必须提前算清。<strong>数据</strong>不只是数量，还有分布覆盖。产线只拍过白班，夜班灯光下的样本一张没有，模型上线就当没见过。长尾缺陷可能只有几十张，靠加数据解决不了，要靠合成、迁移或异常检测。</p>
+<p><strong>算力</strong>分训练与推理两段：训练要 GPU 集群，推理可以裁剪、量化、蒸馏后放到边缘盒子。产业分工也沿这条线切开，供应商大致四类：开源框架与工具链、算力与云服务、数据标注与清洗、行业模型与系统集成。</p>
+<p>选型时先问一句「谁负责数据分布」。这一项没人在合同里写清，项目后期一定扯皮：现场新增一种缺陷，算谁的交付范围？</p>
+<p><strong>易错点：</strong>把「套一个预训练模型」当成落地。预训练解决的是通用表示，你的缺陷定义、判定口径、误检代价，仍然要拿自己的数据对齐。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>一笔标注账</h2>
+<p>把那条产线的账摊开算，依赖关系就具体了。</p>
+<p>八千张标注图，按每张三十秒计，约六十七小时；两人并行也要四天。漏检从 12% 降到 3.5%，若月产十万件，每月少漏 8500 件，返工与客诉的下降足以覆盖标注投入。</p>
+<p>换型号是另一笔账。新零件三百张图，直接推理漏检 18%，比老方案还差；用三百张微调后回到 5%。这说明表示可以迁移，判定边界仍要重新对齐。迁移学习省的是标注量，不是标注这件事本身。</p>
+<p>还有一笔常被漏掉：推理侧。产线节拍 200 毫秒一件，模型在服务器上跑 80 毫秒，看着够；加上图像传输与预处理，实际 190 毫秒，余量只剩 10 毫秒。工程上要么裁剪模型，要么换边缘卡，这属于部署问题，不是算法问题。</p>
+<p><strong>易错点：</strong>只报「准确率 96.5%」，不报漏检率与误检率。缺陷检测里两类错误代价差一个量级，单一准确率会把最贵的错误藏起来。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>三个场景</h2>
+<p><strong>任务：</strong>下面三个场景，判断该用特征工程还是表示学习，并写出依据与最大风险。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>场景</th><th>数据条件</th><th>选择</th><th>最大风险</th></tr></thead>
+  <tbody>
+    <tr><td>贷款违约预测</td><td>3000 行、40 列结构化数据</td><td>？</td><td>？</td></tr>
+    <tr><td>屏幕划痕检测</td><td>5 万张标注图</td><td>？</td><td>？</td></tr>
+    <tr><td>小批量定制品外观检测</td><td>每款 200 张，款式常换</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 三千行表格数据，深度学习一定更好吗？② 只有正样本、没有缺陷样本时，还能训分类器吗？③ 换型后精度下降，先查数据还是先查模型？</p>
+<p><strong>验收：</strong>三个选择都能落到「样本量、数据形态、解释要求」三条依据上。层与层怎么算，见 <a href="../m06-neural-nets/k6-5-1-deep-learning.html">深度学习</a>；特征怎么构造，见 <a href="../m03-ml-basics/k3-5-1-feature-engineering.html">特征工程</a>。下一节换一种输入：人的生理特征，见 <a href="../m02-industry/k2-2-3-biometrics.html">生物特征识别</a>。</p>
+</section>
+<p class="sidenote">注：本模块只整理产业结构与可核对规格，不引用未标口径的市场规模数字；知识库 M02 13 条已建库（filled，2026-11-19），页面按条目口径撰写，图为自绘。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k2-2-3-biometrics.html">2.2.3 生物特征识别：用「你是谁」做钥匙</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k2-2-1-decision-management.html"><span class="p-label">← 上一知识点 2.2.1</span><span class="p-title">决策管理：把专家规则变成可执行策略</span></a><a class="next" href="k2-2-3-biometrics.html"><span class="p-label">下一知识点 2.2.3 →</span><span class="p-title">生物特征识别：用「你是谁」做钥匙</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块② 人工智能产业发展概况 ｜ 三(二)2 · 深度学习技术的概念及特点</dd>
+    <dt>页面编号 / 路径</dt><dd>2.2.2 ｜ <span class="path">pages/m02-industry/k2-2-2-deep-learning.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k2-2-1-decision-management.html"><b>2.2.1</b>决策管理：把专家规则变成可执行策略</a><a class="xlink" href="k2-2-3-biometrics.html"><b>2.2.3</b>生物特征识别：用「你是谁」做钥匙</a><a class="xlink" href="k2-1-2-gpu-parallel.html"><b>2.1.2</b>GPU：用并行吞吐换时间</a><a class="xlink" href="u2-2-technology-layer.html"><b>2.2</b>技术层：五类使能技术（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k2-2-2（本页图 2-15）、k2-2-2-b（图 2-16）；知识库 M02-S2-02《深度学习技术的概念及特点》（filled）。 ｜ 知识库条目：M02-S2-02《深度学习技术的概念及特点》（filled） ｜ 参考来源：LeCun、Bengio、Hinton《Deep Learning》（Nature，2015）关于表示学习的表述；PyTorch 官方文档；公开工业质检实践口径；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.6.4 三要素的现状：三根柱子各有天花板 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能分别说出数据、算力、算法三方面的主要约束与可观测信号。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块① 人工智能概述</a><span class="sep">/</span><a href="u1-6-new-millennium.html">1.6 新千年：数据、算力、算法三要素</a><span class="sep">/</span><span class="here">1.6.4 三要素的现状：三根柱子各有天花板</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲① · 人工智能概述</span>
+    <span class="tag">单元 1.6</span>
+    <span class="tag">知识点 1.6.4</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>三要素的现状：三根柱子各有天花板</h1>
+  <p class="lede">三要素推动了二十年的跃迁，也各自撞上约束。数据不再是「越多越好」，算力不再是「买了就有」，算法的规模收益也在变薄。判断一个团队该往哪投，先看它卡在哪一根柱子上。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能分别说出数据、算力、算法三方面的主要约束与可观测信号。</li><li>能解释边际收益递减为什么要用「最短的那根柱子」来判断投向。</li><li>能为一个小团队写出有依据的资源优先级建议。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>继续堆规模，还是先算边际</h2>
+<p>同一个团队，两种预算思路：</p>
+<div class="grid grid-2">
+  <div class="card mini"><span class="mini-tag">做法 A</span><h3>按比例放大</h3><p>把路线理解成「参数更多、数据更多、卡更多」，预算按三项等比放大，认为规模本身就是答案；指标不涨，就再放大一轮。</p></div>
+  <div class="card mini"><span class="mini-tag">做法 B</span><h3>先算边际收益</h3><p>分别估算再加一份数据、再加一批卡、再改一次算法各自能带来多少提升，把预算投到边际收益最高的那一项，并按季度重估。</p></div>
+</div>
+<p class="ask">两条路都在用三要素，为什么一条越走越贵，一条越走越省？</p>
+<p>因为三要素的边际收益不是常数。任何一项投入越过某个点，新增投入换来的提升都会变小。不看边际，就会把「还没到顶」当成「永远不到顶」，最后用两倍成本换回一点指标。边际收益不是感觉，是可以估的：再加一批数据，指标能涨多少；再加一批卡，训练能快多少。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>三条腿的凳子</h2>
+<p>给三条腿的凳子加长一条腿，凳子不会更高，只会更晃。要让凳子升高，三条腿得交替加长，而且每一次加长的收益都比上一次小。三要素也是这样：单独猛加一项，另外两项会把收益吃掉；三项一起加，也会遇到收益递减。凳子要升高，得先量出哪条腿最短；团队要提效，也得先量出哪一项在拖后腿，而不是按习惯给最熟悉的那一项加钱。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="三根柱子各有天花板">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">三根柱子各有天花板</text><rect class="f-b2" x="120" y="54" width="720" height="56" rx="8"/><text class="f-t" x="146" y="87.0">数据</text><text class="f-s" x="430" y="87.0">高质量标注稀缺，长尾覆盖不足</text><rect class="f-b" x="120" y="118" width="720" height="56" rx="8"/><text class="f-t" x="146" y="151.0">算力</text><text class="f-s" x="430" y="151.0">训练成本与能耗上升，供给受约束</text><rect class="f-b" x="120" y="182" width="720" height="56" rx="8"/><text class="f-t" x="146" y="215.0">算法</text><text class="f-s" x="430" y="215.0">规模收益递减，评测与可靠性仍是短板</text><text class="f-s" x="120" y="272">下一步竞争在效率与可靠性，不只在规模；这三个约束要一起看。</text>
+</svg><figcaption><b>图 1-28　三根柱子各有天花板</b>　数据、算力、算法各有一条限制线：数据受质量与覆盖，算力受成本与能耗，算法受规模收益与可靠性。</figcaption></figure>
+<div class="callout callout--def">
+  <span class="c-label">直觉结论</span>
+  <p>瓶颈不是一个固定项，而是「此刻最短的那根柱子」；它随投入变化而移动，所以要定期重估，而不是一次定终身。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三方面约束与可观测信号</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>方面</th><th>主要约束</th><th>可观测信号</th><th>常见应对</th></tr></thead>
+  <tbody>
+    <tr><td>数据</td><td>高质量标注稀缺、长尾覆盖不足、授权与合规成本上升</td><td>新增数据带来的指标提升变小；标注一致性下降</td><td>数据清洗与合成、主动学习、领域数据合作</td></tr>
+    <tr><td>算力</td><td>训练成本与能耗上升，供给受采购与供电条件约束</td><td>单次训练成本上升、排队时间变长</td><td>混合精度、分布式效率优化、按需租用</td></tr>
+    <tr><td>算法</td><td>规模收益递减，评测与可靠性仍是短板</td><td>参数翻倍但基准提升有限；上线后错误类型集中</td><td>蒸馏与量化、小模型专用化、评测与对齐投入</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="callout callout--def">
+  <span class="c-label">形式化表述</span>
+  <p>设现有投入向量为 (D, P, A)，能力增益对每一项的偏导都在下降。下一步该投哪一项，取决于三项中偏导最小者；截至 2026-11，多数团队的最短板落在高质量数据与推理成本上，而不是训练算力本身。</p>
+</div>
+<p>表里没有「最优投入比例」这一列：比例取决于任务、预算与已有积累，只能估，不能照抄别人的配置。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>约束会互相传导</h2>
+<p>三方面的约束不是各自独立，而是沿着同一条链互相传导：</p>
+<div class="steps">
+  <div class="step"><b>数据侧收紧</b><span>2020 年代以来，可公开采集的通用语料增速放缓，剩下的是需要授权、清洗与专家标注的领域数据，长尾场景样本仍然稀薄。</span></div>
+  <div class="step"><b>算力侧变贵</b><span>单次大模型训练的成本与能耗上升，供给受采购、供电与机房条件约束，租用价格随需求波动。</span></div>
+  <div class="step"><b>算法侧变钝</b><span>同一架构继续放大参数，基准提升幅度收窄；同时评测、对齐与可靠性问题暴露得更清楚。</span></div>
+  <div class="step"><b>重心转向效率</b><span>蒸馏、量化、稀疏化、检索增强与专用小模型，把「同等能力下的成本」当成新目标。</span></div>
+</div>
+<p>传导的方向很关键：数据质量下降会放大算力投入的浪费，因为模型会更快地学到噪声；推理成本高企会压低算法的试错空间，因为每次上线都在亏钱。所以预算不能逐项单独优化，要先找出被卡住的那一环。判断方法很朴素：看新增投入之后，指标是立刻变好、慢慢变好，还是干脆不动。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>从「谁更大」到「同等能力花多少」</h2>
+<p>2020 年代以来，多家机构在模型卡与技术报告中披露训练算力与成本量级，公开讨论的重心从「谁的模型更大」转向「同等能力要花多少」。这一转向本身就是瓶颈移动的证据：当规模不再是唯一卖点，效率与可靠性就会被单独拿出来计价。</p>
+<p>把三方面约束放进同一个团队看：如果标注一致性已经在下降，再加卡只会让模型更快地学到噪声；如果推理成本已经高于业务收入，再训一版更大的模型只会扩大亏损。约束之间会互相传导，不能逐项单算。</p>
+<p>因此，讨论「三要素还能走多远」时，更可操作的问题是：这个团队下一份预算投在哪一项，能在三个月内被观测到。答不上来，说明瓶颈还没有被定位，只是被感觉到。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给五人团队排优先级</h2>
+<p><strong>任务：</strong>为一个 5 人团队写一份「数据 / 算力 / 算法」投入优先级建议，按你的判断排序并给出理由。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>优先级</th><th>投向</th><th>判断依据（对应哪条约束）</th><th>三个月内可观测的结果</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p>排序不分对错，但理由必须落到上面表格里的某一类信号，例如「标注一致性下降」「推理成本高于收入」。若三条理由都指向同一类信号，说明团队其实只有一个瓶颈，另外两项的排序可以先空着。</p>
+<p><strong>追问：</strong>① 如果团队的数据全部来自合作方，数据这一项该算「约束」还是「风险」？② 效率路线（蒸馏、量化）应该算进算法，还是单列一项？</p>
+<p><strong>自检：</strong>三条建议都与具体约束对应，且各写出一个三个月内可观测的结果，即达标；只写「加大投入」而没有判断依据，需要重做。</p>
+</section>
+<p class="sidenote">注：本页涉及的数值均为教学示意，用于说明机制，非真实实验记录。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k1-7-1-us-strategy.html">1.7.1 美国：市场驱动，政府补基础与早期需求</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k1-6-3-features-vs-representation.html"><span class="p-label">← 上一知识点 1.6.3</span><span class="p-title">两条路线：人找特征，还是模型学特征</span></a><a class="next" href="k1-7-1-us-strategy.html"><span class="p-label">下一知识点 1.7.1 →</span><span class="p-title">美国：市场驱动，政府补基础与早期需求</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块① 人工智能概述 ｜ 三(一)2 · 新千年人工智能的发展特点（现状）</dd>
+    <dt>页面编号 / 路径</dt><dd>1.6.4 ｜ <span class="path">pages/m01-ai-overview/k1-6-4-bottlenecks.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k1-6-3-features-vs-representation.html"><b>1.6.3</b>两条路线：人找特征，还是模型学特征</a><a class="xlink" href="k1-7-1-us-strategy.html"><b>1.7.1</b>美国：市场驱动，政府补基础与早期需求</a><a class="xlink" href="u1-6-new-millennium.html"><b>1.6</b>新千年：数据、算力、算法三要素（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k1-6-4（本页图 1-28）；知识库 M01-S2-03。 ｜ 知识库条目：M01-S2-03《新千年人工智能的发展特点》（filled） ｜ 参考来源：S04 国务院《新一代人工智能发展规划》（2017）；S27 Krizhevsky et al.《ImageNet Classification with Deep Convolutional Neural Networks》（2012）；S21 Vaswani et al.《Attention Is All You Need》（2017）；S02 Russell & Norvig《AIMA》第 4 版（2021）</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.5.5 四条技术路线：NLIDB、IRQA、KBQA、CommunityQA · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说出四条路线各自的知识源、映射方式与答案形态。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑦ 知识图谱与语义应用</a><span class="sep">/</span><a href="u7-5-semantic-qa.html">7.5 语义搜索与知识问答</a><span class="sep">/</span><span class="here">7.5.5 四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑦ · 知识图谱与语义应用</span>
+    <span class="tag">单元 7.5</span>
+    <span class="tag">知识点 7.5.5</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>四条技术路线：NLIDB、IRQA、KBQA、CommunityQA</h1>
+  <p class="lede">知识存在表、文档、图谱还是人身上，决定了问答系统该走哪条路。先看知识在哪，再选技术。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说出四条路线各自的知识源、映射方式与答案形态。</li><li>能给每条路线各举一个适用场景与一个失效场景。</li><li>能为一组业务问题分派路线，并说明理由。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>四个问题四张底牌</h2>
+<p>同一家公司，四个真实问题，答案藏在四个地方。</p>
+<p>「各部门上季度预算执行率多少」——在财务系统的表里；「采购制度里差旅报销上限是多少」——在制度文档的某一节；「星海科技收购了哪些公司」——在供应商与投资关系图里；「这款打印机卡纸怎么修」——在用户社区的帖子里。</p>
+<p>四个问题都能叫「知识问答」，但底层知识源完全不同。用一套方法硬套四个问题，通常三个会失败。路线选择的第一步，是问知识到底存在哪。</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>四条路线一图</h2>
+<p>四条路线的名字，正好对应四种知识源。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="四条问答路线，取决于知识存在哪">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="60" y="42">四条问答路线，取决于知识存在哪</text><rect class="f-b2" x="60" y="74" width="840" height="38" rx="7"/><text class="f-t" x="72.0" y="98">路线</text><text class="f-t" x="282.0" y="98">知识源</text><text class="f-t" x="492.0" y="98">映射方式</text><text class="f-t" x="702.0" y="98">答案形态</text><rect class="f-b3" x="60" y="112" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="139.0">NLIDB</text><text class="f-s" x="282.0" y="139.0">结构化表</text><text class="f-s" x="492.0" y="139.0">问句转 SQL</text><text class="f-s" x="702.0" y="139.0">表格结果</text><rect class="f-b3" x="60" y="156" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="183.0">IRQA</text><text class="f-s" x="282.0" y="183.0">文档集合</text><text class="f-s" x="492.0" y="183.0">问句转检索片段</text><text class="f-s" x="702.0" y="183.0">段落摘取</text><rect class="f-b3" x="60" y="200" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="227.0">KBQA</text><text class="f-s" x="282.0" y="227.0">知识图谱</text><text class="f-s" x="492.0" y="227.0">问句转查询图</text><text class="f-s" x="702.0" y="227.0">实体或数值</text><rect class="f-b3" x="60" y="244" width="840" height="44" rx="0"/><text class="f-s" x="72.0" y="271.0">CommunityQA</text><text class="f-s" x="282.0" y="271.0">问答社区</text><text class="f-s" x="492.0" y="271.0">问句匹配历史问</text><text class="f-s" x="702.0" y="271.0">他人回答</text><text class="f-s" x="60" y="316">先看知识存在表、文档、图谱还是人身上，再选路线，不要反过来。</text>
+</svg><figcaption><b>图 7-28　四条问答路线，取决于知识存在哪</b>　NLIDB 对表、IRQA 对文档、KBQA 对图谱、CommunityQA 对社区历史问答。</figcaption></figure>
+<p>横着读这张表：知识源决定映射方式，映射方式决定答案形态。表里没有「哪条最好」这一列，因为四条路线解决的是不同问题，不是同一问题的不同解法。</p>
+<div class="callout callout--def">
+  <span class="c-label">选择顺序</span>
+  <p>先看知识源，再看问句形态，最后看答案要求。顺序反过来——先挑技术再找数据——项目大概率停在数据准备阶段。</p>
+</div>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>路线怎么定</h2>
+<p><strong>NLIDB（自然语言接口数据库）：</strong>把问句转成 SQL 等查询语言，在关系表上执行，返回表格结果。适合指标明确、schema 稳定的场景。</p>
+<p><strong>IRQA（信息检索问答）：</strong>把问句当查询，先检索文档片段，再从片段里抽取或生成答案。适合答案藏在自然语言段落里的场景。</p>
+<p><strong>KBQA（知识库问答）：</strong>把问句映射为查询图或 SPARQL，在知识图谱上匹配子图，返回实体、数值或列表。适合实体关系清晰、需要多跳的场景。</p>
+<p><strong>CommunityQA（社区问答）：</strong>把问句与历史问答匹配，返回他人写过的答案。适合经验型、长尾、主观的问题。</p>
+<p>四者可以组合：先用 KBQA 定位实体，再用 IRQA 找段落佐证，是常见做法。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>适用与失效</h2>
+<p>每条路线都有明确的边界，边界外硬用就会失效。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>路线</th><th>适用</th><th>失效场景</th></tr></thead>
+  <tbody>
+    <tr><td>NLIDB</td><td>表结构稳定、问题可枚举、指标口径清楚</td><td>口语省略多、跨多库、需要常识推理</td></tr>
+    <tr><td>IRQA</td><td>文档型知识、答案在段落内、开放域</td><td>多跳聚合、精确数值、需要计算</td></tr>
+    <tr><td>KBQA</td><td>实体关系明确、图谱覆盖好、需要多跳</td><td>图谱没覆盖、开放域、主观评价</td></tr>
+    <tr><td>CommunityQA</td><td>经验型、长尾、主观问题</td><td>新问题无历史、答案过时、质量不可控</td></tr>
+  </tbody>
+</table>
+</div>
+<p>失效往往不在算法，而在数据前提。NLIDB 失效常因为表里根本没有那个字段；KBQA 失效常因为图谱没建那条边；CommunityQA 失效常因为问题太新，社区还没人问过。</p>
+<p>因此工程上要准备降级：KBQA 查不到就转 IRQA 找文档，IRQA 也空就明确告知缺口。降级链要写进设计，而不是等上线后补。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>同一业务分派</h2>
+<p>假设一批 100 个业务问题，按知识源粗分：40 个文档型、30 个图谱型、20 个表格型、10 个经验型。这不是实测分布，是用来练习分派的假设。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>路线</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td>差旅报销上限是多少</td><td>IRQA</td><td>答案在制度文档的一段里</td></tr>
+    <tr><td>星海科技收购了哪些公司</td><td>KBQA</td><td>答案是一条出边，可多跳</td></tr>
+    <tr><td>上季度各部门预算执行率</td><td>NLIDB</td><td>指标与表字段一一对应</td></tr>
+    <tr><td>打印机卡纸怎么修</td><td>CommunityQA</td><td>经验型，历史帖子有答案</td></tr>
+  </tbody>
+</table>
+</div>
+<p>两个常见误配：拿 KBQA 硬答文档型问题，图谱里没有这条边，只能返回空；把 CommunityQA 的答案当权威，用户三年前的回答可能早已失效。前者是路线错，后者是治理缺。</p>
+<div class="callout callout--warn">
+  <span class="c-label">路线不是身份</span>
+  <p>一个系统可以同时具备四条链路，按问句路由。把系统叫成「KBQA 系统」往往只是说它的主链路是图谱，不代表它不该有文档兜底。</p>
+</div>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>给四个问题选路</h2>
+<p><strong>任务：</strong>给下面四题选路线，并各写一个失效条件。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>问题</th><th>路线</th><th>什么情况下失效</th></tr></thead>
+  <tbody>
+    <tr><td>公司有哪些供应商位于苏州</td><td>？</td><td>？</td></tr>
+    <tr><td>安全生产条例第几条讲动火作业</td><td>？</td><td>？</td></tr>
+    <tr><td>这个型号的电池续航多久</td><td>？</td><td>？</td></tr>
+    <tr><td>这款软件许可证怎么激活</td><td>？</td><td>？</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>追问：</strong>① 哪两题可能需要组合路线？② 第三题的答案若在产品参数表里，该走哪条？③ 为什么先定知识源比先定模型更稳？</p>
+<p><strong>验收：</strong>四题都有路线、理由与失效条件。三要素怎么拆，见 <a href="../m07-knowledge-graph/k7-5-4-qa-elements.html">知识问答的基本要素</a>；路线选完怎么评，见 <a href="../m07-knowledge-graph/k7-5-6-qa-eval-demo.html">问答评价</a>。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径与大纲要求撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k7-5-6-qa-eval-demo.html">7.5.6 问答评价与查询映射实战</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k7-5-4-qa-elements.html"><span class="p-label">← 上一知识点 7.5.4</span><span class="p-title">知识问答的基本要素与分类体系</span></a><a class="next" href="k7-5-6-qa-eval-demo.html"><span class="p-label">下一知识点 7.5.6 →</span><span class="p-title">问答评价与查询映射实战</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑦ 知识图谱与语义应用 ｜ 三(七)25 · NLIDB、IRQA、KBQA、CommunityQA</dd>
+    <dt>页面编号 / 路径</dt><dd>7.5.5 ｜ <span class="path">pages/m07-knowledge-graph/k7-5-5-four-routes.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k7-5-4-qa-elements.html"><b>7.5.4</b>知识问答的基本要素与分类体系</a><a class="xlink" href="k7-5-6-qa-eval-demo.html"><b>7.5.6</b>问答评价与查询映射实战</a><a class="xlink" href="k7-5-2-query-languages.html"><b>7.5.2</b>结构化查询语言：SPARQL、Cypher 与 SQL</a><a class="xlink" href="u7-5-semantic-qa.html"><b>7.5</b>语义搜索与知识问答（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k7-5-5（本页图 7-28）；知识库 M09-S8-03、S8-04（跨模块复用，filled）。 ｜ 知识库条目：M09-S8-03《知识问答的分类体系》（filled）、M09-S8-04《NLIDB、IRQA、KBQA、CommunityQA 等知识问答系统的概念及特点》（filled） ｜ 参考来源：AIMA《人工智能：一种现代的方法》；W3C SPARQL 1.1 规范；本页图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

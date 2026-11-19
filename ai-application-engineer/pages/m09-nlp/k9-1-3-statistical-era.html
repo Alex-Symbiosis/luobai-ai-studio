@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.1.3 统计时代：语料库与概率模型 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能说清语料库、n-gram、极大似然估计三者的关系。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m08-data-mining/index.html"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑨ 自然语言处理</a><span class="sep">/</span><a href="u9-1-nlp-history.html">9.1 自然语言处理的概念与发展史</a><span class="sep">/</span><span class="here">9.1.3 统计时代：语料库与概率模型</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑨ · 自然语言处理</span>
+    <span class="tag">单元 9.1</span>
+    <span class="tag">知识点 9.1.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>统计时代：语料库与概率模型</h1>
+  <p class="lede">不再问「这条规则对不对」，而是问「这种说法在语料里出现过多少次」——答案从对错变成了概率。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能说清语料库、n-gram、极大似然估计三者的关系。</li><li>能用计数和除法手算二元组概率，并解释分母为什么是前一个词的总次数。</li><li>能说明数据稀疏为什么会把整句概率压成 0，以及平滑在补什么。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>从写规则改成数频次</h2>
+<p>1990 年代，路线换了。Brown 语料库攒到百万词，Penn Treebank 给华尔街日报标上了词性和句法树，词性标注准确率从九成出头推到 97% 上下。到了 2000 年代，统计机器翻译在新闻领域取代规则系统，成了主力。</p>
+<p>这些系统里没有一条「主谓宾」规则。它们只做两件事：数语料里的频次，做除法得概率。词对齐、词性、句法结构，全都变成了「哪个候选分高」。</p>
+<p class="ask">不写规则，只数频次，凭什么能判断一句话对不对？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>同一句话，两种问法</h2>
+<p>同一句「他打开了门」，两条路线的问法不同。规则路线问：这句话符不符合文法？答案是「符合」或「不符合」。统计路线问：这句话在语料里有多可能？答案是一个 0 到 1 之间的数。</p>
+<p>变成打分之后，歧义的处理方式也变了。以前要判断哪个结构才对，现在只算每个结构的分，取高的那个。分高的不一定对，但大多数时候对，而且错了还能调。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一句「他打开了门」，两条路线">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一句「他打开了门」，两条路线</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">规则路线：人写文法</text><text class="f-s" x="80" y="108">· 词典与产生式由人维护</text><text class="f-s" x="80" y="138">· 覆盖范围内结果精确</text><text class="f-s" x="80" y="168">· 新现象要手动补规则</text><text class="f-s" x="80" y="198">· 规则冲突靠人排查</text><text class="f-s" x="80" y="228">· 系统行为完全可解释</text><rect class="f-green" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">统计路线：语料估计</text><text class="f-s" x="530" y="108">· 参数从标注语料估计</text><text class="f-s" x="530" y="138">· 没见过的组合也能打分</text><text class="f-s" x="530" y="168">· 效果随数据量提升</text><text class="f-s" x="530" y="198">· 错例要回到语料分析</text><text class="f-s" x="530" y="228">· 结论是概率，不是对错</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 9-3　规则路线与统计路线对照</b>　左边知识写在人脑里，右边知识写在语料的计数里。</figcaption></figure>
+<p>图里左右两栏不是优劣对照，而是两种知识来源。规则来自语言学家的判断，统计来自真实文本的分布。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>语料、n-gram、估计</h2>
+<p><strong>语料库</strong>是按统一规范收集的真实文本。只收原文的叫生语料，加了词性、句法、对齐标记的叫标注语料。语料的规模和标注质量，决定了统计模型的上限。</p>
+<p><strong>n-gram</strong> 假设一个词只依赖前面 n−1 个词。二元组只看前一个词，概率用极大似然估计：</p>
+<p style="text-align:center">P(w<sub>t</sub> | w<sub>t−1</sub>) = C(w<sub>t−1</sub>, w<sub>t</sub>) / C(w<sub>t−1</sub>)</p>
+<p>C 是计数。分子是这两个词连着出现的次数，分母是前一个词出现的总次数。整句概率，是每个位置条件概率的连乘。</p>
+<p>问题叫<strong>数据稀疏</strong>：没见过的组合计数为 0，概率为 0，连乘之后整句为 0。<strong>平滑</strong>就是给没见过的格子留一点概率：加一平滑把每个计数加 1，回退在二元组为零时退回一元组。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>数频次，也要看规模</h2>
+<p>做法只有两步：数频次，做除法。语料里「人工」出现 2000 次，其中后面接「智能」的有 1400 次，那么 P(智能|人工) = 0.7。</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">python</span><span>bigram_mle.py</span></div>
+<pre><code>from collections import Counter
+
+def bigram(sents, a, b):
+    uni, bi = Counter(), Counter()
+    for s in sents:
+        w = s.split()
+        uni.update(w[:-1])          # 每个词作为「前一个词」的次数
+        bi.update(zip(w[:-1], w[1:]))
+    return bi[(a, b)] / uni[a]
+
+print(round(bigram(corpus, &quot;人工&quot;, &quot;智能&quot;), 3))   # 0.7</code></pre>
+</div>
+<p>问题在规模。词表两万，二元组有四亿个格子；一百万词的语料最多填出一百万个非零格子，剩下 99.75% 是零。三元组更糟。模型没见过的组合，一律判 0。</p>
+<p>平滑的代价是参数变多、强度要调：加多了，见过的组合被拉平；加少了，没见过的还是接近 0。评价除了准确率，还看<strong>困惑度</strong>——模型对测试语料的平均「惊讶程度」，越低越有把握。</p>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>二十句话的小语料</h2>
+<p>用一份二十句的小语料，把上面的公式跑一遍。语料只有八个词反复组合，全部来自日常句子：</p>
+<div class="codeblock">
+<div class="code-head"><span class="lang">text</span><span>corpus20.txt</span></div>
+<pre><code>我 爱 读书      我 爱 写作      他 爱 读书      他 爱 写作
+我们 去 图书馆   他们 去 图书馆   我们 借 书      他们 借 书
+我 读 书        他 读 书        学生 爱 读书    老师 爱 读书
+学生 去 图书馆   老师 去 图书馆   我们 读 书      他们 读 书
+我 去 图书馆     他 去 图书馆     学生 借 书      老师 借 书</code></pre>
+</div>
+<p>「爱」出现 6 次（第 1、2、3、4、11、12 句），其中后面接「读书」的有 4 次，所以 P(读书|爱) = 4/6 ≈ 0.67；接「写作」的 2 次，P = 0.33。模型于是预测：「爱」后面最可能跟「读书」。</p>
+<p>注意「去」的后面：6 次全部接「图书馆」，算出来 P(图书馆|去) = 1.00。这不是语言规律，是语料太小。统计模型把这个 1.00 当真，一旦遇到「去 学校」就会判 0——这正是下一节要处理的问题。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>手算五个二元组</h2>
+<p><strong>任务：</strong>沿用上面二十句语料，算出下面五个二元组的概率，保留两位小数，并写出分母。</p>
+<p>1. P(爱|我)；2. P(去|我们)；3. P(图书馆|去)；4. P(读书|爱)；5. P(书|借)。</p>
+<p><strong>提示（分母）：</strong>「我」出现 4 次，「我们」3 次，「去」6 次，「爱」6 次，「借」4 次。分子回到语料里数一组相邻词。</p>
+<p><strong>参考答案：</strong>0.50、0.33、1.00、0.67、1.00。</p>
+<p><strong>验收：</strong>五个数全对，并回答一句：为什么 P(图书馆|去) = 1.00 不能当成「去」后面只能接图书馆？答对的标准是提到「语料规模小、没见过的组合被记成 0」。</p>
+<p>接着看 <a href="../m09-nlp/k9-5-2-hmm.html">HMM：三要素与两个基本问题</a>，看概率模型怎么用到序列标注上。</p>
+</section>
+<p class="sidenote">注：本页示例只用 Python 标准库，运行口径为 Python 3.13.14（Windows 原生 CPU），输出为本机实测，可直接复现。本页对应知识库条目均已建库（filled，2026-11-19），正文按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k9-1-4-neural-era.html">9.1.4 神经时代：预训练与表示学习</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k9-1-2-rule-era.html"><span class="p-label">← 上一知识点 9.1.2</span><span class="p-title">规则时代：形式语法与专家系统</span></a><a class="next" href="k9-1-4-neural-era.html"><span class="p-label">下一知识点 9.1.4 →</span><span class="p-title">神经时代：预训练与表示学习</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑨ 自然语言处理 ｜ 三(九)1 · 历史发展（统计时代）</dd>
+    <dt>页面编号 / 路径</dt><dd>9.1.3 ｜ <span class="path">pages/m09-nlp/k9-1-3-statistical-era.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k9-1-2-rule-era.html"><b>9.1.2</b>规则时代：形式语法与专家系统</a><a class="xlink" href="k9-1-4-neural-era.html"><b>9.1.4</b>神经时代：预训练与表示学习</a><a class="xlink" href="k9-5-2-hmm.html"><b>9.5.2</b>HMM：三要素与两个基本问题</a><a class="xlink" href="u9-1-nlp-history.html"><b>9.1</b>自然语言处理的概念与发展史（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 1 张：k9-1-3（本页图 9-3）；知识库 M09-S1-02《自然语言处理的历史发展》（filled）。 ｜ 知识库条目：M09-S1-02《自然语言处理的历史发展》（filled） ｜ 参考来源：Jurafsky & Martin《Speech and Language Processing》第 3 章；Chen & Goodman《An Empirical Study of Smoothing Techniques》（1999）；图为自绘。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>

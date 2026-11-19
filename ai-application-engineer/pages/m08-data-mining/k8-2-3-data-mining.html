@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.2.3 数据挖掘：在数据里找「没人告诉过你」的模式 · 落白lite &amp; AI研学社</title>
+<meta name="description" content="能用「问题起点、是否搜索假设空间、输出形态」三点区分分析与挖掘。">
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<div class="readprogress" aria-hidden="true"><i></i></div>
+<a class="skip" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="返回课程首页">
+    <span class="brand-badge" aria-hidden="true">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#1a4fb8"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#brandGrad)"/>
+        <path d="M11.5 27.5 L20 11.5 L28.5 27.5" fill="none" stroke="#ffffff" stroke-width="2.3"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="22.6" r="2.7" fill="#a7e6ff"/>
+      </svg>
+    </span>
+    <span class="brand-text"><strong>落白lite &amp; AI研学社</strong><em>AI 应用工程师 · 课程站</em></span>
+  </a>
+  <nav class="gnav" aria-label="站点与课程导航">
+    <div class="gnav-group gnav-group--site">
+      <a class="gnav-link" href="../../index.html">首页</a>
+    </div>
+    <span class="gnav-sep" aria-hidden="true"></span>
+    <div class="gnav-group gnav-group--course">
+      <a class="gnav-link" href="../../syllabus.html">大纲</a>
+      <a class="gnav-link is-active" href="../../catalog.html" aria-current="page">目录</a>
+    </div>
+    <a class="gnav-cta" href="../../pages/m01-ai-overview/u1-1-concept.html">开始学习<span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="navtoggle" type="button" aria-expanded="false" aria-controls="sidebar">模块</button>
+</header>
+<div class="tocbar"><span class="tocbar-label">本页导航</span><nav class="tocbar-nav" aria-label="页内导航"><a href="#s1">场景</a><a href="#s2">直觉</a><a href="#s3">定义</a><a href="#s4">机制</a><a href="#s5">案例</a><a href="#s6">练习</a><a href="#refs">出处</a></nav></div>
+<div class="bgdeco" aria-hidden="true"><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar"><p class="side-label">课程模块<span>按建议授课顺序排列 · 编号为授课序</span></p><ul class="modlist"><li><a class="mod" href="../m11-python/index.html"><span class="mod-seq">01</span><span class="mod-body"><span class="mod-title">Python 语言与语料工程</span><span class="mod-sub">大纲⑪ · 5 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m01-ai-overview/index.html"><span class="mod-seq">02</span><span class="mod-body"><span class="mod-title">人工智能概述</span><span class="mod-sub">大纲① · 7 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m02-industry/index.html"><span class="mod-seq">03</span><span class="mod-body"><span class="mod-title">人工智能产业发展概况</span><span class="mod-sub">大纲② · 3 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod is-current" href="index.html" aria-current="page"><span class="mod-seq">04</span><span class="mod-body"><span class="mod-title">数据挖掘与数据思维</span><span class="mod-sub">大纲⑧ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m03-ml-basics/index.html"><span class="mod-seq">05</span><span class="mod-body"><span class="mod-title">机器学习基础</span><span class="mod-sub">大纲③ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m04-stat-models/index.html"><span class="mod-seq">06</span><span class="mod-body"><span class="mod-title">统计模型与优化</span><span class="mod-sub">大纲④ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m05-ml-algorithms/index.html"><span class="mod-seq">07</span><span class="mod-body"><span class="mod-title">机器学习算法</span><span class="mod-sub">大纲⑤ · 9 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m06-neural-nets/index.html"><span class="mod-seq">08</span><span class="mod-body"><span class="mod-title">神经网络与深度学习</span><span class="mod-sub">大纲⑥ · 10 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m10-tensorflow/index.html"><span class="mod-seq">09</span><span class="mod-body"><span class="mod-title">TensorFlow 工程实践</span><span class="mod-sub">大纲⑩ · 4 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m09-nlp/index.html"><span class="mod-seq">10</span><span class="mod-body"><span class="mod-title">自然语言处理</span><span class="mod-sub">大纲⑨ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li><li><a class="mod" href="../m07-knowledge-graph/index.html"><span class="mod-seq">11</span><span class="mod-body"><span class="mod-title">知识图谱与语义应用</span><span class="mod-sub">大纲⑦ · 6 单元</span></span><span class="mod-dot is-ready" aria-hidden="true"></span></a></li></ul><div class="side-progress"><div class="sp-head"><span class="pulse-dot" aria-hidden="true"></span>课程开放进度</div><div class="sp-bar"><i style="width:100%"></i></div><p>66 / 66 个单元已开放</p></div><div class="side-foot"><span class="side-foot-label">文档</span><a href="../../README.md">站点结构说明</a></div></aside>
+<main class="main" id="main">
+<nav class="crumbs" aria-label="面包屑"><a href="../../index.html">首页</a><span class="sep">/</span><a href="../../catalog.html">课程目录</a><span class="sep">/</span><a href="index.html">模块⑧ 数据挖掘与数据思维</a><span class="sep">/</span><a href="u8-2-dm-vs-analysis.html">8.2 数据挖掘、数据分析与机器学习的分工</a><span class="sep">/</span><span class="here">8.2.3 数据挖掘：在数据里找「没人告诉过你」的模式</span></nav>
+<header class="pagehead">
+  <div class="eyebrow">
+    <span class="tag">大纲⑧ · 数据挖掘与数据思维</span>
+    <span class="tag">单元 8.2</span>
+    <span class="tag">知识点 8.2.3</span>
+    <span class="badge badge--blue">一页一知识点</span>
+  </div>
+  <h1>数据挖掘：在数据里找「没人告诉过你」的模式</h1>
+  <p class="lede">分析回答你提出的问题，挖掘提出的，是你没想到要问的那一个。</p>
+  <div class="pathline" aria-label="本页认知路线">
+    <span>认知路线</span>
+    <span class="pl">真实问题</span><span class="arr">→</span>
+    <span class="pl">直觉类比</span><span class="arr">→</span>
+    <span class="pl">形式化定义</span><span class="arr">→</span>
+    <span class="pl">结构与机制</span><span class="arr">→</span>
+    <span class="pl is-key">案例</span><span class="arr">→</span>
+    <span class="pl">练习</span>
+  </div>
+</header>
+<section class="objectives">
+  <h2>学习目标</h2>
+  <ol><li>能用「问题起点、是否搜索假设空间、输出形态」三点区分分析与挖掘。</li><li>能说出搜索规模为什么会制造伪相关，以及如何用留出数据排除。</li><li>能说明挖掘结果为什么只能算候选，验证要回到业务与数据。</li></ol>
+</section>
+
+<section class="sec" id="s1"><h2><span class="sec-num">01</span>还有什么我们不知道的</h2>
+<p>报表看完了，分析也做完了，老板问：还有什么我们不知道的？这句话没有假设、没有指标、没有预设切片，正是挖掘的起点。</p>
+<p>还是那 42 万条订单。这次不先问「为什么」，而是让算法把商品对、会员组合、异常单据铺开，再由人挑出值得跟进的少数，逐条验证。</p>
+<p class="ask">「没有假设」为什么反而需要更严的验证？</p>
+</section>
+<section class="sec" id="s2"><h2><span class="sec-num">02</span>考古，而不是查账</h2>
+<p>查账是先知道要找什么，再翻凭证；考古是先挖，挖出来再判断是什么。分析和挖掘的方向正好相反：分析收敛，从一个问题缩到一条结论；挖掘先发散再收敛。</p>
+<figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="同一个数据集，两种问法">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94aecd"/></marker></defs><text class="f-h" x="60" y="26">同一个数据集，两种问法</text><rect class="f-b" x="60" y="44" width="390" height="286" rx="12"/><text class="f-t" x="80" y="76">数据分析</text><text class="f-s" x="80" y="108">· 先有假设再找证据</text><text class="f-s" x="80" y="138">· 问题由人提出</text><text class="f-s" x="80" y="168">· 结果用来解释过去</text><text class="f-s" x="80" y="198">· 口径清楚就能复算</text><text class="f-s" x="80" y="228">· 边界由业务经验定</text><rect class="f-amber" x="510" y="44" width="390" height="286" rx="12"/><text class="f-t" x="530" y="76">数据挖掘</text><text class="f-s" x="530" y="108">· 先让数据自己说话</text><text class="f-s" x="530" y="138">· 模式可能出人意料</text><text class="f-s" x="530" y="168">· 结果多是候选规则</text><text class="f-s" x="530" y="198">· 要验证是不是偶然</text><text class="f-s" x="530" y="228">· 边界由数据分布定</text><path class="f-dash" d="M470 60 L470 316"/>
+</svg><figcaption><b>图 8-13　同一个数据集，两种问法</b>　先有假设还是先让数据说话，是分析与挖掘的分水岭。</figcaption></figure><figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="数据挖掘是 KDD 的第四步，不是全部">
+<style>
+.f-b{fill:#f6f9ff;stroke:#cfe0ff;stroke-width:1.4}
+.f-b2{fill:#eef4ff;stroke:#8fb8ff;stroke-width:1.4}
+.f-b3{fill:#ffffff;stroke:#dbe5f2;stroke-width:1.2}
+.f-amber{fill:#fdf4e6;stroke:#e6c78a;stroke-width:1.2}
+.f-green{fill:#ecf8f1;stroke:#b9e0cd;stroke-width:1.2}
+.f-red{fill:#fdeeee;stroke:#e5b5b5;stroke-width:1.2}
+.f-t{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78}
+.f-tc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;font-weight:600;fill:#123a78;text-anchor:middle}
+.f-h{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78}
+.f-hc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:15.5px;font-weight:700;fill:#123a78;text-anchor:middle}
+.f-s{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80}
+.f-sc{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.8px;fill:#5a6b80;text-anchor:middle}
+.f-m{font-family:Consolas,"Courier New",monospace;font-size:11.5px;fill:#365a86}
+.f-ax{stroke:#c8d7ea;stroke-width:1.2}
+.f-ar{stroke:#94aecd;stroke-width:1.7;fill:none}
+.f-dash{stroke:#9db4d2;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+.f-dot{fill:#2f6fd0}
+.f-pt{fill:#d98b3a}
+</style>
+<text class="f-h" x="40" y="30">数据挖掘是 KDD 的第四步，不是全部</text><rect class="f-b" x="120" y="54.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="83.0">1 选择</text><text class="f-s" x="430" y="83.0">从业务问题圈定数据范围</text><rect class="f-b" x="120" y="110.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="139.0">2 预处理</text><text class="f-s" x="430" y="139.0">清洗、去重、补缺、统一格式</text><rect class="f-b" x="120" y="166.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="195.0">3 变换</text><text class="f-s" x="430" y="195.0">构造特征、统一口径与单位</text><rect class="f-b2" x="120" y="222.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="251.0">4 挖掘</text><text class="f-s" x="430" y="251.0">用算法找关联、分组或异常</text><text class="f-s" x="762" y="251.0">挖掘在这一步</text><rect class="f-b" x="120" y="278.0" width="720" height="48.0" rx="8"/><text class="f-t" x="146" y="307.0">5 解释评估</text><text class="f-s" x="430" y="307.0">验证模式，决定用不用、怎么用</text>
+</svg><figcaption><b>图 8-14　数据挖掘是 KDD 的第四步</b>　挖掘只是中间一步，前后的准备与评估决定它有没有用。</figcaption></figure>
+<p>图里这一步的位置很关键：挖掘前面是选择、预处理、变换，后面是解释评估。把挖掘当全部，等于只做了流水线中间的一小段。</p>
+</section>
+<section class="sec" id="s3"><h2><span class="sec-num">03</span>三点判据</h2>
+<p><strong>数据挖掘</strong>是在大量数据中搜索未知模式，输出可以是规则、簇、异常清单或图。判据不是用了什么工具，而是三件事：问题起点有没有预设假设、是否由算法搜索假设空间、输出是不是候选模式。</p>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>维度</th><th>数据分析</th><th>机器学习</th><th>数据挖掘</th></tr></thead>
+  <tbody>
+    <tr><td>问题起点</td><td>已有明确假设</td><td>已有标签与预测目标</td><td>只有方向，没有假设</td></tr>
+    <tr><td>输入</td><td>指标与维度</td><td>特征与标签</td><td>多源明细</td></tr>
+    <tr><td>输出</td><td>结论与建议</td><td>模型与预测值</td><td>规则、簇、异常清单</td></tr>
+    <tr><td>评价</td><td>解释是否站得住</td><td>新样本上的误差</td><td>是否新颖、可行动</td></tr>
+    <tr><td>主要风险</td><td>问题问错</td><td>过拟合</td><td>伪相关、多重比较</td></tr>
+  </tbody>
+</table>
+</div>
+<p>三者不是等级关系。分析不是「低级挖掘」，挖掘也不是「高级分析」；换个问法就换类别，工具可以完全相同。</p>
+</section>
+<section class="sec" id="s4"><h2><span class="sec-num">04</span>搜索、剪枝、复核</h2>
+<p>挖掘的机制是「搜索 + 剪枝 + 评估」。500 个商品能组成约 12.5 万个商品对，全量评估不现实；先用支持度剪掉低频组合，再算置信度与提升度排序。</p>
+<p>搜索规模有一个副作用：搜得越多，偶然显著越多。按 5% 的显著性，12.5 万个商品对里会有数千对「看起来相关」。所以必须留出数据复核——换一段时间、换几家门店，掉出阈值的就不算模式。</p>
+<p>还有两条底线：相关不等于因果；输出是候选，不是结论。规则要经过业务判断和留出验证，才能进入动作。</p>
+<div class="callout callout--warn">
+  <span class="c-label">易错点</span>
+  <p>把「算法跑出的第一条规则」直接贴进汇报。没有复核的规则，很可能只是这一段时间、这几家店的巧合。</p>
+</div>
+</section>
+<section class="sec" id="s5"><h2><span class="sec-num">05</span>三条挖掘线</h2>
+<p>同一份订单走三条线。关联：不设假设，按商品对搜索，支持度不低于 0.5%、提升度不低于 1.5，候选规则按提升度排序，再用后 8 周数据复核，掉出阈值的剔掉。分群：按会员行为聚成若干群，其中「只在下午买促销大杯」这一群没人事先定义过。异常：单笔金额超过该会员历史 99 分位的单据进入名单。</p>
+<p>三条线的产物都只是候选。关联规则要品类经理判断能否落地，分群要运营能叫出名字并配上动作，异常名单要人工核查后才知道是盗刷还是团购。</p>
+<p>这就是分工：分析解释已经发生的事，挖掘指出「还有一个没人提过的方向」，验证仍然要回到数据和业务。</p>
+</section>
+<section class="sec" id="s6"><h2><span class="sec-num">06</span>四个任务，选工具</h2>
+<p><strong>任务：</strong>给四个任务各选一种方法，并写一条「为什么不是另一个」：① 做上月销售报表；② 预测下月销量；③ 发现商品捆绑规律；④ 找出异常报销单。</p>
+<p><strong>参考答案：</strong>① 分析，指标预先定义，没有搜索；② 机器学习回归，要的是新样本上的数值；③ 挖掘关联，无预设假设地搜索共现；④ 挖掘偏差，按偏离排序，除非有标注才转为分类。</p>
+<p><strong>验收：</strong>四条的边界理由都要落到「问题起点、标签、输出形态」之一。接着看 <a href="../m08-data-mining/k8-2-4-task-routing.html">任务分派：八张任务卡该交给谁</a>。</p>
+</section>
+<p class="sidenote">注：本页示例仅用 Python 标准库（8.3.4 关联规则 Demo 可离线复现），运行口径为 Python 3.13.14（Windows 原生 CPU）；8.4 的七种思维属方法论，非学术共识。知识库 M08 18 条已建库（filled，2026-11-19），页面按条目口径撰写。</p>
+<section class="nextstep">
+  <h2>下一步指引</h2>
+  <ol>
+    <li>合上页面，用 3 句话复述本页核心定义，并各写一个反例。</li>
+    <li>完成本节练习，并对照「常见误解」检查自己的答案。</li>
+    <li>按顺序进入 <a href="k8-2-4-task-routing.html">8.2.4 任务分派：八张任务卡该交给谁</a>。</li>
+  </ol>
+</section>
+<nav class="pager" aria-label="知识点翻页"><a class="prev" href="k8-2-2-machine-learning.html"><span class="p-label">← 上一知识点 8.2.2</span><span class="p-title">机器学习：预测未发生的事</span></a><a class="next" href="k8-2-4-task-routing.html"><span class="p-label">下一知识点 8.2.4 →</span><span class="p-title">任务分派：八张任务卡该交给谁</span></a></nav>
+<section class="refs" id="refs">
+  <h2>出处 · 关联</h2>
+  <dl>
+    <dt>对应大纲</dt><dd>模块⑧ 数据挖掘与数据思维 ｜ 三(八)2 · 数据分析与数据挖掘的区别（数据挖掘）</dd>
+    <dt>页面编号 / 路径</dt><dd>8.2.3 ｜ <span class="path">pages/m08-data-mining/k8-2-3-data-mining.html</span></dd>
+    <dt>引用关系</dt><dd><a class="xlink" href="k8-2-1-data-analysis.html"><b>8.2.1</b>数据分析：解释已经发生的事</a><a class="xlink" href="k8-2-2-machine-learning.html"><b>8.2.2</b>机器学习：预测未发生的事</a><a class="xlink" href="k8-2-4-task-routing.html"><b>8.2.4</b>任务分派：八张任务卡该交给谁</a><a class="xlink" href="u8-2-dm-vs-analysis.html"><b>8.2</b>数据挖掘、数据分析与机器学习的分工（所属单元）</a></dd>
+    <dt>素材与技能来源</dt><dd>自绘图 2 张：k8-2-3（本页图 8-13）、k8-2-3-b（本页图 8-14）；知识库 M08-S1-03《数据挖掘与数据分析的区别》（filled）。 ｜ 知识库条目：M08-S1-03《数据挖掘与数据分析的区别》（filled） ｜ 参考来源：Fayyad, Piatetsky-Shapiro & Smyth, AI Magazine 1996；Han, Kamber & Pei《数据挖掘：概念与技术》；CRISP-DM 1.0；商品对数量为组合数手算。</dd>
+  </dl>
+</section>
+<footer class="pagefoot">
+  <span>落白lite &amp; AI研学社 · 人工智能应用工程师（高级）课程</span>
+  <span><a href="../../README.md">站点结构说明</a> · <a href="#main">回到顶部</a></span>
+</footer>
+</main>
+</div>
+<button class="totop" type="button" aria-label="回到页面顶部"><span aria-hidden="true">↑</span></button>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>
