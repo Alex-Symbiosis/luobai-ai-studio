@@ -8,7 +8,7 @@
 <meta property="og:site_name" content="落白lite & AI研学社">
 <meta name="color-scheme" content="light">
 <title>课程 02 · 人工智能应用工程师 · 落白lite &amp; AI研学社</title>
-<meta name="description" content="人工智能应用工程师课程筹备中：面向 AI 应用工程师方向，分初级、中级、高级三段推进，目前尚未发布。">
+<meta name="description" content="人工智能应用工程师课程：按高级考试大纲十一个模块组织，11 个模块、66 个单元、314 个知识点页、208 课时、49 个必须 Demo。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234051d6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
 <style id="sitebar-css">
 .sitebar{position:sticky;top:0;z-index:90;background:rgba(250,253,255,.72);-webkit-backdrop-filter:blur(18px) saturate(1.35);backdrop-filter:blur(18px) saturate(1.35);border-bottom:1px solid rgba(23,42,74,.08)}
@@ -92,10 +92,13 @@
   .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
   .kicker::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
   h1{margin-top:18px;font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,56px);line-height:1.16;letter-spacing:-.02em}
-  .state{display:inline-flex;align-items:center;margin-top:18px;padding:3px 11px;border-radius:999px;background:var(--amber-soft);border:1px solid rgba(178,98,6,.22);color:var(--amber);font-size:11.5px;font-weight:700;letter-spacing:.06em}
-  .levels{display:flex;align-items:center;gap:8px;margin-top:20px}
-  .levels span{font-size:12px;font-weight:700;color:var(--ink2);background:rgba(255,255,255,.72);border:1px solid var(--stroke);border-radius:999px;padding:3px 12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-  .levels i{font-style:normal;font-size:12px;color:var(--faint)}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:10px;margin-top:28px}
+  .facts div{padding:12px 14px;border:1px solid rgba(255,255,255,.78);border-radius:12px;background:rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+  .facts b{display:block;font-family:var(--serif);font-size:26px;font-weight:500;line-height:1.1;color:var(--ink)}
+  .facts span{display:block;margin-top:4px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+  .enter{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:10px 18px;border-radius:10px;background:#18212f;color:#fff;font-size:14px;font-weight:700;text-decoration:none;transition:background .18s ease}
+  .enter:hover{background:var(--blue);color:#fff}
+  .hint{margin-top:10px;font-size:12.5px;line-height:1.7;color:var(--faint)}
   .sheet{
     margin:20px 0 40px;padding:34px 38px 30px;border-radius:20px;
     background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(255,255,255,.70));
@@ -152,20 +155,24 @@
 
 <main id="main" class="wrap">
   <header class="hero">
-    <span class="kicker">课程 02</span>
+    <span class="kicker">课程 02 · 人工智能应用工程师</span>
     <h1>人工智能应用工程师</h1>
-    <div class="state">筹备中</div>
-    <div class="levels" aria-label="等级轨道">
-      <span>初级</span><i aria-hidden="true">→</i><span>中级</span><i aria-hidden="true">→</i><span>高级</span>
+    <div class="facts" aria-label="课程规模">
+      <div><b>11</b><span>模块</span></div>
+      <div><b>66</b><span>单元</span></div>
+      <div><b>314</b><span>知识点页</span></div>
+      <div><b>208</b><span>课时</span></div>
+      <div><b>49</b><span>必须 Demo</span></div>
     </div>
   </header>
 
   <section class="sheet">
-    <p>这门课面向 AI 应用工程师方向。</p>
-    <p>将来按初级、中级、高级三段推进，一级接一级，不跳段。三段分别对应什么能力，等第一章出来后在这里写明。</p>
-    <p>现在还没有内容，第一章也还没放出来。</p>
-    <p>想先了解，或者有想让它讲的东西，发邮件：<a class="mail" href="mailto:3380977874@qq.com">3380977874@qq.com</a>。收到的会看。</p>
-    <p class="end">有第一章了，这一页会先更新。</p>
+    <p>这门课按《人工智能应用工程师（高级）考试大纲》的十一个模块组织。从 Python 语言与语料工程起步，依次是人工智能概述、产业发展概况、数据挖掘与数据思维、机器学习基础、统计模型与优化、机器学习算法、神经网络与深度学习、TensorFlow 工程实践、自然语言处理，最后落到知识图谱与语义应用。</p>
+    <p>十一个模块不是十一个孤立专题。每往前一步，用的都是上一步的工具：先把数据整理成模型能吃的形状，再理解模型怎么学、怎么调，最后把模型接进一条能跑的应用链路。每个单元先讲清概念，再落到可运行的例子。</p>
+    <p>学完能读懂一个 AI 应用的需求，判断该用哪类模型、数据要准备到什么程度、效果不好时先查哪一层；也能按文档把训练、评估与部署串起来，而不是只会调一次现成的接口。</p>
+    <a class="enter" href="ai-application-engineer/index.html">进入课程 <span aria-hidden="true">→</span></a>
+    <p class="hint">课程站目录正在部署；入口暂时打不开时，过一会儿再试。</p>
+    <p>课程内容或顺序有想调整的地方，发邮件：<a class="mail" href="mailto:3380977874@qq.com">3380977874@qq.com</a>。</p>
   </section>
 </main>
 
